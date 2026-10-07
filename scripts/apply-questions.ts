@@ -30,6 +30,7 @@ async function main() {
     questions: topic.questions,
     status: values.draft ? "draft" : "published",
     examMinutes: topic.topic_exam?.duration,
+    exam: { keys: topic.topic_exam?.questions, title: topic.topic_exam?.title, instructions: topic.topic_exam?.instructions },
     source: `${slug}.json`,
   });
   console.log(`✓ ${topic.questions.length} questions uploaded (${values.draft ? "draft" : "published"}); ${r.examNote}`);

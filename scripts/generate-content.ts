@@ -194,7 +194,10 @@ async function main() {
   if (part === "questions" || part === "all") {
     const questions = await generateQuestions(info, topicFile);
     const current = existsSync(topicFile) ? JSON.parse(readFileSync(topicFile, "utf8")) : { topic: slug };
-    const merged = authoredTopicSchema.parse({ ...current, topic: slug, questions });
+    // Questions chosen for the topic exam (e.g. hand-written exam-style ones) are kept.
+    const examKeys = new Set<string>(current.topic_exam?.questions ?? []);
+    const kept = (current.questions ?? []).filter((q: { key: string }) => examKeys.has(q.key) && !questions.some((n) => n.key === q.key));
+    const merged = authoredTopicSchema.parse({ ...current, topic: slug, questions: [...questions, ...kept] });
     writeFileSync(topicFile, JSON.stringify(merged, null, 2) + "\n");
     const byType = new Map<string, number>();
     for (const q of questions) byType.set(q.type, (byType.get(q.type) ?? 0) + 1);
@@ -206,9 +209,10 @@ async function main() {
         slug,
         title: info.title,
         grade,
-        questions,
         status: values.draft ? "draft" : "published",
+        questions: merged.questions,
         examMinutes: merged.topic_exam?.duration,
+        exam: { keys: merged.topic_exam?.questions, title: merged.topic_exam?.title, instructions: merged.topic_exam?.instructions },
         source: `generated:${MODEL}`,
       });
       console.log(`✓ uploaded to Supabase (${values.draft ? "draft" : "published"}); ${r.examNote}${r.archived ? `; ${r.archived} old question(s) archived` : ""}`);

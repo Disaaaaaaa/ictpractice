@@ -16,6 +16,8 @@ export async function pushQuestions(opts: {
   questions: AuthoredQuestion[];
   status: "draft" | "published";
   examMinutes?: number;
+  /** topic exam: chosen question keys, title and instructions (default: all questions) */
+  exam?: { keys?: string[]; title?: string; instructions?: string };
   source: string;
 }) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -42,18 +44,23 @@ export async function pushQuestions(opts: {
 
   // Topic exam: all questions of the topic, republished as a new version.
   let examNote = "topic exam not published (questions are drafts)";
-  if (opts.status === "published" && opts.questions.length >= 3) {
+  const examQuestions = opts.exam?.keys?.length
+    ? opts.exam.keys.map((k) => opts.questions.find((q) => q.key === k)!).filter(Boolean)
+    : opts.questions;
+  const examTitle = opts.exam?.title ?? `${opts.title} — Topic Exam`;
+  const examInstructions = opts.exam?.instructions ?? "Answer all questions. Your answers are saved automatically.";
+  if (opts.status === "published" && examQuestions.length >= 3) {
     const examId = contentId("exam", "topic", opts.slug);
-    const marks = opts.questions.reduce((s, q) => s + marksOf(q), 0);
+    const marks = examQuestions.reduce((s, q) => s + marksOf(q), 0);
     const { data: exam } = await db.from("exams").select("id").eq("id", examId).maybeSingle();
     if (!exam) {
       const { error: eErr } = await db.from("exams").insert({
         id: examId,
         curriculum_version_id: version!.id,
         kind: "topic",
-        title: `${opts.title} — Topic Exam`,
+        title: examTitle,
         description: `Exam-style questions on ${opts.title}.`,
-        instructions: "Answer all questions. Your answers are saved automatically.",
+        instructions: examInstructions,
         topic_id: topic.id,
         grade: opts.grade,
         duration_minutes: opts.examMinutes ?? Math.max(10, Math.round(marks * 1.3)),
@@ -64,12 +71,15 @@ export async function pushQuestions(opts: {
       });
       if (eErr) throw new Error(`exam: ${eErr.message}`);
     } else {
-      await db.from("exams").update({ duration_minutes: opts.examMinutes ?? Math.max(10, Math.round(marks * 1.3)) }).eq("id", examId);
+      await db
+        .from("exams")
+        .update({ title: examTitle, instructions: examInstructions, duration_minutes: opts.examMinutes ?? Math.max(10, Math.round(marks * 1.3)) })
+        .eq("id", examId);
     }
     await db.from("exam_questions").delete().eq("exam_id", examId);
     const { error: eqErr } = await db
       .from("exam_questions")
-      .insert(opts.questions.map((q, i) => ({ id: contentId("exam-question", examId, q.key), exam_id: examId, question_id: contentId("question", q.key), sort_order: i })));
+      .insert(examQuestions.map((q, i) => ({ id: contentId("exam-question", examId, q.key), exam_id: examId, question_id: contentId("question", q.key), sort_order: i })));
     if (eqErr) throw new Error(`exam questions: ${eqErr.message}`);
     const { data: versionId, error: pErr } = await db.rpc("publish_exam", { p_exam_id: examId });
     if (pErr) throw new Error(`publish exam: ${pErr.message}`);

@@ -504,16 +504,17 @@ for (const file of topicFiles) {
 
   for (const q of t.questions) addQuestion(q, t.topic, { source: "original", practice: true });
 
-  if (t.questions.length >= 3) {
+  const examQs = t.topic_exam?.questions?.length ? t.topic_exam.questions.map((k) => t.questions.find((q) => q.key === k)!) : t.questions;
+  if (examQs.length >= 3) {
     const examId = id("exam", "topic", t.topic);
-    const marks = t.questions.reduce((s, q) => s + (q.type === "structured" ? (q.parts ?? []).reduce((a, p) => a + p.marks, 0) : q.marks), 0);
+    const marks = examQs.reduce((s, q) => s + (q.type === "structured" ? (q.parts ?? []).reduce((a, p) => a + p.marks, 0) : q.marks), 0);
     examRows.push({
       id: lit(examId),
       curriculum_version_id: lit(versionId),
       kind: lit("topic"),
       title: lit(t.topic_exam?.title ?? `${topic.title} — Topic Exam`),
       description: lit(`Exam-style questions on ${topic.title}.`),
-      instructions: lit("Answer all questions. Your answers are saved automatically."),
+      instructions: lit(t.topic_exam?.instructions ?? "Answer all questions. Your answers are saved automatically."),
       topic_id: lit(tpid),
       paper_component_id: "null",
       year: "null",
@@ -527,7 +528,7 @@ for (const file of topicFiles) {
       max_violations: "3",
       show_mark_scheme: "true",
     });
-    t.questions.forEach((q, i) =>
+    examQs.forEach((q, i) =>
       examQRows.push({ id: lit(id("exam-question", examId, q.key)), exam_id: lit(examId), question_id: lit(id("question", q.key)), sort_order: lit(i), section_label: "null" }),
     );
     publish.push(examId);

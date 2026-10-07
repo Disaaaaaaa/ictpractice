@@ -2127,6 +2127,62 @@ Write Cambridge-style pseudocode using binary search to output the stock level i
   ('518fe76d-8b73-529c-b043-f79d4fbbb76e', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Library sort and search', 'A library program stores book titles in `Title[1:N]`. The titles are currently unsorted. A librarian wants to search quickly for a particular title many times each day.
 
 Explain how the program could sort the titles and then use binary search to find a requested title. Your answer should include the key steps of a sorting algorithm studied in this topic and the key steps of binary search.', 'extended', 8, 'exam', 'explain', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":12}'::jsonb, 'original', null, true, 'published', null, null, 0),
+  ('1b85a51f-6413-5441-baf2-4c50d621222f', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Race times and bubble sort', 'A PE teacher records the 100 m times (in seconds) of eight runners in the array `Times`.
+
+| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|---|
+| Times | 14.2 | 12.8 | 15.1 | 13.5 | 12.9 | 16.0 | 13.1 | 14.7 |
+
+The times are to be sorted into **ascending** order using a **bubble sort**.', 'structured', 8, 'exam', null, 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{}'::jsonb, 'nis_style', null, false, 'published', null, null, 0),
+  ('9f725f25-f563-56a3-aa29-659dff12eddd', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 1a', 'State how a bubble sort decides whether two elements must be swapped.', 'short_answer', 1, 'exam', 'state', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":2}'::jsonb, 'nis_style', null, false, 'published', '1b85a51f-6413-5441-baf2-4c50d621222f', '(a)', 0),
+  ('e5ba22f9-6617-5950-9365-6c8da24f23de', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 1b', 'Complete the table to show the contents of `Times` **after the first pass** of the bubble sort.', 'table_completion', 2, 'exam', 'complete', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"columns":["0","1","2","3","4","5","6","7"],"rows":1}'::jsonb, 'nis_style', null, false, 'published', '1b85a51f-6413-5441-baf2-4c50d621222f', '(b)', 1),
+  ('8c203ff5-e7e1-5537-9e3d-270340d9ca28', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 1c', 'State the number of **swaps** made during the first pass.', 'calculation', 1, 'exam', 'state', 'AUTO', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"unit":"swaps"}'::jsonb, 'nis_style', null, false, 'published', '1b85a51f-6413-5441-baf2-4c50d621222f', '(c)', 2),
+  ('3c49cee6-e3eb-551f-b213-d51fec52c29f', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 1d', 'Write pseudocode or program code for a bubble sort that sorts `Times` into ascending order. Your algorithm must **stop early** if a pass makes no swaps.', 'pseudocode', 4, 'exam', 'write', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"language":"pseudocode","answer_lines":12}'::jsonb, 'nis_style', null, false, 'published', '1b85a51f-6413-5441-baf2-4c50d621222f', '(d)', 3),
+  ('80609eee-decc-511d-87cd-80eae927cdec', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Insertion sort of names', 'The array `Names` stores six names:
+
+| Index | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| Names | Dana | Arman | Zhanna | Bolat | Erlan | Aliya |
+
+The following incomplete pseudocode sorts `Names` into **alphabetical order** using an **insertion sort**.
+
+```pseudocode
+01  FOR i ← 1 TO 5
+02      Key ← Names[i]
+03      j ← ......(1)......
+04      WHILE j >= 0 AND ......(2)......
+05          Names[j + 1] ← Names[j]
+06          j ← ......(3)......
+07      ENDWHILE
+08      Names[......(4)......] ← Key
+09  NEXT i
+```', 'structured', 9, 'exam', null, 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{}'::jsonb, 'nis_style', null, false, 'published', null, null, 0),
+  ('316176c2-482d-54f5-8d2b-8279b4a2167a', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 2a', 'Complete the pseudocode by writing the missing parts.
+
+(1) [[1]]
+
+(2) [[2]]
+
+(3) [[3]]
+
+(4) [[4]]', 'fill_blank', 4, 'exam', 'complete', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"blank_count":4}'::jsonb, 'nis_style', null, false, 'published', '80609eee-decc-511d-87cd-80eae927cdec', '(a)', 0),
+  ('39183a36-0240-51eb-99c0-4224e984f5f3', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 2b', 'Complete the table to show the contents of `Names` **after each iteration** of the `FOR` loop for i = 1, 2 and 3.', 'table_completion', 3, 'exam', 'complete', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"columns":["i","0","1","2","3","4","5"],"rows":3,"prefill":[["1",null,null,null,null,null,null],["2",null,null,null,null,null,null],["3",null,null,null,null,null,null]]}'::jsonb, 'nis_style', null, false, 'published', '80609eee-decc-511d-87cd-80eae927cdec', '(b)', 1),
+  ('9d82aec1-f8c0-5f5d-bf36-4ad6a4ae24ef', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 2c', 'Explain why an insertion sort is efficient when the array is **already almost sorted**.', 'short_answer', 2, 'exam', 'explain', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":3}'::jsonb, 'nis_style', null, false, 'published', '80609eee-decc-511d-87cd-80eae927cdec', '(c)', 2),
+  ('90c0759d-fd07-5706-ad9b-b8804d47c5f4', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Binary search of product codes', 'A shop stores 15 product codes in the array `Codes` in **ascending order**.
+
+| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Codes | 104 | 118 | 121 | 135 | 142 | 156 | 163 | 177 | 182 | 190 | 203 | 215 | 228 | 236 | 241 |
+
+A **binary search** is used to find a code. The middle index is calculated as `Mid ← (Low + High) DIV 2`.', 'structured', 10, 'exam', null, 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{}'::jsonb, 'nis_style', null, false, 'published', null, null, 0),
+  ('3fe80cf3-93d1-526f-88e3-3404eed1384d', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 3a', 'State **one** condition that the data must meet before a binary search can be used.', 'short_answer', 1, 'exam', 'state', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":1}'::jsonb, 'nis_style', null, false, 'published', '90c0759d-fd07-5706-ad9b-b8804d47c5f4', '(a)', 0),
+  ('e0bb4f2a-cf58-53ff-a2a4-191ce7ba015b', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 3b', 'Complete the trace table for a binary search for the code **120**. Write `Not found` in the Output column when the search ends.', 'trace_table', 3, 'exam', 'complete', 'HYBRID', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"columns":["Low","High","Mid","Codes[Mid]","Output"],"rows":5}'::jsonb, 'nis_style', null, false, 'published', '90c0759d-fd07-5706-ad9b-b8804d47c5f4', '(b)', 1),
+  ('ee5cb6dd-2df4-52cb-adfb-a4920481ad8d', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 3c', 'Write pseudocode or program code for a **function** `BinarySearch(Codes, Target)` that returns the index of `Target` in `Codes`, or **−1** if it is not found.', 'pseudocode', 5, 'exam', 'write', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"language":"pseudocode","answer_lines":14}'::jsonb, 'nis_style', null, false, 'published', '90c0759d-fd07-5706-ad9b-b8804d47c5f4', '(c)', 2),
+  ('f17b7552-85f1-5d69-8ddb-cf404f9a4bfb', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 3d', 'Calculate the **maximum** number of times `Codes[Mid]` is compared with the target when searching this array of 15 codes.', 'calculation', 1, 'exam', 'calculate', 'AUTO', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{}'::jsonb, 'nis_style', null, false, 'published', '90c0759d-fd07-5706-ad9b-b8804d47c5f4', '(d)', 3),
+  ('6d945f9b-a359-5214-977e-b8fb158a4d60', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Choosing searching and sorting algorithms', 'A school library stores the records of **2000 books**. Each record has an ID, a title and an author. Librarians search for books by ID many times every day.', 'structured', 6, 'exam', null, 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{}'::jsonb, 'nis_style', null, false, 'published', null, null, 0),
+  ('24f09e5f-6495-50cb-a5b2-a5cba263f9c0', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 4a', 'Explain why a binary search is faster than a linear search for finding a book by ID when the records are sorted by ID.', 'short_answer', 2, 'exam', 'explain', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":3}'::jsonb, 'nis_style', null, false, 'published', '6d945f9b-a359-5214-977e-b8fb158a4d60', '(a)', 0),
+  ('c673da0f-d13c-5702-b03d-00ac5f30e401', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 4b', 'State **one** similarity and **one** difference between a bubble sort and an insertion sort.', 'labelled_answers', 2, 'exam', 'state', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"fields":[{"key":"1","label":"Similarity","lines":2},{"key":"2","label":"Difference","lines":2}]}'::jsonb, 'nis_style', null, false, 'published', '6d945f9b-a359-5214-977e-b8fb158a4d60', '(b)', 1),
+  ('86a73eef-8e47-5039-8cc5-c3f5a0f643e2', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Exam 4c', 'New books are added only **once a month**, but searches happen **hundreds of times a day**. Suggest whether the library should keep the records sorted and use a binary search, or leave them unsorted and use a linear search. Justify your answer.', 'short_answer', 2, 'exam', 'suggest', 'AI', 11, '90094a74-5e7b-589b-af06-e75a04fd67d7', '7724b4d3-9ed5-5292-80da-21e2922c99ae', '{"answer_lines":3}'::jsonb, 'nis_style', null, false, 'published', '6d945f9b-a359-5214-977e-b8fb158a4d60', '(c)', 2),
   ('e257e6ab-5405-50d2-bd4a-148ad64c3d7e', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Binary number representation', 'Data is represented using binary in computer systems.
 
 A computer register has the following binary number stored in it:
@@ -2602,7 +2658,10 @@ Explain the difference between hosted and unhosted virtual machines.', 'short_an
 Write the correct notations in the last column.', 'table_completion', 3, 'exam', 'write', 'HYBRID', 12, '60897a48-c2f2-526e-b15e-c52852e09a07', '2e312399-b07b-5226-b3d7-cbaa7f980b84', '{"columns":["Step No","Given notation","Correct notation"],"rows":4,"prefill":[["1","MDR ← [PC]",null],["2","PC ← [PC] + 2",null],["3","MDR ← [[MAR]]",null],["4","CIR ← [MAR]",null]]}'::jsonb, 'past_paper', 'NIS 2024 Paper 1 Q5(c)', false, 'published', 'f6f2d988-1120-52b8-aa41-8df80babaa27', '(c)', 2),
   ('b114b5fc-2365-5485-b21f-0e5ae2e22088', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'CPU buses, architecture and clock speed (d)', 'When developing a new processor, manufacturers consider different methods to make its performance more efficient.
 
-Describe the effect of increasing the clock speed.', 'short_answer', 3, 'exam', 'describe', 'AI', 12, '60897a48-c2f2-526e-b15e-c52852e09a07', '2e312399-b07b-5226-b3d7-cbaa7f980b84', '{"answer_lines":5}'::jsonb, 'past_paper', 'NIS 2024 Paper 1 Q5(d)', false, 'published', 'f6f2d988-1120-52b8-aa41-8df80babaa27', '(d)', 3),
+Describe the effect of increasing the clock speed.', 'short_answer', 3, 'exam', 'describe', 'AI', 12, '60897a48-c2f2-526e-b15e-c52852e09a07', '2e312399-b07b-5226-b3d7-cbaa7f980b84', '{"answer_lines":5}'::jsonb, 'past_paper', 'NIS 2024 Paper 1 Q5(d)', false, 'published', 'f6f2d988-1120-52b8-aa41-8df80babaa27', '(d)', 3)
+on conflict do nothing;
+
+insert into public.questions (id, curriculum_version_id, title, question_text, question_type, marks, difficulty, command_word, grading_method, grade, paper_component_id, topic_id, content, source_type, source_reference, practice_enabled, status, parent_id, part_label, part_order) values
   ('e58a618f-e21c-58c2-be36-bef718c60322', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Memory and addressing modes', 'Computer memory can be divided into main and secondary memories.', 'structured', 11, 'exam', null, 'AI', 11, '60897a48-c2f2-526e-b15e-c52852e09a07', 'f6f490f1-5a5f-5079-abf9-f582d74562be', '{}'::jsonb, 'past_paper', 'NIS 2024 Paper 1 Q6', false, 'published', null, null, 0),
   ('daec92d4-7564-54b0-adf1-34e6ffcda52d', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Memory and addressing modes (a)', 'Embedded systems for domestic appliances (e.g., fridge, washing machine, etc.) often have both ROM and RAM.
 
@@ -2656,10 +2715,7 @@ Determine the following:', 'labelled_answers', 3, 'exam', 'calculate', 'HYBRID',
   ('1c5e1b09-4b54-5573-857e-039d951d813c', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Documentation and data collection', 'When developing a new computerised system, a software developer should write technical documentation with details of the system and a user guide.', 'structured', 8, 'exam', null, 'AI', 12, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', '44acfe06-cd7c-5417-964e-baf05a5edc41', '{}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q1', false, 'published', null, null, 0),
   ('d6dcd678-79dd-5690-9372-70419d8b12b3', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Documentation and data collection (a)', 'Give two items that need to be included in the user guide.', 'labelled_answers', 2, 'exam', 'state', 'AI', 12, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', '44acfe06-cd7c-5417-964e-baf05a5edc41', '{"fields":[{"key":"1","label":"1","lines":2},{"key":"2","label":"2","lines":2}]}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q1(a)', false, 'published', '1c5e1b09-4b54-5573-857e-039d951d813c', '(a)', 0),
   ('b7b672be-0306-51fa-a703-7fdc444d2bf9', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Documentation and data collection (b)', 'Name two benefits of using a waterfall model of the software development lifecycle (SDLC).', 'labelled_answers', 2, 'exam', 'name', 'AI', 11, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', '32a6f19c-c770-5f6a-b8de-bf16a0b134cc', '{"fields":[{"key":"1","label":"1","lines":2},{"key":"2","label":"2","lines":2}]}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q1(b)', false, 'published', '1c5e1b09-4b54-5573-857e-039d951d813c', '(b)', 1),
-  ('3ff934c7-d989-515e-8afc-61b2b25f31c8', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Documentation and data collection (c)', 'State two disadvantages of using questionnaires and two disadvantages of using interviews when collecting data.', 'labelled_answers', 4, 'exam', 'state', 'AI', 11, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', 'ef6ad158-e13f-5d40-b84a-4d0072e4fdb7', '{"fields":[{"key":"q1","label":"Questionnaire: disadvantage 1","lines":2},{"key":"q2","label":"Questionnaire: disadvantage 2","lines":2},{"key":"i1","label":"Interview: disadvantage 1","lines":2},{"key":"i2","label":"Interview: disadvantage 2","lines":2}]}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q1(c)', false, 'published', '1c5e1b09-4b54-5573-857e-039d951d813c', '(c)', 2)
-on conflict do nothing;
-
-insert into public.questions (id, curriculum_version_id, title, question_text, question_type, marks, difficulty, command_word, grading_method, grade, paper_component_id, topic_id, content, source_type, source_reference, practice_enabled, status, parent_id, part_label, part_order) values
+  ('3ff934c7-d989-515e-8afc-61b2b25f31c8', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'Documentation and data collection (c)', 'State two disadvantages of using questionnaires and two disadvantages of using interviews when collecting data.', 'labelled_answers', 4, 'exam', 'state', 'AI', 11, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', 'ef6ad158-e13f-5d40-b84a-4d0072e4fdb7', '{"fields":[{"key":"q1","label":"Questionnaire: disadvantage 1","lines":2},{"key":"q2","label":"Questionnaire: disadvantage 2","lines":2},{"key":"i1","label":"Interview: disadvantage 1","lines":2},{"key":"i2","label":"Interview: disadvantage 2","lines":2}]}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q1(c)', false, 'published', '1c5e1b09-4b54-5573-857e-039d951d813c', '(c)', 2),
   ('0ae043b7-d2f9-53fa-88f2-ca4952869be7', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'System requirements and DFD', 'Scenario 1. A student wants to develop a mobile app for schoolteachers that would allow them to keep track of records of the classroom learning achievements and their homework reports. The teachers currently manage these records manually and want to transition to a more efficient and automated system. The teachers should be able to add and delete students from the app, assign homework to classes and present the records of results to the students, parents, and school administration in a clear and concise manner, and send those records directly to students and parents.', 'structured', 12, 'exam', null, 'AI', 11, 'b670c685-56c9-5476-89b6-b0c02cd8dec7', 'ef6ad158-e13f-5d40-b84a-4d0072e4fdb7', '{}'::jsonb, 'past_paper', 'NIS 2024 Paper 2 Q2', false, 'published', null, null, 0),
   ('e572cf8b-879d-59fe-aa8f-92757118a60f', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'System requirements and DFD (a)', 'State three system requirements for the mobile app considering the needs of the schoolteachers in Scenario 1.
 
@@ -3412,6 +3468,26 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('03650bdd-0525-509c-a73a-8b461d0ead1a', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
   ('518fe76d-8b73-529c-b043-f79d4fbbb76e', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
   ('518fe76d-8b73-529c-b043-f79d4fbbb76e', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('1b85a51f-6413-5441-baf2-4c50d621222f', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('9f725f25-f563-56a3-aa29-659dff12eddd', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('e5ba22f9-6617-5950-9365-6c8da24f23de', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('8c203ff5-e7e1-5537-9e3d-270340d9ca28', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('3c49cee6-e3eb-551f-b213-d51fec52c29f', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('80609eee-decc-511d-87cd-80eae927cdec', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('316176c2-482d-54f5-8d2b-8279b4a2167a', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('39183a36-0240-51eb-99c0-4224e984f5f3', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('9d82aec1-f8c0-5f5d-bf36-4ad6a4ae24ef', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('90c0759d-fd07-5706-ad9b-b8804d47c5f4', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('3fe80cf3-93d1-526f-88e3-3404eed1384d', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('e0bb4f2a-cf58-53ff-a2a4-191ce7ba015b', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('ee5cb6dd-2df4-52cb-adfb-a4920481ad8d', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('f17b7552-85f1-5d69-8ddb-cf404f9a4bfb', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('6d945f9b-a359-5214-977e-b8fb158a4d60', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('6d945f9b-a359-5214-977e-b8fb158a4d60', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('24f09e5f-6495-50cb-a5b2-a5cba263f9c0', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('c673da0f-d13c-5702-b03d-00ac5f30e401', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('86a73eef-8e47-5039-8cc5-c3f5a0f643e2', 'd2b9f917-d7ae-5675-ba1e-18c7c7333df3'),
+  ('86a73eef-8e47-5039-8cc5-c3f5a0f643e2', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
   ('e257e6ab-5405-50d2-bd4a-148ad64c3d7e', 'fc209f16-b66d-52c6-b6d8-dd9596016f64'),
   ('e257e6ab-5405-50d2-bd4a-148ad64c3d7e', '218dd5d1-f20e-5378-8630-a0ac03b3da25'),
   ('e257e6ab-5405-50d2-bd4a-148ad64c3d7e', '4fe11048-c200-5ba1-982a-799962927586'),
@@ -3542,7 +3618,10 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('ddfb22b8-0503-5afd-a5c8-968f93e3164d', '9d3a8ddc-a3a2-5cfd-b05f-023e34f2864f'),
   ('682a7093-74a9-5b48-b598-f3ef0ee2eb8d', '1f695942-be02-5b8b-9ab3-65126479cd23'),
   ('13961e1b-2fa4-5097-bfca-be2e96f986e6', '8f14b625-deb9-5160-81ac-555c98ffb08a'),
-  ('ad491da3-db38-5338-b0df-d8d6b609cf9b', 'b1c4c39a-1a1f-5059-9f03-125b8b9655d6'),
+  ('ad491da3-db38-5338-b0df-d8d6b609cf9b', 'b1c4c39a-1a1f-5059-9f03-125b8b9655d6')
+on conflict do nothing;
+
+insert into public.question_objectives (question_id, learning_objective_id) values
   ('ee1ba2f7-fdce-58eb-92dc-17d071f1e623', '609d0aad-63c9-57cd-aceb-79eec81d6cfd'),
   ('2f058a0f-c3c8-576b-b63d-b0f9a0d879ba', '4bcb66cf-65db-5e1d-986e-7ee92f7d0a23'),
   ('2f058a0f-c3c8-576b-b63d-b0f9a0d879ba', 'b1c4c39a-1a1f-5059-9f03-125b8b9655d6'),
@@ -3562,10 +3641,7 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('ac8c7c1e-2ab5-5cda-93c7-df541fb60add', '1c19cc97-6db6-5589-ab49-1d91d0be25c9'),
   ('00692960-5706-54ab-9271-cbcf9c992628', '95735030-6e32-53e3-988f-1a48c263801a'),
   ('38802cdf-c13f-5cc1-ac10-bdb015e841e3', '9a5c5fa1-d97e-5e27-897c-d5b7a50a455e'),
-  ('38802cdf-c13f-5cc1-ac10-bdb015e841e3', 'a9ce4aff-5e18-5190-9ff5-c34c16c3010d')
-on conflict do nothing;
-
-insert into public.question_objectives (question_id, learning_objective_id) values
+  ('38802cdf-c13f-5cc1-ac10-bdb015e841e3', 'a9ce4aff-5e18-5190-9ff5-c34c16c3010d'),
   ('05e09446-9fb9-5197-956c-d0794bd4dd9d', '9a5c5fa1-d97e-5e27-897c-d5b7a50a455e'),
   ('35bacc30-249f-5d85-8152-a6a68de52a5b', '9a5c5fa1-d97e-5e27-897c-d5b7a50a455e'),
   ('efe05817-3062-52c8-a4ef-f043ec97decb', 'a9ce4aff-5e18-5190-9ff5-c34c16c3010d'),
@@ -3745,7 +3821,10 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('10b7e966-4e58-53c0-b81a-f79301097b6e', 'a9ce4aff-5e18-5190-9ff5-c34c16c3010d'),
   ('d7e54fed-3485-5ef2-aaa0-ab3c0961bd22', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
   ('d7e54fed-3485-5ef2-aaa0-ab3c0961bd22', 'a07fbe2f-b7ed-56fc-8955-bdc51944afd3'),
-  ('6cd00c94-09b9-5b93-916d-147365eab433', '4aa4f087-17e2-533d-accd-02bb3aedeaed'),
+  ('6cd00c94-09b9-5b93-916d-147365eab433', '4aa4f087-17e2-533d-accd-02bb3aedeaed')
+on conflict do nothing;
+
+insert into public.question_objectives (question_id, learning_objective_id) values
   ('66c0f27f-f296-50a1-88fa-d27a3bd2a156', 'e32498fd-8855-52f6-80ff-7d081ac507ec'),
   ('66c0f27f-f296-50a1-88fa-d27a3bd2a156', 'e226a89a-6d4d-5f21-8a79-917400fa3125'),
   ('66c0f27f-f296-50a1-88fa-d27a3bd2a156', 'a07fbe2f-b7ed-56fc-8955-bdc51944afd3'),
@@ -3765,10 +3844,7 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('b47cad40-3f26-54c5-a403-8b7fb6f5a2aa', '8aa75fc4-da9e-5671-a9df-04ae904e7861'),
   ('f9bbc5ce-a524-57e1-a1f7-c69c262e3985', '8aa75fc4-da9e-5671-a9df-04ae904e7861'),
   ('e54afa72-849d-59fe-89dc-8f8b862d871c', 'e44e15ee-7810-5d7f-b16d-a6e19684e081'),
-  ('e54afa72-849d-59fe-89dc-8f8b862d871c', 'b281e461-2d2c-5659-b4a2-0a308599d453')
-on conflict do nothing;
-
-insert into public.question_objectives (question_id, learning_objective_id) values
+  ('e54afa72-849d-59fe-89dc-8f8b862d871c', 'b281e461-2d2c-5659-b4a2-0a308599d453'),
   ('4da4d8c8-26a6-54f4-b373-39dd8790bb17', '17d00cbe-163f-56cf-97a8-2901d29497df'),
   ('4da4d8c8-26a6-54f4-b373-39dd8790bb17', 'b7d6bc87-12a7-5dc0-8dbb-f8a72e50ffa8'),
   ('4da4d8c8-26a6-54f4-b373-39dd8790bb17', '2e524a80-4aec-5e72-a4d2-8e089ca2681c'),
@@ -3948,7 +4024,10 @@ insert into public.question_objectives (question_id, learning_objective_id) valu
   ('fb717e07-500a-5596-832a-ff510bade44f', '218b079c-5858-5b1f-9464-cd434e924dc1'),
   ('d50a2546-8d4c-5827-9af6-3cdb4102d6d8', '218b079c-5858-5b1f-9464-cd434e924dc1'),
   ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', '558655dd-89f4-56ce-8d31-37666c79b259'),
-  ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', '8aa75fc4-da9e-5671-a9df-04ae904e7861'),
+  ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', '8aa75fc4-da9e-5671-a9df-04ae904e7861')
+on conflict do nothing;
+
+insert into public.question_objectives (question_id, learning_objective_id) values
   ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', '1bda1898-5f21-5f3f-b3df-b28f8d9972d9'),
   ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', '98ec4047-d3e2-53ba-b59b-804f0707515b'),
   ('9ff66cbb-0b36-5dab-bbd8-a75bd34ae58b', 'c4b0c742-4999-5adf-b5fe-58b36d2ff83e'),
@@ -4192,6 +4271,94 @@ Compares the requested title with `Title[Middle]` and recognises when it has bee
 Updates the correct boundary to discard half of the remaining array, or reports not found when the interval is empty (1)', '[{"criterion":"Explains the need to sort before binary search.","marks":1},{"criterion":"Names or describes bubble sort or insertion sort.","marks":1},{"criterion":"Gives a key mechanism of the chosen sorting algorithm.","marks":1},{"criterion":"Explains that the sorting algorithm continues until titles are in ascending order.","marks":1},{"criterion":"Initialises binary search lower and upper boundaries.","marks":1},{"criterion":"Calculates the middle index using integer division.","marks":1},{"criterion":"Compares the wanted title with the middle title and handles a match.","marks":1},{"criterion":"Correctly explains boundary updates or not-found termination.","marks":1}]'::jsonb, 'The titles must be sorted before binary search is used. One method is insertion sort: for each index from 2 to N, store the current title, compare it with titles in the sorted section to its left, shift larger titles one position to the right, and insert the stored title into the gap. This is repeated until `Title[1:N]` is in ascending alphabetic order.
 
 To search, set `Low ← 1` and `High ← N`. While `Low <= High` and the title has not been found, calculate `Middle ← (Low + High) DIV 2`. If `Title[Middle]` is the requested title, output that it has been found. If the requested title is alphabetically after `Title[Middle]`, set `Low ← Middle + 1`; otherwise set `High ← Middle - 1`. If the loop ends without a match, output `Not found`.', '{}'::jsonb, 'Accept either bubble sort or insertion sort for the sorting section. Award credit for clear explanation; full executable pseudocode is not required. Do not award binary search boundary marks if the answer describes linear search only.', 'The scenario combines the two main requirements: sorting data into a known order and then applying binary search. Binary search is efficient for repeated searches, but only after the titles are sorted.'),
+  ('4875a811-169d-5169-89db-ad3b9e532d51', '9f725f25-f563-56a3-aa29-659dff12eddd', 1, true, 'Adjacent / neighbouring elements are compared and swapped if they are in the wrong order (the first is greater than the second for ascending order) (1)', '[{"criterion":"Compares adjacent elements and swaps them if they are in the wrong order","marks":1}]'::jsonb, 'It compares each pair of adjacent elements and swaps them if the first is larger than the second.', '{"values":["compares adjacent elements and swaps them if they are in the wrong order"]}'::jsonb, 'Both ideas are needed: adjacent/neighbouring elements AND swap when out of order. Accept ''if Times[j] > Times[j+1] swap''.', null),
+  ('3383f208-67fe-56f8-9666-04bf91e4b53b', 'e5ba22f9-6617-5950-9365-6c8da24f23de', 1, true, '12.8, 14.2, 13.5, 12.9, 15.1, 13.1, 14.7, 16.0
+
+All eight values correct (2); six or seven values in the correct position (1)', '[{"criterion":"All eight values in the correct order","marks":2},{"criterion":"At least six values in the correct position (if not all correct)","marks":1}]'::jsonb, '12.8 | 14.2 | 13.5 | 12.9 | 15.1 | 13.1 | 14.7 | 16.0', '{"rows":[["12.8","14.2","13.5","12.9","15.1","13.1","14.7","16.0||16"]]}'::jsonb, 'Award 2 for all correct, 1 if 6 or 7 values are in the correct position, otherwise 0.', null),
+  ('77e08b42-f6c7-5a0c-8d84-e47d307e5103', '8c203ff5-e7e1-5537-9e3d-270340d9ca28', 1, true, '5 (1)', '[{"criterion":"5 swaps","marks":1}]'::jsonb, '5', '{"values":["5"],"numeric":true}'::jsonb, null, null),
+  ('81a7d418-68c9-571d-94f3-b306782f2a26', '3c49cee6-e3eb-551f-b213-d51fec52c29f', 1, true, '- Outer loop / REPEAT that runs until no swaps are made (or n−1 passes) (1)
+- Inner loop over adjacent pairs with the correct range, e.g. j ← 0 TO 6 (1)
+- Compares adjacent elements: IF Times[j] > Times[j+1] (1)
+- Swaps the two elements using a temporary variable (1)
+- Uses a flag set when a swap happens and stops when no swaps were made (1)
+
+Max 4', '[{"criterion":"Outer loop with a suitable range / repeat-until structure","marks":1},{"criterion":"Inner loop with the correct range for adjacent pairs","marks":1},{"criterion":"Correct comparison of adjacent elements for ascending order","marks":1},{"criterion":"Correct swap using a temporary variable","marks":1},{"criterion":"Flag used to stop when a pass makes no swaps","marks":1}]'::jsonb, '```pseudocode
+REPEAT
+    Swapped ← FALSE
+    FOR j ← 0 TO 6
+        IF Times[j] > Times[j + 1] THEN
+            Temp ← Times[j]
+            Times[j] ← Times[j + 1]
+            Times[j + 1] ← Temp
+            Swapped ← TRUE
+        ENDIF
+    NEXT j
+UNTIL Swapped = FALSE
+```', '{}'::jsonb, 'Accept any programming language. Max 4 from 5 points. A swap without a temporary variable (e.g. Python tuple swap a, b = b, a) is acceptable. Do not award the comparison mark for comparing non-adjacent elements.', null),
+  ('7b33895b-72fb-560c-b053-fe1bf996d56a', '316176c2-482d-54f5-8d2b-8279b4a2167a', 1, true, '(1) i − 1 (1)
+
+(2) Names[j] > Key (1)
+
+(3) j − 1 (1)
+
+(4) j + 1 (1)', '[{"criterion":"(1) i - 1","marks":1},{"criterion":"(2) Names[j] > Key","marks":1},{"criterion":"(3) j - 1","marks":1},{"criterion":"(4) j + 1","marks":1}]'::jsonb, '(1) i - 1  (2) Names[j] > Key  (3) j - 1  (4) j + 1', '{"blanks":[["i - 1","i-1"],["Names[j] > Key","Names[j]>Key","Key < Names[j]","Key<Names[j]"],["j - 1","j-1"],["j + 1","j+1"]],"ignore_spaces":true}'::jsonb, 'Ignore spacing and capitalisation of identifiers. In (2) also accept Key < Names[j]. Do not accept >= in (2).', null),
+  ('f3473146-e7a8-58b3-9a4a-764ba646ec7b', '39183a36-0240-51eb-99c0-4224e984f5f3', 1, true, '| i | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| 1 | Arman | Dana | Zhanna | Bolat | Erlan | Aliya |
+| 2 | Arman | Dana | Zhanna | Bolat | Erlan | Aliya |
+| 3 | Arman | Bolat | Dana | Zhanna | Erlan | Aliya |
+
+One mark per correct row (3)', '[{"criterion":"Row i = 1 correct","marks":1},{"criterion":"Row i = 2 correct","marks":1},{"criterion":"Row i = 3 correct","marks":1}]'::jsonb, 'i=1: Arman, Dana, Zhanna, Bolat, Erlan, Aliya; i=2: unchanged; i=3: Arman, Bolat, Dana, Zhanna, Erlan, Aliya', '{"rows":[[null,"Arman","Dana","Zhanna","Bolat","Erlan","Aliya"],[null,"Arman","Dana","Zhanna","Bolat","Erlan","Aliya"],[null,"Arman","Bolat","Dana","Zhanna","Erlan","Aliya"]]}'::jsonb, 'One mark per completely correct row. Ignore capitalisation.', null),
+  ('473fc58b-b52f-55a3-a7be-5d791ec631c3', '9d82aec1-f8c0-5f5d-bf36-4ad6a4ae24ef', 1, true, '- Each new element only needs to be compared with one / a few elements before it (1)
+- so very few shifts are made / the inner WHILE loop ends almost immediately (1)
+- the number of operations is close to n (linear) rather than n² (1)
+
+Max 2', '[{"criterion":"Each element is compared with only one or a few previous elements","marks":1},{"criterion":"Few shifts / inner loop stops early, so close to linear time","marks":1}]'::jsonb, 'In an almost sorted list each new key is usually already in the right place, so the inner loop stops after one comparison and few elements are shifted; the sort takes about n steps instead of n².', '{}'::jsonb, 'Credit the idea that the inner loop does little work. Do not credit ''it is faster'' without a reason.', null),
+  ('1755042a-260e-5252-95ce-d1bf072ae766', '3fe80cf3-93d1-526f-88e3-3404eed1384d', 1, true, 'The data must be sorted / in order (1)', '[{"criterion":"Data must be sorted","marks":1}]'::jsonb, 'The array must be sorted.', '{"values":["sorted","the array must be sorted","the data must be sorted","in order","the data must be in order"]}'::jsonb, null, null),
+  ('fcf5293f-279d-5805-91f8-6cdedb37a6a8', 'e0bb4f2a-cf58-53ff-a2a4-191ce7ba015b', 1, true, '| Low | High | Mid | Codes[Mid] | Output |
+|---|---|---|---|---|
+| 0 | 14 | 7 | 177 | |
+| 0 | 6 | 3 | 135 | |
+| 0 | 2 | 1 | 118 | |
+| 2 | 2 | 2 | 121 | |
+| 2 | 1 | | | Not found |
+
+Rows 1–2 (1), rows 3–4 (1), final row with Not found (1)', '[{"criterion":"First two rows correct (Low, High, Mid, Codes[Mid])","marks":1},{"criterion":"Rows 3 and 4 correct","marks":1},{"criterion":"Search ends with Low > High and output Not found","marks":1}]'::jsonb, '0,14,7,177 → 0,6,3,135 → 0,2,1,118 → 2,2,2,121 → Low 2, High 1, Not found', '{"rows":[["0","14","7","177",null],["0","6","3","135",null],["0","2","1","118",null],["2","2","2","121",null],["2","1",null,null,"Not found"]]}'::jsonb, 'Follow-through: if one value is wrong but the following rows correctly continue from it, deduct only once.', null),
+  ('9cdf7e5a-ba7c-51bd-9516-d223c560b86c', 'ee5cb6dd-2df4-52cb-adfb-a4920481ad8d', 1, true, '- Function header with the parameters; Low ← 0 and High ← 14 (or LENGTH − 1) (1)
+- Loop that continues while Low <= High (1)
+- Mid calculated with integer division (1)
+- If Codes[Mid] = Target, return Mid (1)
+- If Target < Codes[Mid] then High ← Mid − 1, else Low ← Mid + 1 (1)
+- Returns −1 after the loop (1)
+
+Max 5', '[{"criterion":"Header and correct initialisation of Low and High","marks":1},{"criterion":"Loop condition Low <= High","marks":1},{"criterion":"Mid calculated with integer division","marks":1},{"criterion":"Returns Mid when Codes[Mid] = Target","marks":1},{"criterion":"Correct update of High (Mid - 1) or Low (Mid + 1)","marks":1},{"criterion":"Returns -1 when not found","marks":1}]'::jsonb, '```pseudocode
+FUNCTION BinarySearch(Codes, Target) RETURNS INTEGER
+    Low ← 0
+    High ← 14
+    WHILE Low <= High
+        Mid ← (Low + High) DIV 2
+        IF Codes[Mid] = Target THEN
+            RETURN Mid
+        ELSEIF Target < Codes[Mid] THEN
+            High ← Mid - 1
+        ELSE
+            Low ← Mid + 1
+        ENDIF
+    ENDWHILE
+    RETURN -1
+ENDFUNCTION
+```', '{}'::jsonb, 'Accept any language and a found-flag version that returns the index after the loop. Max 5 from 6 points. An infinite loop (High ← Mid / Low ← Mid) loses the update mark.', null),
+  ('9acbc987-4de8-5b80-9fcf-c04b840345d4', 'f17b7552-85f1-5d69-8ddb-cf404f9a4bfb', 1, true, '4 (1)', '[{"criterion":"4","marks":1}]'::jsonb, '4 (2⁴ = 16 ≥ 15)', '{"values":["4"],"numeric":true}'::jsonb, null, null),
+  ('e7f83f58-5dd5-52cb-942b-64387742a43a', '24f09e5f-6495-50cb-a5b2-a5cba263f9c0', 1, true, '- Binary search halves the number of records to search after each comparison (1)
+- so at most about 11 comparisons are needed for 2000 records / O(log n) (1)
+- whereas linear search may need to check every record — up to 2000 comparisons / O(n) (1)
+
+Max 2', '[{"criterion":"Binary search halves the search area each step","marks":1},{"criterion":"Comparison with linear search: about 11 vs up to 2000 comparisons / log n vs n","marks":1}]'::jsonb, 'Each comparison in a binary search discards half of the remaining records, so 2000 records need at most 11 comparisons, while a linear search may have to check all 2000.', '{}'::jsonb, 'The second mark needs a comparison with linear search (numbers or complexity).', null),
+  ('3f92acf0-572a-54e3-93f0-be7f71e7bff9', 'c673da0f-d13c-5702-b03d-00ac5f30e401', 1, true, 'Similarity (1): both sort the data in place / both are O(n²) in the worst case / both compare elements and rearrange them / both are simple to implement
+
+Difference (1): bubble sort repeatedly compares and swaps adjacent pairs; insertion sort takes each element and inserts it into the correct place in the sorted part / insertion sort is usually faster on nearly sorted data / insertion sort shifts elements rather than swapping', '[{"criterion":"Valid similarity","marks":1},{"criterion":"Valid difference","marks":1}]'::jsonb, 'Similarity: both sort the array in place and are O(n²) in the worst case. Difference: bubble sort swaps adjacent pairs repeatedly, while insertion sort inserts each element into the sorted part of the list.', '{}'::jsonb, 'Each box is marked separately. A difference must say what each algorithm does or compare them.', null),
+  ('2b1dc164-10c3-5250-8d98-6924cea9fc48', '86a73eef-8e47-5039-8cc5-c3f5a0f643e2', 1, true, '- Keep the records sorted and use binary search (1)
+- because the cost of sorting once a month is small compared with the time saved on hundreds of searches each day (1)', '[{"criterion":"Chooses sorted data with binary search","marks":1},{"criterion":"Justification: sorting rarely vs many fast searches","marks":1}]'::jsonb, 'Keep the records sorted and use a binary search: sorting is needed only once a month, but every one of the hundreds of daily searches becomes much faster.', '{}'::jsonb, 'Award the justification mark only if it refers to the frequency of updates versus searches.', null),
   ('a4520088-705b-5197-8c06-6d332af1d3c9', '7ccf88d5-21c8-5779-808f-06ed3c334b04', 1, true, 'Denary: 64+16+8+2+1=91 (1)
 
 1 mark for correct answer only', '[{"criterion":"Correct denary answer 91","marks":1}]'::jsonb, '91', '{"values":["91"],"numeric":true}'::jsonb, null, null),
@@ -5472,7 +5639,10 @@ Saved data/information (1)
 
 Accepts other answers suitable for the scenario', '[{"criterion":"Less mistakes when filling input form","marks":1},{"criterion":"Auto calculation of price","marks":1},{"criterion":"Time-saving to calculate profit","marks":1},{"criterion":"Saved data/information","marks":1}]'::jsonb, '1. Less mistakes when filling input form.
 2. Auto calculation of price.
-3. Time-saving to calculate profit.', '{}'::jsonb, 'Accept other answers suitable for the scenario, maximum 3 marks.', null),
+3. Time-saving to calculate profit.', '{}'::jsonb, 'Accept other answers suitable for the scenario, maximum 3 marks.', null)
+on conflict do nothing;
+
+insert into public.mark_schemes (id, question_id, version, is_current, mark_scheme, marking_points, model_answer, accepted_answers, ai_grading_instructions, explanation) values
   ('168929e9-1532-5aea-918d-30648caf69cd', '8aab6c1d-64ac-5d72-a018-f4401d63d6fe', 1, true, 'correct use of NOR gate (3) (1)
 
 correct use of OR gate (4, 6) (1)
@@ -5606,10 +5776,7 @@ Swap two neighboring elements (1)', '[{"criterion":"Head of the outer loop with 
 {"green", "yellow"},
 {"black", "white"}} [1]', '[{"criterion":"Answers match the mark scheme (see table / boxes)","marks":1}]'::jsonb, 'arr2D = { {"blue", "red"},
           {"green", "yellow"},
-          {"black", "white"} }', '{"rows":[["{\"blue\", \"red\"}"],["{\"green\", \"yellow\"}"],["{\"black\", \"white\"}"]]}'::jsonb, null, null)
-on conflict do nothing;
-
-insert into public.mark_schemes (id, question_id, version, is_current, mark_scheme, marking_points, model_answer, accepted_answers, ai_grading_instructions, explanation) values
+          {"black", "white"} }', '{"rows":[["{\"blue\", \"red\"}"],["{\"green\", \"yellow\"}"],["{\"black\", \"white\"}"]]}'::jsonb, null, null),
   ('09a1efa3-13cf-5d8a-a9b4-097101e2e8bd', 'ad2aae0b-60ce-531a-8c73-4bef378bfaee', 1, true, 'Use only one name (1)
 Easy to iterate over indices (1)
 Optimize using memory (1)
@@ -6295,7 +6462,7 @@ insert into public.exams (id, curriculum_version_id, kind, title, description, i
   ('e8492c77-c35d-549f-8ec9-ea740418bb8c', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'topic', 'Number representation — Topic Exam', 'Exam-style questions on Number representation.', 'Answer all questions. Your answers are saved automatically.', '5921a74a-4467-5ed5-921f-0a59b9b9b88f', null, null, 11, 18, 'draft', null, null, null, 'warn', 3, true),
   ('c92e38e6-4cc5-5034-9b9c-d7c37a0cf06d', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'topic', 'Operating systems — Topic Exam', 'Exam-style questions on Operating systems.', 'Answer all questions. Your answers are saved automatically.', 'c73137c9-82bd-5339-a0bd-3df63f76b932', null, null, 11, 21, 'draft', null, null, null, 'warn', 3, true),
   ('1cd3d7bc-0d0d-5d1f-8e35-d01afe460eb5', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'topic', 'SDLC models — Topic Exam', 'Exam-style questions on SDLC models.', 'Answer all questions. Your answers are saved automatically.', '32a6f19c-c770-5f6a-b8de-bf16a0b134cc', null, null, 11, 21, 'draft', null, null, null, 'warn', 3, true),
-  ('f04872bd-09d9-5fe4-bfdd-30369710124c', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'topic', 'Sorting and searching algorithms — Topic Exam', 'Exam-style questions on Sorting and searching algorithms.', 'Answer all questions. Your answers are saved automatically.', '7724b4d3-9ed5-5292-80da-21e2922c99ae', null, null, 11, 83, 'draft', null, null, null, 'warn', 3, true),
+  ('f04872bd-09d9-5fe4-bfdd-30369710124c', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'topic', 'Sorting and searching algorithms — Exam (Paper 3 style)', 'Exam-style questions on Sorting and searching algorithms.', 'Answer **all** questions. You may write algorithms in pseudocode or in any programming language you have studied. The number of marks is given in brackets [ ] at the end of each part. Total: 33 marks.', '7724b4d3-9ed5-5292-80da-21e2922c99ae', null, null, 11, 65, 'draft', null, null, null, 'warn', 3, true),
   ('0f218393-080a-529c-b550-bd2c6181f8e1', 'ea65b685-d0c0-5aa8-bb8d-d6bb01f68d36', 'mock', 'NIS 2023 · Paper 1: Theory fundamentals', 'Past paper 2023, Paper 1 (Theory fundamentals) — 90 minutes.', 'Answer all questions.
 The number of marks is given in brackets [ ] at the end of each question or part question.
 You should show all your working.
@@ -6382,22 +6549,10 @@ insert into public.exam_questions (id, exam_id, question_id, sort_order, section
   ('e63c5658-45e1-59e2-9881-4ef3d49d697e', '1cd3d7bc-0d0d-5d1f-8e35-d01afe460eb5', '7ba635b7-bbe6-5aba-a14d-4b06c532ac6b', 5, null),
   ('57ab5395-80fb-5d62-9e78-009df12b2ce4', '1cd3d7bc-0d0d-5d1f-8e35-d01afe460eb5', 'a6f96827-925a-5b58-a4ef-4b0066ca5a3e', 6, null),
   ('5e352a56-6486-5a75-b733-ee29a2052a36', '1cd3d7bc-0d0d-5d1f-8e35-d01afe460eb5', 'da3e7b10-f30e-5441-ae09-d372c82124eb', 7, null),
-  ('18c19c5d-f26f-57a5-a9dc-9c5f2a8f935e', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '3699b89b-a2cc-59c1-8a6e-eb45278408d2', 0, null),
-  ('0454c40a-1943-56b0-af46-4fa8e0a2cfe9', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '4fe91eab-1187-5521-9117-39a740ddd139', 1, null),
-  ('a9ee931b-613a-589e-91f9-faaa35ab0ff3', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '33b06714-168d-5edb-872b-d416a61fe699', 2, null),
-  ('3335b85c-7ea5-5e8e-a8f2-d3c0a7e0e9f7', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '5ef7d358-dea2-5ce8-ad1c-6419eadaf322', 3, null),
-  ('c8bccf67-1e34-5228-bc1d-5330c2514baf', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '7d5ac476-b3fe-5e3b-976f-c227a6c84142', 4, null),
-  ('153fab24-efb8-58b4-bad3-a276d696be1e', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '8517da83-d4af-531f-b941-70d8bf96614f', 5, null),
-  ('5ddf5a36-515f-5d10-8d95-9854c3588763', 'f04872bd-09d9-5fe4-bfdd-30369710124c', 'b86307e4-d315-5748-8658-2ad1bc750d32', 6, null),
-  ('197a42c5-4ed5-5b80-946f-4961085f4f35', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '1d98b824-ea27-522f-b2bd-45b12082f1c3', 7, null),
-  ('2bd23906-ce29-5f73-9b32-a5e19af4b737', 'f04872bd-09d9-5fe4-bfdd-30369710124c', 'c7bbb70e-2c41-5156-a7d1-e22d4fea13c3', 8, null),
-  ('7d2e1347-302d-53c4-a183-82bb14b4c782', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '86eef3a3-02dd-5cfd-aa7a-43ecf7f4496c', 9, null),
-  ('b4793d7c-e356-53de-b476-829d284e520c', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '75c9c96e-19e6-50ad-b4d7-b92c35f1e817', 10, null),
-  ('29a87063-6832-5c8b-be9e-97303d2acb37', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '9ceaadf8-ab50-5e71-8999-004279272d63', 11, null),
-  ('1c82c683-3a05-5e5c-9e19-6f4e6d2aff76', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '10bcb707-97ec-5702-89a1-75ee74f9fdca', 12, null),
-  ('5fac50b6-9fbb-52c8-a7cc-7a3c7344c9a5', 'f04872bd-09d9-5fe4-bfdd-30369710124c', 'bcec0c2e-aa27-5d3e-b34a-4f23913454a4', 13, null),
-  ('773bcf9e-730d-5c44-9325-2c021b5e271e', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '03650bdd-0525-509c-a73a-8b461d0ead1a', 14, null),
-  ('a03b4ffc-5105-562f-8663-b09eddc67346', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '518fe76d-8b73-529c-b043-f79d4fbbb76e', 15, null),
+  ('e3e86287-cef6-5a05-b3a8-a5ad7ce1d7d7', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '1b85a51f-6413-5441-baf2-4c50d621222f', 0, null),
+  ('7c97b2eb-885b-5361-a840-19e7b5f93be0', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '80609eee-decc-511d-87cd-80eae927cdec', 1, null),
+  ('df010f60-f467-52dd-8e4d-ed87aec6de4e', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '90c0759d-fd07-5706-ad9b-b8804d47c5f4', 2, null),
+  ('33133729-1275-52f9-847b-dd5fb4bb30df', 'f04872bd-09d9-5fe4-bfdd-30369710124c', '6d945f9b-a359-5214-977e-b8fb158a4d60', 3, null),
   ('4fbe8f2b-1aad-5602-8234-74151b862a2b', '0f218393-080a-529c-b550-bd2c6181f8e1', 'e257e6ab-5405-50d2-bd4a-148ad64c3d7e', 0, null),
   ('a287e86f-c3ce-50fb-a4b3-7db81a6cd6e1', '0f218393-080a-529c-b550-bd2c6181f8e1', '50b3284a-4c07-553a-9532-2eed5fc094fd', 1, null),
   ('f193499a-bb1f-5272-a472-5c3fa174d652', '0f218393-080a-529c-b550-bd2c6181f8e1', '36ac0f48-05cf-5134-8f70-d94860774f8c', 2, null),

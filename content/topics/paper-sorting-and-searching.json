@@ -1548,6 +1548,790 @@
         "ai_instructions": "Accept either bubble sort or insertion sort for the sorting section. Award credit for clear explanation; full executable pseudocode is not required. Do not award binary search boundary marks if the answer describes linear search only.",
         "explanation": "The scenario combines the two main requirements: sorting data into a known order and then applying binary search. Binary search is efficient for repeated searches, but only after the titles are sorted."
       }
+    },
+    {
+      "key": "sort-exam-1",
+      "title": "Race times and bubble sort",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A PE teacher records the 100 m times (in seconds) of eight runners in the array `Times`.\n\n| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n|---|---|---|---|---|---|---|---|---|\n| Times | 14.2 | 12.8 | 15.1 | 13.5 | 12.9 | 16.0 | 13.1 | 14.7 |\n\nThe times are to be sorted into **ascending** order using a **bubble sort**.",
+      "source": "nis_style",
+      "practice": false,
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sort-exam-1a",
+          "part_label": "(a)",
+          "title": "Exam 1a",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "State how a bubble sort decides whether two elements must be swapped.",
+          "content": {
+            "answer_lines": 2
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "Adjacent / neighbouring elements are compared and swapped if they are in the wrong order (the first is greater than the second for ascending order) (1)",
+            "points": [
+              {
+                "criterion": "Compares adjacent elements and swaps them if they are in the wrong order",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It compares each pair of adjacent elements and swaps them if the first is larger than the second.",
+            "accepted": {
+              "values": [
+                "compares adjacent elements and swaps them if they are in the wrong order"
+              ]
+            },
+            "ai_instructions": "Both ideas are needed: adjacent/neighbouring elements AND swap when out of order. Accept 'if Times[j] > Times[j+1] swap'."
+          }
+        },
+        {
+          "key": "sort-exam-1b",
+          "part_label": "(b)",
+          "title": "Exam 1b",
+          "type": "table_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Complete the table to show the contents of `Times` **after the first pass** of the bubble sort.",
+          "content": {
+            "columns": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ],
+            "rows": 1
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "12.8, 14.2, 13.5, 12.9, 15.1, 13.1, 14.7, 16.0\n\nAll eight values correct (2); six or seven values in the correct position (1)",
+            "points": [
+              {
+                "criterion": "All eight values in the correct order",
+                "marks": 2
+              },
+              {
+                "criterion": "At least six values in the correct position (if not all correct)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "12.8 | 14.2 | 13.5 | 12.9 | 15.1 | 13.1 | 14.7 | 16.0",
+            "accepted": {
+              "rows": [
+                [
+                  "12.8",
+                  "14.2",
+                  "13.5",
+                  "12.9",
+                  "15.1",
+                  "13.1",
+                  "14.7",
+                  "16.0||16"
+                ]
+              ]
+            },
+            "ai_instructions": "Award 2 for all correct, 1 if 6 or 7 values are in the correct position, otherwise 0."
+          }
+        },
+        {
+          "key": "sort-exam-1c",
+          "part_label": "(c)",
+          "title": "Exam 1c",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "State the number of **swaps** made during the first pass.",
+          "content": {
+            "unit": "swaps"
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "5 (1)",
+            "points": [
+              {
+                "criterion": "5 swaps",
+                "marks": 1
+              }
+            ],
+            "model_answer": "5",
+            "accepted": {
+              "values": [
+                "5"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "sort-exam-1d",
+          "part_label": "(d)",
+          "title": "Exam 1d",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Write pseudocode or program code for a bubble sort that sorts `Times` into ascending order. Your algorithm must **stop early** if a pass makes no swaps.",
+          "content": {
+            "language": "pseudocode",
+            "answer_lines": 12
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "- Outer loop / REPEAT that runs until no swaps are made (or n−1 passes) (1)\n- Inner loop over adjacent pairs with the correct range, e.g. j ← 0 TO 6 (1)\n- Compares adjacent elements: IF Times[j] > Times[j+1] (1)\n- Swaps the two elements using a temporary variable (1)\n- Uses a flag set when a swap happens and stops when no swaps were made (1)\n\nMax 4",
+            "points": [
+              {
+                "criterion": "Outer loop with a suitable range / repeat-until structure",
+                "marks": 1
+              },
+              {
+                "criterion": "Inner loop with the correct range for adjacent pairs",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct comparison of adjacent elements for ascending order",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct swap using a temporary variable",
+                "marks": 1
+              },
+              {
+                "criterion": "Flag used to stop when a pass makes no swaps",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nREPEAT\n    Swapped ← FALSE\n    FOR j ← 0 TO 6\n        IF Times[j] > Times[j + 1] THEN\n            Temp ← Times[j]\n            Times[j] ← Times[j + 1]\n            Times[j + 1] ← Temp\n            Swapped ← TRUE\n        ENDIF\n    NEXT j\nUNTIL Swapped = FALSE\n```",
+            "ai_instructions": "Accept any programming language. Max 4 from 5 points. A swap without a temporary variable (e.g. Python tuple swap a, b = b, a) is acceptable. Do not award the comparison mark for comparing non-adjacent elements."
+          }
+        }
+      ]
+    },
+    {
+      "key": "sort-exam-2",
+      "title": "Insertion sort of names",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The array `Names` stores six names:\n\n| Index | 0 | 1 | 2 | 3 | 4 | 5 |\n|---|---|---|---|---|---|---|\n| Names | Dana | Arman | Zhanna | Bolat | Erlan | Aliya |\n\nThe following incomplete pseudocode sorts `Names` into **alphabetical order** using an **insertion sort**.\n\n```pseudocode\n01  FOR i ← 1 TO 5\n02      Key ← Names[i]\n03      j ← ......(1)......\n04      WHILE j >= 0 AND ......(2)......\n05          Names[j + 1] ← Names[j]\n06          j ← ......(3)......\n07      ENDWHILE\n08      Names[......(4)......] ← Key\n09  NEXT i\n```",
+      "source": "nis_style",
+      "practice": false,
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sort-exam-2a",
+          "part_label": "(a)",
+          "title": "Exam 2a",
+          "type": "fill_blank",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Complete the pseudocode by writing the missing parts.\n\n(1) [[1]]\n\n(2) [[2]]\n\n(3) [[3]]\n\n(4) [[4]]",
+          "content": {
+            "blank_count": 4
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "(1) i − 1 (1)\n\n(2) Names[j] > Key (1)\n\n(3) j − 1 (1)\n\n(4) j + 1 (1)",
+            "points": [
+              {
+                "criterion": "(1) i - 1",
+                "marks": 1
+              },
+              {
+                "criterion": "(2) Names[j] > Key",
+                "marks": 1
+              },
+              {
+                "criterion": "(3) j - 1",
+                "marks": 1
+              },
+              {
+                "criterion": "(4) j + 1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "(1) i - 1  (2) Names[j] > Key  (3) j - 1  (4) j + 1",
+            "accepted": {
+              "blanks": [
+                [
+                  "i - 1",
+                  "i-1"
+                ],
+                [
+                  "Names[j] > Key",
+                  "Names[j]>Key",
+                  "Key < Names[j]",
+                  "Key<Names[j]"
+                ],
+                [
+                  "j - 1",
+                  "j-1"
+                ],
+                [
+                  "j + 1",
+                  "j+1"
+                ]
+              ],
+              "ignore_spaces": true
+            },
+            "ai_instructions": "Ignore spacing and capitalisation of identifiers. In (2) also accept Key < Names[j]. Do not accept >= in (2)."
+          }
+        },
+        {
+          "key": "sort-exam-2b",
+          "part_label": "(b)",
+          "title": "Exam 2b",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Complete the table to show the contents of `Names` **after each iteration** of the `FOR` loop for i = 1, 2 and 3.",
+          "content": {
+            "columns": [
+              "i",
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "1",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "2",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "3",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "| i | 0 | 1 | 2 | 3 | 4 | 5 |\n|---|---|---|---|---|---|---|\n| 1 | Arman | Dana | Zhanna | Bolat | Erlan | Aliya |\n| 2 | Arman | Dana | Zhanna | Bolat | Erlan | Aliya |\n| 3 | Arman | Bolat | Dana | Zhanna | Erlan | Aliya |\n\nOne mark per correct row (3)",
+            "points": [
+              {
+                "criterion": "Row i = 1 correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Row i = 2 correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Row i = 3 correct",
+                "marks": 1
+              }
+            ],
+            "model_answer": "i=1: Arman, Dana, Zhanna, Bolat, Erlan, Aliya; i=2: unchanged; i=3: Arman, Bolat, Dana, Zhanna, Erlan, Aliya",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "Arman",
+                  "Dana",
+                  "Zhanna",
+                  "Bolat",
+                  "Erlan",
+                  "Aliya"
+                ],
+                [
+                  null,
+                  "Arman",
+                  "Dana",
+                  "Zhanna",
+                  "Bolat",
+                  "Erlan",
+                  "Aliya"
+                ],
+                [
+                  null,
+                  "Arman",
+                  "Bolat",
+                  "Dana",
+                  "Zhanna",
+                  "Erlan",
+                  "Aliya"
+                ]
+              ]
+            },
+            "ai_instructions": "One mark per completely correct row. Ignore capitalisation."
+          }
+        },
+        {
+          "key": "sort-exam-2c",
+          "part_label": "(c)",
+          "title": "Exam 2c",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Explain why an insertion sort is efficient when the array is **already almost sorted**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "- Each new element only needs to be compared with one / a few elements before it (1)\n- so very few shifts are made / the inner WHILE loop ends almost immediately (1)\n- the number of operations is close to n (linear) rather than n² (1)\n\nMax 2",
+            "points": [
+              {
+                "criterion": "Each element is compared with only one or a few previous elements",
+                "marks": 1
+              },
+              {
+                "criterion": "Few shifts / inner loop stops early, so close to linear time",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In an almost sorted list each new key is usually already in the right place, so the inner loop stops after one comparison and few elements are shifted; the sort takes about n steps instead of n².",
+            "ai_instructions": "Credit the idea that the inner loop does little work. Do not credit 'it is faster' without a reason."
+          }
+        }
+      ]
+    },
+    {
+      "key": "sort-exam-3",
+      "title": "Binary search of product codes",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A shop stores 15 product codes in the array `Codes` in **ascending order**.\n\n| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| Codes | 104 | 118 | 121 | 135 | 142 | 156 | 163 | 177 | 182 | 190 | 203 | 215 | 228 | 236 | 241 |\n\nA **binary search** is used to find a code. The middle index is calculated as `Mid ← (Low + High) DIV 2`.",
+      "source": "nis_style",
+      "practice": false,
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sort-exam-3a",
+          "part_label": "(a)",
+          "title": "Exam 3a",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "State **one** condition that the data must meet before a binary search can be used.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "The data must be sorted / in order (1)",
+            "points": [
+              {
+                "criterion": "Data must be sorted",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The array must be sorted.",
+            "accepted": {
+              "values": [
+                "sorted",
+                "the array must be sorted",
+                "the data must be sorted",
+                "in order",
+                "the data must be in order"
+              ]
+            }
+          }
+        },
+        {
+          "key": "sort-exam-3b",
+          "part_label": "(b)",
+          "title": "Exam 3b",
+          "type": "trace_table",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "Complete the trace table for a binary search for the code **120**. Write `Not found` in the Output column when the search ends.",
+          "content": {
+            "columns": [
+              "Low",
+              "High",
+              "Mid",
+              "Codes[Mid]",
+              "Output"
+            ],
+            "rows": 5
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "| Low | High | Mid | Codes[Mid] | Output |\n|---|---|---|---|---|\n| 0 | 14 | 7 | 177 | |\n| 0 | 6 | 3 | 135 | |\n| 0 | 2 | 1 | 118 | |\n| 2 | 2 | 2 | 121 | |\n| 2 | 1 | | | Not found |\n\nRows 1–2 (1), rows 3–4 (1), final row with Not found (1)",
+            "points": [
+              {
+                "criterion": "First two rows correct (Low, High, Mid, Codes[Mid])",
+                "marks": 1
+              },
+              {
+                "criterion": "Rows 3 and 4 correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Search ends with Low > High and output Not found",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0,14,7,177 → 0,6,3,135 → 0,2,1,118 → 2,2,2,121 → Low 2, High 1, Not found",
+            "accepted": {
+              "rows": [
+                [
+                  "0",
+                  "14",
+                  "7",
+                  "177",
+                  null
+                ],
+                [
+                  "0",
+                  "6",
+                  "3",
+                  "135",
+                  null
+                ],
+                [
+                  "0",
+                  "2",
+                  "1",
+                  "118",
+                  null
+                ],
+                [
+                  "2",
+                  "2",
+                  "2",
+                  "121",
+                  null
+                ],
+                [
+                  "2",
+                  "1",
+                  null,
+                  null,
+                  "Not found"
+                ]
+              ]
+            },
+            "ai_instructions": "Follow-through: if one value is wrong but the following rows correctly continue from it, deduct only once."
+          }
+        },
+        {
+          "key": "sort-exam-3c",
+          "part_label": "(c)",
+          "title": "Exam 3c",
+          "type": "pseudocode",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "Write pseudocode or program code for a **function** `BinarySearch(Codes, Target)` that returns the index of `Target` in `Codes`, or **−1** if it is not found.",
+          "content": {
+            "language": "pseudocode",
+            "answer_lines": 14
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "- Function header with the parameters; Low ← 0 and High ← 14 (or LENGTH − 1) (1)\n- Loop that continues while Low <= High (1)\n- Mid calculated with integer division (1)\n- If Codes[Mid] = Target, return Mid (1)\n- If Target < Codes[Mid] then High ← Mid − 1, else Low ← Mid + 1 (1)\n- Returns −1 after the loop (1)\n\nMax 5",
+            "points": [
+              {
+                "criterion": "Header and correct initialisation of Low and High",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop condition Low <= High",
+                "marks": 1
+              },
+              {
+                "criterion": "Mid calculated with integer division",
+                "marks": 1
+              },
+              {
+                "criterion": "Returns Mid when Codes[Mid] = Target",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct update of High (Mid - 1) or Low (Mid + 1)",
+                "marks": 1
+              },
+              {
+                "criterion": "Returns -1 when not found",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nFUNCTION BinarySearch(Codes, Target) RETURNS INTEGER\n    Low ← 0\n    High ← 14\n    WHILE Low <= High\n        Mid ← (Low + High) DIV 2\n        IF Codes[Mid] = Target THEN\n            RETURN Mid\n        ELSEIF Target < Codes[Mid] THEN\n            High ← Mid - 1\n        ELSE\n            Low ← Mid + 1\n        ENDIF\n    ENDWHILE\n    RETURN -1\nENDFUNCTION\n```",
+            "ai_instructions": "Accept any language and a found-flag version that returns the index after the loop. Max 5 from 6 points. An infinite loop (High ← Mid / Low ← Mid) loses the update mark."
+          }
+        },
+        {
+          "key": "sort-exam-3d",
+          "part_label": "(d)",
+          "title": "Exam 3d",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "Calculate the **maximum** number of times `Codes[Mid]` is compared with the target when searching this array of 15 codes.",
+          "content": {},
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "4 (1)",
+            "points": [
+              {
+                "criterion": "4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "4 (2⁴ = 16 ≥ 15)",
+            "accepted": {
+              "values": [
+                "4"
+              ],
+              "numeric": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "sort-exam-4",
+      "title": "Choosing searching and sorting algorithms",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A school library stores the records of **2000 books**. Each record has an ID, a title and an author. Librarians search for books by ID many times every day.",
+      "source": "nis_style",
+      "practice": false,
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sort-exam-4a",
+          "part_label": "(a)",
+          "title": "Exam 4a",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "Explain why a binary search is faster than a linear search for finding a book by ID when the records are sorted by ID.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "- Binary search halves the number of records to search after each comparison (1)\n- so at most about 11 comparisons are needed for 2000 records / O(log n) (1)\n- whereas linear search may need to check every record — up to 2000 comparisons / O(n) (1)\n\nMax 2",
+            "points": [
+              {
+                "criterion": "Binary search halves the search area each step",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparison with linear search: about 11 vs up to 2000 comparisons / log n vs n",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Each comparison in a binary search discards half of the remaining records, so 2000 records need at most 11 comparisons, while a linear search may have to check all 2000.",
+            "ai_instructions": "The second mark needs a comparison with linear search (numbers or complexity)."
+          }
+        },
+        {
+          "key": "sort-exam-4b",
+          "part_label": "(b)",
+          "title": "Exam 4b",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "State **one** similarity and **one** difference between a bubble sort and an insertion sort.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Similarity",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Difference",
+                "lines": 2
+              }
+            ]
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "Similarity (1): both sort the data in place / both are O(n²) in the worst case / both compare elements and rearrange them / both are simple to implement\n\nDifference (1): bubble sort repeatedly compares and swaps adjacent pairs; insertion sort takes each element and inserts it into the correct place in the sorted part / insertion sort is usually faster on nearly sorted data / insertion sort shifts elements rather than swapping",
+            "points": [
+              {
+                "criterion": "Valid similarity",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid difference",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Similarity: both sort the array in place and are O(n²) in the worst case. Difference: bubble sort swaps adjacent pairs repeatedly, while insertion sort inserts each element into the sorted part of the list.",
+            "ai_instructions": "Each box is marked separately. A difference must say what each algorithm does or compare them."
+          }
+        },
+        {
+          "key": "sort-exam-4c",
+          "part_label": "(c)",
+          "title": "Exam 4c",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "suggest",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.5@paper",
+            "11.5.2.4@paper"
+          ],
+          "text": "New books are added only **once a month**, but searches happen **hundreds of times a day**. Suggest whether the library should keep the records sorted and use a binary search, or leave them unsorted and use a linear search. Justify your answer.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "nis_style",
+          "practice": false,
+          "scheme": {
+            "mark_scheme": "- Keep the records sorted and use binary search (1)\n- because the cost of sorting once a month is small compared with the time saved on hundreds of searches each day (1)",
+            "points": [
+              {
+                "criterion": "Chooses sorted data with binary search",
+                "marks": 1
+              },
+              {
+                "criterion": "Justification: sorting rarely vs many fast searches",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Keep the records sorted and use a binary search: sorting is needed only once a month, but every one of the hundreds of daily searches becomes much faster.",
+            "ai_instructions": "Award the justification mark only if it refers to the frequency of updates versus searches."
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 65,
+    "title": "Sorting and searching algorithms — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. You may write algorithms in pseudocode or in any programming language you have studied. The number of marks is given in brackets [ ] at the end of each part. Total: 33 marks.",
+    "questions": [
+      "sort-exam-1",
+      "sort-exam-2",
+      "sort-exam-3",
+      "sort-exam-4"
+    ]
+  }
 }

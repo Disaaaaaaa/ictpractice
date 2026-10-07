@@ -231,8 +231,19 @@ export const authoredTopicSchema = z.object({
     .default([]),
   questions: z.array(authoredQuestionSchema).default([]),
   topic_exam: z
-    .object({ duration: z.number().int().min(5).max(180), title: z.string().optional() })
+    .object({
+      duration: z.number().int().min(5).max(180),
+      title: z.string().optional(),
+      instructions: z.string().max(2000).optional(),
+      /** keys of the questions in the topic exam (default: all questions of the topic) */
+      questions: z.array(z.string()).optional(),
+    })
     .optional(),
+}).superRefine((t, ctx) => {
+  const keys = new Set(t.questions.map((q) => q.key));
+  for (const k of t.topic_exam?.questions ?? []) {
+    if (!keys.has(k)) ctx.addIssue({ code: "custom", message: `topic_exam.questions: unknown question ${k}` });
+  }
 });
 export type AuthoredTopic = z.infer<typeof authoredTopicSchema>;
 
