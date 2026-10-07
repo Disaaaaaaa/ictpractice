@@ -1,0 +1,324 @@
+{
+  "topic": "g11-image-representation",
+  "summary": "How bitmap images are stored as pixels, the meaning of resolution and colour depth, and how to calculate the file size of an image.",
+  "theory": [
+    {
+      "title": "Bitmap images: pixels, resolution and colour depth",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Pixel",
+          "content": "The **smallest element** of a bitmap image — one dot of a single colour. (\"Picture element\".)"
+        },
+        {
+          "type": "definition",
+          "term": "Bitmap image",
+          "content": "An image stored as a **grid of pixels**; the colour of each pixel is stored as a **binary code**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Image resolution",
+              "content": "The number of pixels in the image: **width × height** (e.g. 1920 × 1080). More pixels → more detail, larger file."
+            },
+            {
+              "title": "Colour depth (bit depth)",
+              "content": "The **number of bits used to store the colour of each pixel**. With *n* bits there are **2ⁿ** possible colours."
+            },
+            {
+              "title": "Screen/print resolution",
+              "content": "Pixels per inch (ppi) or dots per inch (dpi) — how densely pixels are displayed or printed."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Colour depth and number of colours",
+          "columns": [
+            "Colour depth",
+            "Colours",
+            "Typical use"
+          ],
+          "rows": [
+            [
+              "1 bit",
+              "2 (black/white)",
+              "Simple icons, fax"
+            ],
+            [
+              "4 bits",
+              "16",
+              "Old graphics"
+            ],
+            [
+              "8 bits",
+              "256",
+              "GIF images"
+            ],
+            [
+              "16 bits",
+              "65 536",
+              "\"High colour\""
+            ],
+            [
+              "24 bits",
+              "16 777 216",
+              "\"True colour\" (8 bits each for red, green, blue)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A 1-bit image",
+          "content": "A 4 × 3 image with 1 bit per pixel (1 = black, 0 = white):\n```text\n1 0 0 1\n0 1 1 0\n1 0 0 1\n```\nThe image is stored as 12 bits: 100101101001."
+        },
+        {
+          "type": "comparison",
+          "title": "Effect of increasing resolution or colour depth",
+          "columns": [
+            "Increase",
+            "Effect on quality",
+            "Effect on file size"
+          ],
+          "rows": [
+            [
+              "Resolution",
+              "More detail, sharper edges, can be enlarged before pixels show",
+              "Larger (more pixels)"
+            ],
+            [
+              "Colour depth",
+              "More colours, smoother gradients, more realistic",
+              "Larger (more bits per pixel)"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Metadata",
+          "content": "An image file also stores **metadata** — data about the image: width, height, colour depth, file type, date taken, camera settings. It lets the computer display the image correctly."
+        }
+      ]
+    },
+    {
+      "title": "Calculating the size of a bitmap file",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "formula",
+          "latex": "\\text{File size (bits)} = \\text{width} \\times \\text{height} \\times \\text{colour depth}",
+          "caption": "Divide by 8 for bytes, then by 1024 for KiB, again for MiB"
+        },
+        {
+          "type": "example",
+          "title": "800 × 600 pixels, 24-bit colour",
+          "content": "- Bits: 800 × 600 × 24 = 11 520 000 bits\n- Bytes: 11 520 000 ÷ 8 = 1 440 000 bytes\n- KiB: 1 440 000 ÷ 1024 = 1406.25 KiB\n- MiB: 1406.25 ÷ 1024 ≈ **1.37 MiB**"
+        },
+        {
+          "type": "example",
+          "title": "Finding the colour depth",
+          "content": "An image 100 × 50 pixels is 2500 bytes. How many colours can it use?\n- 2500 bytes × 8 = 20 000 bits\n- 20 000 ÷ (100 × 50) = **4 bits per pixel** → 2⁴ = **16 colours**"
+        },
+        {
+          "type": "comparison",
+          "title": "Units of storage",
+          "columns": [
+            "Unit",
+            "Size"
+          ],
+          "rows": [
+            [
+              "1 byte",
+              "8 bits"
+            ],
+            [
+              "1 kibibyte (KiB)",
+              "1024 bytes (1 KB = 1000 bytes)"
+            ],
+            [
+              "1 mebibyte (MiB)",
+              "1024 KiB"
+            ],
+            [
+              "1 gibibyte (GiB)",
+              "1024 MiB"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Always show the formula, the substituted numbers and the **unit** at every step. Check whether the question uses 1000 or 1024 — if not stated, either is accepted when your working is clear."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "key": "img-colours",
+      "title": "Colours from colour depth",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "text": "An image uses a colour depth of **6 bits**. How many different colours can each pixel show?",
+      "scheme": {
+        "mark_scheme": "64",
+        "accepted": {
+          "values": [
+            "64"
+          ],
+          "numeric": true
+        },
+        "explanation": "2⁶ = 64."
+      }
+    },
+    {
+      "key": "img-size-bytes",
+      "title": "Image file size",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "text": "A bitmap image is **200 × 150** pixels and has a colour depth of **8 bits**. Calculate the file size in **bytes**, ignoring metadata. Show your working.",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "1 mark: 200 × 150 × 8 (= 240 000 bits). 1 mark: ÷ 8 = 30 000 bytes.",
+        "points": [
+          {
+            "criterion": "Correct method: width × height × colour depth",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct answer 30 000 bytes (divided by 8)",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "values": [
+            "30000"
+          ],
+          "numeric": true
+        },
+        "model_answer": "200 × 150 = 30 000 pixels; 30 000 × 8 = 240 000 bits; 240 000 ÷ 8 = 30 000 bytes."
+      }
+    },
+    {
+      "key": "img-size-kib",
+      "title": "File size in KiB",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "text": "A photograph is **1024 × 768** pixels with **24-bit** colour depth. Calculate its size in **KiB** (1 KiB = 1024 bytes).",
+      "content": {
+        "unit": "KiB"
+      },
+      "scheme": {
+        "mark_scheme": "1 mark: 1024 × 768 × 24 ÷ 8 (= 2 359 296 bytes). 1 mark: ÷ 1024 = 2304 KiB.",
+        "points": [
+          {
+            "criterion": "Correct method including division by 8",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct answer 2304 KiB",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "values": [
+            "2304"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "img-effects-mcq",
+      "title": "Effect of colour depth",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "text": "What happens when the colour depth of an image is increased while the resolution stays the same?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The image has more pixels and the file is smaller"
+        },
+        {
+          "key": "B",
+          "content": "More colours can be shown and the file size increases"
+        },
+        {
+          "key": "C",
+          "content": "The image becomes more pixelated"
+        },
+        {
+          "key": "D",
+          "content": "The file size stays the same"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "img-resolution-explain",
+      "title": "Explain resolution",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "text": "Explain how reducing the resolution of an image affects its quality and file size.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "1: fewer pixels so less detail / more pixelated / lower quality. 1: fewer pixels to store so smaller file size.",
+        "points": [
+          {
+            "criterion": "Quality decreases because there are fewer pixels (less detail / pixelated)",
+            "marks": 1
+          },
+          {
+            "criterion": "File size decreases because fewer pixels need to be stored",
+            "marks": 1
+          }
+        ]
+      }
+    }
+  ]
+}

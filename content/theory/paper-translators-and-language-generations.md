@@ -1,0 +1,66 @@
+---
+summary: The five generations of programming languages and the advantages and disadvantages of compilers and interpreters.
+---
+# Generations of programming languages
+@lo 11.5.1.1@paper
+
+:::compare
+| Generation | Type | Description | Examples |
+|---|---|---|---|
+| 1GL | **Machine code** | Binary instructions executed directly by the CPU; processor-specific | `10110000 01100001` |
+| 2GL | **Assembly language** | Mnemonics (LDA, ADD, STO) for machine instructions; translated by an **assembler**; still processor-specific | x86 assembly, ARM assembly |
+| 3GL | **High-level procedural** | English-like statements, portable; one statement → many machine instructions; compiled or interpreted | C, Pascal, Python, Java |
+| 4GL | **Problem-oriented / non-procedural** | Closer to human language; describe **what** is wanted; used for databases, reports, GUIs | SQL, MATLAB, report generators |
+| 5GL | **Logic / AI languages** | Problem described by **constraints, facts and rules**; the system finds the solution | Prolog, Mercury |
+:::
+
+:::tip
+Moving from 1GL to 5GL, languages become **easier for humans** and **more portable**, but further from the hardware and usually **less efficient** to execute.
+:::
+
+# Compilers
+@lo 11.5.1.7@paper
+
+:::definition Compiler
+Translates the **whole high-level program** into machine code (an **executable file**) **before** it is run. Errors are reported for the whole program after compilation.
+:::
+
+:::compare Compiler
+| Advantages | Disadvantages |
+|---|---|
+| Compiled program **runs fast** — no translation at run time | Compiling takes time; after every change the program must be recompiled |
+| The executable can be run **without the compiler** or source code | Errors are reported only after the whole program is compiled — harder to debug |
+| **Source code is hidden** — protects intellectual property | The executable is specific to one platform (OS/CPU) |
+| Code can be **optimised** for the processor | Needs more memory during compilation |
+:::
+
+# Interpreters
+@lo 11.5.1.8@paper
+
+:::definition Interpreter
+Translates and **executes the program one statement at a time**. No executable file is produced; the interpreter is needed every time the program runs.
+:::
+
+:::compare Interpreter
+| Advantages | Disadvantages |
+|---|---|
+| **Easy debugging** — stops at the first error and shows where it is | Program **runs more slowly** — every line is translated each time it executes |
+| Changes can be tested immediately — good for development and learning | The interpreter must be installed to run the program |
+| Platform independent — the same source runs wherever there is an interpreter | **Source code is visible** to users |
+| Uses less memory at once | Errors in rarely used parts are found only when they run |
+:::
+
+:::compare Compiler vs interpreter
+| | Compiler | Interpreter |
+|---|---|---|
+| Translates | Whole program at once | One statement at a time |
+| Output | Executable file | None — executes directly |
+| Execution speed | Fast | Slow |
+| Error reporting | All errors after compiling | Stops at the first error |
+| Needed to run? | No | Yes |
+| Best for | Distributing finished software | Developing and testing |
+:::
+
+:::callout info Hybrid approach
+**Java** and **Python** compile source code to **bytecode**, which a **virtual machine** then interprets or compiles "just in time" — combining portability with good speed.
+:::

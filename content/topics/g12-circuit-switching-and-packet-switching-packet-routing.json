@@ -1,0 +1,175 @@
+{
+  "topic": "g12-circuit-switching-and-packet-switching-packet-routing",
+  "questions": [],
+  "summary": "Circuit switching and packet switching compared, the role of MAC addresses in delivering packets, and how to find the MAC address of a computer.",
+  "theory": [
+    {
+      "title": "Circuit switching and packet switching",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Circuit switching",
+              "content": "A **dedicated path (circuit)** is set up between sender and receiver **before** communication starts and is **reserved** for the whole session. All data follows the same route in order. *Traditional telephone network.*"
+            },
+            {
+              "title": "Packet switching",
+              "content": "Data is split into **packets**, each with a header (source and destination addresses, sequence number). Packets travel **independently**, possibly by **different routes**, and are **reassembled** in order at the destination. *The Internet.*"
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "columns": [
+            "",
+            "Circuit switching",
+            "Packet switching"
+          ],
+          "rows": [
+            [
+              "Connection",
+              "Dedicated path set up first",
+              "No dedicated path"
+            ],
+            [
+              "Route",
+              "Same for all data",
+              "Each packet routed separately"
+            ],
+            [
+              "Order of arrival",
+              "In order",
+              "May arrive out of order — reassembled using sequence numbers"
+            ],
+            [
+              "Use of bandwidth",
+              "Reserved even when silent — wasteful",
+              "Shared by many users — efficient"
+            ],
+            [
+              "Delay",
+              "Constant, low after set-up — good for real-time voice",
+              "Variable (packets queue at routers)"
+            ],
+            [
+              "Effect of a failure",
+              "Connection is lost",
+              "Packets are rerouted around the failure"
+            ],
+            [
+              "Security",
+              "Harder to intercept",
+              "Packets travel over shared networks — encryption needed"
+            ],
+            [
+              "Example",
+              "Landline telephone calls",
+              "Internet, email, web, VoIP"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Packet switching step by step",
+          "items": [
+            "The message is split into packets; each gets a **header**: source IP, destination IP, **sequence number**, packet count, error-check (checksum).",
+            "Each **router** reads the destination IP and forwards the packet along the best route available at that moment.",
+            "Packets may take different routes and arrive out of order.",
+            "The receiver checks each packet, **reorders** them using the sequence numbers and requests any **missing or damaged** packets again."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "MAC addresses in packet routing",
+      "objectives": [
+        "12.6.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "**IP addresses** get a packet to the right **network** — routers use them to move packets **between networks**.",
+            "**MAC addresses** get the frame to the right **device** on the **local network** — switches use them.",
+            "At each hop the **frame's MAC addresses change** (next device on the link), but the **packet's source and destination IP addresses stay the same**.",
+            "A device finds the MAC address that belongs to an IP address on its LAN using **ARP** (Address Resolution Protocol)."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "MAC address format",
+          "columns": [
+            "Part",
+            "Example (`3C:52:82:1A:9F:04`)"
+          ],
+          "rows": [
+            [
+              "First 24 bits — **OUI**, identifies the manufacturer",
+              "`3C:52:82`"
+            ],
+            [
+              "Last 24 bits — unique number of the device",
+              "`1A:9F:04`"
+            ],
+            [
+              "Total size",
+              "48 bits = 6 bytes = 12 hex digits"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Finding the MAC address of a computer",
+      "objectives": [
+        "12.6.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "System",
+            "Command / place",
+            "Look for"
+          ],
+          "rows": [
+            [
+              "Windows",
+              "`ipconfig /all` in Command Prompt (or `getmac`)",
+              "\"Physical Address\""
+            ],
+            [
+              "macOS",
+              "`ifconfig en0` in Terminal, or *System Settings → Network → Details*",
+              "\"ether\""
+            ],
+            [
+              "Linux",
+              "`ip link` or `ifconfig`",
+              "\"link/ether\""
+            ],
+            [
+              "Android / iOS",
+              "*Settings → About phone → Status* / *Settings → General → About*",
+              "\"Wi-Fi address\""
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "Wireless LAN adapter Wi-Fi:\n   Description . . . . . . . . . . . : Intel(R) Wi-Fi 6 AX201\n   Physical Address. . . . . . . . . : 3C-52-82-1A-9F-04\n   IPv4 Address. . . . . . . . . . . : 192.168.1.25",
+          "caption": "Part of the output of ipconfig /all"
+        },
+        {
+          "type": "warning",
+          "content": "Phones and laptops may use a **randomised (private) MAC address** for each Wi-Fi network to protect privacy, so the address shown for a network can differ from the hardware address."
+        }
+      ]
+    }
+  ]
+}

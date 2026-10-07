@@ -1,0 +1,541 @@
+{
+  "topic": "g11-sdlc-models",
+  "summary": "The stages of the system development life cycle and the advantages and disadvantages of the waterfall, agile and spiral development models.",
+  "theory": [
+    {
+      "title": "Stages of the system development life cycle",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "System development life cycle (SDLC)",
+          "content": "A structured sequence of stages followed when a new information system is planned, built, introduced and maintained."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  A[Analysis] --> B[Design] --> C[Development and testing] --> D[Implementation] --> E[Documentation] --> F[Evaluation and maintenance]\n  F --> A",
+          "caption": "The SDLC is a cycle — evaluation can start a new project"
+        },
+        {
+          "type": "comparison",
+          "title": "What happens at each stage",
+          "columns": [
+            "Stage",
+            "Main activities",
+            "Outputs"
+          ],
+          "rows": [
+            [
+              "Analysis",
+              "Study the current system; collect information (interviews, questionnaires, observation, documents); identify problems; produce requirements; feasibility study",
+              "Requirements specification, feasibility report"
+            ],
+            [
+              "Design",
+              "Design inputs, outputs, processes, data structures, file/database structure, interface, validation and test plan",
+              "DFDs, flowcharts, ERD, data dictionary, screen layouts, test plan"
+            ],
+            [
+              "Development and testing",
+              "Write the program code / build the database; test with normal, boundary and erroneous data",
+              "Working, tested system"
+            ],
+            [
+              "Implementation",
+              "Install hardware and software, transfer data, train users; choose a changeover method (direct, parallel, pilot, phased)",
+              "System in use"
+            ],
+            [
+              "Documentation",
+              "Write the **technical** documentation (for developers) and the **user** guide",
+              "Technical manual, user manual"
+            ],
+            [
+              "Evaluation and maintenance",
+              "Compare the system with the requirements; get user feedback; fix bugs, add features, adapt to changes",
+              "Evaluation report, updates"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Learn the order of the stages and **one key activity** for each — \"state the stage in which…\" questions are very common."
+        }
+      ]
+    },
+    {
+      "title": "Waterfall, agile and spiral models",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Waterfall model",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Stages are completed **one after another in a fixed order**; each stage must be finished and signed off before the next starts, and it is hard to go back."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  R[Requirements] --> D[Design] --> I[Implementation] --> V[Testing] --> M[Maintenance]",
+          "caption": "Waterfall"
+        },
+        {
+          "type": "comparison",
+          "title": "Waterfall",
+          "columns": [
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Simple to understand and manage",
+              "Inflexible — changes are hard and expensive once a stage is finished"
+            ],
+            [
+              "Clear milestones and documentation at each stage",
+              "The client sees the working product only at the end"
+            ],
+            [
+              "Easy to estimate cost and time",
+              "Problems found late (testing happens near the end)"
+            ],
+            [
+              "Good when requirements are clear and stable",
+              "Not suitable for long, complex projects with changing requirements"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Agile model",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Work is split into short **iterations (sprints)** of 1–4 weeks. Each sprint produces a working part of the system that the client reviews; requirements can change between sprints."
+        },
+        {
+          "type": "comparison",
+          "title": "Agile",
+          "columns": [
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Flexible — adapts to changing requirements",
+              "Final cost and deadline are hard to predict"
+            ],
+            [
+              "Client is involved and gives feedback regularly",
+              "Needs constant communication and client availability"
+            ],
+            [
+              "Working software is delivered early and often",
+              "Less documentation"
+            ],
+            [
+              "Problems are found early",
+              "Scope can grow uncontrollably; needs an experienced team"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Spiral model",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Development goes round a spiral several times. Each loop has four phases: **planning → risk analysis → engineering (build and test) → evaluation by the client**. Each loop produces a more complete prototype."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  P[Plan objectives] --> R[Analyse risks] --> E[Engineer: build and test] --> C[Client evaluation] --> P",
+          "caption": "One loop of the spiral"
+        },
+        {
+          "type": "comparison",
+          "title": "Spiral",
+          "columns": [
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Strong **risk management** — risks found and reduced early",
+              "Expensive; risk analysis needs experts"
+            ],
+            [
+              "Suitable for large, complex, high-risk projects",
+              "Complex to manage"
+            ],
+            [
+              "Prototypes allow early client feedback",
+              "Can go on for many loops; end date unclear"
+            ],
+            [
+              "Requirements can be refined each loop",
+              "Not worth it for small projects"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing a model",
+          "columns": [
+            "Project",
+            "Suitable model",
+            "Why"
+          ],
+          "rows": [
+            [
+              "Small school library system with fixed requirements",
+              "Waterfall",
+              "Requirements known; simple to manage"
+            ],
+            [
+              "A start-up's mobile app where features change often",
+              "Agile",
+              "Frequent feedback and changes"
+            ],
+            [
+              "Software for a bank's new payment system",
+              "Spiral",
+              "High risk; risk analysis in every loop"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "The examiner often asks for benefits of the waterfall model: \"**clear structure**\", \"a stage is **completed before** moving to the next\", \"**easy to manage and document**\", \"**cost and time can be estimated**\"."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "key": "sdlc-stage-order",
+      "title": "Order of SDLC stages",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "text": "Which sequence shows the stages of the system development life cycle in the correct order?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Design → Analysis → Testing → Development → Implementation"
+        },
+        {
+          "key": "B",
+          "content": "Analysis → Design → Development → Testing → Implementation"
+        },
+        {
+          "key": "C",
+          "content": "Analysis → Development → Design → Implementation → Testing"
+        },
+        {
+          "key": "D",
+          "content": "Development → Analysis → Design → Testing → Implementation"
+        }
+      ],
+      "content": {
+        "hint": "You must understand the problem before you can plan a solution."
+      },
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The problem is investigated (analysis) before the solution is planned (design), built (development), checked (testing) and installed (implementation)."
+      }
+    },
+    {
+      "key": "sdlc-analysis-output",
+      "title": "Output of the analysis stage",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "text": "State the main document produced at the end of the **analysis** stage.",
+      "content": {
+        "hint": "It lists what the new system must do."
+      },
+      "scheme": {
+        "mark_scheme": "Requirements specification (accept: system requirements / requirements document / user requirements).",
+        "points": [
+          {
+            "criterion": "Requirements specification or equivalent",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A requirements specification.",
+        "accepted": {
+          "values": [
+            "requirements specification",
+            "requirement specification",
+            "requirements document",
+            "system requirements",
+            "requirements specification document",
+            "system requirements specification",
+            "user requirements"
+          ]
+        },
+        "explanation": "Analysis investigates the problem and records what the new system must do in a requirements specification, which is the input to the design stage."
+      }
+    },
+    {
+      "key": "sdlc-match-stages",
+      "title": "Match stages to activities",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "text": "Match each SDLC stage to the activity that takes place in it.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Analysis"
+          },
+          {
+            "key": "L2",
+            "text": "Design"
+          },
+          {
+            "key": "L3",
+            "text": "Testing"
+          },
+          {
+            "key": "L4",
+            "text": "Maintenance"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Interviewing users and observing the current system"
+          },
+          {
+            "key": "R2",
+            "text": "Producing input screen layouts and data structures"
+          },
+          {
+            "key": "R3",
+            "text": "Running the program with normal, boundary and erroneous data"
+          },
+          {
+            "key": "R4",
+            "text": "Changing the system after it is in use to fix newly found errors"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Analysis–R1, Design–R2, Testing–R3, Maintenance–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "sdlc-agile-tf",
+      "title": "Agile and requirements",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "text": "In the agile model, all requirements must be fixed and signed off before any code is written.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Fixed, signed-off requirements are a feature of the waterfall model. Agile expects requirements to change and adapts the plan after each iteration."
+      }
+    },
+    {
+      "key": "sdlc-spiral-feature",
+      "title": "Distinctive feature of the spiral model",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "text": "Which feature most clearly distinguishes the spiral model from the other development models?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It produces working software at the end of each sprint"
+        },
+        {
+          "key": "B",
+          "content": "It completes each stage fully before moving on"
+        },
+        {
+          "key": "C",
+          "content": "It includes a risk-analysis phase in every iteration"
+        },
+        {
+          "key": "D",
+          "content": "It does not require any documentation"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Risk analysis in each loop is the defining characteristic of the spiral model."
+      }
+    },
+    {
+      "key": "sdlc-waterfall-disadvantages",
+      "title": "Disadvantages of waterfall",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "text": "Select **two** disadvantages of the waterfall model.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The client does not see a working system until late in the project"
+        },
+        {
+          "key": "B",
+          "content": "Every stage is documented"
+        },
+        {
+          "key": "C",
+          "content": "Changes to requirements during development are difficult and costly"
+        },
+        {
+          "key": "D",
+          "content": "Milestones are easy to plan"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "sdlc-agile-explain",
+      "title": "Explain an advantage of agile",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "text": "Explain **one** advantage of using the agile model rather than the waterfall model.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "1 mark for identifying an advantage; 1 mark for explaining why it is an advantage / how it arises.\n\nExamples:\n- Can respond to changing requirements (1) because the plan is reviewed after each short iteration (1).\n- Client sees working parts early (1) so misunderstandings are found and corrected before much time/money is wasted (1).\n- Working parts can be used before the project ends (1) because each iteration delivers a usable increment (1).",
+        "points": [
+          {
+            "criterion": "Identifies a valid advantage of agile over waterfall",
+            "marks": 1
+          },
+          {
+            "criterion": "Explains why/how this advantage arises (expansion linked to iterations or client feedback)",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Agile can cope with changing requirements, because the system is built in short iterations and the client reviews each one, so new or changed requirements can be included in the next iteration instead of having to restart the project.",
+        "ai_instructions": "Award the second mark only if the expansion explains the mechanism (short iterations, regular client feedback, incremental delivery). A second advantage without expansion does not earn the second mark."
+      }
+    },
+    {
+      "key": "sdlc-scenario-hospital",
+      "title": "Choose a model for a hospital system",
+      "type": "scenario",
+      "marks": 4,
+      "difficulty": "exam",
+      "command_word": "discuss",
+      "grading": "AI",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "text": "A hospital is commissioning a large system that controls the dosage of medicines given to patients. The system is expensive to build and errors could endanger lives. Some requirements are not yet fully understood.\n\nDiscuss which development model (waterfall, agile or spiral) is most suitable for this project. Justify your answer.",
+      "content": {
+        "answer_lines": 10
+      },
+      "scheme": {
+        "mark_scheme": "Up to 4 marks. Expected choice: **spiral** (accept a well-justified alternative, maximum 3 marks).\n\n- Identifies spiral as most suitable (1)\n- Justification linked to risk: risk analysis in every loop reduces the danger of errors in a safety-critical system (1)\n- Justification linked to size/cost: suitable for large, expensive projects (1)\n- Justification linked to unclear requirements: prototypes/iterations allow requirements to be refined (1)\n- Comparison point: why waterfall (fixed requirements) or agile (less up-front risk analysis/documentation) is less suitable (1)",
+        "points": [
+          {
+            "criterion": "Chooses the spiral model (or a justified alternative)",
+            "marks": 1
+          },
+          {
+            "criterion": "Links risk analysis to the safety-critical nature of the system",
+            "marks": 1
+          },
+          {
+            "criterion": "Links model to the large/expensive scale of the project",
+            "marks": 1
+          },
+          {
+            "criterion": "Links iterations/prototypes to the requirements that are not fully understood",
+            "marks": 1
+          },
+          {
+            "criterion": "Explains why another model is less suitable",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The spiral model is most suitable. Because errors could endanger patients, the risk-analysis phase in every loop means hazards are identified and reduced before each new part is built. The project is large and expensive, which is the kind of project spiral is designed for. As some requirements are unclear, each loop can produce a prototype that doctors evaluate, refining the requirements. Waterfall would be unsuitable because it needs all requirements fixed at the start, and agile performs less formal risk analysis and documentation, which a safety-critical system needs.",
+        "ai_instructions": "Maximum 4 marks. Points must be applied to the hospital scenario; generic statements about a model that are not linked to the scenario earn at most 1 mark in total. If the student chooses agile or waterfall, award a maximum of 3 marks for justification that is accurate and linked to the scenario.",
+        "explanation": "A 'discuss' question needs a decision and justification applied to the context, ideally with a counter-point about the alternatives."
+      }
+    }
+  ]
+}

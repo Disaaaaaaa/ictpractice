@@ -1,0 +1,50 @@
+---
+summary: Why an implementation plan is essential and how to write one — tasks, timeline, resources, data conversion, training, testing and risks.
+---
+# Why an implementation plan is important
+@lo 12.2.1.9
+
+:::definition Implementation plan
+A document that sets out **how, when and by whom** the new system will be installed and put into use: the tasks, their order and timing, resources, training, data transfer, testing and risk management.
+:::
+
+- Ensures **no task is forgotten** (hardware, software, data, training, documentation).
+- Puts tasks in the **right order** and shows **dependencies** (data cannot be transferred before the database is installed).
+- Sets **deadlines** and assigns **responsibilities**, so progress can be monitored.
+- Estimates **cost and resources**, keeping the project within budget.
+- Minimises **disruption** to the organisation's normal work.
+- Identifies **risks** and fallback actions in advance.
+
+# Making an implementation plan
+@lo 12.2.1.10
+
+:::compare Contents of the plan
+| Section | Contents |
+|---|---|
+| Changeover method | Direct / parallel / pilot / phased, with justification |
+| Hardware installation | Computers, network, printers, servers — who installs, when |
+| Software installation | OS, DBMS, application, licences, configuration |
+| Data conversion | Moving existing data into the new system; checking it (verification) |
+| Testing | Acceptance testing with real users and data |
+| Training | Who is trained, how (courses, manuals, videos), when |
+| Documentation | User guide, technical documentation handed over |
+| Timeline | Tasks with start/end dates — often a **Gantt chart** |
+| Responsibilities | Person responsible for each task |
+| Risks | What could go wrong and the backup plan |
+:::
+
+:::compare Example plan — new library system at a school (pilot method)
+| No. | Task | Responsible | Start | Duration | Depends on |
+|---|---|---|---|---|---|
+| 1 | Install server and barcode scanners | IT technician | 1 Sep | 3 days | — |
+| 2 | Install and configure the library software | Developer | 4 Sep | 2 days | 1 |
+| 3 | Enter book records and scan barcodes | Librarians | 6 Sep | 2 weeks | 2 |
+| 4 | Train librarians | Developer | 13 Sep | 2 days | 2 |
+| 5 | Pilot: Grade 11 students borrow with the new system | Head librarian | 20 Sep | 2 weeks | 3, 4 |
+| 6 | Evaluate the pilot, fix problems | Developer | 4 Oct | 1 week | 5 |
+| 7 | Roll out to the whole school | Head librarian | 11 Oct | — | 6 |
+:::
+
+:::tip
+A good plan answer lists the **steps in a logical order**, gives each a **time and a person**, and states the **changeover method** with a reason.
+:::

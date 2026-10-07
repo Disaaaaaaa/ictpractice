@@ -1,0 +1,1553 @@
+{
+  "topic": "paper-sorting-and-searching",
+  "summary": "How bubble sort and insertion sort put data in order, how binary search finds a value in a sorted array, and how to write each algorithm in pseudocode for a specific problem.",
+  "theory": [
+    {
+      "title": "Sorting and searching: key ideas",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Programs constantly need to **put data in order** (sorting) and **find a particular item** (searching). This topic covers two standard sorting algorithms — **bubble sort** and **insertion sort** — and the fastest standard way to search an ordered list, **binary search**. In Paper 3 you may be asked to describe them, trace them with given data, or write them in pseudocode for a particular problem."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Sorting",
+              "content": "Rearranging items into a defined order, usually **ascending** (smallest first) or **descending** (largest first), by number or alphabetically."
+            },
+            {
+              "title": "Searching",
+              "content": "Checking a data structure to find whether a target value is present and, if so, **where** (its index/position)."
+            },
+            {
+              "title": "Array",
+              "content": "A fixed-size, indexed collection of items of the same data type, e.g. `Numbers[1:8]`. Sorting and searching here work on 1D arrays."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Vocabulary used in exam questions",
+          "columns": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Pass",
+              "One complete run through the array (or through the unsorted part of it)."
+            ],
+            [
+              "Comparison",
+              "Checking two values against each other, e.g. `A[j] > A[j + 1]`."
+            ],
+            [
+              "Swap",
+              "Exchanging two values; needs a temporary variable so that neither value is lost."
+            ],
+            [
+              "In-place",
+              "The algorithm sorts inside the original array and needs almost no extra memory."
+            ],
+            [
+              "Target / search key",
+              "The value being searched for."
+            ],
+            [
+              "Precondition",
+              "Something that must be true before an algorithm can be used, e.g. *the array must be sorted* for binary search."
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Indexes in this pack",
+          "content": "Pseudocode here follows the Cambridge style used in NIS exams: arrays start at index **1**, assignment is written `←`, and integer division is `DIV`. Python versions at the end use index **0**."
+        }
+      ]
+    },
+    {
+      "title": "Bubble sort",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Bubble sort",
+          "content": "A sorting algorithm that repeatedly steps through the array, **compares each pair of adjacent items and swaps them if they are in the wrong order**. After each pass the largest remaining value has \"bubbled\" to the end of the unsorted part."
+        },
+        {
+          "type": "steps",
+          "title": "How it works (ascending order)",
+          "items": [
+            "Start at the first item. Compare it with the item next to it.",
+            "If the first is **greater** than the second, swap them.",
+            "Move one position along and repeat until the end of the unsorted part — this is one **pass**.",
+            "After pass 1 the largest value is in the last position, so the next pass can stop one item earlier.",
+            "Repeat passes until a whole pass makes **no swaps** (the array is sorted) or *n − 1* passes have been done."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: sort 5, 1, 4, 2, 8",
+          "content": "**Pass 1:** (5,1) swap → 1 5 4 2 8 · (5,4) swap → 1 4 5 2 8 · (5,2) swap → 1 4 2 5 8 · (5,8) no swap → **1 4 2 5 8**\n\n**Pass 2:** (1,4) no swap · (4,2) swap → 1 2 4 5 8 · (4,5) no swap → **1 2 4 5 8**\n\n**Pass 3:** (1,2) no swap · (2,4) no swap → no swaps at all, so the algorithm **stops early**.\n\nTotal: 9 comparisons, 4 swaps."
+        },
+        {
+          "type": "interactive",
+          "widget": "sort_visualizer",
+          "title": "Step through bubble sort",
+          "config": {
+            "algorithm": "bubble",
+            "values": [
+              5,
+              1,
+              4,
+              2,
+              8
+            ]
+          }
+        },
+        {
+          "type": "heading",
+          "text": "Bubble sort in pseudocode",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "A simple version always performs *n − 1* passes. Each comparison needs a **temporary variable** for the swap:"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Numbers : ARRAY[1:8] OF INTEGER\nDECLARE Pass, j, Temp : INTEGER\n\nFOR Pass ← 1 TO 7\n    FOR j ← 1 TO 7\n        IF Numbers[j] > Numbers[j + 1] THEN\n            Temp ← Numbers[j]\n            Numbers[j] ← Numbers[j + 1]\n            Numbers[j + 1] ← Temp\n        ENDIF\n    NEXT j\nNEXT Pass",
+          "caption": "Basic bubble sort"
+        },
+        {
+          "type": "paragraph",
+          "content": "An **improved** version (the one most mark schemes expect) adds two refinements: each pass stops one item earlier (`8 - Pass`), and a **flag** records whether any swap happened so the algorithm can stop as soon as the array is sorted:"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Numbers : ARRAY[1:8] OF INTEGER\nDECLARE Pass, j, Temp : INTEGER\nDECLARE Swapped : BOOLEAN\n\nPass ← 1\nREPEAT\n    Swapped ← FALSE\n    FOR j ← 1 TO 8 - Pass\n        IF Numbers[j] > Numbers[j + 1] THEN\n            Temp ← Numbers[j]\n            Numbers[j] ← Numbers[j + 1]\n            Numbers[j + 1] ← Temp\n            Swapped ← TRUE\n        ENDIF\n    NEXT j\n    Pass ← Pass + 1\nUNTIL Swapped = FALSE OR Pass = 8",
+          "caption": "Improved bubble sort with a Swapped flag"
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "Exam tip",
+          "content": "Typical marks for writing bubble sort: outer loop for passes (1) · inner loop over adjacent pairs with the correct upper bound (1) · comparison of `A[j]` with `A[j + 1]` (1) · correct three-line swap using a temporary variable (1) · flag to stop when no swaps are made (1). For **descending** order only the comparison changes to `<`."
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Common mistakes",
+          "content": "- Swapping without a temporary variable (`A[j] ← A[j+1]` then `A[j+1] ← A[j]` loses a value).\n- Inner loop running to `n` instead of `n - 1`, so `A[j + 1]` goes past the end of the array.\n- Resetting `Swapped` outside the outer loop, so the early exit never happens."
+        }
+      ]
+    },
+    {
+      "title": "Tracing bubble sort",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A **trace table** records the values of variables as an algorithm runs. Exam questions often give a short array and ask you to show its contents after each pass."
+        },
+        {
+          "type": "comparison",
+          "title": "Improved bubble sort on 7, 3, 9, 2 (n = 4)",
+          "columns": [
+            "Pass",
+            "Comparisons made",
+            "Array after the pass",
+            "Swapped"
+          ],
+          "rows": [
+            [
+              "1",
+              "(7,3) swap · (7,9) — · (9,2) swap",
+              "3, 7, 2, 9",
+              "TRUE"
+            ],
+            [
+              "2",
+              "(3,7) — · (7,2) swap",
+              "3, 2, 7, 9",
+              "TRUE"
+            ],
+            [
+              "3",
+              "(3,2) swap",
+              "2, 3, 7, 9",
+              "TRUE"
+            ],
+            [
+              "—",
+              "Loop ends: Pass = 4, so n − 1 = 3 passes have been made",
+              "2, 3, 7, 9",
+              "—"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Notice that the number of comparisons in each pass falls by one (3, 2, 1), because the end of the array is already sorted. The worst case for *n* items is (n − 1) + (n − 2) + … + 1 = **n(n − 1) / 2** comparisons."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Best and worst case",
+          "content": "**Best case** (already sorted): one pass with *n − 1* comparisons and no swaps — the flag stops the algorithm immediately.\n\n**Worst case** (reverse order): every comparison causes a swap; *n(n − 1)/2* comparisons. For 1000 items that is 499 500 comparisons, which is why bubble sort is only suitable for small data sets."
+        }
+      ]
+    },
+    {
+      "title": "Insertion sort",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Insertion sort",
+          "content": "A sorting algorithm that builds a **sorted part** at the start of the array one item at a time: each new item (the *key*) is taken from the unsorted part and **inserted into its correct position** in the sorted part by shifting larger items one place to the right."
+        },
+        {
+          "type": "paragraph",
+          "content": "It works like sorting playing cards in your hand: you pick up one card at a time and slide it into the right place among the cards you already hold."
+        },
+        {
+          "type": "steps",
+          "title": "How it works (ascending order)",
+          "items": [
+            "Treat the first item as a sorted list of one item.",
+            "Take the next item as the **key**.",
+            "Compare the key with the items in the sorted part, moving from right to left.",
+            "While an item is **greater than the key**, shift it one place to the right.",
+            "When a smaller (or equal) item is found, or the start of the array is reached, **insert the key** in the gap.",
+            "Repeat until every item has been inserted."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: sort 5, 1, 4, 2, 8",
+          "content": "Sorted part in **bold**.\n\n- Start: **5** | 1 4 2 8\n- Key 1: 5 > 1, shift 5 → insert 1 at the start → **1 5** | 4 2 8\n- Key 4: 5 > 4, shift 5; 1 < 4 stop → **1 4 5** | 2 8\n- Key 2: shift 5, shift 4; 1 < 2 stop → **1 2 4 5** | 8\n- Key 8: 5 < 8, no shift → **1 2 4 5 8**\n\nTotal: 7 comparisons, 4 shifts."
+        },
+        {
+          "type": "interactive",
+          "widget": "sort_visualizer",
+          "title": "Step through insertion sort",
+          "config": {
+            "algorithm": "insertion",
+            "values": [
+              5,
+              1,
+              4,
+              2,
+              8
+            ]
+          }
+        },
+        {
+          "type": "heading",
+          "text": "Insertion sort in pseudocode",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Numbers : ARRAY[1:8] OF INTEGER\nDECLARE i, j, Key : INTEGER\n\nFOR i ← 2 TO 8\n    Key ← Numbers[i]\n    j ← i - 1\n    WHILE j > 0 AND Numbers[j] > Key\n        Numbers[j + 1] ← Numbers[j]\n        j ← j - 1\n    ENDWHILE\n    Numbers[j + 1] ← Key\nNEXT i",
+          "caption": "Insertion sort"
+        },
+        {
+          "type": "comparison",
+          "title": "Trace of the outer loop for 5, 1, 4, 2, 8",
+          "columns": [
+            "i",
+            "Key",
+            "Values shifted",
+            "Key inserted at",
+            "Array afterwards"
+          ],
+          "rows": [
+            [
+              "2",
+              "1",
+              "5",
+              "1",
+              "1, 5, 4, 2, 8"
+            ],
+            [
+              "3",
+              "4",
+              "5",
+              "2",
+              "1, 4, 5, 2, 8"
+            ],
+            [
+              "4",
+              "2",
+              "5, 4",
+              "2",
+              "1, 2, 4, 5, 8"
+            ],
+            [
+              "5",
+              "8",
+              "—",
+              "5",
+              "1, 2, 4, 5, 8"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Common mistakes",
+          "content": "- Starting the outer loop at 1 instead of 2 (the first item is already \"sorted\").\n- **Swapping** in the inner loop instead of **shifting** — the key is stored once and written back once at `j + 1`.\n- Forgetting the `j > 0` condition, so the loop runs off the start of the array."
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "Exam tip",
+          "content": "When asked to *describe* insertion sort, three marking points usually cover it: the list is split into a sorted and an unsorted part (1) · each item from the unsorted part is compared with the sorted items (1) · larger items are shifted right and the item is inserted in the correct place (1)."
+        }
+      ]
+    },
+    {
+      "title": "Bubble sort or insertion sort?",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Feature",
+            "Bubble sort",
+            "Insertion sort"
+          ],
+          "rows": [
+            [
+              "Basic idea",
+              "Swap adjacent items that are out of order",
+              "Insert each item into a growing sorted part"
+            ],
+            [
+              "Worst-case comparisons",
+              "n(n − 1)/2",
+              "n(n − 1)/2"
+            ],
+            [
+              "Best case (already sorted)",
+              "n − 1 comparisons (with a flag)",
+              "n − 1 comparisons"
+            ],
+            [
+              "Data movement",
+              "Many swaps (3 assignments each)",
+              "Shifts (1 assignment each), so usually faster"
+            ],
+            [
+              "Extra memory",
+              "One temporary variable (in-place)",
+              "One key variable (in-place)"
+            ],
+            [
+              "Works well for",
+              "Very small or nearly sorted data; easy to code",
+              "Small or nearly sorted data; data arriving one item at a time"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Both algorithms have the same order of growth in the worst case, but insertion sort normally performs **fewer comparisons and moves**, so it is usually the faster of the two in practice. For large data sets both are slow; far more efficient algorithms such as merge sort exist (beyond this objective)."
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "Exam tip",
+          "content": "In a *compare* question, each point must mention **both** algorithms, e.g. \"Bubble sort moves data by swapping neighbours, whereas insertion sort shifts items to make a gap for the key.\""
+        }
+      ]
+    },
+    {
+      "title": "Linear search (for comparison)",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Linear search",
+          "content": "Checks each item in turn, from the first, until the target is found or the end of the array is reached. Works on **unsorted** data."
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Index : INTEGER\nDECLARE Found : BOOLEAN\n\nIndex ← 1\nFound ← FALSE\nWHILE Index <= 100 AND Found = FALSE\n    IF Data[Index] = Target THEN\n        Found ← TRUE\n    ELSE\n        Index ← Index + 1\n    ENDIF\nENDWHILE",
+          "caption": "Linear search"
+        },
+        {
+          "type": "paragraph",
+          "content": "In the worst case linear search makes **n** comparisons (the item is last or not present). Binary search is much faster — but only if the data is sorted."
+        }
+      ]
+    },
+    {
+      "title": "Binary search",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Binary search",
+          "content": "A search algorithm for a **sorted** array that repeatedly compares the target with the **middle item** and discards the half that cannot contain the target, until the target is found or no items remain."
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "Precondition",
+          "content": "The array **must already be sorted**. On unsorted data binary search can report \"not found\" for a value that is actually present."
+        },
+        {
+          "type": "steps",
+          "title": "How it works",
+          "items": [
+            "Set `Low` to the first index and `High` to the last index.",
+            "Find the middle position: `Mid ← (Low + High) DIV 2`.",
+            "If `A[Mid]` equals the target → **found**, stop.",
+            "If `A[Mid]` is **less than** the target, the target can only be in the upper half: `Low ← Mid + 1`.",
+            "If `A[Mid]` is **greater than** the target, it can only be in the lower half: `High ← Mid - 1`.",
+            "Repeat while `Low <= High`. If `Low` becomes greater than `High`, the target is **not in the array**."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example: find 38 in 3, 8, 12, 17, 23, 31, 38, 44, 52, 60, 71",
+          "content": "| Low | High | Mid | A[Mid] | Decision |\n|---|---|---|---|---|\n| 1 | 11 | 6 | 31 | 31 < 38 → Low ← 7 |\n| 7 | 11 | 9 | 52 | 52 > 38 → High ← 8 |\n| 7 | 8 | 7 | 38 | **found at position 7** |\n\nOnly 3 comparisons for 11 items; a linear search would need 7."
+        },
+        {
+          "type": "example",
+          "title": "Unsuccessful search: find 20 in the same array",
+          "content": "| Low | High | Mid | A[Mid] | Decision |\n|---|---|---|---|---|\n| 1 | 11 | 6 | 31 | 31 > 20 → High ← 5 |\n| 1 | 5 | 3 | 12 | 12 < 20 → Low ← 4 |\n| 4 | 5 | 4 | 17 | 17 < 20 → Low ← 5 |\n| 5 | 5 | 5 | 23 | 23 > 20 → High ← 4 |\n| 5 | 4 | — | — | Low > High → **not found** |"
+        },
+        {
+          "type": "interactive",
+          "widget": "binary_search",
+          "title": "Step through binary search",
+          "config": {
+            "values": [
+              3,
+              8,
+              12,
+              17,
+              23,
+              31,
+              38,
+              44,
+              52,
+              60,
+              71
+            ],
+            "target": 38
+          }
+        },
+        {
+          "type": "heading",
+          "text": "Binary search in pseudocode",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Low, High, Mid : INTEGER\nDECLARE Found : BOOLEAN\n\nLow ← 1\nHigh ← 100\nFound ← FALSE\n\nWHILE Low <= High AND Found = FALSE\n    Mid ← (Low + High) DIV 2\n    IF Data[Mid] = Target THEN\n        Found ← TRUE\n    ELSE\n        IF Data[Mid] < Target THEN\n            Low ← Mid + 1\n        ELSE\n            High ← Mid - 1\n        ENDIF\n    ENDIF\nENDWHILE\n\nIF Found = TRUE THEN\n    OUTPUT \"Found at position \", Mid\nELSE\n    OUTPUT \"Not found\"\nENDIF",
+          "caption": "Iterative binary search"
+        },
+        {
+          "type": "formula",
+          "latex": "\\text{maximum comparisons} = \\lceil \\log_2 (n + 1) \\rceil",
+          "caption": "Each comparison halves the remaining items: 100 items → 7, 1 000 → 10, 1 000 000 → 20"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Common mistakes",
+          "content": "- `Low ← Mid` or `High ← Mid` instead of `Mid + 1` / `Mid - 1` — the same item is checked again and the loop can run forever.\n- Calculating `Mid` with `/` instead of `DIV`, giving a non-integer index.\n- Using `WHILE Low < High`, which misses the last remaining item.\n- Applying binary search to unsorted data."
+        }
+      ]
+    },
+    {
+      "title": "Using binary search to solve a specific problem",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Exam questions describe a situation and ask you to write the search for it. Identify **what is stored** (array name, size, type), **what is searched for**, and **what must be returned or output**. Writing the search as a **function** that returns the position (or −1 if not found) is a clean, reusable answer."
+        },
+        {
+          "type": "example",
+          "title": "Problem 1: school library",
+          "content": "A library stores 2000 book ISBN numbers in **ascending order** in the array `ISBN[1:2000]`. Write a function `FindBook(SearchISBN)` that returns the index of the book, or −1 if the library does not have it."
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "FUNCTION FindBook(SearchISBN : INTEGER) RETURNS INTEGER\n    DECLARE Low, High, Mid : INTEGER\n    Low ← 1\n    High ← 2000\n    WHILE Low <= High\n        Mid ← (Low + High) DIV 2\n        IF ISBN[Mid] = SearchISBN THEN\n            RETURN Mid\n        ENDIF\n        IF ISBN[Mid] < SearchISBN THEN\n            Low ← Mid + 1\n        ELSE\n            High ← Mid - 1\n        ENDIF\n    ENDWHILE\n    RETURN -1\nENDFUNCTION",
+          "caption": "Solution"
+        },
+        {
+          "type": "example",
+          "title": "Problem 2: searching names (strings)",
+          "content": "`Names[1:30]` holds a class list sorted **alphabetically**. String comparisons such as `Names[Mid] < Target` compare alphabetically, so exactly the same algorithm works: \"Aruzhan\" < \"Dias\" < \"Madina\". The output could be the student's register number `Mid`."
+        },
+        {
+          "type": "example",
+          "title": "Problem 3: data that is not yet sorted",
+          "content": "Test scores are entered in any order into `Scores[1:200]`, and the teacher then needs to look up scores many times. A good solution is: **sort once** (e.g. insertion sort), then use **binary search** for every lookup. Sorting costs time once; every later search is then very fast."
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "Exam tip — marks for writing binary search",
+          "content": "Initialise `Low` and `High` correctly (1) · loop while `Low <= High` (and not found) (1) · calculate `Mid` with `DIV` (1) · compare `A[Mid]` with the target and stop when equal (1) · update `Low ← Mid + 1` or `High ← Mid - 1` correctly (1) · output/return the position or a not-found result (1)."
+        }
+      ]
+    },
+    {
+      "title": "Linear search or binary search?",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Feature",
+            "Linear search",
+            "Binary search"
+          ],
+          "rows": [
+            [
+              "Data must be sorted?",
+              "No",
+              "Yes (precondition)"
+            ],
+            [
+              "Method",
+              "Check items one by one from the start",
+              "Check the middle item and discard half each time"
+            ],
+            [
+              "Worst-case comparisons (n items)",
+              "n",
+              "⌈log₂(n + 1)⌉"
+            ],
+            [
+              "1 000 000 items",
+              "up to 1 000 000 comparisons",
+              "at most 20 comparisons"
+            ],
+            [
+              "Best for",
+              "Small or unsorted lists; a single search",
+              "Large sorted lists; many searches"
+            ],
+            [
+              "Complexity of code",
+              "Very simple",
+              "More complex (Low, High, Mid)"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The algorithms in Python",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "The same algorithms in Python. Python lists start at index **0**, so the loop bounds are one lower than in the pseudocode."
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "def bubble_sort(a):\n    n = len(a)\n    for pass_no in range(1, n):\n        swapped = False\n        for j in range(n - pass_no):\n            if a[j] > a[j + 1]:\n                a[j], a[j + 1] = a[j + 1], a[j]\n                swapped = True\n        if not swapped:\n            break\n    return a",
+          "caption": "Bubble sort with an early-exit flag"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "def insertion_sort(a):\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i - 1\n        while j >= 0 and a[j] > key:\n            a[j + 1] = a[j]\n            j -= 1\n        a[j + 1] = key\n    return a",
+          "caption": "Insertion sort"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "def binary_search(a, target):\n    low, high = 0, len(a) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if a[mid] == target:\n            return mid\n        if a[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+          "caption": "Binary search returning the index or -1"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Note",
+          "content": "Python's `and` stops as soon as the first condition is false, so `j >= 0 and a[j] > key` never reads `a[-1]`. Some languages evaluate both sides; then the check of `j` must be done separately."
+        }
+      ]
+    },
+    {
+      "title": "Exam knowledge and common mistakes",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "You should be able to",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "Describe bubble sort and insertion sort in words.",
+            "Show the contents of an array after each pass of either sort.",
+            "Write bubble sort (with a Swapped flag) and insertion sort in pseudocode.",
+            "State the precondition for binary search and explain why it is needed.",
+            "Trace binary search with a table of Low, High and Mid.",
+            "Write binary search in pseudocode for a given scenario, including the not-found case.",
+            "Compare bubble/insertion sort, and linear/binary search."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Mistakes that lose marks",
+          "columns": [
+            "Mistake",
+            "Correction"
+          ],
+          "rows": [
+            [
+              "Swap without a temporary variable",
+              "`Temp ← A[j]`, `A[j] ← A[j+1]`, `A[j+1] ← Temp`"
+            ],
+            [
+              "Inner bubble loop goes to n",
+              "Go to `n - Pass` (or `n - 1`) so that `A[j + 1]` exists"
+            ],
+            [
+              "Insertion sort outer loop starts at 1",
+              "Start at 2: the first item is already a sorted list"
+            ],
+            [
+              "Binary search on unsorted data",
+              "Sort first, or use linear search"
+            ],
+            [
+              "`Low ← Mid` / `High ← Mid`",
+              "`Low ← Mid + 1` / `High ← Mid - 1`"
+            ],
+            [
+              "`Mid ← (Low + High) / 2`",
+              "`Mid ← (Low + High) DIV 2`"
+            ],
+            [
+              "No not-found result",
+              "Output \"Not found\" or return −1 when `Low > High`"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Command words",
+          "columns": [
+            "Command word",
+            "What to write"
+          ],
+          "rows": [
+            [
+              "Describe",
+              "The steps of the algorithm in order, in words."
+            ],
+            [
+              "Explain",
+              "Why a step is needed or why one algorithm is better in a situation."
+            ],
+            [
+              "Compare",
+              "Similarities/differences, each point referring to both algorithms."
+            ],
+            [
+              "Complete / Write",
+              "Valid pseudocode with correct loop bounds, conditions and assignments."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Lesson summary",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "**Bubble sort** compares adjacent items and swaps them; after each pass the largest remaining item is in place. A `Swapped` flag allows an early stop.",
+            "**Insertion sort** inserts each item into a growing sorted part by shifting larger items right.",
+            "Both sorts are in-place and make about *n²/2* comparisons in the worst case; insertion sort usually does less work.",
+            "**Binary search** needs sorted data; it compares the middle item and halves the search range each time using `Low`, `High` and `Mid ← (Low + High) DIV 2`.",
+            "Binary search needs at most ⌈log₂(n + 1)⌉ comparisons, far fewer than linear search on large data.",
+            "For a specific problem, state the array, the target and the result (position or not found), and write the algorithm as a function."
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Learning objectives covered",
+          "content": "11.5.2.4 — write an algorithm/pseudocode for insertion sort and bubble sort. 11.5.2.5 — write pseudocode for binary search to solve a specific problem."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "key": "paper-sorting-and-searching-binary-update",
+      "title": "Binary search update",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "In a binary search of an ascending sorted array, the value being searched for is greater than the value at `Middle`. Which update should be made next?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`High ← Middle - 1`"
+        },
+        {
+          "key": "B",
+          "content": "`Low ← Middle + 1`"
+        },
+        {
+          "key": "C",
+          "content": "`Middle ← Low + High`"
+        },
+        {
+          "key": "D",
+          "content": "`Found ← TRUE`"
+        }
+      ],
+      "content": {},
+      "scheme": {
+        "mark_scheme": "B: `Low ← Middle + 1` (1)",
+        "points": [
+          {
+            "criterion": "Selects the correct update for searching the upper half of the array.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "ai_instructions": "",
+        "explanation": "If the target is greater than the middle value in an ascending array, all values at or below `Middle` can be discarded. The next search interval starts at `Middle + 1`."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-binary-sorted-true",
+      "title": "Binary search needs order",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "Binary search can be used correctly on any array, whether or not the array is sorted.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "False (1)",
+        "points": [
+          {
+            "criterion": "States that the statement is false.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "False",
+        "accepted": {
+          "correct": false
+        },
+        "ai_instructions": "",
+        "explanation": "Binary search depends on comparing the target with the middle value and discarding half of the remaining data. This only works if the data is sorted into a known order."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-algorithm-matching",
+      "title": "Match algorithm features",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "text": "Match each algorithm or idea to the most appropriate description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Bubble sort"
+          },
+          {
+            "key": "L2",
+            "text": "Insertion sort"
+          },
+          {
+            "key": "L3",
+            "text": "Binary search"
+          },
+          {
+            "key": "L4",
+            "text": "Linear search"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Repeatedly compares adjacent items and swaps them if they are in the wrong order."
+          },
+          {
+            "key": "R2",
+            "text": "Builds a sorted section by inserting each next item into its correct position."
+          },
+          {
+            "key": "R3",
+            "text": "Repeatedly tests the middle item of a sorted list and halves the search interval."
+          },
+          {
+            "key": "R4",
+            "text": "Checks items one after another until the item is found or the list ends."
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1 matched to R1 (1)\nL2 matched to R2 (1)\nL3 matched to R3 (1)\nL4 matched to R4 (1)",
+        "points": [
+          {
+            "criterion": "Correctly matches bubble sort to adjacent comparisons and swaps.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly matches insertion sort to inserting into a sorted section.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly matches binary search to middle item and halving.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly matches linear search to sequential checking.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "L1-R1, L2-R2, L3-R3, L4-R4",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "ai_instructions": "",
+        "explanation": "Bubble sort works by adjacent swaps. Insertion sort places the current item into the already sorted part of the list, while binary search repeatedly halves a sorted search space."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-bubble-fill",
+      "title": "Complete bubble loop headers",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Complete the missing parts of this ascending bubble sort for `Values[1:N]`.\n\n```text\nFOR Pass ← 1 TO [[1]]\n    FOR Index ← 1 TO [[2]]\n        IF Values[Index] [[3]] Values[Index + 1] THEN\n            Temp ← Values[Index]\n            Values[Index] ← Values[Index + 1]\n            Values[Index + 1] ← Temp\n        ENDIF\n    NEXT Index\nNEXT Pass\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "`N - 1` for the outer loop limit (1)\n`N - Pass` for the inner loop limit (1)\n`>` as the comparison for ascending order (1)\n\nBlank (2): accept N - 1 (correct but checks the already-sorted end of the array).",
+        "points": [
+          {
+            "criterion": "Uses `N - 1` as the final outer pass.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses `N - Pass` as the final adjacent comparison position.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses `>` so larger values are swapped towards the end.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "FOR Pass ← 1 TO N - 1\n    FOR Index ← 1 TO N - Pass\n        IF Values[Index] > Values[Index + 1] THEN",
+        "accepted": {
+          "blanks": [
+            [
+              "N - 1",
+              "N-1",
+              "N – 1"
+            ],
+            [
+              "N - Pass",
+              "N-Pass",
+              "N – Pass",
+              "N - 1",
+              "N-1",
+              "N – 1"
+            ],
+            [
+              ">"
+            ]
+          ]
+        },
+        "ai_instructions": "",
+        "explanation": "Bubble sort needs at most `N - 1` passes. After each pass, the largest remaining value has moved to the end, so the inner loop can stop at `N - Pass`."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-insertion-select-two",
+      "title": "Insertion sort statements",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Select **two** statements that are typical parts of an ascending insertion sort algorithm.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Store the current item in a temporary variable before moving larger items."
+        },
+        {
+          "key": "B",
+          "content": "Compare only adjacent pairs for a fixed number of passes, even if no insertions are needed."
+        },
+        {
+          "key": "C",
+          "content": "Move items in the sorted section one position to the right while they are greater than the current item."
+        },
+        {
+          "key": "D",
+          "content": "Set `Low ← Middle + 1` when the target is greater than the middle value."
+        }
+      ],
+      "content": {},
+      "scheme": {
+        "mark_scheme": "A: stores the current item before shifting values (1)\nC: shifts larger items in the sorted section to the right (1)",
+        "points": [
+          {
+            "criterion": "Identifies storing the current item as part of insertion sort.",
+            "marks": 1
+          },
+          {
+            "criterion": "Identifies shifting larger items right as part of insertion sort.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A and C",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "ai_instructions": "",
+        "explanation": "Insertion sort keeps a sorted section at the start of the array. The current item is stored, larger sorted items are shifted right, and the current item is inserted into the gap."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-bubble-trace",
+      "title": "Trace two bubble passes",
+      "type": "trace_table",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Trace the algorithm and give the contents of the array after each pass is output.\n\n```text\nA[1] ← 5\nA[2] ← 2\nA[3] ← 4\nA[4] ← 1\nA[5] ← 3\n\nFOR Pass ← 1 TO 2\n    FOR Pos ← 1 TO 5 - Pass\n        IF A[Pos] > A[Pos + 1] THEN\n            Temp ← A[Pos]\n            A[Pos] ← A[Pos + 1]\n            A[Pos + 1] ← Temp\n        ENDIF\n    NEXT Pos\n    OUTPUT Pass, A[1], A[2], A[3], A[4], A[5]\nNEXT Pass\n```",
+      "content": {
+        "columns": [
+          "Pass",
+          "A[1]",
+          "A[2]",
+          "A[3]",
+          "A[4]",
+          "A[5]"
+        ],
+        "rows": 2
+      },
+      "scheme": {
+        "mark_scheme": "After Pass 1: `1, 2, 4, 1, 3, 5` (1)\nAfter Pass 2: `2, 2, 1, 3, 4, 5` (1)",
+        "points": [
+          {
+            "criterion": "Correct row after the first pass.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct row after the second pass.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Pass | A[1] | A[2] | A[3] | A[4] | A[5] |\n|---|---:|---:|---:|---:|---:|\n| 1 | 2 | 4 | 1 | 3 | 5 |\n| 2 | 2 | 1 | 3 | 4 | 5 |",
+        "accepted": {
+          "rows": [
+            [
+              "1",
+              "2",
+              "4",
+              "1",
+              "3",
+              "5"
+            ],
+            [
+              "2",
+              "2",
+              "1",
+              "3",
+              "4",
+              "5"
+            ]
+          ]
+        },
+        "ai_instructions": "",
+        "explanation": "At the end of the first bubble pass, the largest value, 5, has moved to the final position. The second pass bubbles 4 into the fourth position."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-insertion-completion",
+      "title": "Complete insertion sort",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Complete the missing lines in this insertion sort algorithm so that `Data[1:N]` is sorted into ascending order.\n\n```text\nFOR CurrentIndex ← 2 TO N\n    CurrentValue ← Data[CurrentIndex]\n    Position ← CurrentIndex\n\n    // missing WHILE loop and insertion code\n\nNEXT CurrentIndex\n```",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": "FOR CurrentIndex ← 2 TO N\n    CurrentValue ← Data[CurrentIndex]\n    Position ← CurrentIndex\n\nNEXT CurrentIndex"
+      },
+      "scheme": {
+        "mark_scheme": "Uses a `WHILE` loop that continues while `Position > 1` (1)\nAlso tests `Data[Position - 1] > CurrentValue` in the `WHILE` condition (1)\nMoves `Data[Position - 1]` to `Data[Position]` inside the loop (1)\nDecrements `Position` inside the loop (1)\nPlaces `CurrentValue` into `Data[Position]` after the loop (1)",
+        "points": [
+          {
+            "criterion": "Includes `WHILE Position > 1` as a boundary check.",
+            "marks": 1
+          },
+          {
+            "criterion": "Includes comparison with the preceding value, `Data[Position - 1] > CurrentValue`.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly shifts the preceding value right.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly decreases `Position` within the loop.",
+            "marks": 1
+          },
+          {
+            "criterion": "Inserts the stored current value at the final position.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "FOR CurrentIndex ← 2 TO N\n    CurrentValue ← Data[CurrentIndex]\n    Position ← CurrentIndex\n    WHILE Position > 1 AND Data[Position - 1] > CurrentValue\n        Data[Position] ← Data[Position - 1]\n        Position ← Position - 1\n    ENDWHILE\n    Data[Position] ← CurrentValue\nNEXT CurrentIndex",
+        "ai_instructions": "Award equivalent Cambridge-style pseudocode. Accept a `REPEAT` structure only if it preserves the boundary check and does not access `Data[0]`. Do not award the comparison mark if the comparison sorts into descending order.",
+        "explanation": "Insertion sort stores the item being inserted so that other values can be shifted over it. Once no earlier value is greater, or the start of the array is reached, the stored item is inserted into the gap."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-binary-reason",
+      "title": "Why sorted data is needed",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "Explain why a binary search requires the array to be sorted before the search begins.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Binary search compares the target value with the middle item (1)\nIt decides which half of the array cannot contain the target and discards that half (1)\nThis decision is only valid when all values on one side of the middle are known to be smaller or larger because the array is sorted (1)",
+        "points": [
+          {
+            "criterion": "Refers to comparing the target with the middle item.",
+            "marks": 1
+          },
+          {
+            "criterion": "Explains that half of the search interval is discarded.",
+            "marks": 1
+          },
+          {
+            "criterion": "Explains that sorted order makes the discard decision valid.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Binary search tests the middle item of the current search interval. If the target is smaller or larger, it discards one half of the interval. This is only safe if the array is sorted, because then all values on one side of the middle are known to be lower or higher than the middle value.",
+        "ai_instructions": "Credit equivalent wording. Do not credit answers that only say 'because it is faster' without explaining why sorting is required.",
+        "explanation": "The key property of binary search is that a comparison with the middle item gives information about an entire half of the list. Without sorted order, the target might be in either half."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-binary-comparisons",
+      "title": "Maximum binary comparisons",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "A sorted array contains 1000 items. A binary search inspects one middle item each iteration. Calculate the maximum number of item inspections needed to find an item or decide it is not present.",
+      "content": {
+        "unit": "comparisons"
+      },
+      "scheme": {
+        "mark_scheme": "Shows or uses powers of two around 1000, for example `2^9 = 512` and `2^10 = 1024` (1)\nGives a maximum of `10` item inspections/comparisons (1)",
+        "points": [
+          {
+            "criterion": "Uses a valid halving or powers-of-two method.",
+            "marks": 1
+          },
+          {
+            "criterion": "Gives the correct maximum number of inspections.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "`2^9 = 512` and `2^10 = 1024`, so after at most 10 inspections the search space of 1000 items has been reduced enough. The maximum is 10 comparisons.",
+        "accepted": {
+          "values": [
+            "10"
+          ],
+          "numeric": true
+        },
+        "ai_instructions": "Award the method mark for repeated halving that reaches 1 item in 10 steps. Accept '10 comparisons' or '10 inspections'.",
+        "explanation": "Each binary search iteration approximately halves the remaining search interval. Since 1000 is less than 1024, which is `2^10`, at most 10 middle-item inspections are required."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-bubble-pseudocode",
+      "title": "Write bubble sort",
+      "type": "pseudocode",
+      "marks": 6,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Write Cambridge-style pseudocode for a bubble sort that sorts `Mark[1:N]` into ascending order. You may assume `N` has already been assigned and all array elements contain integer values.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Outer loop performs sufficient passes, such as `FOR Pass ← 1 TO N - 1` (1)\nInner loop compares adjacent positions within the unsorted part, such as `FOR Pos ← 1 TO N - Pass` (1)\nCorrectly compares adjacent elements using `Mark[Pos] > Mark[Pos + 1]` for ascending order (1)\nUses a temporary variable to store one value during a swap (1)\nCompletes the swap by assigning both array elements correctly (1)\nUses correct structured pseudocode with matching `IF...ENDIF` and `FOR...NEXT` constructs and no out-of-range array access (1)",
+        "points": [
+          {
+            "criterion": "Outer loop performs sufficient passes.",
+            "marks": 1
+          },
+          {
+            "criterion": "Inner loop compares adjacent items within valid bounds.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses the correct ascending-order comparison.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses a temporary variable during swapping.",
+            "marks": 1
+          },
+          {
+            "criterion": "Completes all swap assignments correctly.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses valid Cambridge-style structured pseudocode without invalid indexing.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "FOR Pass ← 1 TO N - 1\n    FOR Pos ← 1 TO N - Pass\n        IF Mark[Pos] > Mark[Pos + 1] THEN\n            Temp ← Mark[Pos]\n            Mark[Pos] ← Mark[Pos + 1]\n            Mark[Pos + 1] ← Temp\n        ENDIF\n    NEXT Pos\nNEXT Pass",
+        "ai_instructions": "Accept equivalent bubble sort variants, including a swapped flag, if they correctly sort ascending and use valid array bounds. Do not require optimisation with a flag.",
+        "explanation": "Bubble sort repeatedly compares adjacent values and swaps them if they are out of order. After each full pass, the largest remaining value has bubbled to the end of the unsorted section."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-binary-code-analysis",
+      "title": "Correct binary search errors",
+      "type": "code_analysis",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "analyse",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "The following pseudocode is intended to perform a binary search of an ascending sorted array `Item[1:N]`, but it contains errors.\n\n```text\nLow ← 1\nHigh ← N\nFound ← FALSE\n\nWHILE Low < High AND Found = FALSE\n    Middle ← (Low + High) / 2\n    IF Item[Middle] = Wanted THEN\n        Found ← TRUE\n    ELSE\n        IF Item[Middle] < Wanted THEN\n            High ← Middle - 1\n        ELSE\n            Low ← Middle + 1\n        ENDIF\n    ENDIF\nENDWHILE\n```\n\nIdentify **four** errors and give the correction for each.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Loop condition should allow a one-item interval, for example `WHILE Low <= High AND Found = FALSE` (1)\nMiddle should be calculated using integer division, for example `Middle ← (Low + High) DIV 2` (1)\nWhen `Item[Middle] < Wanted`, update `Low ← Middle + 1` (1)\nWhen `Item[Middle] > Wanted`, update `High ← Middle - 1` (1)",
+        "points": [
+          {
+            "criterion": "Corrects the loop condition to include equality.",
+            "marks": 1
+          },
+          {
+            "criterion": "Corrects middle calculation to use integer division.",
+            "marks": 1
+          },
+          {
+            "criterion": "Corrects the update when the middle value is too small.",
+            "marks": 1
+          },
+          {
+            "criterion": "Corrects the update when the middle value is too large.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The loop should be `WHILE Low <= High AND Found = FALSE` so the final single item is checked. `Middle` should be calculated with integer division: `Middle ← (Low + High) DIV 2`. If `Item[Middle] < Wanted`, the target must be in the upper half, so `Low ← Middle + 1`. Otherwise the target is in the lower half, so `High ← Middle - 1`.",
+        "ai_instructions": "Award one mark per correctly identified error with a matching correction. Accept `NOT Found` for the found part of the loop condition. Do not award a mark for vague comments such as 'the halves are wrong' unless the corrected assignments are given.",
+        "explanation": "Binary search must continue while there is still a valid interval to search. The direction of each boundary update depends on whether the middle value is less than or greater than the target."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-insertion-pseudocode",
+      "title": "Write insertion sort",
+      "type": "pseudocode",
+      "marks": 6,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "Write Cambridge-style pseudocode for an insertion sort that sorts `Name[1:N]` into ascending alphabetic order.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Outer loop starts at the second element and processes to `N` (1)\nStores the current value before shifting elements (1)\nInitialises a position/index variable for the current item (1)\nUses a loop that checks both the lower bound and whether the previous item is greater than the current value (1)\nShifts larger previous items one position to the right and decrements the position (1)\nInserts the stored current value into the final position after the loop (1)",
+        "points": [
+          {
+            "criterion": "Outer loop correctly processes items 2 to N.",
+            "marks": 1
+          },
+          {
+            "criterion": "Stores the current value before shifting.",
+            "marks": 1
+          },
+          {
+            "criterion": "Initialises a position variable correctly.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses correct loop conditions for lower bound and alphabetic comparison.",
+            "marks": 1
+          },
+          {
+            "criterion": "Shifts larger items right and decrements the position.",
+            "marks": 1
+          },
+          {
+            "criterion": "Inserts the stored value into the correct final position.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "FOR Index ← 2 TO N\n    CurrentName ← Name[Index]\n    Position ← Index\n    WHILE Position > 1 AND Name[Position - 1] > CurrentName\n        Name[Position] ← Name[Position - 1]\n        Position ← Position - 1\n    ENDWHILE\n    Name[Position] ← CurrentName\nNEXT Index",
+        "ai_instructions": "Accept equivalent variable names and string comparisons. Award comparison mark only if it sorts into ascending alphabetic order. Do not credit an answer that uses bubble sort instead of insertion sort for more than incidental marks.",
+        "explanation": "Insertion sort assumes the first part of the array is already sorted. Each next name is stored, larger earlier names are shifted right, and the stored name is inserted where it belongs."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-binary-trace",
+      "title": "Trace binary search",
+      "type": "trace_table",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "The array `Number[1:8]` is sorted into ascending order.\n\n| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|\n| Number | 3 | 8 | 12 | 19 | 27 | 31 | 45 | 52 |\n\nTrace a binary search for `Wanted ← 27` using this algorithm.\n\n```text\nLow ← 1\nHigh ← 8\nFound ← FALSE\n\nWHILE Low <= High AND Found = FALSE\n    Middle ← (Low + High) DIV 2\n    IF Number[Middle] = Wanted THEN\n        Found ← TRUE\n    ELSE\n        IF Number[Middle] < Wanted THEN\n            Low ← Middle + 1\n        ELSE\n            High ← Middle - 1\n        ENDIF\n    ENDIF\n    OUTPUT Low, High, Middle, Number[Middle], Found\nENDWHILE\n```\n\nComplete the trace table for each output.",
+      "content": {
+        "columns": [
+          "Low",
+          "High",
+          "Middle",
+          "Number[Middle]",
+          "Found"
+        ],
+        "rows": 3
+      },
+      "scheme": {
+        "mark_scheme": "First output row: `5, 8, 4, 19, FALSE` (1)\nSecond output row: `5, 5, 6, 31, FALSE` (1)\nThird output row: `5, 5, 5, 27, TRUE` (1)",
+        "points": [
+          {
+            "criterion": "Correct first output row.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct second output row.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct third output row.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Low | High | Middle | Number[Middle] | Found |\n|---:|---:|---:|---:|---|\n| 5 | 8 | 4 | 19 | FALSE |\n| 5 | 5 | 6 | 31 | FALSE |\n| 5 | 5 | 5 | 27 | TRUE |",
+        "accepted": {
+          "rows": [
+            [
+              "5",
+              "8",
+              "4",
+              "19",
+              "FALSE"
+            ],
+            [
+              "5",
+              "5",
+              "6",
+              "31",
+              "FALSE"
+            ],
+            [
+              "5",
+              "5",
+              "5",
+              "27",
+              "TRUE"
+            ]
+          ]
+        },
+        "ai_instructions": "",
+        "explanation": "The first middle item is 19, so the lower boundary moves to 5. The next middle item is 31, so the upper boundary moves to 5, and the final comparison finds 27."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-new-scores-scenario",
+      "title": "Sorting new scores",
+      "type": "scenario",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.4@paper"
+      ],
+      "text": "A school stores the results from a small practical test in `Score[1:N]`. Most of the scores are already in ascending order because only a few late entries were added at the end.\n\nWrite an algorithm in Cambridge-style pseudocode to sort the scores into ascending order using insertion sort. Include a brief comment explaining why insertion sort is a suitable choice in this situation.",
+      "content": {
+        "answer_lines": 12
+      },
+      "scheme": {
+        "mark_scheme": "States or comments that insertion sort is suitable because the data is small or nearly sorted (1)\nOuter loop processes from the second item to `N` (1)\nStores the current score in a temporary/current variable (1)\nInitialises a position variable to the current index (1)\nUses a loop with `Position > 1` as a boundary condition (1)\nUses a comparison with the previous score, such as `Score[Position - 1] > CurrentScore`, for ascending order (1)\nShifts larger previous scores one position to the right and decrements position (1)\nInserts the stored current score into `Score[Position]` after shifting (1)",
+        "points": [
+          {
+            "criterion": "Gives a relevant reason for choosing insertion sort.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses an outer loop from item 2 to item N.",
+            "marks": 1
+          },
+          {
+            "criterion": "Stores the current score before shifting.",
+            "marks": 1
+          },
+          {
+            "criterion": "Initialises a position variable correctly.",
+            "marks": 1
+          },
+          {
+            "criterion": "Checks the lower bound in the inner loop.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses the correct ascending comparison with the previous score.",
+            "marks": 1
+          },
+          {
+            "criterion": "Shifts larger values right and decrements the position.",
+            "marks": 1
+          },
+          {
+            "criterion": "Inserts the stored score at the correct position.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "// Insertion sort is suitable because the list is nearly sorted, so few shifts may be needed.\nFOR Index ← 2 TO N\n    CurrentScore ← Score[Index]\n    Position ← Index\n    WHILE Position > 1 AND Score[Position - 1] > CurrentScore\n        Score[Position] ← Score[Position - 1]\n        Position ← Position - 1\n    ENDWHILE\n    Score[Position] ← CurrentScore\nNEXT Index",
+        "ai_instructions": "Award algorithm marks even if the explanatory comment appears before or after the pseudocode. Accept equivalent variable names. Do not credit a bubble sort solution as an insertion sort algorithm, but it may receive the suitability mark only if the comment about insertion sort is correct.",
+        "explanation": "Insertion sort is often a good choice for nearly sorted data because few elements need to be shifted. The algorithm maintains a sorted section and inserts each new item into its correct position."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-product-binary",
+      "title": "Binary search for product",
+      "type": "pseudocode",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.5@paper"
+      ],
+      "text": "A shop stores product codes in ascending order in `ProductCode[1:N]`. The corresponding stock levels are stored in `Stock[1:N]`. A code to search for has been input into `WantedCode`.\n\nWrite Cambridge-style pseudocode using binary search to output the stock level if `WantedCode` is found, or output `\"Not found\"` if it is not found.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Initialises `Low ← 1`, `High ← N`, and a suitable found flag or found position (1)\nUses a loop that continues while `Low <= High` and the item has not been found (1)\nCalculates `Middle ← (Low + High) DIV 2` inside the loop (1)\nCorrectly handles a match between `ProductCode[Middle]` and `WantedCode` (1)\nCorrectly updates `Low ← Middle + 1` when the middle code is less than the wanted code (1)\nCorrectly updates `High ← Middle - 1` when the middle code is greater than the wanted code, and outputs either `Stock[Middle]` if found or `\"Not found\"` otherwise (1)",
+        "points": [
+          {
+            "criterion": "Initialises search boundaries and found state.",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses a valid binary search loop condition.",
+            "marks": 1
+          },
+          {
+            "criterion": "Calculates the middle position using `DIV`.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly detects a matching product code.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly updates the lower boundary when the middle value is too small.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly updates the upper boundary and produces the required final output.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Low ← 1\nHigh ← N\nFound ← FALSE\n\nWHILE Low <= High AND Found = FALSE\n    Middle ← (Low + High) DIV 2\n    IF ProductCode[Middle] = WantedCode THEN\n        Found ← TRUE\n    ELSE\n        IF ProductCode[Middle] < WantedCode THEN\n            Low ← Middle + 1\n        ELSE\n            High ← Middle - 1\n        ENDIF\n    ENDIF\nENDWHILE\n\nIF Found = TRUE THEN\n    OUTPUT Stock[Middle]\nELSE\n    OUTPUT \"Not found\"\nENDIF",
+        "ai_instructions": "Accept storing `FoundPosition ← Middle` on a match and using it after the loop. The final mark requires both correct upper-bound handling and output logic; if one is missing, consider awarding this mark only if the other five marks are fully correct and the omission is minor.",
+        "explanation": "The product codes are sorted, so binary search can repeatedly halve the remaining possible positions. The index found in `ProductCode` is also used to access the corresponding value in `Stock`."
+      }
+    },
+    {
+      "key": "paper-sorting-and-searching-library-exam",
+      "title": "Library sort and search",
+      "type": "extended",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.4@paper",
+        "11.5.2.5@paper"
+      ],
+      "text": "A library program stores book titles in `Title[1:N]`. The titles are currently unsorted. A librarian wants to search quickly for a particular title many times each day.\n\nExplain how the program could sort the titles and then use binary search to find a requested title. Your answer should include the key steps of a sorting algorithm studied in this topic and the key steps of binary search.",
+      "content": {
+        "answer_lines": 12
+      },
+      "scheme": {
+        "mark_scheme": "States that the titles must be sorted before binary search can be used (1)\nDescribes a valid studied sorting method, either bubble sort or insertion sort (1)\nFor bubble sort: describes adjacent comparisons and swaps; for insertion sort: describes storing current item and shifting larger previous items (1)\nStates that the sorting continues until the array is in ascending alphabetic order, using sufficient passes/items (1)\nInitialises binary search boundaries, for example `Low ← 1` and `High ← N` (1)\nCalculates the middle position using integer division, for example `(Low + High) DIV 2` (1)\nCompares the requested title with `Title[Middle]` and recognises when it has been found (1)\nUpdates the correct boundary to discard half of the remaining array, or reports not found when the interval is empty (1)",
+        "points": [
+          {
+            "criterion": "Explains the need to sort before binary search.",
+            "marks": 1
+          },
+          {
+            "criterion": "Names or describes bubble sort or insertion sort.",
+            "marks": 1
+          },
+          {
+            "criterion": "Gives a key mechanism of the chosen sorting algorithm.",
+            "marks": 1
+          },
+          {
+            "criterion": "Explains that the sorting algorithm continues until titles are in ascending order.",
+            "marks": 1
+          },
+          {
+            "criterion": "Initialises binary search lower and upper boundaries.",
+            "marks": 1
+          },
+          {
+            "criterion": "Calculates the middle index using integer division.",
+            "marks": 1
+          },
+          {
+            "criterion": "Compares the wanted title with the middle title and handles a match.",
+            "marks": 1
+          },
+          {
+            "criterion": "Correctly explains boundary updates or not-found termination.",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The titles must be sorted before binary search is used. One method is insertion sort: for each index from 2 to N, store the current title, compare it with titles in the sorted section to its left, shift larger titles one position to the right, and insert the stored title into the gap. This is repeated until `Title[1:N]` is in ascending alphabetic order.\n\nTo search, set `Low ← 1` and `High ← N`. While `Low <= High` and the title has not been found, calculate `Middle ← (Low + High) DIV 2`. If `Title[Middle]` is the requested title, output that it has been found. If the requested title is alphabetically after `Title[Middle]`, set `Low ← Middle + 1`; otherwise set `High ← Middle - 1`. If the loop ends without a match, output `Not found`.",
+        "ai_instructions": "Accept either bubble sort or insertion sort for the sorting section. Award credit for clear explanation; full executable pseudocode is not required. Do not award binary search boundary marks if the answer describes linear search only.",
+        "explanation": "The scenario combines the two main requirements: sorting data into a known order and then applying binary search. Binary search is efficient for repeated searches, but only after the titles are sorted."
+      }
+    }
+  ]
+}

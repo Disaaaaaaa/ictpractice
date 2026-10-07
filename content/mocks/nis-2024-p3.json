@@ -1,0 +1,1507 @@
+{
+  "key": "nis-2024-p3",
+  "year": 2024,
+  "paper": 3,
+  "grade": 12,
+  "title": "NIS 2024 · Paper 3: Problem-solving and programming skills",
+  "description": "Past paper 2024, Paper 3 (Problem-solving and programming skills) — 120 minutes.",
+  "instructions": "Answer all questions.\nThe number of marks is given in brackets [ ] at the end of each question or part question.\nYou should show all your working.\nYou can write any codes in pseudocode or any other programming language that you studied.",
+  "duration": 120,
+  "integrity_mode": "warn",
+  "max_violations": 3,
+  "show_mark_scheme": true,
+  "include": [],
+  "teacher_resources": [
+    {
+      "label": "Question paper (PDF)",
+      "path": "2024/2024_NIS_G12_CS_03_2RP_AFP.pdf"
+    },
+    {
+      "label": "Mark scheme (PDF)",
+      "path": "2024/2024_NIS_G12_CS_03_MS_2RP.pdf"
+    }
+  ],
+  "questions": [
+    {
+      "key": "m24p3-1",
+      "title": "Assembly language trace",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Assembly language mnemonics\n\n| Mnemonic | Description |\n|---|---|\n| INP | Retrieve user input and stores it in the accumulator. |\n| OUT | Output the value stored in the accumulator. |\n| LDA | Load the Accumulator with the contents of the memory address given. |\n| STA | Store the value in the Accumulator in the memory address given. |\n| ADD | Add the contents of the memory address to the Accumulator. |\n| SUB | Subtract the contents of the memory address from the Accumulator. |\n| BRP | Branch/Jump to the address given if the Accumulator is zero or positive. |\n| BRZ | Jump to the address given in case the Accumulator is zero. |\n| BRA | Jump to the address given. |\n| HLT | Stop the code. |\n| DAT | Used to associate a label to a free memory address. An optional value can also be used to be stored at the memory address. |\n\nAn assembly language code is given below.\n\n| Line number | Address | Instruction |\n|---:|---:|---|\n| 1 | 00 | LABEL1&nbsp;&nbsp;&nbsp;&nbsp;LDA COUNT |\n| 2 | 01 | BRZ LABEL2 |\n| 3 | 02 | SUB THREE |\n| 4 | 03 | STA COUNT |\n| 5 | 04 | LDA TOTAL |\n| 6 | 05 | ADD EIGHT |\n| 7 | 06 | STA TOTAL |\n| 8 | 07 | OUT |\n| 9 | 08 | BRA LABEL1 |\n| 10 | 09 | LABEL2&nbsp;&nbsp;&nbsp;&nbsp;HLT |\n| 11 | 10 | EIGHT&nbsp;&nbsp;&nbsp;&nbsp;DAT 008 |\n| 12 | 11 | COUNT&nbsp;&nbsp;&nbsp;&nbsp;DAT 006 |\n| 13 | 12 | THREE&nbsp;&nbsp;&nbsp;&nbsp;DAT 003 |\n| 14 | 13 | TOTAL&nbsp;&nbsp;&nbsp;&nbsp;DAT 000 |",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q1",
+      "practice": false,
+      "topic": "paper-assembly-and-trace-tables",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-1a",
+          "title": "Assembly language trace (a)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "Identify the type of algorithm used in the code above.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q1(a)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "Loop/Repetition/Cyclical [1]",
+            "points": [
+              {
+                "criterion": "Loop/Repetition/Cyclical",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Loop / repetition / cyclical.",
+            "accepted": {
+              "values": [
+                "Loop",
+                "Repetition",
+                "Cyclical"
+              ]
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m24p3-1b",
+          "title": "Assembly language trace (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "State the purpose of the condition in this code.",
+          "content": {
+            "answer_lines": 2
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q1(b)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "Check/Branch if not zero in accumulator (1)\nTo end the program when ACC is zero (1)\nTo continue the code until ACC is zero (1)\n[Max 1]",
+            "points": [
+              {
+                "criterion": "Check/Branch if not zero in accumulator",
+                "marks": 1
+              },
+              {
+                "criterion": "To end the program when ACC is zero",
+                "marks": 1
+              },
+              {
+                "criterion": "To continue the code until ACC is zero",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The condition checks whether the accumulator is zero so that the program ends when ACC is zero; otherwise it continues the loop until ACC is zero.",
+            "ai_instructions": "Award a maximum of 1 mark for any one creditworthy point from the mark scheme."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m24p3-1c",
+          "title": "Assembly language trace (c)",
+          "type": "trace_table",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper",
+            "11.5.1.4@paper"
+          ],
+          "text": "Fill in the trace table using the assembly language code given above.\n\nThe first instruction has been completed for you. You may not need all the lines in the table.",
+          "content": {
+            "columns": [
+              "Instruction address",
+              "Accumulator",
+              "Memory address 10",
+              "Memory address 11",
+              "Memory address 12",
+              "Memory address 13",
+              "Condition (True/False)",
+              "Output"
+            ],
+            "rows": 21,
+            "prefill": [
+              [
+                null,
+                null,
+                "8",
+                "6",
+                "3",
+                "0",
+                null,
+                null
+              ],
+              [
+                "00",
+                "6",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q1(c)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "• Correct instruction addresses column (1)\n• Correct accumulator column (1)\n• Correct memory address 11 column (1)\n• Correct memory address 13 column (1)\n• Correct condition column (1)\n• Correct output column with only the 2 entries (do not award if extra data in that column) (1)",
+            "points": [
+              {
+                "criterion": "Answers match the mark scheme (see table / boxes)",
+                "marks": 6
+              }
+            ],
+            "model_answer": "| Instruction address | Accumulator | Memory address 10 | Memory address 11 | Memory address 12 | Memory address 13 | Condition (True/False) | Output |\n|---|---:|---:|---:|---:|---:|---|---:|\n| 00 | 6 | 8 | 6 | 3 | 0 |  |  |\n| 01 |  |  |  |  |  | False |  |\n| 02 | 3 |  |  |  |  |  |  |\n| 03 |  |  | 3 |  |  |  |  |\n| 04 | 0 |  |  |  |  |  |  |\n| 05 | 8 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 8 |  |  |\n| 07 |  |  |  |  |  |  | 8 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 3 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | False |  |\n| 02 | 0 |  |  |  |  |  |  |\n| 03 |  |  | 0 |  |  |  |  |\n| 04 | 8 |  |  |  |  |  |  |\n| 05 | 16 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 16 |  |  |\n| 07 |  |  |  |  |  |  | 16 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 0 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | True |  |\n| 09 |  |  |  |  |  |  |  |",
+            "accepted": {
+              "rows": [
+                [
+                  "00",
+                  "6",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "False",
+                  null
+                ],
+                [
+                  "02",
+                  "3",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "03",
+                  null,
+                  null,
+                  "3",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "05",
+                  "8",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "06",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "8",
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "8"
+                ],
+                [
+                  "08",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "3",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "False",
+                  null
+                ],
+                [
+                  "02",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "03",
+                  null,
+                  null,
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  "8",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "05",
+                  "16",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "06",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "16",
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "16"
+                ],
+                [
+                  "08",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "True",
+                  null
+                ],
+                [
+                  "09",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          "part_label": "(c)"
+        }
+      ]
+    },
+    {
+      "key": "m24p3-2",
+      "title": "Seasons and testing",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q2",
+      "practice": false,
+      "topic": "g12-types-of-test-data",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-2a",
+          "title": "Seasons and testing (a)",
+          "type": "pseudocode",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.10@paper",
+            "11.5.3.12@paper"
+          ],
+          "text": "Write a pseudocode or programming code to output the season name (spring, summer, autumn, or winter) according to the number of month entered by a user.\n\nThe code must show an error message if the entered number is incorrect.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q2(a)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "Input number of month (1)\nUse IF-ELSE statement. (1)\nUse nested condition. (1)\nUse OR operation. (1)\nOutput message for correct month number (1)\nOutput message for incorrect month number (1)\n[Max 5]\n\nAllow correct use of CASE statement for 2 marks to replace the 2 marks available for IF/Nested IF",
+            "points": [
+              {
+                "criterion": "Input number of month",
+                "marks": 1
+              },
+              {
+                "criterion": "Use IF-ELSE statement",
+                "marks": 1
+              },
+              {
+                "criterion": "Use nested condition",
+                "marks": 1
+              },
+              {
+                "criterion": "Use OR operation",
+                "marks": 1
+              },
+              {
+                "criterion": "Output message for correct month number",
+                "marks": 1
+              },
+              {
+                "criterion": "Output message for incorrect month number",
+                "marks": 1
+              }
+            ],
+            "model_answer": "INPUT month_number\nIF month_number=1 OR month_number=2 OR month_number=12\n   PRINT \"Winter\"\nELSE\n   IF month_number=3 OR month_number=4 OR month_number=5\n      PRINT \"Spring\"\n   ELSE\n      IF month_number=6 OR month_number=7 OR month_number=8\n         PRINT \"Summer\"\n      ELSE\n         IF month_number=9 OR month_number=10 OR month_number=11\n            PRINT \"Autumn\"\n         ELSE\n            PRINT \"This month number is not exist\"",
+            "ai_instructions": "Award a maximum of 5 marks. Allow correct use of CASE statement for 2 marks to replace the 2 marks available for IF/Nested IF."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m24p3-2b",
+          "title": "Seasons and testing (b)",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.2@paper",
+            "12.5.3.3@paper"
+          ],
+          "text": "Give one example for each test data type for the code in 2(a).",
+          "content": {
+            "fields": [
+              {
+                "key": "normal",
+                "label": "normal",
+                "lines": 1
+              },
+              {
+                "key": "extreme",
+                "label": "extreme",
+                "lines": 1
+              },
+              {
+                "key": "erroneous",
+                "label": "erroneous",
+                "lines": 1
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q2(b)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "Normal: range from 1 to 12 (1)\nExtreme: 1 or 12 (1)\nErroneous: 0, -15, 13, july (1)\nAccept any correct answers",
+            "points": [
+              {
+                "criterion": "Normal: range from 1 to 12",
+                "marks": 1
+              },
+              {
+                "criterion": "Extreme: 1 or 12",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous: 0, -15, 13, july",
+                "marks": 1
+              }
+            ],
+            "model_answer": "normal: 6\nextreme: 1\nerroneous: 13",
+            "ai_instructions": "Accept any correct answers."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m24p3-2ci",
+          "title": "Seasons and testing (c)(i)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.3.6@paper"
+          ],
+          "text": "Read the pseudocode below.\n\n```pseudocode\n1 compnum = 50\n2 PRINT \"Can you guess the number I am thinking of?\"\n3 INPUT guess\n4 count = 1\n5 WHILE guess != compnum\n6      IF guess < compnum\n7         PRINT \"Too low\"\n8      ELSE\n9         PRINT \"Too high\"\n10     count = count + 1\n11     PRINT \"Have another guess: \"\n12     INPUT guess\n13 PRINT \"Well done, you took \", compnum, \" attempts\"\n```\n\nState the number of the line that contains a logic error.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q2(c)(i)",
+          "practice": false,
+          "topic": "g12-types-of-errors",
+          "scheme": {
+            "mark_scheme": "Line 13 [1]",
+            "points": [
+              {
+                "criterion": "Line 13",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Line 13",
+            "accepted": {
+              "values": [
+                "Line 13",
+                "13"
+              ]
+            }
+          },
+          "part_label": "(c)(i)"
+        },
+        {
+          "key": "m24p3-2cii",
+          "title": "Seasons and testing (c)(ii)",
+          "type": "code_completion",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6@paper"
+          ],
+          "text": "Rewrite the code in the line you identified in 2(c)(i) in correct form.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q2(c)(ii)",
+          "practice": false,
+          "topic": "g12-types-of-errors",
+          "scheme": {
+            "mark_scheme": "PRINT \"Well done, you took \", count, \" attempts\" [1]",
+            "points": [
+              {
+                "criterion": "Correctly outputs count rather than compnum as the number of attempts",
+                "marks": 1
+              }
+            ],
+            "model_answer": "PRINT \"Well done, you took \", count, \" attempts\""
+          },
+          "part_label": "(c)(ii)"
+        },
+        {
+          "key": "m24p3-2ciii",
+          "title": "Seasons and testing (c)(iii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1@paper"
+          ],
+          "text": "Give one example of the value for guess that will cause a runtime error.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q2(c)(iii)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "INPUT a string as a variable guess [1]\nAccept an example instead of the explanation, e.g. “Twenty”\nAccept any correct answer",
+            "points": [
+              {
+                "criterion": "Input a string as a variable guess",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Twenty",
+            "ai_instructions": "Accept an example instead of the explanation, e.g. “Twenty”. Accept any correct answer."
+          },
+          "part_label": "(c)(iii)"
+        }
+      ]
+    },
+    {
+      "key": "m24p3-3",
+      "title": "Binary tree and Bubble sort",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "To perform a binary search, an array must be sorted.\n\nGiven the two-dimensional array:\n\n```pseudocode\narr2D = { {\"red\",   \"blue\"},\n          {\"green\", \"yellow\"},\n          {\"black\", \"white\"}}\n```",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q3",
+      "practice": false,
+      "topic": "g12-binary-tree",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-3a",
+          "title": "Binary tree and Bubble sort (a)",
+          "type": "binary_tree",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AUTO",
+          "objectives": [
+            "12.5.2.2@paper"
+          ],
+          "text": "Build a binary tree using the elements of the array.",
+          "content": {},
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q3(a)",
+          "practice": false,
+          "topic": "g12-binary-tree",
+          "scheme": {
+            "mark_scheme": "Root (1)\nLeft subtree (1)\nRight subtree (1)",
+            "model_answer": "Root red; left subtree blue with children black and green; right subtree yellow with left child white.",
+            "accepted": {
+              "tree": [
+                "red",
+                "blue",
+                "yellow",
+                "black",
+                "green",
+                "white"
+              ]
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m24p3-3bi",
+          "title": "Binary tree and Bubble sort (b)(i)",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.4@paper",
+            "11.5.2.3@paper"
+          ],
+          "text": "Write a pseudocode or programming code to sort each row of the two-dimensional array in alphabetical order using Bubble sort.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q3(b)(i)",
+          "practice": false,
+          "topic": "paper-sorting-and-searching",
+          "scheme": {
+            "mark_scheme": "Head of the outer loop with correct range (1)\nHead of the inner loop with correct range (1)\nComparison neighboring elements (1)\nSwap two neighboring elements (1)",
+            "points": [
+              {
+                "criterion": "Head of the outer loop with correct range",
+                "marks": 1
+              },
+              {
+                "criterion": "Head of the inner loop with correct range",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparison neighboring elements",
+                "marks": 1
+              },
+              {
+                "criterion": "Swap two neighboring elements",
+                "marks": 1
+              }
+            ],
+            "model_answer": "for row in arr:\n  n = len(row)\n  for i in range(n):\n    for j in range(0, n - i - 1):\n      if row[j] > row[j + 1]:\n        row[j], row[j + 1] = row[j + 1], row[j]"
+          },
+          "part_label": "(b)(i)"
+        },
+        {
+          "key": "m24p3-3bii",
+          "title": "Binary tree and Bubble sort (b)(ii)",
+          "type": "table_completion",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.4@paper"
+          ],
+          "text": "Show the result after the first pass of Bubble sort.",
+          "content": {
+            "columns": [
+              "Row"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                null
+              ],
+              [
+                null
+              ],
+              [
+                null
+              ]
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q3(b)(ii)",
+          "practice": false,
+          "topic": "paper-sorting-and-searching",
+          "scheme": {
+            "mark_scheme": "{{\"blue\", \"red\"},\n{\"green\", \"yellow\"},\n{\"black\", \"white\"}} [1]",
+            "points": [
+              {
+                "criterion": "Answers match the mark scheme (see table / boxes)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "arr2D = { {\"blue\", \"red\"},\n          {\"green\", \"yellow\"},\n          {\"black\", \"white\"} }",
+            "accepted": {
+              "rows": [
+                [
+                  "{\"blue\", \"red\"}"
+                ],
+                [
+                  "{\"green\", \"yellow\"}"
+                ],
+                [
+                  "{\"black\", \"white\"}"
+                ]
+              ]
+            }
+          },
+          "part_label": "(b)(ii)"
+        }
+      ]
+    },
+    {
+      "key": "m24p3-4",
+      "title": "Arrays and queue behaviour",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A programmer uses an array data structure to solve problems.",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q4",
+      "practice": false,
+      "topic": "paper-arrays",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-4ai",
+          "title": "Arrays and queue behaviour (a)(i)",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper",
+            "11.5.2.2@paper"
+          ],
+          "text": "Explain why the programmer might prefer to use an array instead of a set of variables.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q4(a)(i)",
+          "practice": false,
+          "topic": "paper-arrays",
+          "scheme": {
+            "mark_scheme": "Use only one name (1)\nEasy to iterate over indices (1)\nOptimize using memory (1)\nQuicker to search arrays than a number of separate variables (1)\nEfficient way of storing multiple values of a similar type (1)\n[max 2]",
+            "points": [
+              {
+                "criterion": "Use only one name",
+                "marks": 1
+              },
+              {
+                "criterion": "Easy to iterate over indices",
+                "marks": 1
+              },
+              {
+                "criterion": "Optimize using memory",
+                "marks": 1
+              },
+              {
+                "criterion": "Quicker to search arrays than a number of separate variables",
+                "marks": 1
+              },
+              {
+                "criterion": "Efficient way of storing multiple values of a similar type",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An array stores multiple values of a similar type under one name, making it easy to iterate over the values using indices.",
+            "ai_instructions": "Award a maximum of 2 marks."
+          },
+          "part_label": "(a)(i)"
+        },
+        {
+          "key": "m24p3-4aii",
+          "title": "Arrays and queue behaviour (a)(ii)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "text": "Identify the possible minimum and maximum indexes of an array.",
+          "content": {
+            "fields": [
+              {
+                "key": "minimum",
+                "label": "minimum",
+                "lines": 1
+              },
+              {
+                "key": "maximum",
+                "label": "maximum",
+                "lines": 1
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q4(a)(ii)",
+          "practice": false,
+          "topic": "paper-arrays",
+          "scheme": {
+            "mark_scheme": "Minimum: 0 (1)\nMaximum: Length of array – 1 (1)",
+            "points": [
+              {
+                "criterion": "Answers match the mark scheme (see table / boxes)",
+                "marks": 2
+              }
+            ],
+            "model_answer": "minimum: 0\nmaximum: Length of array – 1",
+            "accepted": {
+              "fields": {
+                "minimum": [
+                  "0"
+                ],
+                "maximum": [
+                  "Length of array - 1",
+                  "Length of array – 1",
+                  "array length - 1",
+                  "len(array) - 1"
+                ]
+              }
+            }
+          },
+          "part_label": "(a)(ii)"
+        },
+        {
+          "key": "m24p3-4aiii",
+          "title": "Arrays and queue behaviour (a)(iii)",
+          "type": "pseudocode",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.3@paper"
+          ],
+          "text": "Write a condition that checks if two adjacent elements of an array of numbers ARR are in ascending order.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q4(a)(iii)",
+          "practice": false,
+          "topic": "paper-arrays",
+          "scheme": {
+            "mark_scheme": "if ARR[i] > ARR[i+1] [1]\nAccept any correct answer",
+            "points": [
+              {
+                "criterion": "A correct comparison between two adjacent elements of ARR",
+                "marks": 1
+              }
+            ],
+            "model_answer": "if ARR[i] > ARR[i+1]",
+            "ai_instructions": "Accept any correct answer."
+          },
+          "part_label": "(a)(iii)"
+        },
+        {
+          "key": "m24p3-4b",
+          "title": "Arrays and queue behaviour (b)",
+          "type": "pseudocode",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.3@paper",
+            "12.5.2.1@paper"
+          ],
+          "text": "Scenario. A company assigns each worker with N tasks they have to complete by the end of the day. The activities list of a worker is stored in array ACTIVITIES.\nThe worker can take a Break only after completing the tasks stored in the array.\n\n e.g. ACTIVITIES [activity 1, activity 2, …, activity N, Break]).\n\nThe company wants to change the policy, so the day starts with a Break, after which the worker starts working on their activities.\n\n e.g. ACTIVITIES [Break, activity 1, activity 2, …, activity N]).\n\nWrite a pseudocode or programming code to change the order of activities and the break given in the array in accordance with the new policy of the company.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q4(b)",
+          "practice": false,
+          "topic": "g12-stacks-and-queues",
+          "scheme": {
+            "mark_scheme": "buf ← ACTIVITIES[N] (1)\nFor (1)\ni from n downto 2 step – 1 (1)\n  ACTIVITIES[i] := ACTIVITIES[i - 1]; (1)\nendFor\nACTIVITIES[1] := buf (1)",
+            "points": [
+              {
+                "criterion": "buf ← ACTIVITIES[N]",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses a loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop iterates i from n downto 2 step – 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Moves each activity one position to the right: ACTIVITIES[i] := ACTIVITIES[i - 1]",
+                "marks": 1
+              },
+              {
+                "criterion": "Places saved break at the start: ACTIVITIES[1] := buf",
+                "marks": 1
+              }
+            ],
+            "model_answer": "buf ← ACTIVITIES[N]\nFor i from n downto 2 step – 1\n  ACTIVITIES[i] := ACTIVITIES[i - 1]\nendFor\nACTIVITIES[1] := buf"
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m24p3-4c",
+          "title": "Arrays and queue behaviour (c)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.1@paper"
+          ],
+          "text": "Identify the data structure that matches the algorithm in 4(b).",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q4(c)",
+          "practice": false,
+          "topic": "g12-stacks-and-queues",
+          "scheme": {
+            "mark_scheme": "Queue 1 f.t. [1]\nf.t. from their used algorithm in 3(b)",
+            "points": [
+              {
+                "criterion": "Queue",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Queue",
+            "accepted": {
+              "values": [
+                "Queue"
+              ]
+            },
+            "ai_instructions": "Follow through from their used algorithm in 4(b)."
+          },
+          "part_label": "(c)"
+        }
+      ]
+    },
+    {
+      "key": "m24p3-5",
+      "title": "HTML form and payment script",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "An online store needs a web application for calculating the cost of goods.\n\nThe prototypes are given below.\n\n![Fig. 1 prototype of Calculator web form with Types of clothes radio buttons for Coats, Boots and Jackets labelled A, text inputs Price (₸) 20 000 and Quantity 2 labelled B, and Submit button.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2024-p3/q5-fig1.png)\n\n![Fig. 2 prototype of Payment details output showing Boots: 2*20 000 and Total: 40 000 tenge.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2024-p3/q5-fig2.png)",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q5",
+      "practice": false,
+      "topic": "g11-web-page-design",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-5a",
+          "title": "HTML form and payment script (a)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.2@paper"
+          ],
+          "text": "The code fragment below creates the block A in Fig. 1.\n\n```html\n<     (1)  name=\"clothes\"     (2)                  >\n<label for=\"coats\">coats</label>\n</br>\n\n<     (1)  name=\"clothes\"     (2)                  >\n<label for=\"boots\">boots</label>\n</br>\n\n<     (1)  name=\"clothes\"     (2)    >\n<label for=\"jackets\">jackets</label>\n</br>\n```\n\nState what should be written in the gaps (1) and (2) in the code above.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "(1)",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "(2)",
+                "lines": 1
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q5(a)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "(1) Use <input type=”radio”… (1)\n(2) Use properties value...> (1)",
+            "points": [
+              {
+                "criterion": "Answers match the mark scheme (see table / boxes)",
+                "marks": 2
+              }
+            ],
+            "model_answer": "(1) input type=\"radio\"\n(2) value=\"coats\" / value=\"boots\" / value=\"jackets\" as appropriate",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "input type=\"radio\"",
+                  "input type='radio'",
+                  "input type=”radio”"
+                ],
+                "2": [
+                  "value",
+                  "value=\"coats\"",
+                  "value=\"boots\"",
+                  "value=\"jackets\""
+                ]
+              }
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m24p3-5b",
+          "title": "HTML form and payment script (b)",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2@paper"
+          ],
+          "text": "Write the code to create the block B in Fig. 1.",
+          "content": {
+            "language": "html"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q5(b)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "Use <input type=”text”> (1)\nUse properties name and placeholder. (1)",
+            "points": [
+              {
+                "criterion": "Use <input type=\"text\">",
+                "marks": 1
+              },
+              {
+                "criterion": "Use properties name and placeholder",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<input type=\"text\" name=\"price\" placeholder=\"20 000\">\n<input type=\"text\" name=\"quantity\" placeholder=\"2\">"
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m24p3-5c",
+          "title": "HTML form and payment script (c)",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2@paper"
+          ],
+          "text": "Write the attributes for the tag <form> to send data from the form using the GET method.\n\n```html\n<form                                                                           = ”GET”>\n```",
+          "content": {
+            "language": "html"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q5(c)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "Use tag <form action=”file_name” (1)\nmethod=”GET”> (1)",
+            "points": [
+              {
+                "criterion": "Use action=\"file_name\" attribute in the form tag",
+                "marks": 1
+              },
+              {
+                "criterion": "Use method=\"GET\" attribute",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<form action=\"file_name\" method=\"GET\">"
+          },
+          "part_label": "(c)"
+        },
+        {
+          "key": "m24p3-5d",
+          "title": "HTML form and payment script (d)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2@paper"
+          ],
+          "text": "Give one argument for using HTML forms in web applications.",
+          "content": {
+            "answer_lines": 2
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q5(d)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "To get data for processing (1)\nTo collect user input (1)\nTo mimic database/paper forms (1)\n[Max 1]",
+            "points": [
+              {
+                "criterion": "To get data for processing",
+                "marks": 1
+              },
+              {
+                "criterion": "To collect user input",
+                "marks": 1
+              },
+              {
+                "criterion": "To mimic database/paper forms",
+                "marks": 1
+              }
+            ],
+            "model_answer": "To collect user input.",
+            "ai_instructions": "Award a maximum of 1 mark."
+          },
+          "part_label": "(d)"
+        },
+        {
+          "key": "m24p3-5e",
+          "title": "HTML form and payment script (e)",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6@paper",
+            "11.5.3.8@paper"
+          ],
+          "text": "There will be a 10% discount on the total cost if the customer adds a coat to their shopping list.\n\nUsing a scripting language, write a code to output Payment details (Fig. 2).",
+          "content": {
+            "language": "javascript"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q5(e)",
+          "practice": false,
+          "topic": "g11-cascading-style-sheets",
+          "scheme": {
+            "mark_scheme": "Get values from Form (1)\nCheck clothes coat or not (1)\nCount result with Discount (1)\nCount result without Discount (1)\nUse html tags to output similar with prototype (1)\n\nAccept the names of the elements according to their answers in 5(a)",
+            "points": [
+              {
+                "criterion": "Get values from Form",
+                "marks": 1
+              },
+              {
+                "criterion": "Check clothes coat or not",
+                "marks": 1
+              },
+              {
+                "criterion": "Count result with Discount",
+                "marks": 1
+              },
+              {
+                "criterion": "Count result without Discount",
+                "marks": 1
+              },
+              {
+                "criterion": "Use html tags to output similar with prototype",
+                "marks": 1
+              }
+            ],
+            "model_answer": "function calculatePayment() {\n  var price = parseFloat(document.getElementById(\"price\").value);\n  var quantity = parseInt(document.getElementById(\"quantity\").value);\n  var hasCoat = document.querySelector('input[name=\"coat\"]:checked');\n\n  var totalCost = price * quantity;\n\n  if (hasCoat) {\n    totalCost *= 0.9; // 10% discount\n  }\n\n  document.getElementById(\"output\").innerHTML = \"Total Cost: $\" + totalCost.toFixed(2);\n}",
+            "ai_instructions": "Accept the names of the elements according to their answers in 5(a)."
+          },
+          "part_label": "(e)"
+        }
+      ]
+    },
+    {
+      "key": "m24p3-6",
+      "title": "Code analysis and optimisation",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "",
+      "source": "past_paper",
+      "source_reference": "NIS 2024 Paper 3 Q6",
+      "practice": false,
+      "topic": "paper-assembly-and-trace-tables",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m24p3-6a",
+          "title": "Code analysis and optimisation (a)",
+          "type": "code_analysis",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "analyse",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.4@paper",
+            "11.5.2.6@paper"
+          ],
+          "text": "Analyse the pseudocode below.\n\n```pseudocode\nN ← 100\nK ← 0\nFOR i FROM 0 TO N\n   IF i MOD 2 = 0\n   K = K + 1\nENDIF\nENDFOR\nPRINT K\n```\n\nExplain the purpose of the given pseudocode.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q6(a)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "Checks if a number is even in the range from 0 to 100 (1)\nPrints the number of even numbers in a range (1)",
+            "points": [
+              {
+                "criterion": "Checks if a number is even in the range from 0 to 100",
+                "marks": 1
+              },
+              {
+                "criterion": "Prints the number of even numbers in a range",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The pseudocode checks each number from 0 to 100 to see whether it is even, counts the even numbers, and prints the number of even numbers in the range."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m24p3-6b",
+          "title": "Code analysis and optimisation (b)",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.12@paper"
+          ],
+          "text": "The program code should be written in a good programming style to make it readable.\n\nGive three features of a good programming style.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 2
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q6(b)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "indentation (1)\nmeaningful variable names (1)\ncomments (1)\nAccept any correct answers",
+            "points": [
+              {
+                "criterion": "indentation",
+                "marks": 1
+              },
+              {
+                "criterion": "meaningful variable names",
+                "marks": 1
+              },
+              {
+                "criterion": "comments",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 indentation\n2 meaningful variable names\n3 comments",
+            "ai_instructions": "Accept any correct answers."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m24p3-6ci",
+          "title": "Code analysis and optimisation (c)(i)",
+          "type": "pseudocode",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "text": "Rewrite the optimised version of the fragment given in 6(a).",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q6(c)(i)",
+          "practice": false,
+          "topic": "paper-algorithm-efficiency",
+          "scheme": {
+            "mark_scheme": "Reduce the number of variables (1)\nReduce the number of iterations (1)\nCorrect use of indentation used (1)\n[Max 2]",
+            "points": [
+              {
+                "criterion": "Reduce the number of variables",
+                "marks": 1
+              },
+              {
+                "criterion": "Reduce the number of iterations",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct use of indentation used",
+                "marks": 1
+              }
+            ],
+            "model_answer": "K ← 0\nFOR i FROM 2 TO 100 STEP 2\n  K = K + 1\nENDFOR\nPRINT K",
+            "ai_instructions": "Award a maximum of 2 marks."
+          },
+          "part_label": "(c)(i)"
+        },
+        {
+          "key": "m24p3-6cii",
+          "title": "Code analysis and optimisation (c)(ii)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "text": "State two actions that can optimise a code in terms of time-efficiency.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q6(c)(ii)",
+          "practice": false,
+          "topic": "paper-algorithm-efficiency",
+          "scheme": {
+            "mark_scheme": "Select the most appropriate algorithm (1)\nUse efficient data structures (1)\nExclude redundancy of operations/calculations (1)\nMinimize loop iterations (1)\n[Max 2]\nAccept any correct answers",
+            "points": [
+              {
+                "criterion": "Select the most appropriate algorithm",
+                "marks": 1
+              },
+              {
+                "criterion": "Use efficient data structures",
+                "marks": 1
+              },
+              {
+                "criterion": "Exclude redundancy of operations/calculations",
+                "marks": 1
+              },
+              {
+                "criterion": "Minimize loop iterations",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Select the most appropriate algorithm.\n2 Minimize loop iterations.",
+            "ai_instructions": "Award a maximum of 2 marks. Accept any correct answers."
+          },
+          "part_label": "(c)(ii)"
+        },
+        {
+          "key": "m24p3-6ciii",
+          "title": "Code analysis and optimisation (c)(iii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.7@paper"
+          ],
+          "text": "State one action that can optimise a code in terms of space-efficiency.",
+          "content": {
+            "answer_lines": 2
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2024 Paper 3 Q6(c)(iii)",
+          "practice": false,
+          "topic": "paper-algorithm-efficiency",
+          "scheme": {
+            "mark_scheme": "Choose appropriate data structures (1)\nEliminate duplicate data (1)\n[Max 1]\nAccept any correct answers",
+            "points": [
+              {
+                "criterion": "Choose appropriate data structures",
+                "marks": 1
+              },
+              {
+                "criterion": "Eliminate duplicate data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Eliminate duplicate data.",
+            "ai_instructions": "Award a maximum of 1 mark. Accept any correct answers."
+          },
+          "part_label": "(c)(iii)"
+        }
+      ]
+    }
+  ]
+}

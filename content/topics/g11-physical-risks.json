@@ -1,0 +1,140 @@
+{
+  "topic": "g11-physical-risks",
+  "questions": [],
+  "summary": "Physical risks that cause data loss and how backup and disk mirroring protect data, with a comparison of the two.",
+  "theory": [
+    {
+      "title": "Physical risks of data loss",
+      "objectives": [
+        "11.1.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Risk",
+            "Example",
+            "Prevention"
+          ],
+          "rows": [
+            [
+              "Hardware failure",
+              "Hard disk crash, overheating, worn-out SSD",
+              "Backups, RAID mirroring, cooling, replacing old hardware"
+            ],
+            [
+              "Power cut / surge",
+              "Data in RAM lost; files corrupted during saving",
+              "**UPS** (uninterruptible power supply), surge protectors, autosave"
+            ],
+            [
+              "Fire, flood, natural disaster",
+              "Server room destroyed",
+              "Off-site / cloud backups, fire-proof safes, smoke detectors, servers above ground level"
+            ],
+            [
+              "Theft",
+              "Laptop or USB drive stolen",
+              "Locks, CCTV, security staff, encryption of portable devices"
+            ],
+            [
+              "Accidental damage",
+              "Coffee spilt on a laptop, device dropped",
+              "Careful handling, protective cases, backups"
+            ],
+            [
+              "Human error",
+              "Deleting or overwriting files",
+              "Training, access rights, backups, \"recycle bin\""
+            ],
+            [
+              "Unauthorised physical access",
+              "Someone plugs a USB into a server",
+              "Locked server rooms, ID cards, biometric doors"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Backup and disk mirroring",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Backup",
+          "content": "A **copy of data** made at regular times and stored **separately** (another disk, tape, cloud, another building) so that the data can be **restored** after loss."
+        },
+        {
+          "type": "definition",
+          "term": "Disk mirroring (RAID 1)",
+          "content": "Data is written to **two (or more) disks at the same time**, so the disks are identical copies. If one disk fails, the system continues using the other **without interruption**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Full backup",
+              "content": "Copies **all** data every time. Easy to restore; slow and uses most storage."
+            },
+            {
+              "title": "Incremental backup",
+              "content": "Copies only data **changed since the last backup** (of any kind). Fast, small; restoring needs the full backup plus every increment."
+            },
+            {
+              "title": "Differential backup",
+              "content": "Copies everything changed **since the last full backup**. Restoring needs only the full backup and the latest differential."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Backup vs disk mirroring",
+          "columns": [
+            "",
+            "Backup",
+            "Disk mirroring"
+          ],
+          "rows": [
+            [
+              "When copied",
+              "At intervals (daily, weekly)",
+              "Continuously, in real time"
+            ],
+            [
+              "Location",
+              "Can be off-site / cloud",
+              "Usually in the same computer or server"
+            ],
+            [
+              "Protects against hardware failure",
+              "Yes, but data since the last backup is lost and restoring takes time",
+              "Yes — no data lost, no downtime"
+            ],
+            [
+              "Protects against deletion, viruses, ransomware",
+              "**Yes** — older versions can be restored",
+              "**No** — the deletion or corruption is copied to the mirror immediately"
+            ],
+            [
+              "Protects against fire/theft",
+              "Yes, if stored off-site",
+              "No — both disks are lost together"
+            ],
+            [
+              "Cost",
+              "Cheaper storage media",
+              "Needs a second identical disk for every disk"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "The key comparison: **mirroring gives continuous availability** but copies mistakes too; a **backup can restore earlier versions** but is only as recent as the last backup. Organisations usually use **both**."
+        }
+      ]
+    }
+  ]
+}

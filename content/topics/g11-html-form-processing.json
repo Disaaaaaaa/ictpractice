@@ -1,0 +1,144 @@
+{
+  "topic": "g11-html-form-processing",
+  "questions": [],
+  "summary": "Processing HTML form data with one-dimensional arrays and loops, and writing program code in a good programming style.",
+  "theory": [
+    {
+      "title": "One-dimensional arrays",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Array",
+          "content": "A **data structure** that stores **many values of the same type** under **one identifier**; each element is accessed by its **index**."
+        },
+        {
+          "type": "comparison",
+          "title": "Array terms",
+          "columns": [
+            "Term",
+            "Meaning",
+            "Example (`marks = [7, 9, 4, 10]`)"
+          ],
+          "rows": [
+            [
+              "Element",
+              "One value in the array",
+              "`9`"
+            ],
+            [
+              "Index",
+              "Position of an element",
+              "In PHP/JS indexes start at **0**: `marks[1]` = 9"
+            ],
+            [
+              "Lower bound / upper bound",
+              "Smallest / largest index",
+              "0 and 3"
+            ],
+            [
+              "Length (size)",
+              "Number of elements",
+              "4"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$marks = [7, 9, 4, 10];\n$marks[] = 8;                       // add an element at the end\necho count($marks);                 // 5\necho $marks[0];                     // 7\n$marks[2] = 6;                      // change the third element\nsort($marks);                       // 6 7 8 9 10\n?>",
+          "caption": "Working with a 1D array in PHP"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Pseudocode arrays",
+          "content": "In Cambridge-style pseudocode arrays are usually declared with bounds and often start at 1:\n`DECLARE Marks : ARRAY[1:30] OF INTEGER`"
+        }
+      ]
+    },
+    {
+      "title": "Processing form data with loops",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Several form fields with the same name followed by `[]` arrive in PHP as an **array**."
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<form action=\"marks.php\" method=\"post\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <button>Calculate</button>\n</form>",
+          "caption": "Form sending an array of marks"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$marks = $_POST[\"mark\"];            // array of strings\n$total = 0;\n$max   = $marks[0];\n$above = 0;\nfor ($i = 0; $i < count($marks); $i++) {\n    $m = (int)$marks[$i];\n    $total += $m;\n    if ($m > $max)  $max = $m;\n    if ($m > 5)     $above++;\n}\n$average = $total / count($marks);\necho \"Total: $total<br>Average: \" . round($average, 2) . \"<br>Highest: $max<br>Marks above 5: $above\";\n?>",
+          "caption": "marks.php — total, average, maximum and count above 5"
+        },
+        {
+          "type": "steps",
+          "title": "Standard algorithms on an array",
+          "items": [
+            "**Total / average:** start `total ← 0`, add every element, divide by the length.",
+            "**Maximum / minimum:** start with the first element, compare each element, keep the larger/smaller.",
+            "**Counting:** start `count ← 0`, add 1 when the condition is true.",
+            "**Linear search:** compare each element with the target until it is found or the array ends."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Good programming style",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Meaningful identifiers",
+              "content": "`$averageMark`, not `$x`. Use a consistent style (camelCase or snake_case)."
+            },
+            {
+              "title": "Comments",
+              "content": "Explain **why** the code does something, and describe each function."
+            },
+            {
+              "title": "Indentation and spacing",
+              "content": "Indent the body of every IF, loop and function so the structure is visible."
+            },
+            {
+              "title": "Constants",
+              "content": "`define(\"MAX_STUDENTS\", 30);` instead of \"magic numbers\" in the code."
+            },
+            {
+              "title": "Functions / procedures",
+              "content": "Split the program into small, reusable subroutines with one task each."
+            },
+            {
+              "title": "Validation and error handling",
+              "content": "Check input data and handle errors (e.g. a failed database connection)."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n// Poor\n$a=$_POST[\"p\"];if($a<1000){$b=$a*1.3;}else{$b=$a*1.15;}echo $b;\n\n// Good\nconst MARKUP_CHEAP     = 1.30;   // +30% for goods under 1000 tenge\nconst MARKUP_EXPENSIVE = 1.15;   // +15% otherwise\n\nfunction sellingPrice(float $price): float {\n    return $price < 1000 ? $price * MARKUP_CHEAP : $price * MARKUP_EXPENSIVE;\n}\n\n$price = (float)$_POST[\"price\"];\necho \"Selling price: \" . sellingPrice($price);\n?>",
+          "caption": "Poor style vs good style"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Good style makes code easier to **read, debug and maintain**, especially when someone else has to change it later — that is the reason to give in \"explain why\" questions."
+        }
+      ]
+    }
+  ]
+}

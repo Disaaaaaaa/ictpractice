@@ -1,0 +1,140 @@
+{
+  "topic": "g11-technical-specification",
+  "questions": [],
+  "summary": "Writing a technical specification — determining the minimum hardware requirements of a new system and justifying the choice of software.",
+  "theory": [
+    {
+      "title": "Minimum hardware requirements",
+      "objectives": [
+        "11.3.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Technical specification",
+          "content": "A document that lists the **hardware and software needed** to run a new system and explains why each item was chosen."
+        },
+        {
+          "type": "comparison",
+          "title": "Hardware to consider",
+          "columns": [
+            "Component",
+            "What to specify",
+            "How to decide"
+          ],
+          "rows": [
+            [
+              "Processor (CPU)",
+              "Cores, clock speed (GHz)",
+              "Heavier processing (video, databases, many users) needs a faster CPU"
+            ],
+            [
+              "RAM",
+              "Capacity (GB)",
+              "Number and size of programs open at once; OS minimum + application needs"
+            ],
+            [
+              "Storage",
+              "Type (SSD/HDD) and capacity",
+              "Size of software + data now + expected growth + backups; SSD for speed"
+            ],
+            [
+              "Display",
+              "Resolution, size",
+              "Graphics/design work needs higher resolution"
+            ],
+            [
+              "Input devices",
+              "Keyboard, mouse, barcode scanner, camera, touchscreen",
+              "From the system's inputs (e.g. scanning products)"
+            ],
+            [
+              "Output devices",
+              "Printer type, speakers",
+              "From required outputs (receipts → thermal printer)"
+            ],
+            [
+              "Network",
+              "Network card, Wi-Fi, bandwidth",
+              "Online/cloud systems, number of users"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Determining the minimum requirements",
+          "items": [
+            "List the **software** the system needs (OS, DBMS, applications) and read each one's **minimum requirements**.",
+            "Take the **highest** value for each component and add the needs of the **data** (size, growth).",
+            "Add the **peripherals** required by the system's inputs and outputs.",
+            "Allow a **margin** for future growth and for running several programs at once."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Library system for 600 students",
+          "content": "- CPU: 4-core, 2.5 GHz — runs the DBMS and the library app together.\n- RAM: 8 GB — OS (4 GB) + DBMS + application.\n- Storage: 256 GB SSD — software, database, daily backups.\n- Barcode scanner — to scan book and student cards quickly and accurately.\n- Receipt printer — to print loan slips.\n- Network card — the database is shared with other computers in the school."
+        }
+      ]
+    },
+    {
+      "title": "Justifying the choice of software",
+      "objectives": [
+        "11.3.1.4"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Criteria for choosing software",
+          "columns": [
+            "Criterion",
+            "Questions to ask"
+          ],
+          "rows": [
+            [
+              "Functionality",
+              "Does it do everything in the requirements specification?"
+            ],
+            [
+              "Compatibility",
+              "Does it run on the chosen hardware and OS? Can it import existing data?"
+            ],
+            [
+              "Cost",
+              "Licence price, subscription, cost of upgrades, training"
+            ],
+            [
+              "Ease of use",
+              "Is it easy to learn for these users? Is the interface in the right language?"
+            ],
+            [
+              "Support",
+              "Manuals, tutorials, technical support, regular updates"
+            ],
+            [
+              "Security",
+              "User accounts, permissions, encryption, backups"
+            ],
+            [
+              "Scalability",
+              "Can it cope with more users and data later?"
+            ],
+            [
+              "Type of licence",
+              "Proprietary vs open source; bespoke vs off-the-shelf"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Justification",
+          "content": "\"**MySQL** was chosen as the DBMS because it is **free and open-source**, runs on the school's **Linux server**, supports **many simultaneous users** and is widely used, so **documentation and support** are easy to find.\""
+        },
+        {
+          "type": "exam_tip",
+          "content": "A justification needs a **reason linked to the scenario**: not just \"it is good\", but \"it is chosen *because* the clinic needs X, and this software provides X\"."
+        }
+      ]
+    }
+  ]
+}

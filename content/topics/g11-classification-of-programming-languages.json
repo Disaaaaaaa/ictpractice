@@ -1,0 +1,174 @@
+{
+  "topic": "g11-classification-of-programming-languages",
+  "questions": [],
+  "summary": "Low-level and high-level programming languages, how they compare, and the difference between imperative and declarative programming.",
+  "theory": [
+    {
+      "title": "Low-level and high-level languages",
+      "objectives": [
+        "11.5.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Low-level language",
+          "content": "A language **close to the hardware**, whose instructions correspond directly to the processor's instructions. Two kinds: **machine code** (binary) and **assembly language** (mnemonics such as `LDA`, `ADD`, `STO`)."
+        },
+        {
+          "type": "definition",
+          "term": "High-level language",
+          "content": "A language **close to human language and mathematics**, independent of a particular processor. One statement usually becomes many machine instructions. *Examples: Python, Java, C#, JavaScript, Pascal.*"
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "High-level (Python):   total = a + b\nAssembly:              LDA a\n                       ADD b\n                       STA total\nMachine code:          0001 0000 1100\n                       0101 0000 1101\n                       0010 0000 1110",
+          "caption": "The same task at three levels"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Translators",
+          "content": "High-level code is translated by a **compiler** or **interpreter**; assembly language is translated by an **assembler**. Machine code needs no translation."
+        }
+      ]
+    },
+    {
+      "title": "Comparing high-level and low-level languages",
+      "objectives": [
+        "11.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Criterion",
+            "High-level language",
+            "Low-level language"
+          ],
+          "rows": [
+            [
+              "Ease of writing and reading",
+              "Easy — English-like keywords",
+              "Hard — mnemonics or binary"
+            ],
+            [
+              "Portability",
+              "Runs on different processors after translation",
+              "Specific to one processor family"
+            ],
+            [
+              "Development time",
+              "Short",
+              "Long"
+            ],
+            [
+              "Debugging",
+              "Easier",
+              "Harder"
+            ],
+            [
+              "Execution speed",
+              "Usually slower",
+              "Fast — can be optimised for the hardware"
+            ],
+            [
+              "Memory use",
+              "Larger programs",
+              "Small, efficient programs"
+            ],
+            [
+              "Hardware control",
+              "Indirect",
+              "Direct access to registers and memory addresses"
+            ],
+            [
+              "Typical use",
+              "Applications, websites, games",
+              "Device drivers, embedded systems, parts of OS kernels"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Common exam phrasing: \"Give **one** reason why a programmer would use a low-level language.\" Good answer: \"to **directly control the hardware**, e.g. when writing a device driver\", or \"to produce code that **runs faster and uses less memory** on an embedded device.\""
+        }
+      ]
+    },
+    {
+      "title": "Imperative and declarative languages",
+      "objectives": [
+        "11.5.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Imperative programming",
+          "content": "The programmer writes a **sequence of commands** describing **how** to solve the problem step by step; the program changes the values of variables (state). *Procedural and object-oriented languages are imperative: Python, C, Java, Pascal.*"
+        },
+        {
+          "type": "definition",
+          "term": "Declarative programming",
+          "content": "The programmer describes **what** the result should be — facts, rules or conditions — and the language system works out how to obtain it. *Examples: SQL (database queries), Prolog (logic programming), HTML (describes a page).*"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "adults = []\nfor person in people:\n    if person.age >= 18:\n        adults.append(person.name)",
+          "caption": "Imperative (Python): how to find adults"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT Name FROM People WHERE Age >= 18;",
+          "caption": "Declarative (SQL): what we want"
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "parent(aliya, timur).\nparent(timur, dana).\ngrandparent(X, Z) :- parent(X, Y), parent(Y, Z).\n?- grandparent(aliya, Who).",
+          "caption": "Declarative (Prolog): facts, a rule and a query"
+        },
+        {
+          "type": "comparison",
+          "columns": [
+            "",
+            "Imperative",
+            "Declarative"
+          ],
+          "rows": [
+            [
+              "Programmer describes",
+              "How (algorithm, steps)",
+              "What (facts, rules, goal)"
+            ],
+            [
+              "Control flow",
+              "Written explicitly: sequence, selection, loops",
+              "Handled by the language engine"
+            ],
+            [
+              "Variables",
+              "Change value during execution",
+              "Facts/rules; little or no changing state"
+            ],
+            [
+              "Examples",
+              "Python, C++, Java, Pascal",
+              "SQL, Prolog, HTML"
+            ],
+            [
+              "Typical use",
+              "General applications, games",
+              "Databases, expert systems, AI"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Do not say \"declarative languages have no logic\". They have logic (rules), but the **order of execution** is decided by the system, not by the programmer."
+        }
+      ]
+    }
+  ]
+}

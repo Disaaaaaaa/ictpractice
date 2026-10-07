@@ -1,0 +1,190 @@
+{
+  "topic": "g11-scripting-language",
+  "questions": [],
+  "summary": "Selection and iteration in a scripting language, validating and verifying data in code, connecting to a database from a script, and using JavaScript to make pages interactive.",
+  "theory": [
+    {
+      "title": "Selection in a scripting language",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A **scripting language** is an interpreted language used to automate tasks or to add behaviour to web pages: **JavaScript** runs in the browser (client side); **PHP** and **Python** often run on the web server (server side)."
+        },
+        {
+          "type": "comparison",
+          "title": "Selection statements",
+          "columns": [
+            "Pseudocode",
+            "PHP",
+            "JavaScript"
+          ],
+          "rows": [
+            [
+              "`IF price < 1000 THEN`",
+              "`if ($price < 1000) {`",
+              "`if (price < 1000) {`"
+            ],
+            [
+              "`ELSE`",
+              "`} else {`",
+              "`} else {`"
+            ],
+            [
+              "`ENDIF`",
+              "`}`",
+              "`}`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$mark = 78;\nif ($mark >= 90) {\n    $grade = \"A\";\n} elseif ($mark >= 75) {\n    $grade = \"B\";\n} elseif ($mark >= 50) {\n    $grade = \"C\";\n} else {\n    $grade = \"Fail\";\n}\necho \"Grade: \" . $grade;   // Grade: B\n?>",
+          "caption": "IF … ELSEIF … ELSE in PHP"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "switch (day) {\n  case \"Sat\":\n  case \"Sun\":\n    message = \"Weekend\";\n    break;\n  default:\n    message = \"School day\";\n}",
+          "caption": "switch in JavaScript"
+        },
+        {
+          "type": "comparison",
+          "title": "Comparison and logical operators",
+          "columns": [
+            "Meaning",
+            "PHP / JavaScript"
+          ],
+          "rows": [
+            [
+              "equal / not equal",
+              "`==`  `!=` (strict: `===`  `!==`)"
+            ],
+            [
+              "less / greater (or equal)",
+              "`<`  `>`  `<=`  `>=`"
+            ],
+            [
+              "and / or / not",
+              "`&&`  `||`  `!`"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Iteration in a scripting language",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\nfor ($i = 1; $i <= 5; $i++) {        // count-controlled\n    echo $i * $i . \" \";              // 1 4 9 16 25\n}\n\n$total = 0;\n$n = 1;\nwhile ($total <= 100) {              // condition-controlled\n    $total += $n;\n    $n++;\n}\n\n$marks = [7, 9, 4, 10];\nforeach ($marks as $m) {             // every element of an array\n    echo $m . \"<br>\";\n}\n?>",
+          "caption": "for, while and foreach in PHP"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "for (let i = 10; i >= 0; i -= 2) console.log(i);   // 10 8 6 4 2 0\n\nlet password;\ndo {\n  password = prompt(\"Password:\");\n} while (password.length < 8);                     // post-condition loop",
+          "caption": "Loops in JavaScript"
+        }
+      ]
+    },
+    {
+      "title": "Validation and verification in code",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$errors = [];\n$name  = trim($_POST[\"name\"] ?? \"\");\n$age   = $_POST[\"age\"] ?? \"\";\n$email = $_POST[\"email\"] ?? \"\";\n\nif ($name === \"\")                               $errors[] = \"Name is required.\";          // presence\nif (strlen($name) > 40)                         $errors[] = \"Name is too long.\";           // length\nif (!is_numeric($age))                          $errors[] = \"Age must be a number.\";       // type\nelseif ($age < 14 || $age > 18)                 $errors[] = \"Age must be 14–18.\";          // range\nif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = \"Email format is invalid.\";    // format\nif ($_POST[\"password\"] !== $_POST[\"confirm\"])   $errors[] = \"Passwords do not match.\";     // verification (double entry)\n\nif ($errors) { foreach ($errors as $e) echo \"<p class='error'>$e</p>\"; }\nelse { echo \"Data accepted.\"; }\n?>",
+          "caption": "Server-side validation of form data"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Validate on the **client** (JavaScript, HTML `required`/`min`/`max`) for quick feedback, **and** on the **server** (PHP) because client checks can be bypassed."
+        }
+      ]
+    },
+    {
+      "title": "Connecting to a database from a script",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\nif (!$conn) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$result = mysqli_query($conn, \"SELECT FirstName, Grade FROM Student ORDER BY FirstName\");\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"FirstName\"] . \" — grade \" . $row[\"Grade\"] . \"<br>\";\n}\nmysqli_close($conn);\n?>",
+          "caption": "Connecting to MySQL with mysqli"
+        },
+        {
+          "type": "steps",
+          "title": "Steps of working with a database in a script",
+          "items": [
+            "**Connect** to the database server (host, user, password, database name).",
+            "**Check** that the connection succeeded.",
+            "**Send an SQL query** (SELECT, INSERT, UPDATE, DELETE).",
+            "**Process the result** — loop through the rows and output them.",
+            "**Close** the connection."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Using a script to provide interactivity",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "JavaScript reacts to **events** (click, input, submit, mouse over) and changes the page without reloading it."
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<label>Price (₸): <input id=\"price\" type=\"number\" value=\"800\"></label>\n<p>Selling price: <b id=\"out\"></b></p>\n<p id=\"warn\" style=\"color: red\"></p>\n\n<script>\n  const price = document.getElementById(\"price\");\n  function update() {\n    const p = Number(price.value);\n    document.getElementById(\"warn\").textContent =\n      (p < 1 || p > 50000) ? \"Price must be between 1 and 50 000\" : \"\";\n    const selling = p < 1000 ? p * 1.3 : p * 1.15;\n    document.getElementById(\"out\").textContent = selling.toFixed(0) + \" ₸\";\n  }\n  price.addEventListener(\"input\", update);   // run update() whenever the value changes\n  update();\n</script>",
+          "caption": "Live price calculator: the result updates as the user types (event \"input\")"
+        },
+        {
+          "type": "comparison",
+          "title": "Common events",
+          "columns": [
+            "Event",
+            "Happens when"
+          ],
+          "rows": [
+            [
+              "`click`",
+              "An element is clicked"
+            ],
+            [
+              "`input` / `change`",
+              "The value of a field changes"
+            ],
+            [
+              "`submit`",
+              "A form is sent — can be cancelled with `event.preventDefault()` if invalid"
+            ],
+            [
+              "`mouseover` / `mouseout`",
+              "The pointer moves over / off an element"
+            ],
+            [
+              "`load`",
+              "The page has finished loading"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

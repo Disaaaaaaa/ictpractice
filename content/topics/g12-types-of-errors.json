@@ -1,0 +1,143 @@
+{
+  "topic": "g12-types-of-errors",
+  "questions": [],
+  "summary": "Syntax and logic errors in program code — how to recognise, locate and correct them, with examples in pseudocode and Python.",
+  "theory": [
+    {
+      "title": "Syntax errors",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Syntax error",
+          "content": "Code that **breaks the grammar rules** of the language, so it cannot be translated. The compiler or interpreter reports it, usually with the line number."
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "1  def average(marks)\n2      total = 0\n3      for m in marks\n4          total = total + m\n5      retrun total / len(marks)\n6  print(average([7, 9, 4])",
+          "caption": "Find the syntax errors"
+        },
+        {
+          "type": "comparison",
+          "title": "Corrections",
+          "columns": [
+            "Line",
+            "Error",
+            "Correction"
+          ],
+          "rows": [
+            [
+              "1",
+              "Missing colon after the function header",
+              "`def average(marks):`"
+            ],
+            [
+              "3",
+              "Missing colon after `for`",
+              "`for m in marks:`"
+            ],
+            [
+              "5",
+              "Misspelt keyword",
+              "`return total / len(marks)`"
+            ],
+            [
+              "6",
+              "Missing closing bracket",
+              "`print(average([7, 9, 4]))`"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Logic errors",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Logic error",
+          "content": "The program runs but **produces incorrect results** because the algorithm or a calculation is wrong. The translator cannot detect it."
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "01 count ← 0\n02 largest ← 0\n03 FOR i ← 1 TO 9            // array has 10 marks: Marks[1:10]\n04     IF Marks[i] > 5 THEN\n05         count ← count + 1\n06     ENDIF\n07     IF Marks[i] < largest THEN\n08         largest ← Marks[i]\n09     ENDIF\n10 NEXT i\n11 OUTPUT count, largest",
+          "caption": "Find the logic errors: count marks of 5 or more and find the largest mark"
+        },
+        {
+          "type": "comparison",
+          "title": "Corrections",
+          "columns": [
+            "Line",
+            "Logic error",
+            "Correction"
+          ],
+          "rows": [
+            [
+              "03",
+              "Loop stops at 9, the last mark is never checked (off-by-one)",
+              "`FOR i ← 1 TO 10`"
+            ],
+            [
+              "04",
+              "`>` misses marks equal to 5",
+              "`IF Marks[i] >= 5 THEN`"
+            ],
+            [
+              "07",
+              "Wrong comparison: finds nothing (largest stays 0)",
+              "`IF Marks[i] > largest THEN`"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Finding logic errors",
+          "items": [
+            "Work out the **expected result** by hand for simple test data.",
+            "**Dry-run** the code with a **trace table**, recording every variable after each line.",
+            "Compare the trace with the expected values — the first difference shows the faulty line.",
+            "Use **breakpoints**, **watches** and **step-through** in an IDE debugger, or print intermediate values."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Syntax vs logic errors",
+          "columns": [
+            "",
+            "Syntax error",
+            "Logic error"
+          ],
+          "rows": [
+            [
+              "Program runs?",
+              "No",
+              "Yes"
+            ],
+            [
+              "Output",
+              "Error message from the translator",
+              "Wrong or unexpected result"
+            ],
+            [
+              "Found by",
+              "Compiler / interpreter",
+              "Testing, trace tables, debugging"
+            ],
+            [
+              "Example",
+              "`prnt(\"Hi\")`",
+              "`area = length + width` instead of `length * width`"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

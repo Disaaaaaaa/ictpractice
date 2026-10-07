@@ -1,0 +1,229 @@
+{
+  "topic": "paper-mobile-application-development",
+  "questions": [],
+  "summary": "Developing mobile apps — designing the interface with components, setting properties in code, using conditions and loops, using smartphone sensors, and publishing to an app store.",
+  "theory": [
+    {
+      "title": "Designing the interface with components",
+      "objectives": [
+        "11.5.4.1@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Mobile apps are often built in an **application designer** — e.g. **MIT App Inventor**, Thunkable, Android Studio's layout editor or Xcode — where components are dragged onto a screen."
+        },
+        {
+          "type": "comparison",
+          "title": "Common components",
+          "columns": [
+            "Component",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Screen",
+              "A page of the app"
+            ],
+            [
+              "Label",
+              "Displays text that the user cannot edit"
+            ],
+            [
+              "TextBox",
+              "The user types text or numbers"
+            ],
+            [
+              "Button",
+              "Starts an action when tapped"
+            ],
+            [
+              "CheckBox / Switch",
+              "On/off choice"
+            ],
+            [
+              "ListPicker / Spinner (drop-down)",
+              "Choose one item from a list"
+            ],
+            [
+              "Image, Canvas",
+              "Show pictures; draw"
+            ],
+            [
+              "Arrangements (horizontal/vertical/table)",
+              "Lay out components neatly"
+            ],
+            [
+              "Notifier",
+              "Shows alerts and messages"
+            ],
+            [
+              "Non-visible: Clock, TinyDB, Sound, Camera, LocationSensor, AccelerometerSensor",
+              "Timers, storage, media and sensors"
+            ]
+          ]
+        },
+        {
+          "type": "html_preview",
+          "title": "Interface of a simple tip calculator",
+          "html": "<div class=\"phone\">\n  <div class=\"bar\">Tip Calculator</div>\n  <label>Bill amount</label><input value=\"12000\">\n  <label>Tip</label>\n  <select><option>10%</option><option selected>15%</option><option>20%</option></select>\n  <label class=\"chk\"><input type=\"checkbox\" checked> Round up</label>\n  <button>Calculate</button>\n  <p class=\"res\">Total: 13 800 ₸</p>\n</div>",
+          "css": "body { font-family: Arial; font-size: 13px; }\n.phone { width: 220px; border: 2px solid #333; border-radius: 18px; padding: 10px; }\n.bar { background: #1f4fd8; color: #fff; padding: 6px; border-radius: 8px; margin-bottom: 6px; text-align: center; }\nlabel { display: block; margin-top: 5px; }\ninput, select { width: 100%; box-sizing: border-box; }\n.chk { display: flex; gap: 4px; }\n.chk input { width: auto; }\nbutton { width: 100%; margin-top: 8px; background: #1f4fd8; color: #fff; border: 0; padding: 6px; border-radius: 6px; }\n.res { font-weight: bold; text-align: center; }",
+          "height": 230
+        }
+      ]
+    },
+    {
+      "title": "Editing component properties in code",
+      "objectives": [
+        "11.5.4.2@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Every component has **properties** (Text, BackgroundColor, Visible, Enabled, FontSize, Image) that can be set in the designer **or changed by code** while the app runs, usually inside **event handlers**."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "when ButtonCalculate.Click\n    set LabelResult.Text to \"Total: \" + (TextBill.Text * 1.15)\n    set LabelResult.TextColor to Blue\n    set ButtonCalculate.Enabled to false",
+          "caption": "App Inventor blocks written as text"
+        },
+        {
+          "type": "code",
+          "language": "kotlin",
+          "content": "buttonCalculate.setOnClickListener {\n    val bill = textBill.text.toString().toDouble()\n    labelResult.text = \"Total: ${bill * 1.15}\"\n    labelResult.setTextColor(Color.BLUE)\n    buttonCalculate.isEnabled = false\n}",
+          "caption": "The same in Android (Kotlin)"
+        }
+      ]
+    },
+    {
+      "title": "Using conditional operators",
+      "objectives": [
+        "11.5.4.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "text",
+          "content": "when ButtonLogin.Click\n    if TextPIN.Text = \"\"\n        call Notifier.ShowAlert \"Enter your PIN\"\n    else if length(TextPIN.Text) ≠ 4\n        call Notifier.ShowAlert \"PIN must have 4 digits\"\n    else if TextPIN.Text = TinyDB.GetValue(\"pin\")\n        open another screen \"MainScreen\"\n    else\n        set LabelMessage.Text to \"Wrong PIN\"",
+          "caption": "Validation and decisions in an event handler"
+        }
+      ]
+    },
+    {
+      "title": "Using loop structures",
+      "objectives": [
+        "11.5.4.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "text",
+          "content": "when ScreenShop.Initialize\n    set total to 0\n    for each item in global prices\n        set total to total + item\n    set LabelTotal.Text to \"Total: \" + total\n\nwhen ButtonCountdown.Click\n    set n to 10\n    while n > 0\n        add n to ListViewCount.Elements\n        set n to n - 1",
+          "caption": "Loops: fill a list and find the total"
+        },
+        {
+          "type": "exam_tip",
+          "content": "In a mobile app a long-running loop **freezes the interface**. For repeated actions over time (animations, countdowns) use a **Clock/Timer** component whose *Timer* event fires every *n* milliseconds."
+        }
+      ]
+    },
+    {
+      "title": "Using the technical capabilities of smartphones",
+      "objectives": [
+        "11.5.4.5@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Sensors and features",
+          "columns": [
+            "Feature",
+            "Example use in an app"
+          ],
+          "rows": [
+            [
+              "GPS / location sensor",
+              "Maps, tracking a run, finding the nearest shop"
+            ],
+            [
+              "Accelerometer / gyroscope",
+              "Shake to refresh, step counter, games controlled by tilting"
+            ],
+            [
+              "Camera",
+              "Scan QR codes and barcodes, take photos"
+            ],
+            [
+              "Microphone, speech recognition",
+              "Voice commands, recording"
+            ],
+            [
+              "Touchscreen gestures",
+              "Swipe, pinch to zoom, drag"
+            ],
+            [
+              "Bluetooth, NFC",
+              "Connect to devices, contactless payment"
+            ],
+            [
+              "Proximity / light sensors",
+              "Turn off the screen during calls, adjust brightness"
+            ],
+            [
+              "Notifications, vibration",
+              "Reminders and alerts"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Apps must request **permissions** (camera, location, contacts) and explain why — users should grant only what is needed, and the app must protect the data it collects."
+        }
+      ]
+    },
+    {
+      "title": "Publishing the app",
+      "objectives": [
+        "11.5.4.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Publishing to an app store (e.g. Google Play)",
+          "items": [
+            "**Test** on several devices and screen sizes; fix bugs.",
+            "Build the release file (**APK / AAB** for Android, IPA for iOS) and **sign** it with the developer's key.",
+            "Create a **developer account** (Google Play Console; Apple Developer Program for the App Store).",
+            "Prepare the **store listing**: name, description, icon, screenshots, category, age rating, **privacy policy**.",
+            "Upload the file, set the price (free/paid) and countries.",
+            "The store **reviews** the app; after approval it is **published**.",
+            "Monitor reviews and crash reports; release **updates**."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Publishing through a store",
+          "columns": [
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Millions of potential users; easy installation and updates",
+              "Registration fee and store commission on sales"
+            ],
+            [
+              "Store checks for malware → user trust",
+              "Must follow store rules; review can reject the app"
+            ],
+            [
+              "Payments and analytics provided",
+              "Strong competition; visibility is hard"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

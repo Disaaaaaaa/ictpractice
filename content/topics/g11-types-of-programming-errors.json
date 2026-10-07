@@ -1,0 +1,119 @@
+{
+  "topic": "g11-types-of-programming-errors",
+  "questions": [],
+  "summary": "Syntax, logic and runtime errors — what causes each, when they are detected and how to find and fix them.",
+  "theory": [
+    {
+      "title": "Syntax errors",
+      "objectives": [
+        "11.5.4.13"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Syntax error",
+          "content": "A mistake that **breaks the grammar rules of the programming language**, so the translator cannot understand the code. The program will not compile/run."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Misspelt keywords (`pirnt`, `esle`), missing brackets, quotes, colons or semicolons, wrong indentation in Python, using an undeclared variable in some languages.",
+            "**Found by the translator** (compiler/interpreter), which reports the line number."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "if mark > 50            # missing colon\n    print(\"Pass\"        # missing closing bracket",
+          "caption": "Syntax errors"
+        }
+      ]
+    },
+    {
+      "title": "Logic errors",
+      "objectives": [
+        "11.5.4.14"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Logic error",
+          "content": "The program **runs without crashing but gives the wrong result**, because the algorithm is wrong."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wrong operator (`<` instead of `<=`), wrong formula or brackets, wrong order of statements, wrong loop limits (off-by-one), wrong variable used.",
+            "**Not detected by the translator** — found by **testing** (comparing actual and expected results), **trace tables** and **dry runs**."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "total = 0\nfor m in marks:\n    total = total + m\naverage = total / len(marks) + 1   # \"+ 1\" should not be there",
+          "caption": "Logic error: the average is wrong"
+        }
+      ]
+    },
+    {
+      "title": "Runtime errors",
+      "objectives": [
+        "11.5.4.15"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Runtime (execution) error",
+          "content": "An error that occurs **while the program is running**, causing it to **crash** or stop unexpectedly, even though the syntax is correct."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Division by zero, an array index **out of range**, opening a file that does not exist, converting text to a number (`int(\"abc\")`), running out of memory, an infinite recursion.",
+            "Prevented by **validation** and **error handling** (`try … except`)."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "marks = [7, 9, 4]\nprint(marks[3])            # IndexError: list index out of range\n\ntry:\n    n = int(input(\"How many students? \"))\n    print(100 / n)\nexcept ValueError:\n    print(\"Please enter a whole number.\")\nexcept ZeroDivisionError:\n    print(\"The number cannot be 0.\")",
+          "caption": "A runtime error and how to handle it"
+        },
+        {
+          "type": "comparison",
+          "title": "Summary",
+          "columns": [
+            "",
+            "Syntax error",
+            "Logic error",
+            "Runtime error"
+          ],
+          "rows": [
+            [
+              "Program runs?",
+              "No",
+              "Yes, wrong output",
+              "Starts, then crashes"
+            ],
+            [
+              "Detected by",
+              "Translator",
+              "Testing, trace tables",
+              "The program stops with an error message"
+            ],
+            [
+              "Example",
+              "Missing bracket",
+              "`area = 2 * r * r` instead of `3.14 * r * r`",
+              "Division by zero"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Classic exam items: \"misspelt a statement\" → **syntax**; \"index outside the bounds of the array\" → **runtime (execution)**; \"brackets used incorrectly in a calculation\" → **logic**."
+        }
+      ]
+    }
+  ]
+}

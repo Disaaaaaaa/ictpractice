@@ -1,0 +1,133 @@
+{
+  "topic": "g12-osi-models",
+  "questions": [],
+  "summary": "The seven layers of the OSI reference model, the function of each layer, typical protocols and devices, and how data is encapsulated.",
+  "theory": [
+    {
+      "title": "The OSI model",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "OSI model (Open Systems Interconnection)",
+          "content": "A **reference model with seven layers** that describes how data is sent across a network. Each layer has a specific function, **provides services to the layer above** and uses the layer below, so that hardware and software from different makers can work together."
+        },
+        {
+          "type": "comparison",
+          "title": "The seven layers (from top to bottom)",
+          "columns": [
+            "No.",
+            "Layer",
+            "Function",
+            "Examples"
+          ],
+          "rows": [
+            [
+              "7",
+              "**Application**",
+              "Network services for user applications; interface between the user's program and the network",
+              "HTTP, HTTPS, FTP, SMTP, POP3, DNS"
+            ],
+            [
+              "6",
+              "**Presentation**",
+              "Translates data formats, **encryption/decryption**, **compression**",
+              "SSL/TLS, JPEG, ASCII/Unicode"
+            ],
+            [
+              "5",
+              "**Session**",
+              "Opens, manages and **closes sessions** (connections) between applications; synchronisation",
+              "NetBIOS, RPC"
+            ],
+            [
+              "4",
+              "**Transport**",
+              "**End-to-end** delivery; splits data into **segments**, numbers them, error control, flow control, retransmission",
+              "**TCP**, UDP; port numbers"
+            ],
+            [
+              "3",
+              "**Network**",
+              "**Logical addressing** (IP) and **routing** of **packets** between networks",
+              "**IP**, ICMP; **routers**"
+            ],
+            [
+              "2",
+              "**Data link**",
+              "**Physical (MAC) addressing**, organising bits into **frames**, error detection on one link",
+              "Ethernet, Wi-Fi (802.11); **switches**, NICs"
+            ],
+            [
+              "1",
+              "**Physical**",
+              "Transmits raw **bits** as electrical, light or radio signals; cables, connectors, voltages",
+              "Cables, fibre, radio; **hubs**, **repeaters**"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Memory aid from layer 7 down: \"**A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing\" — Application, Presentation, Session, Transport, Network, Data link, Physical."
+        },
+        {
+          "type": "heading",
+          "text": "Encapsulation",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "When data is sent, each layer **adds its own header** (the data link layer also adds a trailer); the receiver removes them in reverse order."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "Application / Presentation / Session:                          [ DATA ]\nTransport (segment):                                 [TCP header][ DATA ]\nNetwork (packet):                          [IP header][TCP header][ DATA ]\nData link (frame):           [MAC header][IP header][TCP header][ DATA ][trailer]\nPhysical:                    0110100101010111010010110100101001011101010…",
+          "caption": "Encapsulation going down the layers"
+        },
+        {
+          "type": "comparison",
+          "title": "OSI model vs TCP/IP model",
+          "columns": [
+            "OSI layers",
+            "TCP/IP layer"
+          ],
+          "rows": [
+            [
+              "Application, Presentation, Session",
+              "Application"
+            ],
+            [
+              "Transport",
+              "Transport"
+            ],
+            [
+              "Network",
+              "Internet"
+            ],
+            [
+              "Data link, Physical",
+              "Network access (link)"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Benefits of a layered model",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "Each layer can be **designed, changed and tested independently**.",
+            "**Standards** let equipment from different manufacturers work together.",
+            "Easier **troubleshooting** — a problem can be located in one layer.",
+            "Easier to learn and teach networking."
+          ]
+        }
+      ]
+    }
+  ]
+}

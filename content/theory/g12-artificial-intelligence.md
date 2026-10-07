@@ -1,0 +1,40 @@
+---
+summary: Where artificial intelligence is applied — industry, education, medicine, the gaming industry and society — with examples, benefits and risks in each sphere.
+---
+# Spheres of application of AI
+@lo 12.4.3.1
+
+:::definition Artificial intelligence
+The ability of computer systems to perform tasks that require human-like intelligence: **perception** (seeing, hearing), **reasoning**, **learning**, **language** and **decision-making**.
+:::
+
+:::cards
+### Industry
+Robots on assembly lines; **computer vision** quality control finding defects; **predictive maintenance** — sensors and ML predict when a machine will fail; optimising supply chains and energy use; autonomous warehouses and delivery vehicles.
+### Education
+**Adaptive learning** platforms that adjust tasks to each student; automatic marking and feedback; AI tutors and chatbots; plagiarism and AI-text detection; translation and speech-to-text for accessibility; analytics that warn teachers about students at risk.
+### Medicine
+Analysing X-rays, MRI and CT scans to detect tumours; predicting disease from patient data; drug discovery; robot-assisted surgery; virtual health assistants; monitoring patients with wearable devices.
+### Gaming industry
+Non-player characters (NPCs) that react intelligently; **procedural generation** of levels and worlds; adjusting difficulty to the player; game-testing bots; AI opponents in chess and Go; realistic animation and voices.
+### Society
+Voice assistants, recommendation systems (YouTube, online shops), spam and fraud filters, smart cities (traffic control), face recognition, machine translation, self-driving cars, e-government chatbots.
+:::
+
+:::compare Benefits and risks by sphere
+| Sphere | Benefit | Risk / problem |
+|---|---|---|
+| Industry | Higher productivity, fewer defects, safer for workers | Job losses, high investment cost |
+| Education | Personalised learning, instant feedback, teachers save time | Over-reliance, cheating with AI tools, data privacy of children |
+| Medicine | Earlier, more accurate diagnosis; faster research | Errors in diagnosis — who is responsible? Bias if training data is unrepresentative; privacy of medical data |
+| Gaming | More realistic, engaging games | Addictive design, reduced need for human testers and artists |
+| Society | Convenience, safety, accessibility | Surveillance, deepfakes and misinformation, bias and discrimination, loss of privacy |
+:::
+
+:::example AI in a hospital — a structured answer
+"An AI system can **analyse X-ray images** and highlight possible tumours. **This** helps doctors **detect cancer earlier** and reduces the time needed for diagnosis. **However**, the final decision should be made by a doctor, because the AI **may give false results** if it was trained on limited data."
+:::
+
+:::tip
+For "describe spheres where AI is applied", name the sphere, give a **specific application**, and say **what the AI does** (recognises, predicts, recommends, controls).
+:::

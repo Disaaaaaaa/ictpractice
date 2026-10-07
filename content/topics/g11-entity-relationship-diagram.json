@@ -1,0 +1,124 @@
+{
+  "topic": "g11-entity-relationship-diagram",
+  "questions": [],
+  "summary": "One-to-one, one-to-many and many-to-many relationships, how keys link tables, and how to draw entity-relationship diagrams.",
+  "theory": [
+    {
+      "title": "Types of relationships between tables",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "One-to-one (1:1)",
+              "content": "One record in table A is linked to **at most one** record in table B, and vice versa. *A student has one student ID card; a card belongs to one student.*"
+            },
+            {
+              "title": "One-to-many (1:M)",
+              "content": "One record in A is linked to **many** records in B, but each record in B is linked to **only one** in A. *One class has many students; each student is in one class.* The most common relationship."
+            },
+            {
+              "title": "Many-to-many (M:M)",
+              "content": "Many records in A are linked to many records in B. *A student takes many courses; a course has many students.*"
+            }
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "A many-to-many relationship **cannot be implemented directly** in a relational database. It is split into two one-to-many relationships with a **link (junction) table**, e.g. Students — **Enrolments** — Courses."
+        }
+      ]
+    },
+    {
+      "title": "Defining relationships with keys",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A relationship is created by placing the **primary key of the \"one\" side** as a **foreign key in the \"many\" side**."
+        },
+        {
+          "type": "comparison",
+          "title": "Example: Class 1 : M Student",
+          "columns": [
+            "Table",
+            "Fields"
+          ],
+          "rows": [
+            [
+              "Class",
+              "**ClassID** (PK), ClassName, Room"
+            ],
+            [
+              "Student",
+              "**StudentID** (PK), Name, *ClassID* (FK)"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Resolving M:M",
+          "content": "Students(**StudentID**, Name) and Courses(**CourseID**, Title) have a many-to-many relationship.\nCreate **Enrolments(StudentID, CourseID, Grade)** with the composite primary key (StudentID, CourseID):\n- Students 1 : M Enrolments\n- Courses 1 : M Enrolments"
+        },
+        {
+          "type": "steps",
+          "title": "Deciding the type of relationship",
+          "items": [
+            "Ask: \"Can one A have **many** B?\"",
+            "Ask the reverse: \"Can one B have **many** A?\"",
+            "Both \"one\" → 1:1. One yes, one no → 1:M (the \"many\" side gets the foreign key). Both yes → M:M → add a link table."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Drawing entity-relationship diagrams",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Entity-relationship diagram (ERD)",
+          "content": "A diagram that shows the **entities** (tables) of a database and the **relationships** between them, including their **cardinality** (1:1, 1:M, M:M)."
+        },
+        {
+          "type": "paragraph",
+          "content": "Entities are drawn as rectangles; relationships as lines. Cardinality is shown with **crow's-foot notation** (a \"foot\" on the many side) or by writing 1 and M on the line."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  SCHOOL_CLASS ||--o{ STUDENT : contains\n  STUDENT ||--o{ ENROLMENT : makes\n  COURSE ||--o{ ENROLMENT : \"is taken in\"\n  TEACHER ||--o{ COURSE : teaches",
+          "caption": "ERD for a school database (crow's foot)"
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "SCHOOL_CLASS 1 ──── M STUDENT\nSTUDENT 1 ──── M ENROLMENT M ──── 1 COURSE\nTEACHER 1 ──── M COURSE",
+          "caption": "The same relationships written with 1 and M"
+        },
+        {
+          "type": "steps",
+          "title": "How to draw an ERD from a scenario",
+          "items": [
+            "Underline the **nouns** in the scenario — they are candidate entities (Student, Course, Teacher).",
+            "List the **attributes** of each entity and choose a **primary key**.",
+            "For each pair of related entities, decide the **cardinality**.",
+            "Replace every M:M relationship with a link entity.",
+            "Draw rectangles and lines; mark 1 and M (or crow's feet) at the correct ends."
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "In ERD questions marks are usually given **per correct relationship** (e.g. \"student_tbl to course_tbl 1–M (1)\"). Label both ends of every line clearly."
+        }
+      ]
+    }
+  ]
+}

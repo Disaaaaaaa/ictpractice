@@ -1,0 +1,169 @@
+{
+  "topic": "g11-domain-name-system",
+  "questions": [],
+  "summary": "What the Domain Name System does, how domain names are organised and resolved into IP addresses, and the structure of a URL.",
+  "theory": [
+    {
+      "title": "The Domain Name System (DNS)",
+      "objectives": [
+        "11.6.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Domain Name System (DNS)",
+          "content": "A distributed, hierarchical system of servers that **translates domain names** (e.g. `nis.edu.kz`) **into IP addresses** (e.g. `185.22.66.10` — an example address), so that people can use easy-to-remember names instead of numbers."
+        },
+        {
+          "type": "heading",
+          "text": "Organisation of domain names",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Domain names are read **from right to left**, from the most general level to the most specific."
+        },
+        {
+          "type": "comparison",
+          "title": "www.sk.nis.edu.kz",
+          "columns": [
+            "Part",
+            "Level",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "`kz`",
+              "Top-level domain (TLD)",
+              "Country: Kazakhstan"
+            ],
+            [
+              "`edu`",
+              "Second-level domain",
+              "Education"
+            ],
+            [
+              "`nis`",
+              "Third level",
+              "The organisation (Nazarbayev Intellectual Schools)"
+            ],
+            [
+              "`sk`",
+              "Fourth level (subdomain)",
+              "A particular school of the network"
+            ],
+            [
+              "`www`",
+              "Host name",
+              "The web server"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Types of top-level domains",
+          "columns": [
+            "Type",
+            "Examples"
+          ],
+          "rows": [
+            [
+              "Generic (gTLD)",
+              "`.com`, `.org`, `.net`, `.edu`, `.gov`"
+            ],
+            [
+              "Country code (ccTLD)",
+              "`.kz`, `.ru`, `.uk`, `.de`"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "sequenceDiagram\n  participant B as Browser\n  participant R as Resolver (ISP DNS)\n  participant Root as Root server\n  participant T as .kz TLD server\n  participant A as Authoritative server (nis.edu.kz)\n  B->>R: IP of www.nis.edu.kz?\n  R->>Root: www.nis.edu.kz?\n  Root-->>R: ask the .kz server\n  R->>T: www.nis.edu.kz?\n  T-->>R: ask nis.edu.kz's server\n  R->>A: www.nis.edu.kz?\n  A-->>R: 185.22.66.10\n  R-->>B: 185.22.66.10 (and caches it)",
+          "caption": "How a domain name is resolved"
+        },
+        {
+          "type": "steps",
+          "title": "DNS lookup in words",
+          "items": [
+            "The user types a URL; the browser first checks its own **cache**.",
+            "If not found, it asks the **DNS resolver** of the ISP.",
+            "The resolver asks a **root server**, which refers it to the **TLD server** (`.kz`).",
+            "The TLD server refers it to the **authoritative server** for the domain.",
+            "That server returns the **IP address**; the resolver **caches** it and sends it to the browser.",
+            "The browser connects to the web server using the IP address."
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "\"State a second-level domain name of www.sk.nis.edu.kz\" → **edu** (count from the right: kz = 1st/top level, edu = 2nd)."
+        }
+      ]
+    },
+    {
+      "title": "The structure of a URL",
+      "objectives": [
+        "11.6.2.5"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "URL (Uniform Resource Locator)",
+          "content": "The full **address of a resource** (page, file, image) on the web."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "https://www.nis.edu.kz:443/en/students/timetable.html?class=11A#monday\n└─┬─┘   └──────┬──────┘└┬┘└───────────┬───────────────┘└───┬───┘└──┬──┘\nprotocol    domain    port         path / file            query   fragment",
+          "caption": "Parts of a URL"
+        },
+        {
+          "type": "comparison",
+          "columns": [
+            "Part",
+            "Example",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Protocol (scheme)",
+              "`https`",
+              "How to transfer the resource (HTTP, HTTPS, FTP)"
+            ],
+            [
+              "Domain name",
+              "`www.nis.edu.kz`",
+              "Which server; converted to an IP address by DNS"
+            ],
+            [
+              "Port (optional)",
+              "`443`",
+              "Service on the server (80 = HTTP, 443 = HTTPS)"
+            ],
+            [
+              "Path",
+              "`/en/students/`",
+              "Folders on the server"
+            ],
+            [
+              "File name",
+              "`timetable.html`",
+              "The resource itself"
+            ],
+            [
+              "Query string",
+              "`?class=11A`",
+              "Parameters sent to the server"
+            ],
+            [
+              "Fragment",
+              "`#monday`",
+              "A position inside the page"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

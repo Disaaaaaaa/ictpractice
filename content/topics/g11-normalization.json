@@ -1,0 +1,241 @@
+{
+  "topic": "g11-normalization",
+  "questions": [],
+  "summary": "The rules of first, second and third normal form, normalising a table step by step to 3NF, and creating a multi-table database for a new system.",
+  "theory": [
+    {
+      "title": "Normalisation rules: 1NF, 2NF, 3NF",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Normalisation",
+          "content": "The process of organising data into tables so that **redundancy (repetition) is reduced** and **data integrity is improved**, by applying the rules of the normal forms."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "First normal form (1NF)",
+              "content": "- Every field contains **atomic (single) values** — no lists in one cell.\n- **No repeating groups** of fields (e.g. Course1, Course2, Course3).\n- Each table has a **primary key**."
+            },
+            {
+              "title": "Second normal form (2NF)",
+              "content": "- The table is in **1NF**, and\n- every non-key field depends on the **whole** primary key, **not just part** of a composite key (no **partial dependencies**)."
+            },
+            {
+              "title": "Third normal form (3NF)",
+              "content": "- The table is in **2NF**, and\n- no non-key field depends on **another non-key field** (no **transitive dependencies**). \"Every non-key field depends on the key, the whole key and nothing but the key.\""
+            }
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "A table with a **single-field** primary key that is in 1NF is automatically in 2NF — partial dependency is only possible with a composite key."
+        }
+      ]
+    },
+    {
+      "title": "Normalising a table to 3NF",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Un-normalised: Orders",
+          "columns": [
+            "OrderID",
+            "OrderDate",
+            "CustomerID",
+            "CustomerName",
+            "CustomerCity",
+            "Products"
+          ],
+          "rows": [
+            [
+              "101",
+              "02/10/2026",
+              "C7",
+              "Asel",
+              "Astana",
+              "P1 Pen ×3, P4 Notebook ×1"
+            ],
+            [
+              "102",
+              "03/10/2026",
+              "C2",
+              "Bolat",
+              "Almaty",
+              "P1 Pen ×10"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Step 1 — 1NF: remove repeating groups",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The *Products* cell holds several values. Give each product its own row and create a key (OrderID, ProductID)."
+        },
+        {
+          "type": "comparison",
+          "title": "1NF: OrderLines",
+          "columns": [
+            "OrderID",
+            "ProductID",
+            "ProductName",
+            "Quantity",
+            "OrderDate",
+            "CustomerID",
+            "CustomerName",
+            "CustomerCity"
+          ],
+          "rows": [
+            [
+              "101",
+              "P1",
+              "Pen",
+              "3",
+              "02/10/2026",
+              "C7",
+              "Asel",
+              "Astana"
+            ],
+            [
+              "101",
+              "P4",
+              "Notebook",
+              "1",
+              "02/10/2026",
+              "C7",
+              "Asel",
+              "Astana"
+            ],
+            [
+              "102",
+              "P1",
+              "Pen",
+              "10",
+              "03/10/2026",
+              "C2",
+              "Bolat",
+              "Almaty"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Step 2 — 2NF: remove partial dependencies",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The key is (OrderID, ProductID). *ProductName* depends only on ProductID; *OrderDate* and the customer fields depend only on OrderID. Move them into their own tables."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Product**(**ProductID**, ProductName)",
+            "**Order**(**OrderID**, OrderDate, CustomerID, CustomerName, CustomerCity)",
+            "**OrderLine**(**OrderID, ProductID**, Quantity)"
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Step 3 — 3NF: remove transitive dependencies",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "In *Order*, CustomerName and CustomerCity depend on **CustomerID**, which is not the key → move them."
+        },
+        {
+          "type": "comparison",
+          "title": "Final 3NF design",
+          "columns": [
+            "Table",
+            "Fields (PK in bold, FK in italics)"
+          ],
+          "rows": [
+            [
+              "Customer",
+              "**CustomerID**, CustomerName, CustomerCity"
+            ],
+            [
+              "Order",
+              "**OrderID**, OrderDate, *CustomerID*"
+            ],
+            [
+              "Product",
+              "**ProductID**, ProductName"
+            ],
+            [
+              "OrderLine",
+              "***OrderID*, *ProductID***, Quantity"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  CUSTOMER ||--o{ ORDER : places\n  ORDER ||--|{ ORDERLINE : contains\n  PRODUCT ||--o{ ORDERLINE : \"appears in\"",
+          "caption": "Relationships after normalisation"
+        },
+        {
+          "type": "comparison",
+          "title": "Benefits and drawbacks of normalisation",
+          "columns": [
+            "Benefits",
+            "Drawbacks"
+          ],
+          "rows": [
+            [
+              "Less redundant data → less storage",
+              "More tables to manage"
+            ],
+            [
+              "No update anomalies — change a customer's city once",
+              "Queries need **joins**, which can be slower"
+            ],
+            [
+              "Better data integrity and consistency",
+              "Design takes more time and skill"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Creating a multi-table database for a new system",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Designing the database for a new system",
+          "items": [
+            "Identify the **entities** from the requirements (e.g. Student, Book, Loan for a library).",
+            "List the **attributes** of each entity; choose **primary keys**.",
+            "Decide the **relationships** and draw an **ERD**; resolve M:M with link tables.",
+            "**Normalise** each table to 3NF.",
+            "Write the **data dictionary** (types, sizes, validation).",
+            "Create the tables with SQL **CREATE TABLE**, including PRIMARY KEY and FOREIGN KEY constraints.",
+            "Insert test data and check queries return the right results."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE TABLE Student (\n  StudentID VARCHAR(6) PRIMARY KEY,\n  Name      VARCHAR(40) NOT NULL,\n  Grade     INT\n);\nCREATE TABLE Book (\n  BookID VARCHAR(8) PRIMARY KEY,\n  Title  VARCHAR(100) NOT NULL,\n  Author VARCHAR(60)\n);\nCREATE TABLE Loan (\n  LoanID    INT PRIMARY KEY,\n  StudentID VARCHAR(6) REFERENCES Student(StudentID),\n  BookID    VARCHAR(8) REFERENCES Book(BookID),\n  LoanDate  DATE,\n  ReturnDate DATE\n);",
+          "caption": "Library database in 3NF"
+        }
+      ]
+    }
+  ]
+}

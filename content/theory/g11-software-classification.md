@@ -1,0 +1,116 @@
+---
+summary: How software is classified into system software and application software, what the operating system, utilities, libraries and translators do, and the difference between general-purpose, special-purpose and bespoke applications.
+---
+# Classifying software
+@lo 11.3.1.1
+
+**Software** is the set of programs and data that tell the hardware what to do. Every program on a computer belongs to one of two broad classes.
+
+:::definition System software
+Programs that **manage and run the computer itself** and provide a platform for other software. The user rarely works with it directly. Examples: operating system, utility programs, device drivers, libraries, translators.
+:::
+
+:::definition Application software
+Programs that let the user **carry out a real-world task**, such as writing a report, editing a photo or booking a ticket. Applications run *on top of* the operating system.
+:::
+
+:::compare System software vs application software
+| Feature | System software | Application software |
+|---|---|---|
+| Purpose | Controls and maintains the computer | Solves a user's task |
+| Who uses it | Mostly the computer itself / technicians | End users |
+| Needed to run the computer? | Yes (at least the OS) | No |
+| When it runs | Starts with the computer, runs in the background | When the user opens it |
+| Examples | Windows, Linux, antivirus, disk defragmenter, compiler | Word processor, web browser, game, accounting program |
+:::
+
+:::mermaid Layers of software
+flowchart TB
+  U[User] --> A[Application software]
+  A --> S[System software: OS, utilities, drivers, libraries]
+  S --> H[Hardware]
+:::
+
+:::tip
+When asked to "classify" a program, first decide whether it helps **the computer** (system) or **the user's task** (application), then name the subcategory (e.g. *utility*, *translator*, *bespoke application*).
+:::
+
+# Operating system, utilities, libraries and translators
+@lo 11.3.1.2
+
+:::cards
+### Operating system (OS)
+Manages hardware and software resources: memory, processor time, files, input/output devices and security. Provides the user interface and a platform on which applications run. *Examples: Windows, macOS, Linux, Android.*
+### Utility programs
+Small programs that **maintain, analyse or optimise** the computer. *Examples: antivirus, disk defragmenter, backup, file compression, disk clean-up, firewall.*
+### Libraries
+Collections of **pre-written, pre-tested code** (functions, procedures, classes) that programmers can call from their own programs instead of writing the code again. *Examples: a maths library, a graphics library, DLL files in Windows.*
+### Translators
+Convert program code written in a programming language into **machine code** the processor can execute. *Types: compiler, interpreter, assembler.*
+:::
+
+## Common utility programs
+
+:::compare
+| Utility | What it does |
+|---|---|
+| Antivirus | Scans files and memory, detects and quarantines/removes malware |
+| Disk defragmenter | Moves fragments of files together on a magnetic hard disk so they can be read faster |
+| Backup | Copies data to another medium/location so it can be restored after loss |
+| Compression | Reduces file size to save storage space and transmission time |
+| Disk clean-up | Removes temporary and unnecessary files to free space |
+| Encryption | Scrambles data so only authorised users with the key can read it |
+:::
+
+## Why libraries are useful
+
+- Save development time — code does not have to be written from scratch.
+- Code is already **tested**, so it is more reliable.
+- Complex tasks (graphics, encryption, maths) can be used without expert knowledge.
+- A library can be shared by many programs, saving storage and memory.
+
+:::warning
+A **library** is not a program the user runs: it is code that *other programs* call. Do not confuse it with a utility.
+:::
+
+## The three translators
+
+:::compare
+| Translator | Translates | How |
+|---|---|---|
+| Compiler | High-level language → machine code | Whole program at once; produces an executable file |
+| Interpreter | High-level language | One statement at a time; executes it immediately, no executable file |
+| Assembler | Assembly language → machine code | One mnemonic instruction → one machine instruction |
+:::
+
+# Types of application software
+@lo 11.3.1.3
+
+:::cards
+### General-purpose software
+Can be used for **many different tasks** by many different users. Usually bought "off the shelf". *Examples: word processor, spreadsheet, presentation software, web browser.*
+### Special-purpose software
+Designed to do **one specific task** but sold to many users. *Examples: payroll software, a tax calculator, a route planner, photo-editing software, a school timetable program.*
+### Bespoke (custom) software
+**Written specially** for one organisation to meet its exact requirements. *Examples: the booking system of a particular airline, software controlling a specific factory machine.*
+:::
+
+:::compare Off-the-shelf vs bespoke software
+| | Off-the-shelf (general / special purpose) | Bespoke |
+|---|---|---|
+| Cost | Cheaper — development cost shared by many buyers | Expensive — one client pays for all development |
+| Availability | Available immediately | Takes a long time to develop |
+| Fit to needs | May include unneeded features or lack some needed ones | Matches the requirements exactly |
+| Testing and support | Widely tested; large user community, many tutorials | Fewer users, so bugs may remain; support from the developer only |
+| Competitive advantage | Competitors can buy the same product | Unique to the organisation |
+:::
+
+:::example Classify the application
+- *A spreadsheet used by a teacher for marks* → general purpose.
+- *A program that only calculates employees' salaries* → special purpose.
+- *A system written for one hospital to manage its own appointments* → bespoke.
+:::
+
+:::tip
+For "advantage/disadvantage" questions, always compare the two options: e.g. "bespoke software **meets the exact requirements** of the company, **but** it is **more expensive** and **takes longer** to develop than off-the-shelf software".
+:::

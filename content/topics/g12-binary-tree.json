@@ -1,0 +1,195 @@
+{
+  "topic": "g12-binary-tree",
+  "questions": [],
+  "summary": "Binary tree terminology, building a binary search tree, storing it with left and right pointers in arrays, searching it and traversing it.",
+  "theory": [
+    {
+      "title": "Binary trees and binary search trees",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Binary tree",
+          "content": "A hierarchical data structure in which each **node** has **at most two children**: a **left** child and a **right** child."
+        },
+        {
+          "type": "definition",
+          "term": "Binary search tree (BST)",
+          "content": "A binary tree where, for every node, all values in the **left subtree are smaller** and all values in the **right subtree are greater** (or equal, by agreement)."
+        },
+        {
+          "type": "comparison",
+          "title": "Terms",
+          "columns": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Root",
+              "The top node (no parent)"
+            ],
+            [
+              "Parent / child",
+              "A node and the nodes directly below it"
+            ],
+            [
+              "Leaf",
+              "A node with no children"
+            ],
+            [
+              "Subtree",
+              "A node and all its descendants"
+            ],
+            [
+              "Branch (edge)",
+              "A link between a parent and a child"
+            ],
+            [
+              "Depth / height",
+              "Number of levels"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Building a BST",
+          "level": 2
+        },
+        {
+          "type": "steps",
+          "title": "Insert 6, 3, 8, 5, 9, 2 in this order",
+          "items": [
+            "**6** is the root.",
+            "**3** < 6 → left of 6.",
+            "**8** > 6 → right of 6.",
+            "**5** < 6 → go left to 3; 5 > 3 → right of 3.",
+            "**9** > 6 → go right to 8; 9 > 8 → right of 8.",
+            "**2** < 6 → left to 3; 2 < 3 → left of 3."
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  N6((6)) --> N3((3))\n  N6 --> N8((8))\n  N3 --> N2((2))\n  N3 --> N5((5))\n  N8 --> N9((9))",
+          "caption": "The resulting binary search tree"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Strings",
+          "content": "Strings are compared **alphabetically**: inserting `M, B, V, A, K, T, H` gives root M; B left of M; V right of M; A left of B; K right of B; T left of V; H left of K."
+        },
+        {
+          "type": "heading",
+          "text": "Storing a tree in arrays (left pointer, data, right pointer)",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Each node is stored as **Left pointer | Data | Right pointer**; **−1** (or 0 / null) means \"no child\"."
+        },
+        {
+          "type": "comparison",
+          "title": "Array representation of the tree above (insertion order 6, 3, 8, 5, 9, 2)",
+          "columns": [
+            "Index",
+            "Left",
+            "Data",
+            "Right"
+          ],
+          "rows": [
+            [
+              "1",
+              "2",
+              "6",
+              "3"
+            ],
+            [
+              "2",
+              "6",
+              "3",
+              "4"
+            ],
+            [
+              "3",
+              "−1",
+              "8",
+              "5"
+            ],
+            [
+              "4",
+              "−1",
+              "5",
+              "−1"
+            ],
+            [
+              "5",
+              "−1",
+              "9",
+              "−1"
+            ],
+            [
+              "6",
+              "−1",
+              "2",
+              "−1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Root pointer = 1. Node 1 (6) has left → index 2 (3) and right → index 3 (8), and so on."
+        },
+        {
+          "type": "heading",
+          "text": "Searching a BST",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "Current ← Root\nWHILE Current <> -1 AND Tree[Current].Data <> Target DO\n    IF Target < Tree[Current].Data THEN\n        Current ← Tree[Current].Left\n    ELSE\n        Current ← Tree[Current].Right\n    ENDIF\nENDWHILE\nIF Current = -1 THEN\n    OUTPUT \"Not found\"\nELSE\n    OUTPUT \"Found at node \", Current\nENDIF",
+          "caption": "Search for a value"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Each comparison discards one subtree, so a balanced BST with *n* nodes is searched in about **log₂ n** steps — much faster than a linear search."
+        },
+        {
+          "type": "heading",
+          "text": "Traversals",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "Traversing the tree 6, 3, 8, 5, 9, 2",
+          "columns": [
+            "Traversal",
+            "Order",
+            "Result"
+          ],
+          "rows": [
+            [
+              "In-order",
+              "Left, **Node**, Right",
+              "2, 3, 5, 6, 8, 9 — **sorted**"
+            ],
+            [
+              "Pre-order",
+              "**Node**, Left, Right",
+              "6, 3, 2, 5, 8, 9"
+            ],
+            [
+              "Post-order",
+              "Left, Right, **Node**",
+              "2, 5, 3, 9, 8, 6"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

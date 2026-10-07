@@ -1,0 +1,205 @@
+{
+  "topic": "g11-basic-concepts-of-a-database",
+  "questions": [],
+  "summary": "What a relational database is and why it is used, the key terms table, record, field (attribute) and index, and primary, foreign and composite keys.",
+  "theory": [
+    {
+      "title": "Relational databases and their purpose",
+      "objectives": [
+        "11.4.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Database",
+          "content": "An organised, structured collection of related data stored so that it can be easily **searched, sorted, updated and shared**."
+        },
+        {
+          "type": "definition",
+          "term": "Relational database",
+          "content": "A database in which data is stored in several **tables (relations)** that are **linked to each other by keys**. Each table stores data about one kind of thing (entity)."
+        },
+        {
+          "type": "comparison",
+          "title": "Why use a relational database instead of one flat file?",
+          "columns": [
+            "Problem with a single flat file",
+            "How a relational database solves it"
+          ],
+          "rows": [
+            [
+              "**Data redundancy** — the same data is repeated in many rows",
+              "Each fact is stored **once**, in one table"
+            ],
+            [
+              "**Inconsistency** — a change made in one row but not another",
+              "One copy → updates are consistent"
+            ],
+            [
+              "Wasted storage",
+              "Less repeated data"
+            ],
+            [
+              "Hard to search and combine data",
+              "Queries (SQL) join tables and filter data quickly"
+            ],
+            [
+              "Weak security",
+              "Access rights per table/user; validation rules protect **data integrity**"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "content": "A school stores student details in **Students**, course details in **Courses**, and which student takes which course in **Enrolments**. A student's address is stored once, even if they take ten courses."
+        }
+      ]
+    },
+    {
+      "title": "Tables, attributes, records and indexes",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Table: Students",
+          "columns": [
+            "StudentID",
+            "FirstName",
+            "LastName",
+            "Grade",
+            "DateOfBirth"
+          ],
+          "rows": [
+            [
+              "S001",
+              "Aruzhan",
+              "Sadykova",
+              "11",
+              "12/03/2009"
+            ],
+            [
+              "S002",
+              "Timur",
+              "Ospanov",
+              "12",
+              "30/11/2008"
+            ],
+            [
+              "S003",
+              "Dana",
+              "Kim",
+              "11",
+              "05/07/2009"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Table (relation)",
+              "content": "A set of data about **one type of entity**, arranged in rows and columns. *Students* above is a table."
+            },
+            {
+              "title": "Field / attribute",
+              "content": "**One column** — one item of data stored about every entity. *FirstName, Grade.*"
+            },
+            {
+              "title": "Record (tuple)",
+              "content": "**One row** — all the data about one entity. *S002, Timur, Ospanov, 12, 30/11/2008.*"
+            },
+            {
+              "title": "Index",
+              "content": "An extra data structure that stores selected field values with pointers to records, so that searching and sorting on that field are **much faster** (like the index at the back of a book)."
+            }
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Mark-scheme definitions: \"A **record** is a collection of related fields\"; \"A **table** is a collection of related records.\" Learn them word for word."
+        },
+        {
+          "type": "warning",
+          "content": "An index speeds up **searching**, but slows down inserting and updating (the index must be updated too) and uses extra storage."
+        }
+      ]
+    },
+    {
+      "title": "Primary, foreign and composite keys",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Primary key",
+          "content": "A field (or fields) whose value **uniquely identifies each record** in a table. It cannot be empty and cannot repeat. *StudentID in Students.*"
+        },
+        {
+          "type": "definition",
+          "term": "Foreign key",
+          "content": "A field in one table that is the **primary key of another table**; it creates the **link (relationship)** between the tables. *StudentID in Enrolments.*"
+        },
+        {
+          "type": "definition",
+          "term": "Composite (compound) key",
+          "content": "A primary key made of **two or more fields** together, used when no single field is unique. *(StudentID, CourseID) in Enrolments — a student can take many courses and a course has many students, but each pair appears once.*"
+        },
+        {
+          "type": "comparison",
+          "title": "Table: Enrolments",
+          "columns": [
+            "StudentID (FK)",
+            "CourseID (FK)",
+            "Year"
+          ],
+          "rows": [
+            [
+              "S001",
+              "CS12",
+              "2026"
+            ],
+            [
+              "S001",
+              "MA12",
+              "2026"
+            ],
+            [
+              "S002",
+              "CS12",
+              "2026"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Simple vs composite primary key",
+          "columns": [
+            "Simple primary key",
+            "Composite primary key"
+          ],
+          "rows": [
+            [
+              "A **single field**",
+              "**Two or more fields** combined"
+            ],
+            [
+              "e.g. StudentID",
+              "e.g. StudentID + CourseID"
+            ],
+            [
+              "Used when one field is unique on its own",
+              "Used when only the combination is unique"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "To explain a relationship in an exam, name **both** keys: \"StudentID is the **primary key** in Students and a **foreign key** in Enrolments, which links the two tables.\""
+        }
+      ]
+    }
+  ]
+}

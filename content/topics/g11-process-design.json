@@ -1,0 +1,123 @@
+{
+  "topic": "g11-process-design",
+  "questions": [],
+  "summary": "Designing processes with flowcharts — standard symbols, sequence, selection and loops, and turning a flowchart into pseudocode.",
+  "theory": [
+    {
+      "title": "Flowcharts of processes",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Flowchart",
+          "content": "A diagram that shows the **sequence of steps and decisions** in a process or algorithm using standard symbols joined by arrows."
+        },
+        {
+          "type": "comparison",
+          "title": "Flowchart symbols",
+          "columns": [
+            "Symbol",
+            "Name",
+            "Use"
+          ],
+          "rows": [
+            [
+              "Rounded rectangle (oval)",
+              "Terminator",
+              "START and STOP / END"
+            ],
+            [
+              "Parallelogram",
+              "Input / Output",
+              "`INPUT price`, `OUTPUT total`"
+            ],
+            [
+              "Rectangle",
+              "Process",
+              "Calculations and assignments: `total ← total + price`"
+            ],
+            [
+              "Diamond",
+              "Decision",
+              "A Yes/No question: `price < 1000?` — two labelled exits"
+            ],
+            [
+              "Rectangle with double sides",
+              "Subroutine",
+              "Call a predefined procedure"
+            ],
+            [
+              "Arrow",
+              "Flow line",
+              "Order of the steps"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Selection (IF)",
+          "level": 2
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TD\n  A([START]) --> B[/INPUT price/]\n  B --> C{price < 1000?}\n  C -- Yes --> D[selling ← price × 1.3]\n  C -- No --> E[selling ← price × 1.15]\n  D --> F[/OUTPUT selling/]\n  E --> F\n  F --> G([STOP])",
+          "caption": "Selling price: +30% if the price is under 1000, otherwise +15%"
+        },
+        {
+          "type": "heading",
+          "text": "Loops (iteration)",
+          "level": 2
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TD\n  A([START]) --> B[profit ← 0]\n  B --> C[/INPUT code/]\n  C --> D{code = 'END'?}\n  D -- Yes --> H[/OUTPUT profit/]\n  H --> I([STOP])\n  D -- No --> E[/INPUT price, selling/]\n  E --> F[profit ← profit + selling − price]\n  F --> C",
+          "caption": "Total profit of all products sold in a day (condition-controlled loop)"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "profit ← 0\nINPUT code\nWHILE code <> \"END\" DO\n    INPUT price, selling\n    profit ← profit + (selling - price)\n    INPUT code\nENDWHILE\nOUTPUT profit",
+          "caption": "The same loop as pseudocode"
+        },
+        {
+          "type": "comparison",
+          "title": "Loop types",
+          "columns": [
+            "Loop",
+            "Condition checked",
+            "Pseudocode"
+          ],
+          "rows": [
+            [
+              "Count-controlled",
+              "Runs a fixed number of times",
+              "`FOR i ← 1 TO 10 … NEXT i`"
+            ],
+            [
+              "Pre-condition",
+              "**Before** each pass — may run 0 times",
+              "`WHILE … DO … ENDWHILE`"
+            ],
+            [
+              "Post-condition",
+              "**After** each pass — runs at least once",
+              "`REPEAT … UNTIL …`"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Mark schemes for flowcharts usually award separate marks for: correct **input**, correct **process/calculation**, correct **decision** with Yes/No labels, a working **loop**, correct **output**, and START/STOP. Label both exits of every decision."
+        },
+        {
+          "type": "warning",
+          "content": "A decision diamond has **exactly one** entry and **two** exits (Yes/No). Never leave a branch that goes nowhere — every path must reach STOP."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "topic": "g12-system-buses",
+  "questions": [],
+  "summary": "The address, data and control buses, the registers used in the fetch-decode-execute cycle, and how clock speed, word length and bus width affect performance.",
+  "theory": [
+    {
+      "title": "Address, data and control buses",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "System bus",
+          "content": "A set of parallel wires that **connects the CPU, main memory and input/output controllers**, made of three buses."
+        },
+        {
+          "type": "comparison",
+          "columns": [
+            "Bus",
+            "Carries",
+            "Direction"
+          ],
+          "rows": [
+            [
+              "**Address bus**",
+              "The **memory address** (or I/O port) to be read or written",
+              "**One-way**: CPU → memory/I/O"
+            ],
+            [
+              "**Data bus**",
+              "The **data or instruction** being transferred",
+              "**Two-way** (bidirectional)"
+            ],
+            [
+              "**Control bus**",
+              "**Control and timing signals**: memory read, memory write, clock, interrupt request, bus request, reset",
+              "Two-way"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  CPU[CPU] -- address bus --> MEM[Main memory]\n  CPU -- address bus --> IO[I/O controllers]\n  CPU <-- data bus --> MEM\n  CPU <-- data bus --> IO\n  CPU <-. control bus .-> MEM\n  CPU <-. control bus .-> IO",
+          "caption": "Buses connecting the components"
+        }
+      ]
+    },
+    {
+      "title": "The fetch-decode-execute cycle",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Registers",
+          "columns": [
+            "Register",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "**PC** — Program Counter",
+              "Holds the **address of the next instruction**"
+            ],
+            [
+              "**MAR** — Memory Address Register",
+              "Holds the address of the location to be read/written"
+            ],
+            [
+              "**MDR** — Memory Data Register (MBR)",
+              "Holds the data/instruction just read from or to be written to memory"
+            ],
+            [
+              "**CIR** — Current Instruction Register",
+              "Holds the instruction being decoded and executed"
+            ],
+            [
+              "**ACC** — Accumulator",
+              "Holds the results of calculations"
+            ],
+            [
+              "Status register",
+              "Flags: zero, negative, carry, overflow"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Fetch–decode–execute in register transfer notation",
+          "items": [
+            "**MAR ← [PC]** — the address of the next instruction is copied to the MAR (sent along the address bus).",
+            "**PC ← [PC] + 1** — the PC is incremented to point to the following instruction.",
+            "**MDR ← [[MAR]]** — the instruction at that address is read into the MDR via the data bus (control bus: *memory read*).",
+            "**CIR ← [MDR]** — the instruction is copied to the CIR.",
+            "**Decode** — the control unit splits the instruction into **opcode** and **operand** and works out what to do.",
+            "**Execute** — the ALU or control unit carries it out (e.g. load, add, store, jump — a jump changes the PC).",
+            "Check for **interrupts**, then repeat."
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Learn the notation exactly: square brackets `[ ]` mean **\"the contents of\"**. `[[MAR]]` = the contents of the address held in MAR."
+        }
+      ]
+    },
+    {
+      "title": "Factors affecting performance",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Factor",
+            "Meaning",
+            "Effect on performance"
+          ],
+          "rows": [
+            [
+              "**Clock speed**",
+              "Number of cycles per second (GHz)",
+              "Higher → more instructions per second (limited by heat)"
+            ],
+            [
+              "**Word length**",
+              "Number of bits the CPU processes as one unit (32, 64 bits)",
+              "Longer → larger numbers and more data per operation"
+            ],
+            [
+              "**Data bus width**",
+              "Number of bits transferred at once",
+              "Wider → more data per transfer, fewer transfers"
+            ],
+            [
+              "**Address bus width**",
+              "Number of address lines",
+              "Wider → more memory can be addressed (2ⁿ locations)"
+            ],
+            [
+              "Number of cores",
+              "Independent processing units",
+              "More tasks in parallel (if software supports it)"
+            ],
+            [
+              "Cache size",
+              "Fast memory inside the CPU",
+              "Larger → fewer slow RAM accesses"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "content": "Doubling the data bus width from 32 to 64 bits lets the CPU transfer **8 bytes instead of 4** in one bus cycle, so moving a block of data takes about **half as many** transfers."
+        }
+      ]
+    }
+  ]
+}

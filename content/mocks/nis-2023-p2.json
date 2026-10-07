@@ -1,0 +1,1459 @@
+{
+  "key": "nis-2023-p2",
+  "year": 2023,
+  "paper": 2,
+  "grade": 12,
+  "title": "NIS 2023 · Paper 2: Solution design",
+  "description": "Past paper 2023, Paper 2 (Solution design) — 90 minutes.",
+  "instructions": "Answer all questions.\nThe number of marks is given in brackets [ ] at the end of each question or part question.\nYou should show all your working.\nYou can write any codes in pseudocode or any other programming language that you studied.",
+  "duration": 90,
+  "integrity_mode": "warn",
+  "max_violations": 3,
+  "show_mark_scheme": true,
+  "include": [],
+  "teacher_resources": [
+    {
+      "label": "Question paper (PDF)",
+      "path": "2023/2023_NIS_G12_CS_02_2RP_AFP.pdf"
+    },
+    {
+      "label": "Mark scheme (PDF)",
+      "path": "2023/2023_NIS_G12_CS_02_MS_2RP_AFP_FINAL_180523.pdf"
+    }
+  ],
+  "questions": [
+    {
+      "key": "m23p2-1",
+      "title": "Boolean algebra and logic circuit",
+      "type": "structured",
+      "marks": 13,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q1",
+      "practice": false,
+      "topic": "g12-boolean-logic",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-1ai",
+          "title": "Boolean algebra and logic circuit (a)(i)",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.3.3.3@paper",
+            "12.3.3.4@paper"
+          ],
+          "text": "Consider the following Boolean algebraic expression:\n\n**Q = (NOT A OR B) AND (NOT(A OR NOT(A OR B))).**\n\nFill in the truth table for the expression.",
+          "content": {
+            "columns": [
+              "A",
+              "B",
+              "Working space",
+              "Q"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "0",
+                "0",
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                null,
+                null
+              ]
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q1(a)(i)",
+          "practice": false,
+          "topic": "g12-boolean-logic",
+          "scheme": {
+            "mark_scheme": "| A | B | Q |\n|---|---|---|\n| 0 | 0 | 0 |\n| 0 | 1 | 1 |\n| 1 | 0 | 0 |\n| 1 | 1 | 0 |\n\n1 mark for each correct row.\n\nNote: The candidate is only required to gain the correct answer (bit) on each row to gain the mark.\n\nAccept working in other order from that shown on the MS.",
+            "points": [
+              {
+                "criterion": "Correct Q value for A=0, B=0",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct Q value for A=0, B=1",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct Q value for A=1, B=0",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct Q value for A=1, B=1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| A | B | Q |\n|---|---|---|\n| 0 | 0 | 0 |\n| 0 | 1 | 1 |\n| 1 | 0 | 0 |\n| 1 | 1 | 0 |",
+            "accepted": {
+              "rows": [
+                [
+                  "0",
+                  "0",
+                  null,
+                  "0"
+                ],
+                [
+                  "0",
+                  "1",
+                  null,
+                  "1"
+                ],
+                [
+                  "1",
+                  "0",
+                  null,
+                  "0"
+                ],
+                [
+                  "1",
+                  "1",
+                  null,
+                  "0"
+                ]
+              ]
+            }
+          },
+          "part_label": "(a)(i)"
+        },
+        {
+          "key": "m23p2-1aii",
+          "title": "Boolean algebra and logic circuit (a)(ii)",
+          "type": "boolean_expression",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AI",
+          "objectives": [
+            "11.3.3.2@paper",
+            "12.3.3.2@paper"
+          ],
+          "text": "Simplify the given above expressions using the laws of Boolean algebra.\n\nShow your work.",
+          "content": {
+            "output": "Q"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q1(a)(ii)",
+          "practice": false,
+          "topic": "g12-boolean-logic",
+          "scheme": {
+            "mark_scheme": "1. (A̅ + B) * NOT(A + NOT(A + B))\n2. (A̅ + B) * (A̅ * (A + B))\n3. (A̅ + B) * (A̅ * A + A̅ * B)\n4. (A̅ + B) * (0 + A̅ * B)\n5. (A̅ + B) * (A̅ * B)\n6. (A̅ * A̅ * B + A̅ * B * B)\n7. (A̅ * B + A̅ * B)\n8. (A̅ * B)\n\n1 mark for De Morgan’s law (line 2).\n1 mark for Involution/double negation law (line 2).\n1 mark for Distributive laws (line 3, 6).\n1 mark for Complement law (line 4).\n1 mark for idempotent laws (line 7).\n\nAccept other correct solutions.",
+            "points": [
+              {
+                "criterion": "Correct use of De Morgan’s law",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct use of Involution/double negation law",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct use of Distributive laws",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct use of Complement law",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct use of idempotent laws",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Q = A̅ * B",
+            "accepted": {
+              "expression": "NOT A AND B"
+            },
+            "ai_instructions": "Award marks for valid Boolean algebra working using the listed laws. Accept other correct solutions, but do not award full marks for an unsupported final expression when working is required."
+          },
+          "part_label": "(a)(ii)"
+        },
+        {
+          "key": "m23p2-1b",
+          "title": "Boolean algebra and logic circuit (b)",
+          "type": "boolean_expression",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.3.4@paper",
+            "12.3.3.3@paper"
+          ],
+          "text": "Write a Boolean expression for the presented circuit.\n\n![Logic circuit with inputs A, B and C and output X. B is inverted, B and C enter an AND gate, those results enter an OR gate, and that result with A enters a NAND gate.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2023-p2/q1-logic-circuit.png)",
+          "content": {
+            "output": "X"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q1(b)",
+          "practice": false,
+          "topic": "g12-boolean-logic",
+          "scheme": {
+            "mark_scheme": "• NOT(A AND (B AND C OR NOT(B)))\nor\n• ¬(A ∧ (B ∧ C ∨ B̅))\n\n1 mark for B.C.\n1 mark for B̅.\n1 mark for (B̅ + (B.C)).\n4 marks for any completely correct answer from any of the given bullet points.",
+            "points": [
+              {
+                "criterion": "Correct B.C term",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct B̅ term",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct (B̅ + (B.C)) sub-expression",
+                "marks": 1
+              },
+              {
+                "criterion": "Completely correct final expression including NOT of A AND sub-expression",
+                "marks": 1
+              }
+            ],
+            "model_answer": "X = NOT(A AND ((B AND C) OR NOT(B)))",
+            "accepted": {
+              "expression": "NOT(A AND ((B AND C) OR NOT B))"
+            }
+          },
+          "part_label": "(b)"
+        }
+      ]
+    },
+    {
+      "key": "m23p2-2",
+      "title": "Movies database SQL and normalisation",
+      "type": "structured",
+      "marks": 13,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A cinema is going to store the data of the purchased films with the license in the database **CinemaStar**.\n\n**Table Movies**\n\n| MovieID | Title | Year | Genre | Duration | Country |\n|---:|---|---:|---|---:|---|\n| 1 | The Green Mile | 1999 | crime | 189 | USA, Louisiana |\n| 2 | The nomad | 2005 | drama | 112 | Kazakhstan, Kapshagay |\n| 3 | Interstellar | 2014 | fantasy | 169 | USA, Los-Angeles |\n| 4 | 1+1 | 2011 | comedy | 112 | France, Paris |\n| 5 | The lord of the rings | 2003 | fantasy | 178 | New Zealand, Waikato |",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q2",
+      "practice": false,
+      "topic": "g11-sql",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-2a",
+          "title": "Movies database SQL and normalisation (a)",
+          "type": "sql",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.3@paper"
+          ],
+          "text": "Complete SQL statement to create database.\n\n```sql\nCREATE DATABASE\n```",
+          "content": {
+            "language": "sql",
+            "starter_code": "CREATE DATABASE"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(a)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "CREATE DATABASE CinemaStar\n\nDo not accept answers with spaces in table name.",
+            "points": [
+              {
+                "criterion": "Correct database name CinemaStar with no spaces",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE DATABASE CinemaStar;",
+            "ai_instructions": "Do not accept answers with spaces in table name."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m23p2-2b",
+          "title": "Movies database SQL and normalisation (b)",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.3@paper",
+            "11.4.1.4@paper"
+          ],
+          "text": "Complete SQL statement to create table **Movies**.",
+          "content": {
+            "language": "sql",
+            "starter_code": "CREATE ________________________________ (\n\nMovieID int ________________________________\n\nTitle ________________________________\n\nYear int,\n\nGenre varchar(255), ________________________________\n\nDuration ________________________________\n\nCountry varchar(255), ________________________________\n\nPRIMARY KEY (_______________________________));"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(b)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "CREATE TABLE Movies (\n   MovieID int AUTO_INCREMENT,\n   Title varchar(255),\n   Year date,\n   Genre varchar(255),\n   Duration int,\n   Country varchar(255),\n   PRIMARY KEY (MovieID)\n);",
+            "points": [
+              {
+                "criterion": "CREATE TABLE Movies",
+                "marks": 1
+              },
+              {
+                "criterion": "MovieID int AUTO_INCREMENT",
+                "marks": 1
+              },
+              {
+                "criterion": "Title varchar(255)",
+                "marks": 1
+              },
+              {
+                "criterion": "Duration int",
+                "marks": 1
+              },
+              {
+                "criterion": "PRIMARY KEY (MovieID)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Movies (\n   MovieID int AUTO_INCREMENT,\n   Title varchar(255),\n   Year date,\n   Genre varchar(255),\n   Duration int,\n   Country varchar(255),\n   PRIMARY KEY (MovieID)\n);",
+            "ai_instructions": "Award the marks shown for the specified SQL elements."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m23p2-2c",
+          "title": "Movies database SQL and normalisation (c)",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.3@paper"
+          ],
+          "text": "Fill the gaps in the following SQL query to add a **Budget** column to the **Movies** table to store in dollars the cost of each movie.",
+          "content": {
+            "language": "sql",
+            "starter_code": "________ TABLE Movies ________________________________\n\nBudget ________________________________"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(c)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "ALTER TABLE Movies\nADD Budget float;\n\n1 mark for ALTER TABLE Movies.\n1 mark for ADD.\n1 mark for Budget float.\n\nDo not award 1 mark if Budget is written without data type.\n\nAccept double instead of float.",
+            "points": [
+              {
+                "criterion": "ALTER TABLE Movies",
+                "marks": 1
+              },
+              {
+                "criterion": "ADD",
+                "marks": 1
+              },
+              {
+                "criterion": "Budget with data type float or double",
+                "marks": 1
+              }
+            ],
+            "model_answer": "ALTER TABLE Movies\nADD Budget float;",
+            "ai_instructions": "Accept double instead of float. Do not award the Budget mark if Budget is written without a data type."
+          },
+          "part_label": "(c)"
+        },
+        {
+          "key": "m23p2-2d",
+          "title": "Movies database SQL and normalisation (d)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5@paper"
+          ],
+          "text": "Explain why the Movie table is not in first normal form.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(d)",
+          "practice": false,
+          "topic": "g11-data-dictionary",
+          "scheme": {
+            "mark_scheme": "Data in column Country is not atomic / Country field has multiple values.\n\nAccept answers only with specified field name.",
+            "points": [
+              {
+                "criterion": "States that Country is not atomic or has multiple values",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The Country field is not atomic because it stores multiple values, such as a country and a city/state, in one field.",
+            "ai_instructions": "Accept answers only with specified field name Country."
+          },
+          "part_label": "(d)"
+        },
+        {
+          "key": "m23p2-2e",
+          "title": "Movies database SQL and normalisation (e)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5@paper"
+          ],
+          "text": "Bring the Movie table to the first normal form.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(e)",
+          "practice": false,
+          "topic": "g11-data-dictionary",
+          "scheme": {
+            "mark_scheme": "Add column City.\nMovies (MovieID, Title, Year, Genre, Duration, Country, City)\n\n[max 1]\n\nAccept “Town” instead of “City”.\nAlso accept answer in tabular form.\nAlso accept answer with text explanation.",
+            "points": [
+              {
+                "criterion": "Adds a separate City/Town column so the Country field is atomic",
+                "marks": 1
+              },
+              {
+                "criterion": "Shows revised Movies table fields including City/Town",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Split the Country column into atomic fields, for example: Movies (MovieID, Title, Year, Genre, Duration, Country, City).",
+            "ai_instructions": "Maximum 1 mark. Accept Town instead of City, tabular form, or text explanation."
+          },
+          "part_label": "(e)"
+        },
+        {
+          "key": "m23p2-2f",
+          "title": "Movies database SQL and normalisation (f)",
+          "type": "code_analysis",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.3@paper"
+          ],
+          "text": "Describe the next SQL statement\n\n```sql\nALTER TABLE Movies\nDROP COLUMN Country;\n```",
+          "content": {
+            "language": "sql"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q2(f)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "Change the table Movies (1)\n\nDelete field Country/ Remove column Country / Delete the Country characteristic for each record (1)\n\nfrom the table Movies (1)\n\n[max 2]",
+            "points": [
+              {
+                "criterion": "States that the table Movies is changed/altered",
+                "marks": 1
+              },
+              {
+                "criterion": "States that the Country field/column is deleted/removed",
+                "marks": 1
+              },
+              {
+                "criterion": "States that the removal is from the table Movies",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It changes the Movies table by removing the Country column from the table.",
+            "ai_instructions": "Award a maximum of 2 marks."
+          },
+          "part_label": "(f)"
+        }
+      ]
+    },
+    {
+      "key": "m23p2-3",
+      "title": "Books database keys, ERD and SQL",
+      "type": "structured",
+      "marks": 17,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Database **Books** stores two tables represented below.\n\n**Table Publishers**\n\n| pub_ID | pub_name | address | city |\n|---:|---|---|---|\n| 101 | Mektep | Abai street, 143 | Almaty |\n| 102 | Almatykitap | Zhambyl street, 111 | Almaty |\n| 103 | Astana-kitap | Kravtsov street, 6/1 | Nur-Sultan |\n| 105 | NIS | Ben Talal street, 21/1 | Nur-Sultan |\n| 107 | Ernur-Press | Alimkulova street, 22 | Shymkent |\n| … | … | … | … |\n\n**Table Titles**\n\n| title_ID | title | category | pub_ID | price |\n|---:|---|---|---:|---|\n| 2001 | Algebra 10 | School subject | 101 | 2800,00 ₸ |\n| 2004 | Informatika 11 | School subject | 102 | 1938,00 ₸ |\n| 2005 | Informatika 11 | School subject | 103 | 2021,00 ₸ |\n| … | … | … | … | … |\n| 2009 | English-Kazakh dictionary | Dictionaries | 101 | 1008,00 ₸ |\n| … | … | … | … | … |",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q3",
+      "practice": false,
+      "topic": "g11-entity-relationship-diagram",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-3ai",
+          "title": "Books database keys, ERD and SQL (a)(i)",
+          "type": "erd",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.7@paper",
+            "11.4.1.6@paper"
+          ],
+          "text": "Build the entity-relationship (ER) diagram for the given **Books** database.",
+          "content": {
+            "starter": {
+              "nodes": [],
+              "edges": []
+            }
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(a)(i)",
+          "practice": false,
+          "topic": "g11-entity-relationship-diagram",
+          "scheme": {
+            "mark_scheme": "ER diagram showing **Publishers** related to **Titles** with a one-to-many relationship.\n\n1 mark for entities.\n1 mark for relation type.\n\nAlso accept other notations.",
+            "points": [
+              {
+                "criterion": "Correct entities Publishers and Titles",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct one-to-many relationship from Publishers to Titles",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Publishers 1 ───< Titles"
+          },
+          "part_label": "(a)(i)"
+        },
+        {
+          "key": "m23p2-3aii",
+          "title": "Books database keys, ERD and SQL (a)(ii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6@paper"
+          ],
+          "text": "Explain type of connection between entities in built ER-diagram from (a)(i).",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(a)(ii)",
+          "practice": false,
+          "topic": "g11-data-dictionary",
+          "scheme": {
+            "mark_scheme": "One item from the Publishers table may have many related items from the Titles table.\n\nAward 1 mark if candidate draws incorrect diagram in 3(a)(i), but correctly explains it in part (ii).",
+            "points": [
+              {
+                "criterion": "Explains one-to-many relationship from Publishers to Titles",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a one-to-many relationship: one publisher can have many related title records."
+          },
+          "part_label": "(a)(ii)"
+        },
+        {
+          "key": "m23p2-3bi",
+          "title": "Books database keys, ERD and SQL (b)(i)",
+          "type": "table_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.3@paper"
+          ],
+          "text": "Complete the following table to show for each database table:\nprimary key\nforeign key (for a table with no foreign key, write None)",
+          "content": {
+            "columns": [
+              "Table",
+              "Primary key",
+              "Foreign key"
+            ],
+            "rows": 2,
+            "prefill": [
+              [
+                "Publishers",
+                null,
+                null
+              ],
+              [
+                "Titles",
+                null,
+                null
+              ]
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(b)(i)",
+          "practice": false,
+          "topic": "g11-basic-concepts-of-a-database",
+          "scheme": {
+            "mark_scheme": "| Table | Primary key | Foreign key |\n|---|---|---|\n| Publishers | pub_ID | None |\n| Titles | title_ID | pub_ID |\n\n1 mark for each correct row.",
+            "points": [
+              {
+                "criterion": "Correct primary and foreign key for Publishers",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct primary and foreign key for Titles",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Table | Primary key | Foreign key |\n|---|---|---|\n| Publishers | pub_ID | None |\n| Titles | title_ID | pub_ID |",
+            "accepted": {
+              "rows": [
+                [
+                  "Publishers",
+                  "pub_ID",
+                  "None"
+                ],
+                [
+                  "Titles",
+                  "title_ID",
+                  "pub_ID"
+                ]
+              ]
+            }
+          },
+          "part_label": "(b)(i)"
+        },
+        {
+          "key": "m23p2-3bii",
+          "title": "Books database keys, ERD and SQL (b)(ii)",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3@paper"
+          ],
+          "text": "Explain the differences of using primary and foreign keys in given database.",
+          "content": {
+            "answer_lines": 4
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(b)(ii)",
+          "practice": false,
+          "topic": "g11-basic-concepts-of-a-database",
+          "scheme": {
+            "mark_scheme": "A primary key pub_ID is used to ensure data in the all tuple of the table Publishers is unique/ pub-ID uniquely identifies a record in the Publishers table (1)\n\nwhile in the table Titles foreign key pub_ID provides a link between data in two tables. (1)",
+            "points": [
+              {
+                "criterion": "Explains that primary key pub_ID uniquely identifies a record in Publishers",
+                "marks": 1
+              },
+              {
+                "criterion": "Explains that foreign key pub_ID in Titles links data between the two tables",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The primary key pub_ID uniquely identifies each publisher record in Publishers. The foreign key pub_ID in Titles links each title to a publisher record."
+          },
+          "part_label": "(b)(ii)"
+        },
+        {
+          "key": "m23p2-3c",
+          "title": "Books database keys, ERD and SQL (c)",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4@paper"
+          ],
+          "text": "Explain the term “DML” in MySQL database.",
+          "content": {
+            "answer_lines": 4
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(c)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "Data Manipulation Language (1)\n\nResponsible for performing all types of data modification in a database (1)\n\nExamples of DML commands: SELECT, UPDATE, INSERT and DELETE (1)\n\n[max 2]\n\nAward 1 mark for at least 1 example.",
+            "points": [
+              {
+                "criterion": "States Data Manipulation Language",
+                "marks": 1
+              },
+              {
+                "criterion": "Explains it is responsible for performing data modification in a database",
+                "marks": 1
+              },
+              {
+                "criterion": "Gives at least one example such as SELECT, UPDATE, INSERT or DELETE",
+                "marks": 1
+              }
+            ],
+            "model_answer": "DML stands for Data Manipulation Language. It is used to perform data operations in a database, for example SELECT, UPDATE, INSERT and DELETE.",
+            "ai_instructions": "Award a maximum of 2 marks. Award 1 mark for at least one example."
+          },
+          "part_label": "(c)"
+        },
+        {
+          "key": "m23p2-3d",
+          "title": "Books database keys, ERD and SQL (d)",
+          "type": "sql",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4@paper"
+          ],
+          "text": "Write SQL statement to change all title “Informatika 11” to “Computer Science 11”.",
+          "content": {
+            "language": "sql"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(d)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "UPDATE Titles (1)\nSET title = “Computer Science 11” (1)\nWHERE title = “Informatika 11”; (1)",
+            "points": [
+              {
+                "criterion": "UPDATE Titles",
+                "marks": 1
+              },
+              {
+                "criterion": "SET title = “Computer Science 11”",
+                "marks": 1
+              },
+              {
+                "criterion": "WHERE title = “Informatika 11”",
+                "marks": 1
+              }
+            ],
+            "model_answer": "UPDATE Titles\nSET title = “Computer Science 11”\nWHERE title = “Informatika 11”;"
+          },
+          "part_label": "(d)"
+        },
+        {
+          "key": "m23p2-3e",
+          "title": "Books database keys, ERD and SQL (e)",
+          "type": "sql",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4@paper",
+            "11.4.2.5@paper"
+          ],
+          "text": "Write SQL statement to select all books’ titles and prices of publisher “Mektep” which cost less than 2000 tenge.",
+          "content": {
+            "language": "sql"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q3(e)",
+          "practice": false,
+          "topic": "g11-sql",
+          "scheme": {
+            "mark_scheme": "SELECT title, price (1)\nFROM Titles (1)\nWHERE price < 2000 (1)\nAND (1)\npub_ID = 101; (1)\n\nAccept other syntactically correct queries.",
+            "points": [
+              {
+                "criterion": "SELECT title, price",
+                "marks": 1
+              },
+              {
+                "criterion": "FROM Titles",
+                "marks": 1
+              },
+              {
+                "criterion": "WHERE price < 2000",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct AND condition joining criteria",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct publisher condition pub_ID = 101",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SELECT title, price\nFROM Titles\nWHERE price < 2000\nAND pub_ID = 101;",
+            "ai_instructions": "Accept other syntactically correct queries."
+          },
+          "part_label": "(e)"
+        }
+      ]
+    },
+    {
+      "key": "m23p2-4",
+      "title": "Clinic booking system design",
+      "type": "structured",
+      "marks": 17,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A small clinic initially used a spreadsheet containing the following columns to record visitors: ID, Client name, Gender, Date of Birth, Phone number, Address, Booking date, Booking time, Speciality, Doctor name. It was decided to create a website where users can book an appointment.",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q4",
+      "practice": false,
+      "topic": "paper-new-system-analysis",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-4a",
+          "title": "Clinic booking system design (a)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1@paper"
+          ],
+          "text": "Describe **two** advantages of the new system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(a)",
+          "practice": false,
+          "topic": "paper-new-system-analysis",
+          "scheme": {
+            "mark_scheme": "Easier/faster to book an appointment with a doctor/ more effective communication with clinic (1)\n\nLess wastage of time to book an appointment with a doctor/ not time consuming to book an appointment (1)\n\nMore efficient stock management and booking systems (1)\n\n[max 2]\n\nAccept any reasonable answer.",
+            "points": [
+              {
+                "criterion": "Valid advantage, such as easier/faster booking or more effective communication",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid advantage, such as less wasted time or more efficient booking systems",
+                "marks": 1
+              },
+              {
+                "criterion": "Other reasonable advantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1. It is easier and faster for clients to book an appointment with a doctor.\n2. It reduces wasted time when booking appointments and improves communication with the clinic.",
+            "ai_instructions": "Award a maximum of 2 marks. Accept any reasonable answer."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m23p2-4b",
+          "title": "Clinic booking system design (b)",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3@paper"
+          ],
+          "text": "Describe the essential characteristics of a user-friendly website.",
+          "content": {
+            "answer_lines": 4
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(b)",
+          "practice": false,
+          "topic": "paper-new-system-analysis",
+          "scheme": {
+            "mark_scheme": "Effective navigation (1)\nGood error handling (1)\nBe intuitive/easy-to-use/be predictable (1)\nBe able to communicate with the user (1)\nProvide the ability to personalize (1)\nBe loyal to user errors (1)\nSpeak the user's language (1)\nGiving soft hints (1)\n\n[max 2]\n\nAccept any reasonable answer.",
+            "points": [
+              {
+                "criterion": "States a valid user-friendly characteristic",
+                "marks": 1
+              },
+              {
+                "criterion": "States a second valid user-friendly characteristic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A user-friendly website should have effective navigation and be intuitive and easy to use. It should also handle errors well and communicate clearly with the user.",
+            "ai_instructions": "Award a maximum of 2 marks. Accept any reasonable answer."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m23p2-4c",
+          "title": "Clinic booking system design (c)",
+          "type": "flowchart",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.1.7@paper"
+          ],
+          "text": "Draw a flowchart for the registration process of Client on this website that includes the following:\n\n• Input for clients` name, gender, email and password\n• Clients` e-mail has to be validated on presence of “.” and “@” symbols.\n• Clients` password has to be validated on presence of uppercase letters and numbers.\n• Entered data must be stored in database.\n• A confirmation message that the password is accepted.",
+          "content": {
+            "starter": {
+              "nodes": [],
+              "edges": []
+            }
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(c)",
+          "practice": false,
+          "topic": "paper-new-system-analysis",
+          "scheme": {
+            "mark_scheme": "1 mark for enter name, gender, e-mail, password.\n1 mark for e-mail check including “.” and “@”.\n1 mark for password check including uppercase letters and numbers.\n1 mark for storing data.\n1 mark for sensible output message.\n\nAward marks for passwords and email addresses only if they are part of a decision loop.\n\nDo not award the marks for incorrect block shapes.\n\nDo not award full marks for unfinished flowchart.",
+            "points": [
+              {
+                "criterion": "Input for name, gender, e-mail and password",
+                "marks": 1
+              },
+              {
+                "criterion": "Decision loop checks e-mail includes “.” and “@”",
+                "marks": 1
+              },
+              {
+                "criterion": "Decision loop checks password includes uppercase letters and numbers",
+                "marks": 1
+              },
+              {
+                "criterion": "Stores entered data in database",
+                "marks": 1
+              },
+              {
+                "criterion": "Sensible output confirmation message",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A completed flowchart with Start, input name/gender/email/password, decision checking email contains @ and ., decision checking password contains uppercase letters and numbers, store entered information in database, output successful registration/password accepted message, End.",
+            "ai_instructions": "Award marks for password and email checks only if they are part of a decision loop. Do not award marks for incorrect block shapes. Do not award full marks for an unfinished flowchart."
+          },
+          "part_label": "(c)"
+        },
+        {
+          "key": "m23p2-4d",
+          "title": "Clinic booking system design (d)",
+          "type": "extended",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.6@paper"
+          ],
+          "text": "Draw a prototype of the user registration form and write the names of the form components.",
+          "content": {
+            "answer_lines": 8
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(d)",
+          "practice": false,
+          "topic": "g11-implementation-methods",
+          "scheme": {
+            "mark_scheme": "1 mark for textbox / text field / single line text field.\n1 mark for radiobutton/ listbox/ dropdown/ combobox.\n1 mark for button.\n\nAward full marks only if components are provided with names.",
+            "points": [
+              {
+                "criterion": "Textbox/text field/single line text field provided and named",
+                "marks": 1
+              },
+              {
+                "criterion": "Radiobutton/listbox/dropdown/combobox provided and named",
+                "marks": 1
+              },
+              {
+                "criterion": "Button provided and named",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A registration form with named components such as Name text field, E-mail text field, Password text field, Male/Female radio buttons, and a Submit button.",
+            "ai_instructions": "Award full marks only if components are provided with names."
+          },
+          "part_label": "(d)"
+        },
+        {
+          "key": "m23p2-4e",
+          "title": "Clinic booking system design (e)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.4@paper"
+          ],
+          "text": "Write one disadvantage of using a prototype when developing a new system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(e)",
+          "practice": false,
+          "topic": "g11-prototyping",
+          "scheme": {
+            "mark_scheme": "Additional development costs (1)\n\nTime consuming (1)\n\n[max 1]\n\nAccept any reasonable answer.",
+            "points": [
+              {
+                "criterion": "Valid disadvantage of using a prototype",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Creating a prototype can be time consuming and add extra development costs.",
+            "ai_instructions": "Award a maximum of 1 mark. Accept any reasonable answer."
+          },
+          "part_label": "(e)"
+        },
+        {
+          "key": "m23p2-4f",
+          "title": "Clinic booking system design (f)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "name",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.2.1.1@paper",
+            "11.2.2.6@paper"
+          ],
+          "text": "Name the stage of the system life cycle in which the prototype is developed.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(f)",
+          "practice": false,
+          "topic": "g11-sdlc-models",
+          "scheme": {
+            "mark_scheme": "Design",
+            "points": [
+              {
+                "criterion": "States Design",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Design",
+            "accepted": {
+              "values": [
+                "Design"
+              ]
+            }
+          },
+          "part_label": "(f)"
+        },
+        {
+          "key": "m23p2-4g",
+          "title": "Clinic booking system design (g)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.2.1.7@paper"
+          ],
+          "text": "Choose one type of system implementation that could be used by the clinic.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(g)",
+          "practice": false,
+          "topic": "g12-methods-of-system-implementation",
+          "scheme": {
+            "mark_scheme": "Direct or parallel.\n\nDo not accept Pilot and Phased methods.",
+            "points": [
+              {
+                "criterion": "States Direct or parallel",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Parallel",
+            "accepted": {
+              "values": [
+                "Direct",
+                "parallel",
+                "Parallel",
+                "direct"
+              ]
+            },
+            "ai_instructions": "Do not accept Pilot and Phased methods."
+          },
+          "part_label": "(g)"
+        },
+        {
+          "key": "m23p2-4h",
+          "title": "Clinic booking system design (h)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.2.1.8@paper"
+          ],
+          "text": "Write one advantage and one disadvantage of the system implementation method that you have chosen in task 4(g).",
+          "content": {
+            "fields": [
+              {
+                "key": "advantage",
+                "label": "Advantage",
+                "lines": 2
+              },
+              {
+                "key": "disadvantage",
+                "label": "Disadvantage",
+                "lines": 2
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q4(h)",
+          "practice": false,
+          "topic": "g12-methods-of-system-implementation",
+          "scheme": {
+            "mark_scheme": "**Direct Method**\nAdvantage - Fastest Method (1)\nDisadvantage - Very risky (1)\n\n**Parallel**\nAdvantage - Availability of old system as a backup/ More secure (1)\nDisadvantage - Very expensive & time-consuming/ Additional manpower must be provided for the operation of two systems in parallel (1)\n\n[max 2]\n\n1 mark for advantage.\n1 mark for disadvantage.\n\nAward 1 mark if candidate gives incorrect changeover in 4(g), but correctly explains it in part 4(h).",
+            "points": [
+              {
+                "criterion": "Correct advantage for the chosen implementation method",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct disadvantage for the chosen implementation method",
+                "marks": 1
+              }
+            ],
+            "model_answer": "For parallel implementation: Advantage - the old system is available as a backup, so it is more secure. Disadvantage - it is expensive and time-consuming because both systems are operated in parallel.",
+            "ai_instructions": "Award 1 mark for advantage and 1 mark for disadvantage. If 4(g) is incorrect, award marks here for a correctly explained implementation method."
+          },
+          "part_label": "(h)"
+        }
+      ]
+    },
+    {
+      "key": "m23p2-5",
+      "title": "Toy store data flow diagram",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A toy store works by following operations:\n\nAll data about sold toys (**ToyID, Price, Toy Description**) are stored in the database, **Toy Database**.\n\n• Each toy has a **barcode**.\n• A shop assistant scans each chosen toy with a barcode scanner.\n• A process, **Generate Bill**, outputs a **Bill** which is presented to the client.\n• **Toy Description** and **Price** for each product sold are printed in the bill.",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q5",
+      "practice": false,
+      "topic": "g11-data-analysis",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-5a",
+          "title": "Toy store data flow diagram (a)",
+          "type": "dfd",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.2.1.6@paper"
+          ],
+          "text": "Complete the diagram shown in **Figure 1**.\n\n![Partially completed data flow diagram for a toy store with Shop assistant, process 1, process 2, Client, and data store 1. Chosen toy flows from Shop assistant to process 1, Bill flows from process 2 to Client, and data store 1 flows to process 2.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2023-p2/q5-figure1.png)",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "e1",
+                  "type": "entity",
+                  "label": "Shop assistant",
+                  "x": 0.05,
+                  "y": 0.3
+                },
+                {
+                  "id": "p1",
+                  "type": "dfd_process",
+                  "label": "1",
+                  "x": 0.35,
+                  "y": 0.3
+                },
+                {
+                  "id": "p2",
+                  "type": "dfd_process",
+                  "label": "2",
+                  "x": 0.6,
+                  "y": 0.3
+                },
+                {
+                  "id": "e2",
+                  "type": "entity",
+                  "label": "Client",
+                  "x": 0.85,
+                  "y": 0.3
+                },
+                {
+                  "id": "d1",
+                  "type": "store",
+                  "label": "1",
+                  "x": 0.55,
+                  "y": 0.7
+                }
+              ],
+              "edges": [
+                {
+                  "id": "edge1",
+                  "source": "e1",
+                  "target": "p1",
+                  "label": "Chosen toy"
+                },
+                {
+                  "id": "edge2",
+                  "source": "p2",
+                  "target": "e2",
+                  "label": "Bill"
+                },
+                {
+                  "id": "edge3",
+                  "source": "d1",
+                  "target": "p2",
+                  "label": ""
+                }
+              ]
+            }
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q5(a)",
+          "practice": false,
+          "topic": "g11-data-analysis",
+          "scheme": {
+            "mark_scheme": "1 mark for Scan Barcode.\n1 mark for ToyID / Barcode.\n1 mark for Generate Bill.\n1 mark for Price.\n1 mark for Toy Description.\n1 mark for Toy Database.",
+            "points": [
+              {
+                "criterion": "Process 1 labelled Scan Barcode",
+                "marks": 1
+              },
+              {
+                "criterion": "Data flow labelled ToyID or Barcode",
+                "marks": 1
+              },
+              {
+                "criterion": "Process 2 labelled Generate Bill",
+                "marks": 1
+              },
+              {
+                "criterion": "Data flow from Toy Database includes Price",
+                "marks": 1
+              },
+              {
+                "criterion": "Data flow from Toy Database includes Toy Description",
+                "marks": 1
+              },
+              {
+                "criterion": "Data store labelled Toy Database",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Complete the DFD with process 1 as Scan Barcode, a ToyID/Barcode data flow to process 2, process 2 as Generate Bill, data store 1 as Toy Database, and Price and Toy Description flowing from Toy Database to Generate Bill."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m23p2-5b",
+          "title": "Toy store data flow diagram (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.2.1.6@paper"
+          ],
+          "text": "Give the name for this type of diagram.",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q5(b)",
+          "practice": false,
+          "topic": "g11-data-analysis",
+          "scheme": {
+            "mark_scheme": "Dataflow diagram/DFD.\n\nAccept level 1 DFD.\nDo not accept level 0 DFD.",
+            "points": [
+              {
+                "criterion": "States Dataflow diagram or DFD",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Dataflow diagram / DFD",
+            "accepted": {
+              "values": [
+                "Dataflow diagram",
+                "Data flow diagram",
+                "DFD",
+                "level 1 DFD"
+              ]
+            },
+            "ai_instructions": "Do not accept level 0 DFD."
+          },
+          "part_label": "(b)"
+        }
+      ]
+    },
+    {
+      "key": "m23p2-6",
+      "title": "Fact-finding for boat rental system",
+      "type": "structured",
+      "marks": 3,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A boat station provides boats for rent. A boatman keeps track of the time of renting and the return of the boats in a copybook. At the peak of the tourist season there are a lot of queues due to the increase of boat booking. The boatman cannot handle writing the issue time of the rent and accepting payment at the same time. To solve this problem, he hires a programmer to develop a computerized boat rental system.\nFor each of the following fact-finding techniques, describe how the programmer can use the technique to analyse the current system.",
+      "source": "past_paper",
+      "source_reference": "NIS 2023 Paper 2 Q6",
+      "practice": false,
+      "topic": "g11-data-analysis",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m23p2-6a",
+          "title": "Fact-finding for boat rental system (a)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.1.3@paper"
+          ],
+          "text": "interview",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q6(a)",
+          "practice": false,
+          "topic": "g11-data-analysis",
+          "scheme": {
+            "mark_scheme": "ask/talk to the boatman how rental is paid (1)\n\nask the boatman what info is recorded in the Copybook (1)\n\nask the customers if they are satisfied with the current system (1)\n\n[max 1]\n\nAccept any reasonable answer.\nAccept answers only related to scenario.",
+            "points": [
+              {
+                "criterion": "Describes a relevant interview use in the scenario",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The programmer can interview the boatman to ask what information is recorded in the copybook and how rental payment is handled.",
+            "ai_instructions": "Award a maximum of 1 mark. Accept any reasonable answer only if related to the scenario."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m23p2-6b",
+          "title": "Fact-finding for boat rental system (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.1.3@paper"
+          ],
+          "text": "survey",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q6(b)",
+          "practice": false,
+          "topic": "g11-data-analysis",
+          "scheme": {
+            "mark_scheme": "a series of questions that are answered on paper or on a website from the boatman to find out what he likes/dislikes about the method of recording boat rent (1)\n\nquestionnaire customers to find out how much time do they spent waiting in queue (1)\n\nquestionnaire customers about payment preferences (1)\n\n[max 1]\n\nAccept any reasonable answer.\nAccept answers only related to scenario.",
+            "points": [
+              {
+                "criterion": "Describes a relevant survey/questionnaire use in the scenario",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The programmer can give customers a questionnaire to find out how long they spend waiting in the queue and their payment preferences.",
+            "ai_instructions": "Award a maximum of 1 mark. Accept any reasonable answer only if related to the scenario."
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m23p2-6c",
+          "title": "Fact-finding for boat rental system (c)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.1.3@paper"
+          ],
+          "text": "observation",
+          "content": {
+            "answer_lines": 3
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2023 Paper 2 Q6(c)",
+          "practice": false,
+          "topic": "g11-data-analysis",
+          "scheme": {
+            "mark_scheme": "watch how boatman writes record about rent, charges and gives boat (1)\n\nwatch how many customers visit the boat station (1)\n\n[max 1]\n\nAccept any reasonable answer.\nAccept answers only related to scenario.",
+            "points": [
+              {
+                "criterion": "Describes a relevant observation use in the scenario",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The programmer can observe how the boatman records rentals, charges customers and gives out boats during busy periods.",
+            "ai_instructions": "Award a maximum of 1 mark. Accept any reasonable answer only if related to the scenario."
+          },
+          "part_label": "(c)"
+        }
+      ]
+    }
+  ]
+}

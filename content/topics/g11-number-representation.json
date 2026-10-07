@@ -1,0 +1,521 @@
+{
+  "topic": "g11-number-representation",
+  "summary": "Binary, denary and hexadecimal number systems, converting between them, why hexadecimal is used, and binary addition and multiplication.",
+  "theory": [
+    {
+      "title": "Binary, denary and hexadecimal",
+      "objectives": [
+        "11.1.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A **number system** is defined by its **base** — how many different digits it uses. The value of a digit depends on its **place value**, a power of the base."
+        },
+        {
+          "type": "comparison",
+          "columns": [
+            "System",
+            "Base",
+            "Digits",
+            "Place values (right → left)",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Denary (decimal)",
+              "10",
+              "0–9",
+              "1, 10, 100, 1000 …",
+              "245₁₀"
+            ],
+            [
+              "Binary",
+              "2",
+              "0, 1",
+              "1, 2, 4, 8, 16, 32, 64, 128 …",
+              "11110101₂"
+            ],
+            [
+              "Hexadecimal",
+              "16",
+              "0–9, A–F (A=10 … F=15)",
+              "1, 16, 256, 4096 …",
+              "F5₁₆"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Why computers use binary",
+          "content": "Computer circuits are made of transistors that have **two states** — on/off (1/0). Two states are easy to make reliable, so all data and instructions are stored as binary digits (**bits**). 8 bits = 1 **byte**; 4 bits = 1 **nibble**."
+        }
+      ]
+    },
+    {
+      "title": "Converting between number systems",
+      "objectives": [
+        "11.1.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Binary → denary: add the place values of the 1s",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "01011011₂",
+          "columns": [
+            "128",
+            "64",
+            "32",
+            "16",
+            "8",
+            "4",
+            "2",
+            "1"
+          ],
+          "rows": [
+            [
+              "0",
+              "1",
+              "0",
+              "1",
+              "1",
+              "0",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "64 + 16 + 8 + 2 + 1 = **91₁₀**"
+        },
+        {
+          "type": "heading",
+          "text": "Denary → binary",
+          "level": 2
+        },
+        {
+          "type": "steps",
+          "title": "Method 1 — subtract place values (91)",
+          "items": [
+            "Largest place value ≤ 91 is 64 → bit 1, remainder 27.",
+            "32 > 27 → 0. 16 ≤ 27 → 1, remainder 11.",
+            "8 ≤ 11 → 1, remainder 3. 4 > 3 → 0.",
+            "2 ≤ 3 → 1, remainder 1. 1 → 1.",
+            "Result: **1011011₂** (01011011 in 8 bits)."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Method 2 — repeated division by 2 (read remainders bottom-up)",
+          "items": [
+            "91 ÷ 2 = 45 r **1**",
+            "45 ÷ 2 = 22 r **1**",
+            "22 ÷ 2 = 11 r **0**",
+            "11 ÷ 2 = 5 r **1**",
+            "5 ÷ 2 = 2 r **1**",
+            "2 ÷ 2 = 1 r **0**",
+            "1 ÷ 2 = 0 r **1** → read upwards: **1011011**"
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Binary ↔ hexadecimal: groups of 4 bits",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Each hex digit = exactly 4 bits, so split the binary number into **nibbles from the right**."
+        },
+        {
+          "type": "example",
+          "title": "01011011₂ → hexadecimal",
+          "content": "0101 | 1011 → 5 | B → **5B₁₆**.\nBack: 5B → 0101 1011."
+        },
+        {
+          "type": "heading",
+          "text": "Hexadecimal ↔ denary",
+          "level": 2
+        },
+        {
+          "type": "example",
+          "content": "- 5B₁₆ = 5 × 16 + 11 = 80 + 11 = **91₁₀**\n- 183₁₀ = 11 × 16 + 7 → **B7₁₆** (183 ÷ 16 = 11 remainder 7)"
+        },
+        {
+          "type": "interactive",
+          "widget": "base_converter",
+          "title": "Try conversions yourself"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Write the place values above the bits when converting — it prevents most mistakes and shows your **working**, which earns method marks."
+        }
+      ]
+    },
+    {
+      "title": "Why hexadecimal is used",
+      "objectives": [
+        "11.1.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "**Shorter** and easier for humans to read and write than binary (one hex digit for every 4 bits).",
+            "**Fewer errors** when copying long binary values.",
+            "Converts to and from binary **very easily** (unlike denary).",
+            "Used for: **memory addresses**, **colour codes** in HTML/CSS (`#FF8800`), **MAC addresses** (`3C:52:82:1A:9F:04`), error/debug codes and machine code listings."
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Hexadecimal is for **humans** — the computer still stores everything in binary. Hex does **not** use less memory."
+        }
+      ]
+    },
+    {
+      "title": "Binary addition and multiplication",
+      "objectives": [
+        "11.1.1.4"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Rules of binary addition",
+          "columns": [
+            "A + B (+ carry)",
+            "Sum bit",
+            "Carry"
+          ],
+          "rows": [
+            [
+              "0 + 0",
+              "0",
+              "0"
+            ],
+            [
+              "0 + 1",
+              "1",
+              "0"
+            ],
+            [
+              "1 + 1",
+              "0",
+              "1"
+            ],
+            [
+              "1 + 1 + 1",
+              "1",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "          0 1 0 1 1 0 1 0   (90)\n        + 0 0 1 1 1 0 1 1   (59)\n        -----------------\n          1 0 0 1 0 1 0 1   (149)",
+          "caption": "01011010 + 00111011 (carries: columns 2, 4, 5, 6 and 7 from the right)"
+        },
+        {
+          "type": "warning",
+          "content": "**Overflow:** if the result needs more bits than are available (e.g. more than 8 bits for a byte), the extra carry is lost and the stored result is wrong. 11111111 + 00000001 in 8 bits gives 00000000 with a carry out."
+        },
+        {
+          "type": "interactive",
+          "widget": "binary_addition",
+          "title": "Step through a binary addition"
+        },
+        {
+          "type": "heading",
+          "text": "Binary multiplication",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Multiply by each bit of the second number (shifted left), then add — exactly like long multiplication in denary, but each partial product is either 0 or the first number."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "        1 0 1 1\n      ×   1 0 1\n      ---------\n        1 0 1 1      (1011 × 1)\n      0 0 0 0        (1011 × 0, shifted 1)\n    1 0 1 1          (1011 × 1, shifted 2)\n    -----------\n    1 1 0 1 1 1  = 55",
+          "caption": "1011 × 101   (11 × 5 = 55)"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Multiplying by 2 in binary = **shift left one place** (add a 0 on the right). Multiplying by 4 = shift left two places."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "key": "numrep-bin-to-den",
+      "title": "Binary to denary",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.2"
+      ],
+      "text": "Convert the binary number `1011 0110` to denary.",
+      "content": {
+        "hint": "Place values: 128 64 32 16 8 4 2 1."
+      },
+      "scheme": {
+        "mark_scheme": "182",
+        "accepted": {
+          "values": [
+            "182"
+          ],
+          "numeric": true
+        },
+        "explanation": "128 + 32 + 16 + 4 + 2 = 182."
+      }
+    },
+    {
+      "key": "numrep-den-to-bin",
+      "title": "Denary to 8-bit binary",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.2"
+      ],
+      "text": "Convert the denary number **77** to an **8-bit** binary number.",
+      "content": {
+        "hint": "77 = 64 + 8 + 4 + 1."
+      },
+      "scheme": {
+        "mark_scheme": "01001101",
+        "accepted": {
+          "values": [
+            "01001101"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "64 + 8 + 4 + 1 = 77 → 0100 1101. All 8 bits are required, including the leading zero."
+      }
+    },
+    {
+      "key": "numrep-hex-to-den",
+      "title": "Hexadecimal to denary",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.2"
+      ],
+      "text": "Convert the hexadecimal number `C9` to denary.",
+      "scheme": {
+        "mark_scheme": "201",
+        "accepted": {
+          "values": [
+            "201"
+          ],
+          "numeric": true
+        },
+        "explanation": "C = 12, so 12 × 16 + 9 = 201."
+      }
+    },
+    {
+      "key": "numrep-bin-to-hex",
+      "title": "Binary to hexadecimal",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.2"
+      ],
+      "text": "Convert each binary number to hexadecimal.\n\n`1110 0101` = [[1]]\n\n`0011 1100 1111` = [[2]]",
+      "content": {
+        "blank_count": 2,
+        "hint": "Convert each group of 4 bits separately."
+      },
+      "scheme": {
+        "mark_scheme": "(1) E5  (2) 3CF",
+        "accepted": {
+          "blanks": [
+            [
+              "E5",
+              "0xE5",
+              "e5"
+            ],
+            [
+              "3CF",
+              "03CF",
+              "0x3CF"
+            ]
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "numrep-hex-advantages",
+      "title": "Advantages of hexadecimal",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.3"
+      ],
+      "text": "Explain **two** advantages of using hexadecimal rather than binary to represent values such as memory addresses.",
+      "content": {
+        "answer_lines": 5
+      },
+      "scheme": {
+        "mark_scheme": "1 mark per advantage with explanation, max 2:\n- Shorter / fewer digits (1 hex digit = 4 bits) so quicker to read/write\n- Easier for humans to understand/remember\n- Fewer mistakes when reading/copying than long binary strings\n- Easy/direct conversion to and from binary (each digit maps to a nibble)",
+        "points": [
+          {
+            "criterion": "First valid advantage explained (shorter / easier to read / fewer errors / easy conversion)",
+            "marks": 1
+          },
+          {
+            "criterion": "Second, different valid advantage explained",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Hexadecimal is much shorter than binary because each hex digit represents 4 bits, so addresses are quicker to read and write. It is also less error-prone: a programmer is less likely to make a mistake copying '3F2A' than '0011111100101010'.",
+        "ai_instructions": "Do not award 'computers use hexadecimal' or 'hexadecimal takes less memory' — both are incorrect (computers store binary). Two points that are the same idea (e.g. 'shorter' and 'fewer digits') earn only 1 mark."
+      }
+    },
+    {
+      "key": "numrep-hex-uses",
+      "title": "Uses of hexadecimal",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.3"
+      ],
+      "text": "Select **two** places where hexadecimal is commonly used.",
+      "options": [
+        {
+          "key": "A",
+          "content": "HTML/CSS colour codes"
+        },
+        {
+          "key": "B",
+          "content": "Storing numbers inside the CPU's registers"
+        },
+        {
+          "key": "C",
+          "content": "MAC addresses"
+        },
+        {
+          "key": "D",
+          "content": "Counting characters in a text file"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "Registers store binary, not hexadecimal. Hex is a human-readable representation used for colour codes, MAC addresses, memory addresses and error codes."
+      }
+    },
+    {
+      "key": "numrep-add",
+      "title": "Binary addition and overflow",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.4"
+      ],
+      "text": "Add the two 8-bit binary numbers and give the 8-bit result.\n\n```\n  0110 1011\n+ 0011 0110\n```",
+      "content": {
+        "hint": "Work from right to left and remember to carry."
+      },
+      "scheme": {
+        "mark_scheme": "1010 0001 (107 + 54 = 161). 2 marks for the correct result.",
+        "accepted": {
+          "values": [
+            "10100001"
+          ],
+          "ignore_spaces": true,
+          "scoring": "all"
+        },
+        "explanation": "107 + 54 = 161 = 1010 0001. The result fits in 8 bits, so there is no overflow."
+      }
+    },
+    {
+      "key": "numrep-overflow-tf",
+      "title": "Overflow",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.4"
+      ],
+      "text": "Adding the 8-bit numbers `1100 0000` and `0100 0001` causes an overflow error.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "192 + 65 = 257, which is greater than 255 — the largest value that 8 bits can hold — so a ninth bit is needed."
+      }
+    },
+    {
+      "key": "numrep-multiply",
+      "title": "Binary multiplication",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.4"
+      ],
+      "text": "Multiply the binary numbers `1101` and `101`. Show your working and give the answer in binary.",
+      "scheme": {
+        "mark_scheme": "1 mark: correct partial products shown (1101 and 110100). 1 mark: correct answer 1000001 (13 × 5 = 65).",
+        "points": [
+          {
+            "criterion": "Correct method: partial products / shifting shown",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct final answer 1000001",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1101 × 1 = 1101; 1101 × 100 = 110100; 1101 + 110100 = 1000001 (65).",
+        "accepted": {
+          "values": [
+            "1000001",
+            "01000001"
+          ],
+          "ignore_spaces": true
+        },
+        "ai_instructions": "The final answer may be written as 1000001 or 0100 0001. Award the method mark for shifted partial products even if the final addition is wrong."
+      }
+    }
+  ]
+}

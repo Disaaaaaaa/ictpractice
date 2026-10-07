@@ -1,0 +1,106 @@
+{
+  "topic": "g12-programming-language",
+  "questions": [],
+  "summary": "Comparing declarative and imperative programming — how each describes a problem, how programs are executed and where each paradigm is used.",
+  "theory": [
+    {
+      "title": "Declarative and imperative languages",
+      "objectives": [
+        "12.5.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Programming paradigm",
+          "content": "A **style or approach** to programming that determines how a problem is described and solved."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Imperative paradigm",
+              "content": "The program is a **sequence of instructions** that change the program's **state** (variables). The programmer says **how** to reach the result, step by step. Includes **procedural** (Python, C, Pascal) and **object-oriented** (Java, C#) programming."
+            },
+            {
+              "title": "Declarative paradigm",
+              "content": "The program states **what** is wanted — facts, rules, constraints or a description of the result. The language engine decides **how** to compute it. Includes **logic** (Prolog), **query** (SQL) and **functional** (Haskell) languages."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "result = []\nfor s in students:\n    if s.grade == 12:\n        result.append(s.name)",
+          "caption": "Imperative (Python): how — loop through the students and test each one"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT Name FROM Students WHERE Grade = 12;",
+          "caption": "Declarative (SQL): what — describe the rows you want"
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "% facts\nlikes(aruzhan, chess).\nlikes(timur, football).\nlikes(dana, chess).\n% rule: two different people are friends if they like the same game\nfriends(X, Y) :- likes(X, G), likes(Y, G), X \\= Y.\n% query\n?- friends(aruzhan, Who).\n% Who = dana",
+          "caption": "Declarative (Prolog): facts, rules and a query"
+        },
+        {
+          "type": "comparison",
+          "title": "Detailed comparison",
+          "columns": [
+            "Criterion",
+            "Imperative",
+            "Declarative"
+          ],
+          "rows": [
+            [
+              "Focus",
+              "How — the algorithm",
+              "What — the result/logic"
+            ],
+            [
+              "Program structure",
+              "Statements executed in order; sequence, selection, iteration",
+              "Facts, rules, queries or expressions"
+            ],
+            [
+              "State",
+              "Variables are assigned and changed",
+              "Little or no changing state"
+            ],
+            [
+              "Control of execution",
+              "Written by the programmer",
+              "Built into the language (e.g. Prolog backtracking, SQL optimiser)"
+            ],
+            [
+              "Code length",
+              "Often longer",
+              "Often shorter for suitable problems"
+            ],
+            [
+              "Efficiency",
+              "Programmer can optimise every step",
+              "Depends on the engine; may be less efficient"
+            ],
+            [
+              "Typical uses",
+              "Applications, games, operating systems, embedded systems",
+              "Databases, expert systems, AI, configuration"
+            ],
+            [
+              "Examples",
+              "Python, C++, Java, Pascal, Assembly",
+              "Prolog, SQL, Haskell, HTML/CSS (markup)"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "A strong comparison sentence: \"In an **imperative** language the programmer writes the **steps** to solve the problem and the order of execution, **whereas** in a **declarative** language the programmer describes the **facts and rules** and the system finds the solution itself.\""
+        }
+      ]
+    }
+  ]
+}

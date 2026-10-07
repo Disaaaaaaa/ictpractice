@@ -1,0 +1,98 @@
+{
+  "topic": "g11-adding-and-selecting-data-from-a-database",
+  "questions": [],
+  "summary": "Adding records to a database from a web form, extracting data with SELECT, and using two-dimensional arrays to hold table data in a program.",
+  "theory": [
+    {
+      "title": "Adding data to a database from code",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\n\n$name  = trim($_POST[\"name\"]);\n$grade = (int)$_POST[\"grade\"];\n\nif ($name !== \"\" && $grade >= 7 && $grade <= 12) {          // validate first\n    $stmt = mysqli_prepare($conn, \"INSERT INTO Student (Name, Grade) VALUES (?, ?)\");\n    mysqli_stmt_bind_param($stmt, \"si\", $name, $grade);      // s = string, i = integer\n    if (mysqli_stmt_execute($stmt)) {\n        echo \"Student added with ID \" . mysqli_insert_id($conn);\n    } else {\n        echo \"Error: \" . mysqli_error($conn);\n    }\n} else {\n    echo \"Please enter a name and a grade between 7 and 12.\";\n}\nmysqli_close($conn);\n?>",
+          "caption": "Insert a new student from a form (prepared statement)"
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "SQL injection",
+          "content": "Never put form data **directly** into an SQL string (`\"... VALUES ('$name')\"`): a user could type SQL code and change or delete data. Use **prepared statements** (placeholders `?`) or at least escape the input."
+        }
+      ]
+    },
+    {
+      "title": "Extracting data from a database",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$conn  = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\n$grade = (int)$_GET[\"grade\"];\n\n$stmt = mysqli_prepare($conn, \"SELECT StudentID, Name FROM Student WHERE Grade = ? ORDER BY Name\");\nmysqli_stmt_bind_param($stmt, \"i\", $grade);\nmysqli_stmt_execute($stmt);\n$result = mysqli_stmt_get_result($stmt);\n\necho \"<table border='1'><tr><th>ID</th><th>Name</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>{$row['StudentID']}</td><td>{$row['Name']}</td></tr>\";\n}\necho \"</table>\";\necho mysqli_num_rows($result) . \" student(s) found.\";\n?>",
+          "caption": "Search form → SELECT → HTML table"
+        },
+        {
+          "type": "comparison",
+          "title": "Useful mysqli functions",
+          "columns": [
+            "Function",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "`mysqli_connect()`",
+              "Open a connection"
+            ],
+            [
+              "`mysqli_query()`",
+              "Run an SQL statement"
+            ],
+            [
+              "`mysqli_fetch_assoc()`",
+              "Get the next row as an associative array (`$row[\"Name\"]`)"
+            ],
+            [
+              "`mysqli_num_rows()`",
+              "Number of rows returned"
+            ],
+            [
+              "`mysqli_insert_id()`",
+              "ID of the last inserted record"
+            ],
+            [
+              "`mysqli_close()`",
+              "Close the connection"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Two-dimensional arrays",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Two-dimensional array",
+          "content": "An array of arrays — data arranged in **rows and columns**, like a table. An element is accessed with **two indexes**: `[row][column]`."
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$students = [];                       // empty 2D array\nwhile ($row = mysqli_fetch_row($result)) {\n    $students[] = $row;               // each row = [ID, Name, Grade]\n}\necho $students[0][1];                 // name in the first row\n\n// marks of 3 students in 4 tests\n$marks = [\n    [7, 8, 6, 9],\n    [10, 9, 9, 8],\n    [5, 6, 7, 6],\n];\nfor ($r = 0; $r < count($marks); $r++) {\n    $sum = 0;\n    for ($c = 0; $c < count($marks[$r]); $c++) {\n        $sum += $marks[$r][$c];\n    }\n    echo \"Student \" . ($r + 1) . \" average: \" . $sum / count($marks[$r]) . \"<br>\";\n}\n?>",
+          "caption": "Storing query results in a 2D array"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Use a **1D array** for a single list of values (marks of one student), and a **2D array** when each item has several values or the data is a grid (marks of many students in many tests, a seating plan, a game board)."
+        }
+      ]
+    }
+  ]
+}

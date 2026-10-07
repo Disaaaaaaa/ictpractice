@@ -1,0 +1,134 @@
+{
+  "topic": "g11-text-representation",
+  "questions": [],
+  "summary": "How characters are stored using character sets, the differences between ASCII and Unicode, and calculating the storage needed for text.",
+  "theory": [
+    {
+      "title": "ASCII and Unicode",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Character set",
+          "content": "A defined list of characters that a computer recognises, each with a **unique binary code**. The keyboard sends the code; the computer stores and displays it."
+        },
+        {
+          "type": "comparison",
+          "title": "ASCII vs Unicode",
+          "columns": [
+            "",
+            "ASCII",
+            "Unicode"
+          ],
+          "rows": [
+            [
+              "Bits per character",
+              "7 bits (128 characters); extended ASCII uses 8 bits (256)",
+              "8, 16 or 32 bits per character (UTF-8 / UTF-16 / UTF-32)"
+            ],
+            [
+              "Number of characters",
+              "128 / 256",
+              "Over 1 million possible code points (≈150 000 assigned)"
+            ],
+            [
+              "Languages",
+              "English letters, digits, punctuation, control characters",
+              "Almost all world languages (Kazakh, Russian, Chinese, Arabic …) plus symbols and **emoji**"
+            ],
+            [
+              "Storage",
+              "Small files",
+              "Larger files (more bits per character)"
+            ],
+            [
+              "Compatibility",
+              "Older systems",
+              "The first 128 Unicode codes are the same as ASCII"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Some ASCII codes",
+          "columns": [
+            "Character",
+            "Denary",
+            "Binary"
+          ],
+          "rows": [
+            [
+              "`A`",
+              "65",
+              "1000001"
+            ],
+            [
+              "`B`",
+              "66",
+              "1000010"
+            ],
+            [
+              "`a`",
+              "97",
+              "1100001"
+            ],
+            [
+              "`0`",
+              "48",
+              "0110000"
+            ],
+            [
+              "space",
+              "32",
+              "0100000"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Codes are **in order**: if `A` = 65 then `E` = 69, and lower-case letters are 32 more than upper-case (`a` = 97). This is often used in \"find the code of…\" questions."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Why Unicode was needed",
+          "content": "ASCII has only 128 (or 256) codes — not enough for alphabets such as Kazakh Cyrillic (Ә, Ғ, Қ, Ң, Ө, Ұ, Ү, Һ, І) or Chinese. Unicode gives every character in every language a unique code, so text displays correctly on any device."
+        }
+      ]
+    },
+    {
+      "title": "Calculating the storage needed for text",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "blocks": [
+        {
+          "type": "formula",
+          "latex": "\\text{Size (bits)} = \\text{number of characters} \\times \\text{bits per character}",
+          "caption": "Spaces and punctuation are characters too"
+        },
+        {
+          "type": "example",
+          "title": "\"Hello, World!\" in 8-bit ASCII",
+          "content": "- Characters: H e l l o , space W o r l d ! → **13** characters\n- 13 × 8 = 104 bits = **13 bytes**"
+        },
+        {
+          "type": "example",
+          "title": "The same text in UTF-16",
+          "content": "13 × 16 = 208 bits = **26 bytes**"
+        },
+        {
+          "type": "example",
+          "title": "A whole document",
+          "content": "A 5-page essay, 400 words per page, 6 characters per word on average (including the space), 16-bit Unicode:\n- 5 × 400 × 6 = 12 000 characters\n- 12 000 × 16 = 192 000 bits = 24 000 bytes ≈ **23.4 KiB**"
+        },
+        {
+          "type": "warning",
+          "content": "Count **every** character, including spaces, commas and full stops. A common mistake is to forget the spaces between words."
+        }
+      ]
+    }
+  ]
+}

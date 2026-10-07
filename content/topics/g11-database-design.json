@@ -1,0 +1,181 @@
+{
+  "topic": "g11-database-design",
+  "questions": [],
+  "summary": "Designing the database of a new system — from the scenario to an entity-relationship diagram and a complete data dictionary.",
+  "theory": [
+    {
+      "title": "Designing the ERD for a new system",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Scenario: school sports club booking",
+          "content": "*Students book places in training sessions. Each session is run by one coach and takes place in one hall. A student can book many sessions; a session has many students.*"
+        },
+        {
+          "type": "steps",
+          "title": "From scenario to ERD",
+          "items": [
+            "**Entities:** Student, Session, Coach, Hall, Booking (link table for Student–Session M:M).",
+            "**Primary keys:** StudentID, SessionID, CoachID, HallID, BookingID.",
+            "**Relationships:** Coach 1:M Session; Hall 1:M Session; Student 1:M Booking; Session 1:M Booking.",
+            "**Foreign keys** go on the \"many\" side: Session(CoachID, HallID), Booking(StudentID, SessionID)."
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  COACH ||--o{ SESSION : runs\n  HALL ||--o{ SESSION : hosts\n  STUDENT ||--o{ BOOKING : makes\n  SESSION ||--o{ BOOKING : has\n  STUDENT {\n    string StudentID PK\n    string Name\n    int Grade\n  }\n  SESSION {\n    string SessionID PK\n    date SessionDate\n    string CoachID FK\n    string HallID FK\n  }\n  BOOKING {\n    int BookingID PK\n    string StudentID FK\n    string SessionID FK\n  }",
+          "caption": "ERD — sports club booking"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Check your design: every M:M is resolved, every table has a PK, and every relationship line has a matching **foreign key** in the table on the many side."
+        }
+      ]
+    },
+    {
+      "title": "Writing the data dictionary",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Data dictionary — table Session",
+          "columns": [
+            "Field",
+            "Type",
+            "Size",
+            "Key",
+            "Validation",
+            "Example",
+            "Description"
+          ],
+          "rows": [
+            [
+              "SessionID",
+              "VARCHAR",
+              "6",
+              "PK",
+              "Presence; format SE + 4 digits",
+              "SE0042",
+              "Unique session code"
+            ],
+            [
+              "SessionDate",
+              "DATE",
+              "",
+              "",
+              "Must not be in the past when created",
+              "14/10/2026",
+              "Date of training"
+            ],
+            [
+              "StartTime",
+              "TIME",
+              "",
+              "",
+              "Range 08:00–20:00",
+              "16:30",
+              "Start time"
+            ],
+            [
+              "MaxPlaces",
+              "INT",
+              "",
+              "",
+              "Range 1–30",
+              "20",
+              "Capacity"
+            ],
+            [
+              "CoachID",
+              "VARCHAR",
+              "5",
+              "FK → Coach",
+              "Lookup in Coach",
+              "C0007",
+              "Coach running the session"
+            ],
+            [
+              "HallID",
+              "VARCHAR",
+              "3",
+              "FK → Hall",
+              "Lookup in Hall",
+              "H2",
+              "Location"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Data dictionary — table Booking",
+          "columns": [
+            "Field",
+            "Type",
+            "Size",
+            "Key",
+            "Validation",
+            "Example",
+            "Description"
+          ],
+          "rows": [
+            [
+              "BookingID",
+              "INT",
+              "",
+              "PK",
+              "Auto-increment",
+              "1531",
+              "Unique booking number"
+            ],
+            [
+              "StudentID",
+              "VARCHAR",
+              "6",
+              "FK → Student",
+              "Lookup in Student",
+              "S00123",
+              "Who booked"
+            ],
+            [
+              "SessionID",
+              "VARCHAR",
+              "6",
+              "FK → Session",
+              "Lookup in Session",
+              "SE0042",
+              "Which session"
+            ],
+            [
+              "BookedOn",
+              "DATETIME",
+              "",
+              "",
+              "Presence",
+              "10/10/2026 09:12",
+              "When the booking was made"
+            ],
+            [
+              "Attended",
+              "BOOLEAN",
+              "",
+              "",
+              "",
+              "FALSE",
+              "Did the student attend?"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Choose the data type from **how the data is used**: codes and phone numbers are text even if they contain digits; quantities and prices are numeric because calculations are done on them."
+        }
+      ]
+    }
+  ]
+}

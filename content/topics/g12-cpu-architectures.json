@@ -1,0 +1,139 @@
+{
+  "topic": "g12-cpu-architectures",
+  "questions": [],
+  "summary": "RISC and CISC processor architectures — their characteristics, an example of each, and how they compare.",
+  "theory": [
+    {
+      "title": "RISC architecture",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "RISC — Reduced Instruction Set Computer",
+          "content": "A processor design with a **small set of simple instructions**, each of which executes in **one clock cycle**."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Few, simple, **fixed-length** instructions; few addressing modes.",
+            "Most instructions take **one clock cycle** → well suited to **pipelining**.",
+            "**Load/store architecture**: only LOAD and STORE access memory; all other operations use **registers**.",
+            "**Many general-purpose registers**.",
+            "Programs need **more instructions** (longer machine code), so the **compiler** does more work.",
+            "Simpler hardware → **less power and heat**, cheaper chips.",
+            "*Examples:* **ARM** (smartphones, tablets, Apple M-series), RISC-V, MIPS."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "CISC architecture",
+      "objectives": [
+        "12.3.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "CISC — Complex Instruction Set Computer",
+          "content": "A processor design with a **large set of complex instructions**, where one instruction can do several low-level operations (e.g. load from memory, add and store) and may take **several clock cycles**."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Many instructions, **variable length**, many addressing modes.",
+            "Instructions can work **directly on memory**.",
+            "Fewer instructions per program → **shorter programs**, less RAM for code.",
+            "Complex circuitry (often **microcode**) → more power and heat.",
+            "Harder to pipeline because instructions take different numbers of cycles.",
+            "*Examples:* **Intel x86 / x86-64** and **AMD** processors in most PCs and laptops."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Comparing RISC and CISC",
+      "objectives": [
+        "12.3.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Feature",
+            "RISC",
+            "CISC"
+          ],
+          "rows": [
+            [
+              "Number of instructions",
+              "Small",
+              "Large"
+            ],
+            [
+              "Instruction complexity",
+              "Simple",
+              "Complex, multi-step"
+            ],
+            [
+              "Instruction length",
+              "Fixed",
+              "Variable"
+            ],
+            [
+              "Clock cycles per instruction",
+              "Usually 1",
+              "Several"
+            ],
+            [
+              "Memory access",
+              "Only LOAD/STORE",
+              "Many instructions access memory directly"
+            ],
+            [
+              "Registers",
+              "Many",
+              "Fewer"
+            ],
+            [
+              "Pipelining",
+              "Easy and efficient",
+              "Harder"
+            ],
+            [
+              "Program length (number of instructions)",
+              "Longer",
+              "Shorter"
+            ],
+            [
+              "Emphasis",
+              "Software (compiler)",
+              "Hardware"
+            ],
+            [
+              "Power consumption",
+              "Low — ideal for mobile/embedded devices",
+              "Higher"
+            ],
+            [
+              "Examples",
+              "ARM, RISC-V",
+              "Intel x86, AMD"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "CISC (one instruction):      MULT 2:3, 5:2        ; load both, multiply, store\n\nRISC (several simple ones):  LOAD  A, 2:3\n                             LOAD  B, 5:2\n                             PROD  A, B\n                             STORE 2:3, A",
+          "caption": "Multiplying two numbers stored in memory"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Put ticks in a RISC/CISC table by remembering two key ideas: **RISC = simple, one cycle, many registers, low power**; **CISC = complex, many cycles, fewer instructions per program**."
+        }
+      ]
+    }
+  ]
+}

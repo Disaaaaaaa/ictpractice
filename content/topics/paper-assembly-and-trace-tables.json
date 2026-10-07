@@ -1,0 +1,192 @@
+{
+  "topic": "paper-assembly-and-trace-tables",
+  "questions": [],
+  "summary": "Reading simple assembly language programs (Little Man Computer instruction set) and using trace tables to follow and check algorithms.",
+  "theory": [
+    {
+      "title": "Simple assembly language programs",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Assembly language uses **mnemonics** for machine instructions. NIS papers use an instruction set like the **Little Man Computer (LMC)**: one **accumulator (ACC)**, memory locations 00–99, and these instructions:"
+        },
+        {
+          "type": "comparison",
+          "title": "Instruction set",
+          "columns": [
+            "Mnemonic",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "`INP`",
+              "Input a value into ACC"
+            ],
+            [
+              "`OUT`",
+              "Output the value in ACC"
+            ],
+            [
+              "`LDA xx`",
+              "Load ACC with the contents of address xx"
+            ],
+            [
+              "`STA xx`",
+              "Store ACC into address xx"
+            ],
+            [
+              "`ADD xx`",
+              "ACC ← ACC + contents of xx"
+            ],
+            [
+              "`SUB xx`",
+              "ACC ← ACC − contents of xx"
+            ],
+            [
+              "`BRA xx`",
+              "Branch always — jump to xx"
+            ],
+            [
+              "`BRZ xx`",
+              "Branch to xx **if ACC = 0**"
+            ],
+            [
+              "`BRP xx`",
+              "Branch to xx **if ACC ≥ 0** (zero or positive)"
+            ],
+            [
+              "`HLT`",
+              "Stop"
+            ],
+            [
+              "`DAT n`",
+              "A memory location holding data n (not an instruction)"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "00  INP          ; read N\n01  STA 09       ; store N\n02  LDA 09       ; loop: load N\n03  BRZ 08       ; if N = 0 finish\n04  OUT          ; output N\n05  SUB 10       ; N - 1\n06  STA 09       ; save the new N\n07  BRA 02       ; repeat\n08  HLT\n09  DAT 0        ; N\n10  DAT 1        ; the constant 1",
+          "caption": "Program: count down from an input number"
+        },
+        {
+          "type": "comparison",
+          "title": "Parts of the program",
+          "columns": [
+            "Feature",
+            "Lines"
+          ],
+          "rows": [
+            [
+              "Input / output",
+              "00 / 04"
+            ],
+            [
+              "Condition (selection)",
+              "03 (`BRZ`)"
+            ],
+            [
+              "Loop",
+              "02–07 (the jump back at 07)"
+            ],
+            [
+              "Data",
+              "09, 10"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trace tables",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Trace table",
+          "content": "A table that records the **values of variables (and registers/memory) after each step** of an algorithm, used to **dry-run** it: to find its output, check that it is correct and locate logic errors."
+        },
+        {
+          "type": "example",
+          "title": "Trace of the count-down program with input 3",
+          "content": "| Line | ACC | [09] | Output |\n|---|---|---|---|\n| 00 | 3 | 0 | |\n| 01 | 3 | 3 | |\n| 02 | 3 | 3 | |\n| 04 | 3 | 3 | 3 |\n| 05 | 2 | 3 | |\n| 06 | 2 | 2 | |\n| 02 | 2 | 2 | |\n| 04 | 2 | 2 | 2 |\n| 05 | 1 | 2 | |\n| 06 | 1 | 1 | |\n| 02 | 1 | 1 | |\n| 04 | 1 | 1 | 1 |\n| 05 | 0 | 1 | |\n| 06 | 0 | 0 | |\n| 02 | 0 | 0 | |\n| 03 → 08 | 0 | 0 | (BRZ jumps, HLT) |"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "total ← 0\nFOR x ← 0 TO 3\n    IF x MOD 2 <> 0 THEN\n        total ← total + x * 2\n    ELSE\n        total ← total + 1\n    ENDIF\nNEXT x\nOUTPUT total",
+          "caption": "Trace this algorithm"
+        },
+        {
+          "type": "comparison",
+          "title": "Trace table",
+          "columns": [
+            "x",
+            "x MOD 2 <> 0",
+            "total",
+            "Output"
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              "0",
+              ""
+            ],
+            [
+              "0",
+              "FALSE",
+              "1",
+              ""
+            ],
+            [
+              "1",
+              "TRUE",
+              "3",
+              ""
+            ],
+            [
+              "2",
+              "FALSE",
+              "4",
+              ""
+            ],
+            [
+              "3",
+              "TRUE",
+              "10",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "10"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How to complete a trace table",
+          "items": [
+            "Make a column for **every variable**, condition and output (and the line number if asked).",
+            "Write the **initial values** in the first row.",
+            "Execute **one statement at a time**; write a value only in the column that changes.",
+            "For loops, check the condition each time; for branches, follow the jump.",
+            "The **last rows** show the final values and the output."
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Common traps: `BRP` jumps when ACC is **zero too**; `MOD` gives the **remainder** (7 MOD 2 = 1); a `FOR` loop's variable takes the **last value** in the range. Write values in a new row each time they change."
+        }
+      ]
+    }
+  ]
+}

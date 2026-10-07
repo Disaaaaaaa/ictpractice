@@ -1,0 +1,134 @@
+{
+  "topic": "g11-web-application-development",
+  "questions": [],
+  "summary": "Building a complete web application — interface and site navigation in HTML and CSS, processing form data with a scripting language using selection, iteration and validation, and keeping code in a good style.",
+  "theory": [
+    {
+      "title": "Interface and site navigation",
+      "objectives": [
+        "11.5.3.2",
+        "11.5.3.3"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A web application usually has several pages that share a **common layout** (header, navigation, footer) and an **external style sheet**."
+        },
+        {
+          "type": "comparison",
+          "title": "Site structure for a \"School Events\" application",
+          "columns": [
+            "Page",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "`index.php`",
+              "Home: list of upcoming events"
+            ],
+            [
+              "`event.php?id=…`",
+              "Details of one event"
+            ],
+            [
+              "`register.php`",
+              "Registration form"
+            ],
+            [
+              "`admin.php`",
+              "Add / edit events (login required)"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<nav class=\"menu\">\n  <a href=\"index.php\" class=\"active\">Events</a>\n  <a href=\"register.php\">Register</a>\n  <a href=\"admin.php\">Admin</a>\n</nav>",
+          "caption": "Navigation bar shared by all pages"
+        },
+        {
+          "type": "html_preview",
+          "title": "Navigation bar with hover and active states",
+          "html": "<nav class=\"menu\"><a class=\"active\" href=\"#\">Events</a><a href=\"#\">Register</a><a href=\"#\">Admin</a></nav>",
+          "css": "body { margin: 0; font-family: Arial; }\n.menu { display: flex; background: #1f4fd8; }\n.menu a { color: #fff; padding: 12px 18px; text-decoration: none; }\n.menu a:hover { background: #1a43b8; }\n.menu a.active { background: #fff; color: #1f4fd8; font-weight: bold; }",
+          "height": 90
+        },
+        {
+          "type": "comparison",
+          "title": "Types of navigation",
+          "columns": [
+            "Type",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Menu bar / navigation bar",
+              "Links at the top of every page"
+            ],
+            [
+              "Hyperlinks in the content",
+              "\"Read more\" links"
+            ],
+            [
+              "Breadcrumbs",
+              "Home › Events › Robotics Day"
+            ],
+            [
+              "Buttons and forms that move to the next step",
+              "\"Next\", \"Submit\""
+            ],
+            [
+              "Internal links (anchors)",
+              "`<a href=\"#rules\">Rules</a>` to a section of the page"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Processing form data in a script",
+      "objectives": [
+        "11.5.4.6",
+        "11.5.4.1",
+        "11.5.4.4",
+        "11.5.4.3"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$errors = [];\nif ($_SERVER[\"REQUEST_METHOD\"] === \"POST\") {\n    $name   = trim($_POST[\"name\"] ?? \"\");\n    $grade  = (int)($_POST[\"grade\"] ?? 0);\n    $events = $_POST[\"events\"] ?? [];            // check boxes → array\n\n    // validation\n    if ($name === \"\")                  $errors[] = \"Enter your name.\";\n    if ($grade < 7 || $grade > 12)     $errors[] = \"Grade must be 7–12.\";\n    if (count($events) === 0)          $errors[] = \"Choose at least one event.\";\n\n    if (!$errors) {\n        // selection: price depends on the number of events\n        $fee = count($events) >= 3 ? 1500 : 700 * count($events);\n\n        // iteration: list chosen events\n        echo \"<h2>Thank you, \" . htmlspecialchars($name) . \"!</h2><ul>\";\n        foreach ($events as $e) {\n            echo \"<li>\" . htmlspecialchars($e) . \"</li>\";\n        }\n        echo \"</ul><p>Fee: $fee ₸</p>\";\n    }\n}\nforeach ($errors as $err) echo \"<p class='error'>$err</p>\";\n?>",
+          "caption": "register.php — validate, decide and repeat"
+        },
+        {
+          "type": "warning",
+          "content": "Use `htmlspecialchars()` when displaying user input, so that a user cannot inject HTML or JavaScript into the page (**XSS**)."
+        }
+      ]
+    },
+    {
+      "title": "Good programming style in a project",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Separate **content (HTML)**, **style (CSS file)** and **logic (PHP/JS)**.",
+            "Put repeated code (header, navigation, database connection) in one file and `include` it on each page.",
+            "Meaningful names, comments, indentation, constants instead of magic numbers.",
+            "Validate all input and handle errors with clear messages.",
+            "Test every page with normal, boundary and erroneous data."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php include \"header.php\"; include \"db.php\"; ?>\n<main> … page content … </main>\n<?php include \"footer.php\"; ?>",
+          "caption": "Reusing code with include"
+        }
+      ]
+    }
+  ]
+}

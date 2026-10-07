@@ -1,0 +1,274 @@
+{
+  "topic": "g12-boolean-logic",
+  "questions": [],
+  "summary": "Logic gates and truth tables, the laws of Boolean algebra, simplifying expressions, building and analysing logic circuits.",
+  "theory": [
+    {
+      "title": "Logic gates and truth tables",
+      "objectives": [
+        "11.3.3.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "The six gates",
+          "columns": [
+            "Gate",
+            "Expression",
+            "Output is 1 when …"
+          ],
+          "rows": [
+            [
+              "NOT",
+              "X = ¬A (Ā)",
+              "A is 0"
+            ],
+            [
+              "AND",
+              "X = A · B",
+              "**both** inputs are 1"
+            ],
+            [
+              "OR",
+              "X = A + B",
+              "**at least one** input is 1"
+            ],
+            [
+              "NAND",
+              "X = ¬(A · B)",
+              "NOT both inputs are 1"
+            ],
+            [
+              "NOR",
+              "X = ¬(A + B)",
+              "**both** inputs are 0"
+            ],
+            [
+              "XOR",
+              "X = A ⊕ B",
+              "the inputs are **different**"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Truth tables",
+          "columns": [
+            "A",
+            "B",
+            "AND",
+            "OR",
+            "NAND",
+            "NOR",
+            "XOR"
+          ],
+          "rows": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "1",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "0",
+              "1",
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0",
+              "1",
+              "1",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "interactive",
+          "widget": "truth_table",
+          "title": "Build the truth table of any expression"
+        },
+        {
+          "type": "exam_tip",
+          "content": "With *n* inputs a truth table has **2ⁿ rows**. List the inputs in binary counting order (000, 001, 010 …) so no row is missed."
+        }
+      ]
+    },
+    {
+      "title": "Laws of Boolean algebra",
+      "objectives": [
+        "11.3.3.1@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Law",
+            "AND form",
+            "OR form"
+          ],
+          "rows": [
+            [
+              "Identity",
+              "A · 1 = A",
+              "A + 0 = A"
+            ],
+            [
+              "Null (annulment)",
+              "A · 0 = 0",
+              "A + 1 = 1"
+            ],
+            [
+              "Idempotent",
+              "A · A = A",
+              "A + A = A"
+            ],
+            [
+              "Complement (inverse)",
+              "A · ¬A = 0",
+              "A + ¬A = 1"
+            ],
+            [
+              "Double negation",
+              "¬¬A = A",
+              ""
+            ],
+            [
+              "Commutative",
+              "A · B = B · A",
+              "A + B = B + A"
+            ],
+            [
+              "Associative",
+              "(A · B) · C = A · (B · C)",
+              "(A + B) + C = A + (B + C)"
+            ],
+            [
+              "Distributive",
+              "A · (B + C) = A·B + A·C",
+              "A + B·C = (A + B)·(A + C)"
+            ],
+            [
+              "Absorption",
+              "A · (A + B) = A",
+              "A + A·B = A"
+            ],
+            [
+              "**De Morgan**",
+              "¬(A · B) = ¬A + ¬B",
+              "¬(A + B) = ¬A · ¬B"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "De Morgan in words",
+          "content": "\"Break the bar, change the sign\": a NOT over an AND becomes OR of the NOTs, and a NOT over an OR becomes AND of the NOTs."
+        }
+      ]
+    },
+    {
+      "title": "Reducing and simplifying expressions",
+      "objectives": [
+        "12.3.3.1",
+        "12.3.3.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Simplify Q = ¬(A + B) + A · (¬A + ¬B)",
+          "content": "| Step | Expression | Law |\n|---|---|---|\n| 1 | ¬A·¬B + A·(¬A + ¬B) | De Morgan |\n| 2 | ¬A·¬B + A·¬A + A·¬B | Distributive |\n| 3 | ¬A·¬B + 0 + A·¬B | Complement (A·¬A = 0) |\n| 4 | ¬A·¬B + A·¬B | Identity (+0) |\n| 5 | ¬B·(¬A + A) | Distributive (factor out ¬B) |\n| 6 | ¬B · 1 | Complement (¬A + A = 1) |\n| 7 | **¬B** | Identity |"
+        },
+        {
+          "type": "example",
+          "title": "Simplify X = A·B + A·¬B + ¬A·B",
+          "content": "- A·B + A·¬B = A·(B + ¬B) = A·1 = **A** (distributive, complement, identity)\n- X = A + ¬A·B = (A + ¬A)·(A + B) = 1·(A + B) = **A + B** (distributive, complement)"
+        },
+        {
+          "type": "steps",
+          "title": "Reducing to a normal form (sum of products)",
+          "items": [
+            "Remove NAND/NOR/XOR by writing them with AND, OR, NOT (A ⊕ B = A·¬B + ¬A·B).",
+            "Use **De Morgan** to move NOTs onto single variables.",
+            "Use the **distributive law** to multiply out brackets → a sum (OR) of products (AND).",
+            "Remove repeated or impossible terms (idempotent, complement, absorption)."
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "\"Show your work\" means **one law per step, named**. A correct final answer without steps usually gets only part of the marks."
+        }
+      ]
+    },
+    {
+      "title": "Building logic circuits",
+      "objectives": [
+        "12.3.3.2"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "From expression to circuit: X = ¬((A + ¬B) · C)",
+          "items": [
+            "Innermost first: **NOT** gate on B → ¬B.",
+            "**OR** gate with inputs A and ¬B → A + ¬B.",
+            "**AND** gate with inputs (A + ¬B) and C.",
+            "**NOT** on the result — or replace the last AND + NOT with one **NAND** gate."
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "A ─────────────┐\n               OR ───┐\nB ── NOT ──────┘     NAND ─── X\nC ───────────────────┘",
+          "caption": "Circuit for X = ¬((A + ¬B) · C)"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Each gate in your drawing usually earns a mark — use the standard gate symbols, label the inputs and the output, and make sure every gate has the right number of inputs."
+        }
+      ]
+    },
+    {
+      "title": "Analysing logic circuits",
+      "objectives": [
+        "12.3.3.4"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Analysing a circuit",
+          "items": [
+            "Label the output of every gate with an intermediate letter (C, D …).",
+            "Write the expression for each intermediate output.",
+            "Combine them into the final expression for X.",
+            "Fill in a truth table with columns for the inputs, each intermediate output and X."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Circuit: D = A XOR B, C = A AND NOT B, X = D OR C",
+          "content": "| A | B | D = A ⊕ B | C = A · ¬B | X = D + C |\n|---|---|---|---|---|\n| 0 | 0 | 0 | 0 | 0 |\n| 0 | 1 | 1 | 0 | 1 |\n| 1 | 0 | 1 | 1 | 1 |\n| 1 | 1 | 0 | 0 | 0 |\nX = A ⊕ B (C adds nothing new)."
+        }
+      ]
+    }
+  ]
+}

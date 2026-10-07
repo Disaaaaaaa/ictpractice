@@ -1,0 +1,177 @@
+{
+  "topic": "g11-packet-routing",
+  "questions": [],
+  "summary": "The purpose of IP addresses and MAC addresses in delivering packets, and the roles of the main application protocols HTTP, HTTPS, FTP, FTPS, SMTP and POP3.",
+  "theory": [
+    {
+      "title": "IP addresses",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "IP address",
+          "content": "A **logical address** given to every device on a network (and on the Internet) so that data packets can be **routed to the correct device**. It can change when the device moves to another network."
+        },
+        {
+          "type": "comparison",
+          "title": "IPv4 and IPv6",
+          "columns": [
+            "",
+            "IPv4",
+            "IPv6"
+          ],
+          "rows": [
+            [
+              "Size",
+              "32 bits",
+              "128 bits"
+            ],
+            [
+              "Written as",
+              "4 denary numbers 0–255 separated by dots",
+              "8 groups of 4 hex digits separated by colons"
+            ],
+            [
+              "Example",
+              "`192.168.1.25`",
+              "`2001:0db8:85a3:0000:0000:8a2e:0370:7334`"
+            ],
+            [
+              "Number of addresses",
+              "≈ 4.3 billion (2³²) — running out",
+              "2¹²⁸ — practically unlimited"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "MAC addresses in packet routing",
+      "objectives": [
+        "11.6.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "MAC address (Media Access Control)",
+          "content": "A **physical, unique 48-bit address** burned into a device's network interface card by the manufacturer, written as 6 pairs of hexadecimal digits, e.g. `3C:52:82:1A:9F:04`. The first half identifies the **manufacturer**, the second half the **device**."
+        },
+        {
+          "type": "comparison",
+          "title": "IP vs MAC",
+          "columns": [
+            "",
+            "IP address",
+            "MAC address"
+          ],
+          "rows": [
+            [
+              "Type",
+              "Logical, assigned by the network (DHCP) or manually",
+              "Physical, set by the manufacturer"
+            ],
+            [
+              "Can change?",
+              "Yes, depends on the network",
+              "Normally fixed"
+            ],
+            [
+              "Used by",
+              "**Routers** — to deliver packets **between networks**",
+              "**Switches** — to deliver frames to the right device **within a local network**"
+            ],
+            [
+              "Size",
+              "32 / 128 bits",
+              "48 bits"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How a packet reaches a device",
+          "items": [
+            "Data is split into **packets**; each packet has a header with the **source and destination IP addresses** and a sequence number.",
+            "**Routers** read the destination IP and forward each packet along the best available route; packets may take different routes.",
+            "When the packet arrives in the destination LAN, the router finds the MAC address of the device with that IP (using **ARP**).",
+            "The **switch** uses the **MAC address** to send the frame to the correct port.",
+            "The destination device reassembles the packets in order using the sequence numbers."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Network protocols",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Protocol",
+          "content": "A set of **rules** that devices must follow to communicate: the format of data, how it is sent, received and checked for errors."
+        },
+        {
+          "type": "comparison",
+          "title": "Application-layer protocols",
+          "columns": [
+            "Protocol",
+            "Full name",
+            "Role",
+            "Port"
+          ],
+          "rows": [
+            [
+              "HTTP",
+              "HyperText Transfer Protocol",
+              "Transfers web pages from a web server to a browser",
+              "80"
+            ],
+            [
+              "HTTPS",
+              "HTTP Secure",
+              "HTTP **encrypted** with SSL/TLS — protects passwords and payment data; the server is authenticated with a certificate",
+              "443"
+            ],
+            [
+              "FTP",
+              "File Transfer Protocol",
+              "Uploads and downloads files between a client and a server (e.g. uploading a website)",
+              "20/21"
+            ],
+            [
+              "FTPS",
+              "FTP Secure",
+              "FTP with SSL/TLS **encryption**",
+              "990"
+            ],
+            [
+              "SMTP",
+              "Simple Mail Transfer Protocol",
+              "**Sends** email from a client to a mail server and between mail servers",
+              "25 / 587"
+            ],
+            [
+              "POP3",
+              "Post Office Protocol 3",
+              "**Downloads** email from the server to one device (usually deleting it from the server)",
+              "110"
+            ],
+            [
+              "IMAP",
+              "Internet Message Access Protocol",
+              "Reads email **kept on the server**, synchronised across devices",
+              "143"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Email: **SMTP sends**, **POP3/IMAP receive**. Secure versions (HTTPS, FTPS) **encrypt** the data so it cannot be read if intercepted."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "topic": "g11-database-development",
+  "questions": [],
+  "summary": "Building the multi-table database of a project — from the design documents to SQL tables with keys, constraints and test data.",
+  "theory": [
+    {
+      "title": "Developing the project database",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "From design to a working database",
+          "items": [
+            "Start from the **ERD** and **data dictionary** produced in the design stage.",
+            "Choose a **DBMS** (MySQL, PostgreSQL, SQLite, MS Access) and create the database.",
+            "Create the tables **in dependency order**: tables without foreign keys first.",
+            "Add **constraints**: `PRIMARY KEY`, `FOREIGN KEY … REFERENCES`, `NOT NULL`, `UNIQUE`, `CHECK`, `DEFAULT`.",
+            "Insert **test data** covering normal, boundary and erroneous cases.",
+            "Write and test the **queries** the system needs (searches, reports, updates).",
+            "Document the structure (screenshots of the table design, the SQL script)."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE TABLE Customer (\n  CustomerID INT AUTO_INCREMENT PRIMARY KEY,\n  FullName   VARCHAR(60) NOT NULL,\n  Phone      VARCHAR(15) UNIQUE,\n  City       VARCHAR(30) DEFAULT 'Astana'\n);\n\nCREATE TABLE Product (\n  ProductCode VARCHAR(8) PRIMARY KEY,\n  Name        VARCHAR(60) NOT NULL,\n  Price       DECIMAL(10,2) CHECK (Price > 0),\n  InStock     INT DEFAULT 0\n);\n\nCREATE TABLE OrderItem (\n  OrderID     INT,\n  ProductCode VARCHAR(8),\n  CustomerID  INT,\n  Quantity    INT CHECK (Quantity BETWEEN 1 AND 100),\n  OrderDate   DATE,\n  PRIMARY KEY (OrderID, ProductCode),\n  FOREIGN KEY (ProductCode) REFERENCES Product(ProductCode),\n  FOREIGN KEY (CustomerID)  REFERENCES Customer(CustomerID)\n);",
+          "caption": "Online shop database (3 related tables)"
+        },
+        {
+          "type": "comparison",
+          "title": "Constraints and what they protect",
+          "columns": [
+            "Constraint",
+            "Protects against"
+          ],
+          "rows": [
+            [
+              "`PRIMARY KEY`",
+              "Duplicate or missing identifiers"
+            ],
+            [
+              "`FOREIGN KEY`",
+              "Orphan records — an order for a product that does not exist (**referential integrity**)"
+            ],
+            [
+              "`NOT NULL`",
+              "Missing required data"
+            ],
+            [
+              "`UNIQUE`",
+              "Two customers with the same phone number"
+            ],
+            [
+              "`CHECK`",
+              "Impossible values (negative price)"
+            ],
+            [
+              "`DEFAULT`",
+              "Empty fields when a sensible default exists"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "INSERT INTO Customer (FullName, Phone) VALUES ('Asel Nurlanova', '+77011234567');\nINSERT INTO Product VALUES ('AB102', 'Apple juice', 850.00, 40);\nINSERT INTO OrderItem VALUES (1, 'AB102', 1, 3, '2026-10-14');\n\n-- Erroneous test: must be rejected by the CHECK constraint\nINSERT INTO Product VALUES ('ZZ001', 'Broken', -5, 1);\n\nSELECT c.FullName, p.Name, o.Quantity, p.Price * o.Quantity AS Total\nFROM OrderItem o\nJOIN Customer c ON c.CustomerID = o.CustomerID\nJOIN Product  p ON p.ProductCode = o.ProductCode;",
+          "caption": "Test data and a test query"
+        },
+        {
+          "type": "exam_tip",
+          "content": "In the project write-up, show evidence: the **CREATE TABLE** code or table design screenshots, the **relationships** diagram, and **test results** proving that the constraints reject invalid data."
+        }
+      ]
+    }
+  ]
+}

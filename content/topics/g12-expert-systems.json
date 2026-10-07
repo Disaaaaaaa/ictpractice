@@ -1,0 +1,120 @@
+{
+  "topic": "g12-expert-systems",
+  "questions": [],
+  "summary": "What an expert system is, its parts — knowledge base, inference engine, user interface — and how to build a simple expert system with facts and rules in Prolog.",
+  "theory": [
+    {
+      "title": "Expert systems",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Expert system",
+          "content": "A computer program that **imitates the decision-making of a human expert** in a narrow field, using a **knowledge base** of facts and rules and an **inference engine** that reasons with them."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Knowledge base",
+              "content": "Facts and **IF … THEN** rules collected from human experts."
+            },
+            {
+              "title": "Inference engine",
+              "content": "Applies the rules to the facts and the user's answers to reach a **conclusion** (forward or backward chaining)."
+            },
+            {
+              "title": "User interface",
+              "content": "Asks the user questions and shows conclusions — often with an **explanation** of how the conclusion was reached."
+            },
+            {
+              "title": "Explanation system",
+              "content": "Shows *why* a question is asked or *how* the result was obtained."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  U[User] <--> UI[User interface]\n  UI <--> IE[Inference engine]\n  IE <--> KB[(Knowledge base: facts + rules)]\n  IE --> EX[Explanation system] --> UI",
+          "caption": "Structure of an expert system"
+        },
+        {
+          "type": "comparison",
+          "title": "Uses, advantages and disadvantages",
+          "columns": [
+            "Uses",
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Medical diagnosis, car/computer fault finding, financial advice, plant/animal identification, mineral prospecting",
+              "Consistent answers; available 24/7; preserves expert knowledge; can be used by non-experts; fast",
+              "Only as good as its rules; no common sense or intuition; expensive to build and update; cannot handle situations outside its knowledge"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Building a simple expert system in Prolog",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "% ---- facts about particular animals ----\nhas(tweety, feathers).\ncan(tweety, fly).\nhas(nemo, fins).\nlives_in(nemo, water).\nhas(rex, fur).\nsays(rex, woof).\n\n% ---- rules (IF conditions THEN conclusion) ----\nbird(X)   :- has(X, feathers).\nfish(X)   :- has(X, fins), lives_in(X, water).\nmammal(X) :- has(X, fur).\ndog(X)    :- mammal(X), says(X, woof).\n\n% ---- queries ----\n% ?- bird(tweety).      → true\n% ?- dog(rex).          → true\n% ?- fish(Who).         → Who = nemo",
+          "caption": "Animal identification expert system"
+        },
+        {
+          "type": "comparison",
+          "title": "Prolog terms",
+          "columns": [
+            "Term",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Fact",
+              "A statement that is always true",
+              "`parent(asel, timur).`"
+            ],
+            [
+              "Rule",
+              "A conclusion that is true IF its conditions are true (`:-` means \"if\", `,` means \"and\", `;` means \"or\")",
+              "`grandparent(X,Z) :- parent(X,Y), parent(Y,Z).`"
+            ],
+            [
+              "Query (goal)",
+              "A question to the system",
+              "`?- grandparent(asel, Who).`"
+            ],
+            [
+              "Variable",
+              "Starts with a capital letter",
+              "`X`, `Who`"
+            ],
+            [
+              "Constant (atom)",
+              "Starts with a lower-case letter",
+              "`asel`, `chess`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "parent(bolat, jiger).\nparent(jiger, aliya).\nchild(X, Y) :- parent(Y, X).\n\n?- child(jiger, Y).      % Y = bolat\n?- parent(jiger, Y).     % Y = aliya",
+          "caption": "A family knowledge base and query results"
+        },
+        {
+          "type": "exam_tip",
+          "content": "In \"identify the line numbers where facts / rules are used\" questions: **facts** have no `:-`; **rules** contain `:-`. Variables in a query are answered by **unification** with the facts."
+        }
+      ]
+    }
+  ]
+}

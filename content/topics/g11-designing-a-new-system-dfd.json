@@ -1,0 +1,126 @@
+{
+  "topic": "g11-designing-a-new-system-dfd",
+  "questions": [],
+  "summary": "Data flow diagrams — their symbols, context (level 0) and level 1 diagrams, and how to draw a DFD that shows input, processing, storage and output.",
+  "theory": [
+    {
+      "title": "Data flow diagrams",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Data flow diagram (DFD)",
+          "content": "A diagram that shows **how data moves through a system**: where it comes from, how it is processed, where it is stored and where it goes. It shows *data*, not the order of steps or decisions."
+        },
+        {
+          "type": "comparison",
+          "title": "DFD symbols",
+          "columns": [
+            "Symbol",
+            "Name",
+            "Meaning",
+            "Labelled with"
+          ],
+          "rows": [
+            [
+              "Rectangle",
+              "External entity",
+              "A person/organisation/system **outside** the system that sends or receives data",
+              "A noun: *Customer*, *Supplier*"
+            ],
+            [
+              "Rounded rectangle (or circle)",
+              "Process",
+              "An action that **transforms data**",
+              "Number + verb phrase: *1 Check order*"
+            ],
+            [
+              "Open-ended rectangle",
+              "Data store",
+              "Where data is **kept** (file, table)",
+              "ID + name: *D1 Orders*"
+            ],
+            [
+              "Arrow",
+              "Data flow",
+              "Data moving between the other symbols",
+              "The data: *order details*"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Context diagram (level 0)",
+              "content": "The **whole system is one process**. Shows only the external entities and the data flows between them and the system. Gives an overview of the system boundary."
+            },
+            {
+              "title": "Level 1 DFD",
+              "content": "Breaks the system into its **main processes** (1, 2, 3 …), shows the **data stores** and every data flow between processes, stores and entities."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  C[Customer] -- order details --> S((0 Toy shop system))\n  S -- invoice / bill --> C\n  S -- stock request --> P[Supplier]\n  P -- delivery note --> S",
+          "caption": "Context (level 0) diagram — online toy shop"
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  C[Customer] -- order details --> P1([1 Check customer])\n  P1 <-- customer details --> D1[(D1 Customers)]\n  P1 -- valid order --> P2([2 Record order])\n  P2 -- order --> D2[(D2 Orders)]\n  D3[(D3 Products)] -- price, stock --> P2\n  P2 -- order total --> P3([3 Generate bill])\n  P3 -- bill --> C",
+          "caption": "Level 1 DFD — the same system"
+        },
+        {
+          "type": "heading",
+          "text": "Rules for a correct DFD",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "Every **process** must have at least one input **and** one output.",
+            "Data cannot flow **directly** between two external entities, between two data stores, or between an entity and a data store — it must pass through a **process**.",
+            "Every data flow is **labelled** with the data it carries (nouns, not actions).",
+            "Processes are numbered and named with a **verb** (\"Calculate price\").",
+            "Data stores and entities in level 1 must match the context diagram."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Drawing a level 1 DFD from a scenario",
+          "items": [
+            "Find the **external entities** (who gives or receives data).",
+            "Find the **processes** — the verbs in the scenario (\"checks the client\", \"places the order\", \"generates the bill\").",
+            "Find the **data stores** — data that is saved (customers, orders, products).",
+            "Join them with labelled **data flows**, following the order of events.",
+            "Check the rules above."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Why DFDs are used",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "Show clearly how data moves between processes, stores and users.",
+            "Define the **boundary** of the system (what is inside and outside).",
+            "Help analysts and clients **communicate** — easy to understand without technical knowledge.",
+            "Help find missing or duplicated data and processes before coding.",
+            "Form part of the design documentation."
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Marks in DFD questions are typically for: correct **entities**, all **processes**, **data stores**, and a number of **correctly labelled data flows**. Never leave an arrow unlabelled."
+        }
+      ]
+    }
+  ]
+}

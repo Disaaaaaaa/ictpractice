@@ -1,0 +1,1470 @@
+{
+  "key": "nis-2025-p3",
+  "year": 2025,
+  "paper": 3,
+  "grade": 12,
+  "title": "NIS 2025 · Paper 3: Problem-solving and programming skills",
+  "description": "Past paper 2025, Paper 3 (Problem-solving and programming skills) — 120 minutes.",
+  "instructions": "Answer all questions.\nThe number of marks is given in brackets [ ] at the end of each question or part question.\nYou should show all your working.\nYou can write any codes in pseudocode or any other programming language that you studied.",
+  "duration": 120,
+  "integrity_mode": "warn",
+  "max_violations": 3,
+  "show_mark_scheme": true,
+  "include": [],
+  "teacher_resources": [
+    {
+      "label": "Question paper (PDF)",
+      "path": "2025/2025_NIS_G12_CS_03_2RP_AFP (1).pdf"
+    },
+    {
+      "label": "Mark scheme (PDF)",
+      "path": "2025/2025_NIS_G12_CS_03_MS_2RP (1).pdf"
+    }
+  ],
+  "questions": [
+    {
+      "key": "m25p3-1",
+      "title": "Student scores and bubble sort",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A teacher records the scores of 20 maths tests.\n\n| 2 | 3 | 5 | 5 | 3 | 4 | 4 | …… | 4 | 3 |\n|---|---|---|---|---|---|---|---|---|---|",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q1",
+      "practice": false,
+      "topic": "paper-arrays",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-1a",
+          "title": "Student scores and bubble sort (a)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "suggest",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.2@paper"
+          ],
+          "text": "Suggest a suitable data structure to store student scores.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q1(a)",
+          "practice": false,
+          "topic": "paper-arrays",
+          "scheme": {
+            "mark_scheme": "Array/1D array/list/vector (1)",
+            "points": [
+              {
+                "criterion": "Array/1D array/list/vector",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Array",
+            "accepted": {
+              "values": [
+                "Array",
+                "1D array",
+                "list",
+                "vector"
+              ]
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m25p3-1b",
+          "title": "Student scores and bubble sort (b)",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.4@paper",
+            "11.5.2.3@paper"
+          ],
+          "text": "Write a code or a pseudocode to sort the student scores in descending order by using bubble sort.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q1(b)",
+          "practice": false,
+          "topic": "paper-sorting-and-searching",
+          "scheme": {
+            "mark_scheme": "FOR i ← 0 TO 19 DO (1)\n    FOR j ← i+1 TO 19 DO (1)\n        IF arr[j] < arr[j+1] THEN (1)\n            t ← arr[j]\n            arr[j] ← arr[j+1]\n            arr[j+1] ← t (1)\n        ENDIF\n    ENDFOR\nENDFOR\n\nMax 4\n1 mark for outer loop with suitable range.\n1 mark for inner loop with suitable range.\n1 mark for comparison.\n1 mark for swap.\nAccept any other correct solution.",
+            "points": [
+              {
+                "criterion": "Outer loop with suitable range",
+                "marks": 1
+              },
+              {
+                "criterion": "Inner loop with suitable range",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparison for descending order",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct swap",
+                "marks": 1
+              }
+            ],
+            "model_answer": "FOR i ← 0 TO 19 DO\n    FOR j ← i+1 TO 19 DO\n        IF arr[j] < arr[j+1] THEN\n            t ← arr[j]\n            arr[j] ← arr[j+1]\n            arr[j+1] ← t\n        ENDIF\n    ENDFOR\nENDFOR",
+            "ai_instructions": "Accept any other correct bubble sort solution that sorts the scores in descending order."
+          },
+          "part_label": "(b)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-2",
+      "title": "Assembly program trace",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Assembly language mnemonics\n\n| Mnemonic | Meaning |\n|---|---|\n| INP | Retrieve user input and stores it in the Accumulator. |\n| OUT | Output the value stored in the Accumulator. |\n| LDA | Load the Accumulator with the contents of the memory address given. |\n| STA | Store the value in the Accumulator in the memory address given. |\n| ADD | Add the contents of the memory address to the Accumulator. |\n| SUB | Subtract the contents of the memory address from the Accumulator. |\n| BRP | Branch/Jump to the address given if the Accumulator is zero or positive. |\n| BRZ | Jump to the address given in case the Accumulator is zero. |\n| BRA | Jump to the address given. |\n| HLT | Stop the code. |\n| DAT | Used to associate a label to a free memory address. An optional value can also be used to be stored at the memory address. |\n\nAnalyse the program below.\n\n| Line number | Address | Instruction |\n|---:|---:|---|\n| 1 | 00 | LDA 08 |\n| 2 | 01 | SUB 09 |\n| 3 | 02 | BRP 06 |\n| 4 | 03 | LDA 08 |\n| 5 | 04 | OUT |\n| 6 | 05 | HLT |\n| 7 | 06 | STA 08 |\n| 8 | 07 | BRA 00 |\n| 9 | 08 | DAT 6 |\n| 10 | 09 | DAT 4 |",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q2",
+      "practice": false,
+      "topic": "paper-assembly-and-trace-tables",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-2a",
+          "title": "Assembly program trace (a)",
+          "type": "trace_table",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper",
+            "11.5.1.4@paper"
+          ],
+          "text": "Complete the trace table below.\n\nThe first instruction has been completed for you.",
+          "content": {
+            "columns": [
+              "Instruction address",
+              "Accumulator",
+              "Memory address 08",
+              "Memory address 09",
+              "Condition",
+              "Output"
+            ],
+            "rows": 12,
+            "prefill": [
+              [
+                null,
+                null,
+                "6",
+                "4",
+                null,
+                null
+              ],
+              [
+                "00",
+                "6",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q2(a)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "1 mark for each column.\n“Memory address” 08 and 09 are considered as one column.\n\nCorrect trace:\n\n| Instruction address | Accumulator | Memory address 08 | Memory address 09 | Condition | Output |\n|---|---|---|---|---|---|\n|  |  | 6 | 4 |  |  |\n| 00 | 6 |  |  |  |  |\n| 01 | 2 |  |  |  |  |\n| 02 |  |  |  | TRUE |  |\n| 06 |  | 2 |  |  |  |\n| 07 |  |  |  |  |  |\n| 00 | 2 |  |  |  |  |\n| 01 | -2 |  |  |  |  |\n| 02 |  |  |  | FALSE |  |\n| 03 | 2 |  |  |  |  |\n| 04 |  |  |  |  | 2 |\n| 05 |  |  |  |  |  |",
+            "points": [
+              {
+                "criterion": "Instruction address column correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Accumulator column correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Memory address 08 and 09 column correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Condition column correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Output column correct",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Instruction addresses: 00, 01, 02, 06, 07, 00, 01, 02, 03, 04, 05. Accumulator values: 6, 2, 2, -2, 2. Memory address 08 changes to 2 at address 06. Conditions: TRUE then FALSE. Output: 2.",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "6",
+                  "4",
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "6",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  "2",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "02",
+                  null,
+                  null,
+                  null,
+                  "TRUE",
+                  null
+                ],
+                [
+                  "06",
+                  null,
+                  "2",
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "2",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  "-2",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "02",
+                  null,
+                  null,
+                  null,
+                  "FALSE",
+                  null
+                ],
+                [
+                  "03",
+                  "2",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "2"
+                ],
+                [
+                  "05",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m25p3-2b",
+          "title": "Assembly program trace (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "Identify the line number(s) where a condition is used.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q2(b)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "3 / BRP 06 (1)",
+            "points": [
+              {
+                "criterion": "Identifies line 3 or BRP 06",
+                "marks": 1
+              }
+            ],
+            "model_answer": "3",
+            "accepted": {
+              "values": [
+                "3",
+                "line 3",
+                "BRP 06"
+              ]
+            }
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m25p3-2c",
+          "title": "Assembly program trace (c)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "Identify the line number(s) executed during each iteration of the loop.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q2(c)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "1,2,3,7,8 / LDA 08, SUB 09, BRP 06, STA 08, BRA 00 (1)",
+            "points": [
+              {
+                "criterion": "Identifies all line numbers executed during each iteration of the loop",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1,2,3,7,8",
+            "accepted": {
+              "values": [
+                "1,2,3,7,8",
+                "1, 2, 3, 7, 8",
+                "LDA 08, SUB 09, BRP 06, STA 08, BRA 00"
+              ]
+            }
+          },
+          "part_label": "(c)"
+        },
+        {
+          "key": "m25p3-2d",
+          "title": "Assembly program trace (d)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "Identify the purpose of the program.",
+          "content": {
+            "answer_lines": 2
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q2(d)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "To divide the number in cell 08 by the number in cell 09 and find the remainder (1)\nAccept other suitable answers",
+            "points": [
+              {
+                "criterion": "States that the program divides the value in memory address 08 by the value in memory address 09 and finds the remainder",
+                "marks": 1
+              }
+            ],
+            "model_answer": "To divide the number in cell 08 by the number in cell 09 and find the remainder.",
+            "ai_instructions": "Accept other suitable answers with the same meaning."
+          },
+          "part_label": "(d)"
+        },
+        {
+          "key": "m25p3-2e",
+          "title": "Assembly program trace (e)",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "text": "Determine the number of iterations if the mnemonic BRZ is used instead of BRP in line number 3.",
+          "content": {},
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q2(e)",
+          "practice": false,
+          "topic": "paper-assembly-and-trace-tables",
+          "scheme": {
+            "mark_scheme": "1/one iteration (1)",
+            "points": [
+              {
+                "criterion": "Gives one iteration",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 iteration",
+            "accepted": {
+              "values": [
+                "1",
+                "one",
+                "1 iteration",
+                "one iteration"
+              ],
+              "numeric": false
+            }
+          },
+          "part_label": "(e)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-3",
+      "title": "Binary search",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The array PhoneBook stores 100 names in alphabetical order.\n\nThe binary search algorithm is used to find a name.",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q3",
+      "practice": false,
+      "topic": "paper-sorting-and-searching",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-3a",
+          "title": "Binary search (a)",
+          "type": "code_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.5@paper"
+          ],
+          "text": "Complete the pseudocode.\n\n```pseudocode\n1   INPUT name\n2   low ← 0\n3   index ← -1\n4   high ← LENGTH(PhoneBook) - 1\n5   flag ← FALSE\n6   WHILE( ……………………………… OR flag<>TRUE)\n7       mid ← INT((low+high)/2)\n8       IF ……………………………………………………………\n9           ……………………………………………………………\n10          ……………………………………………………………\n11      ELSE IF PhoneBook[mid]>name THEN\n12            ……………………………………………………………\n13            ELSE\n14               low ← mid+1\n15            ENDIF\n16      ENDIF\n17  ENDWHILE\n18  IF ………………………………………………………………………… THEN\n19      OUTPUT(“The name is found at index:”,index)\n20  ELSE\n21      OUTPUT(“The name does not exist in array”)\n    ENDIF\n```\n\nNote: `INT()` return integer part of a number.\n`LENGTH()` return size of an array.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": "1   INPUT name\n2   low ← 0\n3   index ← -1\n4   high ← LENGTH(PhoneBook) - 1\n5   flag ← FALSE\n6   WHILE( ……………………………… OR flag<>TRUE)\n7       mid ← INT((low+high)/2)\n8       IF ……………………………………………………………\n9           ……………………………………………………………\n10          ……………………………………………………………\n11      ELSE IF PhoneBook[mid]>name THEN\n12            ……………………………………………………………\n13            ELSE\n14               low ← mid+1\n15            ENDIF\n16      ENDIF\n17  ENDWHILE\n18  IF ………………………………………………………………………… THEN\n19      OUTPUT(“The name is found at index:”,index)\n20  ELSE\n21      OUTPUT(“The name does not exist in array”)\n    ENDIF"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q3(a)",
+          "practice": false,
+          "topic": "paper-sorting-and-searching",
+          "scheme": {
+            "mark_scheme": "6) low<=high (1)\n8) IF PhoneBook[mid]=name (1)\n9) index ← mid / flag ← TRUE (1)\n10) flag ← TRUE / index ← mid (1)\n12) high ← mid - 1 (1)\n18) flag=TRUE / flag / flag=1 / index<>-1 (1)",
+            "points": [
+              {
+                "criterion": "Line 6 uses low<=high",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 8 tests PhoneBook[mid]=name",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 9 assigns index ← mid or flag ← TRUE",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 10 assigns the other of flag ← TRUE or index ← mid",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 12 assigns high ← mid - 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 18 tests found condition, e.g. flag=TRUE or index<>-1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "6   WHILE(low<=high OR flag<>TRUE)\n8       IF PhoneBook[mid]=name\n9           index ← mid\n10          flag ← TRUE\n12          high ← mid - 1\n18  IF flag=TRUE THEN",
+            "ai_instructions": "Award equivalent binary search pseudocode completions. For lines 9 and 10, accept index ← mid and flag ← TRUE in either order. For line 18, accept flag=TRUE, flag, flag=1 or index<>-1."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m25p3-3b",
+          "title": "Binary search (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "text": "Determine the time complexity for the algorithm given in 3(a).",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q3(b)",
+          "practice": false,
+          "topic": "paper-algorithm-efficiency",
+          "scheme": {
+            "mark_scheme": "log(N) / log(100) (1)",
+            "points": [
+              {
+                "criterion": "States logarithmic time complexity",
+                "marks": 1
+              }
+            ],
+            "model_answer": "log(N)",
+            "accepted": {
+              "values": [
+                "log(N)",
+                "log N",
+                "O(log N)",
+                "log(100)",
+                "O(log 100)"
+              ]
+            }
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m25p3-3c",
+          "title": "Binary search (c)",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.2.6@paper",
+            "11.5.2.5@paper"
+          ],
+          "text": "Define how many iterations the algorithm in 3(a) will take to return in the worst case.",
+          "content": {},
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q3(c)",
+          "practice": false,
+          "topic": "paper-algorithm-efficiency",
+          "scheme": {
+            "mark_scheme": "7 iterations / 7 (1)",
+            "points": [
+              {
+                "criterion": "Gives 7 iterations",
+                "marks": 1
+              }
+            ],
+            "model_answer": "7 iterations",
+            "accepted": {
+              "values": [
+                "7",
+                "7 iterations"
+              ],
+              "numeric": false
+            }
+          },
+          "part_label": "(c)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-4",
+      "title": "Stack operations",
+      "type": "pseudocode",
+      "marks": 2,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1@paper"
+      ],
+      "text": "A stack is an abstract data type that holds an ordered linear sequence of items.\n\nThe main stack operations are:\n\n| Operation | Description |\n|---|---|\n| push(data) | adds an element to the top of the stack |\n| pop() | removes an element from the top of the stack |\n| peek() | returns a copy of the element on the top of the stack without removing it |\n| is_empty() | checks whether a stack is empty |\n| is_full() | checks whether a stack is at maximum capacity when stored in a static (fixed-size) structure |\n\nState A stack, bottom to top: Java, Python, Kotlin. Pointer points to the top item Kotlin.\n\nState B stack, bottom to top: Java, C#, C++.\n\nWrite down a list of stack operations to get stack from State A to State B.",
+      "content": {
+        "language": "pseudocode"
+      },
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q4",
+      "practice": false,
+      "topic": "g12-stacks-and-queues",
+      "scheme": {
+        "mark_scheme": "pop()\npop() (1)\npush(“C#”)\npush(“C++”) (1)\n\nDo not award mark for values without quotes.\n1 mark for two pop()\n1 mark for two push() correct answer only",
+        "points": [
+          {
+            "criterion": "Two pop() operations",
+            "marks": 1
+          },
+          {
+            "criterion": "push(“C#”) and push(“C++”) in the correct order, with quoted values",
+            "marks": 1
+          }
+        ],
+        "model_answer": "pop()\npop()\npush(“C#”)\npush(“C++”)",
+        "ai_instructions": "Do not award marks for values without quotes. The two push() operations must be correct."
+      }
+    },
+    {
+      "key": "m25p3-5",
+      "title": "Binary search tree",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The array Cars is given below.\n\n[\"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\"]",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q5",
+      "practice": false,
+      "topic": "g12-binary-tree",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-5a",
+          "title": "Binary search tree (a)",
+          "type": "binary_tree",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.5.2.2@paper"
+          ],
+          "text": "Fill in the nodes with appropriate data and pointers to create a binary search tree from the Cars array using the following format:\n\n| Left pointer | Data | Right pointer |\n|---|---|---|\n\nNodes: \"M\" and \"V\" are given.\n\n![Starter binary search tree diagram with node M shown with left pointer 1 and right pointer 5, connected to node V with left pointer 6.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2025-p3/q5-bst-starter.png)",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "nM",
+                  "type": "binary_tree_node",
+                  "label": "1 | M | 5",
+                  "x": 0.35,
+                  "y": 0.1
+                },
+                {
+                  "id": "nV",
+                  "type": "binary_tree_node",
+                  "label": "6 | V |",
+                  "x": 0.65,
+                  "y": 0.3
+                }
+              ],
+              "edges": [
+                {
+                  "id": "eM-V",
+                  "source": "nM",
+                  "target": "nV"
+                }
+              ]
+            }
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q5(a)",
+          "practice": false,
+          "topic": "g12-binary-tree",
+          "scheme": {
+            "mark_scheme": "1 mark for each correctly completed node.\nDo not award mark without pointers.\nAccept “NULL”, “-1” instead of empty space in pointers.",
+            "points": [
+              {
+                "criterion": "Node B completed with correct pointers",
+                "marks": 1
+              },
+              {
+                "criterion": "Node A completed with correct pointers",
+                "marks": 1
+              },
+              {
+                "criterion": "Node K completed with correct pointers",
+                "marks": 1
+              },
+              {
+                "criterion": "Node H completed with correct pointers",
+                "marks": 1
+              },
+              {
+                "criterion": "Node T completed with correct pointers",
+                "marks": 1
+              }
+            ],
+            "model_answer": "M is the root. B is the left child of M and V is the right child of M. A is the left child of B. K is the right child of B. H is the left child of K. T is the left child of V. Empty pointers may be blank, NULL or -1.",
+            "accepted": {
+              "tree": [
+                "M",
+                "B",
+                "V",
+                "A",
+                "K",
+                "T",
+                null,
+                null,
+                null,
+                "H"
+              ]
+            }
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m25p3-5b",
+          "title": "Binary search tree (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2@paper"
+          ],
+          "text": "State the value of the root.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q5(b)",
+          "practice": false,
+          "topic": "g12-binary-tree",
+          "scheme": {
+            "mark_scheme": "M (1)",
+            "points": [
+              {
+                "criterion": "States M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "M",
+            "accepted": {
+              "values": [
+                "M"
+              ]
+            }
+          },
+          "part_label": "(b)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-6",
+      "title": "Prolog family rules",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The Prolog program below represents facts and rules about a family.\n\n```prolog\n1   parent_child(maryam, lisa).\n2   parent_child(jiger, maryam).\n3   parent_child(jiger, alma).\n4   parent_child(tamila, maryam).\n5   parent_child(tamila, alma).\n6   parent_child(berik, lisa).\n7   parent_child(bolat, jiger).\n8   spouse(jiger, tamila).\n9   spouse(berik, maryam).\n10  spouse(bolat, elmira).\n11  parent(X, Y) :- parent_child(X, Y).\n12  child(X, Y) :- parent_child(Y, X).\n```",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q6",
+      "practice": false,
+      "topic": "g12-expert-systems",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-6ai",
+          "title": "Prolog family rules (a)(i)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2@paper"
+          ],
+          "text": "Identify all line numbers in the code where facts are used.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q6(a)(i)",
+          "practice": false,
+          "topic": "g12-expert-systems",
+          "scheme": {
+            "mark_scheme": "1-10 (1)\nAccept only all lines.",
+            "points": [
+              {
+                "criterion": "Identifies all fact lines 1–10",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1-10",
+            "accepted": {
+              "values": [
+                "1-10",
+                "1–10",
+                "1,2,3,4,5,6,7,8,9,10",
+                "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+              ]
+            }
+          },
+          "part_label": "(a)(i)"
+        },
+        {
+          "key": "m25p3-6aii",
+          "title": "Prolog family rules (a)(ii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2@paper"
+          ],
+          "text": "Identify all line numbers in the code where rules are used.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q6(a)(ii)",
+          "practice": false,
+          "topic": "g12-expert-systems",
+          "scheme": {
+            "mark_scheme": "11 and 12 / 11-12 (1)\nAccept only all lines.",
+            "points": [
+              {
+                "criterion": "Identifies both rule lines 11 and 12",
+                "marks": 1
+              }
+            ],
+            "model_answer": "11 and 12",
+            "accepted": {
+              "values": [
+                "11 and 12",
+                "11,12",
+                "11, 12",
+                "11-12",
+                "11–12"
+              ]
+            }
+          },
+          "part_label": "(a)(ii)"
+        },
+        {
+          "key": "m25p3-6b",
+          "title": "Prolog family rules (b)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2@paper"
+          ],
+          "text": "Write the result returned by the query.\n\n```prolog\nchild(jiger,Y).\n```\n\nY=",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q6(b)",
+          "practice": false,
+          "topic": "g12-expert-systems",
+          "scheme": {
+            "mark_scheme": "bolat (1)\nDo not accept with capital letter",
+            "points": [
+              {
+                "criterion": "Gives bolat in lower case",
+                "marks": 1
+              }
+            ],
+            "model_answer": "bolat",
+            "accepted": {
+              "values": [
+                "bolat"
+              ]
+            }
+          },
+          "part_label": "(b)"
+        },
+        {
+          "key": "m25p3-6ci",
+          "title": "Prolog family rules (c)(i)",
+          "type": "code_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2@paper"
+          ],
+          "text": "Write a rule for siblings(X,Y) that define X and Y as siblings when they share the same parent.\n\n```prolog\nsibling(X,Y):=\n```",
+          "content": {
+            "language": "prolog",
+            "starter_code": "sibling(X,Y):="
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q6(c)(i)",
+          "practice": false,
+          "topic": "g12-expert-systems",
+          "scheme": {
+            "mark_scheme": "sibling(X, Y) :-\n\nparent_child(Z, X) (1)\n, (1)\nparent_child(Z, Y) (1)\n,\nX \\= Y. (1)\n\nAccept “AND” instead of “,”.\n1 mark for two ANDs.",
+            "points": [
+              {
+                "criterion": "Uses parent_child(Z, X)",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses conjunction after the first parent_child condition",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses parent_child(Z, Y)",
+                "marks": 1
+              },
+              {
+                "criterion": "Ensures X is not equal to Y",
+                "marks": 1
+              }
+            ],
+            "model_answer": "sibling(X, Y) :-\n    parent_child(Z, X),\n    parent_child(Z, Y),\n    X \\= Y.",
+            "ai_instructions": "Accept AND instead of comma. Award 1 mark for two ANDs where conjunctions are used."
+          },
+          "part_label": "(c)(i)"
+        },
+        {
+          "key": "m25p3-6cii",
+          "title": "Prolog family rules (c)(ii)",
+          "type": "code_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2@paper"
+          ],
+          "text": "Write a rule for family(X,Y) that defines X is in a family with Y.\n\n```prolog\nfamily(X,Y):=\n```",
+          "content": {
+            "language": "prolog",
+            "starter_code": "family(X,Y):="
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q6(c)(ii)",
+          "practice": false,
+          "topic": "g12-expert-systems",
+          "scheme": {
+            "mark_scheme": "family(X, Y) :-\nspouse(X,Y) (1)\n; (1)\nparent_child(X,Y) (1)\n;\nparent_child(Y,X). (1)\n\nAccept “OR” instead of “;”.\n1 mark for two ORs.",
+            "points": [
+              {
+                "criterion": "Uses spouse(X,Y)",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses disjunction after spouse(X,Y)",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses parent_child(X,Y)",
+                "marks": 1
+              },
+              {
+                "criterion": "Uses parent_child(Y,X)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "family(X, Y) :-\n    spouse(X,Y);\n    parent_child(X,Y);\n    parent_child(Y,X).",
+            "ai_instructions": "Accept OR instead of semicolon. Award 1 mark for two ORs where disjunctions are used."
+          },
+          "part_label": "(c)(ii)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-7",
+      "title": "Caesar cipher web application",
+      "type": "structured",
+      "marks": 16,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The picture below illustrates an interface of an encryption and decryption web application.\n\n![Interface headed Caesar Cipher Encryption and Decryption with an Enter message text box, Encrypt and Decrypt radio buttons, a Go button, and a Result text box.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2025-p3/q7-interface.png)\n\nFig. 1",
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q7",
+      "practice": false,
+      "topic": "g11-web-page-design",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "m25p3-7a",
+          "title": "Caesar cipher web application (a)",
+          "type": "html_css",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.1@paper",
+            "11.5.3.2@paper"
+          ],
+          "text": "Complete the HTML code for creating the interface in Fig. 1.\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Caesar Cipher</title>\n</head>\n<body>\n   <h1>Caesar Cipher Encryption and Decryption</h1>\n   <form method=\"post\">\n        <label for=\"message\">Enter message:</label><br>\n        ………………………………………………………………<br>\n        <label>Select operation:</label><br>\n        <input type=\"………………\" name=\"………………………\" value=\"encrypt\">\n        <label for=\"encrypt\">Encrypt</label><br>\n        <input type=\"………………\" name=\"………………………\" value=\"decrypt\">\n        <label for=\"decrypt\">Decrypt</label><br>\n        ………………………………………………………………<br>\n        <label for=\"result\">Result:</label><br>\n        <input type=\"text\" id=\"result\"><br>\n   </form>\n</body>\n</html>\n```",
+          "content": {
+            "language": "html",
+            "starter_code": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Caesar Cipher</title>\n</head>\n<body>\n   <h1>Caesar Cipher Encryption and Decryption</h1>\n   <form method=\"post\">\n        <label for=\"message\">Enter message:</label><br>\n        ………………………………………………………………<br>\n        <label>Select operation:</label><br>\n        <input type=\"………………\" name=\"………………………\" value=\"encrypt\">\n        <label for=\"encrypt\">Encrypt</label><br>\n        <input type=\"………………\" name=\"………………………\" value=\"decrypt\">\n        <label for=\"decrypt\">Decrypt</label><br>\n        ………………………………………………………………<br>\n        <label for=\"result\">Result:</label><br>\n        <input type=\"text\" id=\"result\"><br>\n   </form>\n</body>\n</html>"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(a)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "<input type=”text”> (1)\n<input type=\"radio\" name=\"operation\" value=\"encrypt\"> (1)\n<input type=\"radio\" name=\"operation\" value=\"decrypt\"> (1)\n\n<button>Go</button> (1)\nOR\n<input type=”submit” value=”Go”> (1)\nOR\n<input type=”button” value=”Go”> (1)\n\n1 mark for text input\n1 mark for type “radio”\n1 mark for same radio “name”\n1 mark for button",
+            "points": [
+              {
+                "criterion": "Text input for entering the message",
+                "marks": 1
+              },
+              {
+                "criterion": "Radio input for encrypt",
+                "marks": 1
+              },
+              {
+                "criterion": "Radio input for decrypt with same name as encrypt",
+                "marks": 1
+              },
+              {
+                "criterion": "Button, submit input or button input for Go",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<input type=\"text\"><br>\n<input type=\"radio\" name=\"operation\" value=\"encrypt\">\n<label for=\"encrypt\">Encrypt</label><br>\n<input type=\"radio\" name=\"operation\" value=\"decrypt\">\n<label for=\"decrypt\">Decrypt</label><br>\n<button>Go</button><br>",
+            "ai_instructions": "Accept equivalent valid HTML. Award the radio-name mark only if the two radio inputs share the same name."
+          },
+          "part_label": "(a)"
+        },
+        {
+          "key": "m25p3-7bi",
+          "title": "Caesar cipher web application (b)(i)",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.3@paper"
+          ],
+          "text": "Create a CSS rule for changing the colour of the heading text to red and underlining it.\n\n```html\n<head>\n   <style>\n\n\n\n\n   </style>\n</head>\n```",
+          "content": {
+            "language": "css",
+            "starter_code": "<head>\n   <style>\n\n\n\n\n   </style>\n</head>"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(b)(i)",
+          "practice": false,
+          "topic": "g11-web-application-development",
+          "scheme": {
+            "mark_scheme": "h1 (1)\n{ \ncolor:red; (1)\ntext-decoration:underline; (1)\n}\n\nAccept with “{ } “.",
+            "points": [
+              {
+                "criterion": "Selects h1",
+                "marks": 1
+              },
+              {
+                "criterion": "Sets color:red;",
+                "marks": 1
+              },
+              {
+                "criterion": "Sets text-decoration:underline;",
+                "marks": 1
+              }
+            ],
+            "model_answer": "h1\n{\n    color:red;\n    text-decoration:underline;\n}",
+            "ai_instructions": "Accept with braces on the same line or equivalent valid CSS syntax."
+          },
+          "part_label": "(b)(i)"
+        },
+        {
+          "key": "m25p3-7bii",
+          "title": "Caesar cipher web application (b)(ii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.3@paper"
+          ],
+          "text": "Identify the type of CSS in 7b(i).",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(b)(ii)",
+          "practice": false,
+          "topic": "g11-web-application-development",
+          "scheme": {
+            "mark_scheme": "Internal CSS (1)",
+            "points": [
+              {
+                "criterion": "Identifies internal CSS",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Internal CSS",
+            "accepted": {
+              "values": [
+                "Internal CSS",
+                "internal",
+                "internal CSS"
+              ]
+            }
+          },
+          "part_label": "(b)(ii)"
+        },
+        {
+          "key": "m25p3-7ci",
+          "title": "Caesar cipher web application (c)(i)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.2@paper"
+          ],
+          "text": "The pseudocode for a function is given below.\n\n```pseudocode\nFUNCTION Encrypt(text)\n1       // Size of array fixed.\n        alphabet ← ['a', 'b', 'c', 'd', 'e', 'f', 'g',\n        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',\n        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',\n2       'z']\n3       result ← \"\"\n4       text ← text.lower()\n5       FOR i ← 0 TO length(text)-1 DO\n6            FOR j ← 0 TO length(alphabet)-1 DO\n7                IF text[i]= alphabet[j] THEN\n8                     result ← result + alphabet[j+1]\n9                ENDIF\n10           ENDFOR\n11      ENDFOR\n12      RETURN result\n13  ENDFUNCTION\n```\n\nNote:\n`lower()` – takes no arguments and returns the lowercase strings from the given string by converting each uppercase character to lowercase.\nFor example:\n`\"Apple\".lower()=\"apple\"`\n\nProvide one example of normal data for the algorithm.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(c)(i)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "Any text without letter ‘z’. (1)",
+            "points": [
+              {
+                "criterion": "Provides any text without letter z",
+                "marks": 1
+              }
+            ],
+            "model_answer": "apple",
+            "ai_instructions": "Accept any suitable text example that does not contain the letter z."
+          },
+          "part_label": "(c)(i)"
+        },
+        {
+          "key": "m25p3-7cii",
+          "title": "Caesar cipher web application (c)(ii)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.4@paper"
+          ],
+          "text": "Provide one example of erroneous data for the algorithm.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(c)(ii)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "Any text with letter ‘z’ or containing numbers or symbols. (1)\nAccept any suitable answer.",
+            "points": [
+              {
+                "criterion": "Provides text with letter z or containing numbers or symbols",
+                "marks": 1
+              }
+            ],
+            "model_answer": "buzz",
+            "ai_instructions": "Accept any suitable answer containing the letter z, numbers, or symbols."
+          },
+          "part_label": "(c)(ii)"
+        },
+        {
+          "key": "m25p3-7ciii",
+          "title": "Caesar cipher web application (c)(iii)",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1@paper"
+          ],
+          "text": "Determine the type of error in the Encrypt() function when it takes the value “buZz” as an argument and justify the answer.",
+          "content": {
+            "fields": [
+              {
+                "key": "type",
+                "label": "Type of error",
+                "lines": 1
+              },
+              {
+                "key": "justification",
+                "label": "Justification",
+                "lines": 3
+              }
+            ]
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(c)(iii)",
+          "practice": false,
+          "topic": "g12-types-of-test-data",
+          "scheme": {
+            "mark_scheme": "Runtime error/execution error. (1)\nOut of range array. (1)",
+            "points": [
+              {
+                "criterion": "Identifies runtime error/execution error",
+                "marks": 1
+              },
+              {
+                "criterion": "Justifies that the array index is out of range",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Type of error: Runtime error/execution error.\nJustification: When the character is z, the code tries to access alphabet[j+1], which is outside the array range."
+          },
+          "part_label": "(c)(iii)"
+        },
+        {
+          "key": "m25p3-7civ",
+          "title": "Caesar cipher web application (c)(iv)",
+          "type": "pseudocode",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6@paper",
+            "11.5.3.10@paper"
+          ],
+          "text": "Write pseudocode that corrects the error identified in 7c(iii).",
+          "content": {
+            "language": "pseudocode"
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(c)(iv)",
+          "practice": false,
+          "topic": "g12-types-of-errors",
+          "scheme": {
+            "mark_scheme": "IF text[i]= alphabet[j] THEN (1)\n    IF text[i]=’z’ THEN (1)\n        result ← result + alphabet[0] (1)\n    ELSE\n        result ← result + alphabet[j+1]\n\nAccept ‘a’ instead of “alphabet[0]”.",
+            "points": [
+              {
+                "criterion": "Checks IF text[i]= alphabet[j] THEN",
+                "marks": 1
+              },
+              {
+                "criterion": "Checks IF text[i]=’z’ THEN",
+                "marks": 1
+              },
+              {
+                "criterion": "Adds alphabet[0] or ‘a’ when the character is z, otherwise uses alphabet[j+1]",
+                "marks": 1
+              }
+            ],
+            "model_answer": "IF text[i]= alphabet[j] THEN\n    IF text[i]=’z’ THEN\n        result ← result + alphabet[0]\n    ELSE\n        result ← result + alphabet[j+1]\n    ENDIF\nENDIF",
+            "ai_instructions": "Accept ‘a’ instead of alphabet[0]. Equivalent handling of z that wraps around to a is acceptable."
+          },
+          "part_label": "(c)(iv)"
+        },
+        {
+          "key": "m25p3-7d",
+          "title": "Caesar cipher web application (d)",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.12@paper"
+          ],
+          "text": "Give one rule of a good programming style.",
+          "content": {
+            "answer_lines": 1
+          },
+          "source": "past_paper",
+          "source_reference": "NIS 2025 Paper 3 Q7(d)",
+          "practice": false,
+          "topic": "g11-web-page-design",
+          "scheme": {
+            "mark_scheme": "Indentation / comments / meaningful identifier name / (1)\nAccept any suitable answer.",
+            "points": [
+              {
+                "criterion": "Gives one valid rule of good programming style",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Use meaningful identifier names.",
+            "ai_instructions": "Accept indentation, comments, meaningful identifier names, or any other suitable rule of good programming style."
+          },
+          "part_label": "(d)"
+        }
+      ]
+    },
+    {
+      "key": "m25p3-8",
+      "title": "Connect to database",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "exam",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4@paper",
+        "11.5.3.5@paper"
+      ],
+      "text": "Complete the code below to connect the database “Library”.\n\n```php\n<?php\n$servername = \"localhost\";\n$username = \"username\";\n$password = \"password\";\n$db = \"library\";\n\n\n\n$conn = _________________(\n______________________________________________);\n\n\n\nif (_________) {\n  die(\"Connection failed: \" . mysqli_connect_error());\n}\n\n\necho \"Connected successfully\";\n?>\n```",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": "<?php\n$servername = \"localhost\";\n$username = \"username\";\n$password = \"password\";\n$db = \"library\";\n\n\n\n$conn = _________________(\n______________________________________________);\n\n\n\nif (_________) {\n  die(\"Connection failed: \" . mysqli_connect_error());\n}\n\n\necho \"Connected successfully\";\n?>"
+      },
+      "source": "past_paper",
+      "source_reference": "NIS 2025 Paper 3 Q8",
+      "practice": false,
+      "topic": "g11-web-page-design",
+      "scheme": {
+        "mark_scheme": "$conn = mysqli_connect (1)\n($servername, $username, $password, $db); (1)\n\nif (!$conn) (1)\n\nAccept values instead of variables.",
+        "points": [
+          {
+            "criterion": "Uses mysqli_connect",
+            "marks": 1
+          },
+          {
+            "criterion": "Passes $servername, $username, $password, $db as arguments",
+            "marks": 1
+          },
+          {
+            "criterion": "Checks connection failure using !$conn",
+            "marks": 1
+          }
+        ],
+        "model_answer": "$conn = mysqli_connect($servername, $username, $password, $db);\n\nif (!$conn) {\n  die(\"Connection failed: \" . mysqli_connect_error());\n}",
+        "ai_instructions": "Accept literal values instead of variables. The code shown is PHP; content.language is set to pseudocode because PHP is not one of the platform language enum values."
+      }
+    }
+  ]
+}

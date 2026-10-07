@@ -1,0 +1,142 @@
+{
+  "topic": "g12-stacks-and-queues",
+  "questions": [],
+  "summary": "How stacks (LIFO) and queues (FIFO) work, their operations and pointers, implementation with arrays, and where they are used.",
+  "theory": [
+    {
+      "title": "Stacks and queues",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Stack — LIFO",
+              "content": "**Last In, First Out.** Items are added and removed at the **same end** (the top). Like a pile of plates."
+            },
+            {
+              "title": "Queue — FIFO",
+              "content": "**First In, First Out.** Items are added at the **rear (tail)** and removed from the **front (head)**. Like a line at a shop."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Operations",
+          "columns": [
+            "",
+            "Stack",
+            "Queue"
+          ],
+          "rows": [
+            [
+              "Add",
+              "**Push** — onto the top",
+              "**Enqueue** — at the rear"
+            ],
+            [
+              "Remove",
+              "**Pop** — from the top",
+              "**Dequeue** — from the front"
+            ],
+            [
+              "Look without removing",
+              "Peek / top",
+              "Peek / front"
+            ],
+            [
+              "Pointers",
+              "Top pointer",
+              "Front (head) and rear (tail) pointers"
+            ],
+            [
+              "Error when full",
+              "Stack overflow",
+              "Queue full"
+            ],
+            [
+              "Error when empty",
+              "Stack underflow",
+              "Queue empty"
+            ]
+          ]
+        },
+        {
+          "type": "interactive",
+          "widget": "stack_queue",
+          "title": "Push, pop, enqueue and dequeue"
+        },
+        {
+          "type": "example",
+          "title": "Stack trace",
+          "content": "Start empty. `push(5)`, `push(8)`, `push(2)`, `pop()` → returns **2**, `push(7)`, `pop()` → returns **7**. Stack now (bottom → top): 5, 8."
+        },
+        {
+          "type": "example",
+          "title": "Queue trace",
+          "content": "Start empty. `enqueue(A)`, `enqueue(B)`, `enqueue(C)`, `dequeue()` → returns **A**, `enqueue(D)`. Queue now (front → rear): B, C, D."
+        },
+        {
+          "type": "heading",
+          "text": "Implementing a stack with an array",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Stack : ARRAY[1:10] OF INTEGER\nDECLARE Top : INTEGER\nTop ← 0\n\nPROCEDURE Push(Item : INTEGER)\n    IF Top = 10 THEN\n        OUTPUT \"Stack overflow\"\n    ELSE\n        Top ← Top + 1\n        Stack[Top] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Pop() RETURNS INTEGER\n    IF Top = 0 THEN\n        OUTPUT \"Stack underflow\"\n        RETURN -1\n    ELSE\n        Top ← Top - 1\n        RETURN Stack[Top + 1]\n    ENDIF\nENDFUNCTION",
+          "caption": "Stack in an array of 10 elements"
+        },
+        {
+          "type": "heading",
+          "text": "Implementing a queue with an array",
+          "level": 2
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Queue : ARRAY[1:10] OF STRING\nDECLARE Front, Rear : INTEGER\nFront ← 1\nRear ← 0\n\nPROCEDURE Enqueue(Item : STRING)\n    IF Rear = 10 THEN\n        OUTPUT \"Queue full\"\n    ELSE\n        Rear ← Rear + 1\n        Queue[Rear] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Dequeue() RETURNS STRING\n    IF Front > Rear THEN\n        RETURN \"Queue empty\"\n    ELSE\n        Front ← Front + 1\n        RETURN Queue[Front - 1]\n    ENDIF\nENDFUNCTION",
+          "caption": "Linear queue"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Circular queue",
+          "content": "In a linear queue, space at the front is wasted after dequeuing. A **circular queue** wraps the pointers round to the start of the array (`Rear ← (Rear MOD 10) + 1`), reusing the free space."
+        },
+        {
+          "type": "comparison",
+          "title": "Applications",
+          "columns": [
+            "Stack",
+            "Queue"
+          ],
+          "rows": [
+            [
+              "**Undo** in editors, **Back** button in browsers",
+              "**Print queue** — documents printed in the order sent"
+            ],
+            [
+              "Storing **return addresses** when subroutines are called; recursion",
+              "**Keyboard buffer** — keys processed in the order pressed"
+            ],
+            [
+              "Evaluating expressions (reverse Polish notation), checking brackets",
+              "**Processor scheduling** of tasks in an OS"
+            ],
+            [
+              "Depth-first search, backtracking",
+              "Breadth-first search; network data packets; call centres"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "\"Identify the data structure that matches the algorithm\": if the **last** item added is processed first → **stack**; if items are processed **in the order they arrive** → **queue**."
+        }
+      ]
+    }
+  ]
+}

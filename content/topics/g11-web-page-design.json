@@ -1,0 +1,257 @@
+{
+  "topic": "g11-web-page-design",
+  "summary": "The structure of a web page, building an interface with HTML and CSS, and creating HTML forms for data entry.",
+  "theory": [
+    {
+      "title": "Structure of a web page",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Every HTML document has the same skeleton. The `<head>` holds information **about** the page; the `<body>` holds what the user **sees**."
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>My School Club</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <header> … </header>\n  <nav> … </nav>\n  <main> … </main>\n  <footer> … </footer>\n</body>\n</html>",
+          "caption": "Minimal HTML5 page"
+        },
+        {
+          "type": "comparison",
+          "title": "Common structural (semantic) elements",
+          "columns": [
+            "Element",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "`<header>`",
+              "Top of the page: logo, site name, sometimes navigation"
+            ],
+            [
+              "`<nav>`",
+              "Main navigation links / menu"
+            ],
+            [
+              "`<main>`",
+              "The unique main content of the page"
+            ],
+            [
+              "`<section>`",
+              "A thematic group of content with a heading"
+            ],
+            [
+              "`<article>`",
+              "Self-contained content, e.g. a news item or blog post"
+            ],
+            [
+              "`<aside>`",
+              "Side content: adverts, related links, sidebar"
+            ],
+            [
+              "`<footer>`",
+              "Bottom: contacts, copyright, extra links"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Basic content elements",
+          "columns": [
+            "Element",
+            "Use"
+          ],
+          "rows": [
+            [
+              "`<h1>` … `<h6>`",
+              "Headings (one `<h1>` per page)"
+            ],
+            [
+              "`<p>`",
+              "Paragraph"
+            ],
+            [
+              "`<a href=\"…\">`",
+              "Hyperlink"
+            ],
+            [
+              "`<img src=\"…\" alt=\"…\">`",
+              "Image (`alt` = text for screen readers / if the image fails)"
+            ],
+            [
+              "`<ul>`, `<ol>`, `<li>`",
+              "Unordered / ordered list and list items"
+            ],
+            [
+              "`<table>`, `<tr>`, `<th>`, `<td>`",
+              "Table, row, header cell, data cell"
+            ],
+            [
+              "`<div>`, `<span>`",
+              "Generic block / inline containers for styling"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Semantic elements (`header`, `nav`, `main`, `footer`) make the page easier to read for people, **search engines** and **screen readers** — a common \"explain why\" answer."
+        }
+      ]
+    },
+    {
+      "title": "Creating an interface with HTML and CSS",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "HTML gives the page its **structure and content**; CSS controls its **appearance**: colours, fonts, spacing and layout."
+        },
+        {
+          "type": "html_preview",
+          "title": "Page layout with header, navigation, content and footer",
+          "html": "<header><h1>Robotics Club</h1></header>\n<nav><a href=\"#\">Home</a><a href=\"#\">Projects</a><a href=\"#\">Join</a></nav>\n<main>\n  <section><h2>Next meeting</h2><p>Friday, 15:00, room 204.</p></section>\n  <aside>Bring your laptop!</aside>\n</main>\n<footer>© 2026 NIS Robotics Club</footer>",
+          "css": "body { margin: 0; font-family: Arial, sans-serif; }\nheader { background: #1f4fd8; color: white; padding: 12px 20px; }\nheader h1 { margin: 0; font-size: 22px; }\nnav { background: #e8eefc; padding: 8px 20px; }\nnav a { margin-right: 16px; color: #1f4fd8; text-decoration: none; font-weight: bold; }\nmain { display: flex; gap: 16px; padding: 16px 20px; }\nsection { flex: 3; }\naside { flex: 1; background: #fdf3e2; padding: 10px; border-radius: 6px; }\nfooter { background: #222; color: #ccc; text-align: center; padding: 8px; font-size: 13px; }",
+          "height": 300
+        },
+        {
+          "type": "heading",
+          "text": "The CSS box model",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Every element is a box made of **content**, **padding** (space inside the border), **border** and **margin** (space outside)."
+        },
+        {
+          "type": "html_preview",
+          "title": "The box model",
+          "html": "<div class=\"box\">Content</div>",
+          "css": ".box { width: 160px; padding: 20px; border: 4px solid #1f4fd8; margin: 24px; background: #e8eefc; text-align: center; font-family: Arial; }\nbody { background: #fdf3e2; margin: 0; }",
+          "height": 170
+        },
+        {
+          "type": "heading",
+          "text": "Principles of good interface design",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Consistency:** the same colours, fonts and navigation on every page.",
+            "**Readability:** good contrast, readable font size, short paragraphs.",
+            "**Clear navigation:** the user always knows where they are and how to go back.",
+            "**Accessibility:** `alt` text for images, labels for form fields, keyboard access.",
+            "**Responsive design:** the layout adapts to phones and computers."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "HTML forms for data entry",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A **form** collects data from the user and sends it to the server for processing (e.g. by a PHP or Python script)."
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<form action=\"register.php\" method=\"post\">\n  <label for=\"name\">Full name:</label>\n  <input type=\"text\" id=\"name\" name=\"name\" required>\n\n  <label for=\"email\">Email:</label>\n  <input type=\"email\" id=\"email\" name=\"email\" required>\n\n  <label for=\"age\">Age:</label>\n  <input type=\"number\" id=\"age\" name=\"age\" min=\"14\" max=\"18\">\n\n  <p>Grade:</p>\n  <input type=\"radio\" id=\"g11\" name=\"grade\" value=\"11\"><label for=\"g11\">11</label>\n  <input type=\"radio\" id=\"g12\" name=\"grade\" value=\"12\"><label for=\"g12\">12</label>\n\n  <label for=\"club\">Club:</label>\n  <select id=\"club\" name=\"club\">\n    <option value=\"robotics\">Robotics</option>\n    <option value=\"chess\">Chess</option>\n  </select>\n\n  <input type=\"checkbox\" id=\"agree\" name=\"agree\"><label for=\"agree\">I agree to the rules</label>\n\n  <textarea name=\"comment\" rows=\"3\"></textarea>\n  <button type=\"submit\">Register</button>\n</form>",
+          "caption": "A registration form"
+        },
+        {
+          "type": "html_preview",
+          "title": "The form rendered",
+          "html": "<form>\n  <label>Full name: <input type=\"text\" required></label><br>\n  <label>Email: <input type=\"email\"></label><br>\n  <label>Age: <input type=\"number\" min=\"14\" max=\"18\"></label><br>\n  Grade: <label><input type=\"radio\" name=\"g\"> 11</label> <label><input type=\"radio\" name=\"g\"> 12</label><br>\n  <label>Club: <select><option>Robotics</option><option>Chess</option></select></label><br>\n  <label><input type=\"checkbox\"> I agree to the rules</label><br>\n  <textarea rows=\"2\" cols=\"30\" placeholder=\"Comment\"></textarea><br>\n  <button type=\"submit\">Register</button>\n</form>",
+          "css": "body { font-family: Arial; font-size: 14px; }\nlabel, input, select, textarea, button { margin: 4px 0; }\nbutton { background: #1f4fd8; color: #fff; border: 0; padding: 6px 14px; border-radius: 4px; }",
+          "height": 330
+        },
+        {
+          "type": "comparison",
+          "title": "Form controls",
+          "columns": [
+            "Control",
+            "HTML",
+            "When to use"
+          ],
+          "rows": [
+            [
+              "Text box",
+              "`<input type=\"text\">`",
+              "Short free text (name)"
+            ],
+            [
+              "Password",
+              "`<input type=\"password\">`",
+              "Hidden characters"
+            ],
+            [
+              "Number / email / date",
+              "`type=\"number\"`, `\"email\"`, `\"date\"`",
+              "Built-in format checking"
+            ],
+            [
+              "Radio buttons",
+              "`type=\"radio\"` with the same `name`",
+              "Choose **exactly one** option"
+            ],
+            [
+              "Check box",
+              "`type=\"checkbox\"`",
+              "Choose **zero or more** options"
+            ],
+            [
+              "Drop-down list",
+              "`<select>` + `<option>`",
+              "One option from a long list, saves space"
+            ],
+            [
+              "Text area",
+              "`<textarea>`",
+              "Long text (comments)"
+            ],
+            [
+              "Button",
+              "`<button type=\"submit\">`",
+              "Sends the form"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "GET vs POST",
+          "columns": [
+            "`method=\"get\"`",
+            "`method=\"post\"`"
+          ],
+          "rows": [
+            [
+              "Data appears in the URL (`?name=Ali`)",
+              "Data is sent in the request body, not visible in the URL"
+            ],
+            [
+              "Limited length; can be bookmarked",
+              "No practical length limit"
+            ],
+            [
+              "For searches and non-sensitive data",
+              "For passwords, personal data, uploads"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "The `name` attribute is what the server uses to read the value (`$_POST[\"name\"]`). Radio buttons in one group **must share the same `name`**."
+        }
+      ]
+    }
+  ],
+  "questions": []
+}

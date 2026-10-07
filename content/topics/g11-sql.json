@@ -1,0 +1,305 @@
+{
+  "topic": "g11-sql",
+  "questions": [],
+  "summary": "SQL data types, validation vs verification, DDL and DML, creating and changing tables, querying one and several tables, and sorting results.",
+  "theory": [
+    {
+      "title": "SQL data types",
+      "objectives": [
+        "11.4.1.4"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "Type",
+            "Stores",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`INT` / `INTEGER`",
+              "Whole numbers",
+              "`Grade INT`"
+            ],
+            [
+              "`DECIMAL(p,s)` / `REAL` / `FLOAT`",
+              "Numbers with a fractional part",
+              "`Price DECIMAL(8,2)` → 12345.67"
+            ],
+            [
+              "`CHAR(n)`",
+              "Fixed-length text (always n characters)",
+              "`Gender CHAR(1)`"
+            ],
+            [
+              "`VARCHAR(n)`",
+              "Variable-length text up to n characters",
+              "`Name VARCHAR(40)`"
+            ],
+            [
+              "`TEXT`",
+              "Long text",
+              "`Comment TEXT`"
+            ],
+            [
+              "`DATE` / `TIME` / `DATETIME`",
+              "Dates and times",
+              "`DateOfBirth DATE`"
+            ],
+            [
+              "`BOOLEAN`",
+              "TRUE / FALSE",
+              "`Paid BOOLEAN`"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Validation and verification",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "",
+            "Validation",
+            "Verification"
+          ],
+          "rows": [
+            [
+              "Question it answers",
+              "Is the data **reasonable / allowed**?",
+              "Was the data **entered or copied correctly**?"
+            ],
+            [
+              "Done by",
+              "The computer, automatically, using rules",
+              "Usually a person, or a comparison"
+            ],
+            [
+              "Methods",
+              "Presence, range, length, type, format, lookup checks",
+              "**Double entry** (type twice, compare), **visual check** (proof-reading against the source)"
+            ],
+            [
+              "Example",
+              "Age must be between 14 and 18",
+              "Enter the password twice; both must match"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Validation cannot tell whether data is **correct** — \"15\" passes a 14–18 range check even if the student is really 16. Verification checks that it matches the original."
+        }
+      ]
+    },
+    {
+      "title": "DDL and DML",
+      "objectives": [
+        "11.4.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "columns": [
+            "",
+            "DDL — Data Definition Language",
+            "DML — Data Manipulation Language"
+          ],
+          "rows": [
+            [
+              "Works with",
+              "The **structure** of the database (tables, fields, keys)",
+              "The **data** stored in the tables"
+            ],
+            [
+              "Commands",
+              "`CREATE`, `ALTER`, `DROP`",
+              "`SELECT`, `INSERT`, `UPDATE`, `DELETE`"
+            ],
+            [
+              "Example",
+              "Add a field to a table",
+              "Change a student's grade"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Creating and changing the structure: CREATE, ALTER, DROP",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE TABLE Class (\n  ClassID   VARCHAR(4) PRIMARY KEY,\n  Room      INT\n);\n\nCREATE TABLE Student (\n  StudentID  VARCHAR(6) PRIMARY KEY,\n  FirstName  VARCHAR(30) NOT NULL,\n  SecondName VARCHAR(30) NOT NULL,\n  Grade      INT CHECK (Grade BETWEEN 7 AND 12),\n  ClassID    VARCHAR(4),\n  FOREIGN KEY (ClassID) REFERENCES Class(ClassID)\n);",
+          "caption": "CREATE TABLE with keys"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "ALTER TABLE Student ADD Gender VARCHAR(6);      -- add a field\nALTER TABLE Student MODIFY FirstName VARCHAR(50); -- change a field (MySQL)\nALTER TABLE Student DROP COLUMN Gender;           -- remove a field\nDROP TABLE Student;                               -- delete the whole table and its data",
+          "caption": "ALTER and DROP"
+        },
+        {
+          "type": "warning",
+          "content": "`DROP TABLE` deletes the table **and all its data**; `DELETE FROM` deletes rows but keeps the table."
+        }
+      ]
+    },
+    {
+      "title": "Managing data in one table: SELECT, INSERT, UPDATE, DELETE",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "INSERT INTO Student (StudentID, FirstName, SecondName, Grade, ClassID)\nVALUES ('S004', 'Aiman', 'Armanova', 11, '11A');\n\nSELECT * FROM Student WHERE Grade = 10;\n\nSELECT FirstName, SecondName FROM Student\nWHERE Grade >= 11 AND ClassID = '11A';\n\nUPDATE Student SET SecondName = 'Armankyzy' WHERE StudentID = 'S004';\n\nDELETE FROM Student WHERE StudentID = 'S004';",
+          "caption": "Data manipulation"
+        },
+        {
+          "type": "comparison",
+          "title": "Conditions in WHERE",
+          "columns": [
+            "Operator",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`=`, `<>`, `<`, `>`, `<=`, `>=`",
+              "`Grade <> 12`"
+            ],
+            [
+              "`AND`, `OR`, `NOT`",
+              "`Grade = 11 AND ClassID = '11B'`"
+            ],
+            [
+              "`BETWEEN … AND …`",
+              "`Price BETWEEN 100 AND 500`"
+            ],
+            [
+              "`LIKE` with `%` (any characters) and `_` (one character)",
+              "`Name LIKE 'A%'` → names starting with A"
+            ],
+            [
+              "`IN (…)`",
+              "`ClassID IN ('11A', '11B')`"
+            ],
+            [
+              "`IS NULL`",
+              "`Email IS NULL`"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Always use `WHERE` with `UPDATE` and `DELETE` — without it **every row** is changed or deleted."
+        }
+      ]
+    },
+    {
+      "title": "Querying several tables",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT Student.FirstName, Student.SecondName, Class.Room\nFROM Student, Class\nWHERE Student.ClassID = Class.ClassID\n  AND Class.ClassID = '11A';",
+          "caption": "Join with a WHERE condition"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT s.FirstName, c.CourseName, e.Mark\nFROM Student s\nINNER JOIN Enrolment e ON s.StudentID = e.StudentID\nINNER JOIN Course c   ON c.CourseID = e.CourseID\nWHERE e.Mark >= 5;",
+          "caption": "The same with INNER JOIN, plus a link table"
+        },
+        {
+          "type": "exam_tip",
+          "content": "In multi-table queries, write **Table.Field** for fields that exist in more than one table, and always include the **join condition** (PK = FK) — it is usually worth a mark on its own."
+        }
+      ]
+    },
+    {
+      "title": "Sorting results with ORDER BY",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT FirstName, SecondName, Grade\nFROM Student\nORDER BY Grade DESC, SecondName ASC;",
+          "caption": "ORDER BY"
+        },
+        {
+          "type": "list",
+          "items": [
+            "`ASC` — ascending (A→Z, 0→9), the default.",
+            "`DESC` — descending.",
+            "Several fields: sort by the first, then by the second within equal values."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Aggregate functions (often used with ORDER BY)",
+          "columns": [
+            "Function",
+            "Example",
+            "Result"
+          ],
+          "rows": [
+            [
+              "`COUNT(*)`",
+              "`SELECT COUNT(*) FROM Student WHERE Grade = 11;`",
+              "Number of rows"
+            ],
+            [
+              "`SUM`, `AVG`",
+              "`SELECT AVG(Mark) FROM Enrolment;`",
+              "Total / average"
+            ],
+            [
+              "`MIN`, `MAX`",
+              "`SELECT MAX(Price) FROM Product;`",
+              "Smallest / largest"
+            ],
+            [
+              "`GROUP BY`",
+              "`SELECT ClassID, COUNT(*) FROM Student GROUP BY ClassID;`",
+              "One result per group"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Building a multi-table database with SQL",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Create the \"one\"-side tables first (e.g. **Class**), then the tables with foreign keys (**Student**), then link tables (**Enrolment**).",
+            "Use `PRIMARY KEY`, `FOREIGN KEY … REFERENCES`, `NOT NULL` and `CHECK` to enforce integrity.",
+            "Insert test data with `INSERT INTO`.",
+            "Test joins and conditions with `SELECT`."
+          ]
+        }
+      ]
+    }
+  ]
+}

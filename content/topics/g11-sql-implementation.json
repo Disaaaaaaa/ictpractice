@@ -1,0 +1,64 @@
+{
+  "topic": "g11-sql-implementation",
+  "questions": [],
+  "summary": "Implementing the SQL part of a project — inserting records from program code and extracting data from several related tables for the application.",
+  "theory": [
+    {
+      "title": "Adding data from program code",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\ninclude \"db.php\";                                   // $conn = mysqli_connect(...)\n\n$customerId = (int)$_POST[\"customer\"];\n$products   = $_POST[\"product\"];                    // e.g. [\"AB102\", \"CD210\"]\n$quantities = $_POST[\"qty\"];                        // e.g. [3, 1]\n$orderId    = time();                               // simple unique number for the example\n\n$stmt = mysqli_prepare($conn,\n    \"INSERT INTO OrderItem (OrderID, ProductCode, CustomerID, Quantity, OrderDate)\n     VALUES (?, ?, ?, ?, CURDATE())\");\n\nfor ($i = 0; $i < count($products); $i++) {\n    $q = (int)$quantities[$i];\n    if ($q < 1) continue;                           // skip empty rows\n    mysqli_stmt_bind_param($stmt, \"isii\", $orderId, $products[$i], $customerId, $q);\n    mysqli_stmt_execute($stmt);\n}\necho \"Order $orderId saved.\";\n?>",
+          "caption": "Saving an order: one customer, several products"
+        }
+      ]
+    },
+    {
+      "title": "Extracting data from several tables",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT c.FullName, p.Name AS Product, o.Quantity,\n       p.Price * o.Quantity AS LineTotal, o.OrderDate\nFROM OrderItem o\nJOIN Customer c ON c.CustomerID = o.CustomerID\nJOIN Product  p ON p.ProductCode = o.ProductCode\nWHERE o.OrderDate >= '2026-10-01'\nORDER BY o.OrderDate DESC, c.FullName;",
+          "caption": "Report: what each customer ordered, newest first"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$sql = \"SELECT c.FullName, SUM(p.Price * o.Quantity) AS Spent\n        FROM OrderItem o\n        JOIN Customer c ON c.CustomerID = o.CustomerID\n        JOIN Product  p ON p.ProductCode = o.ProductCode\n        GROUP BY c.FullName\n        ORDER BY Spent DESC\";\n$result = mysqli_query($conn, $sql);\necho \"<table><tr><th>Customer</th><th>Total spent</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>\" . htmlspecialchars($row[\"FullName\"]) . \"</td><td>{$row['Spent']} ₸</td></tr>\";\n}\necho \"</table>\";\n?>",
+          "caption": "Displaying the report"
+        },
+        {
+          "type": "comparison",
+          "title": "Two ways to join tables",
+          "columns": [
+            "Join in WHERE",
+            "INNER JOIN"
+          ],
+          "rows": [
+            [
+              "`FROM A, B WHERE A.id = B.a_id`",
+              "`FROM A JOIN B ON A.id = B.a_id`"
+            ],
+            [
+              "Older style, accepted in exams",
+              "Clearer — join conditions separate from filters"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Every extra table in a query needs **one more join condition**. Three tables → two conditions (PK = FK each)."
+        }
+      ]
+    }
+  ]
+}

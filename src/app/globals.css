@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+/* Design tokens. Components use the semantic names (bg-surface, text-muted,
+   border-border, bg-primary ...) so light/dark themes only change variables. */
+:root {
+  --background: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #f0f3f9;
+  --foreground: #0f172a;
+  --muted: #5b6475;
+  --border: #dfe4ee;
+  --primary: #1f4fd8;
+  --primary-hover: #1a43b8;
+  --primary-soft: #e8eefc;
+  --primary-fg: #ffffff;
+  --success: #15803d;
+  --success-soft: #e6f6ec;
+  --warning: #b45309;
+  --warning-soft: #fdf3e2;
+  --danger: #c0262d;
+  --danger-soft: #fdecec;
+  --info: #0e7490;
+  --info-soft: #e3f5f9;
+  --ring: #1f4fd8;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #0b1020;
+    --surface: #121a2e;
+    --surface-2: #19223a;
+    --foreground: #e6eaf3;
+    --muted: #98a2b8;
+    --border: #273352;
+    --primary: #6d93ff;
+    --primary-hover: #86a6ff;
+    --primary-soft: #1b2850;
+    --primary-fg: #0b1020;
+    --success: #4ade80;
+    --success-soft: #11301f;
+    --warning: #fbbf24;
+    --warning-soft: #33270d;
+    --danger: #f87171;
+    --danger-soft: #3a1516;
+    --info: #22d3ee;
+    --info-soft: #0d2c35;
+    --ring: #86a6ff;
+    color-scheme: dark;
+  }
+}
+
+/* Explicit choice from the theme switcher (cookie "theme" → <html data-theme>). */
+:root[data-theme="dark"] {
+  --background: #0b1020;
+  --surface: #121a2e;
+  --surface-2: #19223a;
+  --foreground: #e6eaf3;
+  --muted: #98a2b8;
+  --border: #273352;
+  --primary: #6d93ff;
+  --primary-hover: #86a6ff;
+  --primary-soft: #1b2850;
+  --primary-fg: #0b1020;
+  --success: #4ade80;
+  --success-soft: #11301f;
+  --warning: #fbbf24;
+  --warning-soft: #33270d;
+  --danger: #f87171;
+  --danger-soft: #3a1516;
+  --info: #22d3ee;
+  --info-soft: #0d2c35;
+  --ring: #86a6ff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-fg: var(--primary-fg);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Markdown rendered from theory packs and questions */
+.prose-content {
+  line-height: 1.65;
+}
+.prose-content > * + * {
+  margin-top: 0.75em;
+}
+.prose-content h2 {
+  font-size: 1.25rem;
+  font-weight: 650;
+  margin-top: 1.25em;
+}
+.prose-content h3 {
+  font-size: 1.075rem;
+  font-weight: 650;
+  margin-top: 1em;
+}
+.prose-content ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+.prose-content ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+.prose-content li + li {
+  margin-top: 0.25em;
+}
+.prose-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-content code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.05em 0.3em;
+}
+.prose-content pre {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85em 1em;
+  overflow-x: auto;
+}
+.prose-content pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.prose-content th,
+.prose-content td {
+  border: 1px solid var(--border);
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-content th {
+  background: var(--surface-2);
+  font-weight: 600;
+}
+.prose-content blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 0.9em;
+  color: var(--muted);
+}
+.prose-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
