@@ -1,9 +1,9 @@
 {
   "topic": "g11-sdlc-models",
-  "summary": "The stages of the system development life cycle and the advantages and disadvantages of the waterfall, agile and spiral development models.",
+  "summary": "The stages of the system development life cycle and how the waterfall, agile and spiral models organise them.",
   "theory": [
     {
-      "title": "Stages of the system development life cycle",
+      "title": "What the system development life cycle is",
       "objectives": [
         "11.2.1.1"
       ],
@@ -11,81 +11,336 @@
         {
           "type": "definition",
           "term": "System development life cycle (SDLC)",
-          "content": "A structured sequence of stages followed when a new information system is planned, built, introduced and maintained."
+          "content": "A structured sequence of **stages** that a team follows to **plan, build, introduce and maintain** a new information system. Each stage has clear activities and produces documents or products that the next stage uses."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why follow an SDLC?",
+              "content": "- Breaks a large project into **manageable stages** with clear goals.\n- Makes sure the system **meets the users' requirements**.\n- Lets managers **plan time, cost and staff** and check progress at **milestones**.\n- Produces **documentation** at every stage, so the system can be maintained later.\n- Finds problems **early**, when they are cheaper to fix."
+            },
+            {
+              "title": "Who is involved?",
+              "content": "- **Client / end users** — describe their needs, test and use the system.\n- **Systems analyst** — studies the current system and writes the requirements.\n- **Designer** — plans the interface, data and processes.\n- **Programmers / developers** — write the code and build the database.\n- **Testers** — check that the system works and meets the requirements.\n- **Project manager** — plans, schedules and controls the project."
+            }
+          ]
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart LR\n  A[Analysis] --> B[Design] --> C[Development and testing] --> D[Implementation] --> E[Documentation] --> F[Evaluation and maintenance]\n  F --> A",
-          "caption": "The SDLC is a cycle — evaluation can start a new project"
+          "content": "flowchart LR\n  A[1 Analysis] --> B[2 Design] --> C[3 Development and testing] --> D[4 Implementation] --> E[5 Documentation] --> F[6 Evaluation and maintenance]\n  F -. new requirements .-> A",
+          "caption": "The six stages form a cycle — evaluation can start the next version"
         },
         {
-          "type": "comparison",
-          "title": "What happens at each stage",
-          "columns": [
-            "Stage",
-            "Main activities",
-            "Outputs"
-          ],
-          "rows": [
-            [
-              "Analysis",
-              "Study the current system; collect information (interviews, questionnaires, observation, documents); identify problems; produce requirements; feasibility study",
-              "Requirements specification, feasibility report"
-            ],
-            [
-              "Design",
-              "Design inputs, outputs, processes, data structures, file/database structure, interface, validation and test plan",
-              "DFDs, flowcharts, ERD, data dictionary, screen layouts, test plan"
-            ],
-            [
-              "Development and testing",
-              "Write the program code / build the database; test with normal, boundary and erroneous data",
-              "Working, tested system"
-            ],
-            [
-              "Implementation",
-              "Install hardware and software, transfer data, train users; choose a changeover method (direct, parallel, pilot, phased)",
-              "System in use"
-            ],
-            [
-              "Documentation",
-              "Write the **technical** documentation (for developers) and the **user** guide",
-              "Technical manual, user manual"
-            ],
-            [
-              "Evaluation and maintenance",
-              "Compare the system with the requirements; get user feedback; fix bugs, add features, adapt to changes",
-              "Evaluation report, updates"
-            ]
-          ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "Learn the order of the stages and **one key activity** for each — \"state the stage in which…\" questions are very common."
+          "type": "callout",
+          "tone": "info",
+          "title": "Same stages, different organisation",
+          "content": "Every development model uses the **same stages**. What differs is **how they are organised**: done once in a strict order (**waterfall**), repeated in short cycles (**agile**), or repeated in loops driven by risk (**spiral**)."
         }
       ]
     },
     {
-      "title": "Waterfall, agile and spiral models",
+      "title": "Stage 1 — Analysis",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "The analyst finds out **what the current system does, what is wrong with it and what the new system must do**."
+        },
+        {
+          "type": "steps",
+          "title": "Activities in the analysis stage",
+          "items": [
+            "**Investigate the current system** using questionnaires, interviews, observation and examining documents.",
+            "Identify the **problems** of the current system and the **needs** of the users.",
+            "Identify **inputs, processes, outputs and storage** (often shown in a data flow diagram).",
+            "Carry out a **feasibility study** — is the project worth doing?",
+            "Produce the **requirements specification**, agreed with the client."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Feasibility study (TELOS)",
+          "columns": [
+            "Type",
+            "Question it answers"
+          ],
+          "rows": [
+            [
+              "**T**echnical",
+              "Do the hardware, software and skills exist to build it?"
+            ],
+            [
+              "**E**conomic",
+              "Do the benefits outweigh the costs? Is it within the budget?"
+            ],
+            [
+              "**L**egal",
+              "Does it follow the law (e.g. personal data protection)?"
+            ],
+            [
+              "**O**perational",
+              "Will the users actually be able and willing to use it?"
+            ],
+            [
+              "**S**chedule",
+              "Can it be finished by the deadline?"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A requirements specification (extract) — online library",
+          "content": "1. The system must allow students to **search** books by title, author or ISBN.\n2. The system must let librarians **record loans and returns** by scanning barcodes.\n3. The system must **email a reminder** two days before a book is due.\n4. A search must return results in **under 2 seconds**.\n5. Only staff accounts may **edit** book records."
+        },
+        {
+          "type": "exam_tip",
+          "content": "Requirements must be **specific and testable** — they are used again at the evaluation stage to decide whether the project succeeded."
+        }
+      ]
+    },
+    {
+      "title": "Stages 2 and 3 — Design, development and testing",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Design",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The designer decides **how** the system will meet the requirements — before any code is written."
+        },
+        {
+          "type": "comparison",
+          "title": "What is designed",
+          "columns": [
+            "Item",
+            "Design documents"
+          ],
+          "rows": [
+            [
+              "Data and storage",
+              "ERD, normalised tables, **data dictionary** (field names, types, sizes, validation rules)"
+            ],
+            [
+              "Processes",
+              "Flowcharts, pseudocode, **data flow diagrams**"
+            ],
+            [
+              "Inputs and outputs",
+              "Screen layouts, input forms, report layouts, **prototypes**"
+            ],
+            [
+              "User interface",
+              "Navigation structure, menus, colour scheme"
+            ],
+            [
+              "Validation and security",
+              "Validation rules, access levels, passwords, backups"
+            ],
+            [
+              "Testing",
+              "**Test plan** with normal, boundary and erroneous data and expected results"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Development and testing",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Programmers **build** the system from the design: write the code, create the database, connect the interface. Testers then check it."
+        },
+        {
+          "type": "comparison",
+          "title": "Kinds of testing",
+          "columns": [
+            "Testing",
+            "What it checks"
+          ],
+          "rows": [
+            [
+              "Unit testing",
+              "Each module / function on its own"
+            ],
+            [
+              "Integration testing",
+              "Modules working together"
+            ],
+            [
+              "System testing",
+              "The whole system against the requirements"
+            ],
+            [
+              "**Alpha testing**",
+              "By the developers' own team, in-house, before release"
+            ],
+            [
+              "**Beta testing**",
+              "By a limited group of **real users** in real conditions, before full release"
+            ],
+            [
+              "**Acceptance testing**",
+              "By the **client**, to confirm the system meets the requirements before it is accepted"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Test data",
+          "content": "Each test uses **normal** (valid, typical), **boundary/extreme** (at the limits) and **erroneous** (invalid) data, recorded in the test plan with the **expected** and the **actual** result."
+        }
+      ]
+    },
+    {
+      "title": "Stages 4–6 — Implementation, documentation, evaluation and maintenance",
+      "objectives": [
+        "11.2.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Implementation",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The new system is **installed and put into use**: hardware and software are installed, existing data is **converted and transferred**, and users are **trained**. A changeover method is chosen:"
+        },
+        {
+          "type": "comparison",
+          "title": "Changeover methods",
+          "columns": [
+            "Method",
+            "How"
+          ],
+          "rows": [
+            [
+              "Direct",
+              "Old system stopped, new one started at once"
+            ],
+            [
+              "Parallel",
+              "Both run together for a time; results compared"
+            ],
+            [
+              "Pilot",
+              "New system used in one part of the organisation first"
+            ],
+            [
+              "Phased",
+              "New system introduced one module at a time"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Documentation",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "Two kinds of documentation",
+          "columns": [
+            "",
+            "Technical documentation",
+            "User documentation (user guide)"
+          ],
+          "rows": [
+            [
+              "For",
+              "Developers, maintenance programmers, technicians",
+              "The people who use the system"
+            ],
+            [
+              "Contents",
+              "Program code with comments, algorithms, data dictionary, ERD/DFDs, hardware and software requirements, test results",
+              "How to install and log in, how to carry out each task, screenshots, error messages and what to do, FAQ, backup procedures, troubleshooting"
+            ],
+            [
+              "Purpose",
+              "To **maintain and update** the system",
+              "To **use** the system correctly"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Evaluation",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The finished system is compared with the **requirements specification**: Does it do everything it should? Is it fast, reliable and easy to use? User feedback is collected; strengths, weaknesses and improvements are recorded."
+        },
+        {
+          "type": "heading",
+          "text": "Maintenance",
+          "level": 2
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Corrective",
+              "content": "Fixing **bugs** found after the system is in use."
+            },
+            {
+              "title": "Adaptive",
+              "content": "Changing the system to fit a **new environment** — a new OS, new law, new tax rate, new hardware."
+            },
+            {
+              "title": "Perfective",
+              "content": "**Improving** the system — new features, better performance or interface, at the users' request."
+            }
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "\"Name the stage\" questions use key words: *feasibility, requirements* → **analysis**; *ERD, data dictionary, test plan, screen layout* → **design**; *coding, testing* → **development**; *training, data transfer, changeover* → **implementation**; *user guide* → **documentation**; *compare with requirements, bug fixes* → **evaluation and maintenance**."
+        }
+      ]
+    },
+    {
+      "title": "The waterfall model",
       "objectives": [
         "11.2.1.2"
       ],
       "blocks": [
         {
-          "type": "heading",
-          "text": "Waterfall model",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "Stages are completed **one after another in a fixed order**; each stage must be finished and signed off before the next starts, and it is hard to go back."
+          "type": "definition",
+          "term": "Waterfall model",
+          "content": "A **linear, sequential** model: the stages are carried out **one after another, in a fixed order**. Each stage must be **completed and signed off** before the next starts, and the project does not normally go back to an earlier stage."
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart TB\n  R[Requirements] --> D[Design] --> I[Implementation] --> V[Testing] --> M[Maintenance]",
-          "caption": "Waterfall"
+          "content": "flowchart TB\n  R[Requirements and analysis] --> D[Design] --> I[Implementation — coding] --> V[Testing] --> P[Deployment] --> M[Maintenance]",
+          "caption": "Waterfall — each stage flows down into the next"
+        },
+        {
+          "type": "heading",
+          "text": "Characteristics",
+          "level": 2
+        },
+        {
+          "type": "list",
+          "items": [
+            "Each stage produces **complete documentation** (requirements, design documents) before the next stage begins.",
+            "**Milestones** at the end of each stage make progress easy to measure.",
+            "The client is involved mainly **at the beginning** (requirements) and **at the end** (acceptance).",
+            "**Testing happens late**, after all the code is written."
+          ]
         },
         {
           "type": "comparison",
@@ -96,31 +351,112 @@
           ],
           "rows": [
             [
-              "Simple to understand and manage",
-              "Inflexible — changes are hard and expensive once a stage is finished"
+              "**Simple** to understand, plan and manage",
+              "**Inflexible** — changing requirements later is difficult and expensive"
             ],
             [
-              "Clear milestones and documentation at each stage",
-              "The client sees the working product only at the end"
+              "Clear **structure**: a stage is completed before the next one starts",
+              "The client sees a **working product only at the end**"
             ],
             [
-              "Easy to estimate cost and time",
-              "Problems found late (testing happens near the end)"
+              "Each stage has **clear deliverables and milestones**",
+              "Errors in requirements or design are found **late**, during testing"
             ],
             [
-              "Good when requirements are clear and stable",
-              "Not suitable for long, complex projects with changing requirements"
+              "**Cost and time** are easier to estimate",
+              "Long projects risk delivering a system that no longer fits the users' needs"
+            ],
+            [
+              "Thorough **documentation** helps maintenance and new staff",
+              "Little user involvement during development"
+            ],
+            [
+              "Suits projects with **clear, fixed requirements**",
+              "Not suitable for complex projects where requirements are uncertain"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "When waterfall fits",
+          "content": "A ministry orders a system to calculate a new tax: the rules are **fixed by law**, the requirements are clear from the start, and **detailed documentation** is required. Waterfall is suitable."
+        }
+      ]
+    },
+    {
+      "title": "The agile model",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Agile model",
+          "content": "An **iterative and incremental** approach: the system is built in **short cycles (iterations or sprints)**, usually 1–4 weeks. Each cycle delivers a **working part** of the system, which the client reviews; the plan is adjusted after every cycle."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  B[(Product backlog)] --> P[Sprint planning]\n  P --> W[Design, build, test]\n  W --> R[Sprint review with the client]\n  R --> RE[Retrospective]\n  RE --> P\n  R --> S[Working increment of the software]",
+          "caption": "Each sprint repeats plan, design, build, test and review"
+        },
+        {
+          "type": "heading",
+          "text": "Values of agile (Agile Manifesto)",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "Agile values",
+          "columns": [
+            "Agile values more …",
+            "… than"
+          ],
+          "rows": [
+            [
+              "Individuals and interactions",
+              "Processes and tools"
+            ],
+            [
+              "Working software",
+              "Comprehensive documentation"
+            ],
+            [
+              "Customer collaboration",
+              "Contract negotiation"
+            ],
+            [
+              "Responding to change",
+              "Following a fixed plan"
             ]
           ]
         },
         {
           "type": "heading",
-          "text": "Agile model",
+          "text": "Scrum — a popular agile method",
           "level": 2
         },
         {
-          "type": "paragraph",
-          "content": "Work is split into short **iterations (sprints)** of 1–4 weeks. Each sprint produces a working part of the system that the client reviews; requirements can change between sprints."
+          "type": "cards",
+          "items": [
+            {
+              "title": "Roles",
+              "content": "**Product owner** — represents the client, decides priorities. **Scrum master** — removes obstacles, keeps the process. **Development team** — designs, builds and tests."
+            },
+            {
+              "title": "Artefacts",
+              "content": "**Product backlog** — prioritised list of all wanted features (user stories). **Sprint backlog** — the features chosen for this sprint. **Increment** — working software at the end of the sprint."
+            },
+            {
+              "title": "Events",
+              "content": "**Sprint planning**, a short **daily stand-up** meeting (what I did, what I will do, problems), **sprint review** with the client, **retrospective** (how to work better)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A user story",
+          "content": "\"As a **student**, I want to **see my homework for the week** so that **I can plan my time**.\" The team estimates it, builds it in one sprint and shows it to the teacher at the review."
         },
         {
           "type": "comparison",
@@ -131,37 +467,81 @@
           ],
           "rows": [
             [
-              "Flexible — adapts to changing requirements",
-              "Final cost and deadline are hard to predict"
+              "**Flexible** — requirements can change between sprints",
+              "Final **cost and deadline are hard to predict**"
             ],
             [
-              "Client is involved and gives feedback regularly",
-              "Needs constant communication and client availability"
+              "The client is **involved throughout** and gives regular feedback",
+              "Needs the client to be **available often**"
             ],
             [
-              "Working software is delivered early and often",
-              "Less documentation"
+              "**Working software early** — the most important features first",
+              "**Less documentation**, which can make maintenance harder"
             ],
             [
-              "Problems are found early",
-              "Scope can grow uncontrollably; needs an experienced team"
+              "Problems and misunderstandings are found **early**",
+              "Scope may keep growing (\"scope creep\")"
+            ],
+            [
+              "Motivated team, continuous improvement",
+              "Needs an experienced, self-organised team; hard for very large teams"
             ]
           ]
+        }
+      ]
+    },
+    {
+      "title": "The spiral model",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Spiral model",
+          "content": "A **risk-driven, iterative** model (Barry Boehm, 1986). The project goes round a **spiral of loops**; every loop passes through **four phases**, and each loop produces a **more complete prototype** until the final system is built."
         },
         {
-          "type": "heading",
-          "text": "Spiral model",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "Development goes round a spiral several times. Each loop has four phases: **planning → risk analysis → engineering (build and test) → evaluation by the client**. Each loop produces a more complete prototype."
+          "type": "steps",
+          "title": "The four phases of each loop",
+          "items": [
+            "**Determine objectives** — requirements and alternatives for this loop.",
+            "**Identify and resolve risks** — analyse what could go wrong (technical, cost, schedule); build a **prototype** or run a study to reduce the risk.",
+            "**Develop and test** — design, code and test the next version.",
+            "**Plan the next iteration** — the client **evaluates** the result; decide whether and how to continue."
+          ]
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart LR\n  P[Plan objectives] --> R[Analyse risks] --> E[Engineer: build and test] --> C[Client evaluation] --> P",
-          "caption": "One loop of the spiral"
+          "content": "flowchart TB\n  O[1 Objectives] --> R[2 Risk analysis + prototype]\n  R --> D[3 Develop and test]\n  D --> P[4 Evaluate and plan]\n  P -- next loop --> O\n  P -- complete --> F([Final system])",
+          "caption": "Every loop passes through the four phases; each new loop builds a more complete version"
+        },
+        {
+          "type": "comparison",
+          "title": "Example — three loops for an online banking app",
+          "columns": [
+            "Loop",
+            "Main risk analysed",
+            "Result of the loop"
+          ],
+          "rows": [
+            [
+              "1",
+              "Will customers understand and accept the idea?",
+              "Paper/screen **prototype** of the main screens, approved by the client"
+            ],
+            [
+              "2",
+              "Is the payment process secure and fast enough?",
+              "Working prototype of log-in and payments, security tested"
+            ],
+            [
+              "3",
+              "Can the system handle thousands of users at once?",
+              "Complete system, load-tested and released"
+            ]
+          ]
         },
         {
           "type": "comparison",
@@ -172,52 +552,156 @@
           ],
           "rows": [
             [
-              "Strong **risk management** — risks found and reduced early",
-              "Expensive; risk analysis needs experts"
+              "**Risk analysis in every loop** — high-risk problems found early",
+              "**Expensive** — risk analysis needs specialists"
             ],
             [
-              "Suitable for large, complex, high-risk projects",
-              "Complex to manage"
+              "Suitable for **large, complex and high-risk** projects",
+              "**Complex** to manage"
             ],
             [
-              "Prototypes allow early client feedback",
-              "Can go on for many loops; end date unclear"
+              "**Prototypes** give early client feedback",
+              "The number of loops — and so the end date — is uncertain"
             ],
             [
-              "Requirements can be refined each loop",
-              "Not worth it for small projects"
+              "Requirements can be refined in each loop",
+              "**Not cost-effective for small projects**"
+            ],
+            [
+              "Changes can be added in later loops",
+              "Success depends heavily on good risk analysis"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Comparing and choosing a model",
+      "objectives": [
+        "11.2.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Waterfall vs agile vs spiral",
+          "columns": [
+            "Criterion",
+            "Waterfall",
+            "Agile",
+            "Spiral"
+          ],
+          "rows": [
+            [
+              "Structure",
+              "Linear, sequential",
+              "Iterative, incremental sprints",
+              "Iterative loops driven by risk"
+            ],
+            [
+              "Requirements",
+              "Fixed at the start",
+              "Can change every sprint",
+              "Refined in each loop"
+            ],
+            [
+              "Client involvement",
+              "Start and end",
+              "Continuous",
+              "At the end of each loop"
+            ],
+            [
+              "Working product",
+              "At the end",
+              "After every sprint",
+              "Prototype after each loop"
+            ],
+            [
+              "Testing",
+              "After coding",
+              "In every sprint",
+              "In every loop"
+            ],
+            [
+              "Documentation",
+              "Detailed",
+              "Minimal",
+              "Detailed, including risk reports"
+            ],
+            [
+              "Risk management",
+              "Little",
+              "Through short cycles and feedback",
+              "**Central** — every loop"
+            ],
+            [
+              "Cost/time predictability",
+              "High",
+              "Low",
+              "Low–medium"
+            ],
+            [
+              "Best for",
+              "Small/medium projects with clear, stable requirements",
+              "Projects with changing requirements and an available client",
+              "Large, expensive, high-risk projects"
             ]
           ]
         },
         {
           "type": "comparison",
-          "title": "Choosing a model",
+          "title": "Choosing a model for a scenario",
           "columns": [
-            "Project",
-            "Suitable model",
-            "Why"
+            "Scenario",
+            "Model",
+            "Reason"
           ],
           "rows": [
             [
-              "Small school library system with fixed requirements",
-              "Waterfall",
-              "Requirements known; simple to manage"
+              "A school library system; the requirements are fully known and will not change",
+              "**Waterfall**",
+              "Clear requirements; simple to manage and document"
             ],
             [
-              "A start-up's mobile app where features change often",
-              "Agile",
-              "Frequent feedback and changes"
+              "A start-up's mobile app; features change after users try each version",
+              "**Agile**",
+              "Frequent change and feedback; early releases"
             ],
             [
-              "Software for a bank's new payment system",
-              "Spiral",
-              "High risk; risk analysis in every loop"
+              "A new air-traffic control or banking payment system",
+              "**Spiral**",
+              "Very high risk and cost; risk analysis in every loop"
+            ],
+            [
+              "A government system whose rules are set by law and need full documentation",
+              "**Waterfall**",
+              "Fixed requirements; documentation required"
+            ],
+            [
+              "A school app for teachers who want to see each feature and suggest changes",
+              "**Agile**",
+              "Users involved throughout"
             ]
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "The examiner often asks for benefits of the waterfall model: \"**clear structure**\", \"a stage is **completed before** moving to the next\", \"**easy to manage and document**\", \"**cost and time can be estimated**\"."
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Name two benefits of using a waterfall model. [2]**\n1. It has a **clear structure** — each stage is **completed before** the next begins.\n2. It is **easy to manage**, with **clear milestones** and documentation for every stage.\n\n**Q: Explain one disadvantage of the agile model for a client. [2]**\nThe client must **take part in reviews regularly** throughout the project (1), **which takes up a lot of their time** / and the final cost is hard to predict because requirements keep changing (1).\n\n**Q: Explain why the spiral model is suitable for developing software for a bank. [2]**\nThe project is **high-risk and expensive** (1), and the spiral model **analyses and reduces risks in every loop** using prototypes before the full system is built (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying agile has **no** planning or documentation — it has **less**, and plans each sprint.\n- Confusing **prototyping** with agile: prototypes are used in several models (especially spiral).\n- Giving an advantage without linking it to the **scenario** when the question describes one."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the six SDLC stages in order and one output of each.",
+            "What does each letter of TELOS stand for?",
+            "What is the difference between alpha, beta and acceptance testing?",
+            "Give one advantage and one disadvantage of each model.",
+            "Which model would you choose for a project with very high risk? Why?"
+          ]
         }
       ]
     }

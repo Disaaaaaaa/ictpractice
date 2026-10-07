@@ -9,7 +9,7 @@ import { PracticeSession, type PracticeQuestion } from "@/components/practice/pr
 export const metadata: Metadata = { title: "Practice" };
 
 export default async function PracticePage({ params }: PageProps<"/learn/[topic]/practice">) {
-  await requireProfile();
+  const profile = await requireProfile();
   const topic = await getTopicBySlug((await params).topic);
   if (!topic) notFound();
   const supabase = await createClient();
@@ -61,5 +61,5 @@ export default async function PracticePage({ params }: PageProps<"/learn/[topic]
   if (questions.length === 0) {
     return <EmptyState title="No practice questions yet">Questions for this topic will appear here once they are published.</EmptyState>;
   }
-  return <PracticeSession questions={questions} />;
+  return <PracticeSession questions={questions} canReveal={profile.role !== "student"} />;
 }

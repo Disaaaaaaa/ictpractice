@@ -102,7 +102,7 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
       .in("grading_method", ["AI", "HYBRID"])
       .gte("created_at", new Date(Date.now() - 10 * 60_000).toISOString());
     if ((aiRecent ?? 0) >= LIMITS.aiPerTenMinutes) {
-      return { ok: false, error: "AI feedback limit reached for now. Compare your answer with the mark scheme instead." };
+      return { ok: false, error: "AI feedback limit reached for now. Try again in a few minutes." };
     }
   }
 
@@ -131,7 +131,7 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
   });
 
   if (outcome.status === "FAILED") {
-    return { ok: false, error: "Automatic feedback is temporarily unavailable. Compare your answer with the mark scheme." };
+    return { ok: false, error: "Automatic feedback is temporarily unavailable. Try again later." };
   }
 
   // Only marked practice counts towards mastery (blank answers are not recorded).
@@ -155,7 +155,7 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
     max: outcome.max,
     feedback:
       outcome.feedback ??
-      (outcome.needsReview ? "This answer cannot be marked automatically. Compare it with the mark scheme." : null),
+      (outcome.needsReview ? "This answer cannot be marked automatically — ask your teacher to check it." : null),
     points: outcome.points,
     needsReview: outcome.needsReview,
     correctKeys: outcome.awarded !== null ? correctKeysOf(scheme.accepted_answers) : undefined,
@@ -165,6 +165,8 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
 
 export async function revealPractice(questionId: string): Promise<PracticeReveal> {
   const profile = await requireProfile();
+  // Explanations, mark schemes and model answers are for staff only.
+  if (profile.role === "student") return { ok: false, error: "The mark scheme is available to teachers only." };
   const loaded = await loadForPractice(profile.id, questionId);
   if ("error" in loaded) return { ok: false, error: loaded.error ?? "Unavailable" };
   const { scheme } = loaded;

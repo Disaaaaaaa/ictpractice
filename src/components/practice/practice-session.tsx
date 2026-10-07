@@ -52,7 +52,14 @@ type QState = {
 
 const DIFF_TONE = { easy: "success", medium: "info", hard: "warning", exam: "danger" } as const;
 
-export function PracticeSession({ questions }: { questions: PracticeQuestion[] }) {
+export function PracticeSession({
+  questions,
+  canReveal = false,
+}: {
+  questions: PracticeQuestion[];
+  /** staff only: show the explanation, mark scheme and model answer */
+  canReveal?: boolean;
+}) {
   const [filter, setFilter] = useState<Difficulty | "all">("all");
   const list = filter === "all" ? questions : questions.filter((q) => q.difficulty === filter);
   const [index, setIndex] = useState(0);
@@ -202,7 +209,7 @@ export function PracticeSession({ questions }: { questions: PracticeQuestion[] }
                   <XCircle className="h-6 w-6 text-warning" />
                 )}
                 <p className="text-lg font-semibold">
-                  {result.awarded === null ? "Self-assess with the mark scheme" : `${result.awarded} / ${result.max} marks`}
+                  {result.awarded === null ? (canReveal ? "Self-assess with the mark scheme" : "Not marked automatically") : `${result.awarded} / ${result.max} marks`}
                 </p>
               </div>
               {result.feedback && <p className="mt-2 text-sm">{result.feedback}</p>}
@@ -229,7 +236,7 @@ export function PracticeSession({ questions }: { questions: PracticeQuestion[] }
             </div>
           )}
 
-          {s.reveal?.ok && (
+          {canReveal && s.reveal?.ok && (
             <div className="space-y-4 rounded-xl border border-border bg-surface p-5">
               {s.reveal.explanation && (
                 <section>
@@ -269,7 +276,7 @@ export function PracticeSession({ questions }: { questions: PracticeQuestion[] }
                 <Lightbulb className="h-4 w-4" /> Show Hint
               </Button>
             )}
-            {!s.reveal?.ok && (
+            {canReveal && !s.reveal?.ok && (
               <Button variant="ghost" onClick={reveal} disabled={revealing}>
                 <ListChecks className="h-4 w-4" /> Show Explanation &amp; Mark Scheme
               </Button>
