@@ -31,6 +31,7 @@ export const questionContentSchema = z
     columns: z.array(z.string().max(100)).max(12).optional(),
     rows: z.number().int().min(1).max(40).optional(),
     prefill: z.array(z.array(z.string().nullable())).optional(),
+    tick: z.boolean().optional(),
     unit: z.string().max(50).optional(),
     answer_lines: z.number().int().min(1).max(40).optional(),
     word_limit: z.number().int().min(1).max(2000).optional(),

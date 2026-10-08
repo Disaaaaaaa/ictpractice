@@ -396,7 +396,14 @@ function TraceTableInput({
         <thead>
           <tr>
             {columns.map((c) => (
-              <th key={c} className="border border-border bg-surface-2 px-3 py-1.5 text-left font-semibold">
+              <th
+                key={c}
+                className={cn(
+                  "border border-border bg-surface-2 py-1.5 font-semibold",
+                  q.content.tick ? "px-2" : "px-3",
+                  q.content.tick && !prefill.some((row) => row?.[columns.indexOf(c)] != null) ? "text-center" : "text-left",
+                )}
+              >
                 {c}
               </th>
             ))}
@@ -410,9 +417,20 @@ function TraceTableInput({
                 return (
                   <td key={c} className="border border-border p-0">
                     {wide && fixed ? (
-                      <div className="min-w-40 px-3 py-2 align-top">
+                      <div className={cn("px-3 py-2 align-top", q.content.tick ? "min-w-32" : "min-w-40")}>
                         <Markdown className="text-sm">{cell(r, c)}</Markdown>
                       </div>
+                    ) : wide && q.content.tick ? (
+                      <label className="flex min-h-11 min-w-14 cursor-pointer items-center justify-center">
+                        <input
+                          type="checkbox"
+                          className="h-5 w-5 accent-[var(--primary)]"
+                          checked={cell(r, c).trim() !== ""}
+                          disabled={disabled}
+                          aria-label={`${columns[c]} row ${r + 1}`}
+                          onChange={(e) => update(r, c, e.target.checked ? "✓" : "")}
+                        />
+                      </label>
                     ) : wide ? (
                       <textarea
                         className="block min-h-16 w-full min-w-40 resize-y bg-transparent px-2 py-1.5 font-sans focus:bg-primary-soft focus:outline-none"

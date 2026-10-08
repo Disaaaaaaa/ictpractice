@@ -173,6 +173,8 @@ export type QuestionContent = {
   columns?: string[];
   rows?: number;
   prefill?: (string | null)[][];
+  /** table_completion: empty cells are tick boxes (a ticked cell is stored as "✓") */
+  tick?: boolean;
   /** calculation */
   unit?: string;
   /** free-text sizing */

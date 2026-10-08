@@ -423,6 +423,7 @@ export function QuestionEditor({
                 <Field label="Given cells — one row per line, cells separated by |, leave a cell empty for the student to fill" htmlFor="tc-prefill">
                   <Textarea id="tc-prefill" rows={5} className="font-mono" value={(content.prefill ?? []).map((r) => r.map((c) => c ?? "").join(" | ")).join("\n")} onChange={(e) => setContent({ prefill: e.target.value.trim() ? e.target.value.split("\n").map((l) => splitCells(l).map((c) => c || null)) : undefined })} />
                 </Field>
+                <Checkbox label="Empty cells are tick boxes (a ticked cell is marked as ✓; use ✓ in the answers below, leave other cells empty)" checked={!!content.tick} onChange={(e) => setContent({ tick: e.target.checked || undefined })} />
                 <Field label="Exact answers for automatic marking (optional) — same layout; alternatives in a cell separated by ||" htmlFor="tc-exp" hint="Leave empty when answers are descriptions: the AI marks against the mark scheme.">
                   <Textarea id="tc-exp" rows={5} className="font-mono" value={(accepted.rows ?? []).map((r) => r.map((c) => c ?? "").join(" | ")).join("\n")} onChange={(e) => setAccepted({ rows: e.target.value.trim() ? lines(e.target.value).map((l) => splitCells(l).map((c) => c || null)) : undefined })} />
                 </Field>
