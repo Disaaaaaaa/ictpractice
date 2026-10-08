@@ -4,7 +4,9 @@ import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getTopicBySlug } from "@/lib/curriculum";
 import { EmptyState } from "@/components/ui/empty-state";
-import { PracticeSession, type PracticeQuestion } from "@/components/practice/practice-session";
+import { PracticeSession, type PracticeQuestion, type SavedPractice } from "@/components/practice/practice-session";
+import type { PracticeResult } from "./actions";
+import type { AnswerData } from "@/lib/questions/types";
 
 export const metadata: Metadata = { title: "Practice" };
 
@@ -61,5 +63,49 @@ export default async function PracticePage({ params }: PageProps<"/learn/[topic]
   if (questions.length === 0) {
     return <EmptyState title="No practice questions yet">Questions for this topic will appear here once they are published.</EmptyState>;
   }
-  return <PracticeSession questions={questions} canReveal={profile.role !== "student"} />;
+  // Restore the student's work: the newest of the latest checked attempt and the draft wins.
+  const ids = questions.map((q) => q.id);
+  const [{ data: attempts }, { data: drafts }] = await Promise.all([
+    supabase
+      .from("practice_attempts")
+      .select("question_id, answer_data, awarded_mark, max_mark, feedback, result, created_at")
+      .eq("student_id", profile.id)
+      .in("question_id", ids)
+      .order("created_at", { ascending: false }),
+    supabase.from("practice_drafts").select("question_id, answer_data, result, updated_at").eq("student_id", profile.id).in("question_id", ids),
+  ]);
+  type AttemptRow = { question_id: string; answer_data: AnswerData | null; awarded_mark: number; max_mark: number; feedback: string | null; result: PracticeResult | null; created_at: string };
+  type DraftRow = { question_id: string; answer_data: AnswerData | null; result: PracticeResult | null; updated_at: string };
+  const saved: Record<string, SavedPractice> = {};
+  const touched: Record<string, string> = {};
+  for (const a of (attempts ?? []) as AttemptRow[]) {
+    if (saved[a.question_id]) continue; // newest first
+    const awarded = Number(a.awarded_mark);
+    const max = Number(a.max_mark);
+    saved[a.question_id] = {
+      answer: a.answer_data,
+      result: a.result?.ok
+        ? a.result
+        : { ok: true, awarded, max, feedback: a.feedback, points: [], needsReview: false, fullMarks: awarded === max },
+    };
+    touched[a.question_id] = a.created_at;
+  }
+  for (const d of (drafts ?? []) as DraftRow[]) {
+    if (touched[d.question_id] && touched[d.question_id] >= d.updated_at) continue;
+    saved[d.question_id] = { answer: d.answer_data, result: d.result?.ok ? d.result : undefined };
+    touched[d.question_id] = d.updated_at;
+  }
+  // Open the question the student worked on most recently.
+  const lastId = Object.entries(touched).sort((a, b) => b[1].localeCompare(a[1]))[0]?.[0];
+  const startIndex = Math.max(0, questions.findIndex((q) => q.id === lastId));
+
+  return (
+    <PracticeSession
+      key={topic.id}
+      questions={questions}
+      canReveal={profile.role !== "student"}
+      saved={saved}
+      startIndex={startIndex}
+    />
+  );
 }

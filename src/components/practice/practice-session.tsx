@@ -1,5 +1,5 @@
 "use client";
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { CheckCircle2, ChevronLeft, ChevronRight, CircleHelp, Lightbulb, ListChecks, Loader2, RotateCcw, XCircle } from "lucide-react";
 import { AnswerInput, QuestionText } from "@/components/questions/answer-input";
 import { Markdown } from "@/components/markdown";
@@ -21,6 +21,7 @@ import {
 import {
   checkPracticeAnswer,
   revealPractice,
+  savePracticeDraft,
   type PracticeResult,
   type PracticeReveal,
 } from "@/app/(app)/learn/[topic]/practice/actions";
@@ -43,6 +44,9 @@ export type PracticeQuestion = {
   part_label?: string | null;
 };
 
+/** Work restored from the server: the last checked answer with its result, or a draft. */
+export type SavedPractice = { answer: AnswerData | null; result?: PracticeResult };
+
 type QState = {
   answer: AnswerData | null;
   result?: PracticeResult;
@@ -55,15 +59,52 @@ const DIFF_TONE = { easy: "success", medium: "info", hard: "warning", exam: "dan
 export function PracticeSession({
   questions,
   canReveal = false,
+  saved = {},
+  startIndex = 0,
 }: {
   questions: PracticeQuestion[];
   /** staff only: show the explanation, mark scheme and model answer */
   canReveal?: boolean;
+  /** answers and results saved earlier, by question id */
+  saved?: Record<string, SavedPractice>;
+  /** question to open first (the one worked on most recently) */
+  startIndex?: number;
 }) {
   const [filter, setFilter] = useState<Difficulty | "all">("all");
   const list = filter === "all" ? questions : questions.filter((q) => q.difficulty === filter);
-  const [index, setIndex] = useState(0);
-  const [state, setState] = useState<Record<string, QState>>({});
+  const [index, setIndex] = useState(startIndex);
+  const [state, setState] = useState<Record<string, QState>>(() =>
+    Object.fromEntries(Object.entries(saved).map(([id, v]) => [id, { answer: v.answer, result: v.result }])),
+  );
+
+  // Autosave typed answers (debounced) so they survive a reload or a different device.
+  const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  const pendingSaves = useRef<Record<string, AnswerData | null>>({});
+  useEffect(() => {
+    const t = timers.current;
+    const pending = pendingSaves.current;
+    const flush = () => {
+      for (const [id, answer] of Object.entries(pending)) {
+        clearTimeout(t[id]);
+        void savePracticeDraft(id, answer);
+        delete pending[id];
+      }
+    };
+    window.addEventListener("pagehide", flush);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      flush(); // leaving the page: save what is still waiting
+    };
+  }, []);
+  const saveDraft = (questionId: string, answer: AnswerData | null, delay = 700) => {
+    clearTimeout(timers.current[questionId]);
+    pendingSaves.current[questionId] = answer;
+    timers.current[questionId] = setTimeout(() => {
+      delete pendingSaves.current[questionId];
+      void savePracticeDraft(questionId, answer);
+    }, delay);
+  };
+
   const [pending, startTransition] = useTransition();
   const [revealing, startReveal] = useTransition();
 
@@ -73,6 +114,8 @@ export function PracticeSession({
 
   const check = () =>
     startTransition(async () => {
+      clearTimeout(timers.current[q.id]); // the check stores the answer itself
+      delete pendingSaves.current[q.id];
       const result = await checkPracticeAnswer(q.id, s.answer);
       set({ result });
     });
@@ -81,7 +124,10 @@ export function PracticeSession({
       const r = await revealPractice(q.id);
       set({ reveal: r });
     });
-  const retry = () => set({ answer: null, result: undefined, reveal: undefined, hint: false });
+  const retry = () => {
+    set({ answer: null, result: undefined, reveal: undefined, hint: false });
+    saveDraft(q.id, null, 0); // remember the cleared question
+  };
 
   const done = Object.entries(state).filter(([, v]) => v.result?.ok).length;
   const result = s.result?.ok ? s.result : null;
@@ -172,7 +218,10 @@ export function PracticeSession({
                 key={q.id + (s.result ? "-checked" : "")}
                 question={q}
                 value={s.answer}
-                onChange={(answer) => set({ answer, result: undefined })}
+                onChange={(answer) => {
+                  set({ answer, result: undefined });
+                  saveDraft(q.id, answer);
+                }}
                 disabled={pending}
                 correctKeys={result?.correctKeys}
               />

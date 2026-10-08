@@ -123,6 +123,22 @@ describe("RLS", () => {
     });
   });
 
+  it("keeps practice drafts private to each student", async () => {
+    const qid = (await one<{ id: string }>(`select id from questions where practice_enabled limit 1`)).id;
+    await db.as(alice, async () => {
+      await db.query(`insert into practice_drafts (student_id, question_id, answer_data) values ($1, $2, '{"text":"draft"}')`, [alice, qid]);
+      expect((await db.query(`select * from practice_drafts`)).rows).toHaveLength(1);
+      await expect(
+        db.query(`insert into practice_drafts (student_id, question_id, answer_data) values ($1, $2, '{}')`, [bob, qid]),
+      ).rejects.toThrow();
+    });
+    await db.as(bob, async () => {
+      expect((await db.query(`select * from practice_drafts`)).rows).toHaveLength(0);
+      const r = await db.query(`update practice_drafts set answer_data = null where student_id = $1`, [alice]);
+      expect(r.affectedRows).toBe(0);
+    });
+  });
+
   it("denies internal functions to clients", async () => {
     await db.as(alice, async () => {
       await expect(db.query(`select finalize_attempt(gen_random_uuid(), 'SYSTEM')`)).rejects.toThrow(/permission denied/);

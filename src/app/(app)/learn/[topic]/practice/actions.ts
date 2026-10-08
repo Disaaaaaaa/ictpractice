@@ -1,6 +1,7 @@
 "use server";
 import { requireProfile } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import { gradeAnswer } from "@/lib/grading/engine";
 import { getGradingSettings } from "@/lib/grading/attempt-grader";
 import type { MarkingPointResult } from "@/lib/grading/deterministic";
@@ -134,22 +135,7 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
     return { ok: false, error: "Automatic feedback is temporarily unavailable. Try again later." };
   }
 
-  // Only marked practice counts towards mastery (blank answers are not recorded).
-  if (outcome.awarded !== null && answer) {
-    await admin.from("practice_attempts").insert({
-      student_id: profile.id,
-      question_id: questionId,
-      answer_data: answer,
-      awarded_mark: outcome.awarded,
-      max_mark: outcome.max,
-      grading_method: outcome.method,
-      feedback: outcome.feedback,
-    });
-    await admin.rpc("recompute_mastery", { p_student_id: profile.id });
-    await admin.from("profiles").update({ last_activity_at: new Date().toISOString() }).eq("id", profile.id);
-  }
-
-  return {
+  const result: Extract<PracticeResult, { ok: true }> = {
     ok: true,
     awarded: outcome.awarded,
     max: outcome.max,
@@ -161,6 +147,46 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
     correctKeys: outcome.awarded !== null ? correctKeysOf(scheme.accepted_answers) : undefined,
     fullMarks: outcome.awarded === outcome.max,
   };
+
+  // Only marked practice counts towards mastery (blank answers are not recorded).
+  if (outcome.awarded !== null && answer) {
+    await admin.from("practice_attempts").insert({
+      student_id: profile.id,
+      question_id: questionId,
+      answer_data: answer,
+      awarded_mark: outcome.awarded,
+      max_mark: outcome.max,
+      grading_method: outcome.method,
+      feedback: outcome.feedback,
+      result,
+    });
+    // The checked answer replaces any draft.
+    await admin.from("practice_drafts").delete().eq("student_id", profile.id).eq("question_id", questionId);
+    await admin.rpc("recompute_mastery", { p_student_id: profile.id });
+    await admin.from("profiles").update({ last_activity_at: new Date().toISOString() }).eq("id", profile.id);
+  } else if (answer) {
+    // Not marked automatically: keep the answer and the message with the draft.
+    await admin
+      .from("practice_drafts")
+      .upsert({ student_id: profile.id, question_id: questionId, answer_data: answer, result, updated_at: new Date().toISOString() });
+  }
+
+  return result;
+}
+
+/**
+ * Autosaves the answer a student is working on (answer = null after "Retry").
+ * The newest of the draft and the latest checked attempt is shown on reload.
+ */
+export async function savePracticeDraft(questionId: string, answer: AnswerData | null): Promise<{ ok: boolean }> {
+  const profile = await requireProfile();
+  if (!/^[0-9a-f-]{36}$/i.test(questionId)) return { ok: false };
+  if (JSON.stringify(answer ?? {}).length > 60_000) return { ok: false };
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("practice_drafts")
+    .upsert({ student_id: profile.id, question_id: questionId, answer_data: answer, result: null, updated_at: new Date().toISOString() });
+  return { ok: !error };
 }
 
 export async function revealPractice(questionId: string): Promise<PracticeReveal> {
