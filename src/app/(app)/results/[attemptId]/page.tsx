@@ -42,7 +42,11 @@ export default async function ResultPage({ params, searchParams }: PageProps<"/r
 
   const header = (
     <PageHeader
-      breadcrumbs={[{ label: a.exams.kind === "mock" ? "Mock Exams" : "Results", href: a.exams.kind === "mock" ? "/mock-exams" : "/progress" }]}
+      breadcrumbs={[
+        a.exams.kind === "mock" ? { label: "Mock Exams", href: "/mock-exams" }
+        : a.exams.kind === "summative" ? { label: "Summative Assessments", href: "/summative" }
+        : { label: "Results", href: "/progress" },
+      ]}
       title={a.exams.title}
       description={`${a.exams.paper_components?.title ? `${a.exams.paper_components.title} · ` : ""}${formatDate(a.submitted_at ?? a.started_at)}`}
     />

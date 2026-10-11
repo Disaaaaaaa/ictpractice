@@ -5,6 +5,7 @@ import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getActiveVersion } from "@/lib/curriculum";
 import { getBankItems } from "@/lib/bank";
+import { getUnitOptions } from "@/lib/summative";
 import { formatDate } from "@/lib/format";
 import type { Exam } from "@/lib/db-types";
 import { PageHeader } from "@/components/ui/page-header";
@@ -25,41 +26,52 @@ export default async function ExamBuilderPage({ params }: PageProps<"/teacher/ex
   const { id } = await params;
   const supabase = await createClient();
   const version = await getActiveVersion();
-  const [{ data: exam }, { data: versions }, { data: items }, { data: topics }, bank, { count: attemptCount }] = await Promise.all([
+  const [{ data: exam }, { data: versions }, { data: items }, { data: topics }, bank, { count: attemptCount }, units] = await Promise.all([
     supabase.from("exams").select("*, paper_components(number)").eq("id", id).maybeSingle(),
     supabase.from("exam_versions").select("*").eq("exam_id", id).order("version", { ascending: false }),
     supabase.from("exam_questions").select("question_id, marks_override, section_label, sort_order").eq("exam_id", id).order("sort_order"),
     supabase.from("topics").select("id, title").eq("curriculum_version_id", version?.id ?? "").order("sort_order"),
     getBankItems(),
     supabase.from("attempts").select("id", { count: "exact", head: true }).eq("exam_id", id),
+    getUnitOptions(),
   ]);
   if (!exam) notFound();
   const e = exam as Exam & { paper_components: { number: number } | null };
   const canEdit = profile.role === "admin" || e.created_by === profile.id;
   const current = (versions ?? []).find((v) => v.id === e.current_version_id);
+  const summative = e.kind === "summative";
 
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ label: "Exam Sessions", href: "/teacher/exams" }, { label: e.title }]}
+        breadcrumbs={[summative ? { label: "Summative Assessments", href: "/teacher/summative" } : { label: "Exam Sessions", href: "/teacher/exams" }, { label: e.title }]}
         title={e.title}
         description={current ? `Published v${current.version} · ${current.question_count} questions · ${current.total_marks} marks · ${attemptCount ?? 0} attempts` : "Not published yet"}
         actions={
           <>
             <Badge tone={e.status === "published" ? "success" : e.status === "draft" ? "neutral" : "warning"}>{e.status}</Badge>
             <ButtonLink href={`/teacher/exams/${e.id}/live`} variant="secondary">Live monitor</ButtonLink>
-            {e.current_version_id && <ButtonLink href={`/teacher/assignments/new?exam=${e.id}`} variant="secondary">Assign</ButtonLink>}
+            {summative ? (
+              <ButtonLink href={`/teacher/summative?grade=${e.grade ?? 11}`} variant="secondary">Class access</ButtonLink>
+            ) : (
+              e.current_version_id && <ButtonLink href={`/teacher/assignments/new?exam=${e.id}`} variant="secondary">Assign</ButtonLink>
+            )}
             <ConfirmButton action={duplicateExam} fields={{ exam_id: e.id }} label={<><Copy className="h-4 w-4" /> Duplicate</>} size="md" />
           </>
         }
       />
       {!canEdit && <Alert tone="info" className="mb-6">This exam was created by someone else. Duplicate it to make an editable copy.</Alert>}
+      {summative && (
+        <Alert tone="info" className="mb-6">
+          A published summative assessment stays hidden from students until you open it for a class on the Summative Assessments page.
+        </Alert>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader title="Settings" />
           <CardBody>
-            <ExamSettingsForm exam={e} topics={topics ?? []} paperNumber={e.paper_components?.number} readOnly={!canEdit} />
+            <ExamSettingsForm exam={e} topics={topics ?? []} units={units} paperNumber={e.paper_components?.number} readOnly={!canEdit} />
           </CardBody>
         </Card>
         <div className="space-y-6">

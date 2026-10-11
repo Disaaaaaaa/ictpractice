@@ -16,7 +16,7 @@ import type {
 
 export type Role = "student" | "teacher" | "admin";
 export type IntegrityMode = "monitor" | "warn" | "auto_submit";
-export type ExamKind = "topic" | "mock" | "revision" | "custom";
+export type ExamKind = "topic" | "mock" | "revision" | "custom" | "summative";
 export type ExamStatus = "draft" | "scheduled" | "published" | "closed" | "archived";
 export type AttemptStatus = "IN_PROGRESS" | "SUBMITTED" | "GRADED" | "REVIEW_REQUIRED";
 export type SubmissionReason = "MANUAL_SUBMIT" | "TIME_EXPIRED" | "VIOLATION_LIMIT" | "TEACHER_FORCED" | "SYSTEM";
@@ -125,6 +125,8 @@ export type Exam = {
   description: string | null;
   instructions: string | null;
   topic_id: string | null;
+  /** set on summative assessments (kind "summative") */
+  unit_id: string | null;
   paper_component_id: string | null;
   year: number | null;
   grade: number | null;

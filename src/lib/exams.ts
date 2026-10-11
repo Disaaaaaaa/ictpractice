@@ -12,7 +12,11 @@ export const INTEGRITY_LABEL: Record<IntegrityMode, string> = {
 };
 
 export type ExamStartInfo = {
-  exam: Exam & { paper_components: { number: number; title: string } | null; topics: { slug: string; title: string } | null };
+  exam: Exam & {
+    paper_components: { number: number; title: string } | null;
+    topics: { slug: string; title: string } | null;
+    units: { code: string; title: string } | null;
+  };
   version: ExamVersion | null;
   /** numbered questions (a structured question with parts counts once) */
   questionCount: number | null;
@@ -36,7 +40,7 @@ export async function getExamStartInfo(
 ): Promise<ExamStartInfo | null> {
   const { data: exam } = await supabase
     .from("exams")
-    .select("*, paper_components(number, title), topics(slug, title)")
+    .select("*, paper_components(number, title), topics(slug, title), units(code, title)")
     .eq("id", examId)
     .maybeSingle();
   if (!exam) return null;
@@ -84,6 +88,14 @@ export async function getExamStartInfo(
     else if (e.availability_start && new Date(e.availability_start).getTime() > now)
       reason = `This exam opens on ${new Date(e.availability_start).toLocaleString("en-GB")}.`;
     else if (e.availability_end && new Date(e.availability_end).getTime() < now) reason = "This exam is no longer available.";
+  }
+  // A summative assessment is opened class by class by the teacher (staff may preview it).
+  if (!reason && !open && !a && e.kind === "summative") {
+    const { data: me } = await supabase.from("profiles").select("role").eq("id", studentId).maybeSingle();
+    if (me?.role === "student") {
+      const { data: access } = await supabase.from("summative_access").select("class_id").eq("exam_id", examId).eq("is_open", true).limit(1);
+      if (!access?.length) reason = "Your teacher has not opened this assessment for your class.";
+    }
   }
   if (!reason && !open && attemptLimit != null && relevant.length >= attemptLimit) {
     reason = "You have used all the attempts allowed for this exam.";

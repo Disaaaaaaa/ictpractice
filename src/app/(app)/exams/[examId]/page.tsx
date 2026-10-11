@@ -28,7 +28,11 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
   const isStaff = profile.role === "teacher" || profile.role === "admin";
   const { data: res } = isStaff ? await supabase.from("exams").select("teacher_resources").eq("id", examId).maybeSingle() : { data: null };
 
-  const kindLabel = exam.kind === "mock" ? "Mock Exam" : exam.kind === "topic" ? "Topic Exam" : "Exam";
+  const kindLabel =
+    exam.kind === "mock" ? "Mock Exam"
+    : exam.kind === "topic" ? "Topic Exam"
+    : exam.kind === "summative" ? `Summative assessment for the unit${exam.units ? ` · ${exam.units.code} ${exam.units.title}` : ""}`
+    : "Exam";
   const breadcrumbs =
     exam.kind === "mock" && exam.year && exam.paper_components
       ? [
@@ -36,9 +40,11 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
           { label: String(exam.year), href: `/mock-exams/${exam.year}` },
           { label: exam.paper_components.title, href: `/mock-exams/${exam.year}/${exam.paper_components.number}` },
         ]
-      : exam.topics
-        ? [{ label: "Learn & Practice", href: "/learn" }, { label: exam.topics.title, href: `/learn/${exam.topics.slug}` }]
-        : [];
+      : exam.kind === "summative"
+        ? [{ label: "Summative Assessments", href: isStaff ? `/teacher/summative?grade=${exam.grade ?? 11}` : "/summative" }]
+        : exam.topics
+          ? [{ label: "Learn & Practice", href: "/learn" }, { label: exam.topics.title, href: `/learn/${exam.topics.slug}` }]
+          : [];
 
   return (
     <div className="mx-auto max-w-2xl">

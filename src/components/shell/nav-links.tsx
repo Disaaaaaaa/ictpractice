@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BarChart3, BookOpen, ClipboardList, Database, FileText, GraduationCap, Layers, LayoutDashboard,
+  BarChart3, BookOpen, ClipboardCheck, ClipboardList, Database, FileText, GraduationCap, Layers, LayoutDashboard,
   LineChart, Radio, ScrollText, Settings, Target, User, Users, Library,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -13,6 +13,7 @@ const ICONS: Record<IconName, typeof User> = {
   learn: BookOpen,
   papers: FileText,
   mocks: GraduationCap,
+  summative: ClipboardCheck,
   progress: Target,
   profile: User,
   classes: Layers,

@@ -16,16 +16,25 @@ function toLocal(iso: string | null | undefined) {
 export function ExamSettingsForm({
   exam,
   topics,
+  units = [],
   paperNumber,
   readOnly = false,
+  defaultKind,
+  defaultUnitId,
 }: {
   exam?: Exam;
   topics: { id: string; title: string }[];
+  /** units of the school programme, for summative assessments */
+  units?: { id: string; label: string }[];
   paperNumber?: number | null;
   readOnly?: boolean;
+  /** presets for a new exam (e.g. opened from the Summative Assessments page) */
+  defaultKind?: Exam["kind"];
+  defaultUnitId?: string;
 }) {
   const [state, action, pending] = useActionState<ExamActionState, FormData>(saveExam, {});
-  const [kind, setKind] = useState(exam?.kind ?? "custom");
+  const [kind, setKind] = useState(exam?.kind ?? defaultKind ?? "custom");
+  const summative = kind === "summative";
   const tz = useMemo(() => new Date().getTimezoneOffset(), []);
   return (
     <form action={action} className="space-y-5">
@@ -40,6 +49,7 @@ export function ExamSettingsForm({
             <Select id="kind" name="kind" value={kind} onChange={(e) => setKind(e.target.value as Exam["kind"])}>
               <option value="topic">Topic exam</option>
               <option value="mock">Mock exam</option>
+              <option value="summative">Summative assessment for the unit</option>
               <option value="revision">Revision</option>
               <option value="custom">Custom exam</option>
             </Select>
@@ -49,6 +59,14 @@ export function ExamSettingsForm({
               <Select id="topic_id" name="topic_id" defaultValue={exam?.topic_id ?? ""}>
                 <option value="">—</option>
                 {topics.map((t) => <option key={t.id} value={t.id}>{t.title}</option>)}
+              </Select>
+            </Field>
+          )}
+          {summative && (
+            <Field label="Unit" htmlFor="unit_id" hint="Open and close it for classes on the Summative Assessments page.">
+              <Select id="unit_id" name="unit_id" defaultValue={exam?.unit_id ?? defaultUnitId ?? ""} required>
+                <option value="">—</option>
+                {units.map((u) => <option key={u.id} value={u.id}>{u.label}</option>)}
               </Select>
             </Field>
           )}
@@ -63,16 +81,18 @@ export function ExamSettingsForm({
           {kind === "mock" && (
             <Field label="Year" htmlFor="year"><Input id="year" name="year" type="number" min={2000} max={2100} defaultValue={exam?.year ?? new Date().getFullYear()} /></Field>
           )}
-          <Field label="Grade" htmlFor="grade">
-            <Select id="grade" name="grade" defaultValue={exam?.grade ? String(exam.grade) : ""}>
-              <option value="">Any</option><option value="11">11</option><option value="12">12</option>
-            </Select>
-          </Field>
+          {!summative && (
+            <Field label="Grade" htmlFor="grade">
+              <Select id="grade" name="grade" defaultValue={exam?.grade ? String(exam.grade) : ""}>
+                <option value="">Any</option><option value="11">11</option><option value="12">12</option>
+              </Select>
+            </Field>
+          )}
           <Field label="Duration (minutes)" htmlFor="duration_minutes">
-            <Input id="duration_minutes" name="duration_minutes" type="number" min={1} max={600} defaultValue={exam?.duration_minutes ?? 45} required />
+            <Input id="duration_minutes" name="duration_minutes" type="number" min={1} max={600} defaultValue={exam?.duration_minutes ?? (defaultKind === "summative" ? 40 : 45)} required />
           </Field>
           <Field label="Attempt limit" htmlFor="attempt_limit" hint="Empty = unlimited.">
-            <Input id="attempt_limit" name="attempt_limit" type="number" min={1} max={50} defaultValue={exam?.attempt_limit ?? ""} />
+            <Input id="attempt_limit" name="attempt_limit" type="number" min={1} max={50} defaultValue={exam?.attempt_limit ?? (!exam && defaultKind === "summative" ? 1 : "")} />
           </Field>
           <Field label="Available from" htmlFor="availability_start"><Input id="availability_start" name="availability_start" type="datetime-local" defaultValue={toLocal(exam?.availability_start)} /></Field>
           <Field label="Available until" htmlFor="availability_end"><Input id="availability_end" name="availability_end" type="datetime-local" defaultValue={toLocal(exam?.availability_end)} /></Field>

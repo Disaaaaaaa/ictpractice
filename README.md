@@ -92,6 +92,7 @@ Set the same environment variables in the Vercel project. `vercel.json` schedule
 
 - **Student** — dashboard, Learn & Practice (by school programme or by paper), Exam Mode, mock exams, results, My Progress.
 - **Teacher** — classes and students (create, CSV import, reset password), assignments with integrity policy and result release, live exam monitor (Realtime), exam builder with versioning, question bank, moderation of AI marks (audited), analytics (class stats, topic/LO performance, paper readiness, LO heatmap, item analysis), CSV/XLSX export. Teachers see only students in their own classes (RLS).
+- **Summative assessments (SAU)** — one block per unit of the school programme (`/summative` for students, `/teacher/summative` for teachers). A summative is an exam of kind `summative` linked to a unit: the teacher builds and publishes it in the exam builder, then opens and closes it class by class. Students see it only while it is open for their class (or after sitting it); it runs in Exam Mode and is marked by the same auto + AI + teacher-review pipeline.
 - **Admin** — everything above plus users, all classes, curriculum (topics, LOs, school/paper mapping), theory-pack editor, system settings (mastery weights, AI confidence threshold), audit log.
 
 ## Exam integrity — what a browser can and cannot do

@@ -2,7 +2,7 @@ import type { Role } from "@/lib/db-types";
 import type { Dict } from "@/lib/i18n";
 
 export type IconName =
-  | "dashboard" | "learn" | "papers" | "mocks" | "progress" | "profile" | "classes" | "students"
+  | "dashboard" | "learn" | "papers" | "mocks" | "summative" | "progress" | "profile" | "classes" | "students"
   | "assignments" | "sessions" | "questions" | "results" | "analytics" | "users" | "curriculum"
   | "settings" | "audit";
 
@@ -16,6 +16,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/learn", label: t.nav.learn, icon: "learn" },
       { href: "/papers", label: t.nav.papers, icon: "papers" },
       { href: "/mock-exams", label: t.nav.mocks, icon: "mocks" },
+      { href: "/summative", label: t.nav.summative, icon: "summative" },
       { href: "/progress", label: t.nav.progress, icon: "progress" },
       { href: "/profile", label: t.nav.profile, icon: "profile" },
     ],
@@ -28,6 +29,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/teacher/students", label: t.nav.students, icon: "students" },
       { href: "/teacher/assignments", label: t.nav.assignments, icon: "assignments" },
       { href: "/teacher/exams", label: t.nav.sessions, icon: "sessions" },
+      { href: "/teacher/summative", label: t.nav.summative, icon: "summative" },
       { href: "/teacher/questions", label: t.nav.questions, icon: "questions" },
       { href: "/teacher/results", label: t.nav.results, icon: "results" },
       { href: "/teacher/analytics", label: t.nav.analytics, icon: "analytics" },

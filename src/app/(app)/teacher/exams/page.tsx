@@ -16,6 +16,7 @@ const KINDS = [
   { key: "", label: "All" },
   { key: "mock", label: "Mock exams" },
   { key: "topic", label: "Topic exams" },
+  { key: "summative", label: "Summative" },
   { key: "custom", label: "Custom" },
 ];
 

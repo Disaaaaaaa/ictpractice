@@ -12,10 +12,11 @@ export type ExamActionState = { ok?: boolean; error?: string; message?: string }
 
 const settingsSchema = z.object({
   title: z.string().trim().min(1).max(200),
-  kind: z.enum(["topic", "mock", "revision", "custom"]),
+  kind: z.enum(["topic", "mock", "revision", "custom", "summative"]),
   description: z.string().max(2000).optional(),
   instructions: z.string().max(5000).optional(),
   topic_id: z.string().uuid().optional().or(z.literal("")),
+  unit_id: z.string().uuid().optional().or(z.literal("")),
   paper: z.coerce.number().int().min(1).max(3).optional().or(z.literal("")),
   year: z.coerce.number().int().min(2000).max(2100).optional().or(z.literal("")),
   grade: z.coerce.number().int().min(11).max(12).optional().or(z.literal("")),
@@ -56,15 +57,27 @@ export async function saveExam(_prev: ExamActionState, formData: FormData): Prom
   }
   if (v.kind === "mock" && (!paperComponentId || !opt(v.year))) return { error: "Mock exams need a year and a paper." };
 
+  // A summative assessment belongs to a unit and takes its grade from it.
+  let unitId: string | null = null;
+  let grade = opt(v.grade);
+  if (v.kind === "summative") {
+    unitId = opt(v.unit_id);
+    if (!unitId) return { error: "Choose the unit this summative assessment is for." };
+    const { data: unit } = await supabase.from("units").select("id, terms(grades(number))").eq("id", unitId).maybeSingle();
+    if (!unit) return { error: "That unit could not be found." };
+    grade = (unit as unknown as { terms: { grades: { number: number } | null } | null }).terms?.grades?.number ?? grade;
+  }
+
   const row = {
     title: v.title,
     kind: v.kind,
     description: v.description || null,
     instructions: v.instructions || null,
     topic_id: opt(v.topic_id),
+    unit_id: unitId,
     paper_component_id: paperComponentId,
     year: opt(v.year),
-    grade: opt(v.grade),
+    grade,
     duration_minutes: v.duration_minutes,
     availability_start: toIso(v.availability_start, tz),
     availability_end: toIso(v.availability_end, tz),
@@ -82,6 +95,7 @@ export async function saveExam(_prev: ExamActionState, formData: FormData): Prom
     if (error || !data?.length) return { error: "You can only edit exams you created. Duplicate it to make your own copy." };
     await createAdminClient().from("audit_logs").insert({ actor_id: profile.id, action: "exam.edit", entity_type: "exam", entity_id: examId, details: { fields: Object.keys(row) } });
     revalidatePath(`/teacher/exams/${examId}`);
+    revalidatePath("/teacher/summative");
     return { ok: true, message: "Settings saved. Availability, attempt limits and integrity rules apply immediately; duration and question changes apply when you publish a new version." };
   }
   const { data, error } = await supabase
@@ -132,6 +146,7 @@ export async function publishExam(_prev: ExamActionState, formData: FormData): P
   const { error } = await supabase.rpc("publish_exam", { p_exam_id: examId });
   if (error) return { error: friendlyError(error, "The exam could not be published.") };
   revalidatePath(`/teacher/exams/${examId}`);
+  revalidatePath("/teacher/summative");
   return { ok: true, message: "Published. Students who already started keep their original version." };
 }
 
@@ -148,6 +163,7 @@ export async function setExamStatus(formData: FormData) {
   await createAdminClient().from("audit_logs").insert({ actor_id: profile.id, action: `exam.${status}`, entity_type: "exam", entity_id: examId });
   revalidatePath(`/teacher/exams/${examId}`);
   revalidatePath("/teacher/exams");
+  revalidatePath("/teacher/summative");
 }
 
 export async function duplicateExam(formData: FormData) {
