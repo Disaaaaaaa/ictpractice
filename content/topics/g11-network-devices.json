@@ -1,10 +1,1248 @@
 {
   "topic": "g11-network-devices",
-  "questions": [],
-  "summary": "The purpose of network devices — repeater, hub, switch, router and gateway — and how they differ.",
+  "questions": [
+    {
+      "key": "dev-match",
+      "title": "Devices and purposes",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Match each network device to its purpose.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Repeater"
+          },
+          {
+            "key": "L2",
+            "text": "Hub"
+          },
+          {
+            "key": "L3",
+            "text": "Switch"
+          },
+          {
+            "key": "L4",
+            "text": "Router"
+          },
+          {
+            "key": "L5",
+            "text": "Gateway"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Regenerates a weak signal so it can travel further"
+          },
+          {
+            "key": "R2",
+            "text": "Sends every packet it receives to all connected devices"
+          },
+          {
+            "key": "R3",
+            "text": "Sends data only to the destination device using its MAC address"
+          },
+          {
+            "key": "R4",
+            "text": "Forwards packets between different networks using IP addresses"
+          },
+          {
+            "key": "R5",
+            "text": "Connects networks that use different protocols"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4, L5–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "dev-mac-define",
+      "title": "MAC address",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Describe what a **MAC address** is.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- Unique (physical / hardware) address of a network interface card (1)\n- 48 bits written in hexadecimal / set by the manufacturer (1)",
+        "points": [
+          {
+            "criterion": "Unique NIC address",
+            "marks": 1
+          },
+          {
+            "criterion": "48-bit hex / manufacturer",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A unique 48-bit physical address given to a network card by the manufacturer, written as 12 hexadecimal digits."
+      }
+    },
+    {
+      "key": "dev-mac-ip",
+      "title": "MAC or IP",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) whether each statement describes a MAC address or an IP address.",
+      "content": {
+        "columns": [
+          "Statement",
+          "MAC address",
+          "IP address"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Set by the manufacturer of the network card",
+            null,
+            null
+          ],
+          [
+            "Used by routers to send packets between networks",
+            null,
+            null
+          ],
+          [
+            "Written as 3C:52:82:1A:9F:04",
+            null,
+            null
+          ],
+          [
+            "Can be given to a device automatically by DHCP",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "MAC; IP; MAC; IP (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dev-hub-switch",
+      "title": "Hub vs switch",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Explain the difference between a hub and a switch.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A hub sends data to all devices / broadcasts (1)\n- a switch reads the destination MAC address and sends data only to the destination device (1)",
+        "points": [
+          {
+            "criterion": "Hub",
+            "marks": 1
+          },
+          {
+            "criterion": "Switch",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A hub sends every packet to all the devices connected to it, whereas a switch uses the MAC address to send it only to the device it is meant for."
+      }
+    },
+    {
+      "key": "dev-switch-benefit",
+      "title": "Why replace hubs",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A school replaces its hubs with switches. Give **two** benefits.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): less network traffic / bandwidth not wasted; no collisions → faster; more secure — data only reaches the intended device; better performance with many devices",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Less traffic and no collisions, so the network is faster. 2 Data only reaches the intended computer, so it is more secure."
+      }
+    },
+    {
+      "key": "dev-switch-table",
+      "title": "MAC address table",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A switch's MAC table:\n\n| Port | MAC address |\n|---|---|\n| 1 | 3C:52:82:1A:9F:04 |\n| 2 | 00:1B:44:11:3A:B7 |\n| 3 | A4:5E:60:C2:7D:10 |\n\nA frame arrives with destination **00:1B:44:11:3A:B7**. State the port number the switch sends it to.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "2 (1)",
+        "points": [
+          {
+            "criterion": "Port 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "2",
+        "accepted": {
+          "values": [
+            "2",
+            "port 2"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dev-switch-learn",
+      "title": "How a switch learns",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Explain how a switch builds its MAC address table and uses it.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Reads the source MAC address of each incoming frame and records it with the port number (1)\n- looks up the destination MAC address in the table and forwards the frame only to that port (1)\n- if the destination is unknown it sends to all ports / floods, and learns from the reply (1)",
+        "points": [
+          {
+            "criterion": "Learn source",
+            "marks": 1
+          },
+          {
+            "criterion": "Lookup destination",
+            "marks": 1
+          },
+          {
+            "criterion": "Unknown → flood",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When a frame arrives the switch stores its source MAC address and the port. To forward a frame it looks up the destination MAC and sends it only to that port; if the address is not yet in the table it sends the frame to all ports and learns the address from the reply."
+      }
+    },
+    {
+      "key": "dev-router-purpose",
+      "title": "Purposes of a router",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Identify **two** purposes of a router.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): direct traffic / route packets between different networks; choose the best path using a routing table; connect a LAN to the Internet / WAN; use IP addresses to forward packets; NAT; firewall; DHCP",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Forwards data packets between different networks using IP addresses. 2 Uses its routing table to choose the best path to the destination."
+      }
+    },
+    {
+      "key": "dev-routing-table",
+      "title": "Routing table",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A router's table:\n\n| Destination network | Next hop |\n|---|---|\n| 192.168.1.0 | Deliver directly (LAN) |\n| 10.20.0.0 | Router 10.0.0.2 |\n| Any other | ISP router |\n\nWhere is a packet for **10.20.5.7** sent?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Directly to a device on the LAN"
+        },
+        {
+          "key": "B",
+          "content": "To router 10.0.0.2"
+        },
+        {
+          "key": "C",
+          "content": "To the ISP router"
+        },
+        {
+          "key": "D",
+          "content": "It is dropped"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "10.20.5.7 is in network 10.20.0.0."
+      }
+    },
+    {
+      "key": "dev-nat",
+      "title": "NAT",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Explain how NAT on a home router lets several devices use the Internet at the same time.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Devices have private IP addresses; the router has one public IP address (1)\n- the router replaces private addresses with its public address and keeps track of which reply belongs to which device (1)",
+        "points": [
+          {
+            "criterion": "Private / public",
+            "marks": 1
+          },
+          {
+            "criterion": "Translation and tracking",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each device has a private IP address. The router swaps it for its single public address when packets go out, remembers which device sent each request, and passes the replies back to the right device."
+      }
+    },
+    {
+      "key": "dev-repeater",
+      "title": "Repeater",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A copper Ethernet cable must run 180 m to the sports hall. Explain why a repeater is needed.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- The signal weakens / degrades over distance — copper is limited to about 100 m (1)\n- the repeater regenerates / boosts the signal so data arrives correctly (1)",
+        "points": [
+          {
+            "criterion": "Signal weakens",
+            "marks": 1
+          },
+          {
+            "criterion": "Regenerates",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Signals in copper cable weaken after about 100 m, so a repeater is placed in between to regenerate the signal and let it reach the sports hall."
+      }
+    },
+    {
+      "key": "dev-repeater-tf",
+      "title": "Repeater intelligence",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A repeater reads the destination address of each packet before passing it on.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A repeater only regenerates the signal; it does not read addresses."
+      }
+    },
+    {
+      "key": "dev-gateway",
+      "title": "Gateway",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of a gateway and give an example of where one is used.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Connects networks that use different protocols, converting / translating data between them (1)\n- example: LAN to mobile network; e-mail to SMS; IoT sensors to the Internet (1)",
+        "points": [
+          {
+            "criterion": "Purpose",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A gateway joins networks that use different protocols and translates the data between them, e.g. sending e-mail messages as SMS to a mobile network."
+      }
+    },
+    {
+      "key": "dev-modem-wap",
+      "title": "Modem and WAP",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "State the purpose of each device.",
+      "content": {
+        "fields": [
+          {
+            "key": "modem",
+            "label": "Modem",
+            "lines": 1
+          },
+          {
+            "key": "wap",
+            "label": "Wireless access point",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Modem: converts digital signals to analogue (or other carrier) and back for a telephone / cable line (1). WAP: allows wireless devices to connect to a wired network via Wi-Fi (1)",
+        "points": [
+          {
+            "criterion": "Modem",
+            "marks": 1
+          },
+          {
+            "criterion": "WAP",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Modem: changes the computer's digital signal into analogue for the phone line and back. Wireless access point: lets laptops and phones join the wired LAN by Wi-Fi."
+      }
+    },
+    {
+      "key": "dev-choose",
+      "title": "Choosing devices",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "Write the most suitable device for each requirement. Choose from: **repeater, switch, router, gateway, wireless access point**.",
+      "content": {
+        "columns": [
+          "Requirement",
+          "Device"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "Connect 25 classroom PCs so data goes only to the correct PC",
+            null
+          ],
+          [
+            "Connect the school LAN to the Internet",
+            null
+          ],
+          [
+            "Let tablets join the LAN without cables",
+            null
+          ],
+          [
+            "Extend a cable link that is too long",
+            null
+          ],
+          [
+            "Link a sensor network that uses a different protocol",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "switch; router; wireless access point; repeater; gateway (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "switch||a switch"
+            ],
+            [
+              null,
+              "router||a router"
+            ],
+            [
+              null,
+              "wireless access point||WAP||access point||a wireless access point"
+            ],
+            [
+              null,
+              "repeater||a repeater"
+            ],
+            [
+              null,
+              "gateway||a gateway"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dev-home-box",
+      "title": "Home router box",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "practice": true,
+      "text": "A home Internet box often combines several devices. Select **three** devices commonly built into it.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Router"
+        },
+        {
+          "key": "B",
+          "content": "Switch"
+        },
+        {
+          "key": "C",
+          "content": "Wireless access point"
+        },
+        {
+          "key": "D",
+          "content": "Printer"
+        },
+        {
+          "key": "E",
+          "content": "Web server for the Internet"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dev-exam-1",
+      "title": "Inside the LAN",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school computer room has 30 PCs and a printer. Each device has a network interface card and is connected by cable to a central device.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dev-exam-1a",
+          "part_label": "(a)",
+          "title": "NIC",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the role of the network interface card and its MAC address.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "NIC connects the device to the network (1); MAC address uniquely identifies the device's card so data can be delivered to it in the LAN (1)",
+            "points": [
+              {
+                "criterion": "NIC",
+                "marks": 1
+              },
+              {
+                "criterion": "MAC",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The NIC lets the PC send and receive data on the network; its unique MAC address identifies the PC so the switch can deliver data to it."
+          }
+        },
+        {
+          "key": "dev-exam-1b",
+          "part_label": "(b)",
+          "title": "Hub or switch",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The central device could be a hub or a switch. Explain which should be used, comparing how each handles data.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Switch chosen (1); hub sends data to all devices (1); switch reads destination MAC and sends only to that device (1); benefit — less traffic / no collisions / faster / more secure (1)",
+            "points": [
+              {
+                "criterion": "Switch",
+                "marks": 1
+              },
+              {
+                "criterion": "Hub behaviour",
+                "marks": 1
+              },
+              {
+                "criterion": "Switch behaviour",
+                "marks": 1
+              },
+              {
+                "criterion": "Benefit",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A switch. A hub sends every packet to all 31 devices, while a switch reads the MAC address and sends it only to the destination, so there is less traffic, no collisions and other students cannot see the data."
+          }
+        },
+        {
+          "key": "dev-exam-1c",
+          "part_label": "(c)",
+          "title": "Port",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The switch table shows **port 7 → A4:5E:60:C2:7D:10** (the printer). A PC sends a document to A4:5E:60:C2:7D:10. State the port the switch uses.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "7 (1)",
+            "points": [
+              {
+                "criterion": "7",
+                "marks": 1
+              }
+            ],
+            "model_answer": "7",
+            "accepted": {
+              "values": [
+                "7",
+                "port 7"
+              ]
+            }
+          }
+        },
+        {
+          "key": "dev-exam-1d",
+          "part_label": "(d)",
+          "title": "Wireless",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Teachers also want to connect their laptops without cables. Identify the device needed and explain how it is connected to the network.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Wireless access point (1); connected by cable to the switch so wireless devices join the wired LAN (1)",
+            "points": [
+              {
+                "criterion": "WAP",
+                "marks": 1
+              },
+              {
+                "criterion": "Connected to switch",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A wireless access point, cabled to the switch, so laptops connect by Wi-Fi to the same LAN."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dev-exam-2",
+      "title": "Leaving the LAN",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The school LAN is connected to the Internet through a router supplied by an Internet service provider.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dev-exam-2a",
+          "part_label": "(a)",
+          "title": "Purposes",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **two** purposes of a router.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): direct traffic between networks; decides the best path using the routing table; route packets to their destination using IP addresses; connect LAN to Internet; NAT / firewall",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Directs packets between the school LAN and other networks. 2 Uses its routing table to choose the best path."
+          }
+        },
+        {
+          "key": "dev-exam-2b",
+          "part_label": "(b)",
+          "title": "Switch vs router",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** difference between the job of a switch and the job of a router.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Switch connects devices within one network / uses MAC addresses (1); router connects different networks / uses IP addresses (1)",
+            "points": [
+              {
+                "criterion": "Switch",
+                "marks": 1
+              },
+              {
+                "criterion": "Router",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A switch forwards data between devices inside the same LAN using MAC addresses, whereas a router forwards packets between different networks using IP addresses."
+          }
+        },
+        {
+          "key": "dev-exam-2c",
+          "part_label": "(c)",
+          "title": "Extra functions",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The router also provides a firewall and NAT. Describe what each does.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Firewall: checks traffic and blocks unauthorised / suspicious packets (1). NAT: translates private IP addresses to the router's public IP address so many devices share one address (1)",
+            "points": [
+              {
+                "criterion": "Firewall",
+                "marks": 1
+              },
+              {
+                "criterion": "NAT",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The firewall blocks unauthorised traffic coming from the Internet. NAT swaps the PCs' private IP addresses for the router's one public address."
+          }
+        },
+        {
+          "key": "dev-exam-2d",
+          "part_label": "(d)",
+          "title": "Modem",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a modem is needed when the router is connected to a telephone line.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Computer data is digital, the line carries analogue signals (1); modem modulates / demodulates — converts between them (1)",
+            "points": [
+              {
+                "criterion": "Digital vs analogue",
+                "marks": 1
+              },
+              {
+                "criterion": "Converts both ways",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The network uses digital signals but the telephone line carries analogue signals, so the modem converts the data in both directions."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dev-exam-3",
+      "title": "Extending the network",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The school builds a new sports hall 200 m from the main building and installs weather sensors that communicate using a different protocol.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dev-exam-3a",
+          "part_label": "(a)",
+          "title": "Repeater",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a repeater may be needed on the copper cable to the sports hall.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Signal weakens over long distance / copper ~100 m limit (1); repeater regenerates the signal (1)",
+            "points": [
+              {
+                "criterion": "Weakens",
+                "marks": 1
+              },
+              {
+                "criterion": "Regenerates",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Over 200 m the signal becomes too weak, so a repeater regenerates it halfway."
+          }
+        },
+        {
+          "key": "dev-exam-3b",
+          "part_label": "(b)",
+          "title": "Gateway",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a gateway is needed for the weather sensors.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Sensors use a different protocol from the LAN (1); gateway converts data between the protocols so they can communicate (1)",
+            "points": [
+              {
+                "criterion": "Different protocol",
+                "marks": 1
+              },
+              {
+                "criterion": "Converts",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The sensors use a different protocol, so a gateway is needed to translate their data into the LAN's protocol."
+          }
+        },
+        {
+          "key": "dev-exam-3c",
+          "part_label": "(c)",
+          "title": "Devices table",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.6.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table to show what each device uses to make decisions. Write **MAC address**, **IP address** or **none**.",
+          "content": {
+            "columns": [
+              "Device",
+              "Uses"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Switch",
+                null
+              ],
+              [
+                "Router",
+                null
+              ],
+              [
+                "Repeater",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "MAC address (1); IP address (1); none (1)",
+            "points": [
+              {
+                "criterion": "Switch",
+                "marks": 1
+              },
+              {
+                "criterion": "Router",
+                "marks": 1
+              },
+              {
+                "criterion": "Repeater",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "MAC address||MAC||MAC addresses"
+                ],
+                [
+                  null,
+                  "IP address||IP||IP addresses"
+                ],
+                [
+                  null,
+                  "none||nothing||no addresses"
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "The purpose of network hardware — network interface cards and MAC addresses, repeaters, hubs, switches (and how they learn MAC addresses), bridges, wireless access points, routers (routing tables, NAT, DHCP), gateways and modems — how they differ, and choosing devices for a network.",
   "theory": [
     {
-      "title": "Network devices",
+      "title": "Connecting a device to a network",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Every network needs **hardware** to connect devices, move data between them and link the network to other networks. Each device has a different **job** and works with a different kind of information — signals, MAC addresses, IP addresses or protocols."
+        },
+        {
+          "type": "definition",
+          "term": "Network interface card (NIC)",
+          "content": "The hardware inside a device that **connects it to a network** (by cable or wirelessly — a wireless NIC). Every NIC has a unique, permanent **MAC address** set by the manufacturer."
+        },
+        {
+          "type": "definition",
+          "term": "MAC address (Media Access Control address)",
+          "content": "A **unique 48-bit physical address** of a network interface, written as **12 hexadecimal digits**, e.g. `3C:52:82:1A:9F:04`. The first half identifies the **manufacturer**, the second half the **individual card**. Switches use MAC addresses to deliver data inside a LAN."
+        },
+        {
+          "type": "comparison",
+          "title": "MAC address vs IP address",
+          "columns": [
+            "",
+            "MAC address",
+            "IP address"
+          ],
+          "rows": [
+            [
+              "Identifies",
+              "The **network card** (hardware)",
+              "The device's **location** on a network"
+            ],
+            [
+              "Set by",
+              "The **manufacturer** — normally does not change",
+              "The **network** (DHCP) or administrator — can change"
+            ],
+            [
+              "Format",
+              "48 bits, hexadecimal: `3C:52:82:1A:9F:04`",
+              "IPv4: 32 bits, denary: `192.168.1.25`"
+            ],
+            [
+              "Used by",
+              "**Switches** inside a LAN",
+              "**Routers** between networks"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Repeaters, hubs and switches",
       "objectives": [
         "11.6.1.6"
       ],
@@ -13,30 +1251,139 @@
           "type": "cards",
           "items": [
             {
-              "title": "Network interface card (NIC)",
-              "content": "Connects a computer to a network; has a unique **MAC address**."
-            },
-            {
               "title": "Repeater",
-              "content": "**Regenerates (amplifies)** a weakened signal so that it can travel further along a cable or a wireless link. Does not look at the data."
+              "content": "- **Regenerates (amplifies)** a weakened signal so that it can travel **further** along a cable or a wireless link.\n- Does **not** read the data or addresses — it only boosts the signal.\n- Used when a cable is longer than ~100 m, or as a Wi-Fi **range extender**."
             },
             {
               "title": "Hub",
-              "content": "Connects devices in a LAN (star). Sends every incoming packet to **all** ports — wastes bandwidth and causes collisions; less secure."
+              "content": "- Connects devices in a **star** LAN.\n- Sends every incoming packet to **all ports** (broadcasts) — every device receives it, and only the addressed device keeps it.\n- Wastes **bandwidth**, causes **collisions**, and is **less secure**. Now mostly replaced by switches."
             },
             {
               "title": "Switch",
-              "content": "Connects devices in a LAN. Reads the **destination MAC address** and sends the packet **only to the right device** — faster and more secure than a hub."
-            },
-            {
-              "title": "Router",
-              "content": "Connects **different networks** (e.g. a LAN to the Internet). Reads the **destination IP address** and chooses the best route for each packet; often also does NAT, firewall and DHCP."
-            },
-            {
-              "title": "Gateway",
-              "content": "Connects networks that use **different protocols**, translating data between them (e.g. a LAN and a mobile network, or an email system and SMS)."
+              "content": "- Connects devices in a **LAN**.\n- Reads the **destination MAC address** of each frame and sends it **only to the port** of the correct device.\n- Less traffic, **no collisions**, **faster** and **more secure** than a hub."
             }
           ]
+        },
+        {
+          "type": "steps",
+          "title": "How a switch learns MAC addresses",
+          "items": [
+            "When a frame arrives, the switch records the **source MAC address** and the **port** it came from in its **MAC address table**.",
+            "It looks up the **destination MAC address** in the table.",
+            "If found, it sends the frame **only to that port**.",
+            "If not yet known, it sends the frame to all ports **once** (flooding); the reply teaches it the missing address."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A switch's MAC address table",
+          "content": "| Port | MAC address | Device |\n|---|---|---|\n| 1 | 3C:52:82:1A:9F:04 | PC A |\n| 2 | 00:1B:44:11:3A:B7 | PC B |\n| 3 | A4:5E:60:C2:7D:10 | Printer |\n\nPC A sends a document to the printer: the switch reads destination **A4:5E:60:C2:7D:10**, finds it on **port 3**, and sends the data **only** to port 3. A hub would have sent it to ports 2 and 3."
+        },
+        {
+          "type": "comparison",
+          "title": "Hub vs switch",
+          "columns": [
+            "",
+            "Hub",
+            "Switch"
+          ],
+          "rows": [
+            [
+              "Sends data to",
+              "**All** connected devices",
+              "**Only** the destination device"
+            ],
+            [
+              "Reads addresses",
+              "No",
+              "Yes — **MAC** addresses"
+            ],
+            [
+              "Collisions",
+              "Yes — shared bandwidth",
+              "No — each port has its own bandwidth"
+            ],
+            [
+              "Security",
+              "Every device can see all data",
+              "Data reaches only the intended device"
+            ],
+            [
+              "Speed with many devices",
+              "Slow",
+              "Fast"
+            ],
+            [
+              "Cost",
+              "Cheaper",
+              "More expensive (but now cheap)"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Bridge",
+          "content": "Connects **two segments** of the same LAN (or two LANs using the same protocol) and passes data across only if its destination is on the other side — like a switch with two ports."
+        },
+        {
+          "type": "definition",
+          "term": "Wireless access point (WAP)",
+          "content": "Lets **wireless devices** (laptops, phones) join a **wired LAN** using Wi-Fi. It is usually connected to a switch by cable."
+        }
+      ]
+    },
+    {
+      "title": "Routers",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Router",
+          "content": "A device that **connects different networks** (e.g. a school LAN to the Internet) and **forwards data packets** between them. It reads the **destination IP address** of each packet and uses its **routing table** to choose the **best route** to the next network."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Purposes of a router",
+              "content": "- **Connects** a LAN to other networks / the Internet (a WAN).\n- **Directs packets** between networks using **IP addresses**.\n- Keeps a **routing table** and chooses the **best (fastest / least busy) path**.\n- Often also does **NAT**, **DHCP** and has a **firewall**."
+            },
+            {
+              "title": "Extra jobs of a home or school router",
+              "content": "- **NAT (Network Address Translation)** — many devices with **private** IP addresses share one **public** IP address.\n- **DHCP** — automatically gives each device an IP address.\n- **Firewall** — blocks unauthorised traffic from the Internet.\n- Often contains a **switch** and a **wireless access point** in the same box."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A simple routing table",
+          "content": "| Destination network | Send to (next hop) | Interface |\n|---|---|---|\n| 192.168.1.0 (school LAN) | Deliver directly | LAN port |\n| 10.20.0.0 (other campus) | Router 10.0.0.2 | WAN port 1 |\n| Any other address (Internet) | ISP router | WAN port 2 |\n\nA packet for **8.8.8.8** does not match the first two networks, so it is sent to the **ISP router** (the default route)."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  ISP((Internet)) --- R[Router with firewall]\n  R --- SW[Switch]\n  SW --- PC1[PC]\n  SW --- PC2[PC]\n  SW --- PR[Printer]\n  SW --- AP[Wireless access point]\n  AP -. Wi-Fi .- L[Laptop]",
+          "caption": "A typical school network"
+        }
+      ]
+    },
+    {
+      "title": "Gateways and modems",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Gateway",
+          "content": "A device (or software) that connects **networks that use different protocols**, **translating** (converting) data between them — for example between a LAN and a mobile network, or between an e-mail system and SMS. Every router that leads out of a network is called its **default gateway**."
+        },
+        {
+          "type": "definition",
+          "term": "Modem (modulator–demodulator)",
+          "content": "Converts the computer's **digital** signals into **analogue** signals (or light / radio) for a telephone line, cable TV line or mobile network, and back again. A home Internet box usually combines a **modem**, a **router**, a **switch** and a **WAP**."
         },
         {
           "type": "comparison",
@@ -45,56 +1392,110 @@
             "Device",
             "Works with",
             "Connects",
-            "Intelligence"
+            "What it does"
           ],
           "rows": [
             [
-              "Repeater",
-              "Electrical / radio signal",
-              "Two segments of the same network",
-              "None — just boosts the signal"
+              "**NIC**",
+              "Signals + **MAC** address",
+              "A device to the network",
+              "Gives the device a network connection and identity"
             ],
             [
-              "Hub",
-              "Packets (no addresses read)",
+              "**Repeater**",
+              "Electrical / radio **signal**",
+              "Two parts of the same cable or link",
+              "Boosts / regenerates the signal — no intelligence"
+            ],
+            [
+              "**Hub**",
+              "Packets (addresses **not** read)",
               "Devices in one LAN",
               "Broadcasts to all ports"
             ],
             [
-              "Switch",
+              "**Switch**",
               "**MAC** addresses",
               "Devices in one LAN",
               "Sends to the correct port only; learns MAC addresses"
             ],
             [
-              "Router",
-              "**IP** addresses",
-              "Different networks (LAN ↔ WAN)",
-              "Chooses routes using routing tables"
+              "**Bridge**",
+              "**MAC** addresses",
+              "Two LAN segments",
+              "Passes data across only when needed"
             ],
             [
-              "Gateway",
-              "Protocols",
-              "Networks with different protocols",
+              "**WAP**",
+              "Radio + MAC",
+              "Wireless devices to a wired LAN",
+              "Provides Wi-Fi"
+            ],
+            [
+              "**Router**",
+              "**IP** addresses",
+              "**Different networks** (LAN ↔ WAN)",
+              "Chooses routes using routing tables; NAT, DHCP"
+            ],
+            [
+              "**Gateway**",
+              "**Protocols**",
+              "Networks with **different protocols**",
               "Converts between protocols"
+            ],
+            [
+              "**Modem**",
+              "Digital ↔ analogue signals",
+              "A computer / router to a telephone or cable line",
+              "Modulates and demodulates"
             ]
           ]
         },
         {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  PC1[PC] --- SW[Switch]\n  PC2[PC] --- SW\n  PR[Printer] --- SW\n  AP[Wi-Fi access point] --- SW\n  SW --- R[Router + firewall]\n  R --- ISP((Internet))",
-          "caption": "A typical school network"
-        },
+          "type": "example",
+          "title": "Choosing devices",
+          "content": "- A classroom of 25 PCs, each with a cable → a **switch**.\n- Students' laptops and tablets → a **wireless access point** connected to the switch.\n- The school must use the Internet → a **router** (with **firewall**) connected to the ISP.\n- The sports hall is 180 m away from the switch → a **repeater** (or a fibre link).\n- The weather station uses a different protocol from the LAN → a **gateway**."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.6.1.6"
+      ],
+      "blocks": [
         {
-          "type": "exam_tip",
-          "content": "**Hub vs switch** is a favourite question: a hub sends data to **every** device, a switch sends it **only to the destination device** using its MAC address, so there is less traffic and better security."
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Identify two purposes of a router. [2]**\nTo **direct traffic / route packets between different networks** using the destination **IP address** (1); to decide the **best path** to the destination using the **routing table** (1). (Also: connect a LAN to the Internet; NAT; firewall.)\n\n**Q: Explain the difference between a hub and a switch. [2]**\nA hub sends data to **all** devices on the network (1), whereas a switch reads the **MAC address** and sends data **only to the destination** device (1).\n\n**Q: State the purpose of a repeater. [1]**\nTo **regenerate / boost a weak signal** so it can travel a longer distance (1).\n\n**Q: State the purpose of a gateway. [1]**\nTo connect networks that use **different protocols**, converting data between them (1)."
         },
         {
           "type": "warning",
-          "content": "Do not confuse a **router** (between networks, uses IP addresses) with a **switch** (inside one network, uses MAC addresses). A home \"router\" box usually contains a router, a switch and a wireless access point together."
+          "content": "- Saying a **switch** uses IP addresses — it uses **MAC** addresses; a **router** uses **IP** addresses.\n- Saying a repeater \"sends data to the right computer\" — it only **boosts the signal**.\n- Confusing a **router** (between networks) with a **modem** (changes the signal type).\n- Saying a hub is \"faster\" — it causes **collisions** and is **slower** with many devices."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is a MAC address and how is it written?",
+            "Explain how a switch builds its MAC address table.",
+            "Give three differences between a hub and a switch.",
+            "State four jobs of a school router.",
+            "When would you use a repeater? A gateway?",
+            "Draw a school network with a router, switch, WAP, PCs and a printer."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Network devices — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "questions": [
+      "dev-exam-1",
+      "dev-exam-2",
+      "dev-exam-3"
+    ]
+  }
 }

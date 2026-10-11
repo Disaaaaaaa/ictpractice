@@ -97,6 +97,8 @@ export async function gradeAttempt(attemptId: string): Promise<{ status: string;
           examInstructions: paper.exam.instructions,
           content: q.content,
           groupStem: q.group_stem ?? null,
+          questionId: q.id,
+          context: "exam",
         });
       }
       // Give up on AI after max retries: the teacher marks it.

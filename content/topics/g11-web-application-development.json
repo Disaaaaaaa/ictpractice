@@ -1,10 +1,1145 @@
 {
   "topic": "g11-web-application-development",
-  "questions": [],
-  "summary": "Building a complete web application — interface and site navigation in HTML and CSS, processing form data with a scripting language using selection, iteration and validation, and keeping code in a good style.",
+  "questions": [
+    {
+      "key": "wad-layers-match",
+      "title": "Parts of a web application",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Match each technology to its role in a web application.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "HTML"
+          },
+          {
+            "key": "L2",
+            "text": "CSS"
+          },
+          {
+            "key": "L3",
+            "text": "JavaScript"
+          },
+          {
+            "key": "L4",
+            "text": "PHP"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Content and structure of the page"
+          },
+          {
+            "key": "R2",
+            "text": "Presentation: colours, fonts, layout"
+          },
+          {
+            "key": "R3",
+            "text": "Interactivity in the browser"
+          },
+          {
+            "key": "R4",
+            "text": "Processing and storing data on the server"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "wad-link-css",
+      "title": "External style sheet",
+      "type": "html_css",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Write the HTML that links every page of the site to the style sheet **css/style.css**, and state where in the page it is placed.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "<link rel=\"stylesheet\" href=\"css/style.css\"> (1); placed in the <head> (1)",
+        "points": [
+          {
+            "criterion": "link tag with rel and href",
+            "marks": 1
+          },
+          {
+            "criterion": "In head",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<link rel=\"stylesheet\" href=\"css/style.css\"> — inside the <head> element."
+      }
+    },
+    {
+      "key": "wad-one-css",
+      "title": "Why one CSS file",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Explain **two** advantages of using one external CSS file for all pages of a web application.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): consistent design on every page; change made once updates all pages; less repeated code / smaller HTML files; file cached by the browser → faster loading; content separated from presentation",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "All pages look the same, and a change to the colours or fonts is made once in one file instead of on every page."
+      }
+    },
+    {
+      "key": "wad-nav-code",
+      "title": "Navigation bar",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.3"
+      ],
+      "practice": true,
+      "text": "Write HTML for a navigation bar with links to **index.php** (Events), **register.php** (Register) and **admin.php** (Admin), with the Events link marked as the current page using the class **active**.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "<nav> element containing links (1); three <a href> with correct files and text (1); class=\"active\" on the Events link (1)",
+        "points": [
+          {
+            "criterion": "nav",
+            "marks": 1
+          },
+          {
+            "criterion": "Three links",
+            "marks": 1
+          },
+          {
+            "criterion": "active class",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```html\n<nav class=\"menu\">\n  <a href=\"index.php\" class=\"active\">Events</a>\n  <a href=\"register.php\">Register</a>\n  <a href=\"admin.php\">Admin</a>\n</nav>\n```"
+      }
+    },
+    {
+      "key": "wad-active-css",
+      "title": "Styling the menu",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Write CSS so that the links in `.menu` are white with no underline, turn light blue (#2b5ce6 background) when the mouse is over them, and the `.active` link has a white background with bold text.",
+      "content": {
+        "language": "css",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": ".menu a { color: white; text-decoration: none; } (1); .menu a:hover { background: #2b5ce6; } (1); .menu a.active { background: white; font-weight: bold; } (1)",
+        "points": [
+          {
+            "criterion": "Links",
+            "marks": 1
+          },
+          {
+            "criterion": ":hover",
+            "marks": 1
+          },
+          {
+            "criterion": ".active",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```css\n.menu a { color: white; text-decoration: none; }\n.menu a:hover { background: #2b5ce6; }\n.menu a.active { background: white; font-weight: bold; }\n```"
+      }
+    },
+    {
+      "key": "wad-nav-types",
+      "title": "Types of navigation",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.3"
+      ],
+      "practice": true,
+      "text": "Match each navigation element to its example.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Navigation bar"
+          },
+          {
+            "key": "L2",
+            "text": "Breadcrumbs"
+          },
+          {
+            "key": "L3",
+            "text": "Internal link (anchor)"
+          },
+          {
+            "key": "L4",
+            "text": "Hyperlink in the content"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Links to the main sections at the top of every page"
+          },
+          {
+            "key": "R2",
+            "text": "Home › Events › Robotics Day"
+          },
+          {
+            "key": "R3",
+            "text": "<a href=\"#rules\">Rules</a>"
+          },
+          {
+            "key": "R4",
+            "text": "A \"Read more\" link under an event"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "wad-relative",
+      "title": "Relative links",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.3"
+      ],
+      "practice": true,
+      "text": "Explain why links between pages of the same site should be **relative** (e.g. `register.php`) rather than absolute (e.g. `https://school.kz/register.php`).",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Relative links work wherever the site is placed (1); if the site moves to another domain / server / folder or is tested locally the links do not break (1)",
+        "points": [
+          {
+            "criterion": "Works anywhere",
+            "marks": 1
+          },
+          {
+            "criterion": "Moving the site",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Relative links point to files from the current location, so they still work if the whole site is moved to another domain or tested on a local computer."
+      }
+    },
+    {
+      "key": "wad-method",
+      "title": "REQUEST_METHOD",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.6"
+      ],
+      "practice": true,
+      "text": "In register.php the processing starts with `if ($_SERVER[\"REQUEST_METHOD\"] === \"POST\")`. Explain why.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The same page shows the form and processes it (1)\n- the processing / validation runs only after the form is submitted, so no error messages appear when the page is first opened (1)",
+        "points": [
+          {
+            "criterion": "Same page",
+            "marks": 1
+          },
+          {
+            "criterion": "Only after submit",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The page both shows the form and handles it; the check makes the script process the data only after the user submits it, so error messages are not shown when the empty form first opens."
+      }
+    },
+    {
+      "key": "wad-checkbox-array",
+      "title": "Check boxes",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.6"
+      ],
+      "practice": true,
+      "text": "Complete the code so that the ticked events arrive in PHP as an array and their number is counted.\n\n```html\n<input type=\"checkbox\" name=\"[[1]]\" value=\"Chess\">\n```\n\n```php\n$events = $_POST[\"events\"] ?? [];\n$n = [[2]]($events);\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) events[] (2) count",
+        "accepted": {
+          "blanks": [
+            [
+              "events[]"
+            ],
+            [
+              "count",
+              "sizeof"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "wad-fee-trace",
+      "title": "Fee calculation",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "```php\nif (count($events) >= 3) {\n    $fee = 1500;\n} else {\n    $fee = 700 * count($events);\n}\n```\n\nComplete the fee for each number of events.",
+      "content": {
+        "columns": [
+          "Number of events",
+          "Fee"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "700 (1); 1400 (1); 1500 (1)",
+        "points": [
+          {
+            "criterion": "700",
+            "marks": 1
+          },
+          {
+            "criterion": "1400",
+            "marks": 1
+          },
+          {
+            "criterion": "1500",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "700"
+            ],
+            [
+              null,
+              "1400"
+            ],
+            [
+              null,
+              "1500"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "wad-validate",
+      "title": "Validate the form",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "text": "Write PHP code that reads **name** and **grade** from a POST form and adds an error message to the array `$errors` if the name is empty or the grade is not between 7 and 12. If there are no errors, output \"Registered\".",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$errors = [];\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- reads both values from $_POST (trim / int) (1)\n- presence check on name (1)\n- range check on grade (1)\n- outputs Registered only when $errors is empty (1)",
+        "points": [
+          {
+            "criterion": "Read",
+            "marks": 1
+          },
+          {
+            "criterion": "Presence",
+            "marks": 1
+          },
+          {
+            "criterion": "Range",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$errors = [];\n$name = trim($_POST[\"name\"] ?? \"\");\n$grade = (int)($_POST[\"grade\"] ?? 0);\nif ($name === \"\") $errors[] = \"Enter your name.\";\nif ($grade < 7 || $grade > 12) $errors[] = \"Grade must be 7-12.\";\nif (count($errors) == 0) echo \"Registered\";\n?>\n```"
+      }
+    },
+    {
+      "key": "wad-list-loop",
+      "title": "List the events",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Write PHP code that outputs the events in the array `$events` as an HTML list (`<ul>` with one `<li>` per event).",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "<ul> before and </ul> after the loop (1); loop through every element (foreach / for) (1); echo <li>…</li> for each event (1)",
+        "points": [
+          {
+            "criterion": "ul",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "li output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\necho \"<ul>\";\nforeach ($events as $e) {\n    echo \"<li>\" . htmlspecialchars($e) . \"</li>\";\n}\necho \"</ul>\";\n?>\n```"
+      }
+    },
+    {
+      "key": "wad-xss",
+      "title": "htmlspecialchars",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.6"
+      ],
+      "practice": true,
+      "text": "Using htmlspecialchars() when displaying a user's name stops HTML or JavaScript typed by the user from running on the page.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "wad-include",
+      "title": "Include files",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Explain why the header, navigation bar and database connection are kept in separate files that are included on each page.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Code is written once and reused (1); a change is made in one place and updates all pages / no duplicated code / fewer errors (1)",
+        "points": [
+          {
+            "criterion": "Reuse",
+            "marks": 1
+          },
+          {
+            "criterion": "One change",
+            "marks": 1
+          }
+        ],
+        "model_answer": "They are written once and reused on every page, so changing the menu or the database password means editing only one file."
+      }
+    },
+    {
+      "key": "wad-test-plan",
+      "title": "Test plan",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "The grade field accepts values from 7 to 12. Complete a test plan with one normal, one boundary and one erroneous test value and the expected result.",
+      "content": {
+        "columns": [
+          "Type",
+          "Test value",
+          "Expected result"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Normal",
+            null,
+            null
+          ],
+          [
+            "Boundary",
+            null,
+            null
+          ],
+          [
+            "Erroneous",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Normal: 8–11, accepted (1); Boundary: 7 or 12 accepted (or 6 / 13 rejected, as just outside) (1); Erroneous: e.g. 15 / -3 / \"ten\", error message (1)",
+        "points": [
+          {
+            "criterion": "Normal",
+            "marks": 1
+          },
+          {
+            "criterion": "Boundary",
+            "marks": 1
+          },
+          {
+            "criterion": "Erroneous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Type | Value | Expected |\n|---|---|---|\n| Normal | 10 | Accepted |\n| Boundary | 12 | Accepted |\n| Erroneous | 15 | \"Grade must be 7–12.\" |"
+      }
+    },
+    {
+      "key": "wad-style",
+      "title": "Separation of concerns",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Explain why HTML, CSS and PHP code should be kept in separate files.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Easier to read / maintain — each file has one job (1); different people (designer / programmer) can work at the same time / design can change without touching the logic (1)",
+        "points": [
+          {
+            "criterion": "Maintainability",
+            "marks": 1
+          },
+          {
+            "criterion": "Independent changes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each file has one job, so the code is easier to read and maintain, and the design can be changed without touching the PHP logic."
+      }
+    },
+    {
+      "key": "wad-exam-1",
+      "title": "Library website interface",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school library is building a web application with three pages: **index.php** (catalogue), **search.php** (search books) and **contact.php** (contact the librarian). All pages use the style sheet **library.css**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wad-exam-1a",
+          "part_label": "(a)",
+          "title": "Head",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the `<head>` section of index.php with the title **Library** and a link to library.css.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<title>Library</title> inside head (1); <link rel=\"stylesheet\" href=\"library.css\"> (1)",
+            "points": [
+              {
+                "criterion": "Title",
+                "marks": 1
+              },
+              {
+                "criterion": "Link",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```html\n<head>\n  <title>Library</title>\n  <link rel=\"stylesheet\" href=\"library.css\">\n</head>\n```"
+          }
+        },
+        {
+          "key": "wad-exam-1b",
+          "part_label": "(b)",
+          "title": "Navigation",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write HTML for a navigation bar linking the three pages.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "nav element (1); three <a href> with the correct relative file names (1); link text for each page (1)",
+            "points": [
+              {
+                "criterion": "nav",
+                "marks": 1
+              },
+              {
+                "criterion": "Links",
+                "marks": 1
+              },
+              {
+                "criterion": "Text",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```html\n<nav>\n  <a href=\"index.php\">Catalogue</a>\n  <a href=\"search.php\">Search</a>\n  <a href=\"contact.php\">Contact</a>\n</nav>\n```"
+          }
+        },
+        {
+          "key": "wad-exam-1c",
+          "part_label": "(c)",
+          "title": "CSS",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write CSS in library.css that displays the links of the `nav` element in a row with a dark green background (#2e7d32) and white text.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "nav { display: flex; background: #2e7d32; } (1); nav a { color: white; } (1)",
+            "points": [
+              {
+                "criterion": "nav rule",
+                "marks": 1
+              },
+              {
+                "criterion": "Link colour",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```css\nnav { display: flex; background: #2e7d32; }\nnav a { color: white; padding: 10px; }\n```"
+          }
+        },
+        {
+          "key": "wad-exam-1d",
+          "part_label": "(d)",
+          "title": "Consistency",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the same navigation bar and style sheet should be used on every page.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Consistent interface — users always find the menu in the same place / easy to learn (1); changes made once in shared files (1)",
+            "points": [
+              {
+                "criterion": "Consistency",
+                "marks": 1
+              },
+              {
+                "criterion": "Maintenance",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Users always see the menu in the same place with the same design, so the site is easy to use, and changes are made once for all pages."
+          }
+        }
+      ]
+    },
+    {
+      "key": "wad-exam-2",
+      "title": "Book request form",
+      "type": "structured",
+      "marks": 13,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "On contact.php pupils request books. The form sends **pupil** (name), **grade** and several check boxes named **books[]** to request.php using POST. A pupil may request at most **3** books.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wad-exam-2a",
+          "part_label": "(a)",
+          "title": "Form tag",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the opening `<form>` tag and one check box for the book **\"The Hobbit\"**.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<form action=\"request.php\" method=\"post\"> (1); <input type=\"checkbox\" name=\"books[]\" value=\"The Hobbit\"> (1)",
+            "points": [
+              {
+                "criterion": "Form tag",
+                "marks": 1
+              },
+              {
+                "criterion": "Check box",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```html\n<form action=\"request.php\" method=\"post\">\n<label><input type=\"checkbox\" name=\"books[]\" value=\"The Hobbit\"> The Hobbit</label>\n```"
+          }
+        },
+        {
+          "key": "wad-exam-2b",
+          "part_label": "(b)",
+          "title": "request.php",
+          "type": "code_completion",
+          "marks": 7,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.6",
+            "11.5.4.3",
+            "11.5.4.1",
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write request.php. It must:\n- read the three inputs,\n- check that the pupil's name is entered and between 1 and 3 books are chosen, outputting an error message otherwise,\n- if the data is valid, output \"Thank you, <name>\" and list the requested books one per line.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads pupil, grade, books from $_POST (default empty array) (1)\n- presence check on the name (1)\n- count of books checked 1–3 (1)\n- error messages output (1)\n- selection so the thank-you appears only when valid (1)\n- loop through the books array (1)\n- each book output, user data escaped with htmlspecialchars (1)",
+            "points": [
+              {
+                "criterion": "Read",
+                "marks": 1
+              },
+              {
+                "criterion": "Name check",
+                "marks": 1
+              },
+              {
+                "criterion": "Count check",
+                "marks": 1
+              },
+              {
+                "criterion": "Errors output",
+                "marks": 1
+              },
+              {
+                "criterion": "Selection",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$pupil = trim($_POST[\"pupil\"] ?? \"\");\n$grade = (int)($_POST[\"grade\"] ?? 0);\n$books = $_POST[\"books\"] ?? [];\nif ($pupil === \"\") {\n    echo \"Enter your name.\";\n} elseif (count($books) < 1 || count($books) > 3) {\n    echo \"Choose between 1 and 3 books.\";\n} else {\n    echo \"Thank you, \" . htmlspecialchars($pupil) . \"<br>\";\n    foreach ($books as $b) {\n        echo htmlspecialchars($b) . \"<br>\";\n    }\n}\n?>\n```"
+          }
+        },
+        {
+          "key": "wad-exam-2c",
+          "part_label": "(c)",
+          "title": "Client check",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write JavaScript that stops the form from being sent if more than 3 books are ticked.",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "Counts the ticked check boxes (querySelectorAll(':checked')) on submit (1); preventDefault() / return false with a message when > 3 (1)",
+            "points": [
+              {
+                "criterion": "Count ticked",
+                "marks": 1
+              },
+              {
+                "criterion": "Stop submit",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```javascript\ndocument.querySelector(\"form\").addEventListener(\"submit\", function (e) {\n  const n = document.querySelectorAll(\"input[name='books[]']:checked\").length;\n  if (n > 3) {\n    e.preventDefault();\n    alert(\"You can request at most 3 books.\");\n  }\n});\n```"
+          }
+        },
+        {
+          "key": "wad-exam-2d",
+          "part_label": "(d)",
+          "title": "Both checks",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the number of books is checked both in JavaScript and in request.php.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "JavaScript gives instant feedback without sending data (1); server check needed because client-side checks can be disabled / bypassed (1)",
+            "points": [
+              {
+                "criterion": "Client benefit",
+                "marks": 1
+              },
+              {
+                "criterion": "Server needed",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The JavaScript check warns the pupil immediately, but it can be switched off, so the PHP script must check again before accepting the request."
+          }
+        }
+      ]
+    },
+    {
+      "key": "wad-exam-3",
+      "title": "Style and testing",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The library web developer wants the application to be easy to maintain and reliable.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wad-exam-3a",
+          "part_label": "(a)",
+          "title": "Include",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The menu is stored in **menu.php** and the database connection in **db.php**. Write the PHP that adds both to search.php.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "include / require \"menu.php\"; (1) include / require \"db.php\"; (1)",
+            "points": [
+              {
+                "criterion": "menu.php",
+                "marks": 1
+              },
+              {
+                "criterion": "db.php",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php include \"menu.php\"; include \"db.php\"; ?>\n```"
+          }
+        },
+        {
+          "key": "wad-exam-3b",
+          "part_label": "(b)",
+          "title": "Style rules",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **three** rules of good programming style the developer should follow.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): meaningful names; comments; indentation; constants instead of magic numbers; reuse code with include / functions; separate HTML, CSS and PHP; validate input and handle errors",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Use meaningful variable names such as $bookCount. 2 Add comments explaining each part. 3 Use a constant MAX_BOOKS = 3 instead of writing 3 in many places."
+          }
+        },
+        {
+          "key": "wad-exam-3c",
+          "part_label": "(c)",
+          "title": "Testing",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the test plan for the number of books chosen (allowed 1–3).",
+          "content": {
+            "columns": [
+              "Type",
+              "Number of books",
+              "Expected result"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Normal",
+                null,
+                null
+              ],
+              [
+                "Boundary",
+                null,
+                null
+              ],
+              [
+                "Erroneous",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Normal 2 → accepted (1); Boundary 1 or 3 → accepted (or 0 / 4 rejected) (1); Erroneous e.g. 5 → error message (1)",
+            "points": [
+              {
+                "criterion": "Normal",
+                "marks": 1
+              },
+              {
+                "criterion": "Boundary",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Type | Books | Expected |\n|---|---|---|\n| Normal | 2 | Request accepted |\n| Boundary | 3 | Request accepted |\n| Erroneous | 5 | Error message |"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Building a complete web application step by step — planning the pages and files, creating the interface with semantic HTML and an external CSS file, implementing site navigation, sending form data to a server-side script, processing it with validation, selection and iteration, saving results, reusing code with include, writing in a good programming style and testing the application.",
   "theory": [
     {
-      "title": "Interface and site navigation",
+      "title": "Planning a web application",
       "objectives": [
         "11.5.3.2",
         "11.5.3.3"
@@ -12,13 +1147,13 @@
       "blocks": [
         {
           "type": "paragraph",
-          "content": "A web application usually has several pages that share a **common layout** (header, navigation, footer) and an **external style sheet**."
+          "content": "A **web application** is a website whose pages **do something** with the user's data: register for events, place orders, show search results. It combines **HTML** (content and structure), **CSS** (presentation), **client-side JavaScript** (interactivity) and a **server-side script** such as **PHP** (processing and storing data, often in a **database**)."
         },
         {
           "type": "comparison",
           "title": "Site structure for a \"School Events\" application",
           "columns": [
-            "Page",
+            "Page / file",
             "Purpose"
           ],
           "rows": [
@@ -28,60 +1163,165 @@
             ],
             [
               "`event.php?id=…`",
-              "Details of one event"
+              "Details of one event (the `id` is sent in the URL with GET)"
             ],
             [
               "`register.php`",
-              "Registration form"
+              "Registration form and its processing"
             ],
             [
               "`admin.php`",
               "Add / edit events (login required)"
+            ],
+            [
+              "`header.php`, `footer.php`",
+              "Shared parts included on every page"
+            ],
+            [
+              "`css/style.css`",
+              "One external style sheet for the whole site"
+            ],
+            [
+              "`db.php`",
+              "Database connection, included where needed"
             ]
           ]
         },
         {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  B[Browser: user fills in the form and clicks Submit] -->|HTTP POST with form data| S[Web server runs register.php]\n  S --> V{Data valid?}\n  V -- no --> E[Page with error messages sent back]\n  V -- yes --> D[(Database: registration saved)]\n  D --> R[Confirmation page sent back to the browser]",
+          "caption": "How a request to a web application is handled"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Steps of development",
+              "content": "- **Analyse** what the users need and list the pages.\n- **Design** the layout (wireframe), navigation and forms.\n- **Build** the HTML structure and the CSS style sheet.\n- **Program** the scripts that process the data.\n- **Test** with normal, boundary and erroneous data; fix errors.\n- **Publish** the site on a web server."
+            },
+            {
+              "title": "Separation of concerns",
+              "content": "- **HTML** — what is on the page.\n- **CSS** — how it looks.\n- **JavaScript** — how it reacts in the browser.\n- **PHP** — what happens on the server.\nKeeping them in separate files makes the application easier to **maintain**."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Creating the interface with HTML and CSS",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "blocks": [
+        {
           "type": "code",
           "language": "html",
-          "content": "<nav class=\"menu\">\n  <a href=\"index.php\" class=\"active\">Events</a>\n  <a href=\"register.php\">Register</a>\n  <a href=\"admin.php\">Admin</a>\n</nav>",
-          "caption": "Navigation bar shared by all pages"
+          "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>School Events</title>\n  <link rel=\"stylesheet\" href=\"css/style.css\">   <!-- one external style sheet -->\n</head>\n<body>\n  <header><h1>School Events</h1></header>\n  <nav class=\"menu\">\n    <a href=\"index.php\" class=\"active\">Events</a>\n    <a href=\"register.php\">Register</a>\n    <a href=\"admin.php\">Admin</a>\n  </nav>\n  <main>\n    <section class=\"card\">\n      <h2>Robotics Day</h2>\n      <p>Friday, 10:00 · Assembly hall</p>\n      <a href=\"event.php?id=3\">Read more</a>\n    </section>\n  </main>\n  <footer>© 2026 NIS</footer>\n</body>\n</html>",
+          "caption": "index.php — a page built from semantic elements"
+        },
+        {
+          "type": "code",
+          "language": "css",
+          "content": "body   { margin: 0; font-family: Arial, sans-serif; background: #f5f7fb; }\nheader { background: #1f4fd8; color: white; padding: 12px 20px; }\n.menu  { display: flex; gap: 4px; background: #163aa3; }\n.menu a { color: white; padding: 10px 16px; text-decoration: none; }\n.menu a:hover  { background: #2b5ce6; }\n.menu a.active { background: white; color: #1f4fd8; font-weight: bold; }\n.card  { background: white; margin: 16px; padding: 12px 16px; border-radius: 8px; }\nfooter { text-align: center; color: gray; font-size: 12px; padding: 12px; }",
+          "caption": "css/style.css"
         },
         {
           "type": "html_preview",
-          "title": "Navigation bar with hover and active states",
-          "html": "<nav class=\"menu\"><a class=\"active\" href=\"#\">Events</a><a href=\"#\">Register</a><a href=\"#\">Admin</a></nav>",
-          "css": "body { margin: 0; font-family: Arial; }\n.menu { display: flex; background: #1f4fd8; }\n.menu a { color: #fff; padding: 12px 18px; text-decoration: none; }\n.menu a:hover { background: #1a43b8; }\n.menu a.active { background: #fff; color: #1f4fd8; font-weight: bold; }",
-          "height": 90
+          "title": "What the page looks like",
+          "html": "<header><h1>School Events</h1></header>\n<nav class=\"menu\"><a class=\"active\" href=\"#\">Events</a><a href=\"#\">Register</a><a href=\"#\">Admin</a></nav>\n<main><section class=\"card\"><h2>Robotics Day</h2><p>Friday, 10:00 · Assembly hall</p><a href=\"#\">Read more</a></section></main>\n<footer>© 2026 NIS</footer>",
+          "css": "body { margin: 0; font-family: Arial, sans-serif; background: #f5f7fb; }\nheader { background: #1f4fd8; color: white; padding: 4px 20px; }\nheader h1 { font-size: 22px; }\n.menu { display: flex; gap: 4px; background: #163aa3; }\n.menu a { color: white; padding: 10px 16px; text-decoration: none; }\n.menu a:hover { background: #2b5ce6; }\n.menu a.active { background: white; color: #1f4fd8; font-weight: bold; }\n.card { background: white; margin: 16px; padding: 4px 16px 12px; border-radius: 8px; }\nfooter { text-align: center; color: gray; font-size: 12px; padding: 12px; }",
+          "height": 260
         },
+        {
+          "type": "exam_tip",
+          "content": "**Consistency** — the same header, menu and colours on every page. **Clarity** — headings, short text, labelled form fields. **Feedback** — messages after every action. **Accessibility** — `alt` text, enough contrast, labels linked to inputs with `for` and `id`."
+        }
+      ]
+    },
+    {
+      "title": "Implementing site navigation",
+      "objectives": [
+        "11.5.3.3"
+      ],
+      "blocks": [
         {
           "type": "comparison",
           "title": "Types of navigation",
           "columns": [
             "Type",
-            "Example"
+            "Example",
+            "Use"
           ],
           "rows": [
             [
-              "Menu bar / navigation bar",
-              "Links at the top of every page"
+              "**Navigation (menu) bar**",
+              "Links at the top of every page",
+              "Main sections of the site"
             ],
             [
-              "Hyperlinks in the content",
-              "\"Read more\" links"
+              "**Hyperlinks in the content**",
+              "\"Read more\"",
+              "Details of one item"
             ],
             [
-              "Breadcrumbs",
-              "Home › Events › Robotics Day"
+              "**Breadcrumbs**",
+              "Home › Events › Robotics Day",
+              "Shows where the user is"
             ],
             [
-              "Buttons and forms that move to the next step",
-              "\"Next\", \"Submit\""
+              "**Buttons / form steps**",
+              "\"Next\", \"Submit\"",
+              "Moving through a task"
             ],
             [
-              "Internal links (anchors)",
-              "`<a href=\"#rules\">Rules</a>` to a section of the page"
+              "**Internal links (anchors)**",
+              "`<a href=\"#rules\">Rules</a>` → `<h2 id=\"rules\">`",
+              "Jump to a section of a long page"
+            ],
+            [
+              "**Drop-down menu**",
+              "Events ▸ Sports / Science",
+              "Many sub-pages"
             ]
           ]
+        },
+        {
+          "type": "comparison",
+          "title": "Absolute and relative links",
+          "columns": [
+            "",
+            "Example",
+            "When"
+          ],
+          "rows": [
+            [
+              "**Absolute** URL",
+              "`<a href=\"https://nis.edu.kz/news\">`",
+              "A page on **another** website"
+            ],
+            [
+              "**Relative** URL",
+              "`<a href=\"register.php\">`, `<a href=\"../index.php\">`",
+              "A page of the **same** site — still works if the site moves to another domain"
+            ],
+            [
+              "**Anchor**",
+              "`<a href=\"#top\">Back to top</a>`",
+              "A place on the **same** page"
+            ],
+            [
+              "New tab",
+              "`<a href=\"…\" target=\"_blank\">`",
+              "External links"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php $page = basename($_SERVER[\"PHP_SELF\"]); ?>\n<nav class=\"menu\">\n  <a href=\"index.php\"    class=\"<?= $page == 'index.php'    ? 'active' : '' ?>\">Events</a>\n  <a href=\"register.php\" class=\"<?= $page == 'register.php' ? 'active' : '' ?>\">Register</a>\n</nav>",
+          "caption": "Highlighting the current page in the menu"
         }
       ]
     },
@@ -96,30 +1336,56 @@
       "blocks": [
         {
           "type": "code",
+          "language": "html",
+          "content": "<form action=\"register.php\" method=\"post\">\n  <label for=\"name\">Name:</label>\n  <input id=\"name\" name=\"name\" required>\n  <label for=\"grade\">Grade:</label>\n  <input id=\"grade\" name=\"grade\" type=\"number\" min=\"7\" max=\"12\" required>\n  <p>Events:</p>\n  <label><input type=\"checkbox\" name=\"events[]\" value=\"Robotics\"> Robotics</label>\n  <label><input type=\"checkbox\" name=\"events[]\" value=\"Chess\"> Chess</label>\n  <label><input type=\"checkbox\" name=\"events[]\" value=\"Debate\"> Debate</label>\n  <button>Register</button>\n</form>",
+          "caption": "The registration form (in register.php)"
+        },
+        {
+          "type": "code",
           "language": "php",
-          "content": "<?php\n$errors = [];\nif ($_SERVER[\"REQUEST_METHOD\"] === \"POST\") {\n    $name   = trim($_POST[\"name\"] ?? \"\");\n    $grade  = (int)($_POST[\"grade\"] ?? 0);\n    $events = $_POST[\"events\"] ?? [];            // check boxes → array\n\n    // validation\n    if ($name === \"\")                  $errors[] = \"Enter your name.\";\n    if ($grade < 7 || $grade > 12)     $errors[] = \"Grade must be 7–12.\";\n    if (count($events) === 0)          $errors[] = \"Choose at least one event.\";\n\n    if (!$errors) {\n        // selection: price depends on the number of events\n        $fee = count($events) >= 3 ? 1500 : 700 * count($events);\n\n        // iteration: list chosen events\n        echo \"<h2>Thank you, \" . htmlspecialchars($name) . \"!</h2><ul>\";\n        foreach ($events as $e) {\n            echo \"<li>\" . htmlspecialchars($e) . \"</li>\";\n        }\n        echo \"</ul><p>Fee: $fee ₸</p>\";\n    }\n}\nforeach ($errors as $err) echo \"<p class='error'>$err</p>\";\n?>",
-          "caption": "register.php — validate, decide and repeat"
+          "content": "<?php\nconst FEE_PER_EVENT = 700;      // tenge\nconst FEE_THREE_OR_MORE = 1500;\n\n$errors = [];\nif ($_SERVER[\"REQUEST_METHOD\"] === \"POST\") {           // the form was submitted\n    $name   = trim($_POST[\"name\"] ?? \"\");\n    $grade  = (int)($_POST[\"grade\"] ?? 0);\n    $events = $_POST[\"events\"] ?? [];                   // ticked check boxes → array\n\n    // validation\n    if ($name === \"\")                  $errors[] = \"Enter your name.\";\n    if ($grade < 7 || $grade > 12)     $errors[] = \"Grade must be 7–12.\";\n    if (count($events) === 0)          $errors[] = \"Choose at least one event.\";\n\n    if (!$errors) {\n        // selection: the fee depends on the number of events\n        if (count($events) >= 3) {\n            $fee = FEE_THREE_OR_MORE;\n        } else {\n            $fee = FEE_PER_EVENT * count($events);\n        }\n\n        // iteration: list the chosen events\n        echo \"<h2>Thank you, \" . htmlspecialchars($name) . \"!</h2><ul>\";\n        foreach ($events as $e) {\n            echo \"<li>\" . htmlspecialchars($e) . \"</li>\";\n        }\n        echo \"</ul><p>Fee: $fee ₸</p>\";\n    }\n}\nforeach ($errors as $err) {\n    echo \"<p class='error'>$err</p>\";\n}\n?>",
+          "caption": "register.php — validation, selection and iteration"
+        },
+        {
+          "type": "example",
+          "title": "Results for different inputs",
+          "content": "| Input | Output |\n|---|---|\n| Name \"Aruzhan\", grade 11, Robotics + Chess | Thank you, Aruzhan! · Robotics, Chess · Fee: 1400 ₸ |\n| Name \"Timur\", grade 9, all three events | Fee: **1500 ₸** (three or more) |\n| Name empty, grade 13, no events | Three error messages |"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\ninclude \"db.php\";                         // opens $conn\n$stmt = mysqli_prepare($conn, \"INSERT INTO Registration (Name, Grade, Events, Fee) VALUES (?, ?, ?, ?)\");\n$list = implode(\", \", $events);           // array → \"Robotics, Chess\"\nmysqli_stmt_bind_param($stmt, \"sisi\", $name, $grade, $list, $fee);\nmysqli_stmt_execute($stmt);\n?>",
+          "caption": "Saving the registration in the database"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "document.querySelector(\"form\").addEventListener(\"submit\", function (e) {\n  const ticked = document.querySelectorAll(\"input[name='events[]']:checked\").length;\n  if (ticked === 0) {\n    e.preventDefault();                                   // do not send the form\n    alert(\"Choose at least one event.\");\n  }\n});",
+          "caption": "Client-side check before the form is sent"
         },
         {
           "type": "warning",
-          "content": "Use `htmlspecialchars()` when displaying user input, so that a user cannot inject HTML or JavaScript into the page (**XSS**)."
+          "content": "- Use `htmlspecialchars()` when displaying user input, so that a user cannot inject HTML or JavaScript into the page (**XSS**).\n- Use **prepared statements** for database queries (prevents **SQL injection**).\n- Repeat every check on the **server** — client-side checks can be switched off."
         }
       ]
     },
     {
-      "title": "Good programming style in a project",
+      "title": "Good programming style and testing",
       "objectives": [
         "11.5.4.9"
       ],
       "blocks": [
         {
-          "type": "list",
+          "type": "cards",
           "items": [
-            "Separate **content (HTML)**, **style (CSS file)** and **logic (PHP/JS)**.",
-            "Put repeated code (header, navigation, database connection) in one file and `include` it on each page.",
-            "Meaningful names, comments, indentation, constants instead of magic numbers.",
-            "Validate all input and handle errors with clear messages.",
-            "Test every page with normal, boundary and erroneous data."
+            {
+              "title": "Style rules in a project",
+              "content": "- Separate **content (HTML)**, **style (CSS file)** and **logic (PHP / JS)**.\n- Put repeated code (header, navigation, database connection) in **one file** and `include` it on each page.\n- **Meaningful names**, comments, indentation, **constants** instead of magic numbers.\n- **Validate** all input and handle errors with clear messages."
+            },
+            {
+              "title": "Why it matters",
+              "content": "- Several people can work on the site at the same time.\n- A change to the menu or the colours is made **once**.\n- Errors are easier to find and fix; the code is easier to extend."
+            }
           ]
         },
         {
@@ -127,8 +1393,104 @@
           "language": "php",
           "content": "<?php include \"header.php\"; include \"db.php\"; ?>\n<main> … page content … </main>\n<?php include \"footer.php\"; ?>",
           "caption": "Reusing code with include"
+        },
+        {
+          "type": "comparison",
+          "title": "Test plan for the registration page",
+          "columns": [
+            "Test",
+            "Type",
+            "Data",
+            "Expected result"
+          ],
+          "rows": [
+            [
+              "1",
+              "Normal",
+              "Aruzhan, 11, Robotics + Chess",
+              "Fee 1400 ₸, events listed"
+            ],
+            [
+              "2",
+              "Boundary",
+              "Grade 7 and grade 12",
+              "Accepted"
+            ],
+            [
+              "3",
+              "Boundary",
+              "Exactly 3 events",
+              "Fee 1500 ₸"
+            ],
+            [
+              "4",
+              "Erroneous",
+              "Grade 13",
+              "\"Grade must be 7–12.\""
+            ],
+            [
+              "5",
+              "Erroneous",
+              "No event ticked",
+              "\"Choose at least one event.\""
+            ],
+            [
+              "6",
+              "Erroneous",
+              "Name `<b>Hi</b>`",
+              "Shown as text, not bold (htmlspecialchars)"
+            ],
+            [
+              "7",
+              "Navigation",
+              "Click every menu link",
+              "Correct page opens; active link highlighted"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.3.2",
+        "11.5.3.3",
+        "11.5.4.6",
+        "11.5.4.9"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write HTML for a navigation bar with links to index.php and register.php. [2]**\n`<nav>` with `<a href=\"index.php\">Home</a>` (1) and `<a href=\"register.php\">Register</a>` (1).\n\n**Q: Explain why the site uses one external CSS file. [2]**\nAll pages are styled from **one file**, so the design is **consistent** (1) and a change is made **once** for the whole site (1).\n\n**Q: Write PHP that outputs \"Free\" if the number of events is 0, otherwise the fee of 700 per event. [3]**\n`if (count($events) == 0)` (1) `echo \"Free\";` `else echo 700 * count($events);` (1 calculation, 1 output).\n\n**Q: Explain why include files are used for the header and the menu. [2]**\nThe code is written **once** and reused on every page (1), so a change to the menu updates **all pages** and avoids repeated code (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting `name` attributes, or `[]` for check boxes that should arrive as an array.\n- Using absolute links for pages of the same site — the links break when the site moves.\n- Processing the form before checking `REQUEST_METHOD` — errors appear when the page is first opened.\n- Copying the same header into every file instead of using `include`."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the pages and shared files of a small web application.",
+            "Write a navigation bar and the CSS that highlights the active link.",
+            "What is the difference between absolute and relative links?",
+            "Write PHP that validates a grade and a name from a form.",
+            "Use selection and iteration to calculate and list a total.",
+            "Write three tests for a registration page."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Web application development — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write code in HTML, CSS, PHP, JavaScript or pseudocode as stated. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "wad-exam-1",
+      "wad-exam-2",
+      "wad-exam-3"
+    ]
+  }
 }

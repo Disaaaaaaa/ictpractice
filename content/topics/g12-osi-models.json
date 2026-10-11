@@ -1,10 +1,1340 @@
 {
   "topic": "g12-osi-models",
-  "questions": [],
-  "summary": "The seven layers of the OSI reference model, the function of each layer, typical protocols and devices, and how data is encapsulated.",
+  "questions": [
+    {
+      "key": "osi-order",
+      "title": "Order of the layers",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Complete the names of the missing OSI layers.",
+      "content": {
+        "columns": [
+          "Layer number",
+          "Layer name"
+        ],
+        "rows": 7,
+        "prefill": [
+          [
+            "7",
+            "Application"
+          ],
+          [
+            "6",
+            null
+          ],
+          [
+            "5",
+            "Session"
+          ],
+          [
+            "4",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "1",
+            "Physical"
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "6 Presentation; 4 Transport; 3 Network; 2 Data link (1 each)",
+        "points": [
+          {
+            "criterion": "Presentation",
+            "marks": 1
+          },
+          {
+            "criterion": "Transport",
+            "marks": 1
+          },
+          {
+            "criterion": "Network",
+            "marks": 1
+          },
+          {
+            "criterion": "Data link",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null
+            ],
+            [
+              null,
+              "Presentation||Presentation layer"
+            ],
+            [
+              null,
+              null
+            ],
+            [
+              null,
+              "Transport||Transport layer"
+            ],
+            [
+              null,
+              "Network||Network layer"
+            ],
+            [
+              null,
+              "Data link||Data link layer||Data-link||Datalink"
+            ],
+            [
+              null,
+              null
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-function-match",
+      "title": "Layer functions",
+      "type": "matching",
+      "marks": 7,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Match each layer to its function.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Application"
+          },
+          {
+            "key": "L2",
+            "text": "Presentation"
+          },
+          {
+            "key": "L3",
+            "text": "Session"
+          },
+          {
+            "key": "L4",
+            "text": "Transport"
+          },
+          {
+            "key": "L5",
+            "text": "Network"
+          },
+          {
+            "key": "L6",
+            "text": "Data link"
+          },
+          {
+            "key": "L7",
+            "text": "Physical"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Provides network services such as HTTP and SMTP to applications"
+          },
+          {
+            "key": "R2",
+            "text": "Encrypts, compresses and converts data formats"
+          },
+          {
+            "key": "R3",
+            "text": "Opens, manages and closes connections between applications"
+          },
+          {
+            "key": "R4",
+            "text": "Splits data into segments and ensures reliable end-to-end delivery"
+          },
+          {
+            "key": "R5",
+            "text": "Routes packets between networks using IP addresses"
+          },
+          {
+            "key": "R6",
+            "text": "Puts bits into frames and uses MAC addresses on one link"
+          },
+          {
+            "key": "R7",
+            "text": "Sends raw bits as electrical, light or radio signals"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L7–R7.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5",
+            "L6": "R6",
+            "L7": "R7"
+          }
+        }
+      }
+    },
+    {
+      "key": "osi-ip-layer",
+      "title": "IP addresses",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "name",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Name the OSI layer that uses IP addresses.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Network layer (1)",
+        "points": [
+          {
+            "criterion": "Network",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Network layer",
+        "accepted": {
+          "values": [
+            "Network layer",
+            "Network",
+            "Layer 3",
+            "3"
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-encrypt-mcq",
+      "title": "Encryption",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Which OSI layer is responsible for **encryption** and **compression** of data?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Session"
+        },
+        {
+          "key": "B",
+          "content": "Presentation"
+        },
+        {
+          "key": "C",
+          "content": "Transport"
+        },
+        {
+          "key": "D",
+          "content": "Data link"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "osi-pdu",
+      "title": "Data units",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Complete the name of the data unit at each layer. Choose from **bits, frame, packet, segment**.",
+      "content": {
+        "columns": [
+          "Layer",
+          "Data unit"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Transport",
+            null
+          ],
+          [
+            "Network",
+            null
+          ],
+          [
+            "Data link",
+            null
+          ],
+          [
+            "Physical",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "segment; packet; frame; bits (1 each)",
+        "points": [
+          {
+            "criterion": "Segment",
+            "marks": 1
+          },
+          {
+            "criterion": "Packet",
+            "marks": 1
+          },
+          {
+            "criterion": "Frame",
+            "marks": 1
+          },
+          {
+            "criterion": "Bits",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "segment||segments"
+            ],
+            [
+              null,
+              "packet||packets"
+            ],
+            [
+              null,
+              "frame||frames"
+            ],
+            [
+              null,
+              "bits||bit"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-devices",
+      "title": "Devices and layers",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the OSI layer at which each device mainly works.",
+      "content": {
+        "columns": [
+          "Device",
+          "Physical (1)",
+          "Data link (2)",
+          "Network (3)"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "Router",
+            null,
+            null,
+            null
+          ],
+          [
+            "Switch",
+            null,
+            null,
+            null
+          ],
+          [
+            "Hub",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Router – network; switch – data link; hub – physical (1 each)",
+        "points": [
+          {
+            "criterion": "Router",
+            "marks": 1
+          },
+          {
+            "criterion": "Switch",
+            "marks": 1
+          },
+          {
+            "criterion": "Hub",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-transport",
+      "title": "Transport layer",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Describe **two** functions of the transport layer.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): splits data into segments; adds port numbers so data reaches the right application; sequence numbers / correct order; error control / acknowledgements; retransmission of lost segments; flow control",
+        "points": [
+          {
+            "criterion": "Function 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Function 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It splits data into segments with port numbers so the data reaches the right application, and it checks that all segments arrive, resending any that are lost."
+      }
+    },
+    {
+      "key": "osi-datalink",
+      "title": "Data link layer",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Describe the role of the data link layer.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): organises bits into frames; adds source / destination MAC addresses; error detection on one link (trailer / checksum); controls access to the medium; used by switches / NICs",
+        "points": [
+          {
+            "criterion": "Point 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Point 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It packs the data into frames with source and destination MAC addresses and adds a checksum so errors on the link can be detected."
+      }
+    },
+    {
+      "key": "osi-encapsulation",
+      "title": "Encapsulation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Explain what is meant by **encapsulation** in the OSI model.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- As data moves down the layers each layer adds its own header (data link also a trailer) with control information (1)\n- the receiver removes the headers in reverse order as data moves up (decapsulation) (1)",
+        "points": [
+          {
+            "criterion": "Headers added going down",
+            "marks": 1
+          },
+          {
+            "criterion": "Removed going up",
+            "marks": 1
+          }
+        ],
+        "model_answer": "On the way down each layer wraps the data in its own header (and the data link layer adds a trailer); at the receiver each layer removes its header on the way up."
+      }
+    },
+    {
+      "key": "osi-encap-order",
+      "title": "Order of headers",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Which shows the correct structure of a frame on an Ethernet network?",
+      "options": [
+        {
+          "key": "A",
+          "content": "[IP header][MAC header][TCP header][data]"
+        },
+        {
+          "key": "B",
+          "content": "[MAC header][IP header][TCP header][data][trailer]"
+        },
+        {
+          "key": "C",
+          "content": "[TCP header][IP header][MAC header][data]"
+        },
+        {
+          "key": "D",
+          "content": "[data][TCP header][IP header][MAC header]"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "osi-protocols",
+      "title": "Protocols and layers",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Write the OSI layer at which each protocol works.",
+      "content": {
+        "columns": [
+          "Protocol",
+          "Layer"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "HTTP",
+            null
+          ],
+          [
+            "TCP",
+            null
+          ],
+          [
+            "IP",
+            null
+          ],
+          [
+            "Ethernet",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Application; transport; network; data link (1 each)",
+        "points": [
+          {
+            "criterion": "HTTP",
+            "marks": 1
+          },
+          {
+            "criterion": "TCP",
+            "marks": 1
+          },
+          {
+            "criterion": "IP",
+            "marks": 1
+          },
+          {
+            "criterion": "Ethernet",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "Application||Application layer||7"
+            ],
+            [
+              null,
+              "Transport||Transport layer||4"
+            ],
+            [
+              null,
+              "Network||Network layer||3"
+            ],
+            [
+              null,
+              "Data link||Data link layer||2||Data-link"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-tcpip",
+      "title": "OSI and TCP/IP",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Compare the OSI model with the TCP/IP model.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): OSI 7 layers vs TCP/IP 4; OSI is a reference / theoretical model vs TCP/IP is used in practice on the Internet; TCP/IP combines application, presentation and session into one application layer; TCP/IP combines data link and physical into network access",
+        "points": [
+          {
+            "criterion": "Point 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Point 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "OSI has seven layers and is a reference model, whereas TCP/IP has four layers and is the model the Internet actually uses; TCP/IP joins OSI's application, presentation and session layers into one application layer."
+      }
+    },
+    {
+      "key": "osi-benefits",
+      "title": "Benefits of layers",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Give **two** benefits of using a layered network model.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): each layer developed / changed independently; standards allow equipment from different manufacturers to work together; easier troubleshooting; easier to learn / complex task divided into smaller parts",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Each layer can be changed without affecting the others. 2 Equipment from different manufacturers can work together because it follows the same standards."
+      }
+    },
+    {
+      "key": "osi-troubleshoot",
+      "title": "Where is the problem?",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "practice": true,
+      "text": "Identify the OSI layer most likely responsible for each problem.",
+      "content": {
+        "columns": [
+          "Problem",
+          "Layer"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "The network cable is damaged",
+            null
+          ],
+          [
+            "A router has no route to the destination network",
+            null
+          ],
+          [
+            "The browser shows 'DNS address could not be found'",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Physical; network; application (1 each)",
+        "points": [
+          {
+            "criterion": "Physical",
+            "marks": 1
+          },
+          {
+            "criterion": "Network",
+            "marks": 1
+          },
+          {
+            "criterion": "Application",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "Physical||Physical layer||1"
+            ],
+            [
+              null,
+              "Network||Network layer||3"
+            ],
+            [
+              null,
+              "Application||Application layer||7"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "osi-exam-1",
+      "title": "The seven layers",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The OSI model divides network communication into seven layers.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "osi-exam-1a",
+          "part_label": "(a)",
+          "title": "Names",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the missing layer names.",
+          "content": {
+            "columns": [
+              "Layer",
+              "Name"
+            ],
+            "rows": 7,
+            "prefill": [
+              [
+                "7",
+                "Application"
+              ],
+              [
+                "6",
+                null
+              ],
+              [
+                "5",
+                "Session"
+              ],
+              [
+                "4",
+                "Transport"
+              ],
+              [
+                "3",
+                null
+              ],
+              [
+                "2",
+                null
+              ],
+              [
+                "1",
+                "Physical"
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Presentation (1); Network (1); Data link (1)",
+            "points": [
+              {
+                "criterion": "Presentation",
+                "marks": 1
+              },
+              {
+                "criterion": "Network",
+                "marks": 1
+              },
+              {
+                "criterion": "Data link",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  "Presentation||Presentation layer"
+                ],
+                [
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  null
+                ],
+                [
+                  null,
+                  "Network||Network layer"
+                ],
+                [
+                  null,
+                  "Data link||Data link layer||Data-link||Datalink"
+                ],
+                [
+                  null,
+                  null
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "osi-exam-1b",
+          "part_label": "(b)",
+          "title": "Functions",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **one** function of each layer.",
+          "content": {
+            "fields": [
+              {
+                "key": "app",
+                "label": "Application",
+                "lines": 1
+              },
+              {
+                "key": "pres",
+                "label": "Presentation",
+                "lines": 1
+              },
+              {
+                "key": "trans",
+                "label": "Transport",
+                "lines": 1
+              },
+              {
+                "key": "net",
+                "label": "Network",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Application: network services / protocols for applications, e.g. HTTP, SMTP (1). Presentation: encryption / compression / format conversion (1). Transport: segments, ports, reliable end-to-end delivery, retransmission (1). Network: logical (IP) addressing and routing of packets (1)",
+            "points": [
+              {
+                "criterion": "Application",
+                "marks": 1
+              },
+              {
+                "criterion": "Presentation",
+                "marks": 1
+              },
+              {
+                "criterion": "Transport",
+                "marks": 1
+              },
+              {
+                "criterion": "Network",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Application: provides services such as HTTP to programs. Presentation: encrypts and compresses data. Transport: splits data into segments and resends lost ones. Network: routes packets using IP addresses."
+          }
+        },
+        {
+          "key": "osi-exam-1c",
+          "part_label": "(c)",
+          "title": "IP layer",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "name",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name the OSI layer that uses IP addresses.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Network layer (1)",
+            "points": [
+              {
+                "criterion": "Network",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Network layer",
+            "accepted": {
+              "values": [
+                "Network layer",
+                "Network",
+                "Layer 3",
+                "3"
+              ]
+            }
+          }
+        },
+        {
+          "key": "osi-exam-1d",
+          "part_label": "(d)",
+          "title": "MAC layer",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "name",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name the OSI layer that uses MAC addresses.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Data link layer (1)",
+            "points": [
+              {
+                "criterion": "Data link",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Data link layer",
+            "accepted": {
+              "values": [
+                "Data link layer",
+                "Data link",
+                "Layer 2",
+                "2",
+                "Data-link layer"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "osi-exam-2",
+      "title": "Sending a web request",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A student opens https://www.nis.edu.kz in a browser. The request passes down the OSI layers of the student's computer.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "osi-exam-2a",
+          "part_label": "(a)",
+          "title": "Encapsulation",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what happens to the request at the transport, network, data link and physical layers.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Transport: split into segments, port number 443 / sequence numbers added (1); Network: IP addresses added → packets, routed (1); Data link: MAC addresses + trailer → frames (1); Physical: sent as bits / signals (1)",
+            "points": [
+              {
+                "criterion": "Transport",
+                "marks": 1
+              },
+              {
+                "criterion": "Network",
+                "marks": 1
+              },
+              {
+                "criterion": "Data link",
+                "marks": 1
+              },
+              {
+                "criterion": "Physical",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Transport: TCP splits the request into segments with port 443 and sequence numbers. Network: IP adds source and destination IP addresses to make packets. Data link: MAC addresses and a checksum trailer are added to make frames. Physical: the frames are sent as electrical or radio signals."
+          }
+        },
+        {
+          "key": "osi-exam-2b",
+          "part_label": "(b)",
+          "title": "HTTPS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the layer where the request is encrypted and explain why this is needed.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Presentation layer (1); so data cannot be read if intercepted / keeps passwords private (1)",
+            "points": [
+              {
+                "criterion": "Presentation",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The presentation layer encrypts it so that anyone intercepting the data cannot read it."
+          }
+        },
+        {
+          "key": "osi-exam-2c",
+          "part_label": "(c)",
+          "title": "Receiver",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what happens to the data when it reaches the web server.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Data passes up the layers in reverse order (1); each layer removes its header / decapsulation until the request reaches the web server application (1)",
+            "points": [
+              {
+                "criterion": "Up the layers",
+                "marks": 1
+              },
+              {
+                "criterion": "Headers removed",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It goes up the server's layers from physical to application, and each layer removes its own header until the HTTP request reaches the web server software."
+          }
+        }
+      ]
+    },
+    {
+      "key": "osi-exam-3",
+      "title": "Layered models",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Network designers use layered models such as OSI and TCP/IP.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "osi-exam-3a",
+          "part_label": "(a)",
+          "title": "Benefits",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **two** benefits of using a layered model.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): independent development / changes per layer; interoperability via standards; easier troubleshooting; complex problem divided into smaller parts",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 One layer can be changed (e.g. cable to Wi-Fi) without changing the others. 2 Faults are easier to find because they can be located in one layer."
+          }
+        },
+        {
+          "key": "osi-exam-3b",
+          "part_label": "(b)",
+          "title": "TCP/IP mapping",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the TCP/IP layer that matches each OSI layer. Choose from **Application, Transport, Internet, Network access**.",
+          "content": {
+            "columns": [
+              "OSI layer",
+              "TCP/IP layer"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Session",
+                null
+              ],
+              [
+                "Network",
+                null
+              ],
+              [
+                "Physical",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Application; Internet; Network access (1 each)",
+            "points": [
+              {
+                "criterion": "Application",
+                "marks": 1
+              },
+              {
+                "criterion": "Internet",
+                "marks": 1
+              },
+              {
+                "criterion": "Network access",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "Application"
+                ],
+                [
+                  null,
+                  "Internet"
+                ],
+                [
+                  null,
+                  "Network access||Link||Network access (link)"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "osi-exam-3c",
+          "part_label": "(c)",
+          "title": "Devices",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a router is said to work at a higher OSI layer than a switch.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Router works at the network layer (3) using IP addresses to route between networks (1); switch works at the data link layer (2) using MAC addresses within a LAN (1)",
+            "points": [
+              {
+                "criterion": "Router",
+                "marks": 1
+              },
+              {
+                "criterion": "Switch",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A router reads IP addresses and routes packets between networks (layer 3), while a switch only reads MAC addresses to forward frames inside one LAN (layer 2)."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "The seven layers of the OSI reference model — the function of each layer, its data unit, typical protocols and devices — how data is encapsulated and decapsulated on its way through the layers, a worked example of a web request, the TCP/IP model compared with OSI, and the benefits of a layered model.",
   "theory": [
     {
-      "title": "The OSI model",
+      "title": "The OSI reference model",
       "objectives": [
         "12.6.1.2"
       ],
@@ -12,7 +1342,7 @@
         {
           "type": "definition",
           "term": "OSI model (Open Systems Interconnection)",
-          "content": "A **reference model with seven layers** that describes how data is sent across a network. Each layer has a specific function, **provides services to the layer above** and uses the layer below, so that hardware and software from different makers can work together."
+          "content": "A **reference model with seven layers**, published by the ISO, that describes how data is sent from one device to another across a network. Each layer has a **specific function**, **provides services to the layer above** and **uses the services of the layer below**, so that hardware and software from different manufacturers can work together."
         },
         {
           "type": "comparison",
@@ -27,59 +1357,163 @@
             [
               "7",
               "**Application**",
-              "Network services for user applications; interface between the user's program and the network",
-              "HTTP, HTTPS, FTP, SMTP, POP3, DNS"
+              "Network services for user applications; the interface between the user's program and the network",
+              "HTTP, HTTPS, FTP, SMTP, POP3, IMAP, DNS"
             ],
             [
               "6",
               "**Presentation**",
-              "Translates data formats, **encryption/decryption**, **compression**",
-              "SSL/TLS, JPEG, ASCII/Unicode"
+              "Translates data formats, **encryption / decryption**, **compression**",
+              "SSL/TLS encryption, JPEG, MP3, ASCII / Unicode"
             ],
             [
               "5",
               "**Session**",
-              "Opens, manages and **closes sessions** (connections) between applications; synchronisation",
-              "NetBIOS, RPC"
+              "Opens, manages and **closes sessions** (connections) between applications; synchronisation and checkpoints",
+              "NetBIOS, RPC, session tokens"
             ],
             [
               "4",
               "**Transport**",
-              "**End-to-end** delivery; splits data into **segments**, numbers them, error control, flow control, retransmission",
-              "**TCP**, UDP; port numbers"
+              "**End-to-end** delivery between programs; splits data into **segments**, numbers them, error and flow control, retransmission",
+              "**TCP**, **UDP**; **port numbers** (80, 443)"
             ],
             [
               "3",
               "**Network**",
-              "**Logical addressing** (IP) and **routing** of **packets** between networks",
-              "**IP**, ICMP; **routers**"
+              "**Logical addressing** (IP addresses) and **routing** of **packets** between networks",
+              "**IP**, ICMP (ping); **routers**"
             ],
             [
               "2",
               "**Data link**",
-              "**Physical (MAC) addressing**, organising bits into **frames**, error detection on one link",
-              "Ethernet, Wi-Fi (802.11); **switches**, NICs"
+              "**Physical (MAC) addressing**, organising bits into **frames**, error detection on one link, access to the medium",
+              "Ethernet, Wi-Fi (802.11); **switches**, bridges, NICs"
             ],
             [
               "1",
               "**Physical**",
-              "Transmits raw **bits** as electrical, light or radio signals; cables, connectors, voltages",
-              "Cables, fibre, radio; **hubs**, **repeaters**"
+              "Transmits raw **bits** as electrical, light or radio signals; cables, connectors, voltages, frequencies",
+              "Copper, fibre, radio; **hubs**, **repeaters**, modems"
             ]
           ]
         },
         {
           "type": "exam_tip",
-          "content": "Memory aid from layer 7 down: \"**A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing\" — Application, Presentation, Session, Transport, Network, Data link, Physical."
+          "content": "From layer **7 down**: \"**A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing\" — Application, Presentation, Session, Transport, Network, Data link, Physical. From layer **1 up**: \"**P**lease **D**o **N**ot **T**hrow **S**ausage **P**izza **A**way\"."
         },
         {
-          "type": "heading",
-          "text": "Encapsulation",
-          "level": 2
+          "type": "cards",
+          "items": [
+            {
+              "title": "Upper layers (7–5) — \"the software\"",
+              "content": "- Deal with the **meaning** of the data for the user's application.\n- Implemented in **software** on the end devices."
+            },
+            {
+              "title": "Transport layer (4) — \"the link between\"",
+              "content": "- Makes sure the data from one **program** reaches the right **program** on the other device, complete and in order."
+            },
+            {
+              "title": "Lower layers (3–1) — \"the network\"",
+              "content": "- Move the data **across the network**: routing, local delivery, signals.\n- Implemented in network **hardware** and drivers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Each layer in more detail",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "7 Application layer",
+              "content": "- Provides **network services** to applications: web browsing (HTTP), e-mail (SMTP, POP3, IMAP), file transfer (FTP), name lookup (DNS).\n- It is **not** the application itself (the browser) but the protocols the application uses."
+            },
+            {
+              "title": "6 Presentation layer",
+              "content": "- Makes data understandable to the receiver: **converts formats** (character codes, image and video formats).\n- **Encrypts** and **decrypts** data (TLS in HTTPS) and **compresses** it."
+            },
+            {
+              "title": "5 Session layer",
+              "content": "- **Establishes, maintains and ends** a session (dialogue) between two applications.\n- Adds **checkpoints**, so a long transfer can restart from the last checkpoint instead of from the beginning."
+            },
+            {
+              "title": "4 Transport layer",
+              "content": "- Splits data into **segments** and adds **port numbers** so the data reaches the right application.\n- **TCP**: reliable — acknowledgements, retransmission of lost segments, correct order, flow control. **UDP**: fast, no checks (video calls, games)."
+            },
+            {
+              "title": "3 Network layer",
+              "content": "- Adds **source and destination IP addresses** → **packets**.\n- **Routers** choose the **best route** between networks."
+            },
+            {
+              "title": "2 Data link layer",
+              "content": "- Adds **source and destination MAC addresses** and an error-checking **trailer** → **frames**.\n- Controls access to the shared medium; **switches** forward frames inside a LAN."
+            },
+            {
+              "title": "1 Physical layer",
+              "content": "- Converts frames into **bits** and sends them as **signals** — voltages on copper, light pulses in fibre, radio waves.\n- Defines cables, connectors, pin layouts and transmission speed."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "content": "When data is sent, each layer **adds its own header** (the data link layer also adds a trailer); the receiver removes them in reverse order."
+          "type": "comparison",
+          "title": "Data units, addresses and devices",
+          "columns": [
+            "Layer",
+            "Data unit (PDU)",
+            "Address used",
+            "Devices"
+          ],
+          "rows": [
+            [
+              "7–5 Application, Presentation, Session",
+              "**Data** (message)",
+              "— (URLs, user names)",
+              "Hosts, gateways"
+            ],
+            [
+              "4 Transport",
+              "**Segment** (TCP) / datagram (UDP)",
+              "**Port number**",
+              "— (end devices)"
+            ],
+            [
+              "3 Network",
+              "**Packet**",
+              "**IP address**",
+              "**Router**, layer-3 switch"
+            ],
+            [
+              "2 Data link",
+              "**Frame**",
+              "**MAC address**",
+              "**Switch**, bridge, NIC, wireless access point"
+            ],
+            [
+              "1 Physical",
+              "**Bits**",
+              "—",
+              "**Hub**, **repeater**, cables, modem"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Encapsulation and decapsulation",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Encapsulation",
+          "content": "As data moves **down** the layers of the sender, each layer **adds its own header** (the data link layer also adds a **trailer**) containing the control information it needs. At the receiver, the data moves **up** the layers and each layer **removes** its header — **decapsulation**."
         },
         {
           "type": "diagram",
@@ -88,46 +1522,163 @@
           "caption": "Encapsulation going down the layers"
         },
         {
+          "type": "definition",
+          "term": "Peer-to-peer communication between layers",
+          "content": "Each layer communicates **logically** with the **same layer** on the other device: the transport layer of the sender talks to the transport layer of the receiver through the TCP header, while physically the data goes down to layer 1, across the medium and back up."
+        },
+        {
+          "type": "steps",
+          "title": "Example — a browser requests a web page",
+          "items": [
+            "**7 Application**: the browser creates an **HTTP GET** request for `/index.html`.",
+            "**6 Presentation**: the request is **encrypted** with TLS (HTTPS) and encoded as text.",
+            "**5 Session**: a **session** with the web server is opened and kept for the following requests.",
+            "**4 Transport**: TCP splits the data into **segments**, adds **port 443** and sequence numbers.",
+            "**3 Network**: IP adds the source and destination **IP addresses** → **packets**; routers forward them.",
+            "**2 Data link**: Ethernet / Wi-Fi adds the **MAC address** of the next device (the router) and a checksum → **frames**.",
+            "**1 Physical**: the frames are sent as **electrical or radio signals**.",
+            "At the server the layers work **in reverse**: bits → frames → packets → segments → the HTTP request is given to the web server software."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Where common problems occur",
+          "columns": [
+            "Problem",
+            "Layer"
+          ],
+          "rows": [
+            [
+              "Unplugged or damaged cable, weak Wi-Fi signal",
+              "1 Physical"
+            ],
+            [
+              "Switch port fault, MAC address conflict",
+              "2 Data link"
+            ],
+            [
+              "Wrong IP address, router down, no route",
+              "3 Network"
+            ],
+            [
+              "Port blocked by a firewall, lost segments",
+              "4 Transport"
+            ],
+            [
+              "Certificate (encryption) error",
+              "6 Presentation"
+            ],
+            [
+              "Wrong URL, DNS error, web server error 404",
+              "7 Application"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "OSI and TCP/IP",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "blocks": [
+        {
           "type": "comparison",
           "title": "OSI model vs TCP/IP model",
           "columns": [
             "OSI layers",
-            "TCP/IP layer"
+            "TCP/IP layer",
+            "Protocols"
           ],
           "rows": [
             [
-              "Application, Presentation, Session",
-              "Application"
+              "7 Application, 6 Presentation, 5 Session",
+              "**Application**",
+              "HTTP, HTTPS, FTP, SMTP, POP3, DNS"
             ],
             [
-              "Transport",
-              "Transport"
+              "4 Transport",
+              "**Transport**",
+              "TCP, UDP"
             ],
             [
-              "Network",
-              "Internet"
+              "3 Network",
+              "**Internet**",
+              "IP, ICMP"
             ],
             [
-              "Data link, Physical",
-              "Network access (link)"
+              "2 Data link, 1 Physical",
+              "**Network access (link)**",
+              "Ethernet, Wi-Fi"
             ]
           ]
         },
         {
-          "type": "heading",
-          "text": "Benefits of a layered model",
-          "level": 2
+          "type": "cards",
+          "items": [
+            {
+              "title": "OSI model",
+              "content": "- **7** layers; a **reference / teaching** model.\n- Separates presentation and session clearly.\n- Designed before the protocols — general."
+            },
+            {
+              "title": "TCP/IP model",
+              "content": "- **4** layers; the **practical** model the Internet actually uses.\n- Upper three OSI layers are combined into one application layer.\n- Designed around existing protocols (TCP and IP)."
+            }
+          ]
         },
         {
-          "type": "list",
+          "type": "cards",
           "items": [
-            "Each layer can be **designed, changed and tested independently**.",
-            "**Standards** let equipment from different manufacturers work together.",
-            "Easier **troubleshooting** — a problem can be located in one layer.",
-            "Easier to learn and teach networking."
+            {
+              "title": "Benefits of a layered model",
+              "content": "- Each layer can be **designed, changed and tested independently** — e.g. Wi-Fi replaced Ethernet cable without changing HTTP.\n- **Standards** let equipment and software from **different manufacturers** work together.\n- Easier **troubleshooting** — a problem can be located in one layer.\n- Easier to **learn and teach** networking; complex communication is broken into smaller tasks."
+            },
+            {
+              "title": "Drawbacks",
+              "content": "- Extra **headers** at each layer add overhead (more data to send).\n- Some functions are **repeated** in several layers (e.g. error checking)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.6.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Name the OSI layer that uses IP addresses. [1]**\n**Network layer** (layer 3) (1).\n\n**Q: Describe the functions of the transport layer. [2]**\nSplits data into **segments** and adds **port numbers** / sequence numbers (1); ensures **reliable end-to-end delivery** — error checking, retransmission of lost segments, correct order (1).\n\n**Q: State the layer responsible for encryption and data compression. [1]**\n**Presentation layer** (1).\n\n**Q: Explain what is meant by encapsulation. [2]**\nEach layer **adds a header** (and the data link layer a trailer) with its control information as data passes **down** the layers (1); the receiver **removes** them in reverse order as data passes **up** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Putting the layers in the wrong order — Physical is layer **1**, Application layer **7**.\n- Saying the application layer **is** the browser — it is the **protocols** used by the application.\n- Mixing up **IP** (network layer, routers) and **MAC** (data link layer, switches).\n- Calling a layer-2 unit a \"packet\" — it is a **frame**; layer 4 is a **segment**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the seven layers in order with one function of each.",
+            "Which layer adds port numbers? IP addresses? MAC addresses?",
+            "Name a device that works at layers 1, 2 and 3.",
+            "Describe the encapsulation of an e-mail sent with SMTP.",
+            "Compare the OSI model with the TCP/IP model.",
+            "Give three benefits of a layered network model."
           ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "OSI model — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "questions": [
+      "osi-exam-1",
+      "osi-exam-2",
+      "osi-exam-3"
+    ]
+  }
 }

@@ -1,10 +1,1570 @@
 {
   "topic": "g11-basic-concepts-of-a-database",
-  "questions": [],
-  "summary": "What a relational database is and why it is used, the key terms table, record, field (attribute) and index, and primary, foreign and composite keys.",
+  "questions": [
+    {
+      "key": "db-define-relational",
+      "title": "Relational database",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.1"
+      ],
+      "practice": true,
+      "text": "Describe what is meant by a **relational database**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Data is stored in several tables (relations), each about one entity (1)\n- the tables are linked by keys — a primary key in one table is a foreign key in another (1)",
+        "points": [
+          {
+            "criterion": "Several tables",
+            "marks": 1
+          },
+          {
+            "criterion": "Linked by keys",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A database that stores data in several tables, each about one entity, which are linked to each other using primary and foreign keys."
+      }
+    },
+    {
+      "key": "db-advantage",
+      "title": "Advantage of a relational database",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.1"
+      ],
+      "practice": true,
+      "text": "State **one** advantage of using a relational database.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Any one (1): reduced data redundancy / less repeated data; maintains data consistency / improves data integrity; changes in one table are automatically reflected; less storage; complex queries across tables; better security / sharing",
+        "points": [
+          {
+            "criterion": "Valid advantage",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It reduces data redundancy, because each item of data is stored only once."
+      }
+    },
+    {
+      "key": "db-redundancy",
+      "title": "Problems of a flat file",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.1"
+      ],
+      "practice": true,
+      "text": "| LoanID | Student | Class | Book |\n|---|---|---|---|\n| 1 | Aruzhan Bekova | 11A | The Hobbit |\n| 2 | Aruzhan Bekova | 11A | Abai Zholy |\n| 3 | Aruzhan Bekova | 11A | Dune |\n\nA library stores loans in this single table. Explain **one** problem this causes when Aruzhan moves to class 11B.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Aruzhan's class is stored in every row / data redundancy (1)\n- every row must be updated; if one is missed the data becomes inconsistent (update anomaly) (1)",
+        "points": [
+          {
+            "criterion": "Repeated data",
+            "marks": 1
+          },
+          {
+            "criterion": "Every row must change / inconsistency",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Her class is stored in all three rows, so all of them must be changed; if one is missed, the table shows two different classes for her and becomes inconsistent."
+      }
+    },
+    {
+      "key": "db-flat-vs-rel-tick",
+      "title": "Flat file or relational",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes a **flat-file** or a **relational** database.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Flat file",
+          "Relational"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "All the data is held in one table",
+            null,
+            null
+          ],
+          [
+            "Tables are linked using primary and foreign keys",
+            null,
+            null
+          ],
+          [
+            "The same data is often repeated in many records",
+            null,
+            null
+          ],
+          [
+            "Each fact is stored only once",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Flat; 2 Relational; 3 Flat; 4 Relational\n\nFour correct (3); three (2); two (1)",
+        "points": [
+          {
+            "criterion": "Two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All four rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 3 for four correct rows, 2 for three, 1 for two."
+      }
+    },
+    {
+      "key": "db-terms-match",
+      "title": "Database terms",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Match each term to its definition.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Table"
+          },
+          {
+            "key": "L2",
+            "text": "Record"
+          },
+          {
+            "key": "L3",
+            "text": "Field"
+          },
+          {
+            "key": "L4",
+            "text": "Index"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "A collection of related records"
+          },
+          {
+            "key": "R2",
+            "text": "A collection of related fields about one item"
+          },
+          {
+            "key": "R3",
+            "text": "One item of data stored about every record"
+          },
+          {
+            "key": "R4",
+            "text": "A sorted structure with pointers that speeds up searching"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Table–R1, Record–R2, Field–R3, Index–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "db-synonyms-fill",
+      "title": "Other names",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nIn relational database terms, a row of a table is called a [[1]], a column is called an [[2]] and a table is called a [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) tuple / record (2) attribute / field (3) relation",
+        "accepted": {
+          "blanks": [
+            [
+              "tuple",
+              "record"
+            ],
+            [
+              "attribute",
+              "field"
+            ],
+            [
+              "relation"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "db-define-record-table",
+      "title": "Define record and table",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Define the terms **record** and **table**.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Record",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Table",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Record: a collection of related fields (about one item / entity) (1)\nTable: a collection of related records (1)",
+        "points": [
+          {
+            "criterion": "Record",
+            "marks": 1
+          },
+          {
+            "criterion": "Table",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Record: a collection of related fields about one item. Table: a collection of related records."
+      }
+    },
+    {
+      "key": "db-data-types",
+      "title": "Choose data types",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Complete the table with the most suitable **data type** for each field. Use: **text**, **integer**, **real**, **date**, **Boolean**.",
+      "content": {
+        "columns": [
+          "Field",
+          "Data type"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "PhoneNumber",
+            null
+          ],
+          [
+            "Price",
+            null
+          ],
+          [
+            "DateOfBirth",
+            null
+          ],
+          [
+            "HasPaid",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "PhoneNumber – text (1); Price – real (1); DateOfBirth – date (1); HasPaid – Boolean (1)",
+        "points": [
+          {
+            "criterion": "Text",
+            "marks": 1
+          },
+          {
+            "criterion": "Real",
+            "marks": 1
+          },
+          {
+            "criterion": "Date",
+            "marks": 1
+          },
+          {
+            "criterion": "Boolean",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "text||string||varchar"
+            ],
+            [
+              null,
+              "real||decimal||float||currency"
+            ],
+            [
+              null,
+              "date||date/time||datetime"
+            ],
+            [
+              null,
+              "boolean||bool||yes/no||logical"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "db-phone-text",
+      "title": "Why a phone number is text",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Explain why a phone number such as `+7 701 123 45 67` should be stored with the **text** data type rather than as an integer.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): it contains + / spaces which are not digits; a leading 0 would be lost as a number; no calculations are performed on phone numbers; it may be too long for an integer",
+        "points": [
+          {
+            "criterion": "First reason",
+            "marks": 1
+          },
+          {
+            "criterion": "Second reason",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It contains characters such as + and spaces that an integer cannot store, and no calculations are ever done on phone numbers."
+      }
+    },
+    {
+      "key": "db-index-purpose",
+      "title": "Purpose of an index",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Describe the purpose of an **index** in a database.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Stores the values of a field in sorted order with pointers to the records (1)\n- so records can be found / searched / sorted faster without reading the whole table (1)",
+        "points": [
+          {
+            "criterion": "Sorted values with pointers",
+            "marks": 1
+          },
+          {
+            "criterion": "Faster searching",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An index keeps the values of a field in sorted order with pointers to the records, so the DBMS can find matching records quickly instead of reading the whole table."
+      }
+    },
+    {
+      "key": "db-index-tf",
+      "title": "Indexes and updates",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "practice": true,
+      "text": "Adding an index to a field makes inserting and updating records faster.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "An index speeds up searching, but every insert or update must also update the index, so these operations become slower."
+      }
+    },
+    {
+      "key": "db-define-pk",
+      "title": "Primary key",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "Define the term **primary key**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- A field / combination of fields that uniquely identifies each record in a table (1)\n- cannot be empty or repeated (1)",
+        "points": [
+          {
+            "criterion": "Uniquely identifies each record",
+            "marks": 1
+          },
+          {
+            "criterion": "Unique / not null",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A field whose value uniquely identifies each record in a table; it cannot be repeated or left empty."
+      }
+    },
+    {
+      "key": "db-keys-table",
+      "title": "Identify the keys",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "```text\nCustomers ( CustomerID, Name, City )\nProducts  ( ProductID, Name, Price )\nOrders    ( OrderID, CustomerID, ProductID, OrderDate )\n```\n\nComplete the table to show the primary key and the foreign key(s) of each table. For a table with no foreign key, write **None**.",
+      "content": {
+        "columns": [
+          "Table",
+          "Primary key",
+          "Foreign key(s)"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Customers",
+            null,
+            null
+          ],
+          [
+            "Products",
+            null,
+            null
+          ],
+          [
+            "Orders",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Customers – CustomerID – None (1)\nProducts – ProductID – None (1)\nOrders – OrderID – CustomerID, ProductID (1)\n1 mark for each correct row.",
+        "points": [
+          {
+            "criterion": "Customers row",
+            "marks": 1
+          },
+          {
+            "criterion": "Products row",
+            "marks": 1
+          },
+          {
+            "criterion": "Orders row",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "CustomerID",
+              "None"
+            ],
+            [
+              null,
+              "ProductID",
+              "None"
+            ],
+            [
+              null,
+              "OrderID",
+              "CustomerID, ProductID||ProductID, CustomerID||CustomerID and ProductID||ProductID and CustomerID||CustomerID,ProductID||ProductID,CustomerID"
+            ]
+          ]
+        },
+        "scoring": "item"
+      }
+    },
+    {
+      "key": "db-pk-fk-diff",
+      "title": "Primary vs foreign key",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "Using the tables `Customers(CustomerID, Name, City)` and `Orders(OrderID, CustomerID, OrderDate)`, explain the difference between a primary key and a foreign key.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- CustomerID is the primary key of Customers: it uniquely identifies each customer (1)\n- CustomerID in Orders is a foreign key: it links each order to the customer who placed it (can be repeated) (1)",
+        "points": [
+          {
+            "criterion": "Primary key uniquely identifies, with example",
+            "marks": 1
+          },
+          {
+            "criterion": "Foreign key links tables, with example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CustomerID uniquely identifies each customer in the Customers table, so it is the primary key there. In Orders, CustomerID is a foreign key that links each order to the customer who made it, and it can appear many times."
+      }
+    },
+    {
+      "key": "db-composite-mcq",
+      "title": "Composite key",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "In the table `Results(StudentID, SubjectID, Mark)` each student has a mark for many subjects. Which is the best primary key?",
+      "options": [
+        {
+          "key": "A",
+          "content": "StudentID"
+        },
+        {
+          "key": "B",
+          "content": "SubjectID"
+        },
+        {
+          "key": "C",
+          "content": "Mark"
+        },
+        {
+          "key": "D",
+          "content": "StudentID and SubjectID together"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "D",
+        "accepted": {
+          "correct": "D"
+        },
+        "explanation": "Neither field is unique on its own, but each pair (student, subject) appears only once — a composite key."
+      }
+    },
+    {
+      "key": "db-simple-composite",
+      "title": "Simple vs composite keys",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "State the difference between **simple** and **composite** primary keys.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Simple primary keys use a single field… (1)\n… composite primary keys use multiple fields (1)",
+        "points": [
+          {
+            "criterion": "Simple: one field",
+            "marks": 1
+          },
+          {
+            "criterion": "Composite: two or more fields",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A simple primary key is one field, whereas a composite primary key is made of two or more fields that together are unique."
+      }
+    },
+    {
+      "key": "db-fk-unique-tf",
+      "title": "Foreign key values",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "The same foreign-key value can appear in many records of a table.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "One customer can have many orders, so the same CustomerID appears in many Orders records."
+      }
+    },
+    {
+      "key": "db-referential",
+      "title": "Referential integrity",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "Explain what is meant by **referential integrity**, using the `Customers` and `Orders` tables as an example.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Every foreign-key value must match an existing primary-key value in the linked table (1)\n- e.g. an order cannot be added for a CustomerID that does not exist in Customers / a customer with orders cannot be deleted (1)",
+        "points": [
+          {
+            "criterion": "Definition",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every foreign key value must refer to an existing record: an order cannot contain CustomerID C999 if there is no customer C999 in the Customers table."
+      }
+    },
+    {
+      "key": "db-structured-school",
+      "title": "A school database",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "```text\nTeachers ( TeacherID, Name, Subject )\nClasses  ( ClassID, Room, TeacherID )\nPupils   ( PupilID, Name, DateOfBirth, ClassID )\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "db-school-a",
+          "part_label": "(a)",
+          "title": "Foreign keys",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "practice": true,
+          "text": "Identify the foreign key in the `Classes` table and in the `Pupils` table.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Classes",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Pupils",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Classes: TeacherID (1)\nPupils: ClassID (1)",
+            "points": [
+              {
+                "criterion": "TeacherID",
+                "marks": 1
+              },
+              {
+                "criterion": "ClassID",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Classes: TeacherID. Pupils: ClassID."
+          }
+        },
+        {
+          "key": "db-school-b",
+          "part_label": "(b)",
+          "title": "Why not Name",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "practice": true,
+          "text": "Explain why `Name` is **not** a suitable primary key for the `Pupils` table.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Two pupils can have the same name / names are not unique (1)\n- so Name would not uniquely identify each record / names can change (1)",
+            "points": [
+              {
+                "criterion": "Not unique",
+                "marks": 1
+              },
+              {
+                "criterion": "Cannot identify each record",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Two pupils may have the same name, so Name would not uniquely identify each pupil's record."
+          }
+        },
+        {
+          "key": "db-school-c",
+          "part_label": "(c)",
+          "title": "Field and record",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "practice": true,
+          "text": "Give an example of a **field** and describe what one **record** in the `Pupils` table contains.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Field",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Record",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Field (1): PupilID / Name / DateOfBirth / ClassID\nRecord (1): all the data (PupilID, Name, DateOfBirth, ClassID) about one pupil",
+            "points": [
+              {
+                "criterion": "Valid field",
+                "marks": 1
+              },
+              {
+                "criterion": "Record = data about one pupil",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Field: DateOfBirth. Record: the ID, name, date of birth and class of one pupil."
+          }
+        }
+      ]
+    },
+    {
+      "key": "db-extended-design",
+      "title": "Explain a relational design",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.1",
+        "11.4.1.3"
+      ],
+      "practice": true,
+      "text": "A gym stores all its data in one table:\n\n`Visits(MemberName, MemberPhone, TrainerName, TrainerPhone, VisitDate)`\n\nExplain why a relational database would be better, and describe a relational design with suitable tables, primary keys and foreign keys.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "Why better (max 3): member / trainer details repeated in every visit — redundancy (1); update anomalies / inconsistency when a phone number changes (1); wasted storage (1); no unique identifier — names not unique (1)\nDesign (max 3): Members(MemberID, Name, Phone) (1); Trainers(TrainerID, Name, Phone) (1); Visits(VisitID, MemberID*, TrainerID*, VisitDate) with foreign keys identified (1)",
+        "points": [
+          {
+            "criterion": "Redundancy explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Inconsistency / update problem",
+            "marks": 1
+          },
+          {
+            "criterion": "Further reason",
+            "marks": 1
+          },
+          {
+            "criterion": "Members table with PK",
+            "marks": 1
+          },
+          {
+            "criterion": "Trainers table with PK",
+            "marks": 1
+          },
+          {
+            "criterion": "Visits table with both foreign keys",
+            "marks": 1
+          }
+        ],
+        "model_answer": "In the single table, a member's name and phone and the trainer's details are repeated for every visit, which wastes space; if a phone number changes, every row must be updated or the data becomes inconsistent, and names are not unique identifiers. A better design: Members(MemberID, Name, Phone) with primary key MemberID; Trainers(TrainerID, Name, Phone) with primary key TrainerID; Visits(VisitID, MemberID, TrainerID, VisitDate) with primary key VisitID and foreign keys MemberID and TrainerID linking each visit to a member and a trainer."
+      }
+    },
+    {
+      "key": "db-exam-1",
+      "title": "A clinic database",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A clinic uses a relational database with three tables.\n\n```text\nPatients     ( PatientID, Name, DateOfBirth, Phone )\nDoctors      ( DoctorID, Name, Speciality )\nAppointments ( AppointmentID, PatientID, DoctorID, AppDate, AppTime )\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "db-exam-1a",
+          "part_label": "(a)",
+          "title": "Keys",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the following table to show for each database table the primary key and the foreign key(s). For a table with no foreign key, write **None**.",
+          "content": {
+            "columns": [
+              "Table",
+              "Primary key",
+              "Foreign key(s)"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Patients",
+                null,
+                null
+              ],
+              [
+                "Doctors",
+                null,
+                null
+              ],
+              [
+                "Appointments",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Patients – PatientID – None (1)\nDoctors – DoctorID – None (1)\nAppointments – AppointmentID – PatientID, DoctorID (1)\n1 mark for each correct row.",
+            "points": [
+              {
+                "criterion": "Patients row",
+                "marks": 1
+              },
+              {
+                "criterion": "Doctors row",
+                "marks": 1
+              },
+              {
+                "criterion": "Appointments row",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "PatientID",
+                  "None"
+                ],
+                [
+                  null,
+                  "DoctorID",
+                  "None"
+                ],
+                [
+                  null,
+                  "AppointmentID",
+                  "PatientID, DoctorID||DoctorID, PatientID||PatientID and DoctorID||DoctorID and PatientID||PatientID,DoctorID||DoctorID,PatientID"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "db-exam-1b",
+          "part_label": "(b)",
+          "title": "Record and field",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define the terms **record** and **table**.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Record",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Table",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "A record is a collection of related fields (1)\nA table is a collection of related records (1)",
+            "points": [
+              {
+                "criterion": "Record",
+                "marks": 1
+              },
+              {
+                "criterion": "Table",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Record: a collection of related fields. Table: a collection of related records."
+          }
+        },
+        {
+          "key": "db-exam-1c",
+          "part_label": "(c)",
+          "title": "Primary and foreign keys",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the differences of using primary and foreign keys in the given database.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- A primary key (e.g. PatientID) uniquely identifies each record in its table (Patients) (1)\n- A foreign key (e.g. PatientID in Appointments) links a record to the related record in another table (1)\nAccept answers only with fields from the given database.",
+            "points": [
+              {
+                "criterion": "Primary key with example",
+                "marks": 1
+              },
+              {
+                "criterion": "Foreign key with example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "PatientID uniquely identifies each patient in the Patients table, so it is the primary key; in Appointments, PatientID is a foreign key that links each appointment to the patient."
+          }
+        },
+        {
+          "key": "db-exam-1d",
+          "part_label": "(d)",
+          "title": "Data types",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the most suitable data type for the fields `DateOfBirth` and `Phone`.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "DateOfBirth",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Phone",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "DateOfBirth: Date (1)\nPhone: Text / String / VARCHAR (1)",
+            "points": [
+              {
+                "criterion": "Date",
+                "marks": 1
+              },
+              {
+                "criterion": "Text",
+                "marks": 1
+              }
+            ],
+            "model_answer": "DateOfBirth: date. Phone: text."
+          }
+        },
+        {
+          "key": "db-exam-1e",
+          "part_label": "(e)",
+          "title": "Advantage",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** advantage of using a relational database for the clinic.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Reduced data redundancy / less repeated data (1); maintains data consistency / improves data integrity (1); changes in one table automatically reflected (1) [Max 1]",
+            "points": [
+              {
+                "criterion": "Valid advantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Each patient's details are stored only once, so there is less repeated data."
+          }
+        }
+      ]
+    },
+    {
+      "key": "db-exam-2",
+      "title": "Exam results",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school stores exam results in the table `Results ( StudentID, SubjectID, Mark )`.\n\n| StudentID | SubjectID | Mark |\n|---|---|---|\n| S01 | MATH | 78 |\n| S01 | PHYS | 65 |\n| S02 | MATH | 91 |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "db-exam-2a",
+          "part_label": "(a)",
+          "title": "Why not StudentID",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why `StudentID` on its own cannot be the primary key of `Results`.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- StudentID is repeated (S01 appears twice) because a student has results in several subjects (1)\n- a primary key must be unique for every record (1)",
+            "points": [
+              {
+                "criterion": "Repeated values",
+                "marks": 1
+              },
+              {
+                "criterion": "PK must be unique",
+                "marks": 1
+              }
+            ],
+            "model_answer": "S01 appears in two records because one student has marks in several subjects, but a primary key must be different for every record."
+          }
+        },
+        {
+          "key": "db-exam-2b",
+          "part_label": "(b)",
+          "title": "Composite key",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the field(s) that can be used as the primary key for `Results`.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "StudentID and SubjectID (together) (1). Do not award the mark if only one field is given.",
+            "points": [
+              {
+                "criterion": "StudentID + SubjectID",
+                "marks": 1
+              }
+            ],
+            "model_answer": "StudentID and SubjectID together."
+          }
+        },
+        {
+          "key": "db-exam-2c",
+          "part_label": "(c)",
+          "title": "Simple vs composite",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the difference between simple and composite primary keys.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Simple primary keys use a single field… (1)\n… composite primary keys use multiple fields (1)",
+            "points": [
+              {
+                "criterion": "Simple: one field",
+                "marks": 1
+              },
+              {
+                "criterion": "Composite: several fields",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A simple key is one field; a composite key uses two or more fields together."
+          }
+        },
+        {
+          "key": "db-exam-2d",
+          "part_label": "(d)",
+          "title": "Tuple",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define the term **tuple**.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "A tuple is one row / record in a database (table) (1)",
+            "points": [
+              {
+                "criterion": "One row / record",
+                "marks": 1
+              }
+            ],
+            "model_answer": "One row (record) of a table."
+          }
+        },
+        {
+          "key": "db-exam-2e",
+          "part_label": "(e)",
+          "title": "Foreign key",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The school also has a table `Students ( StudentID, Name, Class )`. Explain how `StudentID` links the two tables.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- StudentID is the primary key of Students (1)\n- and a foreign key in Results, so each result is linked to the student it belongs to (1)",
+            "points": [
+              {
+                "criterion": "PK in Students",
+                "marks": 1
+              },
+              {
+                "criterion": "FK in Results linking records",
+                "marks": 1
+              }
+            ],
+            "model_answer": "StudentID is the primary key of Students and appears in Results as a foreign key, so each result can be matched to the student it belongs to."
+          }
+        },
+        {
+          "key": "db-exam-2f",
+          "part_label": "(f)",
+          "title": "Referential integrity",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the DBMS should not allow a result with `StudentID = S99` to be entered if there is no student S99 in `Students`.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Referential integrity: every foreign-key value must match an existing primary key (1)\n- otherwise the result belongs to no student / data is inconsistent / invalid links (1)",
+            "points": [
+              {
+                "criterion": "Referential integrity rule",
+                "marks": 1
+              },
+              {
+                "criterion": "Consequence",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Referential integrity requires every foreign key to match an existing primary key; a result for S99 would not belong to any real student, so the data would be invalid."
+          }
+        }
+      ]
+    },
+    {
+      "key": "db-exam-3",
+      "title": "A shop's sales table",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A small shop records all its sales in one table.\n\n| SaleID | CustomerName | CustomerPhone | Product | Price |\n|---|---|---|---|---|\n| 1 | Dana Seitova | 87011112233 | Notebook | 450 |\n| 2 | Dana Seitova | 87011112233 | Pen | 150 |\n| 3 | Arman Nurov | 87775554411 | Notebook | 450 |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "db-exam-3a",
+          "part_label": "(a)",
+          "title": "Redundancy",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** problem caused by storing the data in this single table.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Problem (1) + explanation (1): data redundancy — customer / product details repeated; update problems — if Dana's phone changes every row must change, or data becomes inconsistent; wasted storage",
+            "points": [
+              {
+                "criterion": "Valid problem",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation using the data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Dana's name and phone number are repeated for every sale, so if her phone changes, every row must be updated; missing one makes the data inconsistent."
+          }
+        },
+        {
+          "key": "db-exam-3b",
+          "part_label": "(b)",
+          "title": "Relational design",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.1",
+            "11.4.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the data could be stored in a relational database with **three** tables. Identify the primary key of each table.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Customers(CustomerID, Name, Phone) — PK CustomerID (1)\nProducts(ProductID, Name, Price) — PK ProductID (1)\nSales(SaleID, CustomerID, ProductID) — PK SaleID with foreign keys (1)",
+            "points": [
+              {
+                "criterion": "Customers table",
+                "marks": 1
+              },
+              {
+                "criterion": "Products table",
+                "marks": 1
+              },
+              {
+                "criterion": "Sales table with FKs",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Customers(CustomerID, Name, Phone) with primary key CustomerID; Products(ProductID, Name, Price) with primary key ProductID; Sales(SaleID, CustomerID, ProductID) with primary key SaleID and foreign keys CustomerID and ProductID."
+          }
+        },
+        {
+          "key": "db-exam-3c",
+          "part_label": "(c)",
+          "title": "Index",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The shop often searches for sales by `CustomerID`. Describe how an **index** on this field would help.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The index stores CustomerID values in sorted order with pointers to the records (1)\n- so the sales for a customer are found quickly without reading the whole table (1)",
+            "points": [
+              {
+                "criterion": "Sorted values with pointers",
+                "marks": 1
+              },
+              {
+                "criterion": "Faster search",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The index keeps the CustomerID values sorted with pointers to the matching sales, so the DBMS finds a customer's sales quickly instead of reading every record."
+          }
+        },
+        {
+          "key": "db-exam-3d",
+          "part_label": "(d)",
+          "title": "Index drawback",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** disadvantage of adding an index.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): uses extra storage; inserting / updating / deleting records is slower",
+            "points": [
+              {
+                "criterion": "Valid disadvantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Adding new sales is slower because the index must be updated too."
+          }
+        },
+        {
+          "key": "db-exam-3e",
+          "part_label": "(e)",
+          "title": "DBMS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the purpose of a database management system (DBMS).",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): software used to create / manage the database; allows data to be added, updated, deleted and searched / queried; controls access / security; enforces integrity / keys; allows many users to share data; backup and recovery",
+            "points": [
+              {
+                "criterion": "First valid point",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid point",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A DBMS is software that creates and manages the database: it lets users add, update and search data, and controls who can access it."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What a relational database is and why it is used, the terms table, record (tuple), field (attribute), data type and index, and the difference between primary, foreign and composite keys.",
   "theory": [
     {
-      "title": "Relational databases and their purpose",
+      "title": "Databases and their purpose",
       "objectives": [
         "11.4.1.1"
       ],
@@ -12,117 +1572,204 @@
         {
           "type": "definition",
           "term": "Database",
-          "content": "An organised, structured collection of related data stored so that it can be easily **searched, sorted, updated and shared**."
+          "content": "An **organised, structured collection of related data**, stored electronically so that it can be **searched, sorted, updated and analysed** easily. A **database management system (DBMS)** is the software used to create, manage and access the database (e.g. MySQL, PostgreSQL, Microsoft Access, SQLite)."
         },
         {
           "type": "definition",
           "term": "Relational database",
-          "content": "A database in which data is stored in several **tables (relations)** that are **linked to each other by keys**. Each table stores data about one kind of thing (entity)."
+          "content": "A database in which the data is stored in **several linked tables** (relations). Each table holds data about **one type of thing (entity)**, and tables are **linked by keys** — a **primary key** in one table appears as a **foreign key** in another."
         },
         {
           "type": "comparison",
-          "title": "Why use a relational database instead of one flat file?",
+          "title": "Flat-file database vs relational database",
           "columns": [
-            "Problem with a single flat file",
-            "How a relational database solves it"
+            "",
+            "Flat file (one big table)",
+            "Relational database (linked tables)"
           ],
           "rows": [
             [
-              "**Data redundancy** — the same data is repeated in many rows",
-              "Each fact is stored **once**, in one table"
+              "Structure",
+              "All data in **one table**",
+              "Data split into **several tables** linked by keys"
             ],
             [
-              "**Inconsistency** — a change made in one row but not another",
-              "One copy → updates are consistent"
+              "Data redundancy",
+              "**High** — the same data (e.g. a teacher's name) is repeated in many rows",
+              "**Low** — each fact is stored **once**"
             ],
             [
-              "Wasted storage",
-              "Less repeated data"
+              "Consistency",
+              "Copies can disagree after an update (**update anomaly**)",
+              "A change is made in **one place** and applies everywhere"
             ],
             [
-              "Hard to search and combine data",
-              "Queries (SQL) join tables and filter data quickly"
+              "Storage",
+              "Wastes space",
+              "Uses less space"
             ],
             [
-              "Weak security",
-              "Access rights per table/user; validation rules protect **data integrity**"
+              "Queries",
+              "Simple, but limited",
+              "Powerful queries across tables (SQL `JOIN`)"
+            ],
+            [
+              "Design",
+              "Easy to set up",
+              "Needs careful design (keys, normalisation)"
             ]
           ]
         },
         {
           "type": "example",
-          "content": "A school stores student details in **Students**, course details in **Courses**, and which student takes which course in **Enrolments**. A student's address is stored once, even if they take ten courses."
+          "title": "Why split the data? A school library",
+          "content": "**Flat file:**\n| LoanID | Student | Class | Book | Author |\n|---|---|---|---|---|\n| 1 | Aruzhan Bekova | 11A | The Hobbit | J. R. R. Tolkien |\n| 2 | Aruzhan Bekova | 11A | Abai Zholy | M. Auezov |\n| 3 | Timur Ospanov | 12B | The Hobbit | J. R. R. Tolkien |\n\nAruzhan's class and *The Hobbit*'s author are stored **twice**. If Aruzhan moves to 11B, **every** row must be changed — miss one and the data becomes **inconsistent**.\n\n**Relational:** a `Students` table, a `Books` table and a `Loans` table that only stores `StudentID`, `BookID` and the date — each student and each book is stored **once**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Purpose / advantages of a relational database",
+              "content": "- **Reduced data redundancy** — less repeated data, less storage.\n- **Data consistency and integrity** — a change in one table is seen everywhere; keys stop invalid links.\n- **Easier updates** — data is changed in one place.\n- **Powerful searching** — complex queries combine data from several tables.\n- **Security** — users can be given access only to certain tables.\n- **Data sharing** — many users and programs use the same data at the same time."
+            },
+            {
+              "title": "Typical uses",
+              "content": "- School information systems (students, classes, marks).\n- Online shops (customers, products, orders).\n- Banks, hospitals, libraries, airline bookings.\n- The data behind almost every website and mobile app."
+            }
+          ]
         }
       ]
     },
     {
-      "title": "Tables, attributes, records and indexes",
+      "title": "Tables, records and fields",
       "objectives": [
         "11.4.1.2"
       ],
       "blocks": [
         {
           "type": "comparison",
-          "title": "Table: Students",
+          "title": "Database terms",
           "columns": [
-            "StudentID",
-            "FirstName",
-            "LastName",
-            "Grade",
-            "DateOfBirth"
+            "Term",
+            "Also called",
+            "Meaning",
+            "Example"
           ],
           "rows": [
             [
-              "S001",
-              "Aruzhan",
-              "Sadykova",
-              "11",
-              "12/03/2009"
+              "**Entity**",
+              "—",
+              "A thing about which data is stored",
+              "A student, a book"
             ],
             [
-              "S002",
-              "Timur",
-              "Ospanov",
-              "12",
-              "30/11/2008"
+              "**Table**",
+              "Relation, file",
+              "A **collection of related records** about one entity",
+              "`Students`"
             ],
             [
-              "S003",
-              "Dana",
-              "Kim",
-              "11",
-              "05/07/2009"
+              "**Record**",
+              "**Tuple**, row",
+              "A **collection of related fields** about **one** item",
+              "All the data about Aruzhan"
+            ],
+            [
+              "**Field**",
+              "**Attribute**, column",
+              "**One item of data** about every record",
+              "`Surname`, `DateOfBirth`"
+            ],
+            [
+              "**Field value**",
+              "Cell",
+              "The data in one field of one record",
+              "`Bekova`"
+            ],
+            [
+              "**Data type**",
+              "—",
+              "The kind of data a field holds",
+              "Text, Integer, Real, Date, Boolean"
             ]
           ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "                       fields / attributes (columns)\n                 +-----------+-----------+----------+--------+\n                 | StudentID | FirstName | Surname  | Class  |\n                 +-----------+-----------+----------+--------+\n record / tuple  | S001      | Aruzhan   | Bekova   | 11A    |   <- one row\n (rows)          | S002      | Timur     | Ospanov  | 12B    |\n                 | S003      | Dana      | Seitova  | 11A    |\n                 +-----------+-----------+----------+--------+\n                   primary key",
+          "caption": "The parts of a table"
+        },
+        {
+          "type": "comparison",
+          "title": "Common data types",
+          "columns": [
+            "Data type",
+            "Stores",
+            "Example field"
+          ],
+          "rows": [
+            [
+              "**Text / String / VARCHAR**",
+              "Letters, digits, symbols",
+              "Surname, PhoneNumber, Postcode"
+            ],
+            [
+              "**Integer**",
+              "Whole numbers",
+              "Age, Quantity"
+            ],
+            [
+              "**Real / Decimal / Float**",
+              "Numbers with a decimal part",
+              "Price, Height"
+            ],
+            [
+              "**Date / Time**",
+              "Dates and times",
+              "DateOfBirth"
+            ],
+            [
+              "**Boolean**",
+              "True / False",
+              "IsMember, Paid"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Store phone numbers, ID numbers and postcodes as **text**: you never do arithmetic on them, and they may start with `0` or `+`."
+        }
+      ]
+    },
+    {
+      "title": "Indexes",
+      "objectives": [
+        "11.4.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Index",
+          "content": "A separate data structure that stores the values of **one or more fields** in **sorted order** together with **pointers to the records**, so that the DBMS can **find records quickly** without reading the whole table — like the index at the back of a book."
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "Table (relation)",
-              "content": "A set of data about **one type of entity**, arranged in rows and columns. *Students* above is a table."
+              "title": "Advantages of an index",
+              "content": "- **Searching and sorting are much faster**, especially in large tables.\n- Speeds up **queries** that use `WHERE` and `JOIN` on the indexed field.\n- A **unique index** prevents duplicate values (the primary key is indexed automatically)."
             },
             {
-              "title": "Field / attribute",
-              "content": "**One column** — one item of data stored about every entity. *FirstName, Grade.*"
-            },
-            {
-              "title": "Record (tuple)",
-              "content": "**One row** — all the data about one entity. *S002, Timur, Ospanov, 12, 30/11/2008.*"
-            },
-            {
-              "title": "Index",
-              "content": "An extra data structure that stores selected field values with pointers to records, so that searching and sorting on that field are **much faster** (like the index at the back of a book)."
+              "title": "Disadvantages",
+              "content": "- Takes **extra storage space**.\n- **Inserting, updating and deleting** records is slower, because the index must also be updated.\n- Too many indexes on small tables give little benefit."
             }
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "Mark-scheme definitions: \"A **record** is a collection of related fields\"; \"A **table** is a collection of related records.\" Learn them word for word."
-        },
-        {
-          "type": "warning",
-          "content": "An index speeds up **searching**, but slows down inserting and updating (the index must be updated too) and uses extra storage."
+          "type": "example",
+          "title": "When to add an index",
+          "content": "A library table has 2 000 000 loans and staff often search by `StudentID` → add an index on `StudentID`. The `Notes` field is rarely searched → no index needed."
         }
       ]
     },
@@ -135,41 +1782,78 @@
         {
           "type": "definition",
           "term": "Primary key",
-          "content": "A field (or fields) whose value **uniquely identifies each record** in a table. It cannot be empty and cannot repeat. *StudentID in Students.*"
+          "content": "A field (or combination of fields) whose value **uniquely identifies each record** in a table. It **cannot be empty (null)** and **cannot be repeated**. Example: `StudentID` in `Students`."
         },
         {
           "type": "definition",
           "term": "Foreign key",
-          "content": "A field in one table that is the **primary key of another table**; it creates the **link (relationship)** between the tables. *StudentID in Enrolments.*"
+          "content": "A field in one table that is the **primary key of another table**. It is used to **link (relate)** the two tables. Example: `StudentID` in the `Loans` table links each loan to a student."
         },
         {
           "type": "definition",
           "term": "Composite (compound) key",
-          "content": "A primary key made of **two or more fields** together, used when no single field is unique. *(StudentID, CourseID) in Enrolments — a student can take many courses and a course has many students, but each pair appears once.*"
+          "content": "A primary key made of **two or more fields** that **together** uniquely identify a record, when no single field is unique on its own. Example: in `Results(StudentID, SubjectID, Mark)`, a student has many results and a subject has many results, but the pair **(StudentID, SubjectID)** is unique."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "Students ( _StudentID_, FirstName, Surname, Class )\nBooks    ( _BookID_, Title, Author, Year )\nLoans    ( _LoanID_, StudentID*, BookID*, LoanDate, ReturnDate )",
+          "caption": "A relational database for a library (primary keys underlined with _, foreign keys marked *)"
         },
         {
           "type": "comparison",
-          "title": "Table: Enrolments",
+          "title": "Keys in the library database",
           "columns": [
-            "StudentID (FK)",
-            "CourseID (FK)",
-            "Year"
+            "Table",
+            "Primary key",
+            "Foreign key(s)"
           ],
           "rows": [
             [
-              "S001",
-              "CS12",
-              "2026"
+              "Students",
+              "StudentID",
+              "None"
             ],
             [
-              "S001",
-              "MA12",
-              "2026"
+              "Books",
+              "BookID",
+              "None"
             ],
             [
-              "S002",
-              "CS12",
-              "2026"
+              "Loans",
+              "LoanID",
+              "StudentID, BookID"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Primary key vs foreign key",
+          "columns": [
+            "",
+            "Primary key",
+            "Foreign key"
+          ],
+          "rows": [
+            [
+              "Purpose",
+              "**Uniquely identifies** each record in **its own** table",
+              "**Links** a record to a record in **another** table"
+            ],
+            [
+              "Unique?",
+              "Yes — no duplicates",
+              "No — the same value can appear many times (one student has many loans)"
+            ],
+            [
+              "Can be empty?",
+              "No",
+              "Can be empty if the link is optional"
+            ],
+            [
+              "Number per table",
+              "One (which may be composite)",
+              "Zero, one or many"
             ]
           ]
         },
@@ -177,29 +1861,81 @@
           "type": "comparison",
           "title": "Simple vs composite primary key",
           "columns": [
-            "Simple primary key",
-            "Composite primary key"
+            "",
+            "Simple key",
+            "Composite key"
           ],
           "rows": [
             [
-              "A **single field**",
-              "**Two or more fields** combined"
+              "Fields",
+              "**One** field",
+              "**Two or more** fields together"
             ],
             [
-              "e.g. StudentID",
-              "e.g. StudentID + CourseID"
+              "Example",
+              "`StudentID` in `Students`",
+              "`(StudentID, SubjectID)` in `Results`; `(FlightNo, Date)` for flights"
             ],
             [
-              "Used when one field is unique on its own",
-              "Used when only the combination is unique"
+              "When used",
+              "A single field is always unique",
+              "No single field is unique on its own"
             ]
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "To explain a relationship in an exam, name **both** keys: \"StudentID is the **primary key** in Students and a **foreign key** in Enrolments, which links the two tables.\""
+          "type": "callout",
+          "tone": "info",
+          "title": "Other kinds of key",
+          "content": "- **Candidate key** — any field that **could** be the primary key (e.g. `StudentID` or `PassportNo`).\n- **Secondary (alternate) key** — a field that is **indexed** for searching but is not the primary key, e.g. `Surname`."
+        },
+        {
+          "type": "definition",
+          "term": "Referential integrity",
+          "content": "A rule enforced by the DBMS: every **foreign-key value must match an existing primary-key value** in the linked table. You cannot add a loan for student `S999` if no such student exists, and you cannot delete a student who still has loans (or the loans are deleted too)."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.4.1.1",
+        "11.4.1.2",
+        "11.4.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Define the terms record and table. [2]**\nA **record** is a collection of related fields (about one item) (1). A **table** is a collection of related records (1).\n\n**Q: Define the term tuple. [1]**\nA tuple is **one row / record** in a database table.\n\n**Q: State the difference between simple and composite primary keys. [2]**\nSimple primary keys use a **single field** (1); composite primary keys use **multiple fields** (1).\n\n**Q: Explain the difference between primary and foreign keys in the given database. [2]**\nThe primary key `pub_ID` **uniquely identifies each record** in the `Publishers` table (1); `pub_ID` in the `Titles` table is a **foreign key** that **links** each title to its publisher (1).\n\n**Q: State one advantage of using a relational database. [1]**\n**Reduced data redundancy** / less repeated data; or maintains **data consistency / integrity**; or a change in one table is automatically reflected everywhere."
+        },
+        {
+          "type": "warning",
+          "content": "- Mixing up **record** (a row) and **field** (a column).\n- Saying the foreign key is unique — it is the **primary** key that is unique.\n- Choosing a primary key that can repeat or be empty (e.g. `Surname`, `Class`).\n- Giving only **one** field when the question asks for a composite key or for \"all foreign keys\".\n- Saying an index makes **everything** faster — it slows down inserts and updates."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is the purpose of a relational database? Give three advantages over a flat file.",
+            "Define table, record (tuple), field (attribute) and index.",
+            "What data type would you use for: price, phone number, date of birth, paid?",
+            "Define primary, foreign and composite keys with an example of each.",
+            "Identify the primary and foreign keys in `Orders(OrderID, CustomerID, ProductID, Date)`.",
+            "What is referential integrity?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Basic concepts of a database — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 30 minutes.",
+    "questions": [
+      "db-exam-1",
+      "db-exam-2",
+      "db-exam-3"
+    ]
+  }
 }

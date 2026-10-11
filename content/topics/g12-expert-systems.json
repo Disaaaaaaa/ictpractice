@@ -1,10 +1,1586 @@
 {
   "topic": "g12-expert-systems",
-  "questions": [],
-  "summary": "What an expert system is, its parts — knowledge base, inference engine, user interface — and how to build a simple expert system with facts and rules in Prolog.",
+  "questions": [
+    {
+      "key": "es-define",
+      "title": "Define an expert system",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Define the term **expert system**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A program that stores the knowledge of (human) experts in a particular field (1)\n- and uses reasoning / rules to give advice / make decisions / diagnose like an expert (1)",
+        "points": [
+          {
+            "criterion": "Stores experts' knowledge in a field",
+            "marks": 1
+          },
+          {
+            "criterion": "Uses reasoning to give advice or decisions",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A program that stores the knowledge of human experts in a particular field and uses rules to reason and give advice or a diagnosis, as an expert would."
+      }
+    },
+    {
+      "key": "es-components-match",
+      "title": "Components of an expert system",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Match each component of an expert system to its purpose.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Knowledge base"
+          },
+          {
+            "key": "L2",
+            "text": "Inference engine"
+          },
+          {
+            "key": "L3",
+            "text": "User interface"
+          },
+          {
+            "key": "L4",
+            "text": "Explanation system"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Stores the facts and rules collected from experts"
+          },
+          {
+            "key": "R2",
+            "text": "Applies the rules to the facts to reach a conclusion"
+          },
+          {
+            "key": "R3",
+            "text": "Asks the user questions and displays the results"
+          },
+          {
+            "key": "R4",
+            "text": "Shows how a conclusion was reached"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Knowledge base–R1, Inference engine–R2, User interface–R3, Explanation system–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "es-inference-mcq",
+      "title": "The reasoning component",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Which component of an expert system decides which rules to apply and reaches a conclusion?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Knowledge-base editor"
+        },
+        {
+          "key": "B",
+          "content": "User interface"
+        },
+        {
+          "key": "C",
+          "content": "Inference engine"
+        },
+        {
+          "key": "D",
+          "content": "Knowledge base"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The inference engine is the reasoning part; the knowledge base only stores the facts and rules."
+      }
+    },
+    {
+      "key": "es-chaining-table",
+      "title": "Forward or backward chaining",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes **forward** or **backward** chaining.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Forward chaining",
+          "Backward chaining"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "Starts from the known facts and derives new facts",
+            null,
+            null
+          ],
+          [
+            "Starts from a goal and tries to prove its conditions",
+            null,
+            null
+          ],
+          [
+            "The method Prolog uses to answer a query",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Forward (1); 2 Backward (1); 3 Backward (1)",
+        "points": [
+          {
+            "criterion": "Row 1 forward",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2 backward",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3 backward",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "es-adv-disadv",
+      "title": "Expert systems: advantage and disadvantage",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A rural clinic with no specialist doctor uses a medical expert system. State **one** advantage and **one** disadvantage of using the expert system.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Advantage",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Disadvantage",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Advantage (1): expert knowledge available where there is no specialist / 24/7; consistent answers; fast; cheaper than employing an expert; can explain its reasoning\n\nDisadvantage (1): no common sense / cannot handle cases outside its rules; may give wrong advice if a rule is wrong; must be kept up to date; expensive to build; staff may rely on it too much / no human empathy",
+        "points": [
+          {
+            "criterion": "Valid advantage",
+            "marks": 1
+          },
+          {
+            "criterion": "Valid disadvantage",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Advantage: the clinic gets a specialist's knowledge even though no specialist works there. Disadvantage: it cannot deal with unusual cases that are not covered by its rules."
+      }
+    },
+    {
+      "key": "es-uses-mr",
+      "title": "Uses of expert systems",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Select **two** tasks for which an expert system is suitable.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Diagnosing faults in a car engine"
+        },
+        {
+          "key": "B",
+          "content": "Typing a letter"
+        },
+        {
+          "key": "C",
+          "content": "Identifying a plant from a description of its leaves and flowers"
+        },
+        {
+          "key": "D",
+          "content": "Playing music files"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "es-syntax-fill",
+      "title": "Prolog syntax",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Complete the sentences about Prolog.\n\nEvery fact and rule ends with a [[1]]. A variable starts with a [[2]] letter. In a rule, the symbol `:-` means [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) full stop (2) capital (3) if",
+        "accepted": {
+          "blanks": [
+            [
+              "full stop",
+              "full-stop",
+              "period",
+              "dot",
+              "."
+            ],
+            [
+              "capital",
+              "upper case",
+              "uppercase",
+              "upper-case",
+              "capital (upper case)"
+            ],
+            [
+              "if"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "es-variable-mcq",
+      "title": "Which is a variable?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "In the Prolog goal `?- lives_in(arman, City).`, which item is a **variable**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "lives_in"
+        },
+        {
+          "key": "B",
+          "content": "arman"
+        },
+        {
+          "key": "C",
+          "content": "City"
+        },
+        {
+          "key": "D",
+          "content": "?-"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Variables start with a capital letter. lives_in is the predicate and arman is a constant."
+      }
+    },
+    {
+      "key": "es-capital-error",
+      "title": "Find the error in a fact",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A student wants to record that there is a direct flight from Turkestan to Kokshetau and writes:\n\n```prolog\ndirect(Turkestan, kokshetau).\n```\n\nExplain why this fact is wrong and write the correct fact.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Turkestan starts with a capital letter, so Prolog treats it as a variable (it would mean any city flies to kokshetau) (1)\n- Correct: direct(turkestan, kokshetau). (1)",
+        "points": [
+          {
+            "criterion": "Capital letter makes it a variable",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct fact in lower case",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Turkestan starts with a capital letter, so Prolog reads it as a variable, not a city. The correct fact is direct(turkestan, kokshetau).",
+        "ai_instructions": "Ignore a missing final full stop in the corrected fact."
+      }
+    },
+    {
+      "key": "es-write-facts",
+      "title": "Write facts",
+      "type": "code_completion",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A knowledge base contains facts such as:\n\n```prolog\nlanguage(aruzhan, kazakh).\nlanguage(aruzhan, english).\nlives(aruzhan, almaty).\n```\n\nWrite facts to show that **Timur speaks Russian** and **Timur lives in Aktobe**.",
+      "content": {
+        "language": "prolog",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "language(timur, russian). (1)\nlives(timur, aktobe). (1)\n\nArguments must be lower case and in the same order as the existing facts.",
+        "points": [
+          {
+            "criterion": "language(timur, russian).",
+            "marks": 1
+          },
+          {
+            "criterion": "lives(timur, aktobe).",
+            "marks": 1
+          }
+        ],
+        "model_answer": "language(timur, russian).\nlives(timur, aktobe).",
+        "ai_instructions": "No mark for a fact with a capital letter in a constant or with the arguments reversed. Ignore a missing full stop once."
+      }
+    },
+    {
+      "key": "es-query-results",
+      "title": "Results of a query",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "```prolog\ndirect(almaty, astana).\ndirect(almaty, shymkent).\ndirect(astana, aktau).\nflies(aktau, fly_jet).\nflies(shymkent, fly_jet).\nflies(astana, air_astana).\n```\n\nWrite **all** the results returned by the goal `?- direct(almaty, X), flies(X, fly_jet).`",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "X = shymkent (1)\n\nOnly one result; award 2 for shymkent alone, 1 if shymkent is given with one incorrect extra result, 0 otherwise.",
+        "points": [
+          {
+            "criterion": "shymkent",
+            "marks": 1
+          },
+          {
+            "criterion": "No incorrect extra results (astana / aktau)",
+            "marks": 1
+          }
+        ],
+        "model_answer": "X = shymkent",
+        "explanation": "direct(almaty, X) gives astana and shymkent; only shymkent is served by fly_jet (aktau is, but there is no direct flight from Almaty to Aktau)."
+      }
+    },
+    {
+      "key": "es-write-goal",
+      "title": "Write a goal",
+      "type": "code_completion",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Using the facts `direct(From, To).`, use the variable `Z` to write the goal that finds every city you can fly to directly from **Shymkent**.",
+      "content": {
+        "language": "prolog",
+        "starter_code": "?- "
+      },
+      "scheme": {
+        "mark_scheme": "?- direct(shymkent, Z).\n\ndirect (1)\n(shymkent, Z) (1)",
+        "points": [
+          {
+            "criterion": "Uses the predicate direct",
+            "marks": 1
+          },
+          {
+            "criterion": "Arguments (shymkent, Z) in the correct order",
+            "marks": 1
+          }
+        ],
+        "model_answer": "?- direct(shymkent, Z).",
+        "ai_instructions": "shymkent must be lower case. Ignore a missing ?- or full stop."
+      }
+    },
+    {
+      "key": "es-rule-and",
+      "title": "Write a rule with AND",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "It is possible to fly from X to Y with one change if there is a direct flight from X to Z **and** a direct flight from Z to Y. Write a rule `change(X, Y)` to represent this condition.",
+      "content": {
+        "language": "prolog",
+        "starter_code": "change(X, Y) :- "
+      },
+      "scheme": {
+        "mark_scheme": "change(X, Y) :- direct(X, Z), direct(Z, Y).\n\ndirect(X, Z) (1)\n, / AND (1)\ndirect(Z, Y). (1)\n\nAccept variables as lower-case letters.",
+        "points": [
+          {
+            "criterion": "direct(X, Z)",
+            "marks": 1
+          },
+          {
+            "criterion": "Comma / AND joining the conditions",
+            "marks": 1
+          },
+          {
+            "criterion": "direct(Z, Y)",
+            "marks": 1
+          }
+        ],
+        "model_answer": "change(X, Y) :- direct(X, Z), direct(Z, Y).",
+        "ai_instructions": "Any name for the middle variable, provided it is the same in both conditions."
+      }
+    },
+    {
+      "key": "es-rule-or",
+      "title": "Write a rule with OR",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A knowledge base has facts `brother(X, Y).` and `sister(X, Y).` Write a rule `sibling(X, Y)` that is true when X is **either** a brother **or** a sister of Y.",
+      "content": {
+        "language": "prolog",
+        "starter_code": "sibling(X, Y) :- "
+      },
+      "scheme": {
+        "mark_scheme": "sibling(X, Y) :- brother(X, Y) ; sister(X, Y).\n\nbrother(X, Y) (1)\n; / OR (1)\nsister(X, Y). (1)\n\nAccept two separate rules with the same head for full marks.",
+        "points": [
+          {
+            "criterion": "brother(X, Y)",
+            "marks": 1
+          },
+          {
+            "criterion": "Semicolon / OR (or two separate clauses)",
+            "marks": 1
+          },
+          {
+            "criterion": "sister(X, Y)",
+            "marks": 1
+          }
+        ],
+        "model_answer": "sibling(X, Y) :- brother(X, Y) ; sister(X, Y).",
+        "ai_instructions": "Accept OR instead of ;. Two clauses sibling(X,Y) :- brother(X,Y). sibling(X,Y) :- sister(X,Y). also get full marks."
+      }
+    },
+    {
+      "key": "es-rule-not",
+      "title": "Write a rule with NOT",
+      "type": "code_completion",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Facts `bird(X).` and `can_fly(X).` are stored. Write a rule `flightless(X)` that is true when X is a bird that **cannot** fly.",
+      "content": {
+        "language": "prolog",
+        "starter_code": "flightless(X) :- "
+      },
+      "scheme": {
+        "mark_scheme": "flightless(X) :- bird(X), \\+ can_fly(X).\n\nbird(X) (1)\n\\+ can_fly(X) / not(can_fly(X)) (1)",
+        "points": [
+          {
+            "criterion": "bird(X) condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Negation \\+ can_fly(X)",
+            "marks": 1
+          }
+        ],
+        "model_answer": "flightless(X) :- bird(X), \\+ can_fly(X).",
+        "ai_instructions": "Accept not(can_fly(X)). The bird(X) condition should come first, but do not penalise the order."
+      }
+    },
+    {
+      "key": "es-line-numbers",
+      "title": "Facts and rules by line",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "```prolog\n1  parent_child(aibek, bolat).\n2  parent_child(aibek, dana).\n3  parent_child(bolat, erlan).\n4  male(aibek).\n5  male(bolat).\n6  father(X, Y) :- parent_child(X, Y), male(X).\n7  grandparent(X, Y) :- parent_child(X, Z), parent_child(Z, Y).\n```\n\nIdentify **all** the line numbers where facts are used and **all** the line numbers where rules are used.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Facts",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "Rules",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Facts: 1–5 (1)\nRules: 6 and 7 / 6–7 (1)\n\nAccept only all lines.",
+        "points": [
+          {
+            "criterion": "Facts: lines 1 to 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Rules: lines 6 and 7",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Facts: 1–5. Rules: 6–7.",
+        "ai_instructions": "A partial list of lines scores 0 for that box."
+      }
+    },
+    {
+      "key": "es-rule-query",
+      "title": "Query a rule",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Using the knowledge base in the previous question:\n\n```prolog\n1  parent_child(aibek, bolat).\n2  parent_child(aibek, dana).\n3  parent_child(bolat, erlan).\n4  male(aibek).\n5  male(bolat).\n6  father(X, Y) :- parent_child(X, Y), male(X).\n7  grandparent(X, Y) :- parent_child(X, Z), parent_child(Z, Y).\n```\n\nWrite the result returned by each query:\n\n(i) `?- grandparent(aibek, Y).`   (ii) `?- father(F, erlan).`",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "(i) Y = erlan (1)\n(ii) F = bolat (1)",
+        "points": [
+          {
+            "criterion": "(i) erlan",
+            "marks": 1
+          },
+          {
+            "criterion": "(ii) bolat",
+            "marks": 1
+          }
+        ],
+        "model_answer": "(i) Y = erlan (ii) F = bolat",
+        "ai_instructions": "Results must be in lower case."
+      }
+    },
+    {
+      "key": "es-base-case",
+      "title": "Base case in recursion",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "```prolog\nroute(X, Y) :- direct(X, Y).\nroute(X, Y) :- direct(X, Z), route(Z, Y).\n```\n\nExplain the purpose of each of the two rules.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- First rule is the base case: a direct flight is a route / stops the recursion (1)\n- Second rule is the recursive case: fly direct to Z and then find a route from Z to Y, so routes with any number of changes are found (1)",
+        "points": [
+          {
+            "criterion": "Base case: direct flight / stops recursion",
+            "marks": 1
+          },
+          {
+            "criterion": "Recursive case: one flight then a route from Z",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The first rule is the base case: a direct flight from X to Y is a route, and it stops the recursion. The second is the recursive case: take a direct flight from X to Z and then find a route from Z to Y, so routes with any number of changes are found."
+      }
+    },
+    {
+      "key": "es-write-recursive",
+      "title": "Write a recursive rule",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A knowledge base has facts `parent_child(Parent, Child).` Write rules for `ancestor(X, Y)`, which is true if X is a parent, grandparent, great-grandparent (and so on) of Y.",
+      "content": {
+        "language": "prolog",
+        "starter_code": "ancestor(X, Y) :- \nancestor(X, Y) :- "
+      },
+      "scheme": {
+        "mark_scheme": "ancestor(X, Y) :- parent_child(X, Y). (1 base case)\nancestor(X, Y) :- parent_child(X, Z), (1) ancestor(Z, Y). (1 recursive call)\nBoth rules correctly formed with :- and full stops (1)",
+        "points": [
+          {
+            "criterion": "Base case ancestor(X,Y) :- parent_child(X,Y)",
+            "marks": 1
+          },
+          {
+            "criterion": "parent_child(X, Z) in the recursive rule",
+            "marks": 1
+          },
+          {
+            "criterion": "Recursive call ancestor(Z, Y)",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct syntax for both rules",
+            "marks": 1
+          }
+        ],
+        "model_answer": "ancestor(X, Y) :- parent_child(X, Y).\nancestor(X, Y) :- parent_child(X, Z), ancestor(Z, Y).",
+        "ai_instructions": "Accept ancestor(X,Z), parent_child(Z,Y) as the recursive body (also correct)."
+      }
+    },
+    {
+      "key": "es-backtracking",
+      "title": "How Prolog finds all answers",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "Describe how Prolog finds **all** the answers to the goal `?- direct(almaty, X).`",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Searches the facts from top to bottom for ones matching direct(almaty, …) and returns X for the first match (1)\n- then backtracks / continues searching from that point to find the next match until no more facts match (1)",
+        "points": [
+          {
+            "criterion": "Searches facts in order and matches",
+            "marks": 1
+          },
+          {
+            "criterion": "Backtracks to find further answers",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Prolog searches the facts from the top for one that matches direct(almaty, X) and gives that value of X; then it backtracks and continues searching to find each further match, until no more facts match."
+      }
+    },
+    {
+      "key": "es-structured-plants",
+      "title": "A plant identification system",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A botanist is building an expert system to identify plants.\n\n```prolog\n1  feature(tulip, bulb).\n2  feature(tulip, red_flower).\n3  feature(rose, thorns).\n4  feature(rose, red_flower).\n5  feature(cactus, thorns).\n6  feature(cactus, desert).\n7  red_with_thorns(P) :- feature(P, red_flower), feature(P, thorns).\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "es-plants-a",
+          "part_label": "(a)",
+          "title": "Query result",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "practice": true,
+          "text": "Write the result returned by `?- red_with_thorns(P).`",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "P = rose (1)",
+            "points": [
+              {
+                "criterion": "rose",
+                "marks": 1
+              }
+            ],
+            "model_answer": "P = rose",
+            "accepted": {
+              "values": [
+                "rose",
+                "p = rose",
+                "p=rose"
+              ]
+            }
+          }
+        },
+        {
+          "key": "es-plants-b",
+          "part_label": "(b)",
+          "title": "Add facts",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "practice": true,
+          "text": "Write facts to show that a **sunflower** has a **yellow flower** and grows from **seeds**.",
+          "content": {
+            "language": "prolog",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "feature(sunflower, yellow_flower). (1)\nfeature(sunflower, seeds). (1)",
+            "points": [
+              {
+                "criterion": "feature(sunflower, yellow_flower).",
+                "marks": 1
+              },
+              {
+                "criterion": "feature(sunflower, seeds).",
+                "marks": 1
+              }
+            ],
+            "model_answer": "feature(sunflower, yellow_flower).\nfeature(sunflower, seeds).",
+            "ai_instructions": "Accept seed / grows_from_seeds. Constants must be lower case; multi-word constants joined with _."
+          }
+        },
+        {
+          "key": "es-plants-c",
+          "part_label": "(c)",
+          "title": "Write a rule",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "practice": true,
+          "text": "Write a rule `garden_plant(P)` that is true when plant P has a red flower **or** grows from a bulb.",
+          "content": {
+            "language": "prolog",
+            "starter_code": "garden_plant(P) :- "
+          },
+          "scheme": {
+            "mark_scheme": "garden_plant(P) :- feature(P, red_flower) ; feature(P, bulb).\n\nfeature(P, red_flower) (1)\n; / OR (1)\nfeature(P, bulb). (1)",
+            "points": [
+              {
+                "criterion": "feature(P, red_flower)",
+                "marks": 1
+              },
+              {
+                "criterion": "; / OR",
+                "marks": 1
+              },
+              {
+                "criterion": "feature(P, bulb)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "garden_plant(P) :- feature(P, red_flower) ; feature(P, bulb).",
+            "ai_instructions": "Two separate clauses with the same head get full marks."
+          }
+        }
+      ]
+    },
+    {
+      "key": "es-design-laptop",
+      "title": "Design an expert system",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "practice": true,
+      "text": "A shop wants a simple expert system to recommend a laptop. Facts describe each customer, for example:\n\n```prolog\nneeds(aliya, gaming).\nbudget(aliya, high).\nneeds(ruslan, study).\nbudget(ruslan, low).\n```\n\nWrite a Prolog knowledge base with **at least three rules** for `recommend(Customer, Laptop)` that recommends a `gaming_laptop`, an `ultrabook` or a `basic_laptop`. Then write a query that finds the recommendation for Ruslan.",
+      "content": {
+        "language": "prolog",
+        "answer_lines": 12
+      },
+      "scheme": {
+        "mark_scheme": "- Three rules with the correct head recommend(C, laptop_name) (1)\n- Each rule uses the facts needs(C, …) and/or budget(C, …) as conditions (1)\n- Conditions joined correctly with , (AND) (1)\n- Rules are sensible and distinguish the laptops (e.g. gaming + high → gaming_laptop; study + high → ultrabook; low → basic_laptop) (1)\n- Correct Prolog syntax: lower-case constants, variables in capitals, :- and full stops (1)\n- Query ?- recommend(ruslan, L). (1)",
+        "points": [
+          {
+            "criterion": "Three rules with correct heads",
+            "marks": 1
+          },
+          {
+            "criterion": "Rules use needs / budget facts",
+            "marks": 1
+          },
+          {
+            "criterion": "AND used correctly",
+            "marks": 1
+          },
+          {
+            "criterion": "Sensible, distinct rules",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct syntax throughout",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct query for Ruslan",
+            "marks": 1
+          }
+        ],
+        "model_answer": "recommend(C, gaming_laptop) :- needs(C, gaming), budget(C, high).\nrecommend(C, ultrabook) :- needs(C, study), budget(C, high).\nrecommend(C, basic_laptop) :- budget(C, low).\n\n?- recommend(ruslan, L).",
+        "ai_instructions": "Any sensible set of rules is acceptable. The query must use ruslan in lower case and a variable for the laptop."
+      }
+    },
+    {
+      "key": "es-exam-1",
+      "title": "A car fault expert system",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A car service centre uses an expert system to find faults in cars. The mechanic answers questions such as \"Does the engine start?\" and the system suggests the most likely fault.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "es-exam-1a",
+          "part_label": "(a)",
+          "title": "Components",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each component of the expert system to its description.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "Knowledge base"
+              },
+              {
+                "key": "L2",
+                "text": "Inference engine"
+              },
+              {
+                "key": "L3",
+                "text": "Explanation system"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Holds facts and rules about car faults collected from experienced mechanics"
+              },
+              {
+                "key": "R2",
+                "text": "Uses the mechanic's answers and the rules to work out the fault"
+              },
+              {
+                "key": "R3",
+                "text": "Shows the mechanic which rules were used to reach the conclusion"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Knowledge base–R1, Inference engine–R2, Explanation system–R3. One mark per correct line.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3"
+              }
+            }
+          }
+        },
+        {
+          "key": "es-exam-1b",
+          "part_label": "(b)",
+          "title": "Advantages",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** advantages to the service centre of using the expert system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): less experienced mechanics can find faults like an expert; consistent diagnosis; faster diagnosis; available all the time; experts' knowledge kept when they leave; cheaper than employing several experts; explains its reasoning (training)",
+            "points": [
+              {
+                "criterion": "First valid advantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid advantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Less experienced mechanics can find faults as accurately as an expert. 2 Faults are found faster, so more cars can be repaired each day."
+          }
+        },
+        {
+          "key": "es-exam-1c",
+          "part_label": "(c)",
+          "title": "Limitation",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** limitation of the expert system.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): cannot diagnose faults not covered by its rules / no common sense; wrong rules give wrong advice; must be updated for new car models; expensive to build",
+            "points": [
+              {
+                "criterion": "Valid limitation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It cannot find a fault that is not covered by the rules in its knowledge base."
+          }
+        }
+      ]
+    },
+    {
+      "key": "es-exam-2",
+      "title": "A railway knowledge base",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A railway company stores information about its trains in Prolog.\n\n```prolog\n1  train(astana, karaganda).\n2  train(karaganda, balkhash).\n3  train(balkhash, almaty).\n4  train(astana, kokshetau).\n5  train(almaty, shymkent).\n6  company(karaganda, ktz).\n7  company(balkhash, ktz).\n8  company(kokshetau, tulpar).\n9  two_stops(X, Y) :- train(X, Z), train(Z, Y).\n10 served(X, C) :- train(_, X), company(X, C).\n```\n\n`train(X, Y)` means there is a train from X to Y. `company(X, C)` means company C runs the trains that arrive in X.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "es-exam-2a",
+          "part_label": "(a)",
+          "title": "Facts and rules",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **all** the line numbers where facts are used and **all** the line numbers where rules are used.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Facts",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Rules",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Facts: 1–8 (1)\nRules: 9 and 10 / 9–10 (1)\nAccept only all lines.",
+            "points": [
+              {
+                "criterion": "Facts 1–8",
+                "marks": 1
+              },
+              {
+                "criterion": "Rules 9–10",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Facts: 1–8. Rules: 9–10.",
+            "ai_instructions": "A partial list scores 0 for that box."
+          }
+        },
+        {
+          "key": "es-exam-2b",
+          "part_label": "(b)",
+          "title": "Query results",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write **all** the results returned by the goal `?- company(X, ktz).`",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "karaganda (1)\nbalkhash (1)\nDo not accept with capital letters. Deduct 1 mark for an extra incorrect result.",
+            "points": [
+              {
+                "criterion": "karaganda",
+                "marks": 1
+              },
+              {
+                "criterion": "balkhash",
+                "marks": 1
+              }
+            ],
+            "model_answer": "X = karaganda ; X = balkhash",
+            "ai_instructions": "Order does not matter. Results must be lower case."
+          }
+        },
+        {
+          "key": "es-exam-2c",
+          "part_label": "(c)",
+          "title": "Rule query",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the result returned by the goal `?- two_stops(karaganda, Y).` and explain how Prolog found it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Y = almaty (1)\nExplanation: train(karaganda, Z) gives Z = balkhash, then train(balkhash, Y) gives Y = almaty (1)",
+            "points": [
+              {
+                "criterion": "almaty",
+                "marks": 1
+              },
+              {
+                "criterion": "Explains the two matched facts / Z = balkhash",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Y = almaty. Prolog matched train(karaganda, Z) with Z = balkhash and then train(balkhash, Y) with Y = almaty."
+          }
+        },
+        {
+          "key": "es-exam-2d",
+          "part_label": "(d)",
+          "title": "Write facts",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write more facts. There is a train from Shymkent to Turkestan, and Tulpar runs the trains that arrive in Turkestan.",
+          "content": {
+            "language": "prolog",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "train(shymkent, turkestan). (1)\ncompany(turkestan, tulpar). (1)\nDo not accept a capital letter in a constant or reversed arguments.",
+            "points": [
+              {
+                "criterion": "train(shymkent, turkestan).",
+                "marks": 1
+              },
+              {
+                "criterion": "company(turkestan, tulpar).",
+                "marks": 1
+              }
+            ],
+            "model_answer": "train(shymkent, turkestan).\ncompany(turkestan, tulpar)."
+          }
+        },
+        {
+          "key": "es-exam-2e",
+          "part_label": "(e)",
+          "title": "Write a goal",
+          "type": "code_completion",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Use the variable `W` to write the goal that finds every city with a train **from Astana**.",
+          "content": {
+            "language": "prolog",
+            "starter_code": "?- "
+          },
+          "scheme": {
+            "mark_scheme": "?- train(astana, W). (1)",
+            "points": [
+              {
+                "criterion": "train(astana, W)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "?- train(astana, W).",
+            "ai_instructions": "astana must be lower case and first. Ignore a missing ?- or full stop."
+          }
+        },
+        {
+          "key": "es-exam-2f",
+          "part_label": "(f)",
+          "title": "Recursive rule",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A passenger can **reach** city Y from city X if there is a train from X to Y, or a train from X to some city Z from which Y can be reached. Write the rules for `reach(X, Y)`.",
+          "content": {
+            "language": "prolog",
+            "starter_code": "reach(X, Y) :- \nreach(X, Y) :- "
+          },
+          "scheme": {
+            "mark_scheme": "reach(X, Y) :- train(X, Y). (1)\nreach(X, Y) :- train(X, Z), (1) reach(Z, Y). (1)",
+            "points": [
+              {
+                "criterion": "Base case train(X, Y)",
+                "marks": 1
+              },
+              {
+                "criterion": "train(X, Z) in the recursive rule",
+                "marks": 1
+              },
+              {
+                "criterion": "Recursive call reach(Z, Y)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "reach(X, Y) :- train(X, Y).\nreach(X, Y) :- train(X, Z), reach(Z, Y).",
+            "ai_instructions": "Accept the two cases combined with ; in one rule. Ignore missing full stops once."
+          }
+        }
+      ]
+    },
+    {
+      "key": "es-exam-3",
+      "title": "An animal identification system",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A zoo builds an expert system to help visitors identify animals.\n\n```prolog\n1  has(lion, fur).\n2  eats(lion, meat).\n3  has(zebra, fur).\n4  has(zebra, stripes).\n5  eats(zebra, grass).\n6  has(eagle, feathers).\n7  eats(eagle, meat).\n8  can_fly(eagle).\n9  has(penguin, feathers).\n10 eats(penguin, fish).\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "es-exam-3a",
+          "part_label": "(a)",
+          "title": "Rule bird",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a rule `bird(X)` that is true if X has feathers.",
+          "content": {
+            "language": "prolog",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "bird(X) :- (1)\nhas(X, feathers). (1)",
+            "points": [
+              {
+                "criterion": "Head bird(X) :-",
+                "marks": 1
+              },
+              {
+                "criterion": "Body has(X, feathers).",
+                "marks": 1
+              }
+            ],
+            "model_answer": "bird(X) :- has(X, feathers)."
+          }
+        },
+        {
+          "key": "es-exam-3b",
+          "part_label": "(b)",
+          "title": "Rule predator",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a rule `predator_mammal(X)` that is true if X has fur **and** eats meat.",
+          "content": {
+            "language": "prolog",
+            "starter_code": "predator_mammal(X) :- "
+          },
+          "scheme": {
+            "mark_scheme": "predator_mammal(X) :- has(X, fur), eats(X, meat).\n\nhas(X, fur) (1)\n, / AND (1)\neats(X, meat). (1)",
+            "points": [
+              {
+                "criterion": "has(X, fur)",
+                "marks": 1
+              },
+              {
+                "criterion": ", / AND",
+                "marks": 1
+              },
+              {
+                "criterion": "eats(X, meat)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "predator_mammal(X) :- has(X, fur), eats(X, meat)."
+          }
+        },
+        {
+          "key": "es-exam-3c",
+          "part_label": "(c)",
+          "title": "Rule with NOT",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a rule `flightless_bird(X)` that is true if X is a bird (use your rule from part (a)) that **cannot** fly.",
+          "content": {
+            "language": "prolog",
+            "starter_code": "flightless_bird(X) :- "
+          },
+          "scheme": {
+            "mark_scheme": "flightless_bird(X) :- bird(X), \\+ can_fly(X).\n\nbird(X) (1)\n, (1)\n\\+ can_fly(X) / not(can_fly(X)). (1)",
+            "points": [
+              {
+                "criterion": "bird(X) (or has(X, feathers))",
+                "marks": 1
+              },
+              {
+                "criterion": ", / AND",
+                "marks": 1
+              },
+              {
+                "criterion": "Negation of can_fly(X)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "flightless_bird(X) :- bird(X), \\+ can_fly(X).",
+            "ai_instructions": "Accept has(X, feathers) instead of bird(X), and not(...) instead of \\+."
+          }
+        },
+        {
+          "key": "es-exam-3d",
+          "part_label": "(d)",
+          "title": "Goal result",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the result returned by the goal `?- eats(X, meat), has(X, feathers).`",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "X = eagle (1)",
+            "points": [
+              {
+                "criterion": "eagle",
+                "marks": 1
+              }
+            ],
+            "model_answer": "X = eagle",
+            "accepted": {
+              "values": [
+                "eagle",
+                "x = eagle",
+                "x=eagle"
+              ]
+            }
+          }
+        },
+        {
+          "key": "es-exam-3e",
+          "part_label": "(e)",
+          "title": "Result of the NOT rule",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the result returned by the goal `?- flightless_bird(X).`",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "X = penguin (1)",
+            "points": [
+              {
+                "criterion": "penguin",
+                "marks": 1
+              }
+            ],
+            "model_answer": "X = penguin",
+            "accepted": {
+              "values": [
+                "penguin",
+                "x = penguin",
+                "x=penguin"
+              ]
+            }
+          }
+        },
+        {
+          "key": "es-exam-3f",
+          "part_label": "(f)",
+          "title": "How the answer is found",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the inference engine finds the answer to the goal in part (e).",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each):\n- It finds birds using bird(X) / has(X, feathers): first X = eagle\n- It tests \\+ can_fly(eagle): can_fly(eagle) is a fact, so the condition fails\n- It backtracks and tries the next bird, X = penguin\n- can_fly(penguin) cannot be proved, so \\+ succeeds and X = penguin is returned",
+            "points": [
+              {
+                "criterion": "Finds a bird and tests the NOT condition",
+                "marks": 1
+              },
+              {
+                "criterion": "Backtracks to penguin, for which the condition succeeds",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It first finds a bird, X = eagle, but can_fly(eagle) is a fact, so the NOT condition fails. It backtracks to the next bird, X = penguin; can_fly(penguin) cannot be proved, so the rule succeeds with X = penguin."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What an expert system is, its components and how it reasons, and how to create a simple expert system in Prolog with facts, rules (AND, OR, NOT), variables, queries and recursion.",
   "theory": [
     {
-      "title": "Expert systems",
+      "title": "What an expert system is",
       "objectives": [
         "12.5.1.2"
       ],
@@ -12,109 +1588,388 @@
         {
           "type": "definition",
           "term": "Expert system",
-          "content": "A computer program that **imitates the decision-making of a human expert** in a narrow field, using a **knowledge base** of facts and rules and an **inference engine** that reasons with them."
+          "content": "A computer program that **stores the knowledge of human experts** in a particular field and uses **reasoning** to give advice, make a diagnosis or reach a decision, in the way a human expert would."
+        },
+        {
+          "type": "paragraph",
+          "content": "Expert systems are used where expert knowledge is **rare, expensive or needed quickly**: medical diagnosis, fault-finding in cars and machines, mineral prospecting, financial advice, credit approval, plant and animal identification, chess."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  U[User] <--> UI[User interface]\n  UI <--> IE[Inference engine]\n  IE <--> KB[Knowledge base: facts and rules]\n  IE --> EX[Explanation system]\n  EX --> UI\n  KE[Knowledge engineer and experts] --> ED[Knowledge-base editor]\n  ED --> KB",
+          "caption": "Components of an expert system"
+        },
+        {
+          "type": "comparison",
+          "title": "The parts of an expert system",
+          "columns": [
+            "Component",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "**Knowledge base**",
+              "Stores the **facts** and **rules** collected from experts (e.g. *IF fever AND rash THEN measles*)"
+            ],
+            [
+              "**Inference engine**",
+              "The reasoning part: **applies the rules to the facts** to reach conclusions and decides which question to ask next"
+            ],
+            [
+              "**User interface**",
+              "Asks the user questions and shows the results (often yes/no or menu answers)"
+            ],
+            [
+              "**Explanation system**",
+              "Shows **how** a conclusion was reached — which rules were used and why a question was asked"
+            ],
+            [
+              "**Knowledge-base editor**",
+              "Lets experts / the knowledge engineer **add, change or delete** facts and rules"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How an expert system is created",
+          "items": [
+            "A **knowledge engineer** interviews **experts** and studies documents to collect their knowledge.",
+            "The knowledge is written as **facts and rules** in the knowledge base (e.g. in Prolog).",
+            "The **inference engine** and **user interface** are built or an **expert system shell** is used (an empty system that only needs a knowledge base).",
+            "The system is **tested** with real cases whose answers the experts know, and the rules are refined."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Forward and backward chaining — how the inference engine reasons",
+          "columns": [
+            "",
+            "Forward chaining",
+            "Backward chaining"
+          ],
+          "rows": [
+            [
+              "Starts from",
+              "The **known facts**",
+              "A **goal** (hypothesis) to prove"
+            ],
+            [
+              "Works",
+              "Applies rules to the facts to derive **new facts** until a conclusion is reached",
+              "Looks for rules that would prove the goal, then tries to prove their conditions"
+            ],
+            [
+              "Question it answers",
+              "\"What can I conclude from these facts?\"",
+              "\"Is this conclusion true?\""
+            ],
+            [
+              "Typical use",
+              "Monitoring, planning, control",
+              "Diagnosis — **Prolog uses backward chaining**"
+            ]
+          ]
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "Knowledge base",
-              "content": "Facts and **IF … THEN** rules collected from human experts."
+              "title": "Advantages of expert systems",
+              "content": "- Give **consistent** answers — not affected by tiredness or emotion.\n- Available **24/7** and in many places at once; expert knowledge is not lost when an expert retires.\n- **Fast** — can consider many rules in seconds.\n- **Cheaper** than employing many human experts; can **explain** their reasoning."
             },
             {
-              "title": "Inference engine",
-              "content": "Applies the rules to the facts and the user's answers to reach a **conclusion** (forward or backward chaining)."
-            },
-            {
-              "title": "User interface",
-              "content": "Asks the user questions and shows conclusions — often with an **explanation** of how the conclusion was reached."
-            },
-            {
-              "title": "Explanation system",
-              "content": "Shows *why* a question is asked or *how* the result was obtained."
+              "title": "Disadvantages",
+              "content": "- Have **no common sense** — cannot handle situations outside the rules.\n- Expensive and slow to **build**; knowledge must be kept **up to date**.\n- Depend on the **quality of the rules** — a wrong rule gives wrong advice.\n- Cannot learn by themselves (unlike machine learning); users may trust them too much."
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Facts in Prolog",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Prolog (**PRO**gramming in **LOG**ic) is a **declarative** language that is ideal for building expert systems: the knowledge base is written directly as facts and rules, and Prolog's built-in inference engine answers queries."
         },
         {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  U[User] <--> UI[User interface]\n  UI <--> IE[Inference engine]\n  IE <--> KB[(Knowledge base: facts + rules)]\n  IE --> EX[Explanation system] --> UI",
-          "caption": "Structure of an expert system"
-        },
-        {
-          "type": "comparison",
-          "title": "Uses, advantages and disadvantages",
-          "columns": [
-            "Uses",
-            "Advantages",
-            "Disadvantages"
-          ],
-          "rows": [
-            [
-              "Medical diagnosis, car/computer fault finding, financial advice, plant/animal identification, mineral prospecting",
-              "Consistent answers; available 24/7; preserves expert knowledge; can be used by non-experts; fast",
-              "Only as good as its rules; no common sense or intuition; expensive to build and update; cannot handle situations outside its knowledge"
-            ]
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Building a simple expert system in Prolog",
-          "level": 2
+          "type": "definition",
+          "term": "Fact",
+          "content": "A statement that is **always true**. It has a **predicate** (relation) name and **arguments** in brackets, and ends with a **full stop**."
         },
         {
           "type": "code",
           "language": "prolog",
-          "content": "% ---- facts about particular animals ----\nhas(tweety, feathers).\ncan(tweety, fly).\nhas(nemo, fins).\nlives_in(nemo, water).\nhas(rex, fur).\nsays(rex, woof).\n\n% ---- rules (IF conditions THEN conclusion) ----\nbird(X)   :- has(X, feathers).\nfish(X)   :- has(X, fins), lives_in(X, water).\nmammal(X) :- has(X, fur).\ndog(X)    :- mammal(X), says(X, woof).\n\n% ---- queries ----\n% ?- bird(tweety).      → true\n% ?- dog(rex).          → true\n% ?- fish(Who).         → Who = nemo",
-          "caption": "Animal identification expert system"
+          "content": "1  direct(almaty, astana).\n2  direct(almaty, shymkent).\n3  direct(astana, aktau).\n4  direct(shymkent, turkestan).\n5  direct(astana, pavlodar).\n6  flies(astana, air_astana).\n7  flies(aktau, scat).\n8  flies(pavlodar, fly_jet).\n9  flies(aktau, fly_jet).",
+          "caption": "A knowledge base of flights (facts)"
         },
         {
           "type": "comparison",
-          "title": "Prolog terms",
+          "title": "Rules for writing facts",
           "columns": [
-            "Term",
+            "Rule",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Predicate names and **constants** start with a **lower-case** letter",
+              "`direct`, `almaty`, `air_astana`"
+            ],
+            [
+              "Words in a constant are joined with `_`",
+              "`fly_jet`, `kaz_air`"
+            ],
+            [
+              "Each fact ends with a **full stop**",
+              "`direct(almaty, astana).`"
+            ],
+            [
+              "The **order** of arguments matters and must be used consistently",
+              "`direct(From, To)` — always from first"
+            ],
+            [
+              "Numbers can be arguments",
+              "`age(dana, 17).`"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "In Prolog a word starting with a **capital letter** is a **variable**. `direct(Turkestan, kokshetau).` does **not** store the city Turkestan — it means \"anything has a direct flight to kokshetau\". Write constants in **lower case**: `direct(turkestan, kokshetau).`"
+        }
+      ]
+    },
+    {
+      "title": "Queries and variables",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Query (goal)",
+          "content": "A question asked of the knowledge base, written after `?-`. Prolog answers **true / false**, or gives the **values of the variables** that make the query true."
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "?- direct(almaty, astana).       % true\n?- direct(aktau, almaty).        % false (no such fact)\n?- direct(almaty, X).            % X = astana ; X = shymkent\n?- direct(X, aktau).             % X = astana\n?- flies(X, fly_jet).            % X = pavlodar ; X = aktau\n?- direct(astana, Y), flies(Y, fly_jet).   % Y = aktau ; Y = pavlodar",
+          "caption": "Queries on the flight knowledge base"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Variables",
+              "content": "- Start with a **capital letter** or `_`: `X`, `City`, `Who`.\n- Prolog finds **every value** that makes the query true (press `;` for the next answer).\n- The **same variable** in one query or rule must have the **same value** everywhere in it."
+            },
+            {
+              "title": "The anonymous variable `_`",
+              "content": "- Means \"any value — I don't care what it is\".\n- `?- direct(almaty, _).` → true (Almaty has at least one direct flight).\n- Each `_` is independent of every other `_`."
+            }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How Prolog answers ?- direct(almaty, X).",
+          "items": [
+            "Searches the facts **from top to bottom** for `direct(almaty, …)`.",
+            "Line 1 matches → **X = astana** (first answer).",
+            "On `;` it **backtracks** and continues searching → line 2 → **X = shymkent**.",
+            "No more matches → `false` / no more answers."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Rules: AND, OR and NOT",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Rule",
+          "content": "A statement that is true **if** its conditions are true: `head :- body.` The symbol `:-` means **\"if\"**."
+        },
+        {
+          "type": "comparison",
+          "title": "Logical operators in Prolog",
+          "columns": [
+            "Operator",
             "Meaning",
             "Example"
           ],
           "rows": [
             [
-              "Fact",
-              "A statement that is always true",
-              "`parent(asel, timur).`"
+              "`,`",
+              "**AND** — all conditions must be true",
+              "`connection(X, Y) :- direct(X, Z), direct(Z, Y).`"
             ],
             [
-              "Rule",
-              "A conclusion that is true IF its conditions are true (`:-` means \"if\", `,` means \"and\", `;` means \"or\")",
-              "`grandparent(X,Z) :- parent(X,Y), parent(Y,Z).`"
+              "`;`",
+              "**OR** — at least one condition must be true",
+              "`family(X, Y) :- spouse(X, Y) ; parent_child(X, Y).`"
             ],
             [
-              "Query (goal)",
-              "A question to the system",
-              "`?- grandparent(asel, Who).`"
+              "`\\+`",
+              "**NOT** — true if the condition **cannot** be proved",
+              "`no_flights(X) :- city(X), \\+ direct(X, _).`"
             ],
             [
-              "Variable",
-              "Starts with a capital letter",
-              "`X`, `Who`"
+              "`\\=`",
+              "not equal (cannot be matched)",
+              "`X \\= Y`"
             ],
             [
-              "Constant (atom)",
-              "Starts with a lower-case letter",
-              "`asel`, `chess`"
+              "`=`, `==`",
+              "equal / identical",
+              "`X = almaty`"
+            ],
+            [
+              "`>`, `<`, `>=`, `=<`",
+              "numeric comparison",
+              "`adult(X) :- age(X, A), A >= 18.`"
             ]
           ]
         },
         {
           "type": "code",
           "language": "prolog",
-          "content": "parent(bolat, jiger).\nparent(jiger, aliya).\nchild(X, Y) :- parent(Y, X).\n\n?- child(jiger, Y).      % Y = bolat\n?- parent(jiger, Y).     % Y = aliya",
-          "caption": "A family knowledge base and query results"
+          "content": "% X to Y with one change: a direct flight from X to Z AND from Z to Y\nconnection(X, Y) :- direct(X, Z), direct(Z, Y).\n\n% you can travel from X to Y directly OR with one change\ncan_travel(X, Y) :- direct(X, Y) ; connection(X, Y).\n\n% a city served by fly_jet that has a direct flight from astana\ncheap_from_astana(Y) :- direct(astana, Y), flies(Y, fly_jet).",
+          "caption": "Rules for the flight knowledge base"
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "?- connection(almaty, aktau).     % true  (almaty → astana → aktau)\n?- connection(almaty, Where).     % Where = aktau ; Where = pavlodar ; Where = turkestan\n?- cheap_from_astana(C).          % C = aktau ; C = pavlodar",
+          "caption": "Queries using the rules"
+        },
+        {
+          "type": "example",
+          "title": "A family knowledge base (exam style)",
+          "content": "```prolog\n1  parent_child(aibek, bolat).\n2  parent_child(aibek, dana).\n3  parent_child(saule, bolat).\n4  parent_child(saule, dana).\n5  parent_child(bolat, erlan).\n6  spouse(aibek, saule).\n7  male(aibek).\n8  male(bolat).\n9  female(saule).\n10 female(dana).\n11 father(X, Y) :- parent_child(X, Y), male(X).\n12 sibling(X, Y) :- parent_child(Z, X), parent_child(Z, Y), X \\= Y.\n13 grandparent(X, Y) :- parent_child(X, Z), parent_child(Z, Y).\n14 family(X, Y) :- spouse(X, Y) ; parent_child(X, Y) ; parent_child(Y, X).\n```\n- **Facts** are on lines **1–10**; **rules** on lines **11–14**.\n- `?- father(aibek, Y).` → `Y = bolat ; Y = dana`.\n- `?- sibling(dana, Y).` → `Y = bolat` (twice — once through each parent).\n- `?- grandparent(saule, Y).` → `Y = erlan`."
         },
         {
           "type": "exam_tip",
-          "content": "In \"identify the line numbers where facts / rules are used\" questions: **facts** have no `:-`; **rules** contain `:-`. Variables in a query are answered by **unification** with the facts."
+          "content": "1. Write the **head** exactly as given: `sibling(X, Y) :-`\n2. Translate each condition in the question into a fact pattern, sharing a variable to **link** them (`Z` is the common parent).\n3. Join with `,` for AND or `;` for OR, add `X \\= Y` if the two must be different, and finish with a **full stop**."
+        }
+      ]
+    },
+    {
+      "title": "Recursion",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A rule can call **itself**. Recursion lets Prolog follow a chain of any length, e.g. routes with many changes or ancestors over many generations. A recursive definition needs a **base case** (stops the recursion) and a **recursive case**."
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "% base case: a direct flight is a route\nroute(X, Y) :- direct(X, Y).\n% recursive case: fly direct to Z, then find a route from Z to Y\nroute(X, Y) :- direct(X, Z), route(Z, Y).\n\n% ancestors over any number of generations\nancestor(X, Y) :- parent_child(X, Y).\nancestor(X, Y) :- parent_child(X, Z), ancestor(Z, Y).",
+          "caption": "Recursive rules"
+        },
+        {
+          "type": "steps",
+          "title": "How Prolog proves ?- route(almaty, aktau).",
+          "items": [
+            "Tries the base case: `direct(almaty, aktau)` — no such fact, so it fails.",
+            "Tries the recursive case: `direct(almaty, Z)` → **Z = astana**; now needs `route(astana, aktau)`.",
+            "Base case: `direct(astana, aktau)` — **true**. So `route(almaty, aktau)` is **true**."
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "Put the **base case first** and make sure each recursive call moves **closer** to the base case; otherwise Prolog can loop forever."
+        }
+      ]
+    },
+    {
+      "title": "Creating a simple expert system",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A small diagnostic expert system: the knowledge base holds the **symptoms** of a patient (facts) and the **rules** that link symptoms to illnesses. The inference engine (Prolog itself) finds the diagnosis."
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "% ---- facts: symptoms of each patient ----\nsymptom(arman, fever).\nsymptom(arman, cough).\nsymptom(arman, sore_throat).\nsymptom(dana, sneezing).\nsymptom(dana, runny_nose).\nsymptom(timur, fever).\nsymptom(timur, rash).\n\n% ---- rules: the experts' knowledge ----\nillness(P, flu)     :- symptom(P, fever), symptom(P, cough).\nillness(P, cold)    :- symptom(P, sneezing), symptom(P, runny_nose), \\+ symptom(P, fever).\nillness(P, measles) :- symptom(P, fever), symptom(P, rash).\n\nadvice(P, 'Stay at home and see a doctor') :- illness(P, flu) ; illness(P, measles).\nadvice(P, 'Rest and drink warm tea')       :- illness(P, cold).",
+          "caption": "A simple medical expert system"
+        },
+        {
+          "type": "code",
+          "language": "prolog",
+          "content": "?- illness(arman, X).     % X = flu\n?- illness(Who, measles). % Who = timur\n?- advice(dana, A).       % A = 'Rest and drink warm tea'",
+          "caption": "Using the expert system"
+        },
+        {
+          "type": "example",
+          "title": "An interactive version that asks the user",
+          "content": "```prolog\ndiagnose :-\n    write('Do you have a fever? (yes/no) '), read(F),\n    write('Do you have a cough? (yes/no) '), read(C),\n    conclude(F, C).\n\nconclude(yes, yes) :- write('You may have flu.'), nl.\nconclude(yes, no)  :- write('You may have another infection - see a doctor.'), nl.\nconclude(no, _)    :- write('You probably do not have flu.'), nl.\n```\n`write` shows text, `read` reads the user's answer (typed as `yes.`), `nl` starts a new line. This is the **user interface**; the `conclude` rules are the **knowledge base**."
+        },
+        {
+          "type": "steps",
+          "title": "Designing your own expert system",
+          "items": [
+            "Choose a **narrow field** (identifying birds, choosing a laptop, diagnosing a bicycle fault).",
+            "List the **conclusions** the system can reach (the possible answers).",
+            "For each conclusion, list the **conditions** (facts) that must be true — these become the **rules**.",
+            "Write the **facts** about the case, then test with **queries** whose answers you know.",
+            "Add rules for missing cases and use `\\+` to separate conclusions with similar conditions."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.1.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers (flight knowledge base)",
+          "content": "**Q: Write more facts. There is a direct flight from Turkestan to Kokshetau and Kaz Air flies to Kokshetau. [2]**\n`direct(turkestan, kokshetau).` (1) `flies(kokshetau, kaz_air).` (1) — lower case, same argument order as the existing facts.\n\n**Q: Use the variable Z to write the goal to find where you can fly direct from Shymkent. [2]**\n`?- direct(shymkent, Z).` — predicate `direct` (1), arguments `(shymkent, Z)` (1).\n\n**Q: It is possible to fly from X to Y if there is a direct flight from X to Z and a direct flight from Z to Y. Write a rule. [3]**\n`fly(X, Y) :- direct(X, Z), direct(Z, Y).` — `direct(X, Z)` (1), `,` / AND (1), `direct(Z, Y).` (1)\n\n**Q: Identify all line numbers in the code where facts are used. [1]**\nGive **all** the lines (e.g. *1–10*); a partial list gets no mark."
+        },
+        {
+          "type": "warning",
+          "content": "- Starting constants with a capital letter (they become variables).\n- Forgetting the **full stop** at the end of a fact or rule.\n- Changing the **order of arguments** — `direct(aktau, astana)` is not the same as `direct(astana, aktau)`.\n- Using a different variable where the conditions must be linked: `direct(X, Z), direct(W, Y)` does not join the two flights.\n- Forgetting `X \\= Y` in a sibling rule, so a person becomes their own sibling.\n- Writing `:=` or `=` instead of `:-` for \"if\"."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Name the five components of an expert system and describe each.",
+            "What is the difference between forward and backward chaining?",
+            "Give two advantages and two disadvantages of expert systems.",
+            "What is the difference between a fact, a rule and a query?",
+            "How do you write AND, OR and NOT in Prolog?",
+            "Write a rule `grandparent(X, Y)` and a recursive rule `ancestor(X, Y)`.",
+            "Design a five-rule expert system that identifies an animal."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Expert systems — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write Prolog code where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "es-exam-1",
+      "es-exam-2",
+      "es-exam-3"
+    ]
+  }
 }

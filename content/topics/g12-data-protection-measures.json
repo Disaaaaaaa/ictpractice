@@ -1,47 +1,1744 @@
 {
   "topic": "g12-data-protection-measures",
-  "questions": [],
-  "summary": "Measures that protect data and computer systems — physical security, firewalls, encryption, biometrics and anti-virus protection — and using backups and disk mirroring.",
+  "questions": [
+    {
+      "key": "dp-threat-match",
+      "title": "Threats and measures",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.2.1",
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Match each threat to the measure that best protects against it.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "A hacker tries to connect to the school server from the Internet"
+          },
+          {
+            "key": "L2",
+            "text": "A laptop containing pupils' data is stolen"
+          },
+          {
+            "key": "L3",
+            "text": "One hard disk in the server fails"
+          },
+          {
+            "key": "L4",
+            "text": "A power cut in the server room"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Firewall"
+          },
+          {
+            "key": "R2",
+            "text": "Encryption"
+          },
+          {
+            "key": "R3",
+            "text": "Disk mirroring"
+          },
+          {
+            "key": "R4",
+            "text": "Uninterruptible power supply (UPS)"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–Firewall, L2–Encryption, L3–Mirroring, L4–UPS. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dp-hacking-measures",
+      "title": "Prevent hacking",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "List **three** security measures to prevent hacking.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          },
+          {
+            "key": "3",
+            "label": "3",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any three (1 each): biometric; access control / access rights; antivirus; firewall; double / two-factor authentication; strong password; intranet; encryption; software updates\n[max 3] Accept any correct answer",
+        "points": [
+          {
+            "criterion": "First measure",
+            "marks": 1
+          },
+          {
+            "criterion": "Second measure",
+            "marks": 1
+          },
+          {
+            "criterion": "Third measure",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Firewall. 2 Two-factor authentication. 3 Strong passwords."
+      }
+    },
+    {
+      "key": "dp-physical-table",
+      "title": "Physical risks",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Complete the table with **one** countermeasure for each physical risk to a server room.",
+      "content": {
+        "columns": [
+          "Physical risk",
+          "Countermeasure"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Theft of servers",
+            null
+          ],
+          [
+            "Fire",
+            null
+          ],
+          [
+            "Power cut",
+            null
+          ],
+          [
+            "Overheating",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Theft (1): locked room / key cards / biometric entry / CCTV / guards\nFire (1): smoke detectors / gas fire-suppression / fireproof safe for backups / off-site backup\nPower cut (1): UPS / back-up generator\nOverheating (1): air conditioning / temperature monitoring / ventilation",
+        "points": [
+          {
+            "criterion": "Theft",
+            "marks": 1
+          },
+          {
+            "criterion": "Fire",
+            "marks": 1
+          },
+          {
+            "criterion": "Power cut",
+            "marks": 1
+          },
+          {
+            "criterion": "Overheating",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Theft: key-card lock on the door. Fire: gas fire-suppression system. Power cut: UPS. Overheating: air conditioning.",
+        "ai_instructions": "Mark each row separately."
+      }
+    },
+    {
+      "key": "dp-ups",
+      "title": "Purpose of a UPS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of an **uninterruptible power supply (UPS)** for a server.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A battery keeps the server running for a short time when the mains power fails (1)\n- so data can be saved / the server shut down safely / generator started, preventing data loss or damage (1)",
+        "points": [
+          {
+            "criterion": "Battery power during a power cut",
+            "marks": 1
+          },
+          {
+            "criterion": "Safe shutdown / no data loss",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Its battery keeps the server running for a few minutes when the power fails, so data can be saved and the server shut down safely without losing data."
+      }
+    },
+    {
+      "key": "dp-firewall-describe",
+      "title": "How a firewall works",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Describe how a **firewall** protects a network.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): monitors / checks data packets entering and leaving the network; compares them with a set of security rules (IP addresses, ports); blocks unauthorised / suspicious packets / connections; logs attempted attacks; can block certain websites",
+        "points": [
+          {
+            "criterion": "Checks packets against rules",
+            "marks": 1
+          },
+          {
+            "criterion": "Blocks unauthorised traffic",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It checks every data packet going in and out of the network against a set of rules, such as allowed IP addresses and ports, and blocks any packet that breaks the rules."
+      }
+    },
+    {
+      "key": "dp-firewall-tf",
+      "title": "Firewall and viruses",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "A firewall scans the files on a hard disk and removes any viruses it finds.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Removing viruses from files is the job of anti-virus software; a firewall filters network traffic."
+      }
+    },
+    {
+      "key": "dp-encryption-define",
+      "title": "Encryption",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Describe how **encryption** protects data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Data (plaintext) is scrambled into ciphertext using an algorithm and a key (1)\n- so if it is intercepted / stolen it cannot be understood without the key (1)",
+        "points": [
+          {
+            "criterion": "Scrambled with a key",
+            "marks": 1
+          },
+          {
+            "criterion": "Unreadable without the key",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Encryption scrambles the data into ciphertext using a key, so anyone who intercepts or steals it cannot read it without the correct key."
+      }
+    },
+    {
+      "key": "dp-sym-asym",
+      "title": "Symmetric or asymmetric",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Symmetric encryption",
+          "Asymmetric encryption"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "The same key is used to encrypt and decrypt",
+            null,
+            null
+          ],
+          [
+            "A public key encrypts and a private key decrypts",
+            null,
+            null
+          ],
+          [
+            "The key has to be shared secretly with the receiver",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Symmetric (1); 2 Asymmetric (1); 3 Symmetric (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dp-encryption-mcq",
+      "title": "What encryption does not do",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "A company encrypts all files on its laptops. Which statement is correct?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The laptops can no longer be stolen"
+        },
+        {
+          "key": "B",
+          "content": "A thief who steals a laptop cannot read the files without the key"
+        },
+        {
+          "key": "C",
+          "content": "The files can no longer be deleted"
+        },
+        {
+          "key": "D",
+          "content": "Viruses cannot infect the laptops"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Encryption makes stolen data unreadable; it does not prevent theft, deletion or malware."
+      }
+    },
+    {
+      "key": "dp-biometric-examples-mr",
+      "title": "Biometric methods",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Select **two** biometric authentication methods.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Iris scan"
+        },
+        {
+          "key": "B",
+          "content": "PIN code"
+        },
+        {
+          "key": "C",
+          "content": "Fingerprint"
+        },
+        {
+          "key": "D",
+          "content": "Swipe card"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dp-biometric-adv-dis",
+      "title": "Biometrics: advantage and disadvantage",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "State **one** advantage and **one** disadvantage of using fingerprint recognition to log in to a computer.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Advantage",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Disadvantage",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Advantage (1): unique / hard to copy; cannot be forgotten, lost or shared; fast and convenient\nDisadvantage (1): expensive hardware; false rejection (dirty / cut finger) / false acceptance; privacy — data cannot be changed if stolen",
+        "points": [
+          {
+            "criterion": "Valid advantage",
+            "marks": 1
+          },
+          {
+            "criterion": "Valid disadvantage",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Advantage: a fingerprint cannot be forgotten or shared like a password. Disadvantage: it may be rejected if the finger is dirty or cut."
+      }
+    },
+    {
+      "key": "dp-2fa",
+      "title": "Two-factor authentication",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Explain how **two-factor authentication** makes an online bank account more secure.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The user must provide two different types of evidence, e.g. a password and a code sent to the phone / a fingerprint (1)\n- so a hacker who steals / guesses the password still cannot log in without the second factor (1)",
+        "points": [
+          {
+            "criterion": "Two different factors",
+            "marks": 1
+          },
+          {
+            "criterion": "Stolen password alone is not enough",
+            "marks": 1
+          }
+        ],
+        "model_answer": "After the password, the bank also asks for a one-time code sent to the customer's phone, so a hacker who has stolen the password still cannot log in without the phone."
+      }
+    },
+    {
+      "key": "dp-antivirus-detect",
+      "title": "How anti-virus detects malware",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "Describe **two** methods anti-virus software uses to detect malware.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Method 1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Method 2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): signature-based — compares files with a database of known virus signatures; heuristic / behaviour analysis — detects suspicious behaviour of programs; real-time scanning of files as they are opened / downloaded",
+        "points": [
+          {
+            "criterion": "First method",
+            "marks": 1
+          },
+          {
+            "criterion": "Second method",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 It compares files with a database of signatures of known viruses. 2 It watches for suspicious behaviour, such as a program changing many system files, to catch new viruses."
+      }
+    },
+    {
+      "key": "dp-virus-countermeasures",
+      "title": "Virus countermeasures",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "practice": true,
+      "text": "State **two** countermeasures, other than installing anti-virus software, that reduce the risk of a computer virus infection.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): keep OS / software updated; do not open unknown attachments / links; scan / disable autorun for USB drives; download only from trusted sources; firewall; limited user accounts; user training; regular backups",
+        "points": [
+          {
+            "criterion": "First countermeasure",
+            "marks": 1
+          },
+          {
+            "criterion": "Second countermeasure",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Keep the operating system updated. 2 Do not open e-mail attachments from unknown senders."
+      }
+    },
+    {
+      "key": "dp-backup-define",
+      "title": "Data backup",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Describe what is meant by a **data backup**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A copy of the data made on a separate medium / location (1)\n- so it can be restored if the original is lost / damaged / deleted (1)",
+        "points": [
+          {
+            "criterion": "Copy on separate medium",
+            "marks": 1
+          },
+          {
+            "criterion": "Restore after loss",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A copy of data stored on a separate medium, ideally in another place, so it can be restored if the original data is lost or damaged."
+      }
+    },
+    {
+      "key": "dp-backup-types",
+      "title": "Types of backup",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the type of backup described.",
+      "content": {
+        "columns": [
+          "Description",
+          "Full",
+          "Incremental",
+          "Differential"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "Copies all the data every time",
+            null,
+            null,
+            null
+          ],
+          [
+            "Copies only data changed since the last backup of any type",
+            null,
+            null,
+            null
+          ],
+          [
+            "Copies all data changed since the last full backup",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Full (1); 2 Incremental (1); 3 Differential (1)",
+        "points": [
+          {
+            "criterion": "Full",
+            "marks": 1
+          },
+          {
+            "criterion": "Incremental",
+            "marks": 1
+          },
+          {
+            "criterion": "Differential",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dp-offsite",
+      "title": "Off-site backups",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Explain why backups should be kept **off-site** (in a different building or in the cloud).",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A fire / flood / theft at the main site would destroy both the original and a backup kept in the same place (1)\n- an off-site copy survives, so the data can still be restored (1)",
+        "points": [
+          {
+            "criterion": "Disaster at one site destroys both",
+            "marks": 1
+          },
+          {
+            "criterion": "Off-site copy allows restore",
+            "marks": 1
+          }
+        ],
+        "model_answer": "If the building burns down or is flooded, a backup kept in the same room would be destroyed with the original; an off-site copy survives and the data can be restored."
+      }
+    },
+    {
+      "key": "dp-mirroring-describe",
+      "title": "Disk mirroring",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Describe how **disk mirroring** protects data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Data is written to two (or more) disks at the same time, so they hold identical copies (RAID 1) (1)\n- if one disk fails, the system continues from the other disk without data loss / downtime (1)",
+        "points": [
+          {
+            "criterion": "Written to two disks simultaneously",
+            "marks": 1
+          },
+          {
+            "criterion": "Continues if one fails",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every piece of data is written to two disks at the same time, so if one disk fails, the computer keeps working from the identical copy on the other disk."
+      }
+    },
+    {
+      "key": "dp-mirror-vs-backup",
+      "title": "Mirroring vs backup",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes **backup** or **disk mirroring**.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Backup",
+          "Disk mirroring"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Copies data continuously, in real time",
+            null,
+            null
+          ],
+          [
+            "Can be used to restore a file deleted by mistake last week",
+            null,
+            null
+          ],
+          [
+            "The system keeps working with no downtime when a disk fails",
+            null,
+            null
+          ],
+          [
+            "A copy can be stored in another city",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Mirroring (1); 2 Backup (1); 3 Mirroring (1); 4 Backup (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dp-scenario-ransomware",
+      "title": "Ransomware attack",
+      "type": "scenario",
+      "marks": 4,
+      "difficulty": "exam",
+      "command_word": "discuss",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1",
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "A small accounting firm stores clients' data on one server with disk mirroring. Last month ransomware encrypted all its files.\n\nDiscuss why disk mirroring did not protect the data, and recommend measures the firm should take.",
+      "content": {
+        "answer_lines": 10
+      },
+      "scheme": {
+        "mark_scheme": "Up to 4 marks:\n- Mirroring copies every change immediately, so the encrypted files were written to both disks (1)\n- mirroring only protects against disk failure, not malware / deletion (1)\n- Regular backups, at least one offline / off-site, to restore unencrypted files (1)\n- Anti-virus updated / firewall / OS updates (1)\n- Staff training on phishing / not opening attachments; limited user rights (1)\n[Max 4]",
+        "points": [
+          {
+            "criterion": "Explains why mirroring failed",
+            "marks": 1
+          },
+          {
+            "criterion": "Recommends backups (offline / off-site)",
+            "marks": 1
+          },
+          {
+            "criterion": "Recommends anti-virus / firewall / updates",
+            "marks": 1
+          },
+          {
+            "criterion": "Further justified measure",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Disk mirroring writes every change to both disks at once, so when the ransomware encrypted the files, both copies were encrypted; mirroring only protects against a disk failing. The firm should make regular backups and keep one copy offline or off-site so it can restore the original files, install and update anti-virus software and a firewall, keep the system updated, and train staff not to open suspicious attachments."
+      }
+    },
+    {
+      "key": "dp-extended-plan",
+      "title": "A protection plan for a school",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "evaluate",
+      "grading": "AI",
+      "objectives": [
+        "12.1.2.1",
+        "12.1.2.2"
+      ],
+      "practice": true,
+      "text": "A school stores pupils' personal data and marks on a server connected to the Internet. Teachers take laptops home.\n\nEvaluate the measures the school should use to protect this data. Refer to physical security, firewalls, encryption, biometrics or passwords, anti-virus software, backup and disk mirroring.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "One mark per well-explained measure linked to the scenario (max 5), e.g.\n- locked server room / UPS / fire protection (physical)\n- firewall to block Internet attacks on the server\n- encryption of laptops so stolen laptops do not expose data\n- strong passwords + 2FA / biometrics for staff log-in, access rights so pupils cannot see marks\n- anti-virus with updates against malware\n- regular off-site / cloud backups to restore after loss or ransomware\n- disk mirroring so the server keeps running if a disk fails\nEvaluation / conclusion (1): e.g. no single measure is enough; mirroring is not a backup; cost vs risk",
+        "points": [
+          {
+            "criterion": "First measure explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Second measure explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Third measure explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Fourth measure explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Fifth measure explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Evaluation / conclusion",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The server should be in a locked room with a UPS, so it cannot be stolen or damaged by a power cut. A firewall should block unauthorised connections from the Internet. Teachers' laptops should be encrypted, so if one is stolen the pupils' data cannot be read. Staff should log in with strong passwords and two-factor authentication, and access rights should stop pupils from seeing marks. Anti-virus software must be kept updated. The server should use disk mirroring so it keeps running if a disk fails, but because mirroring copies deletions and ransomware too, the school also needs regular backups stored off-site. No single measure is enough, so the school should combine them."
+      }
+    },
+    {
+      "key": "dp-exam-1",
+      "title": "Protecting a school network",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school's server stores pupils' personal data and is connected to the Internet. Teachers also keep pupils' marks on their laptops.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dp-exam-1a",
+          "part_label": "(a)",
+          "title": "Three measures",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "List **three** security measures to prevent hacking.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Biometric (1) Access control (1) Antivirus (1) Firewall (1) Use double authentication (1) Use strong password (1) Intranet (1) Encryption (1) [max 3] Accept any correct answer",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              },
+              {
+                "criterion": "Third",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Firewall. 2 Strong passwords. 3 Two-factor authentication."
+          }
+        },
+        {
+          "key": "dp-exam-1b",
+          "part_label": "(b)",
+          "title": "Firewall",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how a firewall protects the school server.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Checks / monitors packets entering and leaving the network (1); against security rules — IP addresses / ports (1); blocks unauthorised traffic (1) [Max 2]",
+            "points": [
+              {
+                "criterion": "Checks packets against rules",
+                "marks": 1
+              },
+              {
+                "criterion": "Blocks unauthorised traffic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It checks each packet coming from the Internet against security rules and blocks any connection that is not allowed."
+          }
+        },
+        {
+          "key": "dp-exam-1c",
+          "part_label": "(c)",
+          "title": "Firewall limitation",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** threat that a firewall cannot protect against.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): virus on a USB stick / in an allowed e-mail attachment; insider / authorised user misusing data; phishing; physical theft; disk failure",
+            "points": [
+              {
+                "criterion": "Valid threat",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A virus brought in on a USB stick."
+          }
+        },
+        {
+          "key": "dp-exam-1d",
+          "part_label": "(d)",
+          "title": "Encryption",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how encryption protects the pupils' marks if a teacher's laptop is stolen.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The data is scrambled with a key / stored as ciphertext (1)\n- the thief cannot read / understand the marks without the key (1)",
+            "points": [
+              {
+                "criterion": "Data scrambled with a key",
+                "marks": 1
+              },
+              {
+                "criterion": "Unreadable without the key",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The marks are stored as ciphertext, so the thief cannot read them without the decryption key."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dp-exam-2",
+      "title": "Authentication and malware",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A bank wants to make its staff log-in and computers more secure.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dp-exam-2a",
+          "part_label": "(a)",
+          "title": "Biometric methods",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** biometric methods the bank could use.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): fingerprint; face recognition; iris / retina scan; voice recognition; hand geometry; signature dynamics",
+            "points": [
+              {
+                "criterion": "First method",
+                "marks": 1
+              },
+              {
+                "criterion": "Second method",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Fingerprint recognition. 2 Iris scan."
+          }
+        },
+        {
+          "key": "dp-exam-2b",
+          "part_label": "(b)",
+          "title": "Biometrics evaluated",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** advantage and **one** disadvantage of biometrics compared with passwords.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Advantage",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Disadvantage",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Advantage (1): unique / hard to copy; cannot be forgotten or shared; faster\nDisadvantage (1): expensive; false rejections / acceptances; cannot be changed if stolen / privacy",
+            "points": [
+              {
+                "criterion": "Advantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Disadvantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Advantage: it cannot be forgotten or given to another person. Disadvantage: if the biometric data is stolen it cannot be changed like a password."
+          }
+        },
+        {
+          "key": "dp-exam-2c",
+          "part_label": "(c)",
+          "title": "Two-factor authentication",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how two-factor authentication improves security.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Two different types of evidence are needed (something you know / have / are) (1)\n- a stolen password alone is not enough to log in (1)",
+            "points": [
+              {
+                "criterion": "Two different factors",
+                "marks": 1
+              },
+              {
+                "criterion": "Stolen password insufficient",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Staff need a password and also a fingerprint or a code on their phone, so someone who has stolen a password still cannot log in."
+          }
+        },
+        {
+          "key": "dp-exam-2d",
+          "part_label": "(d)",
+          "title": "New viruses",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how anti-virus software can detect a **new** virus that is not yet in its signature database.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Heuristic / behaviour-based detection (1)\n- watches for suspicious actions, e.g. changing system files / copying itself / encrypting many files, and quarantines the program (1)",
+            "points": [
+              {
+                "criterion": "Heuristic / behaviour analysis",
+                "marks": 1
+              },
+              {
+                "criterion": "Suspicious actions described",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It uses heuristic analysis: it watches what programs do and blocks one that behaves suspiciously, such as trying to change many system files."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dp-exam-3",
+      "title": "The server room",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A hospital's server room holds the servers with patients' records.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dp-exam-3a",
+          "part_label": "(a)",
+          "title": "Physical risks",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each physical risk to the most suitable countermeasure.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "Theft of a server"
+              },
+              {
+                "key": "L2",
+                "text": "Fire"
+              },
+              {
+                "key": "L3",
+                "text": "Overheating"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Door opened only by key card and CCTV"
+              },
+              {
+                "key": "R2",
+                "text": "Gas-based fire-suppression system"
+              },
+              {
+                "key": "R3",
+                "text": "Air conditioning"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Theft–R1, Fire–R2, Overheating–R3. One mark per correct line.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3"
+              }
+            }
+          }
+        },
+        {
+          "key": "dp-exam-3b",
+          "part_label": "(b)",
+          "title": "UPS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the hospital's servers are connected to a UPS.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Battery power keeps the servers running when the mains power fails (1)\n- so records are not lost / servers shut down safely / generator can start; patient records remain available (1)",
+            "points": [
+              {
+                "criterion": "Battery during power cut",
+                "marks": 1
+              },
+              {
+                "criterion": "No data loss / safe shutdown",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If the power fails, the UPS battery keeps the servers running until the generator starts, so patient records are not lost or damaged."
+          }
+        },
+        {
+          "key": "dp-exam-3c",
+          "part_label": "(c)",
+          "title": "Off-site backup",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the hospital keeps a copy of its backups in another building.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- A fire / flood / theft could destroy the servers and any backups in the same room (1)\n- the copy in another building survives, so records can be restored (1)",
+            "points": [
+              {
+                "criterion": "Same-site disaster destroys both",
+                "marks": 1
+              },
+              {
+                "criterion": "Off-site copy allows restore",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A fire in the server room would destroy both the servers and any backups stored there; a copy in another building can still be used to restore the records."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dp-exam-4",
+      "title": "Backup and disk mirroring",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An online shop uses disk mirroring on its web server and also makes backups.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dp-exam-4a",
+          "part_label": "(a)",
+          "title": "Mirroring",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe disk mirroring.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Data is written to two disks simultaneously / identical copies (1)\n- if one disk fails the other is used and the system keeps running (1)",
+            "points": [
+              {
+                "criterion": "Two identical disks",
+                "marks": 1
+              },
+              {
+                "criterion": "Continues if one fails",
+                "marks": 1
+              }
+            ],
+            "model_answer": "All data is written to two disks at the same time, so if one fails the server keeps running from the other one."
+          }
+        },
+        {
+          "key": "dp-exam-4b",
+          "part_label": "(b)",
+          "title": "Why also backup",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the shop also needs backups, even though it uses disk mirroring.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Deletions / corruption / ransomware are copied to both disks immediately (1)\n- backups keep earlier copies that can be restored / can be off-site in case of fire or theft (1)",
+            "points": [
+              {
+                "criterion": "Mirroring copies damage too",
+                "marks": 1
+              },
+              {
+                "criterion": "Backups restore earlier / off-site copies",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If a file is deleted or encrypted by ransomware, the change is mirrored to both disks at once, so only a backup lets the shop restore an earlier, undamaged copy."
+          }
+        },
+        {
+          "key": "dp-exam-4c",
+          "part_label": "(c)",
+          "title": "Full vs incremental",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare a **full** backup with an **incremental** backup.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), both sides: full copies all data vs incremental only changes since the last backup; full slower / more space vs incremental faster / less space; full easier / faster to restore vs incremental needs full + every incremental",
+            "points": [
+              {
+                "criterion": "First comparison",
+                "marks": 1
+              },
+              {
+                "criterion": "Second comparison",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A full backup copies all the data each time, while an incremental backup copies only what has changed since the last backup, so it is faster and uses less space; however, restoring needs the full backup plus every incremental one."
+          }
+        },
+        {
+          "key": "dp-exam-4d",
+          "part_label": "(d)",
+          "title": "Off-site medium",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** suitable medium or service for keeping an off-site backup.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): cloud storage; magnetic tape stored elsewhere; external hard disk kept in another building; remote server / data centre",
+            "points": [
+              {
+                "criterion": "Valid medium",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Cloud storage."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Measures that protect data and computer systems — protection against physical risks, firewalls (inter-network screens), encryption, biometrics and anti-virus countermeasures — and using data backup and disk mirroring (RAID 1) to keep data safe.",
   "theory": [
     {
-      "title": "Protection measures for data and computer systems",
+      "title": "Threats and protection measures",
       "objectives": [
         "12.1.2.1"
       ],
       "blocks": [
         {
-          "type": "cards",
-          "items": [
-            {
-              "title": "Protection against physical risks",
-              "content": "Locked server rooms, CCTV, ID cards; UPS against power cuts; fire alarms and extinguishers; air conditioning; off-site backups against fire and flood."
-            },
-            {
-              "title": "Firewalls (inter-network screens)",
-              "content": "Filter traffic between a network and the Internet using rules on IP addresses, ports and protocols; block unauthorised access and suspicious outgoing connections."
-            },
-            {
-              "title": "Encryption",
-              "content": "Scrambles data with a **key** so that intercepted or stolen data cannot be read without the key. Used for Wi-Fi (WPA3), websites (HTTPS/TLS), disks (BitLocker), messages."
-            },
-            {
-              "title": "Biometrics",
-              "content": "Identify a person by unique **physical characteristics**: fingerprint, face, iris, voice. Cannot be forgotten or easily shared."
-            },
-            {
-              "title": "Anti-virus / anti-malware",
-              "content": "Detects, quarantines and removes malicious programs; real-time scanning; must be updated."
-            }
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Encryption",
-          "level": 2
+          "type": "paragraph",
+          "content": "Data and computer systems are at risk from **people** (hackers, thieves, careless users), **malicious software** and **physical events** (fire, flood, power cuts, hardware failure). No single measure protects against everything, so organisations use **several layers of protection** (\"defence in depth\")."
         },
         {
           "type": "comparison",
-          "title": "Symmetric vs asymmetric encryption",
+          "title": "Threats and the measures that protect against them",
+          "columns": [
+            "Threat",
+            "Main protection measures"
+          ],
+          "rows": [
+            [
+              "Fire, flood, power cut, theft of hardware",
+              "**Physical security**, UPS, fire-suppression systems, **backup** stored off-site"
+            ],
+            [
+              "Hard disk failure",
+              "**Disk mirroring (RAID)**, **backup**"
+            ],
+            [
+              "Hacking / unauthorised network access",
+              "**Firewall**, strong passwords, **two-factor authentication**, access rights"
+            ],
+            [
+              "Interception of data in transit, stolen laptops",
+              "**Encryption**"
+            ],
+            [
+              "Someone using another person's account",
+              "**Biometrics**, two-factor authentication"
+            ],
+            [
+              "Viruses, worms, Trojans, ransomware",
+              "**Anti-virus** software, updates, user training, backup"
+            ],
+            [
+              "Accidental deletion",
+              "**Backup**, access rights, version history"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Protection against physical risks",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Physical risks and countermeasures",
+          "columns": [
+            "Physical risk",
+            "Countermeasures"
+          ],
+          "rows": [
+            [
+              "**Theft** of computers or storage devices",
+              "Locked server rooms, security guards, CCTV, cable locks, entry by key card or biometrics, visitor logs"
+            ],
+            [
+              "**Fire**",
+              "Smoke detectors, gas-based fire-suppression systems (no water near computers), fireproof safes for backups"
+            ],
+            [
+              "**Flood / water damage**",
+              "Servers not in basements, raised floors, water sensors"
+            ],
+            [
+              "**Power cut / power surge**",
+              "**Uninterruptible power supply (UPS)**, surge protectors, back-up generators"
+            ],
+            [
+              "**Overheating**",
+              "Air conditioning, temperature monitoring in server rooms"
+            ],
+            [
+              "**Hardware failure**",
+              "Disk mirroring (RAID), spare parts, regular maintenance"
+            ],
+            [
+              "**Accidental damage** (spilled drinks, dropped laptops)",
+              "No food or drink near computers, protective cases, user training"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Uninterruptible power supply (UPS)",
+          "content": "A device with a **battery** that keeps computers running for a short time when the mains power fails, so that work can be **saved** and the system **shut down safely** (or a generator started)."
+        }
+      ]
+    },
+    {
+      "title": "Firewalls (inter-network screens)",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Firewall",
+          "content": "Hardware or software that **monitors all data packets passing between a private network (or computer) and the outside network (Internet)** and **allows or blocks** them according to a set of **security rules**. It is the \"screen\" between two networks."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  I[Internet] <--> F{Firewall: check each packet against the rules}\n  F <--> N[School network: servers and PCs]\n  F -. blocked .-> X[Unauthorised connection]",
+          "caption": "A firewall sits between the internal network and the Internet"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "What a firewall does",
+              "content": "- Checks the **source and destination IP address**, **port number** and protocol of every packet.\n- **Blocks** packets that do not match the rules (e.g. connections to unused ports, known bad addresses).\n- Can **block access** to certain websites or applications.\n- **Logs** attempts to connect, so attacks can be investigated.\n- Can hide the internal addresses of the network from outsiders."
+            },
+            {
+              "title": "Limitations",
+              "content": "- Cannot stop malware that arrives through **allowed** channels (e-mail attachments, USB sticks).\n- Does not protect against **insiders** already inside the network.\n- Must be **configured correctly** — bad rules either block useful traffic or let attacks through."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Encryption",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Encryption",
+          "content": "Converting data (**plaintext**) into an unreadable form (**ciphertext**) using an **algorithm** and a **key**, so that only someone with the correct key can **decrypt** it and read it. Encryption does **not** stop data being stolen, but makes stolen data **useless** to the thief."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  P[Plaintext: Exam on Monday] -->|encrypt with key| C[Ciphertext: Q8#k2!zP...]\n  C -->|send over the Internet| C2[Ciphertext received]\n  C2 -->|decrypt with key| P2[Plaintext: Exam on Monday]",
+          "caption": "Encrypting and decrypting a message"
+        },
+        {
+          "type": "comparison",
+          "title": "Symmetric and asymmetric encryption",
           "columns": [
             "",
             "Symmetric",
@@ -50,8 +1747,8 @@
           "rows": [
             [
               "Keys",
-              "**One** secret key encrypts and decrypts",
-              "A **public key** encrypts; only the matching **private key** decrypts"
+              "The **same key** encrypts and decrypts",
+              "A **public key** encrypts, a **private key** decrypts"
             ],
             [
               "Speed",
@@ -60,144 +1757,316 @@
             ],
             [
               "Problem",
-              "The key must be shared securely",
+              "The key must be shared **securely**",
               "Solves key sharing — the public key can be given to anyone"
             ],
             [
-              "Example",
-              "AES for disk encryption",
-              "RSA in HTTPS key exchange, digital signatures"
+              "Example use",
+              "Encrypting a hard disk (BitLocker), files",
+              "HTTPS, secure e-mail, digital signatures"
             ]
           ]
         },
         {
-          "type": "example",
-          "title": "Caesar cipher — the simplest symmetric cipher (shift 3)",
-          "content": "`HELLO` → `KHOOR`. The **key** is the shift. Modern ciphers are far stronger, but the idea is the same: without the key the text is unreadable."
-        },
-        {
-          "type": "heading",
-          "text": "Biometrics",
-          "level": 2
-        },
-        {
-          "type": "comparison",
-          "columns": [
-            "Advantages",
-            "Disadvantages"
-          ],
-          "rows": [
-            [
-              "Unique to each person; cannot be forgotten or lost",
-              "Expensive equipment"
-            ],
-            [
-              "Difficult to copy or share",
-              "Can be affected by injuries, dirt, lighting, illness"
-            ],
-            [
-              "Fast access",
-              "**Cannot be changed** if the biometric data is stolen"
-            ],
-            [
-              "",
-              "Privacy concerns about storing biometric data"
-            ]
+          "type": "cards",
+          "items": [
+            {
+              "title": "Where encryption is used",
+              "content": "- **HTTPS / SSL / TLS** — web pages, online banking, payments.\n- **Full-disk encryption** on laptops and phones, encrypted USB drives.\n- **Wi-Fi** (WPA2 / WPA3).\n- Messaging apps with end-to-end encryption.\n- Storing **passwords** as hashes (one-way) rather than plain text."
+            },
+            {
+              "title": "Advantages and disadvantages",
+              "content": "- ✔ Stolen or intercepted data cannot be read.\n- ✔ Protects data on lost devices.\n- ✘ If the **key is lost**, the data is lost too.\n- ✘ Takes processing time; does not stop deletion or ransomware."
+            }
           ]
-        },
-        {
-          "type": "comparison",
-          "title": "Authentication factors",
-          "columns": [
-            "Factor",
-            "Examples"
-          ],
-          "rows": [
-            [
-              "Something you **know**",
-              "Password, PIN, security question"
-            ],
-            [
-              "Something you **have**",
-              "Phone (SMS code, authenticator app), smart card, key fob"
-            ],
-            [
-              "Something you **are**",
-              "Fingerprint, face, iris"
-            ]
-          ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "**Two-factor authentication (2FA)** combines two different factors (e.g. password + SMS code), so a stolen password alone is not enough."
         }
       ]
     },
     {
-      "title": "Backup and disk mirroring",
+      "title": "Biometrics",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Biometrics",
+          "content": "Authentication using **unique physical or behavioural characteristics** of a person, which are compared with a stored **template**. Examples: **fingerprint**, **face recognition**, **iris / retina scan**, **voice recognition**, **hand geometry**, **signature dynamics**."
+        },
+        {
+          "type": "comparison",
+          "title": "Biometric methods",
+          "columns": [
+            "Method",
+            "How it works",
+            "Notes"
+          ],
+          "rows": [
+            [
+              "Fingerprint",
+              "Sensor reads the ridges of a finger",
+              "Cheap, fast; dirty or cut fingers can fail"
+            ],
+            [
+              "Face recognition",
+              "Camera compares facial features",
+              "Contactless; lighting, glasses or masks can affect it"
+            ],
+            [
+              "Iris / retina scan",
+              "Camera scans the pattern of the eye",
+              "Very accurate; expensive; some users dislike it"
+            ],
+            [
+              "Voice recognition",
+              "Microphone analyses the voice",
+              "A cold or background noise can cause rejection"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages",
+              "content": "- Characteristics are **unique** and hard to **copy or guess**.\n- **Cannot be forgotten, lost or shared** like a password or card.\n- Fast and convenient to use.\n- Gives an **audit trail** of exactly who entered."
+            },
+            {
+              "title": "Disadvantages",
+              "content": "- **Expensive** hardware.\n- **False rejections** (an authorised user is refused) and **false acceptances**.\n- **Privacy** concerns — biometric data is personal; if stolen it **cannot be changed** like a password.\n- Some characteristics change (injury, age)."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Two-factor authentication (2FA)",
+          "content": "Combining **two different types** of evidence — something you **know** (password), something you **have** (phone, card) and something you **are** (biometric) — makes unauthorised access much harder. Example: a password plus a code sent to your phone."
+        }
+      ]
+    },
+    {
+      "title": "Computer virus countermeasures",
+      "objectives": [
+        "12.1.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Anti-virus software",
+          "content": "A utility program that **scans** files, e-mails, downloads and memory to **detect, quarantine and remove malware** (viruses, worms, Trojans, spyware, ransomware)."
+        },
+        {
+          "type": "steps",
+          "title": "How anti-virus software works",
+          "items": [
+            "**Signature-based detection** — compares files with a database of known malware **signatures**; the database must be **updated** regularly.",
+            "**Heuristic / behaviour analysis** — detects **suspicious behaviour** (e.g. a program trying to change many system files), so it can catch new malware.",
+            "**Real-time (on-access) scanning** checks files as they are opened or downloaded.",
+            "Infected files are **quarantined** (isolated) or **deleted**; the user is warned."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Other virus countermeasures",
+          "columns": [
+            "Measure",
+            "How it helps"
+          ],
+          "rows": [
+            [
+              "Keep the **OS and software updated**",
+              "Fixes security holes that malware uses"
+            ],
+            [
+              "**Do not open unknown attachments / links**",
+              "Many viruses spread by e-mail and phishing"
+            ],
+            [
+              "Scan **USB drives** before use; disable autorun",
+              "Viruses spread on removable media"
+            ],
+            [
+              "Download software only from **trusted sources**",
+              "Avoids Trojans"
+            ],
+            [
+              "Use **firewall** and **limited user accounts**",
+              "Malware cannot easily spread or change the system"
+            ],
+            [
+              "**Regular backups** (kept offline)",
+              "Files can be restored after ransomware"
+            ],
+            [
+              "**User training**",
+              "People recognise phishing and suspicious files"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Data backup",
       "objectives": [
         "12.1.2.2"
       ],
       "blocks": [
         {
-          "type": "cards",
-          "items": [
-            {
-              "title": "Backup",
-              "content": "A copy of the data made **at intervals** and stored separately (external disk, NAS, cloud, another site). Can restore **older versions**."
-            },
-            {
-              "title": "Disk mirroring (RAID 1)",
-              "content": "Every write goes to **two disks at once**; if one disk fails, the other continues **immediately**."
-            }
-          ]
+          "type": "definition",
+          "term": "Backup",
+          "content": "A **copy of data** stored on a **separate medium**, preferably in a **different location**, so that the original can be **restored** if it is lost, damaged, deleted, stolen or encrypted by ransomware."
         },
         {
           "type": "comparison",
-          "title": "A backup strategy for a school",
+          "title": "Types of backup",
           "columns": [
-            "Decision",
-            "Example choice",
-            "Reason"
+            "Type",
+            "What is copied",
+            "Backup time / space",
+            "Restoring"
           ],
           "rows": [
             [
-              "What",
-              "Student database, documents, website",
-              "Data that cannot be recreated"
+              "**Full**",
+              "**All** data every time",
+              "Slowest, most space",
+              "Easiest — one backup needed"
             ],
             [
-              "How often",
-              "Incremental every night, full every Sunday",
-              "Little data lost; fast nightly backups"
+              "**Incremental**",
+              "Only data changed **since the last backup of any type**",
+              "Fastest, least space",
+              "Slowest — the full backup **plus every** incremental one"
             ],
             [
-              "Where",
-              "Encrypted cloud storage + an external disk off-site",
-              "Survives fire/theft at school"
+              "**Differential**",
+              "Data changed **since the last full** backup",
+              "Medium",
+              "Full backup **plus the latest** differential"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "A good backup strategy",
+              "content": "- Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.\n- **3-2-1 rule:** keep **3** copies of the data, on **2** different types of media, with **1** copy **off-site** (or in the cloud).\n- Keep at least one copy **offline**, so ransomware cannot encrypt it.\n- **Encrypt** backups and keep them physically secure.\n- **Test** restoring from the backup regularly."
+            },
+            {
+              "title": "Backup media",
+              "content": "- External hard disks / SSDs.\n- Magnetic **tape** (cheap for very large amounts, used by companies).\n- **Cloud storage** — off-site automatically; needs an Internet connection.\n- Network-attached storage (NAS)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Disk mirroring (RAID 1)",
+      "objectives": [
+        "12.1.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Disk mirroring (RAID 1)",
+          "content": "Data is written to **two (or more) disks at the same time**, so that every disk holds an **identical copy**. If one disk **fails**, the system **continues working** from the other disk **without losing data or stopping**."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "               write \"file.docx\"\n                      |\n              +-------+-------+\n              |               |\n        +-----------+   +-----------+\n        |  Disk 1   |   |  Disk 2   |\n        | file.docx |   | file.docx |     identical copies\n        +-----------+   +-----------+\n   Disk 1 fails  ->  the server keeps running from Disk 2",
+          "caption": "Disk mirroring: every write goes to both disks"
+        },
+        {
+          "type": "comparison",
+          "title": "Backup vs disk mirroring",
+          "columns": [
+            "",
+            "Backup",
+            "Disk mirroring"
+          ],
+          "rows": [
+            [
+              "When copying happens",
+              "At **intervals** (e.g. nightly)",
+              "**Continuously** — in real time"
             ],
             [
-              "Retention",
-              "Keep 4 weekly full backups",
-              "Can go back to before a ransomware attack"
+              "Protects against",
+              "Deletion, corruption, ransomware, fire, theft (if off-site), disk failure",
+              "**Disk failure** only"
             ],
             [
-              "Testing",
-              "Restore a test file every month",
-              "A backup that cannot be restored is useless"
+              "Recovery",
+              "Data is **restored** — some downtime; changes since the last backup are lost",
+              "**No downtime** — work continues immediately"
             ],
             [
-              "Mirroring",
-              "RAID 1 on the server",
-              "No downtime if a disk fails"
+              "Old versions",
+              "Yes — you can go back to an earlier copy",
+              "No — a deletion or virus is **copied to both disks instantly**"
+            ],
+            [
+              "Location",
+              "Can be off-site",
+              "Usually in the **same computer**"
+            ],
+            [
+              "Cost",
+              "Cheaper",
+              "Needs at least **double** the disk space"
             ]
           ]
         },
         {
           "type": "warning",
-          "content": "Mirroring **copies mistakes instantly** — a deleted or encrypted (ransomware) file is lost on both disks. Only a **backup** protects against that."
+          "content": "If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. Organisations therefore use **both**: mirroring for **availability** and backups for **recovery**."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.1.2.1",
+        "12.1.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: List three security measures to prevent hacking. [3]**\nFirewall (1); strong passwords / two-factor authentication (1); biometrics / access control / anti-virus / encryption (1).\n\n**Q: Describe how a firewall protects a school network. [2]**\nIt checks every **data packet** entering and leaving the network against **security rules** (1) and **blocks** packets from unauthorised sources / to unused ports (1).\n\n**Q: Explain why a company should use both disk mirroring and backup. [2]**\nMirroring keeps the system **running without data loss if a disk fails** (1), but a deletion or virus is copied to both disks, so a **backup** is needed to **restore earlier, undamaged copies** (1).\n\n**Q: Give one advantage and one disadvantage of using fingerprints to log in. [2]**\nAdvantage: fingerprints are **unique** and **cannot be forgotten or shared** (1). Disadvantage: **false rejections** if the finger is dirty or cut / biometric data cannot be changed if stolen (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying a firewall **removes viruses** — that is anti-virus software; a firewall **filters network traffic**.\n- Saying encryption **stops data being stolen** — it makes stolen data **unreadable**.\n- Treating disk mirroring as a backup (see above).\n- Keeping the backup **in the same room** as the original — a fire destroys both.\n- Giving vague answers such as \"use security\" — name the **specific** measure and **what it does**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Name four physical risks and a countermeasure for each.",
+            "Describe what a firewall checks and what it cannot protect against.",
+            "What is the difference between symmetric and asymmetric encryption?",
+            "Give two advantages and two disadvantages of biometrics.",
+            "Explain signature-based and heuristic virus detection.",
+            "Compare full, incremental and differential backups.",
+            "Explain how disk mirroring works and why it does not replace backups."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Data protection measures — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "dp-exam-1",
+      "dp-exam-2",
+      "dp-exam-3",
+      "dp-exam-4"
+    ]
+  }
 }

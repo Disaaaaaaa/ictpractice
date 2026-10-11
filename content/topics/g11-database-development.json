@@ -1,78 +1,1430 @@
 {
   "topic": "g11-database-development",
-  "questions": [],
-  "summary": "Building the multi-table database of a project — from the design documents to SQL tables with keys, constraints and test data.",
+  "questions": [
+    {
+      "key": "ddv-stages-order",
+      "title": "Stages",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Put the stages of developing the project database in order:\n\n- **A** Insert test data and check the constraints\n- **B** Create the tables with keys and constraints\n- **C** Produce the ERD and data dictionary\n- **D** Write and test the queries the system needs",
+      "content": {
+        "columns": [
+          "Order",
+          "Stage"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "C, B, A, D (1 each)",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          },
+          {
+            "criterion": "3",
+            "marks": 1
+          },
+          {
+            "criterion": "4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "C"
+            ],
+            [
+              null,
+              "B"
+            ],
+            [
+              null,
+              "A"
+            ],
+            [
+              null,
+              "D"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ddv-constraints-match",
+      "title": "Constraints",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Match each constraint to the problem it prevents.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "PRIMARY KEY"
+          },
+          {
+            "key": "L2",
+            "text": "FOREIGN KEY"
+          },
+          {
+            "key": "L3",
+            "text": "NOT NULL"
+          },
+          {
+            "key": "L4",
+            "text": "UNIQUE"
+          },
+          {
+            "key": "L5",
+            "text": "CHECK"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Two records with the same identifier"
+          },
+          {
+            "key": "R2",
+            "text": "A loan for a reader who does not exist"
+          },
+          {
+            "key": "R3",
+            "text": "A book saved without a title"
+          },
+          {
+            "key": "R4",
+            "text": "Two readers with the same e-mail address"
+          },
+          {
+            "key": "R5",
+            "text": "A grade of 15 being stored"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L5–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "ddv-create-book",
+      "title": "Create Book",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Write the SQL to create the table **Book** with fields ISBN (13 characters, primary key), Title (up to 100 characters, required) and Copies (whole number, at least 0, default 1).",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- ISBN CHAR(13) PRIMARY KEY (1)\n- Title VARCHAR(100) NOT NULL (1)\n- Copies INT DEFAULT 1 CHECK (Copies >= 0) (1)",
+        "points": [
+          {
+            "criterion": "ISBN",
+            "marks": 1
+          },
+          {
+            "criterion": "Title",
+            "marks": 1
+          },
+          {
+            "criterion": "Copies",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CREATE TABLE Book (\n  ISBN CHAR(13) PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Copies INT DEFAULT 1 CHECK (Copies >= 0)\n);"
+      }
+    },
+    {
+      "key": "ddv-create-loan",
+      "title": "Create Loan",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Write the SQL to create the link table **Loan (ReaderID, ISBN, LoanDate, ReturnDate)**. The primary key is the combination of ReaderID, ISBN and LoanDate; ReaderID refers to Reader and ISBN refers to Book.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- fields with suitable data types (1)\n- composite PRIMARY KEY (ReaderID, ISBN, LoanDate) (1)\n- FOREIGN KEY (ReaderID) REFERENCES Reader(ReaderID) (1)\n- FOREIGN KEY (ISBN) REFERENCES Book(ISBN) (1)",
+        "points": [
+          {
+            "criterion": "Fields",
+            "marks": 1
+          },
+          {
+            "criterion": "Composite PK",
+            "marks": 1
+          },
+          {
+            "criterion": "FK Reader",
+            "marks": 1
+          },
+          {
+            "criterion": "FK Book",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CREATE TABLE Loan (\n  ReaderID INT,\n  ISBN CHAR(13),\n  LoanDate DATE NOT NULL,\n  ReturnDate DATE,\n  PRIMARY KEY (ReaderID, ISBN, LoanDate),\n  FOREIGN KEY (ReaderID) REFERENCES Reader(ReaderID),\n  FOREIGN KEY (ISBN) REFERENCES Book(ISBN)\n);"
+      }
+    },
+    {
+      "key": "ddv-order",
+      "title": "Order of creation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Explain why the table Loan must be created **after** the tables Reader and Book, and why it must be dropped **before** them.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Loan's foreign keys reference Reader and Book, which must already exist (1)\n- the parent tables cannot be dropped while Loan still refers to them (1)",
+        "points": [
+          {
+            "criterion": "Create order",
+            "marks": 1
+          },
+          {
+            "criterion": "Drop order",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Loan has foreign keys pointing to Reader and Book, so those tables must exist first; and Reader and Book cannot be deleted while Loan still references them, so Loan is dropped first."
+      }
+    },
+    {
+      "key": "ddv-datatypes",
+      "title": "Data types",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Choose the most suitable SQL data type for each field: **INT, DECIMAL, VARCHAR, DATE**.",
+      "content": {
+        "columns": [
+          "Field",
+          "Data type"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Price of a book in tenge, e.g. 2450.50",
+            null
+          ],
+          [
+            "Date a book was borrowed",
+            null
+          ],
+          [
+            "Reader's phone number, e.g. +77011234567",
+            null
+          ],
+          [
+            "Number of copies",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "DECIMAL (1); DATE (1); VARCHAR (1); INT (1)",
+        "points": [
+          {
+            "criterion": "Price",
+            "marks": 1
+          },
+          {
+            "criterion": "Date",
+            "marks": 1
+          },
+          {
+            "criterion": "Phone",
+            "marks": 1
+          },
+          {
+            "criterion": "Copies",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "DECIMAL||decimal||DECIMAL(10,2)||FLOAT"
+            ],
+            [
+              null,
+              "DATE||date"
+            ],
+            [
+              null,
+              "VARCHAR||varchar||VARCHAR(15)"
+            ],
+            [
+              null,
+              "INT||int||INTEGER"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ddv-phone-int",
+      "title": "Phone as text",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Explain why a phone number is stored as VARCHAR rather than INT.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- INT would lose the leading + / 0 and cannot store spaces / brackets (1)\n- no arithmetic is done on phone numbers (1)",
+        "points": [
+          {
+            "criterion": "Leading characters",
+            "marks": 1
+          },
+          {
+            "criterion": "No calculation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An integer would drop the + and leading zeros, and phone numbers are never used in calculations, so text is correct."
+      }
+    },
+    {
+      "key": "ddv-alter",
+      "title": "ALTER TABLE",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Write SQL statements to add a field **Phone VARCHAR(15)** to the table Reader and then remove the field **Email**.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "ALTER TABLE Reader ADD Phone VARCHAR(15); (1) ALTER TABLE Reader DROP COLUMN Email; (1)",
+        "points": [
+          {
+            "criterion": "ADD",
+            "marks": 1
+          },
+          {
+            "criterion": "DROP COLUMN",
+            "marks": 1
+          }
+        ],
+        "model_answer": "ALTER TABLE Reader ADD Phone VARCHAR(15);\nALTER TABLE Reader DROP COLUMN Email;"
+      }
+    },
+    {
+      "key": "ddv-test-plan",
+      "title": "Test plan",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "The field Grade has the constraint **CHECK (Grade BETWEEN 7 AND 12)**. Complete the type of test data and the expected result.",
+      "content": {
+        "columns": [
+          "Test data",
+          "Type (normal / boundary / erroneous)",
+          "Expected result (accepted / rejected)"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "10",
+            null,
+            null
+          ],
+          [
+            "12",
+            null,
+            null
+          ],
+          [
+            "13",
+            null,
+            null
+          ],
+          [
+            "7",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "10 normal accepted; 12 boundary accepted; 13 erroneous rejected; 7 boundary accepted (1 per row)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "normal",
+              "accepted"
+            ],
+            [
+              null,
+              "boundary||extreme",
+              "accepted"
+            ],
+            [
+              null,
+              "erroneous||invalid||abnormal",
+              "rejected"
+            ],
+            [
+              null,
+              "boundary||extreme",
+              "accepted"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ddv-ri",
+      "title": "Referential integrity",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Explain what is meant by **referential integrity** and give an example from the library database.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- every foreign key value must match an existing primary key in the related table / no orphan records (1)\n- example: a loan with ReaderID 99 is rejected if reader 99 does not exist / a reader with loans cannot be deleted (1)",
+        "points": [
+          {
+            "criterion": "Definition",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each foreign key must refer to a record that really exists. For example, a loan for ReaderID 99 is rejected because there is no reader 99."
+      }
+    },
+    {
+      "key": "ddv-which-fails",
+      "title": "Which insert fails",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Readers 1 and 2 and book '9780261102217' exist. Which INSERT is **rejected**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "INSERT INTO Loan VALUES (2, '9780261102217', '2026-10-05', NULL);"
+        },
+        {
+          "key": "B",
+          "content": "INSERT INTO Loan VALUES (7, '9780261102217', '2026-10-05', NULL);"
+        },
+        {
+          "key": "C",
+          "content": "INSERT INTO Reader (FullName, Grade) VALUES ('Dana', 12);"
+        },
+        {
+          "key": "D",
+          "content": "INSERT INTO Book VALUES ('9780000000001', 'Atlas', 'Unknown', 1);"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Reader 7 does not exist — the FOREIGN KEY rejects it."
+      }
+    },
+    {
+      "key": "ddv-query",
+      "title": "Books on loan",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Write an SQL query to list the **reader's full name** and the **book title** for all loans that have **not been returned** (ReturnDate is empty), sorted by LoanDate.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- SELECT FullName, Title (1)\n- FROM Loan joined to Reader and Book on the keys (1)\n- WHERE ReturnDate IS NULL (1)\n- ORDER BY LoanDate (1)",
+        "points": [
+          {
+            "criterion": "SELECT",
+            "marks": 1
+          },
+          {
+            "criterion": "Joins",
+            "marks": 1
+          },
+          {
+            "criterion": "WHERE",
+            "marks": 1
+          },
+          {
+            "criterion": "ORDER BY",
+            "marks": 1
+          }
+        ],
+        "model_answer": "SELECT Reader.FullName, Book.Title\nFROM Loan\nJOIN Reader ON Reader.ReaderID = Loan.ReaderID\nJOIN Book ON Book.ISBN = Loan.ISBN\nWHERE Loan.ReturnDate IS NULL\nORDER BY Loan.LoanDate;"
+      }
+    },
+    {
+      "key": "ddv-evidence",
+      "title": "Project evidence",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "State **two** items of evidence that should be included in the project to show the database was developed and tested.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): CREATE TABLE code / screenshots of table design; relationships diagram; test plan; screenshots of accepted / rejected test data; results of queries",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Screenshots of the table designs with keys. 2 The test plan with screenshots showing invalid data being rejected."
+      }
+    },
+    {
+      "key": "ddv-exam-1",
+      "title": "Clinic database",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A clinic's new system stores **Doctor (DoctorID, Name, Specialty)**, **Patient (PatientID, FullName, BirthDate, Phone)** and **Appointment (DoctorID, PatientID, AppDate, Room)**. Each doctor has many appointments and each patient has many appointments.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ddv-exam-1a",
+          "part_label": "(a)",
+          "title": "Patient table",
+          "type": "sql",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the SQL to create the table **Patient**. PatientID is an auto-increment primary key and FullName is required.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "PatientID INT AUTO_INCREMENT PRIMARY KEY (1); FullName VARCHAR NOT NULL (1); BirthDate DATE (1); Phone VARCHAR (1)",
+            "points": [
+              {
+                "criterion": "PK",
+                "marks": 1
+              },
+              {
+                "criterion": "FullName",
+                "marks": 1
+              },
+              {
+                "criterion": "BirthDate",
+                "marks": 1
+              },
+              {
+                "criterion": "Phone",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Patient (\n  PatientID INT AUTO_INCREMENT PRIMARY KEY,\n  FullName VARCHAR(60) NOT NULL,\n  BirthDate DATE,\n  Phone VARCHAR(15)\n);"
+          }
+        },
+        {
+          "key": "ddv-exam-1b",
+          "part_label": "(b)",
+          "title": "Appointment table",
+          "type": "sql",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the SQL to create **Appointment** with a composite primary key (DoctorID, PatientID, AppDate) and the foreign keys.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "fields with types (1); composite PRIMARY KEY (1); FOREIGN KEY DoctorID REFERENCES Doctor (1); FOREIGN KEY PatientID REFERENCES Patient (1)",
+            "points": [
+              {
+                "criterion": "Fields",
+                "marks": 1
+              },
+              {
+                "criterion": "PK",
+                "marks": 1
+              },
+              {
+                "criterion": "FK Doctor",
+                "marks": 1
+              },
+              {
+                "criterion": "FK Patient",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Appointment (\n  DoctorID INT,\n  PatientID INT,\n  AppDate DATETIME,\n  Room VARCHAR(5),\n  PRIMARY KEY (DoctorID, PatientID, AppDate),\n  FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),\n  FOREIGN KEY (PatientID) REFERENCES Patient(PatientID)\n);"
+          }
+        },
+        {
+          "key": "ddv-exam-1c",
+          "part_label": "(c)",
+          "title": "Order",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the order in which the three tables must be created and explain why.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Doctor and Patient (any order) before Appointment (1); Appointment's foreign keys reference them, so they must exist first (1)",
+            "points": [
+              {
+                "criterion": "Order",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Doctor and Patient first, then Appointment, because Appointment's foreign keys refer to the other two tables."
+          }
+        },
+        {
+          "key": "ddv-exam-1d",
+          "part_label": "(d)",
+          "title": "Composite key",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why AppDate is included in the primary key of Appointment.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "The same doctor and patient can meet many times (1); DoctorID + PatientID alone would not be unique, so the date makes each appointment unique (1)",
+            "points": [
+              {
+                "criterion": "Repeat visits",
+                "marks": 1
+              },
+              {
+                "criterion": "Uniqueness",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A patient can see the same doctor more than once, so DoctorID and PatientID together are not unique; adding the date identifies each appointment."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ddv-exam-2",
+      "title": "Testing the database",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The field Room in Appointment must be a room number from **1** to **40**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ddv-exam-2a",
+          "part_label": "(a)",
+          "title": "Constraint",
+          "type": "sql",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the CHECK constraint for Room (as an integer).",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "CHECK (Room BETWEEN 1 AND 40) / CHECK (Room >= 1 AND Room <= 40) (1)",
+            "points": [
+              {
+                "criterion": "CHECK",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CHECK (Room BETWEEN 1 AND 40)"
+          }
+        },
+        {
+          "key": "ddv-exam-2b",
+          "part_label": "(b)",
+          "title": "Test data",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the test plan with one value of each type and the expected result.",
+          "content": {
+            "columns": [
+              "Type",
+              "Test value",
+              "Expected result"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Normal",
+                null,
+                null
+              ],
+              [
+                "Boundary",
+                null,
+                null
+              ],
+              [
+                "Erroneous",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Normal: any 2–39, accepted (1); Boundary: 1 or 40 (or 0 / 41 as just outside, rejected), result consistent (1); Erroneous: e.g. 55 / -3 / 'A', rejected (1); all expected results correct (1)",
+            "points": [
+              {
+                "criterion": "Normal",
+                "marks": 1
+              },
+              {
+                "criterion": "Boundary",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous",
+                "marks": 1
+              },
+              {
+                "criterion": "Results",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Type | Value | Result |\n|---|---|---|\n| Normal | 15 | Accepted |\n| Boundary | 40 | Accepted |\n| Erroneous | 55 | Rejected |"
+          }
+        },
+        {
+          "key": "ddv-exam-2c",
+          "part_label": "(c)",
+          "title": "Integrity test",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe a test that checks referential integrity between Appointment and Patient, and the expected result.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Insert an appointment with a PatientID that does not exist / delete a patient who has appointments (1); expected: rejected with an error (1)",
+            "points": [
+              {
+                "criterion": "Test",
+                "marks": 1
+              },
+              {
+                "criterion": "Expected",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Try to add an appointment for PatientID 999, which is not in Patient; the DBMS should reject it with a foreign key error."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ddv-exam-3",
+      "title": "Query",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The receptionist needs a list of today's appointments.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ddv-exam-3a",
+          "part_label": "(a)",
+          "title": "Join query",
+          "type": "sql",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write an SQL query to show the doctor's name, patient's full name and room for all appointments on **2026-11-20**, sorted by doctor's name.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "SELECT Doctor.Name, Patient.FullName, Room (1); joins on DoctorID and PatientID (1); WHERE date = '2026-11-20' (accept DATE(AppDate)) (1); ORDER BY Doctor.Name (1)",
+            "points": [
+              {
+                "criterion": "SELECT",
+                "marks": 1
+              },
+              {
+                "criterion": "Joins",
+                "marks": 1
+              },
+              {
+                "criterion": "WHERE",
+                "marks": 1
+              },
+              {
+                "criterion": "ORDER BY",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SELECT Doctor.Name, Patient.FullName, Appointment.Room\nFROM Appointment\nJOIN Doctor ON Doctor.DoctorID = Appointment.DoctorID\nJOIN Patient ON Patient.PatientID = Appointment.PatientID\nWHERE DATE(Appointment.AppDate) = '2026-11-20'\nORDER BY Doctor.Name;"
+          }
+        },
+        {
+          "key": "ddv-exam-3b",
+          "part_label": "(b)",
+          "title": "Index",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why an index could be created on AppDate.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Searches / sorting by date are faster (1)",
+            "points": [
+              {
+                "criterion": "Faster search",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Searching for appointments by date becomes faster."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Building the multi-table database of a new system — from the ERD and data dictionary to SQL tables with data types, primary, foreign and composite keys and constraints; creating tables in the right order, changing them with ALTER, adding test data (normal, boundary, erroneous), checking referential integrity, writing multi-table queries and documenting the result.",
   "theory": [
     {
-      "title": "Developing the project database",
+      "title": "From design to database",
       "objectives": [
         "11.4.1.11"
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "Developing the database is the step where the **design documents** of a new system become a **working database**. Everything needed is already decided in the design: the **entities** (tables), **attributes** (fields), **data types**, **keys** and **relationships**."
+        },
+        {
           "type": "steps",
           "title": "From design to a working database",
           "items": [
-            "Start from the **ERD** and **data dictionary** produced in the design stage.",
-            "Choose a **DBMS** (MySQL, PostgreSQL, SQLite, MS Access) and create the database.",
-            "Create the tables **in dependency order**: tables without foreign keys first.",
-            "Add **constraints**: `PRIMARY KEY`, `FOREIGN KEY … REFERENCES`, `NOT NULL`, `UNIQUE`, `CHECK`, `DEFAULT`.",
-            "Insert **test data** covering normal, boundary and erroneous cases.",
+            "Start from the **ERD** and the **data dictionary** produced in the design stage, normalised to **3NF**.",
+            "Choose a **DBMS** (MySQL, PostgreSQL, SQLite, MS Access) and **create** the database.",
+            "Create the tables **in dependency order**: tables **without** foreign keys first.",
+            "Add **keys and constraints**: `PRIMARY KEY`, `FOREIGN KEY … REFERENCES`, `NOT NULL`, `UNIQUE`, `CHECK`, `DEFAULT`.",
+            "Insert **test data** covering **normal, boundary and erroneous** cases and record the results.",
             "Write and test the **queries** the system needs (searches, reports, updates).",
-            "Document the structure (screenshots of the table design, the SQL script)."
+            "**Document** the structure: SQL script or screenshots of the table design, relationships diagram, test evidence."
           ]
         },
         {
+          "type": "example",
+          "title": "The project: a school library system",
+          "content": "**Entities:** Book, Reader, Loan. A reader can borrow many books over time, and a book can be borrowed many times → the **many-to-many** relationship is resolved by the **link table** Loan.\n\n```text\n  READER ──< LOAN >── BOOK\n  (one reader has many loans; one book has many loans)\n```"
+        },
+        {
+          "type": "comparison",
+          "title": "Data dictionary (extract)",
+          "columns": [
+            "Table",
+            "Field",
+            "Data type",
+            "Size",
+            "Key",
+            "Validation"
+          ],
+          "rows": [
+            [
+              "Reader",
+              "ReaderID",
+              "INT",
+              "—",
+              "**PK**",
+              "auto-increment"
+            ],
+            [
+              "Reader",
+              "FullName",
+              "VARCHAR",
+              "60",
+              "",
+              "required"
+            ],
+            [
+              "Reader",
+              "Grade",
+              "INT",
+              "—",
+              "",
+              "7 to 12"
+            ],
+            [
+              "Book",
+              "ISBN",
+              "CHAR",
+              "13",
+              "**PK**",
+              "exactly 13 digits"
+            ],
+            [
+              "Book",
+              "Title",
+              "VARCHAR",
+              "100",
+              "",
+              "required"
+            ],
+            [
+              "Book",
+              "Copies",
+              "INT",
+              "—",
+              "",
+              "≥ 0, default 1"
+            ],
+            [
+              "Loan",
+              "ReaderID",
+              "INT",
+              "—",
+              "**PK, FK** → Reader",
+              "must exist"
+            ],
+            [
+              "Loan",
+              "ISBN",
+              "CHAR",
+              "13",
+              "**PK, FK** → Book",
+              "must exist"
+            ],
+            [
+              "Loan",
+              "LoanDate",
+              "DATE",
+              "—",
+              "**PK**",
+              "required"
+            ],
+            [
+              "Loan",
+              "ReturnDate",
+              "DATE",
+              "—",
+              "",
+              "after LoanDate or empty"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Creating the tables",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
           "type": "code",
           "language": "sql",
-          "content": "CREATE TABLE Customer (\n  CustomerID INT AUTO_INCREMENT PRIMARY KEY,\n  FullName   VARCHAR(60) NOT NULL,\n  Phone      VARCHAR(15) UNIQUE,\n  City       VARCHAR(30) DEFAULT 'Astana'\n);\n\nCREATE TABLE Product (\n  ProductCode VARCHAR(8) PRIMARY KEY,\n  Name        VARCHAR(60) NOT NULL,\n  Price       DECIMAL(10,2) CHECK (Price > 0),\n  InStock     INT DEFAULT 0\n);\n\nCREATE TABLE OrderItem (\n  OrderID     INT,\n  ProductCode VARCHAR(8),\n  CustomerID  INT,\n  Quantity    INT CHECK (Quantity BETWEEN 1 AND 100),\n  OrderDate   DATE,\n  PRIMARY KEY (OrderID, ProductCode),\n  FOREIGN KEY (ProductCode) REFERENCES Product(ProductCode),\n  FOREIGN KEY (CustomerID)  REFERENCES Customer(CustomerID)\n);",
-          "caption": "Online shop database (3 related tables)"
+          "content": "CREATE TABLE Reader (\n  ReaderID  INT AUTO_INCREMENT PRIMARY KEY,\n  FullName  VARCHAR(60) NOT NULL,\n  Grade     INT CHECK (Grade BETWEEN 7 AND 12),\n  Email     VARCHAR(80) UNIQUE\n);\n\nCREATE TABLE Book (\n  ISBN      CHAR(13) PRIMARY KEY,\n  Title     VARCHAR(100) NOT NULL,\n  Author    VARCHAR(60),\n  Copies    INT DEFAULT 1 CHECK (Copies >= 0)\n);\n\nCREATE TABLE Loan (\n  ReaderID   INT,\n  ISBN       CHAR(13),\n  LoanDate   DATE NOT NULL,\n  ReturnDate DATE,\n  PRIMARY KEY (ReaderID, ISBN, LoanDate),                -- composite key\n  FOREIGN KEY (ReaderID) REFERENCES Reader(ReaderID),\n  FOREIGN KEY (ISBN)     REFERENCES Book(ISBN),\n  CHECK (ReturnDate IS NULL OR ReturnDate >= LoanDate)\n);",
+          "caption": "library.sql — creating the three tables (parents first)"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Order matters",
+          "content": "**Loan** refers to Reader and Book, so Reader and Book must be created **first**. When deleting tables the order is reversed: `DROP TABLE Loan;` **before** `DROP TABLE Reader;` — otherwise the DBMS refuses because Loan still refers to Reader."
         },
         {
           "type": "comparison",
           "title": "Constraints and what they protect",
           "columns": [
             "Constraint",
-            "Protects against"
+            "Protects against",
+            "Example"
           ],
           "rows": [
             [
               "`PRIMARY KEY`",
-              "Duplicate or missing identifiers"
+              "Duplicate or missing identifiers",
+              "Two books with the same ISBN"
             ],
             [
               "`FOREIGN KEY`",
-              "Orphan records — an order for a product that does not exist (**referential integrity**)"
+              "**Orphan records** — a loan for a reader or book that does not exist (**referential integrity**)",
+              "Loan of ISBN 9999999999999"
             ],
             [
               "`NOT NULL`",
-              "Missing required data"
+              "Missing required data",
+              "A book with no title"
             ],
             [
               "`UNIQUE`",
-              "Two customers with the same phone number"
+              "Repeated values in a non-key field",
+              "Two readers with the same e-mail"
             ],
             [
               "`CHECK`",
-              "Impossible values (negative price)"
+              "Impossible values",
+              "Grade 15; return before loan"
             ],
             [
               "`DEFAULT`",
-              "Empty fields when a sensible default exists"
+              "Empty fields when a sensible value exists",
+              "Copies = 1"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing data types",
+          "columns": [
+            "Data",
+            "Type",
+            "Why"
+          ],
+          "rows": [
+            [
+              "Whole numbers (grade, copies)",
+              "`INT`",
+              "Calculations, comparisons"
+            ],
+            [
+              "Prices, marks with decimals",
+              "`DECIMAL(8,2)` / `FLOAT`",
+              "Exact money values with DECIMAL"
+            ],
+            [
+              "Names, titles",
+              "`VARCHAR(n)`",
+              "Variable-length text"
+            ],
+            [
+              "Fixed-length codes (ISBN, postcode)",
+              "`CHAR(n)`",
+              "Always the same length"
+            ],
+            [
+              "Phone numbers",
+              "`VARCHAR`",
+              "Leading 0 / + must be kept; no arithmetic"
+            ],
+            [
+              "Dates",
+              "`DATE` / `DATETIME`",
+              "Date calculations and sorting"
+            ],
+            [
+              "Yes / no",
+              "`BOOLEAN`",
+              "Only two values"
             ]
           ]
         },
         {
           "type": "code",
           "language": "sql",
-          "content": "INSERT INTO Customer (FullName, Phone) VALUES ('Asel Nurlanova', '+77011234567');\nINSERT INTO Product VALUES ('AB102', 'Apple juice', 850.00, 40);\nINSERT INTO OrderItem VALUES (1, 'AB102', 1, 3, '2026-10-14');\n\n-- Erroneous test: must be rejected by the CHECK constraint\nINSERT INTO Product VALUES ('ZZ001', 'Broken', -5, 1);\n\nSELECT c.FullName, p.Name, o.Quantity, p.Price * o.Quantity AS Total\nFROM OrderItem o\nJOIN Customer c ON c.CustomerID = o.CustomerID\nJOIN Product  p ON p.ProductCode = o.ProductCode;",
-          "caption": "Test data and a test query"
+          "content": "ALTER TABLE Reader ADD Phone VARCHAR(15);              -- add a field\nALTER TABLE Book MODIFY Title VARCHAR(150) NOT NULL;   -- change a field\nALTER TABLE Reader DROP COLUMN Email;                  -- remove a field\nCREATE INDEX idx_title ON Book(Title);                 -- faster searching by title",
+          "caption": "Changing the structure later with ALTER TABLE"
+        }
+      ]
+    },
+    {
+      "title": "Test data",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "INSERT INTO Reader (FullName, Grade, Email) VALUES ('Asel Nurlanova', 11, 'asel@nis.kz');\nINSERT INTO Reader (FullName, Grade, Email) VALUES ('Timur Bekov', 12, 'timur@nis.kz');\nINSERT INTO Book VALUES ('9786010000011', 'Abai — Book of Words', 'Abai Kunanbayev', 3);\nINSERT INTO Book VALUES ('9780261102217', 'The Hobbit', 'J. R. R. Tolkien', 2);\nINSERT INTO Loan VALUES (1, '9786010000011', '2026-10-01', NULL);\nINSERT INTO Loan VALUES (2, '9780261102217', '2026-10-02', '2026-10-09');",
+          "caption": "Inserting normal test data"
+        },
+        {
+          "type": "comparison",
+          "title": "Test plan for the constraints",
+          "columns": [
+            "Test",
+            "Type of data",
+            "Data",
+            "Expected result"
+          ],
+          "rows": [
+            [
+              "1",
+              "Normal",
+              "Reader grade **11**",
+              "Accepted"
+            ],
+            [
+              "2",
+              "Boundary",
+              "Reader grade **7** and **12**",
+              "Accepted"
+            ],
+            [
+              "3",
+              "Erroneous (just outside)",
+              "Reader grade **13**",
+              "**Rejected** by CHECK"
+            ],
+            [
+              "4",
+              "Erroneous",
+              "Book with no title",
+              "**Rejected** by NOT NULL"
+            ],
+            [
+              "5",
+              "Erroneous",
+              "Second book with ISBN 9786010000011",
+              "**Rejected** by PRIMARY KEY"
+            ],
+            [
+              "6",
+              "Erroneous",
+              "Loan for ReaderID **99** (does not exist)",
+              "**Rejected** by FOREIGN KEY"
+            ],
+            [
+              "7",
+              "Erroneous",
+              "ReturnDate **before** LoanDate",
+              "**Rejected** by CHECK"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "INSERT INTO Reader (FullName, Grade) VALUES ('Test Pupil', 13);          -- CHECK fails\nINSERT INTO Book (ISBN, Copies) VALUES ('9780000000001', 1);             -- NOT NULL fails\nINSERT INTO Loan VALUES (99, '9780261102217', '2026-10-05', NULL);       -- FOREIGN KEY fails\nDELETE FROM Reader WHERE ReaderID = 1;   -- fails while Asel still has a loan",
+          "caption": "Erroneous tests — each must be rejected"
+        },
+        {
+          "type": "definition",
+          "term": "Referential integrity",
+          "content": "Every **foreign key** value must match an **existing primary key** value in the related table. The DBMS enforces it by **rejecting** inserts of orphan records and **preventing** the deletion of a parent record that still has related child records (or deleting / updating them too with `ON DELETE CASCADE`)."
+        }
+      ]
+    },
+    {
+      "title": "Queries for the system",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "-- 1 Books currently on loan, with the reader's name\nSELECT r.FullName, b.Title, l.LoanDate\nFROM Loan l\nJOIN Reader r ON r.ReaderID = l.ReaderID\nJOIN Book   b ON b.ISBN = l.ISBN\nWHERE l.ReturnDate IS NULL\nORDER BY l.LoanDate;\n\n-- 2 How many times each book has been borrowed\nSELECT b.Title, COUNT(*) AS TimesBorrowed\nFROM Loan l JOIN Book b ON b.ISBN = l.ISBN\nGROUP BY b.Title;\n\n-- 3 Record a returned book\nUPDATE Loan SET ReturnDate = '2026-10-15'\nWHERE ReaderID = 1 AND ISBN = '9786010000011' AND LoanDate = '2026-10-01';",
+          "caption": "Queries the library needs"
+        },
+        {
+          "type": "example",
+          "title": "Expected result of query 1 for the test data",
+          "content": "| FullName | Title | LoanDate |\n|---|---|---|\n| Asel Nurlanova | Abai — Book of Words | 2026-10-01 |\n\nTimur's loan is not shown because it has a ReturnDate."
         },
         {
           "type": "exam_tip",
-          "content": "In the project write-up, show evidence: the **CREATE TABLE** code or table design screenshots, the **relationships** diagram, and **test results** proving that the constraints reject invalid data."
+          "content": "Show: the **CREATE TABLE** code (or table design screenshots) with keys, the **relationships** diagram from the DBMS, the **test plan** with **screenshots** of accepted and rejected data, and the **results** of the main queries."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write the SQL to create the table Book with ISBN as primary key, Title required and Copies at least 0. [3]**\n`CREATE TABLE Book (ISBN CHAR(13) PRIMARY KEY,` (1) `Title VARCHAR(100) NOT NULL,` (1) `Copies INT CHECK (Copies >= 0));` (1).\n\n**Q: Explain why the table Loan must be created after Reader and Book. [2]**\nLoan contains **foreign keys** that **reference** Reader and Book (1); the referenced tables / primary keys must **already exist** (1).\n\n**Q: Explain how a foreign key keeps the data consistent. [2]**\nA loan can only be added if the ReaderID / ISBN **exists** in the parent table (1), so there are **no orphan records** — referential integrity (1).\n\n**Q: Give one item of erroneous test data for Grade and the expected result. [2]**\nGrade **13** (or \"eleven\") (1) — **rejected** by the CHECK constraint / error message (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Creating a table with a **foreign key before** the table it refers to.\n- Storing **phone numbers** as INT (loses the leading + / 0).\n- Forgetting the **composite primary key** in a link table.\n- Testing only normal data — always include **boundary** and **erroneous** data."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the stages of developing the project database.",
+            "Write CREATE TABLE statements for Reader, Book and Loan with all keys.",
+            "In which order must the tables be dropped? Why?",
+            "Write three erroneous inserts and say which constraint rejects each.",
+            "What is referential integrity?",
+            "Write a query listing the overdue books with the reader's name."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 25,
+    "title": "Database development — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. Write SQL where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 25 minutes.",
+    "questions": [
+      "ddv-exam-1",
+      "ddv-exam-2",
+      "ddv-exam-3"
+    ]
+  }
 }

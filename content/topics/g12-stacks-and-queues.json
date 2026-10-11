@@ -1,67 +1,1512 @@
 {
   "topic": "g12-stacks-and-queues",
-  "questions": [],
-  "summary": "How stacks (LIFO) and queues (FIFO) work, their operations and pointers, implementation with arrays, and where they are used.",
+  "questions": [
+    {
+      "key": "sq-name",
+      "title": "Name the structure",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Name the data structure by its description.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "The item that was added last is removed first",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "The item that was added first is removed first",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Stack (1); 2 Queue (1). Do not accept LIFO / FIFO.",
+        "points": [
+          {
+            "criterion": "Stack",
+            "marks": 1
+          },
+          {
+            "criterion": "Queue",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Stack\n2 Queue",
+        "accepted": {
+          "fields": {
+            "1": [
+              "stack",
+              "a stack"
+            ],
+            "2": [
+              "queue",
+              "a queue"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "sq-ops-match",
+      "title": "Operations",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Match each operation to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "push"
+          },
+          {
+            "key": "L2",
+            "text": "pop"
+          },
+          {
+            "key": "L3",
+            "text": "peek"
+          },
+          {
+            "key": "L4",
+            "text": "enqueue"
+          },
+          {
+            "key": "L5",
+            "text": "dequeue"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Adds an item to the top of a stack"
+          },
+          {
+            "key": "R2",
+            "text": "Removes the item at the top of a stack"
+          },
+          {
+            "key": "R3",
+            "text": "Returns the top item without removing it"
+          },
+          {
+            "key": "R4",
+            "text": "Adds an item at the rear of a queue"
+          },
+          {
+            "key": "R5",
+            "text": "Removes the item at the front of a queue"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L5–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "sq-stack-trace",
+      "title": "Stack trace",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "A stack is empty and its top pointer is 0. Complete the value returned (where there is one) and the top pointer after each operation.",
+      "content": {
+        "columns": [
+          "Operation",
+          "Value returned",
+          "Top pointer"
+        ],
+        "rows": 7,
+        "prefill": [
+          [
+            "push(3)",
+            "—",
+            null
+          ],
+          [
+            "push(9)",
+            "—",
+            null
+          ],
+          [
+            "pop()",
+            null,
+            null
+          ],
+          [
+            "push(4)",
+            "—",
+            null
+          ],
+          [
+            "peek()",
+            null,
+            null
+          ],
+          [
+            "pop()",
+            null,
+            null
+          ],
+          [
+            "pop()",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Top: 1, 2, 1, 2, 2, 1, 0; returned: 9, 4, 4, 3 (scaled per cell)",
+        "points": [
+          {
+            "criterion": "Pushes",
+            "marks": 1
+          },
+          {
+            "criterion": "First pop",
+            "marks": 1
+          },
+          {
+            "criterion": "Peek",
+            "marks": 1
+          },
+          {
+            "criterion": "Last pops",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "1"
+            ],
+            [
+              null,
+              null,
+              "2"
+            ],
+            [
+              null,
+              "9",
+              "1"
+            ],
+            [
+              null,
+              null,
+              "2"
+            ],
+            [
+              null,
+              "4",
+              "2"
+            ],
+            [
+              null,
+              "4",
+              "1"
+            ],
+            [
+              null,
+              "3",
+              "0"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sq-state-ops",
+      "title": "From state A to state B",
+      "type": "pseudocode",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "State A stack, bottom to top: **\"Red\", \"Green\", \"Blue\", \"White\"**.\n\nState B stack, bottom to top: **\"Red\", \"Green\", \"Black\"**.\n\nWrite down a list of stack operations to get from State A to State B.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "pop()\npop() (1)\npush(\"Black\") (1)\nValues must be in quotes.",
+        "points": [
+          {
+            "criterion": "Two pops",
+            "marks": 1
+          },
+          {
+            "criterion": "push(\"Black\")",
+            "marks": 1
+          }
+        ],
+        "model_answer": "pop()\npop()\npush(\"Black\")"
+      }
+    },
+    {
+      "key": "sq-overflow",
+      "title": "Overflow and underflow",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Explain what is meant by each term.",
+      "content": {
+        "fields": [
+          {
+            "key": "o",
+            "label": "Stack overflow",
+            "lines": 1
+          },
+          {
+            "key": "u",
+            "label": "Stack underflow",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Overflow: trying to push onto a full stack (1). Underflow: trying to pop from an empty stack (1)",
+        "points": [
+          {
+            "criterion": "Overflow",
+            "marks": 1
+          },
+          {
+            "criterion": "Underflow",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Overflow: pushing when the stack is already full. Underflow: popping when the stack is empty."
+      }
+    },
+    {
+      "key": "sq-push-code",
+      "title": "Write Push",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "A stack is stored in the array `Stack[1:20]` with the pointer `Top` (0 when empty). Write a procedure `Push(Item)` that adds an item, or outputs \"Stack full\" if there is no space.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": "PROCEDURE Push(Item : STRING)\n\nENDPROCEDURE"
+      },
+      "scheme": {
+        "mark_scheme": "- check if Top = 20 (1)\n- output \"Stack full\" (1)\n- otherwise increment Top (1)\n- store Item at Stack[Top] after incrementing (1)",
+        "points": [
+          {
+            "criterion": "Full check",
+            "marks": 1
+          },
+          {
+            "criterion": "Message",
+            "marks": 1
+          },
+          {
+            "criterion": "Increment",
+            "marks": 1
+          },
+          {
+            "criterion": "Store",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nPROCEDURE Push(Item : STRING)\n    IF Top = 20 THEN\n        OUTPUT \"Stack full\"\n    ELSE\n        Top ← Top + 1\n        Stack[Top] ← Item\n    ENDIF\nENDPROCEDURE\n```"
+      }
+    },
+    {
+      "key": "sq-pop-code",
+      "title": "Write Pop",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Using the same stack, write a function `Pop()` that returns the top item, or returns \"Empty\" if there is nothing to remove.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": "FUNCTION Pop() RETURNS STRING\n\nENDFUNCTION"
+      },
+      "scheme": {
+        "mark_scheme": "- check if Top = 0 (1)\n- return \"Empty\" (1)\n- otherwise take Stack[Top] (1)\n- decrement Top and return the item (1)",
+        "points": [
+          {
+            "criterion": "Empty check",
+            "marks": 1
+          },
+          {
+            "criterion": "Return Empty",
+            "marks": 1
+          },
+          {
+            "criterion": "Read top",
+            "marks": 1
+          },
+          {
+            "criterion": "Decrement + return",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nFUNCTION Pop() RETURNS STRING\n    IF Top = 0 THEN\n        RETURN \"Empty\"\n    ELSE\n        Item ← Stack[Top]\n        Top ← Top - 1\n        RETURN Item\n    ENDIF\nENDFUNCTION\n```"
+      }
+    },
+    {
+      "key": "sq-queue-trace",
+      "title": "Queue trace",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "A linear queue starts with Front = 1 and Rear = 0. Complete the table after each operation.",
+      "content": {
+        "columns": [
+          "Operation",
+          "Value returned",
+          "Front",
+          "Rear"
+        ],
+        "rows": 6,
+        "prefill": [
+          [
+            "enqueue(\"P\")",
+            "—",
+            null,
+            null
+          ],
+          [
+            "enqueue(\"Q\")",
+            "—",
+            null,
+            null
+          ],
+          [
+            "dequeue()",
+            null,
+            null,
+            null
+          ],
+          [
+            "enqueue(\"R\")",
+            "—",
+            null,
+            null
+          ],
+          [
+            "enqueue(\"S\")",
+            "—",
+            null,
+            null
+          ],
+          [
+            "dequeue()",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Front/Rear: 1/1, 1/2, 2/2, 2/3, 2/4, 3/4; returned P, Q (scaled per cell)",
+        "points": [
+          {
+            "criterion": "Rows 1–2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Rows 4–5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "1",
+              "1"
+            ],
+            [
+              null,
+              null,
+              "1",
+              "2"
+            ],
+            [
+              null,
+              "P||\"P\"",
+              "2",
+              "2"
+            ],
+            [
+              null,
+              null,
+              "2",
+              "3"
+            ],
+            [
+              null,
+              null,
+              "2",
+              "4"
+            ],
+            [
+              null,
+              "Q||\"Q\"",
+              "3",
+              "4"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sq-linear-problem",
+      "title": "Linear queue problem",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Explain the problem with a linear queue implemented in a fixed-size array, and how a circular queue solves it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- After dequeues the front spaces are never reused, so the queue can report full although there is free space (1)\n- a circular queue wraps the pointers round to the start of the array, reusing the freed spaces (1)",
+        "points": [
+          {
+            "criterion": "Wasted space",
+            "marks": 1
+          },
+          {
+            "criterion": "Wrap round",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When items leave, the spaces at the start of the array are not used again, so the queue can be 'full' even with free space. A circular queue moves the pointers back to the start of the array to reuse those spaces."
+      }
+    },
+    {
+      "key": "sq-circular-rear",
+      "title": "Circular pointer",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "A circular queue uses the array `Queue[1:6]` and `Rear ← (Rear MOD 6) + 1`. Rear is currently **6** and the queue is not full. State the value of Rear after the next enqueue.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "(6 MOD 6) + 1 = 1 (1)",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1",
+        "accepted": {
+          "values": [
+            "1"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "sq-circular-trace",
+      "title": "Circular queue trace",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "A circular queue of **4** spaces has Front = 3, Rear = 4 and Count = 2. Complete the pointers after each operation.",
+      "content": {
+        "columns": [
+          "Operation",
+          "Front",
+          "Rear",
+          "Count"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "enqueue(\"X\")",
+            null,
+            null,
+            null
+          ],
+          [
+            "dequeue()",
+            null,
+            null,
+            null
+          ],
+          [
+            "enqueue(\"Y\")",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "3, 1, 3 (1); 4, 1, 2 (1); 4, 2, 3 (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "3",
+              "1",
+              "3"
+            ],
+            [
+              null,
+              "4",
+              "1",
+              "2"
+            ],
+            [
+              null,
+              "4",
+              "2",
+              "3"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sq-apps-tick",
+      "title": "Applications",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the data structure best suited to each application.",
+      "content": {
+        "columns": [
+          "Application",
+          "Stack",
+          "Queue"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Undo in a text editor",
+            null,
+            null
+          ],
+          [
+            "Documents waiting to be printed",
+            null,
+            null
+          ],
+          [
+            "Return addresses of subroutine calls",
+            null,
+            null
+          ],
+          [
+            "Key presses in a keyboard buffer",
+            null,
+            null
+          ],
+          [
+            "The Back button in a web browser",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Stack; queue; stack; queue; stack (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sq-undo",
+      "title": "Undo",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Explain why a stack is used to store actions for the **Undo** feature of a text editor.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Each action is pushed onto the stack as it happens (1)\n- undo must reverse the most recent action first — LIFO, so it pops the last action (1)",
+        "points": [
+          {
+            "criterion": "Push actions",
+            "marks": 1
+          },
+          {
+            "criterion": "Last first",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every action is pushed onto the stack; Undo should cancel the most recent action first, and a stack (LIFO) pops the last action pushed."
+      }
+    },
+    {
+      "key": "sq-brackets",
+      "title": "Checking brackets",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Brackets are checked with a stack: push each opening bracket and pop on each closing bracket. Which expression is **incorrect**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "( [ ] )"
+        },
+        {
+          "key": "B",
+          "content": "[ ( ) ( ) ]"
+        },
+        {
+          "key": "C",
+          "content": "( [ ) ]"
+        },
+        {
+          "key": "D",
+          "content": "( ) [ ]"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The ) pops [ — a mismatch."
+      }
+    },
+    {
+      "key": "sq-compare",
+      "title": "Compare",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between a stack and a queue.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: LIFO vs FIFO; one end vs two ends; one pointer vs front and rear pointers; push/pop vs enqueue/dequeue",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 A stack is LIFO, whereas a queue is FIFO. 2 A stack uses one pointer (top), whereas a queue uses two (front and rear)."
+      }
+    },
+    {
+      "key": "sq-exam-1",
+      "title": "A stack of books",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A stack is an abstract data type with the operations push(data), pop(), peek(), is_empty() and is_full(). It is stored in the array `Books[1:8]` with the pointer `Top`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sq-exam-1a",
+          "part_label": "(a)",
+          "title": "Name",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A stack is a LIFO structure. State what LIFO stands for.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Last In First Out (1)",
+            "points": [
+              {
+                "criterion": "Last In First Out",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Last In, First Out",
+            "accepted": {
+              "values": [
+                "Last In First Out",
+                "Last In, First Out",
+                "last-in first-out",
+                "last in, first out"
+              ]
+            }
+          }
+        },
+        {
+          "key": "sq-exam-1b",
+          "part_label": "(b)",
+          "title": "Operations",
+          "type": "pseudocode",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State A, bottom to top: **\"Abai\", \"Auezov\", \"Tolstoy\"**. State B, bottom to top: **\"Abai\", \"Pushkin\", \"Dumas\"**. Write the list of stack operations to get from State A to State B.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "pop() pop() (1); push(\"Pushkin\") push(\"Dumas\") in that order (1). Values must be in quotes.",
+            "points": [
+              {
+                "criterion": "Two pops",
+                "marks": 1
+              },
+              {
+                "criterion": "Two pushes in order",
+                "marks": 1
+              }
+            ],
+            "model_answer": "pop()\npop()\npush(\"Pushkin\")\npush(\"Dumas\")"
+          }
+        },
+        {
+          "key": "sq-exam-1c",
+          "part_label": "(c)",
+          "title": "Peek vs pop",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between peek() and pop().",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "peek returns a copy of the top item without removing it / Top unchanged (1); pop removes the top item and returns it / Top decreases (1)",
+            "points": [
+              {
+                "criterion": "peek",
+                "marks": 1
+              },
+              {
+                "criterion": "pop",
+                "marks": 1
+              }
+            ],
+            "model_answer": "peek() returns the top item but leaves it on the stack; pop() returns it and removes it, so Top goes down by 1."
+          }
+        },
+        {
+          "key": "sq-exam-1d",
+          "part_label": "(d)",
+          "title": "Push algorithm",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write an algorithm for push(data) that uses is_full() and outputs an error if the stack is full.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- IF is_full() / Top = 8 (1)\n- error message (1)\n- Top ← Top + 1 (1)\n- Books[Top] ← data (1)",
+            "points": [
+              {
+                "criterion": "Full check",
+                "marks": 1
+              },
+              {
+                "criterion": "Error",
+                "marks": 1
+              },
+              {
+                "criterion": "Increment",
+                "marks": 1
+              },
+              {
+                "criterion": "Store",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nPROCEDURE push(data)\n    IF is_full() THEN\n        OUTPUT \"Stack overflow\"\n    ELSE\n        Top ← Top + 1\n        Books[Top] ← data\n    ENDIF\nENDPROCEDURE\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sq-exam-2",
+      "title": "Print queue",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school print server stores jobs in a circular queue `Jobs[1:5]` with pointers Front and Rear and a variable Count.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sq-exam-2a",
+          "part_label": "(a)",
+          "title": "Why a queue",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a queue is suitable for print jobs.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Jobs must be printed in the order they are sent (1); a queue is FIFO so the first job sent is printed first (1)",
+            "points": [
+              {
+                "criterion": "Order sent",
+                "marks": 1
+              },
+              {
+                "criterion": "FIFO",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Jobs should be printed in the order they arrive, and a queue is first in, first out."
+          }
+        },
+        {
+          "key": "sq-exam-2b",
+          "part_label": "(b)",
+          "title": "Trace",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Initially Front = 1, Rear = 0, Count = 0. Complete the table.",
+          "content": {
+            "columns": [
+              "Operation",
+              "Front",
+              "Rear",
+              "Count"
+            ],
+            "rows": 6,
+            "prefill": [
+              [
+                "enqueue(\"J1\"), enqueue(\"J2\"), enqueue(\"J3\")",
+                null,
+                null,
+                null
+              ],
+              [
+                "dequeue()",
+                null,
+                null,
+                null
+              ],
+              [
+                "enqueue(\"J4\"), enqueue(\"J5\")",
+                null,
+                null,
+                null
+              ],
+              [
+                "enqueue(\"J6\")",
+                null,
+                null,
+                null
+              ],
+              [
+                "dequeue()",
+                null,
+                null,
+                null
+              ],
+              [
+                "dequeue()",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 3 3; 2 3 2; 2 5 4; 2 1 5; 3 1 4; 4 1 3 (scaled per cell)",
+            "points": [
+              {
+                "criterion": "Rows 1–2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 4 (wrap)",
+                "marks": 1
+              },
+              {
+                "criterion": "Rows 5–6",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "1",
+                  "3",
+                  "3"
+                ],
+                [
+                  null,
+                  "2",
+                  "3",
+                  "2"
+                ],
+                [
+                  null,
+                  "2",
+                  "5",
+                  "4"
+                ],
+                [
+                  null,
+                  "2",
+                  "1",
+                  "5"
+                ],
+                [
+                  null,
+                  "3",
+                  "1",
+                  "4"
+                ],
+                [
+                  null,
+                  "4",
+                  "1",
+                  "3"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "sq-exam-2c",
+          "part_label": "(c)",
+          "title": "Dequeue algorithm",
+          "type": "pseudocode",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write an algorithm for dequeue() for this circular queue.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- check Count = 0 → empty message (1)\n- take Jobs[Front]; Front ← (Front MOD 5) + 1 (1)\n- Count ← Count − 1 and return the job (1)",
+            "points": [
+              {
+                "criterion": "Empty check",
+                "marks": 1
+              },
+              {
+                "criterion": "Front wraps",
+                "marks": 1
+              },
+              {
+                "criterion": "Count + return",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nFUNCTION dequeue() RETURNS STRING\n    IF Count = 0 THEN\n        RETURN \"Queue empty\"\n    ENDIF\n    Job ← Jobs[Front]\n    Front ← (Front MOD 5) + 1\n    Count ← Count - 1\n    RETURN Job\nENDFUNCTION\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sq-exam-3",
+      "title": "Choosing structures",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A boat station rents boats. Customers wait for a boat in the order they arrive. The station's booking app also lets staff undo their last changes.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sq-exam-3a",
+          "part_label": "(a)",
+          "title": "Customers",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the data structure for the waiting customers and justify your choice.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Queue (1); customers served in arrival order — FIFO (1)",
+            "points": [
+              {
+                "criterion": "Queue",
+                "marks": 1
+              },
+              {
+                "criterion": "Justification",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A queue, because the first customer to arrive gets the first boat (FIFO)."
+          }
+        },
+        {
+          "key": "sq-exam-3b",
+          "part_label": "(b)",
+          "title": "Undo",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the data structure for the undo feature and justify your choice.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Stack (1); the most recent change must be undone first — LIFO (1)",
+            "points": [
+              {
+                "criterion": "Stack",
+                "marks": 1
+              },
+              {
+                "criterion": "Justification",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A stack, because the last change made must be the first one undone (LIFO)."
+          }
+        },
+        {
+          "key": "sq-exam-3c",
+          "part_label": "(c)",
+          "title": "Errors",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the error that occurs in each situation.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "pop() on an empty stack",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "push() on a full stack",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 underflow (1); 2 overflow (1)",
+            "points": [
+              {
+                "criterion": "Underflow",
+                "marks": 1
+              },
+              {
+                "criterion": "Overflow",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Stack underflow\n2 Stack overflow"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Abstract data types; how a stack (LIFO) and a queue (FIFO) work, their operations (push, pop, peek, enqueue, dequeue, is_empty, is_full) and pointers; tracing operations; implementing a stack, a linear queue and a circular queue with an array; overflow and underflow; and where stacks and queues are used.",
   "theory": [
     {
-      "title": "Stacks and queues",
+      "title": "Abstract data types",
       "objectives": [
         "12.5.2.1"
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "Abstract data type (ADT)",
+          "content": "A **data type defined by the operations** that can be carried out on it and how they behave, **not** by how it is stored. A stack and a queue are ADTs: we know what **push** or **enqueue** do without knowing whether an **array** or a **linked list** is used inside."
+        },
+        {
           "type": "cards",
           "items": [
             {
               "title": "Stack — LIFO",
-              "content": "**Last In, First Out.** Items are added and removed at the **same end** (the top). Like a pile of plates."
+              "content": "**Last In, First Out.** Items are added and removed at the **same end**, the **top**. Like a pile of plates: you take the plate that was put on last."
             },
             {
               "title": "Queue — FIFO",
-              "content": "**First In, First Out.** Items are added at the **rear (tail)** and removed from the **front (head)**. Like a line at a shop."
+              "content": "**First In, First Out.** Items are added at the **rear (tail)** and removed from the **front (head)**. Like a line at a shop: the first person to arrive is served first."
             }
           ]
         },
         {
           "type": "comparison",
-          "title": "Operations",
+          "title": "Static vs dynamic implementation",
           "columns": [
             "",
-            "Stack",
-            "Queue"
+            "Static (array)",
+            "Dynamic (linked list)"
           ],
           "rows": [
             [
-              "Add",
-              "**Push** — onto the top",
-              "**Enqueue** — at the rear"
+              "Size",
+              "**Fixed** maximum — can become **full**",
+              "Grows and shrinks as needed"
             ],
             [
-              "Remove",
-              "**Pop** — from the top",
-              "**Dequeue** — from the front"
+              "Memory",
+              "Reserved in advance; may be wasted",
+              "Uses only what is needed (+ pointers)"
             ],
             [
-              "Look without removing",
-              "Peek / top",
-              "Peek / front"
-            ],
-            [
-              "Pointers",
-              "Top pointer",
-              "Front (head) and rear (tail) pointers"
-            ],
-            [
-              "Error when full",
-              "Stack overflow",
-              "Queue full"
-            ],
-            [
-              "Error when empty",
-              "Stack underflow",
-              "Queue empty"
+              "Needed checks",
+              "**is_full** and **is_empty**",
+              "Mainly **is_empty**"
             ]
           ]
+        }
+      ]
+    },
+    {
+      "title": "Stacks",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Stack operations",
+          "columns": [
+            "Operation",
+            "Description"
+          ],
+          "rows": [
+            [
+              "`push(data)`",
+              "Adds an element to the **top** of the stack"
+            ],
+            [
+              "`pop()`",
+              "**Removes** and returns the element on the **top**"
+            ],
+            [
+              "`peek()` (top)",
+              "Returns a **copy** of the top element **without removing** it"
+            ],
+            [
+              "`is_empty()`",
+              "Checks whether the stack is **empty**"
+            ],
+            [
+              "`is_full()`",
+              "Checks whether the stack is at **maximum capacity** (fixed-size array)"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Stack pointer (top pointer)",
+          "content": "A variable holding the **position of the top item** of the stack. It increases on **push** and decreases on **pop**. When the stack is empty it is 0 (with an array indexed from 1) or −1 (indexed from 0)."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Stack overflow",
+              "content": "Trying to **push** onto a stack that is **full**."
+            },
+            {
+              "title": "Stack underflow",
+              "content": "Trying to **pop** from a stack that is **empty**."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Stack trace",
+          "content": "Start empty. `push(5)`, `push(8)`, `push(2)`, `pop()` → returns **2**, `push(7)`, `peek()` → returns **7** (still in the stack), `pop()` → returns **7**.\n| Operation | Stack (bottom → top) | Returned | Top pointer |\n|---|---|---|---|\n| push(5) | 5 | — | 1 |\n| push(8) | 5, 8 | — | 2 |\n| push(2) | 5, 8, 2 | — | 3 |\n| pop() | 5, 8 | 2 | 2 |\n| push(7) | 5, 8, 7 | — | 3 |\n| peek() | 5, 8, 7 | 7 | 3 |\n| pop() | 5, 8 | 7 | 2 |"
+        },
+        {
+          "type": "example",
+          "title": "From one state to another",
+          "content": "State A (bottom → top): **Java, Python, Kotlin**. State B: **Java, C#, C++**.\nOperations: `pop()` (removes Kotlin), `pop()` (removes Python), `push(\"C#\")`, `push(\"C++\")`. You can only reach Java by removing everything above it — you **cannot** take an item from the middle."
         },
         {
           "type": "interactive",
@@ -69,74 +1514,224 @@
           "title": "Push, pop, enqueue and dequeue"
         },
         {
-          "type": "example",
-          "title": "Stack trace",
-          "content": "Start empty. `push(5)`, `push(8)`, `push(2)`, `pop()` → returns **2**, `push(7)`, `pop()` → returns **7**. Stack now (bottom → top): 5, 8."
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Stack : ARRAY[1:10] OF INTEGER\nDECLARE Top : INTEGER\nTop ← 0                                  // empty stack\n\nPROCEDURE Push(Item : INTEGER)\n    IF Top = 10 THEN\n        OUTPUT \"Stack overflow\"          // full\n    ELSE\n        Top ← Top + 1                    // move the pointer up first\n        Stack[Top] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Pop() RETURNS INTEGER\n    IF Top = 0 THEN\n        OUTPUT \"Stack underflow\"         // empty\n        RETURN -1\n    ELSE\n        Top ← Top - 1                    // move the pointer down\n        RETURN Stack[Top + 1]\n    ENDIF\nENDFUNCTION\n\nFUNCTION Peek() RETURNS INTEGER\n    RETURN Stack[Top]                    // the pointer does not change\nENDFUNCTION",
+          "caption": "Stack in an array of 10 elements"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "stack = []\nstack.append(5)        # push\nstack.append(8)\ntop = stack[-1]        # peek → 8\nitem = stack.pop()     # pop  → 8\nprint(len(stack) == 0) # is_empty → False",
+          "caption": "The same stack in Python (a list)"
+        },
+        {
+          "type": "exam_tip",
+          "content": "In an array implementation, **pop** only moves the pointer — the old value stays in the array until it is overwritten by the next **push**. The stack contents are only the items **from position 1 up to Top**."
+        }
+      ]
+    },
+    {
+      "title": "Queues",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Queue operations",
+          "columns": [
+            "Operation",
+            "Description"
+          ],
+          "rows": [
+            [
+              "`enqueue(data)`",
+              "Adds an element at the **rear** of the queue"
+            ],
+            [
+              "`dequeue()`",
+              "**Removes** and returns the element at the **front**"
+            ],
+            [
+              "`peek()` (front)",
+              "Returns a copy of the front element without removing it"
+            ],
+            [
+              "`is_empty()` / `is_full()`",
+              "Checks whether the queue is empty / full"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Front and rear pointers",
+          "content": "A queue uses **two pointers**: **Front (head)** — the position of the **next item to leave**; **Rear (tail)** — the position of the **last item added**."
         },
         {
           "type": "example",
           "title": "Queue trace",
-          "content": "Start empty. `enqueue(A)`, `enqueue(B)`, `enqueue(C)`, `dequeue()` → returns **A**, `enqueue(D)`. Queue now (front → rear): B, C, D."
-        },
-        {
-          "type": "heading",
-          "text": "Implementing a stack with an array",
-          "level": 2
+          "content": "Start empty. `enqueue(A)`, `enqueue(B)`, `enqueue(C)`, `dequeue()` → returns **A**, `enqueue(D)`, `dequeue()` → returns **B**.\n| Operation | Queue (front → rear) | Returned | Front | Rear |\n|---|---|---|---|---|\n| enqueue(A) | A | — | 1 | 1 |\n| enqueue(B) | A, B | — | 1 | 2 |\n| enqueue(C) | A, B, C | — | 1 | 3 |\n| dequeue() | B, C | A | 2 | 3 |\n| enqueue(D) | B, C, D | — | 2 | 4 |\n| dequeue() | C, D | B | 3 | 4 |"
         },
         {
           "type": "code",
           "language": "pseudocode",
-          "content": "DECLARE Stack : ARRAY[1:10] OF INTEGER\nDECLARE Top : INTEGER\nTop ← 0\n\nPROCEDURE Push(Item : INTEGER)\n    IF Top = 10 THEN\n        OUTPUT \"Stack overflow\"\n    ELSE\n        Top ← Top + 1\n        Stack[Top] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Pop() RETURNS INTEGER\n    IF Top = 0 THEN\n        OUTPUT \"Stack underflow\"\n        RETURN -1\n    ELSE\n        Top ← Top - 1\n        RETURN Stack[Top + 1]\n    ENDIF\nENDFUNCTION",
-          "caption": "Stack in an array of 10 elements"
+          "content": "DECLARE Queue : ARRAY[1:10] OF STRING\nDECLARE Front, Rear : INTEGER\nFront ← 1\nRear ← 0                                 // empty: Front > Rear\n\nPROCEDURE Enqueue(Item : STRING)\n    IF Rear = 10 THEN\n        OUTPUT \"Queue full\"\n    ELSE\n        Rear ← Rear + 1\n        Queue[Rear] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Dequeue() RETURNS STRING\n    IF Front > Rear THEN\n        RETURN \"Queue empty\"\n    ELSE\n        Front ← Front + 1\n        RETURN Queue[Front - 1]\n    ENDIF\nENDFUNCTION",
+          "caption": "Linear queue in an array of 10 elements"
         },
         {
-          "type": "heading",
-          "text": "Implementing a queue with an array",
-          "level": 2
+          "type": "warning",
+          "content": "Each **dequeue** moves Front forward, so the spaces at the **start** of the array are never used again. After 10 enqueues the queue reports **\"full\"** even if most items have been removed."
+        }
+      ]
+    },
+    {
+      "title": "Circular queues",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Circular queue",
+          "content": "A queue in an array where the **pointers wrap round** to the start of the array when they reach the end, so freed spaces at the front are **reused**. A **count** of items (or a comparison of the pointers) shows whether it is empty or full."
         },
         {
           "type": "code",
           "language": "pseudocode",
-          "content": "DECLARE Queue : ARRAY[1:10] OF STRING\nDECLARE Front, Rear : INTEGER\nFront ← 1\nRear ← 0\n\nPROCEDURE Enqueue(Item : STRING)\n    IF Rear = 10 THEN\n        OUTPUT \"Queue full\"\n    ELSE\n        Rear ← Rear + 1\n        Queue[Rear] ← Item\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Dequeue() RETURNS STRING\n    IF Front > Rear THEN\n        RETURN \"Queue empty\"\n    ELSE\n        Front ← Front + 1\n        RETURN Queue[Front - 1]\n    ENDIF\nENDFUNCTION",
-          "caption": "Linear queue"
+          "content": "DECLARE Queue : ARRAY[1:5] OF STRING\nDECLARE Front, Rear, Count : INTEGER\nFront ← 1\nRear ← 0\nCount ← 0\n\nPROCEDURE Enqueue(Item : STRING)\n    IF Count = 5 THEN\n        OUTPUT \"Queue full\"\n    ELSE\n        Rear ← (Rear MOD 5) + 1          // 5 wraps round to 1\n        Queue[Rear] ← Item\n        Count ← Count + 1\n    ENDIF\nENDPROCEDURE\n\nFUNCTION Dequeue() RETURNS STRING\n    IF Count = 0 THEN\n        RETURN \"Queue empty\"\n    ELSE\n        Item ← Queue[Front]\n        Front ← (Front MOD 5) + 1\n        Count ← Count - 1\n        RETURN Item\n    ENDIF\nENDFUNCTION",
+          "caption": "Circular queue of 5 elements"
+        },
+        {
+          "type": "example",
+          "title": "Circular queue trace (5 spaces)",
+          "content": "| Operation | Array positions 1–5 | Front | Rear | Count |\n|---|---|---|---|---|\n| enqueue A, B, C, D | A B C D _ | 1 | 4 | 4 |\n| dequeue() → A | _ B C D _ | 2 | 4 | 3 |\n| dequeue() → B | _ _ C D _ | 3 | 4 | 2 |\n| enqueue(E) | _ _ C D E | 3 | 5 | 3 |\n| enqueue(F) | **F** _ C D E | 3 | **1** | 4 |\n\nRear wrapped from 5 to **1**: (5 MOD 5) + 1 = 1. A linear queue would already be \"full\"."
         },
         {
           "type": "callout",
           "tone": "info",
-          "title": "Circular queue",
-          "content": "In a linear queue, space at the front is wasted after dequeuing. A **circular queue** wraps the pointers round to the start of the array (`Rear ← (Rear MOD 10) + 1`), reusing the free space."
+          "title": "Priority queue",
+          "content": "In a **priority queue** each item has a **priority**; the item with the **highest priority** leaves first, and items with equal priority leave in FIFO order — e.g. urgent jobs in an operating system, or patients in an emergency room."
+        }
+      ]
+    },
+    {
+      "title": "Applications",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Where stacks and queues are used",
+          "columns": [
+            "Stack (LIFO)",
+            "Queue (FIFO)"
+          ],
+          "rows": [
+            [
+              "**Undo** in editors; **Back** button in browsers",
+              "**Print queue** — documents printed in the order sent"
+            ],
+            [
+              "Storing **return addresses** and local variables when subroutines are called; **recursion**",
+              "**Keyboard buffer** — key presses processed in the order typed"
+            ],
+            [
+              "**Evaluating expressions** (reverse Polish notation) and **checking brackets**",
+              "**Scheduling** processes in an operating system (round robin)"
+            ],
+            [
+              "**Depth-first search**, backtracking (mazes)",
+              "**Breadth-first search**; buffering data packets / video streaming"
+            ],
+            [
+              "Reversing a list or a word",
+              "Call centres, ticket booking, online orders"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Checking brackets with a stack",
+          "content": "To check `( [ ] ( ) )`: **push** every opening bracket; on a closing bracket **pop** and check it matches. The expression is correct if every pop matches and the stack is **empty** at the end. For `( [ ) ]` the `)` pops `[` — **mismatch**."
         },
         {
           "type": "comparison",
-          "title": "Applications",
+          "title": "Stack vs queue",
           "columns": [
+            "",
             "Stack",
             "Queue"
           ],
           "rows": [
             [
-              "**Undo** in editors, **Back** button in browsers",
-              "**Print queue** — documents printed in the order sent"
+              "Order",
+              "**LIFO**",
+              "**FIFO**"
             ],
             [
-              "Storing **return addresses** when subroutines are called; recursion",
-              "**Keyboard buffer** — keys processed in the order pressed"
+              "Ends used",
+              "**One** end (top)",
+              "**Two** ends (front and rear)"
             ],
             [
-              "Evaluating expressions (reverse Polish notation), checking brackets",
-              "**Processor scheduling** of tasks in an OS"
+              "Pointers",
+              "**One** (top)",
+              "**Two** (front, rear)"
             ],
             [
-              "Depth-first search, backtracking",
-              "Breadth-first search; network data packets; call centres"
+              "Add / remove",
+              "push / pop",
+              "enqueue / dequeue"
+            ],
+            [
+              "Errors",
+              "Overflow / underflow",
+              "Queue full / queue empty"
             ]
           ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Name the data structure where the item that was added last is removed first. [1]**\n**Stack** (1). (Not \"LIFO\" — name the structure.)\n\n**Q: Stack A (bottom → top): Java, Python, Kotlin. Write the operations to reach Java, C#, C++. [2]**\n`pop()`, `pop()` (1); `push(\"C#\")`, `push(\"C++\")` (1).\n\n**Q: Describe how an item is added to a queue implemented in an array. [3]**\nCheck the queue is **not full** (1); **increase the rear pointer** (wrapping round in a circular queue) (1); store the item at the **position of the rear pointer** (1).\n\n**Q: Explain why a print server uses a queue. [2]**\nDocuments must be printed in the **order they were sent** (1); a queue is **FIFO**, so the first document sent is printed first (1)."
         },
         {
-          "type": "exam_tip",
-          "content": "\"Identify the data structure that matches the algorithm\": if the **last** item added is processed first → **stack**; if items are processed **in the order they arrive** → **queue**."
+          "type": "warning",
+          "content": "- Popping from the **bottom** of a stack, or dequeuing from the **rear** of a queue.\n- Forgetting to **check for full / empty** before push / pop.\n- Updating the pointer in the **wrong order** — in a stack push, increase Top **before** storing.\n- Writing values without quotes in stack operations, e.g. push(C#) instead of push(\"C#\")."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Explain LIFO and FIFO with an everyday example.",
+            "Trace: push(3), push(9), pop(), push(4), peek(), pop(), pop() — what is returned?",
+            "Write the pseudocode for Push with an overflow check.",
+            "Why does a linear queue waste space? How does a circular queue fix it?",
+            "In a circular queue of 6 items, Rear = 6. What is Rear after the next enqueue?",
+            "Give two uses of a stack and two of a queue."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Stacks and queues — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write algorithms in pseudocode or a programming language. Put text values in quotes. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes.",
+    "questions": [
+      "sq-exam-1",
+      "sq-exam-2",
+      "sq-exam-3"
+    ]
+  }
 }

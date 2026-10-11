@@ -1,7 +1,1320 @@
 {
   "topic": "g11-packet-routing",
-  "questions": [],
-  "summary": "The purpose of IP addresses and MAC addresses in delivering packets, and the roles of the main application protocols HTTP, HTTPS, FTP, FTPS, SMTP and POP3.",
+  "questions": [
+    {
+      "key": "pr-ip-purpose",
+      "title": "Purpose of an IP address",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of an IP address.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): unique address of a device on the network; used to send and receive data / route packets to the device; identifies and locates the device",
+        "points": [
+          {
+            "criterion": "Unique address",
+            "marks": 1
+          },
+          {
+            "criterion": "Send / receive / locate",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It is a unique address for a device on a network, used so that data packets can be delivered to and from that device."
+      }
+    },
+    {
+      "key": "pr-ipv4-ipv6",
+      "title": "IPv4 or IPv6",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) whether each statement describes IPv4 or IPv6.",
+      "content": {
+        "columns": [
+          "Statement",
+          "IPv4",
+          "IPv6"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Uses 32 bits",
+            null,
+            null
+          ],
+          [
+            "Written as groups of hexadecimal digits separated by colons",
+            null,
+            null
+          ],
+          [
+            "Has about 4.3 billion possible addresses",
+            null,
+            null
+          ],
+          [
+            "Uses 128 bits",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "IPv4; IPv6; IPv4; IPv6 (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "pr-valid-ip",
+      "title": "Valid IPv4",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Which is a **valid** IPv4 address?",
+      "options": [
+        {
+          "key": "A",
+          "content": "192.168.300.1"
+        },
+        {
+          "key": "B",
+          "content": "10.0.0.256"
+        },
+        {
+          "key": "C",
+          "content": "172.16.4.20"
+        },
+        {
+          "key": "D",
+          "content": "1.2.3"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Four numbers, each 0–255."
+      }
+    },
+    {
+      "key": "pr-assemble-ip",
+      "title": "Assemble an IP address",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Write the correct IP address from the four parts **A, B, C, D**:\n\n| A | B | C | D |\n|---|---|---|---|\n| 2.16 | .45 | 17 | 8.10 |\n\nEach octet must be a number from 0 to 255.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "172.168.10.45 (C D A B) (1)",
+        "points": [
+          {
+            "criterion": "172.168.10.45",
+            "marks": 1
+          }
+        ],
+        "model_answer": "172.168.10.45",
+        "accepted": {
+          "values": [
+            "172.168.10.45",
+            "CDAB",
+            "C D A B"
+          ]
+        }
+      }
+    },
+    {
+      "key": "pr-octet-binary",
+      "title": "Octets in binary",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Write the IPv4 address **192.168.1.25** in binary (four 8-bit octets).",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "11000000.10101000 (1); 00000001.00011001 (1)",
+        "points": [
+          {
+            "criterion": "First two octets",
+            "marks": 1
+          },
+          {
+            "criterion": "Last two octets",
+            "marks": 1
+          }
+        ],
+        "model_answer": "11000000.10101000.00000001.00011001",
+        "accepted": {
+          "values": [
+            "11000000.10101000.00000001.00011001",
+            "11000000 10101000 00000001 00011001",
+            "11000000101010000000000100011001"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "pr-public-private",
+      "title": "Public and private",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Explain the difference between a public and a private IP address and the implication for security.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Public: unique on the Internet, assigned by the ISP, reachable from anywhere (1)\n- Private: used only inside a LAN (e.g. 192.168.x.x), reused in many networks, not reachable directly from the Internet (1)\n- Security: private devices are hidden behind the router / NAT so outsiders cannot connect directly; public addresses can be attacked and need a firewall (1)",
+        "points": [
+          {
+            "criterion": "Public",
+            "marks": 1
+          },
+          {
+            "criterion": "Private",
+            "marks": 1
+          },
+          {
+            "criterion": "Security",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A public address is unique on the Internet and can be reached from anywhere; a private address such as 192.168.1.5 works only inside the LAN. Devices with private addresses are hidden behind the router's NAT, so attackers cannot connect to them directly, while public addresses need firewall protection."
+      }
+    },
+    {
+      "key": "pr-private-tf",
+      "title": "Private range",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "The address 192.168.0.12 is a private IP address.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "pr-dhcp",
+      "title": "Dynamic addresses",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Explain why a school's network printer is given a **static** IP address while students' laptops get **dynamic** addresses.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Printer must always be found at the same address so computers can send print jobs to it (1)\n- laptops come and go; DHCP gives them an address automatically and reuses addresses, no manual setup (1)",
+        "points": [
+          {
+            "criterion": "Printer",
+            "marks": 1
+          },
+          {
+            "criterion": "Laptops",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Computers must always find the printer at the same address, so it is static; laptops join and leave, so DHCP gives them any free address automatically."
+      }
+    },
+    {
+      "key": "pr-mac-ip-diff",
+      "title": "MAC vs IP",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.2"
+      ],
+      "practice": true,
+      "text": "Describe **two** differences between a MAC address and an IP address.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: physical vs logical; set by manufacturer vs network / DHCP; fixed vs can change; 48-bit hex vs 32-bit denary / 128-bit; used by switches in a LAN vs routers between networks",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 A MAC address is a physical address set by the manufacturer, while an IP address is a logical address given by the network. 2 The MAC address is used within the LAN by switches, while the IP address is used by routers to send packets between networks."
+      }
+    },
+    {
+      "key": "pr-mac-format",
+      "title": "MAC format",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.2.2"
+      ],
+      "practice": true,
+      "text": "Which of these is a MAC address?",
+      "options": [
+        {
+          "key": "A",
+          "content": "192.168.1.1"
+        },
+        {
+          "key": "B",
+          "content": "A4:5E:60:C2:7D:10"
+        },
+        {
+          "key": "C",
+          "content": "www.nis.edu.kz"
+        },
+        {
+          "key": "D",
+          "content": "2001:db8::1"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "pr-mac-role",
+      "title": "Role of MAC in routing",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.2"
+      ],
+      "practice": true,
+      "text": "Describe the role of MAC addresses when a packet is delivered from a web server to a laptop in a school LAN.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Routers use IP addresses to bring the packet to the school network (1)\n- the school router finds the laptop's MAC address from its IP (ARP) (1)\n- the switch uses the destination MAC address to send the frame only to the laptop's port; MAC changes at every hop (1)",
+        "points": [
+          {
+            "criterion": "IP to network",
+            "marks": 1
+          },
+          {
+            "criterion": "ARP",
+            "marks": 1
+          },
+          {
+            "criterion": "Switch delivers by MAC",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Routers forward the packet using the IP address until it reaches the school router. The router uses ARP to find the MAC address that belongs to the laptop's IP, and the switch then uses that MAC address to send the frame only to the laptop."
+      }
+    },
+    {
+      "key": "pr-packet-parts",
+      "title": "Packet structure",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.2.1"
+      ],
+      "practice": true,
+      "text": "Match each part of a packet to what it contains.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Header"
+          },
+          {
+            "key": "L2",
+            "text": "Payload"
+          },
+          {
+            "key": "L3",
+            "text": "Trailer"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Source and destination IP addresses and the packet number"
+          },
+          {
+            "key": "R2",
+            "text": "The piece of data being sent"
+          },
+          {
+            "key": "R3",
+            "text": "Error-checking data such as a checksum"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Header–R1, Payload–R2, Trailer–R3.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "pr-protocol-define",
+      "title": "Protocol",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Explain what a network protocol is and why protocols are needed.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A set of rules for communication / data format, sending, receiving, error checking (1)\n- so that different devices / manufacturers can communicate and understand each other (1)",
+        "points": [
+          {
+            "criterion": "Rules",
+            "marks": 1
+          },
+          {
+            "criterion": "Why",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A protocol is a set of rules for how data is formatted, sent and checked; all devices follow the same rules, so different computers can communicate."
+      }
+    },
+    {
+      "key": "pr-protocols-match",
+      "title": "Protocols",
+      "type": "matching",
+      "marks": 6,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Match each protocol to its role.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "HTTP"
+          },
+          {
+            "key": "L2",
+            "text": "HTTPS"
+          },
+          {
+            "key": "L3",
+            "text": "FTP"
+          },
+          {
+            "key": "L4",
+            "text": "FTPS"
+          },
+          {
+            "key": "L5",
+            "text": "SMTP"
+          },
+          {
+            "key": "L6",
+            "text": "POP3"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Transfers web pages from a web server to a browser"
+          },
+          {
+            "key": "R2",
+            "text": "Transfers web pages with encryption"
+          },
+          {
+            "key": "R3",
+            "text": "Transfers files between a client and a server"
+          },
+          {
+            "key": "R4",
+            "text": "Transfers files with encryption"
+          },
+          {
+            "key": "R5",
+            "text": "Sends e-mail to and between mail servers"
+          },
+          {
+            "key": "R6",
+            "text": "Downloads e-mail from a server to a device"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L6–R6.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5",
+            "L6": "R6"
+          }
+        }
+      }
+    },
+    {
+      "key": "pr-https",
+      "title": "HTTPS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Explain why an online shop uses HTTPS instead of HTTP.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- HTTPS encrypts data (SSL/TLS) between browser and server (1)\n- so card details / passwords cannot be read if intercepted; certificate proves the site is genuine (1)",
+        "points": [
+          {
+            "criterion": "Encryption",
+            "marks": 1
+          },
+          {
+            "criterion": "Protects data / authentication",
+            "marks": 1
+          }
+        ],
+        "model_answer": "HTTPS encrypts the data, so customers' card numbers and passwords cannot be read if intercepted, and the certificate shows the shop's site is genuine."
+      }
+    },
+    {
+      "key": "pr-ftp-video",
+      "title": "FTP and video",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Explain why FTP is **not** suitable for live video streaming.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- FTP breaks data into packets and re-sends lost or damaged packets (1)\n- it reassembles packets arriving in random order before use, causing delays — not suitable for a live stream (1)",
+        "points": [
+          {
+            "criterion": "Resends",
+            "marks": 1
+          },
+          {
+            "criterion": "Delay",
+            "marks": 1
+          }
+        ],
+        "model_answer": "FTP waits for lost or damaged packets to be sent again and puts all packets in order before the file is complete, which creates delays that a live video cannot accept."
+      }
+    },
+    {
+      "key": "pr-pop-imap",
+      "title": "POP3 or IMAP",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Tick (✓) whether each statement describes POP3 or IMAP.",
+      "content": {
+        "columns": [
+          "Statement",
+          "POP3",
+          "IMAP"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "Messages are usually deleted from the server after download",
+            null,
+            null
+          ],
+          [
+            "The same folders are seen on a phone and a laptop",
+            null,
+            null
+          ],
+          [
+            "Messages stay on the mail server",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "POP3; IMAP; IMAP (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "pr-tcp-udp",
+      "title": "TCP and UDP",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.6.2.3"
+      ],
+      "practice": true,
+      "text": "Explain why a video call uses UDP while downloading a file uses TCP.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- TCP checks every packet arrives and resends lost ones — reliable but slower; a file must be complete and correct (1)\n- UDP does not resend — fast with little delay; a lost packet in a call is less important than delay (1)",
+        "points": [
+          {
+            "criterion": "TCP",
+            "marks": 1
+          },
+          {
+            "criterion": "UDP",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A file must arrive complete, so TCP resends any lost packet. In a video call a short glitch is better than a delay, so UDP sends packets quickly without resending."
+      }
+    },
+    {
+      "key": "pr-exam-1",
+      "title": "Addresses",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A student's laptop is connected to the school Wi-Fi. Its settings show IP address **192.168.10.37** and physical address **3C:52:82:1A:9F:04**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pr-exam-1a",
+          "part_label": "(a)",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the purpose of the IP address.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Unique address of the device on the network (1); used to send / receive data / identify and locate it (1)",
+            "points": [
+              {
+                "criterion": "Unique",
+                "marks": 1
+              },
+              {
+                "criterion": "Send / receive",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It uniquely identifies the laptop on the network so that packets can be sent to and from it."
+          }
+        },
+        {
+          "key": "pr-exam-1b",
+          "part_label": "(b)",
+          "title": "Format",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the formats of IPv4 and IPv6 addresses.",
+          "content": {
+            "fields": [
+              {
+                "key": "v4",
+                "label": "IPv4",
+                "lines": 2
+              },
+              {
+                "key": "v6",
+                "label": "IPv6",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "IPv4: 32 bits, four 8-bit numbers 0–255 in denary separated by dots (1). IPv6: 128 bits, eight groups of four hexadecimal digits separated by colons (1)",
+            "points": [
+              {
+                "criterion": "IPv4",
+                "marks": 1
+              },
+              {
+                "criterion": "IPv6",
+                "marks": 1
+              }
+            ],
+            "model_answer": "IPv4: 32 bits written as four denary numbers 0–255 separated by dots. IPv6: 128 bits written as eight groups of four hex digits separated by colons."
+          }
+        },
+        {
+          "key": "pr-exam-1c",
+          "part_label": "(c)",
+          "title": "Private",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The laptop's address is private. Explain **one** security benefit of this.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Not reachable directly from the Internet / hidden behind the router's NAT (1); attackers cannot start a connection to the laptop directly (1)",
+            "points": [
+              {
+                "criterion": "Hidden",
+                "marks": 1
+              },
+              {
+                "criterion": "No direct attack",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Private addresses cannot be reached from the Internet; the router hides the laptop behind its public address, so attackers cannot connect to it directly."
+          }
+        },
+        {
+          "key": "pr-exam-1d",
+          "part_label": "(d)",
+          "title": "MAC vs IP",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** differences between the physical (MAC) address and the IP address of the laptop.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): physical vs logical; manufacturer vs network-assigned; fixed vs changes between networks; 48-bit hex vs 32-bit denary; LAN delivery by switches vs routing between networks",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 The MAC address was set by the manufacturer and does not change, while the IP address was given by the school network and will change at home. 2 The MAC is used by the switch inside the LAN, while the IP is used by routers between networks."
+          }
+        },
+        {
+          "key": "pr-exam-1e",
+          "part_label": "(e)",
+          "title": "Layer",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the role of the MAC address when a reply from the Internet reaches the school network.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "The router finds the MAC address matching the laptop's IP (ARP) (1); the switch / access point delivers the frame to the laptop using its MAC address (1)",
+            "points": [
+              {
+                "criterion": "ARP",
+                "marks": 1
+              },
+              {
+                "criterion": "Deliver by MAC",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The router looks up which MAC address belongs to 192.168.10.37 and the frame is delivered on the local network to the card with that MAC address."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pr-exam-2",
+      "title": "Packets",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A 5 MB photo is sent from Astana to a server in Almaty across the Internet.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pr-exam-2a",
+          "part_label": "(a)",
+          "title": "Header",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **three** items stored in the header of each packet.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): source IP address; destination IP address; packet / sequence number; total number of packets; protocol; time to live / hop count",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Source IP address\n2 Destination IP address\n3 Packet sequence number"
+          }
+        },
+        {
+          "key": "pr-exam-2b",
+          "part_label": "(b)",
+          "title": "Journey",
+          "type": "extended",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.1",
+            "11.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the packets travel from the sender to the server and how the photo is rebuilt.",
+          "content": {
+            "answer_lines": 7
+          },
+          "scheme": {
+            "mark_scheme": "Up to 5 (1 each): photo split into packets with headers; routers read destination IP; forward along best available route using routing tables / hops; packets may take different routes / arrive out of order; at the destination network MAC address used to deliver to the server; errors checked / missing packets requested again; packets reassembled in order using sequence numbers",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              },
+              {
+                "criterion": "4",
+                "marks": 1
+              },
+              {
+                "criterion": "5",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The photo is split into packets, each with the server's IP address and a sequence number. Each router reads the destination IP and sends the packet to the next router on the best route, so packets may travel different ways and arrive out of order. In Almaty the last router delivers the frames to the server's MAC address. The server checks for errors, asks for missing packets again and puts them back in order using the sequence numbers."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pr-exam-3",
+      "title": "Protocols",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A teacher uploads lesson files to the school website, sends e-mails to parents and reads e-mail on a phone and a laptop.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pr-exam-3a",
+          "part_label": "(a)",
+          "title": "SMTP and HTTP",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State what SMTP and HTTP protocols are used for.",
+          "content": {
+            "fields": [
+              {
+                "key": "smtp",
+                "label": "SMTP",
+                "lines": 1
+              },
+              {
+                "key": "http",
+                "label": "HTTP",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "SMTP — sending e-mail (1). HTTP — transferring web pages over the Internet (1)",
+            "points": [
+              {
+                "criterion": "SMTP",
+                "marks": 1
+              },
+              {
+                "criterion": "HTTP",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SMTP: sending e-mail.\nHTTP: transferring web pages from a server to a browser."
+          }
+        },
+        {
+          "key": "pr-exam-3b",
+          "part_label": "(b)",
+          "title": "Uploading",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify a protocol for uploading the lesson files securely and explain your choice.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "FTPS (accept SFTP) (1); transfers files between client and server with encryption so the login and files cannot be intercepted (1)",
+            "points": [
+              {
+                "criterion": "FTPS",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "FTPS — it transfers files to the server like FTP but encrypts the password and data."
+          }
+        },
+        {
+          "key": "pr-exam-3c",
+          "part_label": "(c)",
+          "title": "Receiving",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The teacher wants the same messages on the phone and the laptop. Explain whether POP3 or IMAP should be used.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "IMAP (1); messages stay on the server and are synchronised (1); POP3 downloads to one device and usually deletes from the server, so the other device would not see them (1)",
+            "points": [
+              {
+                "criterion": "IMAP",
+                "marks": 1
+              },
+              {
+                "criterion": "Stays on server",
+                "marks": 1
+              },
+              {
+                "criterion": "POP3 problem",
+                "marks": 1
+              }
+            ],
+            "model_answer": "IMAP, because messages stay on the server and both devices show the same folders; with POP3 the messages would be downloaded to one device and removed from the server."
+          }
+        },
+        {
+          "key": "pr-exam-3d",
+          "part_label": "(d)",
+          "title": "Match",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to match the name of the protocol with its role.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "TCP/IP"
+              },
+              {
+                "key": "L2",
+                "text": "FTP"
+              },
+              {
+                "key": "L3",
+                "text": "POP3"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Used to establish a connection between devices on a network and route data"
+              },
+              {
+                "key": "R2",
+                "text": "Used for transferring files between a client and a server"
+              },
+              {
+                "key": "R3",
+                "text": "Used for retrieving e-mail messages from a mail server"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "TCP/IP–R1, FTP–R2, POP3–R3.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3"
+              }
+            }
+          }
+        },
+        {
+          "key": "pr-exam-3e",
+          "part_label": "(e)",
+          "title": "FTP use",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why FTP is suitable for uploading files but not for a live video lesson.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "FTP resends lost / damaged packets and reassembles them so files arrive complete (1); this causes delays, unsuitable for live streaming (1)",
+            "points": [
+              {
+                "criterion": "Reliable",
+                "marks": 1
+              },
+              {
+                "criterion": "Delay",
+                "marks": 1
+              }
+            ],
+            "model_answer": "FTP makes sure every packet arrives and is reassembled correctly, which is right for files, but resending and reordering cause delays that interrupt a live video."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "The purpose and format of IP addresses (IPv4 and IPv6, static and dynamic, public and private), MAC addresses and how IP and MAC addresses work together to deliver packets, the structure of a packet and how routers forward it, and the roles of the protocols TCP/IP, HTTP, HTTPS, FTP, FTPS, SMTP, POP3 and IMAP.",
   "theory": [
     {
       "title": "IP addresses",
@@ -11,8 +1324,8 @@
       "blocks": [
         {
           "type": "definition",
-          "term": "IP address",
-          "content": "A **logical address** given to every device on a network (and on the Internet) so that data packets can be **routed to the correct device**. It can change when the device moves to another network."
+          "term": "IP address (Internet Protocol address)",
+          "content": "A **unique logical address** given to every device on a network (and on the Internet). It **identifies and locates** the device so that data packets can be **sent to and received from** it. It can change when the device joins a different network."
         },
         {
           "type": "comparison",
@@ -25,13 +1338,13 @@
           "rows": [
             [
               "Size",
-              "32 bits",
-              "128 bits"
+              "**32 bits** (4 bytes)",
+              "**128 bits** (16 bytes)"
             ],
             [
               "Written as",
-              "4 denary numbers 0–255 separated by dots",
-              "8 groups of 4 hex digits separated by colons"
+              "**4 denary numbers 0–255** (octets) separated by **dots**",
+              "**8 groups of 4 hex digits** separated by **colons**"
             ],
             [
               "Example",
@@ -39,16 +1352,94 @@
               "`2001:0db8:85a3:0000:0000:8a2e:0370:7334`"
             ],
             [
+              "Short form",
+              "—",
+              "Leading zeros and one run of zero groups can be dropped: `2001:db8:85a3::8a2e:370:7334`"
+            ],
+            [
               "Number of addresses",
-              "≈ 4.3 billion (2³²) — running out",
+              "2³² ≈ **4.3 billion** — not enough for all devices",
               "2¹²⁸ — practically unlimited"
             ]
           ]
+        },
+        {
+          "type": "example",
+          "title": "An IPv4 address in binary",
+          "content": "`192.168.1.25` = **11000000.10101000.00000001.00011001** — each octet is one byte, so each number is between **0 and 255**. An address such as `192.168.300.1` is **invalid**."
+        },
+        {
+          "type": "comparison",
+          "title": "Static and dynamic IP addresses",
+          "columns": [
+            "",
+            "Static",
+            "Dynamic"
+          ],
+          "rows": [
+            [
+              "Set by",
+              "The administrator, **fixed**",
+              "Given automatically by a **DHCP** server, can change"
+            ],
+            [
+              "Used for",
+              "Servers, printers, routers — must always be found at the same address",
+              "Laptops, phones, home computers"
+            ],
+            [
+              "Advantage",
+              "Always the same — easy to find",
+              "No manual setup; addresses reused"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Public and private IP addresses",
+          "columns": [
+            "",
+            "Public",
+            "Private"
+          ],
+          "rows": [
+            [
+              "Where",
+              "Unique on the **whole Internet**",
+              "Unique only **inside one LAN**; the same addresses are reused in millions of LANs"
+            ],
+            [
+              "Given by",
+              "The ISP",
+              "The LAN's router (DHCP)"
+            ],
+            [
+              "Ranges",
+              "All others",
+              "`10.x.x.x`, `172.16.x.x – 172.31.x.x`, `192.168.x.x`"
+            ],
+            [
+              "Reachable from the Internet",
+              "**Yes** — can be attacked directly",
+              "**No** — hidden behind the router (**NAT**)"
+            ],
+            [
+              "Security",
+              "Needs a firewall",
+              "Safer: outsiders cannot start a connection directly"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "NAT",
+          "content": "The router has **one public** IP address. Using **Network Address Translation**, it swaps the **private** addresses of the devices inside the LAN for its public address when packets go out, and passes the replies back to the right device. This saves public IPv4 addresses and **hides** the inside devices."
         }
       ]
     },
     {
-      "title": "MAC addresses in packet routing",
+      "title": "MAC addresses",
       "objectives": [
         "11.6.2.2"
       ],
@@ -56,7 +1447,7 @@
         {
           "type": "definition",
           "term": "MAC address (Media Access Control)",
-          "content": "A **physical, unique 48-bit address** burned into a device's network interface card by the manufacturer, written as 6 pairs of hexadecimal digits, e.g. `3C:52:82:1A:9F:04`. The first half identifies the **manufacturer**, the second half the **device**."
+          "content": "A **physical, unique 48-bit address** burned into a device's **network interface card** by the manufacturer, written as **6 pairs of hexadecimal digits**, e.g. `3C:52:82:1A:9F:04`. The first half identifies the **manufacturer**, the second half the **individual card**."
         },
         {
           "type": "comparison",
@@ -69,23 +1460,75 @@
           "rows": [
             [
               "Type",
-              "Logical, assigned by the network (DHCP) or manually",
-              "Physical, set by the manufacturer"
+              "**Logical** — network address",
+              "**Physical** — hardware address"
+            ],
+            [
+              "Assigned by",
+              "The network (DHCP) or administrator",
+              "The **manufacturer**"
             ],
             [
               "Can change?",
-              "Yes, depends on the network",
-              "Normally fixed"
+              "**Yes**, depends on the network",
+              "Normally **fixed**"
             ],
             [
               "Used by",
               "**Routers** — to deliver packets **between networks**",
-              "**Switches** — to deliver frames to the right device **within a local network**"
+              "**Switches** — to deliver frames to the right device **within a LAN**"
             ],
             [
-              "Size",
-              "32 / 128 bits",
-              "48 bits"
+              "Size / format",
+              "32 bits denary (IPv4) or 128 bits hex (IPv6)",
+              "48 bits hex"
+            ],
+            [
+              "OSI layer",
+              "Network layer (3)",
+              "Data link layer (2)"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Finding your MAC address",
+          "content": "Windows: `ipconfig /all` (Physical Address); macOS / Linux: `ifconfig` or `ip link` (ether); phones: Settings → About → Wi-Fi MAC address."
+        }
+      ]
+    },
+    {
+      "title": "How packets are routed",
+      "objectives": [
+        "11.6.2.1",
+        "11.6.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Packet",
+          "content": "A small **unit of data** sent over a network. Large files and messages are split into many packets."
+        },
+        {
+          "type": "comparison",
+          "title": "Structure of a packet",
+          "columns": [
+            "Part",
+            "Contains"
+          ],
+          "rows": [
+            [
+              "**Header**",
+              "**Source IP** and **destination IP** addresses, **packet (sequence) number**, total number of packets, protocol, time to live (hop limit)"
+            ],
+            [
+              "**Payload (body)**",
+              "The actual piece of **data**"
+            ],
+            [
+              "**Trailer**",
+              "**Error-checking** data (e.g. a checksum) and an end-of-packet marker"
             ]
           ]
         },
@@ -93,12 +1536,22 @@
           "type": "steps",
           "title": "How a packet reaches a device",
           "items": [
-            "Data is split into **packets**; each packet has a header with the **source and destination IP addresses** and a sequence number.",
-            "**Routers** read the destination IP and forward each packet along the best available route; packets may take different routes.",
-            "When the packet arrives in the destination LAN, the router finds the MAC address of the device with that IP (using **ARP**).",
+            "The data is split into **packets**; each header gets the **source and destination IP addresses** and a **sequence number**.",
+            "The packet is sent to the local **router** (default gateway).",
+            "Each **router** reads the **destination IP** and uses its **routing table** to forward the packet to the next router (a **hop**) on the best available route; packets may take **different routes**.",
+            "When the packet reaches the destination network, the router finds the **MAC address** of the device with that IP (using **ARP**, Address Resolution Protocol).",
             "The **switch** uses the **MAC address** to send the frame to the correct port.",
-            "The destination device reassembles the packets in order using the sequence numbers."
+            "The receiving device checks for errors, requests missing or damaged packets again, and **reassembles** the packets in order using the sequence numbers."
           ]
+        },
+        {
+          "type": "example",
+          "title": "IP and MAC on the journey",
+          "content": "A laptop in Astana sends a request to a server in Almaty. The **IP addresses** (laptop → server) stay the **same** for the whole journey. The **MAC addresses** change at **every hop**: each frame is addressed to the MAC of the **next** device (router to router), until the last router addresses it to the **server's** MAC."
+        },
+        {
+          "type": "exam_tip",
+          "content": "**IP** says **which device on which network** (the final destination); **MAC** says **which device on this local link** (the next stop)."
         }
       ]
     },
@@ -111,7 +1564,29 @@
         {
           "type": "definition",
           "term": "Protocol",
-          "content": "A set of **rules** that devices must follow to communicate: the format of data, how it is sent, received and checked for errors."
+          "content": "A set of **rules** that devices must follow to communicate: the **format** of the data, how it is **addressed, sent and received**, and how **errors** are detected and corrected. Devices from different manufacturers can communicate because they follow the same protocols."
+        },
+        {
+          "type": "comparison",
+          "title": "TCP/IP — the protocols of the Internet",
+          "columns": [
+            "Protocol",
+            "Role"
+          ],
+          "rows": [
+            [
+              "**IP** (Internet Protocol)",
+              "**Addresses** packets and **routes** them across networks"
+            ],
+            [
+              "**TCP** (Transmission Control Protocol)",
+              "Sets up a **connection**, splits data into packets, checks every packet arrives, **resends** lost ones and puts them in **order** — reliable"
+            ],
+            [
+              "**UDP** (User Datagram Protocol)",
+              "Sends packets **without** checking or resending — **fast**, used for live video, voice calls, games"
+            ]
+          ]
         },
         {
           "type": "comparison",
@@ -124,54 +1599,147 @@
           ],
           "rows": [
             [
-              "HTTP",
+              "**HTTP**",
               "HyperText Transfer Protocol",
-              "Transfers web pages from a web server to a browser",
+              "Transfers **web pages** (HTML, images, video) from a web server to a browser",
               "80"
             ],
             [
-              "HTTPS",
+              "**HTTPS**",
               "HTTP Secure",
-              "HTTP **encrypted** with SSL/TLS — protects passwords and payment data; the server is authenticated with a certificate",
+              "HTTP **encrypted** with SSL/TLS — protects passwords and payment data; the server is **authenticated** with a digital certificate",
               "443"
             ],
             [
-              "FTP",
+              "**FTP**",
               "File Transfer Protocol",
-              "Uploads and downloads files between a client and a server (e.g. uploading a website)",
-              "20/21"
+              "**Uploads and downloads files** between a client and a server (e.g. uploading a website)",
+              "20 / 21"
             ],
             [
-              "FTPS",
+              "**FTPS**",
               "FTP Secure",
               "FTP with SSL/TLS **encryption**",
               "990"
             ],
             [
-              "SMTP",
+              "**SMTP**",
               "Simple Mail Transfer Protocol",
-              "**Sends** email from a client to a mail server and between mail servers",
+              "**Sends** e-mail from a client to a mail server and **between mail servers**",
               "25 / 587"
             ],
             [
-              "POP3",
+              "**POP3**",
               "Post Office Protocol 3",
-              "**Downloads** email from the server to one device (usually deleting it from the server)",
+              "**Downloads** e-mail from the server to **one** device (usually deleting it from the server)",
               "110"
             ],
             [
-              "IMAP",
+              "**IMAP**",
               "Internet Message Access Protocol",
-              "Reads email **kept on the server**, synchronised across devices",
+              "Reads e-mail **kept on the server**, synchronised across **all** devices",
               "143"
             ]
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "Email: **SMTP sends**, **POP3/IMAP receive**. Secure versions (HTTPS, FTPS) **encrypt** the data so it cannot be read if intercepted."
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  A[Sender's e-mail app] -- SMTP --> S1[Sender's mail server]\n  S1 -- SMTP --> S2[Recipient's mail server]\n  S2 -- POP3 or IMAP --> B[Recipient's e-mail app]",
+          "caption": "Sending and receiving an e-mail"
+        },
+        {
+          "type": "comparison",
+          "title": "POP3 vs IMAP",
+          "columns": [
+            "",
+            "POP3",
+            "IMAP"
+          ],
+          "rows": [
+            [
+              "Where messages are kept",
+              "**Downloaded** to one device, usually deleted from the server",
+              "**Stay on the server**"
+            ],
+            [
+              "Several devices",
+              "Hard — each device has different mail",
+              "Easy — phone, laptop and web show the same folders"
+            ],
+            [
+              "Offline reading",
+              "Yes",
+              "Only messages already synced"
+            ],
+            [
+              "Server storage",
+              "Little",
+              "More"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why FTP is not suitable for live video",
+              "content": "- FTP (over **TCP**) waits for **lost or damaged packets** to be **resent** and puts packets **back in order** before the file is complete.\n- That causes **delays** — live video needs a continuous stream and should **skip** a lost packet rather than wait (UDP-based streaming protocols do this)."
+            },
+            {
+              "title": "When FTP is convenient",
+              "content": "- **Transferring files** between a client and a server: uploading a website to a web server, sharing large files, backups."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "HTTP vs HTTPS",
+          "content": "With **HTTP**, data travels as **plain text** — anyone who intercepts it can read passwords. **HTTPS** encrypts the data and proves the website's identity with a **certificate** (padlock in the address bar). Always use HTTPS for logins and payments."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.6.2.1",
+        "11.6.2.2",
+        "11.6.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain the purpose of the IP address. [2]**\nA **unique address** of a device on the network (1) that is used to **send and receive data** / identify and **locate** the device (1).\n\n**Q: Describe two differences between a MAC address and an IP address. [2]**\nA MAC address is a **physical** address set by the **manufacturer**, while an IP address is a **logical** address given by the **network** (1). The MAC address is **fixed**, while the IP address can **change** when the device joins another network (1).\n\n**Q: State what SMTP and HTTP are used for. [2]**\nSMTP — **sending** e-mail (1); HTTP — **transferring web pages** over the Internet (1).\n\n**Q: Explain why FTP is not suitable for live video streaming. [2]**\nFTP **resends lost or damaged packets** (1) and **reassembles** packets that arrived in a random order before use, which causes **delays** unsuitable for a live stream (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying a MAC address is used to route packets **across the Internet** — routers use **IP** addresses.\n- Saying POP3 **sends** e-mail — SMTP sends; POP3 / IMAP receive.\n- Writing IPv4 numbers above **255**.\n- Saying HTTPS \"makes the page load faster\" — it makes it **secure**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Give the size and format of IPv4 and IPv6 addresses.",
+            "Is 192.168.0.12 public or private? Why is that safer?",
+            "Compare IP and MAC addresses in three ways.",
+            "Describe the journey of a packet from a laptop to a web server.",
+            "Match HTTP, HTTPS, FTP, SMTP, POP3 and IMAP to their roles.",
+            "Why does live video use UDP rather than TCP / FTP?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "IP, MAC and protocols — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "pr-exam-1",
+      "pr-exam-2",
+      "pr-exam-3"
+    ]
+  }
 }

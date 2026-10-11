@@ -1,74 +1,1626 @@
 {
   "topic": "g12-memory-addressing-principle",
-  "questions": [],
-  "summary": "How memory is addressed, the stored-program (von Neumann) principle, addressing modes, segmented and paged memory organisation, and virtual machines.",
+  "questions": [
+    {
+      "key": "mem-address-define",
+      "title": "Memory address",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Explain the principle of memory addressing.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Memory is divided into locations, each with a unique address (1)\n- the CPU sends the address on the address bus / via the MAR to read or write that location (1)",
+        "points": [
+          {
+            "criterion": "Unique address per location",
+            "marks": 1
+          },
+          {
+            "criterion": "Address bus / MAR used to access",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Main memory is split into locations, each with its own unique address; the CPU places the address in the MAR and on the address bus to read or write that location."
+      }
+    },
+    {
+      "key": "mem-buses-match",
+      "title": "Buses and registers",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Match each component to its role when memory is accessed.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Address bus"
+          },
+          {
+            "key": "L2",
+            "text": "Data bus"
+          },
+          {
+            "key": "L3",
+            "text": "MAR"
+          },
+          {
+            "key": "L4",
+            "text": "MDR"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Carries the address of the location from the CPU to memory"
+          },
+          {
+            "key": "R2",
+            "text": "Carries the data between the CPU and memory"
+          },
+          {
+            "key": "R3",
+            "text": "Register holding the address to be accessed"
+          },
+          {
+            "key": "R4",
+            "text": "Register holding the data read or to be written"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Address bus–R1, Data bus–R2, MAR–R3, MDR–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "mem-bus-calc",
+      "title": "Address bus width",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Each memory location holds **1 byte**. Complete the table.",
+      "content": {
+        "columns": [
+          "Address bus width",
+          "Number of addresses",
+          "Maximum memory"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "8 bits",
+            "256",
+            "256 bytes"
+          ],
+          [
+            "16 bits",
+            null,
+            null
+          ],
+          [
+            "20 bits",
+            "1 048 576",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "65 536 (1); 64 KiB (1); 1 MiB (1)",
+        "points": [
+          {
+            "criterion": "65536",
+            "marks": 1
+          },
+          {
+            "criterion": "64 KiB",
+            "marks": 1
+          },
+          {
+            "criterion": "1 MiB",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              null
+            ],
+            [
+              null,
+              "65536||65 536||65,536||2^16",
+              "64 KiB||64 KB||64KB||64KiB||65536 bytes||65 536 bytes"
+            ],
+            [
+              null,
+              null,
+              "1 MiB||1 MB||1MB||1MiB||1048576 bytes||1 048 576 bytes"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "mem-word-calc",
+      "title": "Word-sized locations",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "A computer has a **24-bit** address bus and each location stores **2 bytes**. Calculate the maximum memory in **MiB**.",
+      "content": {
+        "unit": "MiB"
+      },
+      "scheme": {
+        "mark_scheme": "2²⁴ = 16 777 216 locations (1) × 2 = 33 554 432 bytes = 32 MiB (1)",
+        "points": [
+          {
+            "criterion": "2^24",
+            "marks": 1
+          },
+          {
+            "criterion": "32",
+            "marks": 1
+          }
+        ],
+        "model_answer": "32",
+        "accepted": {
+          "values": [
+            "32"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "mem-lines-mcq",
+      "title": "Address lines",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "How many address lines are needed to address **256 MiB** of byte-addressable memory?",
+      "options": [
+        {
+          "key": "A",
+          "content": "8"
+        },
+        {
+          "key": "B",
+          "content": "24"
+        },
+        {
+          "key": "C",
+          "content": "28"
+        },
+        {
+          "key": "D",
+          "content": "256"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "256 MiB = 2⁸ × 2²⁰ = 2²⁸ bytes."
+      }
+    },
+    {
+      "key": "mem-modes-table",
+      "title": "Addressing modes",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Memory contents: address **50** → 64, address **52** → 17, address **64** → 9. The index register IX = **2**.\n\nComplete the table to show the value loaded into the accumulator by each instruction.",
+      "content": {
+        "columns": [
+          "Instruction",
+          "Addressing mode",
+          "Value in ACC"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "LDM #50",
+            "Immediate",
+            null
+          ],
+          [
+            "LDD 50",
+            "Direct",
+            null
+          ],
+          [
+            "LDI 50",
+            "Indirect",
+            null
+          ],
+          [
+            "LDX 50",
+            "Indexed",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "50 (1); 64 (1); 9 (1); 17 (1)",
+        "points": [
+          {
+            "criterion": "50",
+            "marks": 1
+          },
+          {
+            "criterion": "64",
+            "marks": 1
+          },
+          {
+            "criterion": "9",
+            "marks": 1
+          },
+          {
+            "criterion": "17",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "50"
+            ],
+            [
+              null,
+              null,
+              "64"
+            ],
+            [
+              null,
+              null,
+              "9"
+            ],
+            [
+              null,
+              null,
+              "17"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "mem-modes-match",
+      "title": "Mode descriptions",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Match each addressing mode to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Immediate"
+          },
+          {
+            "key": "L2",
+            "text": "Direct"
+          },
+          {
+            "key": "L3",
+            "text": "Indirect"
+          },
+          {
+            "key": "L4",
+            "text": "Indexed"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The operand is the value to be used"
+          },
+          {
+            "key": "R2",
+            "text": "The operand is the address of the value"
+          },
+          {
+            "key": "R3",
+            "text": "The operand is the address of a location holding the address of the value"
+          },
+          {
+            "key": "R4",
+            "text": "The address is the operand plus the contents of the index register"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Immediate–R1, Direct–R2, Indirect–R3, Indexed–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "mem-indexed-use",
+      "title": "Use of indexed addressing",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Explain why indexed addressing is useful when processing an array.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Operand holds the start address of the array; IX holds the position (1)\n- incrementing IX in a loop accesses each element in turn with the same instruction (1)",
+        "points": [
+          {
+            "criterion": "Base + index",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop through elements",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The operand gives the base address of the array and IX the element number, so increasing IX in a loop lets the same instruction read every element in turn."
+      }
+    },
+    {
+      "key": "mem-stored-program",
+      "title": "Stored-program concept",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "Explain the principle of storing programs and data (the stored-program concept).",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Instructions and data are stored together in the same main memory in binary (1)\n- instructions are fetched one at a time / in sequence and executed by the CPU (1)",
+        "points": [
+          {
+            "criterion": "Same memory",
+            "marks": 1
+          },
+          {
+            "criterion": "Fetched and executed in sequence",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Program instructions and data are both held in binary in the same main memory, and the CPU fetches the instructions one by one, decodes and executes them."
+      }
+    },
+    {
+      "key": "mem-harvard-tick",
+      "title": "Von Neumann or Harvard",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show which architecture each statement describes.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Von Neumann",
+          "Harvard"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Instructions and data share one memory",
+            null,
+            null
+          ],
+          [
+            "An instruction and data can be fetched at the same time",
+            null,
+            null
+          ],
+          [
+            "Suffers from a bottleneck because of a shared bus",
+            null,
+            null
+          ],
+          [
+            "Often used in microcontrollers and signal processors",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "VN; H; VN; H (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "mem-paging-calc",
+      "title": "Paging translation",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "The page size is **4096 bytes**. The page table shows that page **1** is stored in frame **7**. Calculate the physical address for logical address **5000**.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "Page 1, offset 5000 − 4096 = 904 (1); 7 × 4096 = 28 672 (1); + 904 = 29 576 (1)",
+        "points": [
+          {
+            "criterion": "Offset 904",
+            "marks": 1
+          },
+          {
+            "criterion": "Frame start",
+            "marks": 1
+          },
+          {
+            "criterion": "29576",
+            "marks": 1
+          }
+        ],
+        "model_answer": "29576",
+        "accepted": {
+          "values": [
+            "29576"
+          ],
+          "numeric": true,
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "mem-pages-needed",
+      "title": "Pages needed",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "A program is **18 KiB** and the page size is **4 KiB**. Calculate the amount of memory (in KiB) wasted by internal fragmentation.",
+      "content": {
+        "unit": "KiB"
+      },
+      "scheme": {
+        "mark_scheme": "18 ÷ 4 = 4.5 → 5 pages = 20 KiB (1); 20 − 18 = 2 KiB wasted (1)",
+        "points": [
+          {
+            "criterion": "5 pages",
+            "marks": 1
+          },
+          {
+            "criterion": "2 KiB",
+            "marks": 1
+          }
+        ],
+        "model_answer": "2",
+        "accepted": {
+          "values": [
+            "2"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "mem-seg-table",
+      "title": "Segment table",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Segment table: segment 0 — base **2000**, limit **500**; segment 1 — base **4500**, limit **1000**; segment 2 — base **8000**, limit **300**.\n\nComplete the physical address for each logical address (segment, offset). Write **error** if the offset is outside the segment.",
+      "content": {
+        "columns": [
+          "Logical address",
+          "Physical address"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "(1, 600)",
+            null
+          ],
+          [
+            "(0, 120)",
+            null
+          ],
+          [
+            "(2, 350)",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "5100 (1); 2120 (1); error — 350 ≥ limit 300 (1)",
+        "points": [
+          {
+            "criterion": "5100",
+            "marks": 1
+          },
+          {
+            "criterion": "2120",
+            "marks": 1
+          },
+          {
+            "criterion": "error",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "5100"
+            ],
+            [
+              null,
+              "2120"
+            ],
+            [
+              null,
+              "error||segmentation fault||invalid"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "mem-paging-tf",
+      "title": "Page size",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "In paging, the pages of a program can have different sizes depending on the program's structure.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Pages are a fixed size; segments are variable."
+      }
+    },
+    {
+      "key": "mem-compare-ps",
+      "title": "Paging vs segmentation",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between paging and segmentation.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two, both sides (1 each): fixed vs variable size; physical vs logical division; invisible vs visible to programmer; page table vs segment table (base/limit); internal vs external fragmentation",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Pages are a fixed size, whereas segments vary in size. 2 Paging divides by physical size, whereas segmentation divides by the logical parts of the program."
+      }
+    },
+    {
+      "key": "mem-virtual-memory",
+      "title": "Virtual memory",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Explain how virtual memory works and **one** problem it can cause.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Part of secondary storage used as if it were RAM (1)\n- pages not needed are moved to disk and swapped back into RAM when needed (1)\n- problem: slower / disk thrashing — more time swapping than processing (1)",
+        "points": [
+          {
+            "criterion": "Disk as RAM",
+            "marks": 1
+          },
+          {
+            "criterion": "Swapping pages",
+            "marks": 1
+          },
+          {
+            "criterion": "Problem",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When RAM is full, the OS uses part of the disk as extra memory, moving pages not in use to disk and back into RAM when needed. This is slow, and too much swapping causes disk thrashing."
+      }
+    },
+    {
+      "key": "mem-vm-define",
+      "title": "Virtual machine",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Explain the concept of a **virtual machine**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Software that emulates a complete computer / hardware (1)\n- so a guest OS or program runs as if on its own machine, isolated, while sharing the host's resources (1)",
+        "points": [
+          {
+            "criterion": "Software emulation",
+            "marks": 1
+          },
+          {
+            "criterion": "Guest runs on host",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A virtual machine is software that imitates a complete computer, so a guest operating system or program can run inside it, isolated, using the host computer's hardware."
+      }
+    },
+    {
+      "key": "mem-vm-types",
+      "title": "Types of virtual machine",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Select the **two** examples of a **process** virtual machine.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Java Virtual Machine running bytecode"
+        },
+        {
+          "key": "B",
+          "content": "VirtualBox running Linux inside Windows"
+        },
+        {
+          "key": "C",
+          "content": "Python interpreter running a script"
+        },
+        {
+          "key": "D",
+          "content": "A cloud server running 20 guest operating systems"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "B and D are system virtual machines."
+      }
+    },
+    {
+      "key": "mem-vm-adv",
+      "title": "VM advantages and disadvantages",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "A school's IT technician wants to test new software in a virtual machine before installing it on the school computers. Give **two** advantages and **two** disadvantages of using a virtual machine.",
+      "content": {
+        "fields": [
+          {
+            "key": "a1",
+            "label": "Advantage 1",
+            "lines": 1
+          },
+          {
+            "key": "a2",
+            "label": "Advantage 2",
+            "lines": 1
+          },
+          {
+            "key": "d1",
+            "label": "Disadvantage 1",
+            "lines": 1
+          },
+          {
+            "key": "d2",
+            "label": "Disadvantage 2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Advantages (1 each): isolation — crash / malware does not affect host; snapshots / easy restore; several OSs on one computer; no extra hardware. Disadvantages (1 each): slower than real hardware; needs much RAM / CPU / storage; limited hardware access; licence cost; host failure stops all VMs",
+        "points": [
+          {
+            "criterion": "Adv 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Adv 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Dis 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Dis 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Advantages: a crash or virus in the VM does not harm the real computer; a snapshot lets him restore the VM quickly. Disadvantages: software runs slower; the VM needs a lot of RAM and storage."
+      }
+    },
+    {
+      "key": "mem-exam-1",
+      "title": "Memory addressing",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A computer has a **16-bit** address bus and byte-addressable memory.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "mem-exam-1a",
+          "part_label": "(a)",
+          "title": "Principle",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the principle of memory addressing.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Each location has a unique address (1); address placed in MAR / on address bus to access it (1)",
+            "points": [
+              {
+                "criterion": "Unique address",
+                "marks": 1
+              },
+              {
+                "criterion": "Address bus",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Every memory location has a unique address; the CPU puts the address on the address bus to read or write it."
+          }
+        },
+        {
+          "key": "mem-exam-1b",
+          "part_label": "(b)",
+          "title": "Maximum memory",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the maximum number of memory locations that can be addressed.",
+          "content": {
+            "unit": "locations"
+          },
+          "scheme": {
+            "mark_scheme": "2¹⁶ (1) = 65 536 (1)",
+            "points": [
+              {
+                "criterion": "2^16",
+                "marks": 1
+              },
+              {
+                "criterion": "65536",
+                "marks": 1
+              }
+            ],
+            "model_answer": "65536",
+            "accepted": {
+              "values": [
+                "65536"
+              ],
+              "numeric": true,
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "mem-exam-1c",
+          "part_label": "(c)",
+          "title": "Wider bus",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the effect of adding **one** extra line to the address bus.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "The number of addressable locations doubles (1)",
+            "points": [
+              {
+                "criterion": "Doubles",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The number of addresses doubles."
+          }
+        },
+        {
+          "key": "mem-exam-1d",
+          "part_label": "(d)",
+          "title": "Modes",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Memory: address **80** → 95, address **84** → 33, address **95** → 12. Index register IX = **4**.\n\nComplete the value loaded into the accumulator.",
+          "content": {
+            "columns": [
+              "Instruction",
+              "Mode",
+              "Value in ACC"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "LDM #80",
+                "Immediate",
+                null
+              ],
+              [
+                "LDD 80",
+                "Direct",
+                null
+              ],
+              [
+                "LDI 80",
+                "Indirect",
+                null
+              ],
+              [
+                "LDX 80",
+                "Indexed",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "80; 95; 12; 33 (1 each)",
+            "points": [
+              {
+                "criterion": "80",
+                "marks": 1
+              },
+              {
+                "criterion": "95",
+                "marks": 1
+              },
+              {
+                "criterion": "12",
+                "marks": 1
+              },
+              {
+                "criterion": "33",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "80"
+                ],
+                [
+                  null,
+                  null,
+                  "95"
+                ],
+                [
+                  null,
+                  null,
+                  "12"
+                ],
+                [
+                  null,
+                  null,
+                  "33"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "mem-exam-1e",
+          "part_label": "(e)",
+          "title": "Direct vs indirect",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between direct and indirect addressing.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Direct: operand is the address of the data (1); indirect: operand is the address of a location holding the address of the data (1)",
+            "points": [
+              {
+                "criterion": "Direct",
+                "marks": 1
+              },
+              {
+                "criterion": "Indirect",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In direct addressing the operand is the address of the data; in indirect addressing it is the address of a location that holds the address of the data."
+          }
+        }
+      ]
+    },
+    {
+      "key": "mem-exam-2",
+      "title": "Memory organisation",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An operating system manages memory for several programs at once.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "mem-exam-2a",
+          "part_label": "(a)",
+          "title": "Stored program",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the principle of storing programs and data in a von Neumann computer.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Instructions and data stored together in the same memory (1); fetched one at a time in sequence over the same bus (1)",
+            "points": [
+              {
+                "criterion": "Same memory",
+                "marks": 1
+              },
+              {
+                "criterion": "Sequential fetch",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Instructions and data are stored together in the same main memory and the CPU fetches instructions one at a time over the same buses."
+          }
+        },
+        {
+          "key": "mem-exam-2b",
+          "part_label": "(b)",
+          "title": "Paging",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how memory is organised using paging.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "RAM divided into fixed-size frames (1); program divided into pages of the same size (1); page table maps pages to frames, which need not be contiguous (1)",
+            "points": [
+              {
+                "criterion": "Frames",
+                "marks": 1
+              },
+              {
+                "criterion": "Pages same size",
+                "marks": 1
+              },
+              {
+                "criterion": "Page table",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Physical memory is split into fixed-size frames and each program into pages of the same size; a page table records which frame each page is in, so pages can go anywhere."
+          }
+        },
+        {
+          "key": "mem-exam-2c",
+          "part_label": "(c)",
+          "title": "Translation",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The page size is **4096 bytes** and page **2** is in frame **5**. Calculate the physical address of logical address **8200**.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Offset 8200 − 8192 = 8 (1); 5 × 4096 + 8 = 20 488 (1)",
+            "points": [
+              {
+                "criterion": "Offset",
+                "marks": 1
+              },
+              {
+                "criterion": "20488",
+                "marks": 1
+              }
+            ],
+            "model_answer": "20488",
+            "accepted": {
+              "values": [
+                "20488"
+              ],
+              "numeric": true,
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "mem-exam-2d",
+          "part_label": "(d)",
+          "title": "Segmentation",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare paging with segmentation.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Any four comparative points (1 each): fixed vs variable size; physical vs logical division; invisible vs visible to programmer; page table vs segment table with base and limit; internal vs external fragmentation; segmentation easier sharing / protection",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              },
+              {
+                "criterion": "4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Pages are fixed size whereas segments vary; paging splits by physical size, segmentation by logical parts such as code and data; paging uses a page table, segmentation a segment table with base and limit; paging gives internal fragmentation, segmentation external."
+          }
+        }
+      ]
+    },
+    {
+      "key": "mem-exam-3",
+      "title": "Virtual machines",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A software company develops a Java application and tests it on Windows, macOS and Linux using virtual machines.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "mem-exam-3a",
+          "part_label": "(a)",
+          "title": "Concept",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the concept of a virtual machine.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Software that emulates a computer (1); guest OS / program runs as if on own hardware while sharing host (1)",
+            "points": [
+              {
+                "criterion": "Emulates computer",
+                "marks": 1
+              },
+              {
+                "criterion": "Guest on host",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Software that emulates a whole computer, so a guest OS runs on it as if on real hardware while using the host's resources."
+          }
+        },
+        {
+          "key": "mem-exam-3b",
+          "part_label": "(b)",
+          "title": "JVM",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the Java Virtual Machine allows the same program to run on all three operating systems.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Java compiled to platform-independent bytecode (1); JVM on each OS translates / interprets bytecode for that machine (1)",
+            "points": [
+              {
+                "criterion": "Bytecode",
+                "marks": 1
+              },
+              {
+                "criterion": "JVM per platform",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Java is compiled to bytecode, which is the same on every platform; each OS has its own JVM that translates the bytecode into that computer's machine code."
+          }
+        },
+        {
+          "key": "mem-exam-3c",
+          "part_label": "(c)",
+          "title": "Testing in VMs",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "discuss",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Discuss the advantages and disadvantages for the company of testing in system virtual machines rather than on three separate computers.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Up to 2 advantages (1 each): one computer runs all three OSs — cheaper / less space; isolation — crashes do not harm host; snapshots to restore a clean state; easy to copy / share setups. Up to 2 disadvantages (1 each): slower — performance results may not match real hardware; needs much RAM / CPU / storage; hardware access limited; OS licences; host failure stops all",
+            "points": [
+              {
+                "criterion": "Adv 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Adv 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Dis 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Dis 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "One powerful computer can run all three systems, saving money, and snapshots let testers reset after a crash. However, the VMs run slower so timing tests may be unrealistic, and the host needs a lot of RAM and storage."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "How main memory is organised into addressed locations, how the address bus width sets the number of addresses, addressing modes (immediate, direct, indirect, indexed, relative), the stored-program (von Neumann) principle and Harvard architecture, memory organisation by pages and segments with address translation, virtual memory, and virtual machines.",
   "theory": [
     {
-      "title": "The principle of memory addressing",
+      "title": "Memory locations and addresses",
       "objectives": [
         "12.3.4.1"
       ],
       "blocks": [
         {
-          "type": "definition",
-          "term": "Memory address",
-          "content": "A unique **number identifying each location (cell)** in main memory. The CPU reads or writes a location by putting its address on the **address bus**."
+          "type": "paragraph",
+          "content": "**Main memory (RAM)** is organised as a long list of **storage locations** (cells). Each location holds a fixed amount of data — usually **one byte** — and has its own **address**."
         },
         {
-          "type": "list",
+          "type": "definition",
+          "term": "Memory address",
+          "content": "A **unique number that identifies one location** in main memory. To read or write a location, the CPU places its address on the **address bus**; the data travels on the **data bus**; and the **control bus** carries the *read* or *write* signal."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  Address (denary)   Address (binary)   Contents\n  ----------------   ----------------   --------\n        0              0000 0000        1001 0110\n        1              0000 0001        0011 1100\n        2              0000 0010        1111 0000\n        3              0000 0011        0000 0101\n       ...                ...              ...\n      255              1111 1111        0100 0001",
+          "caption": "Main memory as numbered locations (byte-addressable)"
+        },
+        {
+          "type": "cards",
           "items": [
-            "Each address usually holds **one byte** (byte-addressable memory).",
-            "The number of addressable locations depends on the **width of the address bus**: *n* address lines → **2ⁿ** addresses. A 32-bit address bus can address 2³² bytes = 4 GiB."
+            {
+              "title": "Byte-addressable and word-addressable",
+              "content": "- **Byte-addressable** memory: **every byte** has its own address (most modern computers).\n- **Word-addressable** memory: each address holds one **word** (e.g. 16, 32 or 64 bits).\n- A **word** is the number of bits the CPU processes as one unit."
+            },
+            {
+              "title": "The registers used",
+              "content": "- **MAR (Memory Address Register)** holds the **address** of the location to be read or written.\n- **MDR (Memory Data Register)** holds the **data** read from or to be written to that location."
+            }
           ]
         },
         {
-          "type": "heading",
-          "text": "Addressing modes",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "The **operand** of an instruction can be interpreted in different ways:"
+          "type": "definition",
+          "term": "Address bus width and the number of addresses",
+          "content": "With an address bus of **n lines (bits)**, the CPU can form **2ⁿ different addresses**. **Maximum memory = 2ⁿ × size of each location.**"
         },
         {
           "type": "comparison",
+          "title": "Address bus width and addressable memory (1 byte per location)",
           "columns": [
-            "Mode",
-            "Meaning",
-            "Example (accumulator ACC)"
+            "Address bus width",
+            "Number of addresses",
+            "Maximum memory"
           ],
           "rows": [
             [
-              "Immediate",
-              "The operand **is the value** itself",
-              "`LDM #5` → ACC = 5"
+              "8 bits",
+              "2⁸ = 256",
+              "256 bytes"
             ],
             [
-              "Direct",
-              "The operand is the **address** of the value",
-              "`LDD 20` → ACC = contents of address 20"
+              "16 bits",
+              "2¹⁶ = 65 536",
+              "**64 KiB**"
             ],
             [
-              "Indirect",
-              "The operand is an address that **holds the address** of the value",
-              "`LDI 20` → address 20 contains 35, ACC = contents of 35"
+              "20 bits",
+              "2²⁰ = 1 048 576",
+              "**1 MiB**"
             ],
             [
-              "Indexed",
-              "Address = operand **+ contents of the index register (IX)**",
-              "`LDX 20`, IX = 3 → ACC = contents of address 23"
+              "24 bits",
+              "2²⁴",
+              "**16 MiB**"
             ],
             [
-              "Relative",
-              "Address = operand + current address (PC)",
-              "Used for jumps"
+              "32 bits",
+              "2³²",
+              "**4 GiB**"
+            ],
+            [
+              "64 bits",
+              "2⁶⁴",
+              "16 EiB (in practice CPUs use about 48 bits)"
             ]
           ]
         },
         {
           "type": "example",
-          "title": "Worked example",
-          "content": "Memory: address 20 → **25**, address 23 → **30**, address 25 → **35**. IX = 3.\n| Instruction | Mode | Value loaded |\n|---|---|---|\n| `LDM #20` | Immediate | 20 |\n| `LDD 20` | Direct | 25 |\n| `LDI 20` | Indirect | 35 (address 20 holds 25, address 25 holds 35) |\n| `LDX 20` | Indexed | 30 (20 + 3 = 23) |"
+          "title": "Worked examples",
+          "content": "- A computer has a **24-bit** address bus and **2-byte** words in each location: 2²⁴ × 2 = 33 554 432 bytes = **32 MiB**.\n- To address **256 MiB** (2²⁸ bytes) of byte-addressable memory you need **28** address lines.\n- **Adding one** address line **doubles** the number of addresses."
+        }
+      ]
+    },
+    {
+      "title": "Addressing modes",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "An instruction is made of an **opcode** (what to do) and an **operand**. The **addressing mode** tells the CPU **how to use the operand** to find the data."
+        },
+        {
+          "type": "comparison",
+          "title": "Addressing modes",
+          "columns": [
+            "Mode",
+            "How the operand is used",
+            "Example",
+            "Result"
+          ],
+          "rows": [
+            [
+              "**Immediate**",
+              "The operand **is the value** itself",
+              "`LDM #30`",
+              "ACC ← 30"
+            ],
+            [
+              "**Direct**",
+              "The operand is the **address** of the value",
+              "`LDD 30`",
+              "ACC ← contents of address 30"
+            ],
+            [
+              "**Indirect**",
+              "The operand is an address that **holds the address** of the value",
+              "`LDI 30`",
+              "ACC ← contents of (contents of 30)"
+            ],
+            [
+              "**Indexed**",
+              "Address = operand **+ index register (IX)**",
+              "`LDX 30`",
+              "ACC ← contents of (30 + IX)"
+            ],
+            [
+              "**Relative**",
+              "Address = operand **+ address of the current instruction** (PC)",
+              "`JMR 5`",
+              "Jump 5 locations forward"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example — loading the accumulator (ACC)",
+          "content": "Memory: address **30** → 45, address **31** → 12, address **33** → 60, address **45** → 78. Index register **IX = 3**.\n| Instruction | Mode | Working | ACC |\n|---|---|---|---|\n| `LDM #30` | Immediate | the value 30 | **30** |\n| `LDD 30` | Direct | contents of 30 | **45** |\n| `LDI 30` | Indirect | address 30 holds 45 → contents of 45 | **78** |\n| `LDX 30` | Indexed | 30 + 3 = 33 → contents of 33 | **60** |"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why different modes are useful",
+              "content": "- **Immediate** — constants (e.g. a counter starting at 0); fastest, no memory access.\n- **Direct** — simple variables at a fixed address.\n- **Indirect** — **pointers**; reaching addresses larger than the operand field can hold.\n- **Indexed** — stepping through an **array**: increase IX each loop.\n- **Relative** — **relocatable code**: the program still works when loaded at a different address."
+            }
+          ]
         }
       ]
     },
@@ -81,58 +1633,131 @@
         {
           "type": "definition",
           "term": "Stored-program concept (von Neumann architecture)",
-          "content": "**Program instructions and data are stored together in the same main memory** and are fetched by the CPU one at a time, in sequence, through the same buses."
+          "content": "**Program instructions and data are both stored in the same main memory** in binary. The CPU **fetches instructions one at a time** from memory, decodes and executes them, using the **same buses** for instructions and data."
         },
         {
-          "type": "list",
+          "type": "cards",
           "items": [
-            "Instructions and data are both binary — the CPU tells them apart by **when** it fetches them (the PC points to the next instruction).",
-            "Programs can be loaded, changed and replaced without changing the hardware.",
-            "**Von Neumann bottleneck:** instructions and data share one bus, so only one can be transferred at a time."
+            {
+              "title": "Key ideas",
+              "content": "- Instructions and data look the same (both binary); the CPU knows a word is an instruction because the **Program Counter (PC)** pointed to it in the **fetch** stage.\n- Instructions are executed **in sequence** unless a jump changes the PC.\n- A computer can run a **different program** just by loading it into memory — no rewiring."
+            },
+            {
+              "title": "Von Neumann bottleneck",
+              "content": "- Instructions and data share **one memory and one bus**, so they cannot be fetched **at the same time**.\n- The CPU often waits for memory; **cache memory** and **pipelining** reduce the problem."
+            }
           ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  A[PC holds address of next instruction] --> B[Address copied to MAR]\n  B --> C[Instruction fetched into MDR, then CIR]\n  C --> D[PC incremented]\n  D --> E[Control unit decodes instruction]\n  E --> F[Instruction executed - data fetched from memory if needed]\n  F --> A",
+          "caption": "Fetch–decode–execute using the stored program"
         },
         {
           "type": "comparison",
           "title": "Von Neumann vs Harvard architecture",
           "columns": [
+            "",
             "Von Neumann",
             "Harvard"
           ],
           "rows": [
             [
-              "One memory for instructions and data",
-              "**Separate** memories and buses for instructions and data"
+              "Memory",
+              "**One** memory for instructions and data",
+              "**Separate** memories for instructions and data"
             ],
             [
-              "Simpler, cheaper, flexible",
+              "Buses",
+              "Shared buses",
+              "**Separate** buses"
+            ],
+            [
+              "Speed",
+              "Instruction and data **cannot** be fetched together",
               "Instruction and data fetched **at the same time** → faster"
             ],
             [
-              "General-purpose computers",
-              "Embedded systems, DSPs, CPU caches"
+              "Cost / flexibility",
+              "Simpler, cheaper; memory used flexibly",
+              "More complex; memory split is fixed"
+            ],
+            [
+              "Used in",
+              "General-purpose PCs, laptops",
+              "Embedded systems, microcontrollers, digital signal processors, CPU caches (L1)"
             ]
           ]
         }
       ]
     },
     {
-      "title": "Segmented and paged memory",
+      "title": "Paged memory",
       "objectives": [
         "12.3.4.2@paper"
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "When several programs run at once, the operating system must decide **where in memory** each one goes. Two methods are **paging** and **segmentation**."
+        },
+        {
+          "type": "definition",
+          "term": "Paging",
+          "content": "**Physical memory** is divided into **fixed-size blocks called frames**; each **program (logical memory)** is divided into blocks of the **same size called pages**. Any page can be placed in **any free frame**, and a **page table** records which frame holds each page."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  Program (logical)       Page table          RAM (physical)\n  +---------+            +------+-------+     +----------+  frame 0\n  | Page 0  |  -------   | Page | Frame |     |  OS      |\n  +---------+            +------+-------+     +----------+  frame 1\n  | Page 1  |            |  0   |   3   |     |  Page 2  |\n  +---------+            |  1   |   5   |     +----------+  frame 2\n  | Page 2  |            |  2   |   1   |     |  other   |\n  +---------+            +------+-------+     +----------+  frame 3\n                                              |  Page 0  |\n                                              +----------+  frame 4\n                                              |  free    |\n                                              +----------+  frame 5\n                                              |  Page 1  |\n                                              +----------+",
+          "caption": "Pages of a program mapped to frames in RAM"
+        },
+        {
+          "type": "steps",
+          "title": "Translating a logical address with paging",
+          "items": [
+            "Logical address = **page number + offset** (position inside the page).",
+            "Page number = address **div** page size; offset = address **mod** page size.",
+            "Look up the page number in the **page table** to find the **frame**.",
+            "Physical address = **frame × page size + offset**."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example — page size 4 KiB (4096 bytes)",
+          "content": "Logical address **8200**: page = 8200 div 4096 = **2**, offset = 8200 − 8192 = **8**. The page table maps page 2 → **frame 5**. Physical address = 5 × 4096 + 8 = **20 488**.\n\nA program of **18 KiB** needs 18 ÷ 4 = 4.5 → **5 pages**; the last page uses only 2 KiB, so **2 KiB is wasted** (internal fragmentation)."
+        },
+        {
           "type": "cards",
           "items": [
             {
-              "title": "Paging",
-              "content": "Memory is divided into **fixed-size blocks**: physical memory into **frames**, a program into **pages** of the same size. A **page table** maps each page to a frame. Pages need not be contiguous; no external fragmentation, but the last page may be partly empty (internal fragmentation)."
+              "title": "Advantages of paging",
+              "content": "- Pages do **not** have to be **contiguous** (next to each other) — any free frame can be used.\n- **No external fragmentation** — free memory is never split into unusable gaps.\n- Makes **virtual memory** easy: pages can be moved between RAM and disk."
             },
             {
-              "title": "Segmentation",
-              "content": "A program is divided into **variable-size logical segments** (code, data, stack, functions). An address = **segment number + offset**; a **segment table** stores the base address and length of each segment. Segments match the program's structure but cause external fragmentation."
+              "title": "Disadvantages of paging",
+              "content": "- **Internal fragmentation** — the last page of a program is often partly empty.\n- The **page table** uses memory, and each access needs a table look-up (sped up by a cache called the TLB).\n- Pages do not match the **logical structure** of the program (a function may be split across two pages)."
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Segmented memory and virtual memory",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Segmentation",
+          "content": "A program is divided into **variable-size logical blocks called segments** — for example the **code**, **data**, **stack** or individual **functions**. Each address is given as **segment number + offset**, and a **segment table** stores each segment's **base address** (where it starts in RAM) and **limit** (its length)."
+        },
+        {
+          "type": "example",
+          "title": "Worked example — segment table",
+          "content": "| Segment | Contents | Base | Limit |\n|---|---|---|---|\n| 0 | Code | 1000 | 400 |\n| 1 | Data | 3000 | 1200 |\n| 2 | Stack | 6000 | 500 |\n\n- Address **(1, 250)**: 250 < 1200 ✓ → physical = 3000 + 250 = **3250**.\n- Address **(0, 399)**: 399 < 400 ✓ → **1399**.\n- Address **(2, 600)**: 600 ≥ limit 500 → **error** (segmentation fault) — the program tried to go outside its segment. This also gives **memory protection**."
         },
         {
           "type": "comparison",
@@ -145,13 +1770,13 @@
           "rows": [
             [
               "Block size",
-              "Fixed (e.g. 4 KiB)",
-              "Variable"
+              "**Fixed** (e.g. 4 KiB)",
+              "**Variable**"
             ],
             [
               "Division based on",
-              "Physical size",
-              "Logical structure of the program"
+              "**Physical** size",
+              "**Logical** structure of the program"
             ],
             [
               "Visible to the programmer",
@@ -159,22 +1784,44 @@
               "Yes"
             ],
             [
-              "Fragmentation",
-              "Internal",
-              "External"
+              "Address",
+              "Page number + offset",
+              "Segment number + offset"
             ],
             [
               "Table",
               "Page table (page → frame)",
               "Segment table (base, limit)"
+            ],
+            [
+              "Fragmentation",
+              "**Internal** (part of last page wasted)",
+              "**External** (gaps between segments)"
+            ],
+            [
+              "Sharing and protection",
+              "Harder — pages split logical units",
+              "Easier — whole code or data segments can be shared or protected"
             ]
           ]
         },
         {
-          "type": "callout",
-          "tone": "info",
-          "title": "Virtual memory",
-          "content": "Paging makes **virtual memory** possible: pages not currently needed are kept on disk and swapped into RAM frames when required. Too much swapping is called **disk thrashing**."
+          "type": "definition",
+          "term": "Virtual memory",
+          "content": "A technique in which part of **secondary storage** (disk / SSD) is used **as if it were extra RAM**. Pages that are not currently needed are moved to disk (**paged out**) and brought back into a free frame (**paged in / swapped**) when the program needs them."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Benefits of virtual memory",
+              "content": "- Programs **larger than RAM** can run.\n- **More programs** can be open at once."
+            },
+            {
+              "title": "Drawbacks",
+              "content": "- Disk is much **slower** than RAM, so swapping slows the computer.\n- **Disk thrashing**: when RAM is too small, the computer spends more time swapping pages than doing useful work. Fix: add more RAM or close programs."
+            }
+          ]
         }
       ]
     },
@@ -187,48 +1834,98 @@
         {
           "type": "definition",
           "term": "Virtual machine (VM)",
-          "content": "**Software that emulates a complete computer**, so that an operating system or a program runs as if on its own hardware, while actually sharing the host computer."
+          "content": "**Software that emulates a complete computer** — processor, memory, storage and devices — so that an operating system or program runs **as if on its own hardware**, while actually sharing the resources of the **host** computer."
         },
         {
           "type": "cards",
           "items": [
             {
+              "title": "Host and guest",
+              "content": "- **Host** — the real (physical) computer and its OS.\n- **Guest** — the operating system or program running inside the VM.\n- **Hypervisor** — the software that creates and runs VMs and shares the real hardware between them (VirtualBox, VMware, Hyper-V, KVM)."
+            },
+            {
               "title": "System virtual machine",
-              "content": "Runs a whole guest OS on a **hypervisor** (VirtualBox, VMware, Hyper-V) — e.g. Linux inside Windows."
+              "content": "- Emulates a **whole computer**, so a complete guest OS can run — e.g. **Linux inside Windows**, or many servers on one physical machine in **cloud computing**."
             },
             {
               "title": "Process virtual machine",
-              "content": "Runs one program in a platform-independent environment — e.g. the **Java Virtual Machine** runs Java bytecode on any OS; Python's interpreter VM."
+              "content": "- Runs **one program** in a **platform-independent** environment.\n- The **Java Virtual Machine (JVM)**: Java is compiled to **bytecode**, and the JVM on each OS translates it, so the same program runs on Windows, macOS and Linux (\"write once, run anywhere\").\n- Also: the Python interpreter, the .NET CLR, Android Runtime."
             }
           ]
         },
         {
           "type": "comparison",
-          "title": "Advantages and disadvantages",
+          "title": "Advantages and disadvantages of virtual machines",
           "columns": [
             "Advantages",
             "Disadvantages"
           ],
           "rows": [
             [
-              "Run several OSs on one computer; test software safely",
-              "Slower than running directly on hardware"
+              "Run **several OSs** on one computer; run old software on new hardware",
+              "**Slower** than running directly on the real hardware"
             ],
             [
-              "Isolation — a crash or malware inside the VM does not affect the host",
-              "Needs a lot of RAM and storage"
+              "**Isolation** — a crash or malware inside a VM does not harm the host",
+              "Needs a lot of **RAM, CPU power and storage**"
             ],
             [
-              "Easy backup, copying and moving of whole systems (snapshots)",
-              "Hardware access may be limited"
+              "**Safe testing** of software and suspicious files",
+              "Access to some hardware (graphics, USB) may be limited"
             ],
             [
-              "Servers can be shared efficiently (cloud computing)",
-              "Licensing costs for guest OSs"
+              "Easy **backup**, copying and moving (snapshots)",
+              "Licences may be needed for each guest OS"
+            ],
+            [
+              "Better use of **servers** — many VMs share one machine (cloud)",
+              "If the host fails, **all** VMs on it fail"
             ]
           ]
         }
       ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.3.4.1",
+        "12.3.4.2",
+        "12.3.4.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain the principle of memory addressing. [2]**\nMemory is divided into locations, each with a **unique address** (1); the CPU puts the address on the **address bus** (via the MAR) to read or write that location (1).\n\n**Q: Calculate the maximum memory with a 20-bit address bus and 1 byte per location. [2]**\n2²⁰ = 1 048 576 addresses (1) × 1 byte = **1 MiB** (1).\n\n**Q: Explain the difference between direct and indirect addressing. [2]**\nIn **direct** addressing the operand **is the address** of the data (1); in **indirect** addressing the operand is the address of a location that **contains the address** of the data (1).\n\n**Q: Compare paging and segmentation. [4]**\nPaging divides memory into **fixed-size** pages/frames, **whereas** segmentation uses **variable-size** segments (1). Pages are based on **physical size**, segments on the program's **logical structure** (1). Paging uses a **page table**, segmentation a **segment table** with base and limit (1). Paging causes **internal** fragmentation, segmentation **external** fragmentation (1).\n\n**Q: Explain the concept of a virtual machine. [2]**\nSoftware that **emulates a complete computer** (1), allowing a guest OS / program to run **isolated** on a host computer as if on its own hardware (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying paging uses **variable** sizes — pages are **fixed**; segments are variable.\n- Confusing **virtual memory** (disk used as RAM) with a **virtual machine** (software computer).\n- Mixing up **immediate** (the value) and **direct** (the address of the value).\n- Forgetting that **n** address lines give **2ⁿ** addresses, not 2 × n."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is a memory address? Which bus and register carry it?",
+            "How much memory can a 16-bit address bus address?",
+            "Give the value loaded by LDM, LDD, LDI and LDX in the worked example.",
+            "State the stored-program concept and the von Neumann bottleneck.",
+            "Translate logical address 5000 with 4 KiB pages if page 1 is in frame 7.",
+            "Give two differences between paging and segmentation.",
+            "Give two advantages and two disadvantages of virtual machines."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Memory addressing — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. Show your working in calculations. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "mem-exam-1",
+      "mem-exam-2",
+      "mem-exam-3"
+    ]
+  }
 }

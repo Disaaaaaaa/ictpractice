@@ -1,103 +1,2615 @@
 {
   "topic": "paper-assembly-and-trace-tables",
-  "questions": [],
-  "summary": "Reading simple assembly language programs (Little Man Computer instruction set) and using trace tables to follow and check algorithms.",
+  "questions": [
+    {
+      "key": "ast-mnemonics",
+      "title": "Mnemonics",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Match each mnemonic to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "INP"
+          },
+          {
+            "key": "L2",
+            "text": "LDA"
+          },
+          {
+            "key": "L3",
+            "text": "STA"
+          },
+          {
+            "key": "L4",
+            "text": "BRZ"
+          },
+          {
+            "key": "L5",
+            "text": "BRP"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Store user input in the accumulator"
+          },
+          {
+            "key": "R2",
+            "text": "Load the accumulator with the contents of a memory address"
+          },
+          {
+            "key": "R3",
+            "text": "Store the accumulator in a memory address"
+          },
+          {
+            "key": "R4",
+            "text": "Jump if the accumulator is zero"
+          },
+          {
+            "key": "R5",
+            "text": "Jump if the accumulator is zero or positive"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4, L5–R5",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "ast-terms",
+      "title": "Assembly language",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nAssembly language is a [[1]]-level language. Its instructions are written as short codes called [[2]]. A program called an [[3]] translates it into machine code.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) low (2) mnemonics (3) assembler",
+        "accepted": {
+          "blanks": [
+            [
+              "low"
+            ],
+            [
+              "mnemonics",
+              "mnemonic"
+            ],
+            [
+              "assembler"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ast-opcode",
+      "title": "Opcode and operand",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "For the instruction `ADD NUM`, identify the opcode and the operand.",
+      "content": {
+        "fields": [
+          {
+            "key": "op",
+            "label": "Opcode",
+            "lines": 1
+          },
+          {
+            "key": "operand",
+            "label": "Operand",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Opcode: ADD (1); operand: NUM — the memory address / label (1)",
+        "points": [
+          {
+            "criterion": "Opcode",
+            "marks": 1
+          },
+          {
+            "criterion": "Operand",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Opcode: ADD\nOperand: NUM"
+      }
+    },
+    {
+      "key": "ast-transfer",
+      "title": "Data transfer",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Which instruction is used for transferring data between memory and the accumulator?",
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        }
+      },
+      "options": [
+        {
+          "key": "A",
+          "content": "ADD"
+        },
+        {
+          "key": "B",
+          "content": "BRA"
+        },
+        {
+          "key": "C",
+          "content": "STA"
+        },
+        {
+          "key": "D",
+          "content": "HLT"
+        }
+      ]
+    },
+    {
+      "key": "ast-brp-zero",
+      "title": "BRP and zero",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "`BRP 06` jumps to address 06 when the accumulator holds 0.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "BRP jumps when ACC is zero or positive."
+      }
+    },
+    {
+      "key": "ast-negative",
+      "title": "Which branch?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "The accumulator holds **−3**. Which instruction will make the program jump?",
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "BRZ needs 0 and BRP needs ≥ 0; BRA always jumps."
+      },
+      "options": [
+        {
+          "key": "A",
+          "content": "BRZ 10"
+        },
+        {
+          "key": "B",
+          "content": "BRP 10"
+        },
+        {
+          "key": "C",
+          "content": "BRA 10"
+        },
+        {
+          "key": "D",
+          "content": "None of them"
+        }
+      ]
+    },
+    {
+      "key": "ast-sequence",
+      "title": "Sequence",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\n00       LDA X\n01       ADD Y\n02       SUB Z\n03       STA W\n04       OUT\n05       HLT\n06  X    DAT 9\n07  Y    DAT 5\n08  Z    DAT 3\n09  W    DAT 0\n```\n\nState the output of the program.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "11 (1)",
+        "points": [
+          {
+            "criterion": "11",
+            "marks": 1
+          }
+        ],
+        "model_answer": "11",
+        "accepted": {
+          "values": [
+            "11"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "ast-max-analyse",
+      "title": "Analyse a program",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\nAddress  Label     Instruction\n00                 INP\n01                 STA A\n02                 INP\n03                 STA B\n04                 SUB A\n05                 BRP SHOWB\n06                 LDA A\n07                 OUT\n08                 HLT\n09       SHOWB     LDA B\n10                 OUT\n11                 HLT\n12       A         DAT\n13       B         DAT\n```\n\nAnalyse the program.",
+      "content": {
+        "fields": [
+          {
+            "key": "vars",
+            "label": "Two variables used",
+            "lines": 1
+          },
+          {
+            "key": "cond",
+            "label": "Address of the condition",
+            "lines": 1
+          },
+          {
+            "key": "purpose",
+            "label": "Purpose",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "A and B (1); 05 / BRP SHOWB (1); outputs the larger of two input numbers (1)",
+        "points": [
+          {
+            "criterion": "Variables",
+            "marks": 1
+          },
+          {
+            "criterion": "Condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Purpose",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Variables: A, B\nCondition: address 05 (BRP SHOWB)\nPurpose: inputs two numbers and outputs the larger one."
+      }
+    },
+    {
+      "key": "ast-max-output",
+      "title": "Output for given data",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.3@paper",
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\nAddress  Label     Instruction\n00                 INP\n01                 STA A\n02                 INP\n03                 STA B\n04                 SUB A\n05                 BRP SHOWB\n06                 LDA A\n07                 OUT\n08                 HLT\n09       SHOWB     LDA B\n10                 OUT\n11                 HLT\n12       A         DAT\n13       B         DAT\n```\n\nThe inputs are **9** and then **4**. State the output.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "9 (1)",
+        "points": [
+          {
+            "criterion": "9",
+            "marks": 1
+          }
+        ],
+        "model_answer": "9",
+        "accepted": {
+          "values": [
+            "9"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "ast-countdown",
+      "title": "Count down",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper",
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\n1   INP\n2   STA A\n3   OPERATION LDA A\n4   OUT\n5   SUB ONE\n6   STA A\n7   BRZ ENDTHIS\n8   BRA OPERATION\n9   ENDTHIS LDA A\n10  SUB ONE\n11  OUT\n12  HLT\n13  A DAT\n14  ONE DAT 1\n```\n\nThe program is executed with **4** as input. Write the output.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "4 3 2 1 (1); −1 (the last value) (1). Do not accept any other symbols.",
+        "points": [
+          {
+            "criterion": "4 3 2 1",
+            "marks": 1
+          },
+          {
+            "criterion": "-1",
+            "marks": 1
+          }
+        ],
+        "model_answer": "4 3 2 1 -1"
+      }
+    },
+    {
+      "key": "ast-sum-analyse",
+      "title": "Condition and loop",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\nAddress  Label     Instruction\n00       LOOP      INP\n01                 BRZ END\n02                 ADD TOTAL\n03                 STA TOTAL\n04                 BRA LOOP\n05       END       LDA TOTAL\n06                 OUT\n07                 HLT\n08       TOTAL     DAT 0\n```\n\nAnalyse the program.",
+      "content": {
+        "fields": [
+          {
+            "key": "cond",
+            "label": "Address where the condition is implemented",
+            "lines": 1
+          },
+          {
+            "key": "loop",
+            "label": "Addresses of the loop",
+            "lines": 1
+          },
+          {
+            "key": "purpose",
+            "label": "Purpose",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "01 / BRZ END (1); 00 to 04 (1); adds up the input numbers until 0 is entered, then outputs the total (1)",
+        "points": [
+          {
+            "criterion": "Condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Purpose",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Condition: 01 (BRZ END)\nLoop: 00 to 04\nPurpose: adds the numbers entered until 0 is input, then outputs the total."
+      }
+    },
+    {
+      "key": "ast-sum-output",
+      "title": "Total of inputs",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "```assembly\nAddress  Label     Instruction\n00       LOOP      INP\n01                 BRZ END\n02                 ADD TOTAL\n03                 STA TOTAL\n04                 BRA LOOP\n05       END       LDA TOTAL\n06                 OUT\n07                 HLT\n08       TOTAL     DAT 0\n```\n\nThe inputs are 6, 3, 5 and 0. State the output.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "14 (1)",
+        "points": [
+          {
+            "criterion": "14",
+            "marks": 1
+          }
+        ],
+        "model_answer": "14",
+        "accepted": {
+          "values": [
+            "14"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "ast-trace-rem",
+      "title": "Trace an assembly program",
+      "type": "trace_table",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.3@paper",
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "Analyse the program below.\n\n| Address | Instruction |\n|---:|---|\n| 00 | LDA 08 |\n| 01 | SUB 09 |\n| 02 | BRP 06 |\n| 03 | LDA 08 |\n| 04 | OUT |\n| 05 | HLT |\n| 06 | STA 08 |\n| 07 | BRA 00 |\n| 08 | DAT 14 |\n| 09 | DAT 5 |\n\nComplete the trace table. The first instruction has been completed for you. Leave a cell empty if the value does not change.",
+      "content": {
+        "columns": [
+          "Instruction address",
+          "Accumulator",
+          "Memory address 08",
+          "Memory address 09",
+          "Condition",
+          "Output"
+        ],
+        "rows": 17,
+        "prefill": [
+          [
+            null,
+            null,
+            "14",
+            "5",
+            null,
+            null
+          ],
+          [
+            "00",
+            "14",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 mark for each column.\n\n| Instruction address | Accumulator | Memory address 08 | Memory address 09 | Condition | Output |\n|---|---|---|---|---|---|\n|  |  | 14 | 5 |  |  |\n| 00 | 14 |  |  |  |  |\n| 01 | 9 |  |  |  |  |\n| 02 |  |  |  | TRUE |  |\n| 06 |  | 9 |  |  |  |\n| 07 |  |  |  |  |  |\n| 00 | 9 |  |  |  |  |\n| 01 | 4 |  |  |  |  |\n| 02 |  |  |  | TRUE |  |\n| 06 |  | 4 |  |  |  |\n| 07 |  |  |  |  |  |\n| 00 | 4 |  |  |  |  |\n| 01 | -1 |  |  |  |  |\n| 02 |  |  |  | FALSE |  |\n| 03 | 4 |  |  |  |  |\n| 04 |  |  |  |  | 4 |\n| 05 |  |  |  |  |  |",
+        "points": [
+          {
+            "criterion": "Instruction address",
+            "marks": 1
+          },
+          {
+            "criterion": "Accumulator",
+            "marks": 1
+          },
+          {
+            "criterion": "Memory 08 / 09",
+            "marks": 1
+          },
+          {
+            "criterion": "Condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Instruction address | Accumulator | Memory address 08 | Memory address 09 | Condition | Output |\n|---|---|---|---|---|---|\n|  |  | 14 | 5 |  |  |\n| 00 | 14 |  |  |  |  |\n| 01 | 9 |  |  |  |  |\n| 02 |  |  |  | TRUE |  |\n| 06 |  | 9 |  |  |  |\n| 07 |  |  |  |  |  |\n| 00 | 9 |  |  |  |  |\n| 01 | 4 |  |  |  |  |\n| 02 |  |  |  | TRUE |  |\n| 06 |  | 4 |  |  |  |\n| 07 |  |  |  |  |  |\n| 00 | 4 |  |  |  |  |\n| 01 | -1 |  |  |  |  |\n| 02 |  |  |  | FALSE |  |\n| 03 | 4 |  |  |  |  |\n| 04 |  |  |  |  | 4 |\n| 05 |  |  |  |  |  |",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "14",
+              "5",
+              null,
+              null
+            ],
+            [
+              "00",
+              "14",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "01",
+              "9",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "02",
+              null,
+              null,
+              null,
+              "TRUE",
+              null
+            ],
+            [
+              "06",
+              null,
+              "9",
+              null,
+              null,
+              null
+            ],
+            [
+              "07",
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "00",
+              "9",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "01",
+              "4",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "02",
+              null,
+              null,
+              null,
+              "TRUE",
+              null
+            ],
+            [
+              "06",
+              null,
+              "4",
+              null,
+              null,
+              null
+            ],
+            [
+              "07",
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "00",
+              "4",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "01",
+              "-1",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "02",
+              null,
+              null,
+              null,
+              "FALSE",
+              null
+            ],
+            [
+              "03",
+              "4",
+              null,
+              null,
+              null,
+              null
+            ],
+            [
+              "04",
+              null,
+              null,
+              null,
+              null,
+              "4"
+            ],
+            [
+              "05",
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ast-rem-purpose",
+      "title": "Purpose of a program",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Analyse the program below.\n\n| Address | Instruction |\n|---:|---|\n| 00 | LDA 08 |\n| 01 | SUB 09 |\n| 02 | BRP 06 |\n| 03 | LDA 08 |\n| 04 | OUT |\n| 05 | HLT |\n| 06 | STA 08 |\n| 07 | BRA 00 |\n| 08 | DAT 14 |\n| 09 | DAT 5 |\n\nIdentify the purpose of the program.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Divides the number in 08 by the number in 09 and outputs the remainder (14 MOD 5 = 4) (1). Accept other suitable answers.",
+        "points": [
+          {
+            "criterion": "Remainder",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It finds the remainder when the number in 08 is divided by the number in 09 (14 MOD 5 = 4)."
+      }
+    },
+    {
+      "key": "ast-write-double",
+      "title": "Write: double a number",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Using the mnemonics INP, OUT, LDA, STA, ADD, HLT and DAT, write an assembly program that inputs a number and outputs **double** that number.",
+      "content": {
+        "language": "assembly",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Input and store the number (1); add the stored number to the accumulator (1); output and HLT, with a DAT for the variable (1)",
+        "points": [
+          {
+            "criterion": "INP + STA",
+            "marks": 1
+          },
+          {
+            "criterion": "ADD",
+            "marks": 1
+          },
+          {
+            "criterion": "OUT, HLT, DAT",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```assembly\n      INP\n      STA N\n      ADD N\n      OUT\n      HLT\nN     DAT\n```"
+      }
+    },
+    {
+      "key": "ast-write-sumdiff",
+      "title": "Write: sum and difference",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "practice": true,
+      "text": "Write an assembly program that inputs two numbers, outputs their **sum** and then outputs the **first number minus the second**.",
+      "content": {
+        "language": "assembly",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Both inputs stored in labelled DAT locations (1); ADD to calculate and OUT the sum (1); LDA first, SUB second and OUT (1); HLT before the DAT lines (1)",
+        "points": [
+          {
+            "criterion": "Inputs stored",
+            "marks": 1
+          },
+          {
+            "criterion": "Sum",
+            "marks": 1
+          },
+          {
+            "criterion": "Difference",
+            "marks": 1
+          },
+          {
+            "criterion": "HLT / DAT",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```assembly\n      INP\n      STA A\n      INP\n      STA B\n      ADD A\n      OUT\n      LDA A\n      SUB B\n      OUT\n      HLT\nA     DAT\nB     DAT\n```"
+      }
+    },
+    {
+      "key": "ast-tt-purpose",
+      "title": "Why use a trace table?",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "Describe **two** uses of a trace table.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): dry-run an algorithm to find its output; verify that the algorithm is correct / gives the expected results; locate logic errors; record the values of variables at each step / understand what the algorithm does. [Max 2]",
+        "points": [
+          {
+            "criterion": "Use 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Use 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It records the value of each variable step by step to find the output, and comparing these values with the expected results shows where a logic error is."
+      }
+    },
+    {
+      "key": "ast-tt-squares",
+      "title": "Trace a FOR loop",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "```pseudocode\ntotal ← 0\nFOR i ← 1 TO 4\n    total ← total + i * i\n    IF total > 10 THEN\n        OUTPUT total\n    ENDIF\nNEXT i\n```\n\nComplete the trace table. Leave the Output cell empty when nothing is output.",
+      "content": {
+        "columns": [
+          "i",
+          "total",
+          "Output"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "1, 1 (1); 2, 5 (1); 3, 14, 14 (1); 4, 30, 30 (1)",
+        "points": [
+          {
+            "criterion": "i = 1",
+            "marks": 1
+          },
+          {
+            "criterion": "i = 2",
+            "marks": 1
+          },
+          {
+            "criterion": "i = 3",
+            "marks": 1
+          },
+          {
+            "criterion": "i = 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| i | total | Output |\n|---|---|---|\n| 1 | 1 | |\n| 2 | 5 | |\n| 3 | 14 | 14 |\n| 4 | 30 | 30 |",
+        "accepted": {
+          "rows": [
+            [
+              "1",
+              "1",
+              null
+            ],
+            [
+              "2",
+              "5",
+              null
+            ],
+            [
+              "3",
+              "14",
+              "14"
+            ],
+            [
+              "4",
+              "30",
+              "30"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ast-tt-while",
+      "title": "Trace a WHILE loop",
+      "type": "trace_table",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "The algorithm should output the total 1 + 2 + … + n.\n\n```pseudocode\nINPUT n\ntotal ← 0\ni ← 1\nWHILE i < n\n    total ← total + i\n    i ← i + 1\nENDWHILE\nOUTPUT total\n```\n\nThe input is **n = 4**. Each row shows the condition and the values **after** the loop body runs. The first row is done for you; leave cells empty if they do not change.",
+      "content": {
+        "columns": [
+          "i < n",
+          "total",
+          "i",
+          "Output"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "TRUE",
+            "1",
+            "2",
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "TRUE, 3, 3 (1); TRUE, 6, 4 (1); FALSE, output 6 (1)",
+        "points": [
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| i < n | total | i | Output |\n|---|---|---|---|\n| TRUE | 1 | 2 | |\n| TRUE | 3 | 3 | |\n| TRUE | 6 | 4 | |\n| FALSE | | | 6 |",
+        "accepted": {
+          "rows": [
+            [
+              "TRUE",
+              "1",
+              "2",
+              null
+            ],
+            [
+              "TRUE",
+              "3",
+              "3",
+              null
+            ],
+            [
+              "TRUE",
+              "6",
+              "4",
+              null
+            ],
+            [
+              "FALSE",
+              null,
+              null,
+              "6"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ast-tt-while-error",
+      "title": "Find the logic error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "practice": true,
+      "text": "Your trace of the WHILE loop algorithm (sum 1 + 2 + … + n) gives the output **6** for n = 4, but 1 + 2 + 3 + 4 = **10**.\n\nIdentify the logic error and state how to correct it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "The loop stops before adding n / the condition i < n is wrong (1); change it to i <= n (1)",
+        "points": [
+          {
+            "criterion": "Error",
+            "marks": 1
+          },
+          {
+            "criterion": "Correction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The condition i < n stops the loop before n is added, so 4 is missing. Change it to WHILE i <= n."
+      }
+    },
+    {
+      "key": "ast-exam-1",
+      "title": "Repeated addition",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "**Assembly language mnemonics**\n\n| Mnemonic | Description |\n|---|---|\n| INP | Retrieve user input and store it in the Accumulator. |\n| OUT | Output the value stored in the Accumulator. |\n| LDA | Load the Accumulator with the contents of the memory address given. |\n| STA | Store the value in the Accumulator in the memory address given. |\n| ADD | Add the contents of the memory address to the Accumulator. |\n| SUB | Subtract the contents of the memory address from the Accumulator. |\n| BRP | Branch/Jump to the address given if the Accumulator is zero or positive. |\n| BRZ | Jump to the address given in case the Accumulator is zero. |\n| BRA | Jump to the address given. |\n| HLT | Stop the code. |\n| DAT | Used to associate a label to a free memory address. An optional value can also be used to be stored at the memory address. |\n\nAn assembly language code is given below.\n\n```assembly\nAddress  Label     Instruction\n00       LOOP      LDA COUNT\n01                 BRZ STOP\n02                 SUB ONE\n03                 STA COUNT\n04                 LDA TOTAL\n05                 ADD FIVE\n06                 STA TOTAL\n07                 OUT\n08                 BRA LOOP\n09       STOP      HLT\n10       FIVE      DAT 5\n11       COUNT     DAT 2\n12       ONE       DAT 1\n13       TOTAL     DAT 0\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ast-exam-1a",
+          "title": "Algorithm",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "Identify the type of algorithm used in the code above.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Loop / repetition / iteration (1)",
+            "points": [
+              {
+                "criterion": "Loop",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A loop (iteration)."
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "ast-exam-1b",
+          "title": "Condition",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "State the purpose of the condition in this code.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "To end the program when ACC / COUNT is zero / to continue the loop until COUNT is zero (1)",
+            "points": [
+              {
+                "criterion": "Purpose",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It stops the loop (jumps to HLT) when COUNT reaches zero."
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "ast-exam-1c",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.3@paper",
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "Fill in the trace table using the assembly language code given above. The first instruction has been completed for you. Leave a cell empty if the value does not change. You may not need all the lines in the table.",
+          "content": {
+            "columns": [
+              "Instruction address",
+              "Accumulator",
+              "Memory address 10",
+              "Memory address 11",
+              "Memory address 12",
+              "Memory address 13",
+              "Condition",
+              "Output"
+            ],
+            "rows": 22,
+            "prefill": [
+              [
+                null,
+                null,
+                "5",
+                "2",
+                "1",
+                "0",
+                null,
+                null
+              ],
+              [
+                "00",
+                "2",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 mark for each column: instruction address; accumulator; memory 11 and 13; condition; output (only the 2 entries).\n\n| Instruction address | Accumulator | Memory address 10 | Memory address 11 | Memory address 12 | Memory address 13 | Condition | Output |\n|---|---|---|---|---|---|---|---|\n|  |  | 5 | 2 | 1 | 0 |  |  |\n| 00 | 2 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | FALSE |  |\n| 02 | 1 |  |  |  |  |  |  |\n| 03 |  |  | 1 |  |  |  |  |\n| 04 | 0 |  |  |  |  |  |  |\n| 05 | 5 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 5 |  |  |\n| 07 |  |  |  |  |  |  | 5 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 1 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | FALSE |  |\n| 02 | 0 |  |  |  |  |  |  |\n| 03 |  |  | 0 |  |  |  |  |\n| 04 | 5 |  |  |  |  |  |  |\n| 05 | 10 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 10 |  |  |\n| 07 |  |  |  |  |  |  | 10 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 0 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | TRUE |  |\n| 09 |  |  |  |  |  |  |  |",
+            "points": [
+              {
+                "criterion": "Instruction address",
+                "marks": 1
+              },
+              {
+                "criterion": "Accumulator",
+                "marks": 1
+              },
+              {
+                "criterion": "Memory 11 / 13",
+                "marks": 1
+              },
+              {
+                "criterion": "Condition",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Instruction address | Accumulator | Memory address 10 | Memory address 11 | Memory address 12 | Memory address 13 | Condition | Output |\n|---|---|---|---|---|---|---|---|\n|  |  | 5 | 2 | 1 | 0 |  |  |\n| 00 | 2 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | FALSE |  |\n| 02 | 1 |  |  |  |  |  |  |\n| 03 |  |  | 1 |  |  |  |  |\n| 04 | 0 |  |  |  |  |  |  |\n| 05 | 5 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 5 |  |  |\n| 07 |  |  |  |  |  |  | 5 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 1 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | FALSE |  |\n| 02 | 0 |  |  |  |  |  |  |\n| 03 |  |  | 0 |  |  |  |  |\n| 04 | 5 |  |  |  |  |  |  |\n| 05 | 10 |  |  |  |  |  |  |\n| 06 |  |  |  |  | 10 |  |  |\n| 07 |  |  |  |  |  |  | 10 |\n| 08 |  |  |  |  |  |  |  |\n| 00 | 0 |  |  |  |  |  |  |\n| 01 |  |  |  |  |  | TRUE |  |\n| 09 |  |  |  |  |  |  |  |",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "5",
+                  "2",
+                  "1",
+                  "0",
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "2",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "FALSE",
+                  null
+                ],
+                [
+                  "02",
+                  "1",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "03",
+                  null,
+                  null,
+                  "1",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "05",
+                  "5",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "06",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "5",
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "5"
+                ],
+                [
+                  "08",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "1",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "FALSE",
+                  null
+                ],
+                [
+                  "02",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "03",
+                  null,
+                  null,
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  "5",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "05",
+                  "10",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "06",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "10",
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "10"
+                ],
+                [
+                  "08",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "0",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  "TRUE",
+                  null
+                ],
+                [
+                  "09",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        },
+        {
+          "key": "ast-exam-1d",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "Describe the purpose of the program.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Outputs the multiples of 5 / adds 5 to the total COUNT times (calculates 5 × COUNT by repeated addition) (1)",
+            "points": [
+              {
+                "criterion": "Purpose",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It adds 5 to TOTAL COUNT times and outputs each new total — the multiples of 5 (5, 10)."
+          },
+          "source": "nis_style",
+          "part_label": "(d)"
+        }
+      ]
+    },
+    {
+      "key": "ast-exam-2",
+      "title": "Difference of two numbers",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The program below uses the same mnemonics as Question 1.\n\n```assembly\nAddress  Label     Instruction\n00                 INP\n01                 STA FIRST\n02                 INP\n03                 STA SECOND\n04                 SUB FIRST\n05                 BRP SKIP\n06                 LDA FIRST\n07                 SUB SECOND\n08       SKIP      OUT\n09                 HLT\n10       FIRST     DAT\n11       SECOND    DAT\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ast-exam-2a",
+          "title": "Data transfer",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "Give **one** example of an assembly language instruction from this program used for transferring data.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "LDA / STA (accept with operand, e.g. STA FIRST) (1)",
+            "points": [
+              {
+                "criterion": "LDA / STA",
+                "marks": 1
+              }
+            ],
+            "model_answer": "STA FIRST"
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "ast-exam-2b",
+          "title": "Condition",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "Identify the address where a condition is used.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "05 / BRP SKIP (1)",
+            "points": [
+              {
+                "criterion": "05",
+                "marks": 1
+              }
+            ],
+            "model_answer": "05 (BRP SKIP)"
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "ast-exam-2c",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "Trace the program for the inputs **9** and then **4**. Leave a cell empty if the value does not change.",
+          "content": {
+            "columns": [
+              "Instruction address",
+              "Accumulator",
+              "Memory address 10",
+              "Memory address 11",
+              "Condition",
+              "Output"
+            ],
+            "rows": 11,
+            "prefill": [
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "00",
+                "9",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 mark for each column group: instruction address; accumulator; memory 10 and 11; condition and output.\n\n| Instruction address | Accumulator | Memory address 10 | Memory address 11 | Condition | Output |\n|---|---|---|---|---|---|\n|  |  | 0 | 0 |  |  |\n| 00 | 9 |  |  |  |  |\n| 01 |  | 9 |  |  |  |\n| 02 | 4 |  |  |  |  |\n| 03 |  |  | 4 |  |  |\n| 04 | -5 |  |  |  |  |\n| 05 |  |  |  | FALSE |  |\n| 06 | 9 |  |  |  |  |\n| 07 | 5 |  |  |  |  |\n| 08 |  |  |  |  | 5 |\n| 09 |  |  |  |  |  |",
+            "points": [
+              {
+                "criterion": "Instruction address",
+                "marks": 1
+              },
+              {
+                "criterion": "Accumulator",
+                "marks": 1
+              },
+              {
+                "criterion": "Memory 10 / 11",
+                "marks": 1
+              },
+              {
+                "criterion": "Condition and output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Instruction address | Accumulator | Memory address 10 | Memory address 11 | Condition | Output |\n|---|---|---|---|---|---|\n|  |  | 0 | 0 |  |  |\n| 00 | 9 |  |  |  |  |\n| 01 |  | 9 |  |  |  |\n| 02 | 4 |  |  |  |  |\n| 03 |  |  | 4 |  |  |\n| 04 | -5 |  |  |  |  |\n| 05 |  |  |  | FALSE |  |\n| 06 | 9 |  |  |  |  |\n| 07 | 5 |  |  |  |  |\n| 08 |  |  |  |  | 5 |\n| 09 |  |  |  |  |  |",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "00",
+                  "9",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "01",
+                  null,
+                  "9",
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "02",
+                  "4",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "03",
+                  null,
+                  null,
+                  "4",
+                  null,
+                  null
+                ],
+                [
+                  "04",
+                  "-5",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "05",
+                  null,
+                  null,
+                  null,
+                  "FALSE",
+                  null
+                ],
+                [
+                  "06",
+                  "9",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "07",
+                  "5",
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                [
+                  "08",
+                  null,
+                  null,
+                  null,
+                  null,
+                  "5"
+                ],
+                [
+                  "09",
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ]
+              ]
+            }
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        },
+        {
+          "key": "ast-exam-2d",
+          "title": "Second run",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "State the output for the inputs **3** and then **8**.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "5 (1)",
+            "points": [
+              {
+                "criterion": "5",
+                "marks": 1
+              }
+            ],
+            "model_answer": "5",
+            "accepted": {
+              "values": [
+                "5"
+              ],
+              "numeric": true
+            }
+          },
+          "source": "nis_style",
+          "part_label": "(d)"
+        },
+        {
+          "key": "ast-exam-2e",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.3@paper"
+          ],
+          "practice": false,
+          "text": "Describe the purpose of the program.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Outputs the (positive) difference between the two numbers / larger minus smaller (1)",
+            "points": [
+              {
+                "criterion": "Purpose",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It outputs the positive difference between the two numbers (the larger minus the smaller)."
+          },
+          "source": "nis_style",
+          "part_label": "(e)"
+        }
+      ]
+    },
+    {
+      "key": "ast-exam-3",
+      "title": "Checking an algorithm",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The algorithm should count the marks that are 50 or more and output the **average** of four marks.\n\n```pseudocode\n1   count ← 0\n2   total ← 0\n3   FOR i ← 1 TO 4\n4       INPUT mark\n5       IF mark >= 50 THEN\n6           count ← count + 1\n7       ENDIF\n8       total ← total + mark\n9   NEXT i\n10  average ← total / count\n11  OUTPUT count, average\n```\n\nThe test data is 60, 40, 80, 20.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ast-exam-3a",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "Complete the trace table for the loop. Leave a cell empty if the value does not change.",
+          "content": {
+            "columns": [
+              "i",
+              "mark",
+              "mark >= 50",
+              "count",
+              "total"
+            ],
+            "rows": 4
+          },
+          "scheme": {
+            "mark_scheme": "1, 60, TRUE, 1, 60 (1); 2, 40, FALSE, –, 100 (1); 3, 80, TRUE, 2, 180 (1); 4, 20, FALSE, –, 200 (1)",
+            "points": [
+              {
+                "criterion": "i = 1",
+                "marks": 1
+              },
+              {
+                "criterion": "i = 2",
+                "marks": 1
+              },
+              {
+                "criterion": "i = 3",
+                "marks": 1
+              },
+              {
+                "criterion": "i = 4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| i | mark | mark >= 50 | count | total |\n|---|---|---|---|---|\n| 1 | 60 | TRUE | 1 | 60 |\n| 2 | 40 | FALSE | | 100 |\n| 3 | 80 | TRUE | 2 | 180 |\n| 4 | 20 | FALSE | | 200 |",
+            "accepted": {
+              "rows": [
+                [
+                  "1",
+                  "60",
+                  "TRUE",
+                  "1",
+                  "60"
+                ],
+                [
+                  "2",
+                  "40",
+                  "FALSE",
+                  null,
+                  "100"
+                ],
+                [
+                  "3",
+                  "80",
+                  "TRUE",
+                  "2",
+                  "180"
+                ],
+                [
+                  "4",
+                  "20",
+                  "FALSE",
+                  null,
+                  "200"
+                ]
+              ]
+            }
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "ast-exam-3b",
+          "title": "Output",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "State the output of the algorithm.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "2 and 100 (1)",
+            "points": [
+              {
+                "criterion": "2, 100",
+                "marks": 1
+              }
+            ],
+            "model_answer": "2 100"
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "ast-exam-3c",
+          "title": "Logic error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "The expected average is 50. Identify the logic error and correct it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Line 10 divides by count (the number of passes) instead of the number of marks (1); average ← total / 4 (1)",
+            "points": [
+              {
+                "criterion": "Error",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Line 10 divides the total by count (2) instead of by the number of marks. Correct: average ← total / 4."
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        },
+        {
+          "key": "ast-exam-3d",
+          "title": "Verification",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.1.4@paper"
+          ],
+          "practice": false,
+          "text": "Explain how a trace table helps to verify that an algorithm is correct.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Values / output obtained step by step are compared with the expected results; a difference shows where the error is (1)",
+            "points": [
+              {
+                "criterion": "Compare with expected",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The output found by tracing is compared with the expected output; if they differ, the rows show where the algorithm goes wrong."
+          },
+          "source": "nis_style",
+          "part_label": "(d)"
+        }
+      ]
+    }
+  ],
+  "summary": "Low-level languages and assembly language — mnemonics, opcode and operand, labels, the accumulator and the assembler; the LMC-style instruction set used in NIS papers (INP, OUT, LDA, STA, ADD, SUB, BRA, BRZ, BRP, HLT, DAT) grouped by purpose; sequence, selection and iteration in assembly; analysing programs — variables, condition and loop lines, purpose and output; trace tables for assembly code and for pseudocode, and using them to find the output, verify an algorithm and locate logic errors.",
   "theory": [
     {
-      "title": "Simple assembly language programs",
+      "title": "Assembly language",
       "objectives": [
         "11.5.1.3@paper"
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "Assembly language uses **mnemonics** for machine instructions. NIS papers use an instruction set like the **Little Man Computer (LMC)**: one **accumulator (ACC)**, memory locations 00–99, and these instructions:"
+          "type": "definition",
+          "term": "Assembly language",
+          "content": "A **low-level** programming language in which each instruction is written as a short **mnemonic** (e.g. `LDA`, `ADD`) and corresponds to **one machine-code instruction**. It is translated into machine code by an **assembler**."
         },
         {
           "type": "comparison",
-          "title": "Instruction set",
+          "title": "Machine code, assembly and high-level code",
+          "columns": [
+            "",
+            "Machine code",
+            "Assembly language",
+            "High-level language"
+          ],
+          "rows": [
+            [
+              "Example",
+              "`0101 1001`",
+              "`ADD NUM`",
+              "`total = total + num`"
+            ],
+            [
+              "Written as",
+              "Binary (or hex)",
+              "**Mnemonics** + addresses / labels",
+              "English-like statements"
+            ],
+            [
+              "Translator",
+              "None — run directly by the CPU",
+              "**Assembler**",
+              "Compiler / interpreter"
+            ],
+            [
+              "Instructions per statement",
+              "1",
+              "**1 : 1** with machine code",
+              "One statement → many machine instructions"
+            ],
+            [
+              "Depends on the processor?",
+              "Yes",
+              "**Yes** — each CPU has its own instruction set",
+              "No — portable"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Opcode and operand",
+              "content": "- Every instruction has an **opcode** — **what** to do (`LDA`, `ADD`, `BRZ`).\n- Most have an **operand** — **what to do it with**: a memory **address** or a **label** (`ADD 09`, `ADD NUM`).\n- `INP`, `OUT` and `HLT` have no operand."
+            },
+            {
+              "title": "The accumulator (ACC)",
+              "content": "- A special **register** in the CPU that holds the value currently being worked on.\n- Every input goes **into** ACC; every calculation uses ACC; `OUT` outputs ACC.\n- Values must be **stored** (`STA`) in memory to keep them, because the next `LDA` or `INP` overwrites ACC."
+            },
+            {
+              "title": "Labels",
+              "content": "- A **name** for a memory address, written at the start of a line: `LOOP  LDA COUNT`, `COUNT  DAT 6`.\n- A label on an **instruction** is a place to **jump** to; a label on a `DAT` line works like a **variable**.\n- The assembler replaces each label with its address."
+            },
+            {
+              "title": "Why use assembly?",
+              "content": "- Direct control of the **hardware**, registers and memory.\n- Code is **fast** and **small** — used in device drivers, embedded systems, boot loaders.\n- But it is **hard to write, read and debug**, and not **portable** to another processor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The instruction set",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Assembly language mnemonics (as given in NIS papers)",
           "columns": [
             "Mnemonic",
-            "Meaning"
+            "Description",
+            "Effect"
           ],
           "rows": [
             [
               "`INP`",
-              "Input a value into ACC"
+              "Retrieve user **input** and store it in the accumulator",
+              "ACC ← input"
             ],
             [
               "`OUT`",
-              "Output the value in ACC"
+              "**Output** the value stored in the accumulator",
+              "output ACC"
             ],
             [
               "`LDA xx`",
-              "Load ACC with the contents of address xx"
+              "**Load** the accumulator with the contents of the memory address given",
+              "ACC ← [xx]"
             ],
             [
               "`STA xx`",
-              "Store ACC into address xx"
+              "**Store** the value in the accumulator in the memory address given",
+              "[xx] ← ACC"
             ],
             [
               "`ADD xx`",
-              "ACC ← ACC + contents of xx"
+              "**Add** the contents of the memory address to the accumulator",
+              "ACC ← ACC + [xx]"
             ],
             [
               "`SUB xx`",
-              "ACC ← ACC − contents of xx"
+              "**Subtract** the contents of the memory address from the accumulator",
+              "ACC ← ACC − [xx]"
             ],
             [
               "`BRA xx`",
-              "Branch always — jump to xx"
+              "**Branch always** — jump to the address given",
+              "go to xx"
             ],
             [
               "`BRZ xx`",
-              "Branch to xx **if ACC = 0**"
+              "Jump to the address given **if the accumulator is zero**",
+              "if ACC = 0 go to xx"
             ],
             [
               "`BRP xx`",
-              "Branch to xx **if ACC ≥ 0** (zero or positive)"
+              "Jump to the address given **if the accumulator is zero or positive**",
+              "if ACC ≥ 0 go to xx"
             ],
             [
               "`HLT`",
-              "Stop"
+              "**Stop** the code",
+              "stop"
             ],
             [
               "`DAT n`",
-              "A memory location holding data n (not an instruction)"
+              "Not an instruction: reserves a memory address (with a label) and optionally stores the value n in it",
+              "[address] ← n"
             ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Instructions grouped by purpose",
+          "columns": [
+            "Group",
+            "Mnemonics"
+          ],
+          "rows": [
+            [
+              "Input / output",
+              "`INP`, `OUT`"
+            ],
+            [
+              "**Data transfer** (move data between memory and ACC)",
+              "`LDA`, `STA`"
+            ],
+            [
+              "Arithmetic",
+              "`ADD`, `SUB`"
+            ],
+            [
+              "Unconditional branch (jump)",
+              "`BRA`"
+            ],
+            [
+              "**Conditional branch** (a condition / selection)",
+              "`BRZ`, `BRP`"
+            ],
+            [
+              "Control",
+              "`HLT`"
+            ],
+            [
+              "Data declaration",
+              "`DAT`"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "   Address   Label    Instruction        What happens\n   ───────   ─────    ───────────        ──────────────────────────────\n     00               INP                ACC ← first number\n     01               STA  NUM1          [05] ← ACC\n     02               INP                ACC ← second number\n     03               ADD  NUM1          ACC ← ACC + [05]\n     04               OUT                output the sum\n     05      NUM1     DAT                variable NUM1 (address 05)",
+          "caption": "Memory of a short program — instructions and data share the same memory"
+        },
+        {
+          "type": "warning",
+          "content": "- `BRP` jumps when ACC is **zero or positive** — not only positive.\n- `BRZ` and `BRP` only **test** ACC; they do not change it.\n- `STA` does **not** change ACC — the value is copied into memory and stays in ACC.\n- `DAT` lines must come **after** `HLT`, otherwise the CPU would try to run the data as instructions.\n- Comparing two numbers is done by **subtracting** them and testing the result with `BRZ` / `BRP`."
+        }
+      ]
+    },
+    {
+      "title": "Sequence, selection and iteration",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Sequence",
+              "content": "Instructions run **one after another** from address 00. Example: input two numbers, add them, output the sum."
+            },
+            {
+              "title": "Selection (condition)",
+              "content": "A **conditional branch** `BRZ` / `BRP` chooses between two paths. The line with `BRZ` or `BRP` is **where the condition is**."
+            },
+            {
+              "title": "Iteration (loop)",
+              "content": "A **`BRA` back to an earlier label** makes the code repeat. The loop is the block from the **label jumped to** down to the **`BRA`**. A `BRZ` / `BRP` inside the loop decides when to **leave** it."
+            }
           ]
         },
         {
           "type": "code",
           "language": "text",
-          "content": "00  INP          ; read N\n01  STA 09       ; store N\n02  LDA 09       ; loop: load N\n03  BRZ 08       ; if N = 0 finish\n04  OUT          ; output N\n05  SUB 10       ; N - 1\n06  STA 09       ; save the new N\n07  BRA 02       ; repeat\n08  HLT\n09  DAT 0        ; N\n10  DAT 1        ; the constant 1",
-          "caption": "Program: count down from an input number"
+          "content": "00         INP\n01         STA A\n02         INP\n03         STA B\n04         SUB A           ; ACC = B - A\n05         BRP SHOWB       ; condition: if B - A >= 0, B is larger (or equal)\n06         LDA A\n07         OUT             ; output A\n08         HLT\n09  SHOWB  LDA B\n10         OUT             ; output B\n11         HLT\n12  A      DAT\n13  B      DAT",
+          "caption": "Selection — output the larger of two numbers"
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "00         INP\n01         STA NUM\n02         INP\n03         STA TIMES\n04  LOOP   LDA TIMES       ; loop starts here\n05         BRZ DONE        ; condition: stop when TIMES = 0\n06         SUB ONE\n07         STA TIMES       ; TIMES ← TIMES - 1\n08         LDA TOTAL\n09         ADD NUM\n10         STA TOTAL       ; TOTAL ← TOTAL + NUM\n11         BRA LOOP        ; loop ends here — jump back\n12  DONE   LDA TOTAL\n13         OUT\n14         HLT\n15  NUM    DAT 0\n16  TIMES  DAT 0\n17  TOTAL  DAT 0\n18  ONE    DAT 1",
+          "caption": "Iteration — multiply NUM by TIMES using repeated addition"
         },
         {
           "type": "comparison",
-          "title": "Parts of the program",
+          "title": "Analysing the multiplication program",
           "columns": [
-            "Feature",
-            "Lines"
+            "Question",
+            "Answer"
           ],
           "rows": [
             [
-              "Input / output",
-              "00 / 04"
+              "Variables (labels with `DAT`)",
+              "`NUM`, `TIMES`, `TOTAL`, `ONE` (a constant)"
             ],
             [
-              "Condition (selection)",
-              "03 (`BRZ`)"
+              "Line of the condition",
+              "05 — `BRZ DONE`"
             ],
             [
-              "Loop",
-              "02–07 (the jump back at 07)"
+              "Lines of the loop",
+              "04 to 11 (`LOOP` … `BRA LOOP`)"
             ],
             [
-              "Data",
-              "09, 10"
+              "Type of algorithm",
+              "Loop / iteration (with a condition)"
+            ],
+            [
+              "Purpose",
+              "Multiplies two input numbers by **repeated addition**"
+            ],
+            [
+              "Output for inputs 4 and 2",
+              "**8**"
             ]
           ]
+        },
+        {
+          "type": "example",
+          "title": "Equivalent high-level code",
+          "content": "```pseudocode\nINPUT NUM\nINPUT TIMES\nTOTAL ← 0\nWHILE TIMES <> 0\n    TIMES ← TIMES - 1\n    TOTAL ← TOTAL + NUM\nENDWHILE\nOUTPUT TOTAL\n```\nWriting the assembly as pseudocode first is a good way to understand **what a program does**."
+        }
+      ]
+    },
+    {
+      "title": "Analysing an assembly program",
+      "objectives": [
+        "11.5.1.3@paper"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "How to analyse an assembly program",
+          "items": [
+            "List the **variables**: the labels on `DAT` lines and their starting values.",
+            "Find **input** (`INP`) and **output** (`OUT`) lines.",
+            "Find the **condition**: the line(s) with `BRZ` / `BRP`, and say what is tested.",
+            "Find the **loop**: a `BRA` that jumps **back** — the loop runs from the target label to that `BRA`.",
+            "**Trace** the program with sample data to find the output.",
+            "Describe the **purpose** in one sentence: what the program calculates for any input."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Past-paper style program — count down",
+          "content": "```text\n1   INP\n2   STA A\n3   OPERATION LDA A\n4   OUT\n5   SUB ONE\n6   STA A\n7   BRZ ENDTHIS\n8   BRA OPERATION\n9   ENDTHIS LDA A\n10  SUB ONE\n11  OUT\n12  HLT\n13  A DAT\n14  ONE DAT 1\n```\n- **Variables:** A and ONE.\n- **Condition:** line 7 (`BRZ ENDTHIS`). **Loop:** lines 3 to 8.\n- **Input 3:** outputs **3, 2, 1**; then A = 0, so `BRZ` jumps to line 9, where 0 − 1 is output → **−1**. Output: **3 2 1 −1**."
+        },
+        {
+          "type": "example",
+          "title": "Past-paper style program — remainder",
+          "content": "```text\nAddress  Instruction\n00       LDA 08\n01       SUB 09\n02       BRP 06\n03       LDA 08\n04       OUT\n05       HLT\n06       STA 08\n07       BRA 00\n08       DAT 11\n09       DAT 4\n```\n- The program keeps **subtracting** [09] from [08] while the result is **zero or positive**, storing the new value in 08.\n- When the result becomes **negative**, it outputs the value left in 08.\n- **Purpose:** divides the number in 08 by the number in 09 and outputs the **remainder** (11 MOD 4 = **3**).\n- **Loop lines:** 00, 01, 02, 06, 07. **Condition:** address 02 (`BRP 06`).\n- With `BRZ` instead of `BRP`, 11 − 4 = 7 is not zero, so the loop would run only **once**."
         }
       ]
     },
@@ -110,13 +2622,441 @@
         {
           "type": "definition",
           "term": "Trace table",
-          "content": "A table that records the **values of variables (and registers/memory) after each step** of an algorithm, used to **dry-run** it: to find its output, check that it is correct and locate logic errors."
+          "content": "A table used to **dry-run** an algorithm by hand: it records the **value of each variable** (and, for assembly, the **accumulator** and **memory addresses**), each **condition** and each **output**, step by step."
         },
         {
-          "type": "example",
-          "title": "Trace of the count-down program with input 3",
-          "content": "| Line | ACC | [09] | Output |\n|---|---|---|---|\n| 00 | 3 | 0 | |\n| 01 | 3 | 3 | |\n| 02 | 3 | 3 | |\n| 04 | 3 | 3 | 3 |\n| 05 | 2 | 3 | |\n| 06 | 2 | 2 | |\n| 02 | 2 | 2 | |\n| 04 | 2 | 2 | 2 |\n| 05 | 1 | 2 | |\n| 06 | 1 | 1 | |\n| 02 | 1 | 1 | |\n| 04 | 1 | 1 | 1 |\n| 05 | 0 | 1 | |\n| 06 | 0 | 0 | |\n| 02 | 0 | 0 | |\n| 03 → 08 | 0 | 0 | (BRZ jumps, HLT) |"
+          "type": "cards",
+          "items": [
+            {
+              "title": "What a trace table is used for",
+              "content": "- To find the **output** of an algorithm for given data.\n- To **verify** that an algorithm is **correct** — compare the traced results with the expected results.\n- To **locate logic errors** — find the step where a value first becomes wrong.\n- To understand **what an unfamiliar algorithm does** (its purpose)."
+            },
+            {
+              "title": "Columns for assembly code",
+              "content": "- **Instruction address** of the line being executed.\n- **Accumulator** — written when ACC changes.\n- One column for **each memory address / variable** — written when it changes (`STA`).\n- **Condition** — TRUE / FALSE for `BRZ` / `BRP`.\n- **Output** — only when `OUT` runs."
+            }
+          ]
         },
+        {
+          "type": "comparison",
+          "title": "Trace of the remainder program ([08] = 11, [09] = 4)",
+          "columns": [
+            "Instruction address",
+            "Accumulator",
+            "Memory address 08",
+            "Memory address 09",
+            "Condition",
+            "Output"
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              "11",
+              "4",
+              "",
+              ""
+            ],
+            [
+              "00",
+              "11",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "01",
+              "7",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "02",
+              "",
+              "",
+              "",
+              "TRUE",
+              ""
+            ],
+            [
+              "06",
+              "",
+              "7",
+              "",
+              "",
+              ""
+            ],
+            [
+              "07",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "00",
+              "7",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "01",
+              "3",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "02",
+              "",
+              "",
+              "",
+              "TRUE",
+              ""
+            ],
+            [
+              "06",
+              "",
+              "3",
+              "",
+              "",
+              ""
+            ],
+            [
+              "07",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "00",
+              "3",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "01",
+              "−1",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "02",
+              "",
+              "",
+              "",
+              "FALSE",
+              ""
+            ],
+            [
+              "03",
+              "3",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "04",
+              "",
+              "",
+              "",
+              "",
+              "3"
+            ],
+            [
+              "05",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Trace of the multiplication program (inputs 4 and 2)",
+          "columns": [
+            "Address",
+            "ACC",
+            "NUM (15)",
+            "TIMES (16)",
+            "TOTAL (17)",
+            "Condition",
+            "Output"
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              "0",
+              "0",
+              "0",
+              "",
+              ""
+            ],
+            [
+              "00",
+              "4",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "01",
+              "",
+              "4",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "02",
+              "2",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "03",
+              "",
+              "",
+              "2",
+              "",
+              "",
+              ""
+            ],
+            [
+              "04",
+              "2",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "05",
+              "",
+              "",
+              "",
+              "",
+              "FALSE",
+              ""
+            ],
+            [
+              "06",
+              "1",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "07",
+              "",
+              "",
+              "1",
+              "",
+              "",
+              ""
+            ],
+            [
+              "08",
+              "0",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "09",
+              "4",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "10",
+              "",
+              "",
+              "",
+              "4",
+              "",
+              ""
+            ],
+            [
+              "11",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "04",
+              "1",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "05",
+              "",
+              "",
+              "",
+              "",
+              "FALSE",
+              ""
+            ],
+            [
+              "06",
+              "0",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "07",
+              "",
+              "",
+              "0",
+              "",
+              "",
+              ""
+            ],
+            [
+              "08",
+              "4",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "09",
+              "8",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "10",
+              "",
+              "",
+              "",
+              "8",
+              "",
+              ""
+            ],
+            [
+              "11",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "04",
+              "0",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "05",
+              "",
+              "",
+              "",
+              "",
+              "TRUE",
+              ""
+            ],
+            [
+              "12",
+              "8",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "13",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "8"
+            ],
+            [
+              "14",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How to complete a trace table",
+          "items": [
+            "Write the **initial values** of memory / variables in the first row (from the `DAT` lines or the first assignments).",
+            "Execute **one instruction at a time**; write the **address** (or line) in a new row.",
+            "Write a value **only in the column that changes** — leave the others empty.",
+            "For `BRZ` / `BRP` write **TRUE / FALSE**, then continue at the jump address if TRUE, otherwise at the next line.",
+            "After `BRA`, the next row starts at the **target address**.",
+            "Write in the **Output** column only for `OUT` (or `OUTPUT` / `PRINT`).",
+            "Stop at `HLT` (or the end of the algorithm)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trace tables for pseudocode",
+      "objectives": [
+        "11.5.1.4@paper"
+      ],
+      "blocks": [
         {
           "type": "code",
           "language": "pseudocode",
@@ -172,21 +3112,89 @@
           ]
         },
         {
-          "type": "steps",
-          "title": "How to complete a trace table",
-          "items": [
-            "Make a column for **every variable**, condition and output (and the line number if asked).",
-            "Write the **initial values** in the first row.",
-            "Execute **one statement at a time**; write a value only in the column that changes.",
-            "For loops, check the condition each time; for branches, follow the jump.",
-            "The **last rows** show the final values and the output."
+          "type": "example",
+          "title": "Using a trace table to find a logic error",
+          "content": "The algorithm should output the **largest** of the numbers −5, −2, −9.\n```pseudocode\nlargest ← 0\nFOR i ← 0 TO 2\n    IF Nums[i] > largest THEN\n        largest ← Nums[i]\n    ENDIF\nNEXT i\nOUTPUT largest\n```\n| i | Nums[i] | Nums[i] > largest | largest | Output |\n|---|---|---|---|---|\n| | | | 0 | |\n| 0 | −5 | FALSE | | |\n| 1 | −2 | FALSE | | |\n| 2 | −9 | FALSE | | |\n| | | | | 0 |\n\n**Expected** output −2, **actual** output 0 → a **logic error**. The trace shows that `largest` never changes because it starts at 0. **Correction:** `largest ← Nums[0]`."
+        },
+        {
+          "type": "comparison",
+          "title": "Verifying an algorithm with test data",
+          "columns": [
+            "Test",
+            "Input",
+            "Expected result",
+            "Result from the trace",
+            "Correct?"
+          ],
+          "rows": [
+            [
+              "Normal",
+              "11 and 4 (remainder program)",
+              "3",
+              "3",
+              "✓"
+            ],
+            [
+              "Exact division",
+              "12 and 4",
+              "0",
+              "0",
+              "✓"
+            ],
+            [
+              "First number smaller",
+              "3 and 4",
+              "3",
+              "3",
+              "✓"
+            ]
           ]
         },
         {
           "type": "exam_tip",
-          "content": "Common traps: `BRP` jumps when ACC is **zero too**; `MOD` gives the **remainder** (7 MOD 2 = 1); a `FOR` loop's variable takes the **last value** in the range. Write values in a new row each time they change."
+          "content": "- Trace **exactly** what the code does, not what you think it should do.\n- `FOR x FROM 0 TO 3` runs **4** times; `MOD` gives the **remainder** (7 MOD 2 = 1).\n- Use the **number of empty rows** in the given table as a hint — but \"you may not need all the lines\".\n- In assembly traces the marks are usually **one per column**: be careful with every column, especially **Output** (no extra entries)."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.1.3@paper",
+        "11.5.1.4@paper"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Give one example of an assembly language instruction used for transferring data. [1]**\n`LDA` (or `STA`) (1).\n\n**Q: Identify the type of algorithm used in the code. [1]**\nA **loop** / repetition (1).\n\n**Q: State the purpose of the condition in this code. [1]**\nTo **end the program** (leave the loop) **when the accumulator is zero** (1).\n\n**Q: Identify the line numbers where a condition and a loop are implemented. [2]**\nCondition: the line with `BRZ` / `BRP` (1); loop: from the label jumped to down to the `BRA` line (1).\n\n**Q: Determine the number of iterations if BRZ is used instead of BRP. [1]**\nTrace again with the new rule: `BRZ` jumps only when ACC is **exactly 0**."
+        },
+        {
+          "type": "warning",
+          "content": "- Treating `BRP` as \"positive only\" — it is TRUE for **0** as well.\n- Forgetting that `SUB` / `ADD` change **ACC**, not memory, until `STA` is executed.\n- Writing values in every column of every row — write only what **changes**.\n- Putting a value in the Output column for a line that is not `OUT`.\n- Continuing after `HLT`, or not following a `BRA` jump.\n- Naming a jump label (e.g. `LOOP`) as a variable — variables are the **`DAT`** labels."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Explain opcode, operand, accumulator, label and mnemonic.",
+            "Group the instructions into input/output, data transfer, arithmetic and branching.",
+            "Write an assembly program that inputs two numbers and outputs their difference.",
+            "Find the condition line and the loop lines of the multiplication program.",
+            "Trace the remainder program with 14 and 5. What is the output?",
+            "Use a trace table to show why `largest ← 0` gives a wrong answer for negative numbers."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Assembly language and trace tables — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes.",
+    "questions": [
+      "ast-exam-1",
+      "ast-exam-2",
+      "ast-exam-3"
+    ]
+  }
 }

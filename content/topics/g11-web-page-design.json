@@ -1,102 +1,194 @@
 {
   "topic": "g11-web-page-design",
-  "summary": "The structure of a web page, building an interface with HTML and CSS, and creating HTML forms for data entry.",
+  "summary": "The structure of a web page and its common elements, building an interface with HTML and CSS, and creating HTML forms for data entry — text boxes, radio buttons, check boxes, drop-down lists, buttons, labels and the GET and POST methods.",
   "theory": [
     {
-      "title": "Structure of a web page",
+      "title": "The structure of a web page",
       "objectives": [
         "11.5.3.1"
       ],
       "blocks": [
         {
           "type": "paragraph",
-          "content": "Every HTML document has the same skeleton. The `<head>` holds information **about** the page; the `<body>` holds what the user **sees**."
+          "content": "A web page is written in **HTML** (HyperText Markup Language). HTML uses **tags** in angle brackets to mark up the **structure and content**; most tags come in pairs — an **opening tag** `<p>` and a **closing tag** `</p>`. **CSS** (Cascading Style Sheets) describes how the elements **look**."
         },
         {
           "type": "code",
           "language": "html",
-          "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>My School Club</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <header> … </header>\n  <nav> … </nav>\n  <main> … </main>\n  <footer> … </footer>\n</body>\n</html>",
-          "caption": "Minimal HTML5 page"
+          "content": "<!DOCTYPE html>                 <!-- tells the browser this is HTML5 -->\n<html lang=\"en\">                <!-- root element -->\n<head>                          <!-- information ABOUT the page (not shown) -->\n    <meta charset=\"UTF-8\">\n    <title>School Library</title>          <!-- text on the browser tab -->\n    <link rel=\"stylesheet\" href=\"style.css\">  <!-- external CSS file -->\n</head>\n<body>                          <!-- everything the user SEES -->\n    <h1>Welcome to the School Library</h1>\n    <p>Opening hours: 8:00–17:00</p>\n</body>\n</html>",
+          "caption": "The skeleton of every HTML page"
         },
         {
           "type": "comparison",
-          "title": "Common structural (semantic) elements",
+          "title": "Parts of an HTML document",
           "columns": [
             "Element",
             "Purpose"
           ],
           "rows": [
             [
+              "`<!DOCTYPE html>`",
+              "Declares the document type (HTML5)"
+            ],
+            [
+              "`<html>`",
+              "The root element that contains the whole page"
+            ],
+            [
+              "`<head>`",
+              "Information about the page: title, character set, links to CSS, meta data for search engines"
+            ],
+            [
+              "`<title>`",
+              "The title shown on the browser tab and in search results"
+            ],
+            [
+              "`<meta>`",
+              "Extra information, e.g. `charset`, `viewport` for mobile screens, description"
+            ],
+            [
+              "`<body>`",
+              "All the visible content of the page"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Element, tag and attribute",
+          "content": "An **element** is a part of the page, e.g. a paragraph: `<p>Hello</p>`. It is made of an **opening tag**, **content** and a **closing tag**. An **attribute** gives extra information inside the opening tag as `name=\"value\"`: `<img src=\"logo.png\" alt=\"School logo\">`."
+        }
+      ]
+    },
+    {
+      "title": "Common elements of a web page",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "blocks": [
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "+--------------------------------------------------+\n|  <header>   logo, site name                       |\n+--------------------------------------------------+\n|  <nav>      Home | Books | Events | Contact       |\n+-------------------------------+------------------+\n|  <main>                       |  <aside>          |\n|    <section> / <article>      |  related links,   |\n|    headings, text, images,    |  adverts, news    |\n|    tables, forms              |                   |\n+-------------------------------+------------------+\n|  <footer>   copyright, contacts, social links     |\n+--------------------------------------------------+",
+          "caption": "The typical layout of a web page (semantic elements)"
+        },
+        {
+          "type": "comparison",
+          "title": "Structural (semantic) elements",
+          "columns": [
+            "Element",
+            "Contains"
+          ],
+          "rows": [
+            [
               "`<header>`",
-              "Top of the page: logo, site name, sometimes navigation"
+              "Logo, site name, sometimes the navigation"
             ],
             [
               "`<nav>`",
-              "Main navigation links / menu"
+              "The main **navigation links** (menu)"
             ],
             [
               "`<main>`",
-              "The unique main content of the page"
+              "The **main content** of the page (only one per page)"
             ],
             [
               "`<section>`",
-              "A thematic group of content with a heading"
+              "A group of related content with a heading"
             ],
             [
               "`<article>`",
-              "Self-contained content, e.g. a news item or blog post"
+              "Independent content: a news story, blog post"
             ],
             [
               "`<aside>`",
-              "Side content: adverts, related links, sidebar"
+              "Side content: related links, adverts"
             ],
             [
               "`<footer>`",
-              "Bottom: contacts, copyright, extra links"
+              "Copyright, contact details, links at the bottom"
+            ],
+            [
+              "`<div>`",
+              "A general container with no special meaning (used for layout with CSS)"
+            ],
+            [
+              "`<span>`",
+              "A general **inline** container for part of a line of text"
             ]
           ]
         },
         {
           "type": "comparison",
-          "title": "Basic content elements",
+          "title": "Content elements",
           "columns": [
             "Element",
-            "Use"
+            "Purpose",
+            "Example"
           ],
           "rows": [
             [
               "`<h1>` … `<h6>`",
-              "Headings (one `<h1>` per page)"
+              "Headings, from most to least important",
+              "`<h1>News</h1>`"
             ],
             [
               "`<p>`",
-              "Paragraph"
+              "Paragraph",
+              "`<p>Text…</p>`"
+            ],
+            [
+              "`<br>`",
+              "Line break (no closing tag)",
+              "`Line 1<br>Line 2`"
+            ],
+            [
+              "`<hr>`",
+              "Horizontal line",
+              "`<hr>`"
+            ],
+            [
+              "`<strong>`, `<em>`",
+              "Important (bold) and emphasised (italic) text",
+              "`<strong>Warning</strong>`"
             ],
             [
               "`<a href=\"…\">`",
-              "Hyperlink"
+              "**Hyperlink** to another page, file or place",
+              "`<a href=\"books.html\">Books</a>`"
             ],
             [
               "`<img src=\"…\" alt=\"…\">`",
-              "Image (`alt` = text for screen readers / if the image fails)"
+              "Image; `alt` text is shown if the image cannot load and is read by screen readers",
+              "`<img src=\"cat.jpg\" alt=\"A grey cat\">`"
             ],
             [
               "`<ul>`, `<ol>`, `<li>`",
-              "Unordered / ordered list and list items"
+              "Unordered (bullets) and ordered (numbered) lists and their items",
+              "`<ul><li>Milk</li></ul>`"
             ],
             [
               "`<table>`, `<tr>`, `<th>`, `<td>`",
-              "Table, row, header cell, data cell"
-            ],
-            [
-              "`<div>`, `<span>`",
-              "Generic block / inline containers for styling"
+              "Table, row, header cell, data cell",
+              "see below"
             ]
           ]
         },
         {
+          "type": "code",
+          "language": "html",
+          "content": "<h2>Top books this month</h2>\n<ol>\n    <li>Abai — Book of Words</li>\n    <li>The Hobbit</li>\n</ol>\n<a href=\"https://example.com/catalogue\" target=\"_blank\">Open the full catalogue</a>\n<img src=\"library.jpg\" alt=\"Students reading in the library\" width=\"300\">\n\n<table border=\"1\">\n    <tr><th>Day</th><th>Opening hours</th></tr>\n    <tr><td>Monday</td><td>8:00–17:00</td></tr>\n    <tr><td>Saturday</td><td>10:00–14:00</td></tr>\n</table>",
+          "caption": "Lists, a link, an image and a table"
+        },
+        {
+          "type": "html_preview",
+          "title": "What the browser shows",
+          "html": "<h2>Top books this month</h2>\n<ol><li>Abai — Book of Words</li><li>The Hobbit</li></ol>\n<a href=\"#\">Open the full catalogue</a>\n<table border=\"1\" style=\"margin-top:10px;border-collapse:collapse\">\n<tr><th style=\"padding:4px 10px\">Day</th><th style=\"padding:4px 10px\">Opening hours</th></tr>\n<tr><td style=\"padding:4px 10px\">Monday</td><td style=\"padding:4px 10px\">8:00–17:00</td></tr>\n<tr><td style=\"padding:4px 10px\">Saturday</td><td style=\"padding:4px 10px\">10:00–14:00</td></tr>\n</table>",
+          "css": "body { font-family: Arial, sans-serif; padding: 8px; }",
+          "height": 260
+        },
+        {
           "type": "exam_tip",
-          "content": "Semantic elements (`header`, `nav`, `main`, `footer`) make the page easier to read for people, **search engines** and **screen readers** — a common \"explain why\" answer."
+          "content": "Use **one `<h1>`** per page, headings in order (`h1 → h2 → h3`), **semantic elements** instead of many `<div>`s, and **`alt` text** for every image. This helps search engines and users with **screen readers**."
         }
       ]
     },
@@ -107,45 +199,97 @@
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "HTML gives the page its **structure and content**; CSS controls its **appearance**: colours, fonts, spacing and layout."
+          "type": "comparison",
+          "title": "Three ways to add CSS",
+          "columns": [
+            "Method",
+            "Where",
+            "Example",
+            "When to use"
+          ],
+          "rows": [
+            [
+              "**Inline**",
+              "In the `style` attribute of one element",
+              "`<p style=\"color:red;\">`",
+              "One-off change (avoid)"
+            ],
+            [
+              "**Internal**",
+              "In a `<style>` element in the `<head>`",
+              "`<style> h1 { color: navy; } </style>`",
+              "Styles for one page"
+            ],
+            [
+              "**External**",
+              "In a separate `.css` file linked with `<link>`",
+              "`<link rel=\"stylesheet\" href=\"style.css\">`",
+              "**Best** for a whole site — one file controls every page"
+            ]
+          ]
         },
         {
-          "type": "html_preview",
-          "title": "Page layout with header, navigation, content and footer",
-          "html": "<header><h1>Robotics Club</h1></header>\n<nav><a href=\"#\">Home</a><a href=\"#\">Projects</a><a href=\"#\">Join</a></nav>\n<main>\n  <section><h2>Next meeting</h2><p>Friday, 15:00, room 204.</p></section>\n  <aside>Bring your laptop!</aside>\n</main>\n<footer>© 2026 NIS Robotics Club</footer>",
-          "css": "body { margin: 0; font-family: Arial, sans-serif; }\nheader { background: #1f4fd8; color: white; padding: 12px 20px; }\nheader h1 { margin: 0; font-size: 22px; }\nnav { background: #e8eefc; padding: 8px 20px; }\nnav a { margin-right: 16px; color: #1f4fd8; text-decoration: none; font-weight: bold; }\nmain { display: flex; gap: 16px; padding: 16px 20px; }\nsection { flex: 3; }\naside { flex: 1; background: #fdf3e2; padding: 10px; border-radius: 6px; }\nfooter { background: #222; color: #ccc; text-align: center; padding: 8px; font-size: 13px; }",
-          "height": 300
-        },
-        {
-          "type": "heading",
-          "text": "The CSS box model",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "Every element is a box made of **content**, **padding** (space inside the border), **border** and **margin** (space outside)."
-        },
-        {
-          "type": "html_preview",
-          "title": "The box model",
-          "html": "<div class=\"box\">Content</div>",
-          "css": ".box { width: 160px; padding: 20px; border: 4px solid #1f4fd8; margin: 24px; background: #e8eefc; text-align: center; font-family: Arial; }\nbody { background: #fdf3e2; margin: 0; }",
-          "height": 170
-        },
-        {
-          "type": "heading",
-          "text": "Principles of good interface design",
-          "level": 2
-        },
-        {
-          "type": "list",
+          "type": "cards",
           "items": [
-            "**Consistency:** the same colours, fonts and navigation on every page.",
-            "**Readability:** good contrast, readable font size, short paragraphs.",
-            "**Clear navigation:** the user always knows where they are and how to go back.",
-            "**Accessibility:** `alt` text for images, labels for form fields, keyboard access.",
-            "**Responsive design:** the layout adapts to phones and computers."
+            {
+              "title": "CSS rule syntax",
+              "content": "`selector { property: value; property: value; }`\n`h1 { color: navy; text-align: center; }`"
+            },
+            {
+              "title": "Selectors",
+              "content": "- **Element**: `p { … }` — every paragraph.\n- **Class**: `.note { … }` used with `class=\"note\"` — can repeat on the page.\n- **ID**: `#menu { … }` used with `id=\"menu\"` — must be **unique**."
+            },
+            {
+              "title": "Common properties",
+              "content": "`color`, `background-color`, `font-family`, `font-size`, `font-weight`, `text-align`, `text-decoration`, `width`, `height`, `margin` (outside space), `padding` (inside space), `border`, `border-radius`, `display`."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Eco Club</title>\n  <style>\n    body   { font-family: Arial, sans-serif; margin: 0; }\n    header { background-color: #2e7d32; color: white; text-align: center; padding: 12px; }\n    nav a  { margin: 0 10px; color: #2e7d32; font-weight: bold; text-decoration: none; }\n    .card  { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 10px; }\n    footer { font-size: 12px; text-align: center; color: gray; }\n  </style>\n</head>\n<body>\n  <header><h1>Eco Club</h1></header>\n  <nav><a href=\"#\">Home</a><a href=\"#\">Events</a><a href=\"#\">Join</a></nav>\n  <main>\n    <section class=\"card\">\n      <h2>Next event</h2>\n      <p>Tree planting on <strong>Saturday</strong> at 10:00.</p>\n    </section>\n  </main>\n  <footer>© 2026 NIS Eco Club</footer>\n</body>\n</html>",
+          "caption": "A simple page interface"
+        },
+        {
+          "type": "html_preview",
+          "title": "The page in the browser",
+          "html": "<header><h1>Eco Club</h1></header>\n<nav><a href=\"#\">Home</a><a href=\"#\">Events</a><a href=\"#\">Join</a></nav>\n<main><section class=\"card\"><h2>Next event</h2><p>Tree planting on <strong>Saturday</strong> at 10:00.</p></section></main>\n<footer>© 2026 NIS Eco Club</footer>",
+          "css": "body   { font-family: Arial, sans-serif; margin: 0; }\nheader { background-color: #2e7d32; color: white; text-align: center; padding: 6px; }\nheader h1 { margin: 6px; }\nnav    { padding: 8px; }\nnav a  { margin: 0 10px; color: #2e7d32; font-weight: bold; text-decoration: none; }\n.card  { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 10px; }\nfooter { font-size: 12px; text-align: center; color: gray; }",
+          "height": 250
+        },
+        {
+          "type": "comparison",
+          "title": "Principles of good interface design",
+          "columns": [
+            "Principle",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "**Consistency**",
+              "Same layout, colours, fonts and navigation on every page"
+            ],
+            [
+              "**Clear navigation**",
+              "The user can always find the menu and get back to the home page"
+            ],
+            [
+              "**Readability**",
+              "Good contrast between text and background, readable font size"
+            ],
+            [
+              "**Simplicity**",
+              "Not too much text, colour or animation on one page"
+            ],
+            [
+              "**Accessibility**",
+              "`alt` text, labels on form fields, works with keyboard and screen readers"
+            ],
+            [
+              "**Responsive**",
+              "Works on phones and computers (`<meta name=\"viewport\" …>`, flexible widths)"
+            ]
           ]
         }
       ]
@@ -157,21 +301,22 @@
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "A **form** collects data from the user and sends it to the server for processing (e.g. by a PHP or Python script)."
+          "type": "definition",
+          "term": "HTML form",
+          "content": "A part of a web page that **collects data from the user** — text, choices, passwords, files — and **sends it to a server** (or a script) for processing. It is created with the `<form>` element and contains **input controls**."
         },
         {
-          "type": "code",
-          "language": "html",
-          "content": "<form action=\"register.php\" method=\"post\">\n  <label for=\"name\">Full name:</label>\n  <input type=\"text\" id=\"name\" name=\"name\" required>\n\n  <label for=\"email\">Email:</label>\n  <input type=\"email\" id=\"email\" name=\"email\" required>\n\n  <label for=\"age\">Age:</label>\n  <input type=\"number\" id=\"age\" name=\"age\" min=\"14\" max=\"18\">\n\n  <p>Grade:</p>\n  <input type=\"radio\" id=\"g11\" name=\"grade\" value=\"11\"><label for=\"g11\">11</label>\n  <input type=\"radio\" id=\"g12\" name=\"grade\" value=\"12\"><label for=\"g12\">12</label>\n\n  <label for=\"club\">Club:</label>\n  <select id=\"club\" name=\"club\">\n    <option value=\"robotics\">Robotics</option>\n    <option value=\"chess\">Chess</option>\n  </select>\n\n  <input type=\"checkbox\" id=\"agree\" name=\"agree\"><label for=\"agree\">I agree to the rules</label>\n\n  <textarea name=\"comment\" rows=\"3\"></textarea>\n  <button type=\"submit\">Register</button>\n</form>",
-          "caption": "A registration form"
-        },
-        {
-          "type": "html_preview",
-          "title": "The form rendered",
-          "html": "<form>\n  <label>Full name: <input type=\"text\" required></label><br>\n  <label>Email: <input type=\"email\"></label><br>\n  <label>Age: <input type=\"number\" min=\"14\" max=\"18\"></label><br>\n  Grade: <label><input type=\"radio\" name=\"g\"> 11</label> <label><input type=\"radio\" name=\"g\"> 12</label><br>\n  <label>Club: <select><option>Robotics</option><option>Chess</option></select></label><br>\n  <label><input type=\"checkbox\"> I agree to the rules</label><br>\n  <textarea rows=\"2\" cols=\"30\" placeholder=\"Comment\"></textarea><br>\n  <button type=\"submit\">Register</button>\n</form>",
-          "css": "body { font-family: Arial; font-size: 14px; }\nlabel, input, select, textarea, button { margin: 4px 0; }\nbutton { background: #1f4fd8; color: #fff; border: 0; padding: 6px 14px; border-radius: 4px; }",
-          "height": 330
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why forms are used",
+              "content": "- To **get data for processing** — registration, log-in, orders, surveys, search.\n- To **collect user input** in a structured way.\n- To **mimic paper forms** and database records.\n- **Validation** (required fields, number ranges) reduces errors before the data is sent."
+            },
+            {
+              "title": "The `<form>` element",
+              "content": "`<form action=\"register.php\" method=\"post\">`\n- `action` — the **file / URL** that will process the data.\n- `method` — **how** the data is sent: `get` or `post`.\n- Every control needs a **`name`** — it becomes the key of the data sent (e.g. `email=ali@mail.kz`)."
+            }
+          ]
         },
         {
           "type": "comparison",
@@ -179,79 +324,1705 @@
           "columns": [
             "Control",
             "HTML",
-            "When to use"
+            "Use"
           ],
           "rows": [
             [
               "Text box",
-              "`<input type=\"text\">`",
-              "Short free text (name)"
+              "`<input type=\"text\" name=\"surname\">`",
+              "One line of text"
             ],
             [
               "Password",
-              "`<input type=\"password\">`",
-              "Hidden characters"
+              "`<input type=\"password\" name=\"pwd\">`",
+              "Characters are hidden"
             ],
             [
-              "Number / email / date",
-              "`type=\"number\"`, `\"email\"`, `\"date\"`",
-              "Built-in format checking"
+              "E-mail / number / date",
+              "`<input type=\"email\">`, `<input type=\"number\" min=\"1\" max=\"12\">`, `<input type=\"date\">`",
+              "Browser checks the format / range"
             ],
             [
-              "Radio buttons",
-              "`type=\"radio\"` with the same `name`",
-              "Choose **exactly one** option"
+              "**Radio buttons**",
+              "`<input type=\"radio\" name=\"gender\" value=\"f\">`",
+              "Choose **only one** option — all buttons in the group have the **same `name`**"
             ],
             [
-              "Check box",
-              "`type=\"checkbox\"`",
+              "**Check boxes**",
+              "`<input type=\"checkbox\" name=\"club\" value=\"chess\">`",
               "Choose **zero or more** options"
             ],
             [
               "Drop-down list",
-              "`<select>` + `<option>`",
-              "One option from a long list, saves space"
+              "`<select name=\"grade\"><option value=\"11\">Grade 11</option></select>`",
+              "Choose one from a long list, saves space"
             ],
             [
               "Text area",
-              "`<textarea>`",
-              "Long text (comments)"
+              "`<textarea name=\"comment\" rows=\"4\" cols=\"30\"></textarea>`",
+              "Several lines of text"
             ],
             [
-              "Button",
-              "`<button type=\"submit\">`",
-              "Sends the form"
+              "Label",
+              "`<label for=\"surname\">Surname:</label>`",
+              "Text for a control; `for` matches the control's `id` (click the label to select it)"
+            ],
+            [
+              "Submit button",
+              "`<input type=\"submit\" value=\"Register\">` or `<button type=\"submit\">Go</button>`",
+              "Sends the data to the `action`"
+            ],
+            [
+              "Reset button",
+              "`<input type=\"reset\" value=\"Clear\">`",
+              "Clears the form"
             ]
           ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<form action=\"register.php\" method=\"post\">\n    <label for=\"name\">Full name:</label>\n    <input type=\"text\" id=\"name\" name=\"fullname\" placeholder=\"e.g. Aruzhan Bekova\" required><br>\n\n    <label for=\"email\">E-mail:</label>\n    <input type=\"email\" id=\"email\" name=\"email\" required><br>\n\n    <label for=\"pwd\">Password:</label>\n    <input type=\"password\" id=\"pwd\" name=\"password\" minlength=\"8\"><br>\n\n    Gender:\n    <input type=\"radio\" id=\"f\" name=\"gender\" value=\"female\"><label for=\"f\">Female</label>\n    <input type=\"radio\" id=\"m\" name=\"gender\" value=\"male\"><label for=\"m\">Male</label><br>\n\n    Clubs:\n    <input type=\"checkbox\" name=\"club\" value=\"robotics\"> Robotics\n    <input type=\"checkbox\" name=\"club\" value=\"chess\"> Chess<br>\n\n    <label for=\"grade\">Grade:</label>\n    <select id=\"grade\" name=\"grade\">\n        <option value=\"11\">Grade 11</option>\n        <option value=\"12\">Grade 12</option>\n    </select><br>\n\n    <textarea name=\"about\" rows=\"3\" cols=\"30\" placeholder=\"About you\"></textarea><br>\n    <input type=\"submit\" value=\"Register\">\n    <input type=\"reset\" value=\"Clear\">\n</form>",
+          "caption": "A registration form"
+        },
+        {
+          "type": "html_preview",
+          "title": "The form in the browser",
+          "html": "<form>\n<label for=\"name\">Full name:</label> <input type=\"text\" id=\"name\" placeholder=\"e.g. Aruzhan Bekova\"><br>\n<label for=\"email\">E-mail:</label> <input type=\"email\" id=\"email\"><br>\n<label for=\"pwd\">Password:</label> <input type=\"password\" id=\"pwd\"><br>\nGender: <input type=\"radio\" id=\"f\" name=\"gender\"><label for=\"f\">Female</label>\n<input type=\"radio\" id=\"m\" name=\"gender\"><label for=\"m\">Male</label><br>\nClubs: <input type=\"checkbox\"> Robotics <input type=\"checkbox\"> Chess<br>\n<label for=\"grade\">Grade:</label> <select id=\"grade\"><option>Grade 11</option><option>Grade 12</option></select><br>\n<textarea rows=\"3\" cols=\"30\" placeholder=\"About you\"></textarea><br>\n<input type=\"submit\" value=\"Register\"> <input type=\"reset\" value=\"Clear\">\n</form>",
+          "css": "body { font-family: Arial, sans-serif; padding: 8px; line-height: 2; }\ninput[type=text], input[type=email], input[type=password] { width: 180px; }",
+          "height": 330
         },
         {
           "type": "comparison",
           "title": "GET vs POST",
           "columns": [
+            "",
             "`method=\"get\"`",
             "`method=\"post\"`"
           ],
           "rows": [
             [
-              "Data appears in the URL (`?name=Ali`)",
-              "Data is sent in the request body, not visible in the URL"
+              "Where the data goes",
+              "Added to the **URL**: `search.php?q=books&page=2`",
+              "In the **body** of the HTTP request — not visible in the URL"
             ],
             [
-              "Limited length; can be bookmarked",
-              "No practical length limit"
+              "Visible / bookmarkable",
+              "Yes — can be bookmarked and shared",
+              "No"
             ],
             [
-              "For searches and non-sensitive data",
-              "For passwords, personal data, uploads"
+              "Security",
+              "**Not for passwords** or personal data (stored in history, logs)",
+              "Better for passwords and personal data (use HTTPS as well)"
+            ],
+            [
+              "Amount of data",
+              "Limited by URL length",
+              "Large amounts, files"
+            ],
+            [
+              "Typical use",
+              "Searches, filters",
+              "Registration, log-in, orders, uploads"
             ]
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "The `name` attribute is what the server uses to read the value (`$_POST[\"name\"]`). Radio buttons in one group **must share the same `name`**."
+          "type": "warning",
+          "content": "Radio buttons only work as a group (one choice) when they **all have the same `name`**. Give each a different **`value`** so the server knows which was chosen. Check boxes can share a name, but more than one can be ticked."
+        },
+        {
+          "type": "comparison",
+          "title": "Built-in validation attributes",
+          "columns": [
+            "Attribute",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`required`",
+              "The field cannot be left empty"
+            ],
+            [
+              "`min`, `max`",
+              "Range for numbers / dates"
+            ],
+            [
+              "`minlength`, `maxlength`",
+              "Length of text"
+            ],
+            [
+              "`pattern`",
+              "The text must match a pattern, e.g. `pattern=\"[0-9]{6}\"`"
+            ],
+            [
+              "`type=\"email\"`",
+              "The browser checks for an e-mail format"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.3.1",
+        "11.5.3.2",
+        "11.5.3.4"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Complete the fragment of HTML code for the Gender options of a registration form. [3]**\n```html\n<input type=\"radio\" name=\"gender\" value=\"male\"> Male\n<input type=\"radio\" name=\"gender\" value=\"female\"> Female\n```\n`<input` for each element (1), `type=\"radio\"` (1), the **same** `name` for each element (1).\n\n**Q: Write the attributes for the tag `<form>` to send data from the form using the GET method. [2]**\n`<form action=\"process.php\" method=\"GET\">` — `action` with a file name (1), `method=\"GET\"` (1).\n\n**Q: Write the code to create a text box for the user's city with a hint inside it. [2]**\n`<input type=\"text\" name=\"city\" placeholder=\"Enter your city\">` — `type=\"text\"` (1), `name` and `placeholder` (1).\n\n**Q: Give one argument for using HTML forms in web applications. [1]**\nTo **collect user input** / to get data for processing / to mimic paper or database forms."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting the **closing tag** (`</p>`, `</form>`, `</select>`) or nesting tags in the wrong order.\n- Giving radio buttons **different names** — then the user can select all of them.\n- Forgetting the **`name`** attribute — the data from that field is **not sent**.\n- Using `GET` for a password — it appears in the URL.\n- Putting visible content in the `<head>`.\n- Writing CSS without `:` and `;` (`color red` instead of `color: red;`)."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Write the skeleton of an HTML5 page from memory.",
+            "Name the semantic elements of a page layout and what each contains.",
+            "What is the difference between an element, a tag and an attribute?",
+            "Write the HTML for an image with alternative text and a link that opens another page.",
+            "What are the three ways of adding CSS, and which is best for a whole website?",
+            "Write a form with a text box, two radio buttons, a drop-down list and a submit button.",
+            "Compare the GET and POST methods."
+          ]
         }
       ]
     }
   ],
-  "questions": []
+  "questions": [
+    {
+      "key": "wpd-title-mcq",
+      "title": "The browser tab",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Which element sets the text shown on the browser tab?",
+      "options": [
+        {
+          "key": "A",
+          "content": "<h1>"
+        },
+        {
+          "key": "B",
+          "content": "<header>"
+        },
+        {
+          "key": "C",
+          "content": "<title>"
+        },
+        {
+          "key": "D",
+          "content": "<body>"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "<title> is placed in the <head>; it appears on the tab and in search results."
+      }
+    },
+    {
+      "key": "wpd-layout-match",
+      "title": "Layout elements",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Match each HTML element to the content it usually contains.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "<header>"
+          },
+          {
+            "key": "L2",
+            "text": "<nav>"
+          },
+          {
+            "key": "L3",
+            "text": "<main>"
+          },
+          {
+            "key": "L4",
+            "text": "<footer>"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Logo and site name"
+          },
+          {
+            "key": "R2",
+            "text": "Menu of links to the other pages"
+          },
+          {
+            "key": "R3",
+            "text": "The main content of the page"
+          },
+          {
+            "key": "R4",
+            "text": "Copyright and contact details"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "header–R1, nav–R2, main–R3, footer–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "wpd-fill-structure",
+      "title": "Page structure",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nInformation about the page, such as its title and links to CSS files, is placed in the [[1]] element. Everything the user sees is placed in the [[2]] element. The [[3]] attribute of an image gives text that is shown if the image cannot be loaded.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) head (2) body (3) alt",
+        "accepted": {
+          "blanks": [
+            [
+              "head",
+              "<head>"
+            ],
+            [
+              "body",
+              "<body>"
+            ],
+            [
+              "alt"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "wpd-head-tf",
+      "title": "Content of the head",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Paragraphs written inside the `<head>` element are displayed on the web page.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The head contains information about the page; visible content belongs in the body."
+      }
+    },
+    {
+      "key": "wpd-tag-table",
+      "title": "Which tag?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Complete the table with the HTML tag used for each purpose (write the tag name only, e.g. `p`).",
+      "content": {
+        "columns": [
+          "Purpose",
+          "Tag"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "A hyperlink to another page",
+            null
+          ],
+          [
+            "An image",
+            null
+          ],
+          [
+            "A numbered (ordered) list",
+            null
+          ],
+          [
+            "A row of a table",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "a (1); img (1); ol (1); tr (1)",
+        "points": [
+          {
+            "criterion": "a",
+            "marks": 1
+          },
+          {
+            "criterion": "img",
+            "marks": 1
+          },
+          {
+            "criterion": "ol",
+            "marks": 1
+          },
+          {
+            "criterion": "tr",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "a||<a>||<a href>"
+            ],
+            [
+              null,
+              "img||<img>"
+            ],
+            [
+              null,
+              "ol||<ol>"
+            ],
+            [
+              null,
+              "tr||<tr>"
+            ]
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "wpd-skeleton",
+      "title": "Write the page skeleton",
+      "type": "html_css",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.1"
+      ],
+      "practice": true,
+      "text": "Write the HTML code for a page whose browser tab shows **Science Week** and whose page shows the heading **Science Week 2026** and one paragraph of text.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- <!DOCTYPE html> and <html> … </html> (1)\n- <head> containing <title>Science Week</title> (1)\n- <body> … </body> (1)\n- <h1>Science Week 2026</h1> and a <p> … </p> inside the body (1)",
+        "points": [
+          {
+            "criterion": "DOCTYPE and html element",
+            "marks": 1
+          },
+          {
+            "criterion": "head with the correct title",
+            "marks": 1
+          },
+          {
+            "criterion": "body element",
+            "marks": 1
+          },
+          {
+            "criterion": "Heading and paragraph in the body",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Science Week</title>\n</head>\n<body>\n    <h1>Science Week 2026</h1>\n    <p>Join our experiments every day this week.</p>\n</body>\n</html>",
+        "ai_instructions": "Accept any heading level for the heading. Minor missing closing tags lose that point only."
+      }
+    },
+    {
+      "key": "wpd-image-link",
+      "title": "Image and link",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Write HTML code that displays the image `team.jpg` with the alternative text **Our robotics team**, followed by a link with the text **Contact us** that opens the page `contact.html`.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- <img src=\"team.jpg\" (1)\n- alt=\"Our robotics team\"> (1)\n- <a href=\"contact.html\">Contact us</a> (1)",
+        "points": [
+          {
+            "criterion": "img with src",
+            "marks": 1
+          },
+          {
+            "criterion": "alt text",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct link",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<img src=\"team.jpg\" alt=\"Our robotics team\">\n<a href=\"contact.html\">Contact us</a>"
+      }
+    },
+    {
+      "key": "wpd-table-code",
+      "title": "Create a table",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Write HTML code to create this table.\n\n| Subject | Room |\n|---|---|\n| Physics | 204 |\n| Chemistry | 112 |",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- <table> … </table> with three <tr> rows (1)\n- header cells <th>Subject</th><th>Room</th> (accept <td>) (1)\n- data cells <td> with the correct values in the correct rows (1)",
+        "points": [
+          {
+            "criterion": "table with three rows",
+            "marks": 1
+          },
+          {
+            "criterion": "Header row",
+            "marks": 1
+          },
+          {
+            "criterion": "Data rows correct",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<table>\n  <tr><th>Subject</th><th>Room</th></tr>\n  <tr><td>Physics</td><td>204</td></tr>\n  <tr><td>Chemistry</td><td>112</td></tr>\n</table>"
+      }
+    },
+    {
+      "key": "wpd-css-ways",
+      "title": "External style sheets",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "A website has 30 pages. Explain why the developer should use an **external** CSS file rather than inline styles.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): one file controls the style of every page; a change is made once and applies to all 30 pages; consistent design across the site; less code in each HTML page / faster loading because the CSS is cached; separates content from presentation",
+        "points": [
+          {
+            "criterion": "First valid reason",
+            "marks": 1
+          },
+          {
+            "criterion": "Second valid reason",
+            "marks": 1
+          }
+        ],
+        "model_answer": "All 30 pages link to the same style sheet, so a change to a colour or font is made once and applies to every page, which keeps the design consistent."
+      }
+    },
+    {
+      "key": "wpd-css-rule",
+      "title": "Write a CSS rule",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2"
+      ],
+      "practice": true,
+      "text": "Create a CSS rule that makes every level-1 heading **dark blue** and **centred**.",
+      "content": {
+        "language": "css",
+        "starter_code": "<head>\n   <style>\n\n   </style>\n</head>"
+      },
+      "scheme": {
+        "mark_scheme": "h1 (1)\n{ color: darkblue; (1)\ntext-align: center; } (1)\n\nAccept any dark-blue colour value (navy, #00008b …).",
+        "points": [
+          {
+            "criterion": "Selector h1",
+            "marks": 1
+          },
+          {
+            "criterion": "color property",
+            "marks": 1
+          },
+          {
+            "criterion": "text-align: center",
+            "marks": 1
+          }
+        ],
+        "model_answer": "h1 {\n    color: darkblue;\n    text-align: center;\n}",
+        "ai_instructions": "Accept braces on one line. Missing semicolon after the last declaration is acceptable."
+      }
+    },
+    {
+      "key": "wpd-one-choice-mr",
+      "title": "Choosing one option",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Select **two** form controls that let the user choose **only one** option.",
+      "options": [
+        {
+          "key": "A",
+          "content": "A group of radio buttons with the same name"
+        },
+        {
+          "key": "B",
+          "content": "A group of check boxes"
+        },
+        {
+          "key": "C",
+          "content": "A drop-down list created with <select>"
+        },
+        {
+          "key": "D",
+          "content": "A text area"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "wpd-radio-code",
+      "title": "Radio buttons",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "A registration form asks the user to choose their shift: **Morning** or **Afternoon**. Only one can be chosen. Write the HTML code for these options.",
+      "content": {
+        "language": "html",
+        "starter_code": "Shift:\n"
+      },
+      "scheme": {
+        "mark_scheme": "<input (for each element) (1)\ntype=\"radio\" (for each element) (1)\nname=\"any_name\" (the same name for each element) (1)\n\ne.g. <input type=\"radio\" name=\"shift\" value=\"morning\"> Morning\n<input type=\"radio\" name=\"shift\" value=\"afternoon\"> Afternoon",
+        "points": [
+          {
+            "criterion": "<input for each option",
+            "marks": 1
+          },
+          {
+            "criterion": "type=\"radio\" for each",
+            "marks": 1
+          },
+          {
+            "criterion": "Same name for both",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<input type=\"radio\" name=\"shift\" value=\"morning\"> Morning\n<input type=\"radio\" name=\"shift\" value=\"afternoon\"> Afternoon"
+      }
+    },
+    {
+      "key": "wpd-form-get",
+      "title": "Form attributes",
+      "type": "html_css",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Write the attributes for the tag `<form>` to send the data from the form to the file `search.php` using the **GET** method.",
+      "content": {
+        "language": "html",
+        "starter_code": "<form                                  >\n   …\n</form>"
+      },
+      "scheme": {
+        "mark_scheme": "action=\"search.php\" (1)\nmethod=\"GET\" (1)",
+        "points": [
+          {
+            "criterion": "action with the file name",
+            "marks": 1
+          },
+          {
+            "criterion": "method=\"GET\"",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<form action=\"search.php\" method=\"GET\">",
+        "ai_instructions": "Case of GET does not matter."
+      }
+    },
+    {
+      "key": "wpd-text-box",
+      "title": "Text box with a hint",
+      "type": "html_css",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Write the code to create a text box for the user's **city**, with the hint **Enter your city** shown inside the empty box.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Use <input type=\"text\"> (1)\nUse properties name and placeholder (1)",
+        "points": [
+          {
+            "criterion": "input type=\"text\"",
+            "marks": 1
+          },
+          {
+            "criterion": "name and placeholder attributes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<input type=\"text\" name=\"city\" placeholder=\"Enter your city\">"
+      }
+    },
+    {
+      "key": "wpd-get-post",
+      "title": "GET vs POST",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between the GET and POST methods of sending form data.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: GET adds the data to the URL vs POST sends it in the request body; GET data visible / bookmarkable vs POST not; GET unsuitable for passwords vs POST better for sensitive data; GET limited amount of data vs POST large amounts / files; GET for searches vs POST for registration / orders",
+        "points": [
+          {
+            "criterion": "First valid difference",
+            "marks": 1
+          },
+          {
+            "criterion": "Second valid difference",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 GET adds the form data to the URL, whereas POST sends it inside the request so it is not visible. 2 GET can only send a limited amount of data, whereas POST can send large amounts, such as files."
+      }
+    },
+    {
+      "key": "wpd-label-purpose",
+      "title": "The label element",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Explain why `<label for=\"email\">E-mail:</label>` should be used with `<input type=\"email\" id=\"email\">`.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): the label tells the user what to enter; for matches the id so the label is linked to the box; clicking the label selects / focuses the box; screen readers read the label — accessibility",
+        "points": [
+          {
+            "criterion": "Describes the field / linked via for and id",
+            "marks": 1
+          },
+          {
+            "criterion": "Clicking selects the box / accessibility",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The label tells the user what to type, and because its for attribute matches the input's id, clicking the label selects the box and screen readers can read it out."
+      }
+    },
+    {
+      "key": "wpd-control-tick",
+      "title": "Choose the control",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the most suitable form control.",
+      "content": {
+        "columns": [
+          "Data to collect",
+          "Radio buttons",
+          "Check boxes",
+          "Drop-down list",
+          "Text area"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Yes or No to receiving a newsletter",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "All the sports a student plays",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "The student's country from a list of 190 countries",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "A paragraph describing a problem",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Newsletter → Radio (1); Sports → Check boxes (1); Country → Drop-down (1); Problem description → Text area (1)",
+        "points": [
+          {
+            "criterion": "Radio",
+            "marks": 1
+          },
+          {
+            "criterion": "Check boxes",
+            "marks": 1
+          },
+          {
+            "criterion": "Drop-down",
+            "marks": 1
+          },
+          {
+            "criterion": "Text area",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "wpd-forms-argument",
+      "title": "Why use forms",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "Give **one** argument for using HTML forms in web applications.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Any one (1): to get data for processing; to collect user input; to mimic database / paper forms; to validate input before it is sent",
+        "points": [
+          {
+            "criterion": "Valid argument",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To collect input from the user so that it can be processed by the server."
+      }
+    },
+    {
+      "key": "wpd-find-errors",
+      "title": "Find the errors",
+      "type": "code_analysis",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.2",
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "The code below should show a form with two radio buttons (only one can be chosen) and a submit button. It contains **three** errors.\n\n```html\n<form action=\"vote.php\" method=\"post\">\n  <p>Your favourite subject:\n  <input type=\"radio\" name=\"subject\" value=\"cs\"> Computer Science\n  <input type=\"radio\" name=\"subj\" value=\"maths\"> Maths\n  <input type=\"sumbit\" value=\"Vote\">\n</from>\n```\n\nIdentify the three errors and write the correction for each.",
+      "content": {
+        "language": "html",
+        "answer_lines": 6
+      },
+      "scheme": {
+        "mark_scheme": "- Second radio button has a different name — must be name=\"subject\" (1)\n- type=\"sumbit\" should be type=\"submit\" (1)\n- </from> should be </form> (1)\n(The missing </p> is also acceptable as an error.)",
+        "points": [
+          {
+            "criterion": "Radio names must match",
+            "marks": 1
+          },
+          {
+            "criterion": "sumbit → submit",
+            "marks": 1
+          },
+          {
+            "criterion": "</from> → </form>",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 The second radio button must have name=\"subject\". 2 type=\"sumbit\" should be type=\"submit\". 3 </from> should be </form>.",
+        "ai_instructions": "Accept the missing </p> as one of the three errors."
+      }
+    },
+    {
+      "key": "wpd-structured-club",
+      "title": "A chess club web page",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A school chess club is creating a web page. It must have a heading, a navigation menu and a form for joining the club.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wpd-club-a",
+          "part_label": "(a)",
+          "title": "Navigation",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "practice": true,
+          "text": "Write HTML code for a navigation menu with links to `index.html` (Home), `results.html` (Results) and `join.html` (Join).",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- <nav> … </nav> (accept <ul>/<div>) (1)\n- three <a href=\"…\"> elements with the correct file names (1)\n- correct link texts and closing </a> tags (1)",
+            "points": [
+              {
+                "criterion": "nav container",
+                "marks": 1
+              },
+              {
+                "criterion": "Three links with correct href",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct link texts / closing tags",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<nav>\n  <a href=\"index.html\">Home</a>\n  <a href=\"results.html\">Results</a>\n  <a href=\"join.html\">Join</a>\n</nav>"
+          }
+        },
+        {
+          "key": "wpd-club-b",
+          "part_label": "(b)",
+          "title": "Grade drop-down",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "practice": true,
+          "text": "Write HTML code for a drop-down list named `grade` that lets the user choose **Grade 11** or **Grade 12**.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- <select name=\"grade\"> … </select> (1)\n- <option> for Grade 11 (1)\n- <option> for Grade 12 (1)",
+            "points": [
+              {
+                "criterion": "select with name grade",
+                "marks": 1
+              },
+              {
+                "criterion": "Option Grade 11",
+                "marks": 1
+              },
+              {
+                "criterion": "Option Grade 12",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<select name=\"grade\">\n  <option value=\"11\">Grade 11</option>\n  <option value=\"12\">Grade 12</option>\n</select>"
+          }
+        }
+      ]
+    },
+    {
+      "key": "wpd-extended-order",
+      "title": "Create an order form",
+      "type": "html_css",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.4"
+      ],
+      "practice": true,
+      "text": "A school café wants an online order form that is sent to `order.php` using the **POST** method. The form must collect:\n\n- the student's **name** (text, required),\n- the **meal**: Plov, Lagman or Salad (only one),\n- **extras**: Tea and/or Juice (any number),\n- a **submit** button labelled **Order**.\n\nWrite the HTML code for the form.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- <form action=\"order.php\" method=\"post\"> … </form> (1)\n- text input with a name and required (1)\n- three radio buttons with type=\"radio\" (1) and the same name (1)\n- two check boxes type=\"checkbox\" for Tea and Juice (1)\n- submit button with value / text Order (1)",
+        "points": [
+          {
+            "criterion": "form with action and POST",
+            "marks": 1
+          },
+          {
+            "criterion": "Required text input with name",
+            "marks": 1
+          },
+          {
+            "criterion": "Three radio buttons",
+            "marks": 1
+          },
+          {
+            "criterion": "Radio buttons share one name",
+            "marks": 1
+          },
+          {
+            "criterion": "Two check boxes",
+            "marks": 1
+          },
+          {
+            "criterion": "Submit button labelled Order",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<form action=\"order.php\" method=\"post\">\n  <label for=\"name\">Name:</label>\n  <input type=\"text\" id=\"name\" name=\"name\" required><br>\n  Meal:\n  <input type=\"radio\" name=\"meal\" value=\"plov\"> Plov\n  <input type=\"radio\" name=\"meal\" value=\"lagman\"> Lagman\n  <input type=\"radio\" name=\"meal\" value=\"salad\"> Salad<br>\n  Extras:\n  <input type=\"checkbox\" name=\"extra\" value=\"tea\"> Tea\n  <input type=\"checkbox\" name=\"extra\" value=\"juice\"> Juice<br>\n  <input type=\"submit\" value=\"Order\">\n</form>",
+        "ai_instructions": "Accept <button type=\"submit\">Order</button>. Ignore small typing slips that do not change the meaning."
+      }
+    },
+    {
+      "key": "wpd-exam-1",
+      "title": "The structure of a page",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Fig. 1 shows the layout of the home page of a city library.\n\n```text\n+------------------------------------------+\n|  A   Library logo and name               |\n+------------------------------------------+\n|  B   Home | Catalogue | Events | Contact |\n+------------------------------------------+\n|  C   News, opening hours, new books      |\n+------------------------------------------+\n|  D   (c) 2026 City Library, phone number |\n+------------------------------------------+\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wpd-exam-1a",
+          "part_label": "(a)",
+          "title": "Identify the elements",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the HTML5 semantic element that should be used for each block A–D (write the tag name only).",
+          "content": {
+            "columns": [
+              "Block",
+              "Element"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "A",
+                null
+              ],
+              [
+                "B",
+                null
+              ],
+              [
+                "C",
+                null
+              ],
+              [
+                "D",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "A header (1); B nav (1); C main (accept section / article) (1); D footer (1)",
+            "points": [
+              {
+                "criterion": "header",
+                "marks": 1
+              },
+              {
+                "criterion": "nav",
+                "marks": 1
+              },
+              {
+                "criterion": "main",
+                "marks": 1
+              },
+              {
+                "criterion": "footer",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "header||<header>"
+                ],
+                [
+                  null,
+                  "nav||<nav>"
+                ],
+                [
+                  null,
+                  "main||<main>||section||<section>||article||<article>"
+                ],
+                [
+                  null,
+                  "footer||<footer>"
+                ]
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "wpd-exam-1b",
+          "part_label": "(b)",
+          "title": "Head and body",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the purpose of the `<head>` and `<body>` elements of the page.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "<head>",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "<body>",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "<head> (1): information about the page — title, character set, links to CSS, meta data; not displayed\n<body> (1): contains all the visible content of the page",
+            "points": [
+              {
+                "criterion": "head: information about the page",
+                "marks": 1
+              },
+              {
+                "criterion": "body: visible content",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<head>: holds information about the page, such as its title and the link to the CSS file. <body>: holds all the content that is shown on the page."
+          }
+        },
+        {
+          "key": "wpd-exam-1c",
+          "part_label": "(c)",
+          "title": "Logo image",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the HTML code to show the logo image `logo.png` in block A, with suitable alternative text.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<img src=\"logo.png\" (1)\nalt=\"…\"> with suitable text (1)",
+            "points": [
+              {
+                "criterion": "img with src logo.png",
+                "marks": 1
+              },
+              {
+                "criterion": "Suitable alt text",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<img src=\"logo.png\" alt=\"City Library logo\">"
+          }
+        }
+      ]
+    },
+    {
+      "key": "wpd-exam-2",
+      "title": "A registration form",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Readers register for the library using a form. Fig. 2 describes the form:\n\n- **Full name:** a text box\n- **Membership:** Student / Adult — only one can be chosen\n- **Favourite genre:** a drop-down list with Fiction, History and Science\n- a **Register** button",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wpd-exam-2a",
+          "part_label": "(a)",
+          "title": "Complete the form",
+          "type": "html_css",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the HTML code for the form in Fig. 2.\n\n```html\n<form>\n  <label for=\"fullname\">Full name:</label>\n  ……………………………………………………<br>\n  Membership:\n  <input type=\"……………\" name=\"……………\" value=\"student\"> Student\n  <input type=\"……………\" name=\"……………\" value=\"adult\"> Adult<br>\n  <select name=\"genre\">\n     ……………………………………………………\n  </select><br>\n  ……………………………………………………\n</form>\n```",
+          "content": {
+            "language": "html",
+            "starter_code": "<form>\n  <label for=\"fullname\">Full name:</label>\n  ……………………………………………………<br>\n  Membership:\n  <input type=\"……………\" name=\"……………\" value=\"student\"> Student\n  <input type=\"……………\" name=\"……………\" value=\"adult\"> Adult<br>\n  <select name=\"genre\">\n     ……………………………………………………\n  </select><br>\n  ……………………………………………………\n</form>"
+          },
+          "scheme": {
+            "mark_scheme": "<input type=\"text\" id=\"fullname\" name=\"…\"> (1)\ntype=\"radio\" with the same name for both, e.g. name=\"membership\" (1)\n<option>Fiction</option><option>History</option><option>Science</option> (1)\n<input type=\"submit\" value=\"Register\"> / <button>Register</button> (1)",
+            "points": [
+              {
+                "criterion": "Text input",
+                "marks": 1
+              },
+              {
+                "criterion": "Radio type with the same name",
+                "marks": 1
+              },
+              {
+                "criterion": "Three options",
+                "marks": 1
+              },
+              {
+                "criterion": "Register button",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<input type=\"text\" id=\"fullname\" name=\"fullname\">\n<input type=\"radio\" name=\"membership\" value=\"student\"> Student\n<input type=\"radio\" name=\"membership\" value=\"adult\"> Adult\n<option>Fiction</option>\n<option>History</option>\n<option>Science</option>\n<input type=\"submit\" value=\"Register\">"
+          }
+        },
+        {
+          "key": "wpd-exam-2b",
+          "part_label": "(b)",
+          "title": "Form attributes",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the attributes for the `<form>` tag so that the data is sent to `register.php` using the POST method.",
+          "content": {
+            "language": "html",
+            "starter_code": "<form                                  >"
+          },
+          "scheme": {
+            "mark_scheme": "action=\"register.php\" (1)\nmethod=\"POST\" (1)",
+            "points": [
+              {
+                "criterion": "action",
+                "marks": 1
+              },
+              {
+                "criterion": "method POST",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<form action=\"register.php\" method=\"POST\">"
+          }
+        },
+        {
+          "key": "wpd-exam-2c",
+          "part_label": "(c)",
+          "title": "Why POST",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why POST is more suitable than GET for this form.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- POST sends the data in the body of the request, not in the URL (1)\n- personal data is not visible / not stored in browser history or logs / no length limit (1)",
+            "points": [
+              {
+                "criterion": "Data not in the URL",
+                "marks": 1
+              },
+              {
+                "criterion": "Personal data protected / history",
+                "marks": 1
+              }
+            ],
+            "model_answer": "POST sends the readers' personal details inside the request rather than in the URL, so they are not visible or saved in the browser history."
+          }
+        },
+        {
+          "key": "wpd-exam-2d",
+          "part_label": "(d)",
+          "title": "Argument for forms",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **one** argument for using HTML forms in web applications.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "To get data for processing (1) / to collect user input (1) / to mimic database / paper forms (1) [Max 1]",
+            "points": [
+              {
+                "criterion": "Valid argument",
+                "marks": 1
+              }
+            ],
+            "model_answer": "To collect user input for processing."
+          }
+        },
+        {
+          "key": "wpd-exam-2e",
+          "part_label": "(e)",
+          "title": "Required field",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the attribute that must be added to the full-name text box so that the form cannot be sent while it is empty.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "required (1)",
+            "points": [
+              {
+                "criterion": "required",
+                "marks": 1
+              }
+            ],
+            "model_answer": "required",
+            "accepted": {
+              "values": [
+                "required",
+                "required attribute",
+                "required=\"required\"",
+                "required=required"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "wpd-exam-3",
+      "title": "Styling the interface",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The library wants all its pages to look the same and to show a table of opening hours.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "wpd-exam-3a",
+          "part_label": "(a)",
+          "title": "CSS rules",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write CSS rules so that:\n\n- the whole page uses the font **Arial**,\n- the `header` has a **green** background,\n- links inside `nav` are **not underlined**.",
+          "content": {
+            "language": "css",
+            "starter_code": "<style>\n\n</style>"
+          },
+          "scheme": {
+            "mark_scheme": "body { font-family: Arial; } (1)\nheader { background-color: green; } (1)\nnav a { text-decoration: none; } (1)",
+            "points": [
+              {
+                "criterion": "body font-family Arial",
+                "marks": 1
+              },
+              {
+                "criterion": "header background-color green",
+                "marks": 1
+              },
+              {
+                "criterion": "nav a text-decoration none",
+                "marks": 1
+              }
+            ],
+            "model_answer": "body { font-family: Arial, sans-serif; }\nheader { background-color: green; }\nnav a { text-decoration: none; }",
+            "ai_instructions": "Accept 'background' for background-color and 'a' alone as the selector for the third rule."
+          }
+        },
+        {
+          "key": "wpd-exam-3b",
+          "part_label": "(b)",
+          "title": "Link the style sheet",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The rules are saved in the file `library.css`. Write the HTML code that links this file to a page, and state where in the page it is placed.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<link rel=\"stylesheet\" href=\"library.css\"> (1)\nplaced in the <head> (1)",
+            "points": [
+              {
+                "criterion": "Correct link element",
+                "marks": 1
+              },
+              {
+                "criterion": "In the head",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<link rel=\"stylesheet\" href=\"library.css\"> — placed inside the <head> element."
+          }
+        },
+        {
+          "key": "wpd-exam-3c",
+          "part_label": "(c)",
+          "title": "Why external CSS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why using one external style sheet helps the library keep all its pages looking the same.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Every page links to the same file, so the same rules apply to all pages (1)\n- a change is made once in the file and updates every page / consistent design (1)",
+            "points": [
+              {
+                "criterion": "Same file used by all pages",
+                "marks": 1
+              },
+              {
+                "criterion": "One change updates all pages",
+                "marks": 1
+              }
+            ],
+            "model_answer": "All pages use the same CSS file, so they share the same fonts and colours, and a change made once in the file updates every page."
+          }
+        },
+        {
+          "key": "wpd-exam-3d",
+          "part_label": "(d)",
+          "title": "Navigation menu",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the HTML code for block B in Fig. 1, linking **Home** to `index.html` and **Catalogue** to `catalogue.html` (two links are enough).",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<nav> … </nav> container (1)\n<a href=\"index.html\">Home</a> <a href=\"catalogue.html\">Catalogue</a> (1)",
+            "points": [
+              {
+                "criterion": "nav element",
+                "marks": 1
+              },
+              {
+                "criterion": "Two correct links",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<nav>\n  <a href=\"index.html\">Home</a>\n  <a href=\"catalogue.html\">Catalogue</a>\n</nav>"
+          }
+        },
+        {
+          "key": "wpd-exam-3e",
+          "part_label": "(e)",
+          "title": "Opening-hours table",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the HTML code for this table of opening hours.\n\n| Day | Hours |\n|---|---|\n| Monday–Friday | 9:00–19:00 |\n| Saturday | 10:00–16:00 |",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- <table> with three <tr> rows (1)\n- header cells Day / Hours (<th> or <td>) (1)\n- two data rows with the correct <td> values (1)",
+            "points": [
+              {
+                "criterion": "table with three rows",
+                "marks": 1
+              },
+              {
+                "criterion": "Header row",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct data rows",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<table>\n  <tr><th>Day</th><th>Hours</th></tr>\n  <tr><td>Monday–Friday</td><td>9:00–19:00</td></tr>\n  <tr><td>Saturday</td><td>10:00–16:00</td></tr>\n</table>"
+          }
+        }
+      ]
+    }
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Web page design — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write HTML and CSS code where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "wpd-exam-1",
+      "wpd-exam-2",
+      "wpd-exam-3"
+    ]
+  }
 }

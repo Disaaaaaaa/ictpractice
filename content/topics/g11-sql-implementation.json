@@ -1,8 +1,1221 @@
 {
   "topic": "g11-sql-implementation",
-  "questions": [],
-  "summary": "Implementing the SQL part of a project — inserting records from program code and extracting data from several related tables for the application.",
+  "questions": [
+    {
+      "key": "sqi-keys",
+      "title": "Keys of the shop tables",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "Customer (CustomerID, FullName, City)\n\nProduct (ProductCode, Name, Price, InStock)\n\nOrders (OrderID, CustomerID, OrderDate)\n\nOrderItem (OrderID, ProductCode, Quantity)\n\nComplete the table.",
+      "content": {
+        "columns": [
+          "Question",
+          "Answer"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Primary key of Orders",
+            null
+          ],
+          [
+            "Foreign key in Orders",
+            null
+          ],
+          [
+            "Table with a composite primary key",
+            null
+          ],
+          [
+            "Number of foreign keys in OrderItem",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "OrderID (1); CustomerID (1); OrderItem (1); 2 (1)",
+        "points": [
+          {
+            "criterion": "OrderID",
+            "marks": 1
+          },
+          {
+            "criterion": "CustomerID",
+            "marks": 1
+          },
+          {
+            "criterion": "OrderItem",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "OrderID"
+            ],
+            [
+              null,
+              "CustomerID"
+            ],
+            [
+              null,
+              "OrderItem"
+            ],
+            [
+              null,
+              "2||two"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sqi-insert-order",
+      "title": "Insert an order",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Write SQL statements that record order **104** for customer **3** on **2026-10-09**, containing **2** Notebooks (CD210).",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "INSERT INTO Orders (OrderID, CustomerID, OrderDate) VALUES (104, 3, '2026-10-09'); (1 table + fields, 1 values) INSERT INTO OrderItem (OrderID, ProductCode, Quantity) VALUES (104, 'CD210', 2); (1)",
+        "points": [
+          {
+            "criterion": "Orders insert",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct values / date in quotes",
+            "marks": 1
+          },
+          {
+            "criterion": "OrderItem insert",
+            "marks": 1
+          }
+        ],
+        "model_answer": "INSERT INTO Orders (OrderID, CustomerID, OrderDate) VALUES (104, 3, '2026-10-09');\nINSERT INTO OrderItem (OrderID, ProductCode, Quantity) VALUES (104, 'CD210', 2);"
+      }
+    },
+    {
+      "key": "sqi-order-first",
+      "title": "Order of inserts",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Explain why the row in **Orders** must be inserted before the rows in **OrderItem**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "OrderItem.OrderID is a foreign key referencing Orders (1); the referenced order must already exist or the insert is rejected (referential integrity) (1)",
+        "points": [
+          {
+            "criterion": "FK",
+            "marks": 1
+          },
+          {
+            "criterion": "Must exist",
+            "marks": 1
+          }
+        ],
+        "model_answer": "OrderID in OrderItem is a foreign key to Orders, so the order must exist first; otherwise the DBMS rejects the items."
+      }
+    },
+    {
+      "key": "sqi-insert-id",
+      "title": "New order ID",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "OrderID is an auto-increment field. Explain why the PHP script calls `mysqli_insert_id($conn)` after inserting the order.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "The ID is generated by the database, so the script does not know it (1); it is needed as the foreign key value when inserting the OrderItem rows (1)",
+        "points": [
+          {
+            "criterion": "Generated by DB",
+            "marks": 1
+          },
+          {
+            "criterion": "Used for items",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The database creates the new OrderID automatically; the script reads it with mysqli_insert_id() so it can insert the order items with that ID."
+      }
+    },
+    {
+      "key": "sqi-loop-insert",
+      "title": "Insert items in a loop",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "The form sends arrays `$_POST[\"product\"]` and `$_POST[\"qty\"]`. `$conn` is open and `$orderId` holds the new order number. Write PHP that inserts one OrderItem row for every product whose quantity is at least 1.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- reads both arrays (1)\n- loop through all positions (1)\n- skip quantities < 1 (1)\n- INSERT INTO OrderItem with the three fields (1)\n- executed for each item (prepared statement / mysqli_query) (1)",
+        "points": [
+          {
+            "criterion": "Read arrays",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Check qty",
+            "marks": 1
+          },
+          {
+            "criterion": "SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "Execute",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$products = $_POST[\"product\"];\n$qty = $_POST[\"qty\"];\n$stmt = mysqli_prepare($conn, \"INSERT INTO OrderItem (OrderID, ProductCode, Quantity) VALUES (?, ?, ?)\");\nfor ($i = 0; $i < count($products); $i++) {\n    $q = (int)$qty[$i];\n    if ($q < 1) continue;\n    mysqli_stmt_bind_param($stmt, \"isi\", $orderId, $products[$i], $q);\n    mysqli_stmt_execute($stmt);\n}\n?>\n```"
+      }
+    },
+    {
+      "key": "sqi-update-stock",
+      "title": "Update the stock",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Write an SQL statement that reduces the stock of product **AB102** by **3**.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "UPDATE Product SET InStock = InStock - 3 (1) WHERE ProductCode = 'AB102'; (1)",
+        "points": [
+          {
+            "criterion": "SET",
+            "marks": 1
+          },
+          {
+            "criterion": "WHERE",
+            "marks": 1
+          }
+        ],
+        "model_answer": "UPDATE Product SET InStock = InStock - 3 WHERE ProductCode = 'AB102';"
+      }
+    },
+    {
+      "key": "sqi-join-styles",
+      "title": "Join styles",
+      "type": "matching",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "Match each FROM clause to the way it joins the tables.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "FROM Customer, Orders WHERE Customer.CustomerID = Orders.CustomerID"
+          },
+          {
+            "key": "L2",
+            "text": "FROM Customer JOIN Orders ON Customer.CustomerID = Orders.CustomerID"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Join condition written in the WHERE clause"
+          },
+          {
+            "key": "R2",
+            "text": "INNER JOIN with an ON condition"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqi-two-tables",
+      "title": "Two-table query",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "Write an SQL query to display the full name of the customer and the date of every order, newest first.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "SELECT Customer.FullName, Orders.OrderDate (1) FROM Customer, Orders / JOIN (1) WHERE / ON Customer.CustomerID = Orders.CustomerID (1) ORDER BY OrderDate DESC (1)",
+        "points": [
+          {
+            "criterion": "SELECT",
+            "marks": 1
+          },
+          {
+            "criterion": "FROM both",
+            "marks": 1
+          },
+          {
+            "criterion": "Join condition",
+            "marks": 1
+          },
+          {
+            "criterion": "ORDER BY DESC",
+            "marks": 1
+          }
+        ],
+        "model_answer": "SELECT Customer.FullName, Orders.OrderDate\nFROM Customer JOIN Orders ON Customer.CustomerID = Orders.CustomerID\nORDER BY Orders.OrderDate DESC;"
+      }
+    },
+    {
+      "key": "sqi-result",
+      "title": "Query result",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "OrderItem rows for order 103 are (103, CD210, 2) and (103, AB102, 1). Product prices: AB102 = 850, CD210 = 1200.\n\n```sql\nSELECT Product.Name, OrderItem.Quantity, Product.Price * OrderItem.Quantity AS LineTotal\nFROM Product, OrderItem\nWHERE Product.ProductCode = OrderItem.ProductCode AND OrderItem.OrderID = 103;\n```\n\nComplete the line totals.",
+      "content": {
+        "columns": [
+          "Name",
+          "Quantity",
+          "LineTotal"
+        ],
+        "rows": 2,
+        "prefill": [
+          [
+            "Notebook",
+            "2",
+            null
+          ],
+          [
+            "Apple juice",
+            "1",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "2400 (1); 850 (1); order total 3250 implied (1 — both correct)",
+        "points": [
+          {
+            "criterion": "2400",
+            "marks": 1
+          },
+          {
+            "criterion": "850",
+            "marks": 1
+          },
+          {
+            "criterion": "Both",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "2400"
+            ],
+            [
+              null,
+              null,
+              "850"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sqi-conditions-mcq",
+      "title": "Join conditions",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "A query uses the tables Customer, Orders, OrderItem and Product. How many join conditions does it need?",
+      "options": [
+        {
+          "key": "A",
+          "content": "1"
+        },
+        {
+          "key": "B",
+          "content": "2"
+        },
+        {
+          "key": "C",
+          "content": "3"
+        },
+        {
+          "key": "D",
+          "content": "4"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Four tables → three PK = FK conditions."
+      }
+    },
+    {
+      "key": "sqi-three-tables",
+      "title": "Three-table query",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "Write an SQL query to display the names of all products bought by customer **1**, with the quantity, sorted by product name.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "SELECT Product.Name, OrderItem.Quantity (1); FROM Orders, OrderItem, Product with two join conditions (OrderID, ProductCode) (1); WHERE Orders.CustomerID = 1 (1); ORDER BY Product.Name (1)",
+        "points": [
+          {
+            "criterion": "SELECT",
+            "marks": 1
+          },
+          {
+            "criterion": "Joins",
+            "marks": 1
+          },
+          {
+            "criterion": "Customer filter",
+            "marks": 1
+          },
+          {
+            "criterion": "ORDER BY",
+            "marks": 1
+          }
+        ],
+        "model_answer": "SELECT p.Name, i.Quantity\nFROM Orders o\nJOIN OrderItem i ON i.OrderID = o.OrderID\nJOIN Product p ON p.ProductCode = i.ProductCode\nWHERE o.CustomerID = 1\nORDER BY p.Name;"
+      }
+    },
+    {
+      "key": "sqi-group",
+      "title": "Total sold",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "Write an SQL query that shows the name of each product and the **total quantity** sold, best seller first.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "SELECT Name, SUM(Quantity) (1); FROM Product JOIN OrderItem ON ProductCode (1); GROUP BY Name ORDER BY SUM DESC (1)",
+        "points": [
+          {
+            "criterion": "SUM",
+            "marks": 1
+          },
+          {
+            "criterion": "Join",
+            "marks": 1
+          },
+          {
+            "criterion": "GROUP BY + ORDER BY",
+            "marks": 1
+          }
+        ],
+        "model_answer": "SELECT p.Name, SUM(i.Quantity) AS Sold\nFROM Product p JOIN OrderItem i ON i.ProductCode = p.ProductCode\nGROUP BY p.Name\nORDER BY Sold DESC;"
+      }
+    },
+    {
+      "key": "sqi-missing-join",
+      "title": "Missing condition",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "A student writes `SELECT FullName, OrderDate FROM Customer, Orders;` and gets 9 rows instead of 3. Explain why and how to fix the query.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "No join condition, so every customer is combined with every order (3 × 3 = 9) (1); add WHERE Customer.CustomerID = Orders.CustomerID (1)",
+        "points": [
+          {
+            "criterion": "Every combination",
+            "marks": 1
+          },
+          {
+            "criterion": "Fix",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Without a join condition each of the 3 customers is paired with each of the 3 orders. Add WHERE Customer.CustomerID = Orders.CustomerID."
+      }
+    },
+    {
+      "key": "sqi-left-join",
+      "title": "Customers without orders",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "practice": true,
+      "text": "An INNER JOIN between Customer and Orders also lists customers who have never placed an order.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Only matching rows are shown; a LEFT JOIN keeps customers without orders."
+      }
+    },
+    {
+      "key": "sqi-display",
+      "title": "Display the report",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "`$conn` is open. Write PHP that runs a query listing each order's ID and date with the customer's name, and outputs the rows as an HTML table.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- SQL joining Orders and Customer (1)\n- mysqli_query (1)\n- while loop with mysqli_fetch_assoc (1)\n- table with one <tr> per row (1)",
+        "points": [
+          {
+            "criterion": "SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "Query",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "HTML output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$sql = \"SELECT o.OrderID, o.OrderDate, c.FullName FROM Orders o JOIN Customer c ON c.CustomerID = o.CustomerID\";\n$result = mysqli_query($conn, $sql);\necho \"<table><tr><th>Order</th><th>Date</th><th>Customer</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>{$row['OrderID']}</td><td>{$row['OrderDate']}</td><td>\" . htmlspecialchars($row['FullName']) . \"</td></tr>\";\n}\necho \"</table>\";\n?>\n```"
+      }
+    },
+    {
+      "key": "sqi-exam-1",
+      "title": "Saving orders",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school canteen orders system uses the tables **Pupil (PupilID, Name, Class)**, **Meal (MealID, MealName, Price)**, **Booking (BookingID, PupilID, BookingDate)** and **BookingItem (BookingID, MealID, Portions)**. BookingID is auto-increment.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sqi-exam-1a",
+          "part_label": "(a)",
+          "title": "Insert",
+          "type": "sql",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write an SQL statement that adds a booking for pupil **15** on **2026-11-02**.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "INSERT INTO Booking (PupilID, BookingDate) (1) VALUES (15, '2026-11-02'); (1)",
+            "points": [
+              {
+                "criterion": "INSERT INTO fields",
+                "marks": 1
+              },
+              {
+                "criterion": "VALUES",
+                "marks": 1
+              }
+            ],
+            "model_answer": "INSERT INTO Booking (PupilID, BookingDate) VALUES (15, '2026-11-02');"
+          }
+        },
+        {
+          "key": "sqi-exam-1b",
+          "part_label": "(b)",
+          "title": "Program code",
+          "type": "code_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A form sends **pupil** and arrays **meal[]** and **portions[]**. `$conn` is open. Write PHP that inserts the booking, gets the new BookingID and inserts one BookingItem row for every meal with at least 1 portion.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads pupil and both arrays (1)\n- inserts Booking with the pupil and today's date (1)\n- gets the new ID with mysqli_insert_id (1)\n- loop through the meals (1)\n- skips portions < 1 (1)\n- inserts BookingItem with BookingID, MealID, Portions (1)",
+            "points": [
+              {
+                "criterion": "Read",
+                "marks": 1
+              },
+              {
+                "criterion": "Booking insert",
+                "marks": 1
+              },
+              {
+                "criterion": "insert_id",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Check",
+                "marks": 1
+              },
+              {
+                "criterion": "Item insert",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$pupil = (int)$_POST[\"pupil\"];\n$meals = $_POST[\"meal\"];\n$portions = $_POST[\"portions\"];\nmysqli_query($conn, \"INSERT INTO Booking (PupilID, BookingDate) VALUES ($pupil, CURDATE())\");\n$id = mysqli_insert_id($conn);\nfor ($i = 0; $i < count($meals); $i++) {\n    $p = (int)$portions[$i];\n    if ($p < 1) continue;\n    $m = (int)$meals[$i];\n    mysqli_query($conn, \"INSERT INTO BookingItem (BookingID, MealID, Portions) VALUES ($id, $m, $p)\");\n}\n?>\n```"
+          }
+        },
+        {
+          "key": "sqi-exam-1c",
+          "part_label": "(c)",
+          "title": "Security",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why prepared statements should be used for these inserts.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Form data sent separately from SQL / placeholders (1); prevents SQL injection — typed code cannot change the query (1)",
+            "points": [
+              {
+                "criterion": "Separate",
+                "marks": 1
+              },
+              {
+                "criterion": "Injection",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The values are bound separately from the SQL, so anything a user types is treated as data and cannot change the query (SQL injection)."
+          }
+        }
+      ]
+    },
+    {
+      "key": "sqi-exam-2",
+      "title": "Reports",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The canteen manager needs reports from the tables Pupil, Meal, Booking and BookingItem.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sqi-exam-2a",
+          "part_label": "(a)",
+          "title": "Two tables",
+          "type": "sql",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a query to display the names of pupils who made a booking on **2026-11-02**.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "SELECT Pupil.Name FROM Pupil, Booking (1); WHERE Pupil.PupilID = Booking.PupilID (1); AND BookingDate = '2026-11-02' (1)",
+            "points": [
+              {
+                "criterion": "SELECT/FROM",
+                "marks": 1
+              },
+              {
+                "criterion": "Join",
+                "marks": 1
+              },
+              {
+                "criterion": "Date",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SELECT Pupil.Name\nFROM Pupil, Booking\nWHERE Pupil.PupilID = Booking.PupilID AND Booking.BookingDate = '2026-11-02';"
+          }
+        },
+        {
+          "key": "sqi-exam-2b",
+          "part_label": "(b)",
+          "title": "Three tables",
+          "type": "sql",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.8",
+            "11.4.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a query to display the meal names and portions in booking **57**, sorted by meal name.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "SELECT MealName, Portions (1); FROM Meal and BookingItem joined on MealID (1); WHERE BookingID = 57 (1); ORDER BY MealName (1)",
+            "points": [
+              {
+                "criterion": "SELECT",
+                "marks": 1
+              },
+              {
+                "criterion": "Join",
+                "marks": 1
+              },
+              {
+                "criterion": "WHERE",
+                "marks": 1
+              },
+              {
+                "criterion": "ORDER BY",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SELECT Meal.MealName, BookingItem.Portions\nFROM Meal JOIN BookingItem ON Meal.MealID = BookingItem.MealID\nWHERE BookingItem.BookingID = 57\nORDER BY Meal.MealName;"
+          }
+        },
+        {
+          "key": "sqi-exam-2c",
+          "part_label": "(c)",
+          "title": "Totals",
+          "type": "sql",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a query that shows each meal name and the total number of portions booked.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "SELECT MealName, SUM(Portions) (1); join Meal and BookingItem (1); GROUP BY MealName (1)",
+            "points": [
+              {
+                "criterion": "SUM",
+                "marks": 1
+              },
+              {
+                "criterion": "Join",
+                "marks": 1
+              },
+              {
+                "criterion": "GROUP BY",
+                "marks": 1
+              }
+            ],
+            "model_answer": "SELECT Meal.MealName, SUM(BookingItem.Portions)\nFROM Meal JOIN BookingItem ON Meal.MealID = BookingItem.MealID\nGROUP BY Meal.MealName;"
+          }
+        },
+        {
+          "key": "sqi-exam-2d",
+          "part_label": "(d)",
+          "title": "Join conditions",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A query joins all four tables. State how many join conditions it needs and explain why.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "3 (1); one PK = FK condition links each pair of related tables / n tables need n − 1 conditions (1)",
+            "points": [
+              {
+                "criterion": "3",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Three: each condition links two related tables by PK = FK, so four tables need three links."
+          }
+        }
+      ]
+    },
+    {
+      "key": "sqi-exam-3",
+      "title": "Results",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Meal: (1, Plov, 900), (2, Soup, 600), (3, Salad, 500).\n\nBookingItem: (57, 1, 2), (57, 3, 1), (58, 2, 3), (58, 1, 1).",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "sqi-exam-3a",
+          "part_label": "(a)",
+          "title": "Booking total",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the value returned for booking 57 by:\n\n```sql\nSELECT SUM(Meal.Price * BookingItem.Portions)\nFROM Meal JOIN BookingItem ON Meal.MealID = BookingItem.MealID\nWHERE BookingItem.BookingID = 57;\n```",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "2 × 900 + 1 × 500 (1) = 2300 (1)",
+            "points": [
+              {
+                "criterion": "Working",
+                "marks": 1
+              },
+              {
+                "criterion": "2300",
+                "marks": 1
+              }
+            ],
+            "model_answer": "2300",
+            "accepted": {
+              "values": [
+                "2300"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "sqi-exam-3b",
+          "part_label": "(b)",
+          "title": "Portions",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the output of `SELECT MealName, SUM(Portions) FROM Meal JOIN BookingItem ON Meal.MealID = BookingItem.MealID GROUP BY MealName;`",
+          "content": {
+            "columns": [
+              "MealName",
+              "SUM(Portions)"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Plov",
+                null
+              ],
+              [
+                "Salad",
+                null
+              ],
+              [
+                "Soup",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Plov 3 (1); Salad 1 (1); Soup 3 (1)",
+            "points": [
+              {
+                "criterion": "Plov",
+                "marks": 1
+              },
+              {
+                "criterion": "Salad",
+                "marks": 1
+              },
+              {
+                "criterion": "Soup",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "3"
+                ],
+                [
+                  null,
+                  "1"
+                ],
+                [
+                  null,
+                  "3"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "sqi-exam-3c",
+          "part_label": "(c)",
+          "title": "Fault",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The query `SELECT MealName, Portions FROM Meal, BookingItem;` returns 12 rows. Explain the fault, state the number of rows the corrected query returns and write the missing condition.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "No join condition → every meal combined with every item (3 × 4) (1); corrected query returns 4 rows (1); WHERE Meal.MealID = BookingItem.MealID (1)",
+            "points": [
+              {
+                "criterion": "Fault",
+                "marks": 1
+              },
+              {
+                "criterion": "4 rows",
+                "marks": 1
+              },
+              {
+                "criterion": "Condition",
+                "marks": 1
+              }
+            ],
+            "model_answer": "There is no join condition, so each of the 3 meals is paired with each of the 4 items (12 rows). Adding WHERE Meal.MealID = BookingItem.MealID gives the 4 real rows."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Implementing the SQL part of a project — the related tables of an online shop, inserting a new order and its items from program code (prepared statements, the new ID, loops, updating stock), and extracting data from several tables with joins in WHERE and INNER JOIN, aliases, three- and four-table queries, aggregate functions with GROUP BY, LEFT JOIN and displaying the results.",
   "theory": [
+    {
+      "title": "The project database",
+      "objectives": [
+        "11.5.4.7",
+        "11.5.4.8"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "The examples on this page use the database of a small **online shop**. It is normalised into four related tables: one order has **many** order items, and each item refers to one product."
+        },
+        {
+          "type": "comparison",
+          "title": "Customer",
+          "columns": [
+            "CustomerID (PK)",
+            "FullName",
+            "City"
+          ],
+          "rows": [
+            [
+              "1",
+              "Asel Nurlanova",
+              "Astana"
+            ],
+            [
+              "2",
+              "Bauyrzhan Seitov",
+              "Almaty"
+            ],
+            [
+              "3",
+              "Dana Kim",
+              "Astana"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Product",
+          "columns": [
+            "ProductCode (PK)",
+            "Name",
+            "Price",
+            "InStock"
+          ],
+          "rows": [
+            [
+              "AB102",
+              "Apple juice",
+              "850",
+              "40"
+            ],
+            [
+              "CD210",
+              "Notebook",
+              "1200",
+              "25"
+            ],
+            [
+              "EF305",
+              "Pen",
+              "300",
+              "100"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Orders and OrderItem",
+          "columns": [
+            "Orders: OrderID (PK)",
+            "CustomerID (FK)",
+            "OrderDate"
+          ],
+          "rows": [
+            [
+              "101",
+              "1",
+              "2026-10-02"
+            ],
+            [
+              "102",
+              "2",
+              "2026-10-05"
+            ],
+            [
+              "103",
+              "1",
+              "2026-10-07"
+            ],
+            [
+              "OrderItem: OrderID (PK, FK)",
+              "ProductCode (PK, FK)",
+              "Quantity"
+            ],
+            [
+              "101",
+              "AB102",
+              "3"
+            ],
+            [
+              "101",
+              "EF305",
+              "2"
+            ],
+            [
+              "102",
+              "CD210",
+              "1"
+            ],
+            [
+              "103",
+              "CD210",
+              "2"
+            ],
+            [
+              "103",
+              "AB102",
+              "1"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  CUSTOMER 1 ───< ORDERS 1 ───< ORDERITEM >─── 1 PRODUCT\n  (CustomerID)     (OrderID)     (OrderID, ProductCode)   (ProductCode)",
+          "caption": "Relationships"
+        }
+      ]
+    },
     {
       "title": "Adding data from program code",
       "objectives": [
@@ -10,31 +1223,71 @@
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "Saving an order from the shop's web page takes **several** SQL statements: one row in **Orders**, then **one row per product** in **OrderItem**, and an update of the **stock**."
+        },
+        {
           "type": "code",
           "language": "php",
-          "content": "<?php\ninclude \"db.php\";                                   // $conn = mysqli_connect(...)\n\n$customerId = (int)$_POST[\"customer\"];\n$products   = $_POST[\"product\"];                    // e.g. [\"AB102\", \"CD210\"]\n$quantities = $_POST[\"qty\"];                        // e.g. [3, 1]\n$orderId    = time();                               // simple unique number for the example\n\n$stmt = mysqli_prepare($conn,\n    \"INSERT INTO OrderItem (OrderID, ProductCode, CustomerID, Quantity, OrderDate)\n     VALUES (?, ?, ?, ?, CURDATE())\");\n\nfor ($i = 0; $i < count($products); $i++) {\n    $q = (int)$quantities[$i];\n    if ($q < 1) continue;                           // skip empty rows\n    mysqli_stmt_bind_param($stmt, \"isii\", $orderId, $products[$i], $customerId, $q);\n    mysqli_stmt_execute($stmt);\n}\necho \"Order $orderId saved.\";\n?>",
-          "caption": "Saving an order: one customer, several products"
+          "content": "<?php\ninclude \"db.php\";                                   // $conn = mysqli_connect(...)\n\n$customerId = (int)$_POST[\"customer\"];\n$products   = $_POST[\"product\"] ?? [];              // e.g. [\"AB102\", \"CD210\"]\n$quantities = $_POST[\"qty\"] ?? [];                  // e.g. [3, 1]\n\n// 1 the order header\n$stmt = mysqli_prepare($conn, \"INSERT INTO Orders (CustomerID, OrderDate) VALUES (?, CURDATE())\");\nmysqli_stmt_bind_param($stmt, \"i\", $customerId);\nmysqli_stmt_execute($stmt);\n$orderId = mysqli_insert_id($conn);                 // the new auto-increment OrderID\n\n// 2 one row per product, 3 reduce the stock\n$item  = mysqli_prepare($conn, \"INSERT INTO OrderItem (OrderID, ProductCode, Quantity) VALUES (?, ?, ?)\");\n$stock = mysqli_prepare($conn, \"UPDATE Product SET InStock = InStock - ? WHERE ProductCode = ?\");\nfor ($i = 0; $i < count($products); $i++) {\n    $q = (int)$quantities[$i];\n    if ($q < 1) continue;                           // skip empty rows of the form\n    mysqli_stmt_bind_param($item, \"isi\", $orderId, $products[$i], $q);\n    mysqli_stmt_execute($item);\n    mysqli_stmt_bind_param($stock, \"is\", $q, $products[$i]);\n    mysqli_stmt_execute($stock);\n}\necho \"Order $orderId saved.\";\n?>",
+          "caption": "save_order.php — one order, several items"
+        },
+        {
+          "type": "steps",
+          "title": "What the code does",
+          "items": [
+            "**Reads** the customer and the arrays of products and quantities from the form.",
+            "**Inserts** the order header and gets the new **OrderID** with `mysqli_insert_id()`.",
+            "**Loops** through the products, inserting one **OrderItem** row for each non-empty quantity.",
+            "**Updates** the stock of each product with `UPDATE … SET InStock = InStock - ?`.",
+            "Uses **prepared statements** throughout, so form data cannot change the SQL (no SQL injection)."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "SQL statements used by the application",
+          "columns": [
+            "Task",
+            "Statement"
+          ],
+          "rows": [
+            [
+              "Add a customer",
+              "`INSERT INTO Customer (FullName, City) VALUES ('Dana Kim', 'Astana');`"
+            ],
+            [
+              "Add several rows",
+              "`INSERT INTO OrderItem VALUES (104, 'AB102', 2), (104, 'EF305', 5);`"
+            ],
+            [
+              "Change a price",
+              "`UPDATE Product SET Price = 900 WHERE ProductCode = 'AB102';`"
+            ],
+            [
+              "Remove an item",
+              "`DELETE FROM OrderItem WHERE OrderID = 104 AND ProductCode = 'EF305';`"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Transactions",
+          "content": "An order should be saved **completely or not at all**. With `mysqli_begin_transaction($conn)` … `mysqli_commit($conn)` the DBMS keeps all the statements together; if one fails, `mysqli_rollback($conn)` undoes the others."
         }
       ]
     },
     {
-      "title": "Extracting data from several tables",
+      "title": "Joining tables",
       "objectives": [
         "11.5.4.8",
         "11.4.2.4"
       ],
       "blocks": [
         {
-          "type": "code",
-          "language": "sql",
-          "content": "SELECT c.FullName, p.Name AS Product, o.Quantity,\n       p.Price * o.Quantity AS LineTotal, o.OrderDate\nFROM OrderItem o\nJOIN Customer c ON c.CustomerID = o.CustomerID\nJOIN Product  p ON p.ProductCode = o.ProductCode\nWHERE o.OrderDate >= '2026-10-01'\nORDER BY o.OrderDate DESC, c.FullName;",
-          "caption": "Report: what each customer ordered, newest first"
-        },
-        {
-          "type": "code",
-          "language": "php",
-          "content": "<?php\n$sql = \"SELECT c.FullName, SUM(p.Price * o.Quantity) AS Spent\n        FROM OrderItem o\n        JOIN Customer c ON c.CustomerID = o.CustomerID\n        JOIN Product  p ON p.ProductCode = o.ProductCode\n        GROUP BY c.FullName\n        ORDER BY Spent DESC\";\n$result = mysqli_query($conn, $sql);\necho \"<table><tr><th>Customer</th><th>Total spent</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>\" . htmlspecialchars($row[\"FullName\"]) . \"</td><td>{$row['Spent']} ₸</td></tr>\";\n}\necho \"</table>\";\n?>",
-          "caption": "Displaying the report"
+          "type": "definition",
+          "term": "Join",
+          "content": "Combining rows from **two or more tables** in one query, by matching a **foreign key** in one table with the **primary key** in another."
         },
         {
           "type": "comparison",
@@ -45,20 +1298,156 @@
           ],
           "rows": [
             [
-              "`FROM A, B WHERE A.id = B.a_id`",
-              "`FROM A JOIN B ON A.id = B.a_id`"
+              "`FROM Customer, Orders WHERE Customer.CustomerID = Orders.CustomerID`",
+              "`FROM Customer JOIN Orders ON Customer.CustomerID = Orders.CustomerID`"
             ],
             [
-              "Older style, accepted in exams",
-              "Clearer — join conditions separate from filters"
+              "Older style — accepted in exams",
+              "Clearer — join conditions are separate from the filters in WHERE"
             ]
           ]
         },
         {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT Customer.FullName, Orders.OrderDate\nFROM Customer, Orders\nWHERE Customer.CustomerID = Orders.CustomerID      -- join condition\n  AND Customer.City = 'Astana'                     -- filter\nORDER BY Orders.OrderDate;",
+          "caption": "Two tables: dates of orders by customers from Astana"
+        },
+        {
+          "type": "example",
+          "title": "Result",
+          "content": "| FullName | OrderDate |\n|---|---|\n| Asel Nurlanova | 2026-10-02 |\n| Asel Nurlanova | 2026-10-07 |\n\nDana Kim lives in Astana but has **no** orders, so she does not appear."
+        },
+        {
           "type": "exam_tip",
-          "content": "Every extra table in a query needs **one more join condition**. Three tables → two conditions (PK = FK each)."
+          "content": "`Customer.CustomerID` means \"the CustomerID field **of the Customer table**\" — needed when two tables have a field with the same name. **Aliases** make long queries shorter: `FROM Customer c JOIN Orders o ON c.CustomerID = o.CustomerID`."
+        },
+        {
+          "type": "exam_tip",
+          "content": "Every extra table needs **one more** join condition: **2** tables → 1 condition, **3** tables → 2, **4** tables → 3 (each one PK = FK)."
+        }
+      ]
+    },
+    {
+      "title": "Queries for the application",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT p.Name, i.Quantity, o.OrderDate\nFROM Orders o\nJOIN OrderItem i ON i.OrderID = o.OrderID\nJOIN Product  p ON p.ProductCode = i.ProductCode\nWHERE o.CustomerID = 1\nORDER BY o.OrderDate;",
+          "caption": "Three tables: everything customer 1 has bought"
+        },
+        {
+          "type": "example",
+          "title": "Result",
+          "content": "| Name | Quantity | OrderDate |\n|---|---|---|\n| Apple juice | 3 | 2026-10-02 |\n| Pen | 2 | 2026-10-02 |\n| Notebook | 2 | 2026-10-07 |\n| Apple juice | 1 | 2026-10-07 |"
+        },
+        {
+          "type": "comparison",
+          "title": "Aggregate functions",
+          "columns": [
+            "Function",
+            "Returns",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`COUNT(*)`",
+              "Number of rows",
+              "number of orders"
+            ],
+            [
+              "`SUM(field)`",
+              "Total",
+              "total quantity sold"
+            ],
+            [
+              "`AVG(field)`",
+              "Average",
+              "average price"
+            ],
+            [
+              "`MAX(field)` / `MIN(field)`",
+              "Largest / smallest",
+              "most expensive product"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "-- value of each order\nSELECT o.OrderID, SUM(p.Price * i.Quantity) AS OrderTotal\nFROM Orders o\nJOIN OrderItem i ON i.OrderID = o.OrderID\nJOIN Product  p ON p.ProductCode = i.ProductCode\nGROUP BY o.OrderID;\n\n-- quantity sold of each product, best seller first\nSELECT p.Name, SUM(i.Quantity) AS Sold\nFROM Product p JOIN OrderItem i ON i.ProductCode = p.ProductCode\nGROUP BY p.Name\nORDER BY Sold DESC;",
+          "caption": "Totals with GROUP BY"
+        },
+        {
+          "type": "example",
+          "title": "Results",
+          "content": "| OrderID | OrderTotal |\n|---|---|\n| 101 | 3150 (3 × 850 + 2 × 300) |\n| 102 | 1200 |\n| 103 | 3250 (2 × 1200 + 850) |\n\n| Name | Sold |\n|---|---|\n| Apple juice | 4 |\n| Notebook | 3 |\n| Pen | 2 |"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT c.FullName, SUM(p.Price * i.Quantity) AS Spent\nFROM Customer c\nJOIN Orders    o ON o.CustomerID = c.CustomerID\nJOIN OrderItem i ON i.OrderID = o.OrderID\nJOIN Product   p ON p.ProductCode = i.ProductCode\nGROUP BY c.FullName\nORDER BY Spent DESC;\n-- Asel Nurlanova 6400, Bauyrzhan Seitov 1200",
+          "caption": "Four tables: how much each customer has spent"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "LEFT JOIN",
+          "content": "An inner join shows only rows that have a match. `LEFT JOIN` keeps **every** row of the left table: `SELECT c.FullName, COUNT(o.OrderID) FROM Customer c LEFT JOIN Orders o ON o.CustomerID = c.CustomerID GROUP BY c.FullName;` also lists **Dana Kim — 0** orders."
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$sql = \"SELECT c.FullName, SUM(p.Price * i.Quantity) AS Spent\n        FROM Customer c\n        JOIN Orders o    ON o.CustomerID = c.CustomerID\n        JOIN OrderItem i ON i.OrderID = o.OrderID\n        JOIN Product p   ON p.ProductCode = i.ProductCode\n        GROUP BY c.FullName ORDER BY Spent DESC\";\n$result = mysqli_query($conn, $sql);\necho \"<table><tr><th>Customer</th><th>Total spent</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>\" . htmlspecialchars($row[\"FullName\"]) . \"</td><td>\" . $row[\"Spent\"] . \" ₸</td></tr>\";\n}\necho \"</table>\";\n?>",
+          "caption": "Displaying a multi-table report in the application"
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.4.7",
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write a query to display the names of the products in order 102. [3]**\n`SELECT Product.Name FROM Product, OrderItem` (1) `WHERE Product.ProductCode = OrderItem.ProductCode` (1) `AND OrderItem.OrderID = 102;` (1).\n\n**Q: Explain why mysqli_insert_id() is used when saving an order. [2]**\nThe OrderID is created **automatically** by the database (auto-increment) (1); the program needs it to insert the **OrderItem** rows that refer to this order (1).\n\n**Q: Write a query that shows the total quantity sold of each product. [3]**\n`SELECT Name, SUM(Quantity)` (1) `FROM Product JOIN OrderItem ON Product.ProductCode = OrderItem.ProductCode` (1) `GROUP BY Name;` (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting the **join condition** — every row is combined with every other row (a huge, wrong result).\n- Writing `CustomerID` alone when two tables have it — use `Customer.CustomerID`.\n- Using an aggregate without **GROUP BY** for the other selected fields.\n- Inserting the OrderItem rows **before** the order exists — the foreign key rejects them."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Draw the relationships of the shop tables and mark PKs and FKs.",
+            "Write the PHP that saves an order with two items.",
+            "Write a two-table query in both join styles.",
+            "Write a three-table query listing what one customer bought.",
+            "Calculate the value of order 101 from the tables.",
+            "What does LEFT JOIN add that INNER JOIN does not?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "SQL implementation — Exam",
+    "instructions": "Answer **all** questions. The tables Customer, Product, Orders and OrderItem from the shop database are used throughout. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "sqi-exam-1",
+      "sqi-exam-2",
+      "sqi-exam-3"
+    ]
+  }
 }

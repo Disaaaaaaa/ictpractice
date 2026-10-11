@@ -1,19 +1,1406 @@
 {
   "topic": "g11-text-representation",
-  "questions": [],
-  "summary": "How characters are stored using character sets, the differences between ASCII and Unicode, and calculating the storage needed for text.",
+  "questions": [
+    {
+      "key": "txt-charset-define",
+      "title": "Character set",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Define the term **character set**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- A defined list of characters a computer can recognise / represent (1)\n- each with a unique binary code (1)",
+        "points": [
+          {
+            "criterion": "List of characters",
+            "marks": 1
+          },
+          {
+            "criterion": "Unique binary codes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A list of all the characters a computer can use, with a unique binary code for each one."
+      }
+    },
+    {
+      "key": "txt-ascii-facts",
+      "title": "ASCII facts",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nStandard ASCII uses [[1]] bits per character and can represent [[2]] characters. Extended ASCII uses 8 bits and can represent [[3]] characters.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 7 (2) 128 (3) 256",
+        "accepted": {
+          "blanks": [
+            [
+              "7",
+              "seven"
+            ],
+            [
+              "128"
+            ],
+            [
+              "256"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "txt-codes-table",
+      "title": "ASCII codes",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "The ASCII code of **A** is 65 and of **a** is 97. Complete the table.",
+      "content": {
+        "columns": [
+          "Character",
+          "Denary ASCII code"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "B",
+            null
+          ],
+          [
+            "d",
+            null
+          ],
+          [
+            "m",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "B 66 (1); d 100 (1); m 109 (1)",
+        "points": [
+          {
+            "criterion": "66",
+            "marks": 1
+          },
+          {
+            "criterion": "100",
+            "marks": 1
+          },
+          {
+            "criterion": "109",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "66"
+            ],
+            [
+              null,
+              "100"
+            ],
+            [
+              null,
+              "109"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "txt-digit-char-tf",
+      "title": "The character 7",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "In ASCII, the character \"7\" is stored as the binary number 0000111 (denary 7).",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Digit characters have codes 48–57, so \"7\" is stored as 55."
+      }
+    },
+    {
+      "key": "txt-compare",
+      "title": "Compare ASCII and Unicode",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between ASCII and Unicode.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: 7/8 bits vs 16/up to 32 bits; 128/256 vs over a million characters; English only vs all languages / emoji; less vs more storage per character",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 ASCII uses 7 bits per character, whereas Unicode uses 16 bits (or up to 32). 2 ASCII represents only English characters, whereas Unicode represents characters of all languages."
+      }
+    },
+    {
+      "key": "txt-tick",
+      "title": "ASCII or Unicode",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each statement applies to ASCII or Unicode.",
+      "content": {
+        "columns": [
+          "Statement",
+          "ASCII",
+          "Unicode"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Can represent Kazakh letters such as Ә and Қ",
+            null,
+            null
+          ],
+          [
+            "Uses less storage for each character",
+            null,
+            null
+          ],
+          [
+            "Includes emoji",
+            null,
+            null
+          ],
+          [
+            "Has only 128 characters",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Unicode (1); 2 ASCII (1); 3 Unicode (1); 4 ASCII (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "txt-why-unicode",
+      "title": "Why Unicode",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Explain why a website published in Kazakh, Russian and English uses Unicode rather than ASCII.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- ASCII cannot represent Cyrillic / Kazakh letters (only 128 / English characters) (1)\n- Unicode has a unique code for characters of all languages, so all three display correctly on any device (1)",
+        "points": [
+          {
+            "criterion": "ASCII limitation",
+            "marks": 1
+          },
+          {
+            "criterion": "Unicode covers all",
+            "marks": 1
+          }
+        ],
+        "model_answer": "ASCII only has English letters, so Kazakh and Russian characters could not be shown; Unicode gives every character of every language its own code, so all three languages appear correctly."
+      }
+    },
+    {
+      "key": "txt-unicode-disadv",
+      "title": "Unicode disadvantage",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "State **one** disadvantage of Unicode compared with ASCII.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Needs more storage / bits per character; more bandwidth; more complex processing (1)",
+        "points": [
+          {
+            "criterion": "Valid",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It needs more storage for each character."
+      }
+    },
+    {
+      "key": "txt-encodings-match",
+      "title": "Unicode encodings",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "practice": true,
+      "text": "Match each Unicode encoding to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "UTF-8"
+          },
+          {
+            "key": "L2",
+            "text": "UTF-16"
+          },
+          {
+            "key": "L3",
+            "text": "UTF-32"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "1 to 4 bytes; English letters use 1 byte"
+          },
+          {
+            "key": "R2",
+            "text": "2 bytes for most characters"
+          },
+          {
+            "key": "R3",
+            "text": "Always 4 bytes per character"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "UTF-8–R1, UTF-16–R2, UTF-32–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "txt-bytes-ascii",
+      "title": "Bytes in ASCII",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "Calculate the number of bytes needed to store **Hello, World!** in ASCII (1 byte per character).",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "13 characters including comma, space and ! (1) × 1 = 13 bytes (1)",
+        "points": [
+          {
+            "criterion": "13 characters",
+            "marks": 1
+          },
+          {
+            "criterion": "13 bytes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "13",
+        "accepted": {
+          "values": [
+            "13"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "txt-bytes-unicode",
+      "title": "Bytes in Unicode",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "Calculate the number of bytes needed to store **Computer Science** in 16-bit Unicode.",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "16 characters (1) × 2 = 32 bytes (1)",
+        "points": [
+          {
+            "criterion": "16 characters",
+            "marks": 1
+          },
+          {
+            "criterion": "32",
+            "marks": 1
+          }
+        ],
+        "model_answer": "32",
+        "accepted": {
+          "values": [
+            "32"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "txt-bits",
+      "title": "Bits",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "Calculate the number of **bits** needed to store **Binary 101** in ASCII (8 bits per character).",
+      "content": {
+        "unit": "bits"
+      },
+      "scheme": {
+        "mark_scheme": "10 characters (1) × 8 = 80 bits (1)",
+        "points": [
+          {
+            "criterion": "10 characters",
+            "marks": 1
+          },
+          {
+            "criterion": "80",
+            "marks": 1
+          }
+        ],
+        "model_answer": "80",
+        "accepted": {
+          "values": [
+            "80"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "txt-document",
+      "title": "A document",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "An essay has **500 words** with an average of **6 characters per word** (including the space). Calculate the storage needed in **KB** using 16-bit Unicode. Give your answer to 2 decimal places.",
+      "content": {
+        "unit": "KB"
+      },
+      "scheme": {
+        "mark_scheme": "500 × 6 = 3000 characters (1); × 2 = 6000 bytes (1); ÷ 1024 = 5.86 KB (1). Accept 6 KB with 1000.",
+        "points": [
+          {
+            "criterion": "Characters",
+            "marks": 1
+          },
+          {
+            "criterion": "Bytes",
+            "marks": 1
+          },
+          {
+            "criterion": "KB",
+            "marks": 1
+          }
+        ],
+        "model_answer": "5.86",
+        "accepted": {
+          "values": [
+            "5.86",
+            "6"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        }
+      }
+    },
+    {
+      "key": "txt-count-mcq",
+      "title": "Counting characters",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "How many bytes are needed to store **Room 204** in ASCII?",
+      "options": [
+        {
+          "key": "A",
+          "content": "7"
+        },
+        {
+          "key": "B",
+          "content": "8"
+        },
+        {
+          "key": "C",
+          "content": "16"
+        },
+        {
+          "key": "D",
+          "content": "64"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "R o o m space 2 0 4 = 8 characters × 1 byte."
+      }
+    },
+    {
+      "key": "txt-utf8-kazakh",
+      "title": "UTF-8 Kazakh text",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.7",
+        "11.1.1.8"
+      ],
+      "practice": true,
+      "text": "Explain why the text \"Сәлем\" needs **more** bytes in UTF-8 than the English word \"Hello\", although both have 5 characters.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- UTF-8 uses 1 byte for ASCII / English letters (5 bytes) (1)\n- Cyrillic / Kazakh letters need 2 bytes each in UTF-8 (10 bytes) (1)",
+        "points": [
+          {
+            "criterion": "English 1 byte",
+            "marks": 1
+          },
+          {
+            "criterion": "Cyrillic 2 bytes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "UTF-8 stores English letters in 1 byte each (5 bytes), but Cyrillic letters need 2 bytes each, so \"Сәлем\" takes 10 bytes."
+      }
+    },
+    {
+      "key": "txt-structured-sms",
+      "title": "Text messages",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A messaging app stores messages in 16-bit Unicode.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "txt-sms-a",
+          "part_label": "(a)",
+          "title": "Bytes",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "practice": true,
+          "text": "Calculate the number of bytes needed for the message **Exam on Monday!**",
+          "content": {
+            "unit": "bytes"
+          },
+          "scheme": {
+            "mark_scheme": "15 characters (1) × 2 = 30 bytes (1)",
+            "points": [
+              {
+                "criterion": "15",
+                "marks": 1
+              },
+              {
+                "criterion": "30",
+                "marks": 1
+              }
+            ],
+            "model_answer": "30",
+            "accepted": {
+              "values": [
+                "30"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "txt-sms-b",
+          "part_label": "(b)",
+          "title": "Why Unicode",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "practice": true,
+          "text": "Explain why the app uses Unicode rather than ASCII.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Users write in many languages / emoji (1); ASCII has only English characters, Unicode represents all (1)",
+            "points": [
+              {
+                "criterion": "Many languages / emoji",
+                "marks": 1
+              },
+              {
+                "criterion": "ASCII limitation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Users send messages in Kazakh, Russian and with emoji, which ASCII cannot represent, but Unicode can."
+          }
+        },
+        {
+          "key": "txt-sms-c",
+          "part_label": "(c)",
+          "title": "ASCII size",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "practice": true,
+          "text": "How many bytes would the same message need in ASCII?",
+          "content": {
+            "unit": "bytes"
+          },
+          "scheme": {
+            "mark_scheme": "15 (1)",
+            "points": [
+              {
+                "criterion": "15",
+                "marks": 1
+              }
+            ],
+            "model_answer": "15",
+            "accepted": {
+              "values": [
+                "15"
+              ],
+              "numeric": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "txt-exam-1",
+      "title": "Character sets",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Computers store text using character sets such as ASCII and Unicode.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "txt-exam-1a",
+          "part_label": "(a)",
+          "title": "Define",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define the term character set.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "List of characters a computer recognises (1) each with a unique binary code (1)",
+            "points": [
+              {
+                "criterion": "List",
+                "marks": 1
+              },
+              {
+                "criterion": "Codes",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A list of characters that a computer can represent, each with a unique binary code."
+          }
+        },
+        {
+          "key": "txt-exam-1b",
+          "part_label": "(b)",
+          "title": "Compare",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare Unicode and ASCII.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), both sides: bits; number of characters; languages; storage",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "ASCII uses 7 bits and only 128 English characters, whereas Unicode uses up to 32 bits and covers all languages; therefore ASCII needs less storage per character."
+          }
+        },
+        {
+          "key": "txt-exam-1c",
+          "part_label": "(c)",
+          "title": "Codes",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The ASCII code of **A** is 65 and of **a** is 97. Complete the table.",
+          "content": {
+            "columns": [
+              "Character",
+              "Denary code"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "C",
+                null
+              ],
+              [
+                "Z",
+                null
+              ],
+              [
+                "b",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "C 67 (1); Z 90 (1); b 98 (1)",
+            "points": [
+              {
+                "criterion": "67",
+                "marks": 1
+              },
+              {
+                "criterion": "90",
+                "marks": 1
+              },
+              {
+                "criterion": "98",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "67"
+                ],
+                [
+                  null,
+                  "90"
+                ],
+                [
+                  null,
+                  "98"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "txt-exam-1d",
+          "part_label": "(d)",
+          "title": "Disadvantage",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** disadvantage of Unicode.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "More storage / bandwidth per character; complexity (1)",
+            "points": [
+              {
+                "criterion": "Valid",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It uses more storage per character."
+          }
+        }
+      ]
+    },
+    {
+      "key": "txt-exam-2",
+      "title": "Calculating storage",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Use 1 byte per character for ASCII and 2 bytes per character for Unicode.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "txt-exam-2a",
+          "part_label": "(a)",
+          "title": "ASCII",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of bytes required to store **NIS Astana 2026** in ASCII.",
+          "content": {
+            "unit": "bytes"
+          },
+          "scheme": {
+            "mark_scheme": "15 characters including spaces (1); 15 bytes (1)",
+            "points": [
+              {
+                "criterion": "15 characters",
+                "marks": 1
+              },
+              {
+                "criterion": "15",
+                "marks": 1
+              }
+            ],
+            "model_answer": "15",
+            "accepted": {
+              "values": [
+                "15"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "txt-exam-2b",
+          "part_label": "(b)",
+          "title": "Unicode",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of bytes required to store **The quick brown fox** in Unicode.",
+          "content": {
+            "unit": "bytes"
+          },
+          "scheme": {
+            "mark_scheme": "19 characters (1) × 2 = 38 bytes (1)",
+            "points": [
+              {
+                "criterion": "19",
+                "marks": 1
+              },
+              {
+                "criterion": "38",
+                "marks": 1
+              }
+            ],
+            "model_answer": "38",
+            "accepted": {
+              "values": [
+                "38"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "txt-exam-2c",
+          "part_label": "(c)",
+          "title": "A book",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "An e-book has **200 pages** with an average of **2000 characters** per page. Calculate its size in **KB** in Unicode.",
+          "content": {
+            "unit": "KB"
+          },
+          "scheme": {
+            "mark_scheme": "200 × 2000 = 400 000 characters (1); × 2 = 800 000 bytes (1); ÷ 1024 = 781.25 KB (1). Accept 800 KB with 1000.",
+            "points": [
+              {
+                "criterion": "Characters",
+                "marks": 1
+              },
+              {
+                "criterion": "Bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "KB",
+                "marks": 1
+              }
+            ],
+            "model_answer": "781.25",
+            "accepted": {
+              "values": [
+                "781.25",
+                "800"
+              ],
+              "numeric": true,
+              "tolerance": 0.01
+            }
+          }
+        },
+        {
+          "key": "txt-exam-2d",
+          "part_label": "(d)",
+          "title": "Bits",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of **bits** needed to store a text of **1200** characters in Unicode.",
+          "content": {
+            "unit": "bits"
+          },
+          "scheme": {
+            "mark_scheme": "1200 × 2 bytes = 2400 bytes (1); × 8 = 19 200 bits (1)",
+            "points": [
+              {
+                "criterion": "Bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "19200",
+                "marks": 1
+              }
+            ],
+            "model_answer": "19200",
+            "accepted": {
+              "values": [
+                "19200"
+              ],
+              "numeric": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "txt-exam-3",
+      "title": "A multilingual app",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school app shows news in Kazakh, Russian and English and lets pupils add emoji.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "txt-exam-3a",
+          "part_label": "(a)",
+          "title": "Why Unicode",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the app must use Unicode.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "ASCII lacks Cyrillic / Kazakh letters / emoji (1); Unicode has codes for all languages and emoji (1)",
+            "points": [
+              {
+                "criterion": "ASCII limit",
+                "marks": 1
+              },
+              {
+                "criterion": "Unicode coverage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "ASCII has no codes for Kazakh and Russian letters or emoji, while Unicode includes characters from all languages and emoji."
+          }
+        },
+        {
+          "key": "txt-exam-3b",
+          "part_label": "(b)",
+          "title": "Encodings",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each encoding to the storage it uses for one English letter.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "UTF-8"
+              },
+              {
+                "key": "L2",
+                "text": "UTF-16"
+              },
+              {
+                "key": "L3",
+                "text": "UTF-32"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "1 byte"
+              },
+              {
+                "key": "R2",
+                "text": "2 bytes"
+              },
+              {
+                "key": "R3",
+                "text": "4 bytes"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "UTF-8 1 byte; UTF-16 2 bytes; UTF-32 4 bytes. One mark per line.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3"
+              }
+            }
+          }
+        },
+        {
+          "key": "txt-exam-3c",
+          "part_label": "(c)",
+          "title": "UTF-8 size",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a Kazakh news article takes more bytes in UTF-8 than an English article with the same number of characters.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "English letters 1 byte in UTF-8 (1); Cyrillic / Kazakh letters 2 bytes (1)",
+            "points": [
+              {
+                "criterion": "English",
+                "marks": 1
+              },
+              {
+                "criterion": "Cyrillic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "UTF-8 uses 1 byte for each English letter but 2 bytes for each Cyrillic letter, so the Kazakh article needs about twice as many bytes."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "How text is stored as binary character codes, character sets ASCII, extended ASCII and Unicode (UTF-8, UTF-16, UTF-32), how they compare, and how to calculate the number of bytes needed to store a text fragment.",
   "theory": [
     {
-      "title": "ASCII and Unicode",
+      "title": "Characters and character sets",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "A computer stores **every character** — letters, digits, punctuation, spaces and symbols — as a **binary number** called its **character code**. When you press **A** on the keyboard, the computer stores the code for \"A\"; when it displays text, it looks up each code and draws the matching symbol."
+        },
+        {
+          "type": "definition",
+          "term": "Character set",
+          "content": "A **defined list of characters** that a computer can recognise, together with the **unique binary code** assigned to each one. Examples: **ASCII**, **extended ASCII**, **Unicode**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why a standard character set is needed",
+              "content": "- Different computers, programs and countries must use the **same codes**, so a text file written on one computer shows the **same characters** on another.\n- Without a common standard, an e-mail or web page could appear as **meaningless symbols** (\"mojibake\")."
+            },
+            {
+              "title": "What is in a character set",
+              "content": "- **Printable characters** — letters, digits, punctuation, space.\n- **Control characters** — not printed; e.g. new line (LF, code 10), carriage return (13), tab (9), backspace."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ASCII",
       "objectives": [
         "11.1.1.7"
       ],
       "blocks": [
         {
           "type": "definition",
-          "term": "Character set",
-          "content": "A defined list of characters that a computer recognises, each with a **unique binary code**. The keyboard sends the code; the computer stores and displays it."
+          "term": "ASCII (American Standard Code for Information Interchange)",
+          "content": "A character set that uses **7 bits** per character, giving **2⁷ = 128 characters**: the English upper- and lower-case letters, digits 0–9, punctuation, space and control codes. In practice each ASCII character is stored in **one byte** (8 bits)."
         },
+        {
+          "type": "comparison",
+          "title": "Some ASCII codes",
+          "columns": [
+            "Character",
+            "Denary",
+            "7-bit binary",
+            "Hexadecimal"
+          ],
+          "rows": [
+            [
+              "Space",
+              "32",
+              "0100000",
+              "20"
+            ],
+            [
+              "0",
+              "48",
+              "0110000",
+              "30"
+            ],
+            [
+              "9",
+              "57",
+              "0111001",
+              "39"
+            ],
+            [
+              "A",
+              "65",
+              "1000001",
+              "41"
+            ],
+            [
+              "C",
+              "67",
+              "1000011",
+              "43"
+            ],
+            [
+              "Z",
+              "90",
+              "1011010",
+              "5A"
+            ],
+            [
+              "a",
+              "97",
+              "1100001",
+              "61"
+            ],
+            [
+              "z",
+              "122",
+              "1111010",
+              "7A"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "- Letters are in **alphabetical order**, so codes can be used to **sort** text: \"A\" (65) < \"B\" (66).\n- A lower-case letter is **32 more** than its capital: \"a\" = 65 + 32 = 97.\n- The **digit characters** \"0\"–\"9\" have codes 48–57, so the character \"7\" is **not** the number 7."
+        },
+        {
+          "type": "definition",
+          "term": "Extended ASCII",
+          "content": "Uses **8 bits** per character, giving **256 characters**: the 128 ASCII characters plus 128 more for accented letters, symbols or another alphabet (e.g. Cyrillic in code page Windows-1251). Different countries use **different extensions**, so the same code can mean different characters."
+        }
+      ]
+    },
+    {
+      "title": "Unicode",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Unicode",
+          "content": "A universal character set that aims to give **every character of every writing system** — Latin, Cyrillic (including Kazakh letters such as **Ә, Қ, Ң, Ө, Ұ, Ү, Һ, І**), Arabic, Chinese, mathematical symbols and **emoji** — its **own unique code point**. It has room for over **1.1 million** characters; about 150 000 are assigned."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Code points",
+              "content": "Each character has a code point written **U+** followed by hexadecimal: **U+0041** = \"A\", **U+04D8** = \"Ә\", **U+20AC** = \"€\", **U+1F600** = 😀. The first 128 Unicode code points are the **same as ASCII**, so ASCII text is also valid Unicode."
+            },
+            {
+              "title": "Encodings — how code points are stored",
+              "content": "- **UTF-8** — **1 to 4 bytes** per character; English letters use 1 byte (same as ASCII), Cyrillic 2 bytes, Chinese 3, emoji 4. The most common encoding on the web.\n- **UTF-16** — **2 bytes** for most characters (4 for rare ones and emoji).\n- **UTF-32** — always **4 bytes** per character."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Bytes per character in exam questions",
+          "content": "Unless a question says otherwise, assume **ASCII = 1 byte (8 bits) per character** and **Unicode = 2 bytes (16 bits) per character** (UTF-16). Read the question carefully — it may give a different number of bits."
+        }
+      ]
+    },
+    {
+      "title": "Comparing ASCII and Unicode",
+      "objectives": [
+        "11.1.1.7"
+      ],
+      "blocks": [
         {
           "type": "comparison",
           "title": "ASCII vs Unicode",
@@ -25,76 +1412,48 @@
           "rows": [
             [
               "Bits per character",
-              "7 bits (128 characters); extended ASCII uses 8 bits (256)",
-              "8, 16 or 32 bits per character (UTF-8 / UTF-16 / UTF-32)"
+              "**7** (stored in 8 bits / 1 byte); 8 in extended ASCII",
+              "**8–32** depending on encoding (UTF-16: usually **16**)"
             ],
             [
               "Number of characters",
-              "128 / 256",
-              "Over 1 million possible code points (≈150 000 assigned)"
+              "**128** (256 extended)",
+              "Over **1.1 million** possible code points"
             ],
             [
               "Languages",
-              "English letters, digits, punctuation, control characters",
-              "Almost all world languages (Kazakh, Russian, Chinese, Arabic …) plus symbols and **emoji**"
+              "**English only** (extended: one extra alphabet)",
+              "**All** languages, symbols and emoji"
             ],
             [
               "Storage",
-              "Small files",
-              "Larger files (more bits per character)"
+              "**Less** memory per character",
+              "**More** memory per character (except English text in UTF-8)"
             ],
             [
               "Compatibility",
-              "Older systems",
-              "The first 128 Unicode codes are the same as ASCII"
+              "Universal for English; different extended code pages clash",
+              "**One** worldwide standard; first 128 codes = ASCII"
+            ],
+            [
+              "Example use",
+              "Old systems, simple data files, programming source code",
+              "Web pages, mobile apps, operating systems, documents in Kazakh / Russian / Chinese"
             ]
           ]
         },
         {
-          "type": "comparison",
-          "title": "Some ASCII codes",
-          "columns": [
-            "Character",
-            "Denary",
-            "Binary"
-          ],
-          "rows": [
-            [
-              "`A`",
-              "65",
-              "1000001"
-            ],
-            [
-              "`B`",
-              "66",
-              "1000010"
-            ],
-            [
-              "`a`",
-              "97",
-              "1100001"
-            ],
-            [
-              "`0`",
-              "48",
-              "0110000"
-            ],
-            [
-              "space",
-              "32",
-              "0100000"
-            ]
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages of Unicode",
+              "content": "- Represents **all languages**, so one document can contain Kazakh, Russian, English and Chinese.\n- **Consistent worldwide** — the same code means the same character everywhere.\n- Includes symbols, mathematical notation and **emoji**.\n- **Backward compatible** with ASCII."
+            },
+            {
+              "title": "Disadvantages of Unicode",
+              "content": "- Needs **more storage** and **bandwidth** per character (2–4 bytes instead of 1 in UTF-16/32).\n- More **complex** to process (variable-length encodings).\n- Older software may not support it fully."
+            }
           ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "Codes are **in order**: if `A` = 65 then `E` = 69, and lower-case letters are 32 more than upper-case (`a` = 97). This is often used in \"find the code of…\" questions."
-        },
-        {
-          "type": "callout",
-          "tone": "info",
-          "title": "Why Unicode was needed",
-          "content": "ASCII has only 128 (or 256) codes — not enough for alphabets such as Kazakh Cyrillic (Ә, Ғ, Қ, Ң, Ө, Ұ, Ү, Һ, І) or Chinese. Unicode gives every character in every language a unique code, so text displays correctly on any device."
         }
       ]
     },
@@ -105,30 +1464,106 @@
       ],
       "blocks": [
         {
-          "type": "formula",
-          "latex": "\\text{Size (bits)} = \\text{number of characters} \\times \\text{bits per character}",
-          "caption": "Spaces and punctuation are characters too"
+          "type": "definition",
+          "term": "Text file size",
+          "content": "**Size = number of characters × bits (or bytes) per character**. Every character counts — **letters, digits, spaces and punctuation** (and new-line characters if mentioned)."
+        },
+        {
+          "type": "steps",
+          "title": "How to calculate",
+          "items": [
+            "**Count every character**, including **spaces** and **punctuation**.",
+            "Multiply by the number of **bits per character** (ASCII 8, Unicode 16) — or by **bytes** (1 or 2).",
+            "Convert to the required unit: **÷ 8** for bytes, **÷ 1024** for KB."
+          ]
         },
         {
           "type": "example",
-          "title": "\"Hello, World!\" in 8-bit ASCII",
-          "content": "- Characters: H e l l o , space W o r l d ! → **13** characters\n- 13 × 8 = 104 bits = **13 bytes**"
+          "title": "Worked example 1 — \"Hello, World!\"",
+          "content": "Characters: H e l l o **,** **space** W o r l d **!** = **13 characters**.\n- ASCII: 13 × 1 byte = **13 bytes** (104 bits).\n- Unicode (16-bit): 13 × 2 bytes = **26 bytes** (208 bits)."
         },
         {
           "type": "example",
-          "title": "The same text in UTF-16",
-          "content": "13 × 16 = 208 bits = **26 bytes**"
+          "title": "Worked example 2 — \"NIS Astana 2026\"",
+          "content": "N I S _ A s t a n a _ 2 0 2 6 → **15 characters** (2 spaces, 4 digits).\n- ASCII: **15 bytes**. Unicode (16-bit): **30 bytes**."
         },
         {
           "type": "example",
-          "title": "A whole document",
-          "content": "A 5-page essay, 400 words per page, 6 characters per word on average (including the space), 16-bit Unicode:\n- 5 × 400 × 6 = 12 000 characters\n- 12 000 × 16 = 192 000 bits = 24 000 bytes ≈ **23.4 KiB**"
+          "title": "Worked example 3 — a whole document",
+          "content": "A report has **2 500 words**, on average **6 characters per word** including the space after it. In 16-bit Unicode: 2 500 × 6 = 15 000 characters × 2 bytes = **30 000 bytes** → ÷ 1024 = **29.3 KB**."
+        },
+        {
+          "type": "example",
+          "title": "Worked example 4 — Kazakh text in UTF-8",
+          "content": "\"Сәлем, әлем!\" has **12 characters**. In UTF-8 each Cyrillic letter takes **2 bytes** and the comma, space and \"!\" take **1 byte**: 9 letters × 2 + 3 × 1 = **21 bytes**. In UTF-16 it is 12 × 2 = **24 bytes**."
+        },
+        {
+          "type": "comparison",
+          "title": "Storage for the same 1000-character English text",
+          "columns": [
+            "Encoding",
+            "Bytes"
+          ],
+          "rows": [
+            [
+              "ASCII",
+              "1000"
+            ],
+            [
+              "UTF-8",
+              "1000"
+            ],
+            [
+              "UTF-16",
+              "2000"
+            ],
+            [
+              "UTF-32",
+              "4000"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.1.1.7",
+        "11.1.1.8"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Compare ASCII and Unicode. [2]**\nASCII uses **7/8 bits** per character and represents **128/256 characters**, mainly **English**, **whereas** Unicode uses **up to 32 bits** (16 in UTF-16) and can represent **characters of all languages** (1). ASCII needs **less storage** per character than Unicode (1).\n\n**Q: Calculate the number of bytes needed to store \"Computer Science\" in 16-bit Unicode. [2]**\n16 characters including the space (1) × 2 bytes = **32 bytes** (1).\n\n**Q: Explain why Unicode is used for a website in Kazakh, Russian and English. [2]**\nASCII cannot represent **Cyrillic / Kazakh letters** (1); Unicode has a **unique code for every character of every language**, so all three languages display correctly (1)."
         },
         {
           "type": "warning",
-          "content": "Count **every** character, including spaces, commas and full stops. A common mistake is to forget the spaces between words."
+          "content": "- **Not counting spaces and punctuation**.\n- Confusing **bits** and **bytes** — multiply by 8 to go from bytes to bits.\n- Saying ASCII uses 8 bits for 256 characters — standard ASCII is **7 bits, 128 characters**; 8 bits is **extended** ASCII.\n- Thinking the character \"5\" is stored as the binary number 5 — it is stored as its **code 53**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is a character set and why is a standard needed?",
+            "How many bits and characters does ASCII use? Extended ASCII?",
+            "Give the ASCII code of \"A\", \"a\" and \"0\".",
+            "Name three Unicode encodings and how many bytes each uses for an English letter.",
+            "Give two advantages and two disadvantages of Unicode.",
+            "How many bytes does \"I love CS\" need in ASCII and in 16-bit Unicode?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Text representation — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. Unless stated otherwise, ASCII uses 1 byte and Unicode uses 2 bytes per character. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "questions": [
+      "txt-exam-1",
+      "txt-exam-2",
+      "txt-exam-3"
+    ]
+  }
 }

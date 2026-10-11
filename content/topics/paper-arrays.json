@@ -1,10 +1,1361 @@
 {
   "topic": "paper-arrays",
-  "questions": [],
-  "summary": "Array terminology — elements, indexes, lower and upper bounds — and choosing between one- and two-dimensional arrays for a task.",
+  "questions": [
+    {
+      "key": "arr-terms",
+      "title": "Array terms",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe name of an array is its [[1]]. One value stored in the array is called an [[2]]. The smallest index of an array is its [[3]] bound and the largest index is its [[4]] bound.",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) identifier (2) element (3) lower (4) upper",
+        "accepted": {
+          "blanks": [
+            [
+              "identifier",
+              "name"
+            ],
+            [
+              "element",
+              "item"
+            ],
+            [
+              "lower"
+            ],
+            [
+              "upper"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-why",
+      "title": "Array or variables?",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "A program stores the marks of 30 students. Explain why the programmer might prefer to use an array instead of a set of variables.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): only one name / identifier; easy to iterate over the indexes with a loop; efficient way of storing many values of the same type / optimises memory; quicker to search / sort than separate variables; shorter, easier to maintain code. [Max 2]",
+        "points": [
+          {
+            "criterion": "Reason 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Reason 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Only one identifier is needed for all 30 marks, and a loop can process every mark using the index instead of writing 30 separate statements."
+      }
+    },
+    {
+      "key": "arr-bounds",
+      "title": "Bounds and length",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Complete the lower bound, upper bound and length of each array.",
+      "content": {
+        "columns": [
+          "Array",
+          "Lower bound",
+          "Upper bound",
+          "Length"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "DECLARE Month : ARRAY[1:12] OF STRING",
+            null,
+            null,
+            null
+          ],
+          [
+            "DECLARE Temp : ARRAY[0:30] OF REAL",
+            null,
+            null,
+            null
+          ],
+          [
+            "DECLARE Year : ARRAY[2000:2025] OF INTEGER",
+            null,
+            null,
+            null
+          ],
+          [
+            "Python list of 8 names",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1, 12, 12 (1); 0, 30, 31 (1); 2000, 2025, 26 (1); 0, 7, 8 (1)",
+        "points": [
+          {
+            "criterion": "Month",
+            "marks": 1
+          },
+          {
+            "criterion": "Temp",
+            "marks": 1
+          },
+          {
+            "criterion": "Year",
+            "marks": 1
+          },
+          {
+            "criterion": "Python list",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "1",
+              "12",
+              "12"
+            ],
+            [
+              null,
+              "0",
+              "30",
+              "31"
+            ],
+            [
+              null,
+              "2000",
+              "2025",
+              "26"
+            ],
+            [
+              null,
+              "0",
+              "7",
+              "8"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-first-last",
+      "title": "First and last index",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Identify the possible minimum and maximum indexes of an array that is indexed from 0.",
+      "content": {
+        "fields": [
+          {
+            "key": "min",
+            "label": "Minimum",
+            "lines": 1
+          },
+          {
+            "key": "max",
+            "label": "Maximum",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Minimum: 0 (1); maximum: length of the array − 1 (1)",
+        "points": [
+          {
+            "criterion": "0",
+            "marks": 1
+          },
+          {
+            "criterion": "Length − 1",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Minimum: 0\nMaximum: LENGTH(array) − 1"
+      }
+    },
+    {
+      "key": "arr-access",
+      "title": "Accessing an element",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "`Score ← [56, 71, 43, 90, 88]` (indexed from 0).\n\nWhat is the value of `Score[3]`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "43"
+        },
+        {
+          "key": "B",
+          "content": "90"
+        },
+        {
+          "key": "C",
+          "content": "88"
+        },
+        {
+          "key": "D",
+          "content": "71"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "arr-out-of-range",
+      "title": "Outside the bounds",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "A program uses the index of an array element that is outside the bounds of the array. Which type of error is this?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Syntax error"
+        },
+        {
+          "key": "B",
+          "content": "Logic error"
+        },
+        {
+          "key": "C",
+          "content": "Run-time error"
+        },
+        {
+          "key": "D",
+          "content": "Linking error"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The code is valid, but it crashes while running (index out of range)."
+      }
+    },
+    {
+      "key": "arr-loop-bug",
+      "title": "Fix the loop",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "```pseudocode\nTotal ← 0\nFOR i FROM 0 TO LENGTH(Score)\n    Total ← Total + Score[i]\nENDFOR\n```\n\nExplain the error in this code and how to correct it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "The last pass uses Score[LENGTH(Score)], which is above the upper bound / out of range (1); change the end value to LENGTH(Score) − 1 (1)",
+        "points": [
+          {
+            "criterion": "Error",
+            "marks": 1
+          },
+          {
+            "criterion": "Correction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The loop goes one index too far: Score[LENGTH(Score)] is outside the upper bound, giving a run-time error. The loop should be FOR i FROM 0 TO LENGTH(Score) − 1."
+      }
+    },
+    {
+      "key": "arr-trace",
+      "title": "Trace an array loop",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "```pseudocode\narr ← [4, 9, 2, 8]\nFOR x FROM 0 TO LENGTH(arr) - 1\n    IF x MOD 2 <> 0 THEN\n        arr[x] ← x + arr[x]\n    ELSE\n        arr[x] ← arr[x] - x\n    ENDIF\n    PRINT arr[x] * 2\nENDFOR\n```\n\nComplete the trace table.",
+      "content": {
+        "columns": [
+          "x",
+          "arr[x]",
+          "Output"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "0, 4, 8 (1); 1, 10, 20 (1); 2, 0, 0 (1); 3, 11, 22 (1)",
+        "points": [
+          {
+            "criterion": "x = 0",
+            "marks": 1
+          },
+          {
+            "criterion": "x = 1",
+            "marks": 1
+          },
+          {
+            "criterion": "x = 2",
+            "marks": 1
+          },
+          {
+            "criterion": "x = 3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| x | arr[x] | Output |\n|---|---|---|\n| 0 | 4 | 8 |\n| 1 | 10 | 20 |\n| 2 | 0 | 0 |\n| 3 | 11 | 22 |",
+        "accepted": {
+          "rows": [
+            [
+              "0",
+              "4",
+              "8"
+            ],
+            [
+              "1",
+              "10",
+              "20"
+            ],
+            [
+              "2",
+              "0",
+              "0"
+            ],
+            [
+              "3",
+              "11",
+              "22"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-adjacent",
+      "title": "Adjacent elements",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Write a condition that checks if two adjacent elements of an array of numbers ARR are **not** in ascending order.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "IF ARR[i] > ARR[i + 1] (1). Accept any correct answer.",
+        "points": [
+          {
+            "criterion": "Condition",
+            "marks": 1
+          }
+        ],
+        "model_answer": "IF ARR[i] > ARR[i + 1]"
+      }
+    },
+    {
+      "key": "arr-swap",
+      "title": "Swap two elements",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Complete the code that swaps the elements A[i] and A[j].\n\n`Temp ← ` [[1]]\n\n`A[i] ← ` [[2]]\n\n`A[j] ← ` [[3]]",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) A[i] (2) A[j] (3) Temp",
+        "accepted": {
+          "blanks": [
+            [
+              "A[i]",
+              "a[i]"
+            ],
+            [
+              "A[j]",
+              "a[j]"
+            ],
+            [
+              "Temp",
+              "temp"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-max",
+      "title": "Largest value",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "The array Height stores the heights of 20 pupils. Write pseudocode or program code that outputs the greatest height and its index.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Initialise max with the first element and position 0 (1); loop over the indexes with the correct range (1); compare Height[i] with max (1); update max and position, output both after the loop (1)",
+        "points": [
+          {
+            "criterion": "Initialise",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Compare",
+            "marks": 1
+          },
+          {
+            "criterion": "Update and output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nMax ← Height[0]\nPos ← 0\nFOR i FROM 1 TO 19\n    IF Height[i] > Max THEN\n        Max ← Height[i]\n        Pos ← i\n    ENDIF\nENDFOR\nOUTPUT Max, Pos\n```"
+      }
+    },
+    {
+      "key": "arr-rotate",
+      "title": "Move the first element",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "The array QUEUE stores N names. The first person in the queue has to move to the **end**, e.g. [Ali, Bota, Dina, Erlan] becomes [Bota, Dina, Erlan, Ali].\n\nWrite pseudocode or program code to do this.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Save the first element in a temporary variable (1); loop with the correct range from 0 to N − 2 / forwards (1); QUEUE[i] ← QUEUE[i + 1] (1); put the saved element in QUEUE[N − 1] (1)",
+        "points": [
+          {
+            "criterion": "buf",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Shift",
+            "marks": 1
+          },
+          {
+            "criterion": "Last element",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nBuf ← QUEUE[0]\nFOR i FROM 0 TO N - 2\n    QUEUE[i] ← QUEUE[i + 1]\nENDFOR\nQUEUE[N - 1] ← Buf\n```"
+      }
+    },
+    {
+      "key": "arr-2d-terms",
+      "title": "A 2D seating plan",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "`DECLARE Seats : ARRAY[0:9, 0:19] OF BOOLEAN` — the first index is the row and the second is the seat.\n\nComplete the table.",
+      "content": {
+        "columns": [
+          "Property",
+          "Value"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Number of rows",
+            null
+          ],
+          [
+            "Number of seats in a row",
+            null
+          ],
+          [
+            "Total number of elements",
+            null
+          ],
+          [
+            "Element for the last seat of the last row",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "10 (1); 20 (1); 200 (1); Seats[9, 19] (1)",
+        "points": [
+          {
+            "criterion": "Rows",
+            "marks": 1
+          },
+          {
+            "criterion": "Seats",
+            "marks": 1
+          },
+          {
+            "criterion": "Total",
+            "marks": 1
+          },
+          {
+            "criterion": "Last element",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "10"
+            ],
+            [
+              null,
+              "20"
+            ],
+            [
+              null,
+              "200"
+            ],
+            [
+              null,
+              "Seats[9, 19]||Seats[9,19]||Seats[9][19]"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-2d-access",
+      "title": "Reading a 2D array",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "Marks stores 4 students (rows) × 3 tests (columns):\n\n| | Test 1 | Test 2 | Test 3 |\n|---|---|---|---|\n| row 0 | 12 | 15 | 18 |\n| row 1 | 9 | 14 | 11 |\n| row 2 | 20 | 17 | 19 |\n| row 3 | 16 | 10 | 13 |\n\nWhat is `Marks[1, 2]`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "15"
+        },
+        {
+          "key": "B",
+          "content": "11"
+        },
+        {
+          "key": "C",
+          "content": "17"
+        },
+        {
+          "key": "D",
+          "content": "14"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Row 1, column 2 (Test 3) = 11."
+      }
+    },
+    {
+      "key": "arr-2d-python",
+      "title": "List of lists",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "practice": true,
+      "text": "```python\narr2D = [[\"red\", \"blue\"],\n         [\"green\", \"yellow\"],\n         [\"black\", \"white\"]]\n```\n\n`len(arr2D)` = [[1]]\n\n`arr2D[2][1]` = [[2]]\n\n`arr2D[0][1]` = [[3]]",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) white (3) blue",
+        "accepted": {
+          "blanks": [
+            [
+              "3"
+            ],
+            [
+              "white",
+              "\"white\""
+            ],
+            [
+              "blue",
+              "\"blue\""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-choose",
+      "title": "1D or 2D?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.2@paper"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the most suitable data structure for each task.",
+      "content": {
+        "columns": [
+          "Task",
+          "1D array",
+          "2D array"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "The names of 30 students in a class",
+            null,
+            null
+          ],
+          [
+            "The marks of 30 students in 6 subjects",
+            null,
+            null
+          ],
+          [
+            "A 9 × 9 sudoku grid",
+            null,
+            null
+          ],
+          [
+            "The rainfall for each day of one year",
+            null,
+            null
+          ],
+          [
+            "Which rooms are booked on each of the 8 floors of a hotel",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1D; 2D; 2D; 1D; 2D (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "arr-justify",
+      "title": "Select a data structure",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.2@paper"
+      ],
+      "practice": true,
+      "text": "A weather station records the temperature every hour (24 readings) for 7 days. Select a suitable data structure and explain your choice.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "2D array (e.g. Temp[0:6, 0:23] of REAL) (1); because two indexes are needed — day and hour / data forms a table of rows and columns of the same type (1)",
+        "points": [
+          {
+            "criterion": "2D array",
+            "marks": 1
+          },
+          {
+            "criterion": "Reason",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A 2D array Temp[0:6, 0:23]: each value needs two indexes — the day (row) and the hour (column) — and all the values are of the same type."
+      }
+    },
+    {
+      "key": "arr-parallel",
+      "title": "Parallel arrays",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.2@paper"
+      ],
+      "practice": true,
+      "text": "A program stores the name and the score of each player. Explain why two parallel 1D arrays are used instead of one 2D array.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "An array can hold only one data type; the names are strings and the scores are integers (1); elements with the same index in both arrays belong to the same player (1)",
+        "points": [
+          {
+            "criterion": "One data type",
+            "marks": 1
+          },
+          {
+            "criterion": "Same index links data",
+            "marks": 1
+          }
+        ],
+        "model_answer": "All elements of an array must have the same data type, but names are strings and scores are integers. With parallel arrays, Name[i] and Score[i] describe the same player."
+      }
+    },
+    {
+      "key": "arr-row-totals",
+      "title": "Row totals",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1@paper",
+        "11.5.2.2@paper"
+      ],
+      "practice": true,
+      "text": "The 2D array Sales[0:11, 0:4] stores the sales of 5 shops (columns) for each of 12 months (rows). Write pseudocode or program code that outputs the total sales of **each shop**.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Outer loop over the shops / columns 0 to 4 (1); total reset to 0 for each shop (1); inner loop over the months 0 to 11 adding Sales[m, s] (1); output the total after the inner loop (1)",
+        "points": [
+          {
+            "criterion": "Outer loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Reset",
+            "marks": 1
+          },
+          {
+            "criterion": "Inner loop and add",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nFOR s FROM 0 TO 4\n    Total ← 0\n    FOR m FROM 0 TO 11\n        Total ← Total + Sales[m, s]\n    ENDFOR\n    OUTPUT \"Shop \", s, \": \", Total\nENDFOR\n```"
+      }
+    },
+    {
+      "key": "arr-exam-1",
+      "title": "Daily temperatures",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The temperatures for one week are stored in the array Temp.\n\n```pseudocode\nTemp ← [12, 15, 9, 18, 21, 17, 14]\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "arr-exam-1a",
+          "part_label": "(a)",
+          "title": "Bounds",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the lower bound and the upper bound of the array Temp.",
+          "content": {
+            "fields": [
+              {
+                "key": "lower",
+                "label": "Lower bound",
+                "lines": 1
+              },
+              {
+                "key": "upper",
+                "label": "Upper bound",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "0 (1); 6 (1)",
+            "points": [
+              {
+                "criterion": "0",
+                "marks": 1
+              },
+              {
+                "criterion": "6",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Lower bound: 0\nUpper bound: 6"
+          }
+        },
+        {
+          "key": "arr-exam-1b",
+          "part_label": "(b)",
+          "title": "Element",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the value of `Temp[4]`.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "21 (1)",
+            "points": [
+              {
+                "criterion": "21",
+                "marks": 1
+              }
+            ],
+            "model_answer": "21",
+            "accepted": {
+              "values": [
+                "21"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "arr-exam-1c",
+          "part_label": "(c)",
+          "title": "Why an array",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the programmer might prefer to use an array instead of seven separate variables.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): one name; easy to iterate over indexes; efficient storage of values of the same type; quicker to search / sort. [Max 2]",
+            "points": [
+              {
+                "criterion": "Reason 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "One identifier is used for all seven values, and a loop can process every temperature using its index."
+          }
+        },
+        {
+          "key": "arr-exam-1d",
+          "part_label": "(d)",
+          "title": "Above average",
+          "type": "pseudocode",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write pseudocode or program code that calculates the average temperature and outputs how many days were warmer than the average.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "Loop to calculate the total and average (1); second loop comparing each element with the average (1); counter incremented and output (1)",
+            "points": [
+              {
+                "criterion": "Average",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparison loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Count and output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nTotal ← 0\nFOR i FROM 0 TO 6\n    Total ← Total + Temp[i]\nENDFOR\nAvg ← Total / 7\nCount ← 0\nFOR i FROM 0 TO 6\n    IF Temp[i] > Avg THEN\n        Count ← Count + 1\n    ENDIF\nENDFOR\nOUTPUT Count      // 3\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "arr-exam-2",
+      "title": "Cinema seats",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A small cinema has **8 rows** with **12 seats** in each row. A program records whether each seat is booked (TRUE) or free (FALSE).",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "arr-exam-2a",
+          "part_label": "(a)",
+          "title": "Select",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.2@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Select a suitable data structure for the seats and explain your choice.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "2D array of BOOLEAN, e.g. Seats[0:7, 0:11] (1); the seats form a grid — one index for the row and one for the seat number (1)",
+            "points": [
+              {
+                "criterion": "2D array",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A 2D Boolean array Seats[0:7, 0:11], because each seat is identified by two indexes: its row and its number in the row."
+          }
+        },
+        {
+          "key": "arr-exam-2b",
+          "part_label": "(b)",
+          "title": "Elements",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of elements in the data structure.",
+          "content": {
+            "unit": "elements"
+          },
+          "scheme": {
+            "mark_scheme": "96 (1)",
+            "points": [
+              {
+                "criterion": "96",
+                "marks": 1
+              }
+            ],
+            "model_answer": "96",
+            "accepted": {
+              "values": [
+                "96"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "arr-exam-2c",
+          "part_label": "(c)",
+          "title": "Last seat",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The array is indexed from 0. Identify the indexes of the last seat in the last row.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "[7, 11] / Seats[7][11] (1)",
+            "points": [
+              {
+                "criterion": "7, 11",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Seats[7, 11]"
+          }
+        },
+        {
+          "key": "arr-exam-2d",
+          "part_label": "(d)",
+          "title": "Free seats",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper",
+            "11.5.2.2@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write pseudocode or program code that outputs the number of **free** seats in each row.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "Outer loop over rows 0 to 7 (1); counter reset for each row (1); inner loop over seats 0 to 11 checking for FALSE and incrementing (1); output the count for each row (1)",
+            "points": [
+              {
+                "criterion": "Outer loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Reset",
+                "marks": 1
+              },
+              {
+                "criterion": "Inner loop and check",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nFOR r FROM 0 TO 7\n    Free ← 0\n    FOR s FROM 0 TO 11\n        IF Seats[r, s] = FALSE THEN\n            Free ← Free + 1\n        ENDIF\n    ENDFOR\n    OUTPUT \"Row \", r, \": \", Free\nENDFOR\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "arr-exam-3",
+      "title": "Processing a list",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Analyse the pseudocode below.\n\n```pseudocode\n1  A ← [3, 8, 1, 6]\n2  FOR i FROM 0 TO 2\n3      IF A[i] > A[i + 1] THEN\n4          T ← A[i]\n5          A[i] ← A[i + 1]\n6          A[i + 1] ← T\n7      ENDIF\n8  ENDFOR\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "arr-exam-3a",
+          "part_label": "(a)",
+          "title": "Trace",
+          "type": "trace_table",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the trace table showing the contents of A at the end of each iteration.",
+          "content": {
+            "columns": [
+              "i",
+              "A[0]",
+              "A[1]",
+              "A[2]",
+              "A[3]"
+            ],
+            "rows": 3
+          },
+          "scheme": {
+            "mark_scheme": "0: 3 8 1 6 (1); 1: 3 1 8 6 (1); 2: 3 1 6 8 (1)",
+            "points": [
+              {
+                "criterion": "i = 0",
+                "marks": 1
+              },
+              {
+                "criterion": "i = 1",
+                "marks": 1
+              },
+              {
+                "criterion": "i = 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| i | A[0] | A[1] | A[2] | A[3] |\n|---|---|---|---|---|\n| 0 | 3 | 8 | 1 | 6 |\n| 1 | 3 | 1 | 8 | 6 |\n| 2 | 3 | 1 | 6 | 8 |",
+            "accepted": {
+              "rows": [
+                [
+                  "0",
+                  "3",
+                  "8",
+                  "1",
+                  "6"
+                ],
+                [
+                  "1",
+                  "3",
+                  "1",
+                  "8",
+                  "6"
+                ],
+                [
+                  "2",
+                  "3",
+                  "1",
+                  "6",
+                  "8"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "arr-exam-3b",
+          "part_label": "(b)",
+          "title": "Temporary variable",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the variable T is needed in lines 4–6.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Without T the value of A[i] would be overwritten / lost when A[i + 1] is copied into it (1)",
+            "points": [
+              {
+                "criterion": "Value not lost",
+                "marks": 1
+              }
+            ],
+            "model_answer": "T keeps a copy of A[i]; otherwise it would be overwritten by A[i + 1] and lost."
+          }
+        },
+        {
+          "key": "arr-exam-3c",
+          "part_label": "(c)",
+          "title": "Move to the end",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The array TASKS stores N tasks. A worker must start the day with the task that is currently **last**: e.g. [task1, task2, task3, Meeting] becomes [Meeting, task1, task2, task3].\n\nWrite pseudocode or program code that rearranges the array.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "buf ← TASKS[N − 1] (1); loop from N − 1 down to 1 (1); TASKS[i] ← TASKS[i − 1] (1); TASKS[0] ← buf (1)",
+            "points": [
+              {
+                "criterion": "buf",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Shift",
+                "marks": 1
+              },
+              {
+                "criterion": "First element",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nBuf ← TASKS[N - 1]\nFOR i FROM N - 1 DOWNTO 1 STEP -1\n    TASKS[i] ← TASKS[i - 1]\nENDFOR\nTASKS[0] ← Buf\n```"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What an array is and why it is better than many separate variables; array terminology — identifier, element, index, lower and upper bound, length, dimension, zero-based indexing and out-of-range errors; declaring and processing 1D arrays (traversal, total, maximum, search, swap, shift); 2D arrays — rows, columns, row and column totals, nested loops; parallel arrays; and choosing a suitable 1D or 2D array for a given task.",
   "theory": [
     {
-      "title": "Array terminology",
+      "title": "What an array is",
       "objectives": [
         "11.5.2.1@paper"
       ],
@@ -12,63 +1363,395 @@
         {
           "type": "definition",
           "term": "Array",
-          "content": "A **fixed-size, ordered** collection of elements of the **same data type**, stored under **one identifier** and accessed by **index**."
-        },
-        {
-          "type": "code",
-          "language": "pseudocode",
-          "content": "DECLARE Scores : ARRAY[1:5] OF INTEGER          // 1D: lower bound 1, upper bound 5\nDECLARE Seats  : ARRAY[1:10, 1:20] OF CHAR       // 2D: 10 rows, 20 columns\n\nScores[3] ← 87\nSeats[2, 15] ← 'X'\n\nFOR i ← 1 TO 5\n    OUTPUT Scores[i]\nNEXT i",
-          "caption": "Declaring and using arrays"
+          "content": "A **data structure** that stores a **fixed number** of elements of the **same data type** under **one identifier** (name). Each element is accessed by its **index** (position)."
         },
         {
           "type": "comparison",
-          "title": "Terms",
+          "title": "Separate variables or one array?",
           "columns": [
-            "Term",
-            "Meaning",
-            "For `Scores : ARRAY[1:5]`"
+            "Separate variables",
+            "One array"
           ],
           "rows": [
             [
-              "Identifier",
-              "The array's name",
-              "`Scores`"
+              "`Score1 ← 56`, `Score2 ← 71`, … `Score30 ← 88`",
+              "`Score[0] ← 56`, `Score[1] ← 71`, … `Score[29] ← 88`"
             ],
             [
-              "Element",
-              "One item stored in the array",
-              "`Scores[3]` = 87"
+              "30 different names to declare and remember",
+              "**One name** for all 30 values"
             ],
             [
-              "Index (subscript)",
-              "The position of an element",
-              "3"
+              "Every value must be written out separately",
+              "A **loop** can process every element using the index"
             ],
             [
-              "**Lower bound**",
-              "The **smallest** index",
-              "1"
-            ],
-            [
-              "**Upper bound**",
-              "The **largest** index",
-              "5"
-            ],
-            [
-              "Length / size",
-              "Number of elements = upper − lower + 1",
-              "5"
-            ],
-            [
-              "Dimension",
-              "Number of indexes needed",
-              "1"
+              "Adding a 31st value means changing the code",
+              "Change the **size** only"
             ]
           ]
         },
         {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why a programmer uses an array",
+              "content": "- Only **one identifier** is needed for many values.\n- It is **easy to iterate** over the elements with a loop and an index.\n- Code is **shorter**, easier to read and to maintain.\n- It is an **efficient** way of storing many values of a similar type — the elements are stored **next to each other** in memory.\n- It is **quicker to search and sort** an array than a set of separate variables."
+            },
+            {
+              "title": "Properties of an array",
+              "content": "- **Homogeneous** — all elements have the **same data type** (all INTEGER, all STRING…).\n- **Static** (in pseudocode) — the size is fixed when it is declared.\n- **Ordered** — every element has a position; the order is kept.\n- **Random (direct) access** — any element can be reached at once by its index, e.g. `Score[17]`, without reading the others → **O(1)**."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "   Identifier: Score\n              ┌──────┬──────┬──────┬──────┬──────┐\n   Element →  │  56  │  71  │  43  │  90  │  88  │\n              └──────┴──────┴──────┴──────┴──────┘\n   Index   →     0      1      2      3      4\n                 ▲                           ▲\n            lower bound                 upper bound\n                         length = 5",
+          "caption": "An array in memory — elements are stored in consecutive locations"
+        }
+      ]
+    },
+    {
+      "title": "Array terminology",
+      "objectives": [
+        "11.5.2.1@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Technical terms",
+          "columns": [
+            "Term",
+            "Meaning",
+            "For `Score = [56, 71, 43, 90, 88]` (indexes from 0)"
+          ],
+          "rows": [
+            [
+              "**Identifier**",
+              "The name of the array",
+              "`Score`"
+            ],
+            [
+              "**Element**",
+              "One value stored in the array",
+              "`Score[3]` = 90"
+            ],
+            [
+              "**Index (subscript)**",
+              "The position number used to access an element",
+              "3"
+            ],
+            [
+              "**Lower bound**",
+              "The **smallest** (first) index",
+              "**0**"
+            ],
+            [
+              "**Upper bound**",
+              "The **largest** (last) index",
+              "**4** = length − 1"
+            ],
+            [
+              "**Length / size**",
+              "The number of elements",
+              "5"
+            ],
+            [
+              "**Dimension**",
+              "The number of indexes needed to locate one element",
+              "1 (1D)"
+            ],
+            [
+              "**Data type**",
+              "The type that every element has",
+              "INTEGER"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Lower and upper bound",
+          "content": "The **lower bound** is the index of the **first** element and the **upper bound** is the index of the **last** element. Number of elements = **upper bound − lower bound + 1**."
+        },
+        {
+          "type": "comparison",
+          "title": "Bounds depend on how indexing starts",
+          "columns": [
+            "Declaration",
+            "Lower bound",
+            "Upper bound",
+            "Length"
+          ],
+          "rows": [
+            [
+              "`DECLARE Score : ARRAY[1:5] OF INTEGER` (1-based)",
+              "1",
+              "5",
+              "5"
+            ],
+            [
+              "`Score = [0] * 5` in Python (0-based)",
+              "0",
+              "4",
+              "5"
+            ],
+            [
+              "`fieldP` storing **11** players (0-based)",
+              "**0**",
+              "**10**",
+              "11"
+            ],
+            [
+              "`DECLARE Temp : ARRAY[0:30] OF REAL`",
+              "0",
+              "30",
+              "**31**"
+            ],
+            [
+              "`DECLARE Year : ARRAY[2000:2025] OF INTEGER`",
+              "2000",
+              "2025",
+              "**26**"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Exam convention",
+          "content": "NIS exams usually use **0-based** arrays (like Python): an array of length **N** has minimum index **0** and maximum index **N − 1**. If the question declares bounds, e.g. `ARRAY[1:10]`, use those."
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "DECLARE Score : ARRAY[0:4] OF INTEGER            // 1D, 5 integers\nDECLARE Name  : ARRAY[0:29] OF STRING            // 1D, 30 strings\nDECLARE Marks : ARRAY[0:29, 0:5] OF INTEGER      // 2D, 30 rows × 6 columns\n\nScore ← [56, 71, 43, 90, 88]                     // initialise with values\nScore[2] ← 45                                     // change one element\nOUTPUT Score[LENGTH(Score) - 1]                   // last element → 88",
+          "caption": "Declaring arrays in pseudocode"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "score = [56, 71, 43, 90, 88]      # a list used as an array\nscore[2] = 45                     # change one element\nprint(score[len(score) - 1])      # last element → 88\nnames = [\"\"] * 30                 # 30 empty strings\nmarks = [[0] * 6 for _ in range(30)]   # 30 rows × 6 columns",
+          "caption": "The same in Python"
+        },
+        {
           "type": "warning",
-          "content": "In many languages (Python, JavaScript, C, PHP) indexes **start at 0**: an array of length *n* has bounds **0 and n − 1**. Accessing index *n* causes a runtime **\"index out of range\"** error."
+          "content": "Using an index **below the lower bound** or **above the upper bound** (e.g. `Score[5]` when the upper bound is 4) causes a **run-time (execution) error** — the program is syntactically correct but crashes while running. A common cause is a loop `FOR i FROM 0 TO LENGTH(Score)` that should stop at `LENGTH(Score) − 1`."
+        }
+      ]
+    },
+    {
+      "title": "Processing a 1D array",
+      "objectives": [
+        "11.5.2.1@paper",
+        "11.5.2.2@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Traversal",
+          "content": "Visiting **every element** of an array in turn, usually with a `FOR` loop from the **lower bound** to the **upper bound**."
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "Total ← 0\nFOR i FROM 0 TO LENGTH(Score) - 1\n    Total ← Total + Score[i]\nENDFOR\nAverage ← Total / LENGTH(Score)\nOUTPUT Total, Average",
+          "caption": "Total and average"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "Max ← Score[0]\nPos ← 0\nFOR i FROM 1 TO LENGTH(Score) - 1\n    IF Score[i] > Max THEN\n        Max ← Score[i]\n        Pos ← i\n    ENDIF\nENDFOR\nOUTPUT \"Highest \", Max, \" at index \", Pos",
+          "caption": "Largest value and its position"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "INPUT Target\nIndex ← -1\ni ← 0\nWHILE i <= LENGTH(Names) - 1 AND Index = -1\n    IF Names[i] = Target THEN\n        Index ← i\n    ENDIF\n    i ← i + 1\nENDWHILE\nOUTPUT Index",
+          "caption": "Linear search — index of a value, or -1"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Comparing adjacent elements",
+              "content": "- Neighbours are `ARR[i]` and `ARR[i + 1]`.\n- **Not in ascending order:** `IF ARR[i] > ARR[i + 1]` — the condition used in bubble sort.\n- The loop must stop at `LENGTH(ARR) − 2`, otherwise `ARR[i + 1]` is out of range."
+            },
+            {
+              "title": "Swapping two elements",
+              "content": "- Needs a **temporary** variable:\n- `Temp ← A[i]`, `A[i] ← A[j]`, `A[j] ← Temp`.\n- Without `Temp`, the first value would be overwritten and lost."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Shifting elements — move the last element to the front",
+          "content": "The array `ACTIVITIES` = [task1, task2, task3, Break] must become [Break, task1, task2, task3].\n\n```pseudocode\nN ← LENGTH(ACTIVITIES) - 1           // upper bound\nBuf ← ACTIVITIES[N]                  // save the last element (Break)\nFOR i FROM N DOWNTO 1 STEP -1\n    ACTIVITIES[i] ← ACTIVITIES[i - 1]  // move each element one place right\nENDFOR\nACTIVITIES[0] ← Buf                  // put Break at the front\n```\nThe loop must go **backwards** — going forwards would copy task1 into every position."
+        },
+        {
+          "type": "example",
+          "title": "Updating two arrays — a substitution",
+          "content": "`fieldP` holds the 11 players on the field and `subP` the 3 substitutes. To replace player `s1` with substitute `s2`:\n\n```pseudocode\nINPUT s1, s2\nFOR i FROM 0 TO 2\n    IF subP[i] = s2 THEN\n        FOR j FROM 0 TO 10\n            IF fieldP[j] = s1 THEN\n                subP[i] ← fieldP[j]       // the player leaves the field\n                fieldP[j] ← s2            // the substitute comes on\n            ENDIF\n        ENDFOR\n    ENDIF\nENDFOR\n```"
+        },
+        {
+          "type": "comparison",
+          "title": "Tracing an array loop",
+          "columns": [
+            "x",
+            "x MOD 2 <> 0?",
+            "arr[x] after",
+            "Output"
+          ],
+          "rows": [
+            [
+              "0",
+              "False",
+              "7 − 0 = 7",
+              "14"
+            ],
+            [
+              "1",
+              "True",
+              "1 + 5 = 6",
+              "12"
+            ],
+            [
+              "2",
+              "False",
+              "3 − 2 = 1",
+              "2"
+            ],
+            [
+              "3",
+              "True",
+              "3 + 6 = 9",
+              "18"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Two-dimensional arrays",
+      "objectives": [
+        "11.5.2.1@paper",
+        "11.5.2.2@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "2D array",
+          "content": "An array that needs **two indexes** to locate an element — usually **[row, column]**. It can be thought of as a **table** or **grid**, or as an array of 1D arrays."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "                     column 0   column 1   column 2\n                     (Test 1)   (Test 2)   (Test 3)\n                   ┌──────────┬──────────┬──────────┐\n   row 0 (Aliya)   │    12    │    15    │    18    │\n                   ├──────────┼──────────┼──────────┤\n   row 1 (Bek)     │     9    │    14    │    11    │\n                   ├──────────┼──────────┼──────────┤\n   row 2 (Dana)    │    20    │    17    │    19    │\n                   ├──────────┼──────────┼──────────┤\n   row 3 (Timur)   │    16    │    10    │    13    │\n                   └──────────┴──────────┴──────────┘\n   Marks[2, 1] = 17   (row 2 = Dana, column 1 = Test 2)",
+          "caption": "Marks : ARRAY[0:3, 0:2] — 4 students (rows) × 3 tests (columns)"
+        },
+        {
+          "type": "comparison",
+          "title": "2D array terms",
+          "columns": [
+            "Term",
+            "For `Marks : ARRAY[0:3, 0:2]`"
+          ],
+          "rows": [
+            [
+              "Dimension",
+              "**2**"
+            ],
+            [
+              "Row bounds",
+              "lower **0**, upper **3** → 4 rows"
+            ],
+            [
+              "Column bounds",
+              "lower **0**, upper **2** → 3 columns"
+            ],
+            [
+              "Total number of elements",
+              "rows × columns = 4 × 3 = **12**"
+            ],
+            [
+              "Element in the last row, last column",
+              "`Marks[3, 2]` = 13"
+            ],
+            [
+              "In Python",
+              "`marks[3][2]` — one pair of brackets per index"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "FOR r FROM 0 TO 3\n    RowTotal ← 0\n    FOR c FROM 0 TO 2\n        RowTotal ← RowTotal + Marks[r, c]\n    ENDFOR\n    OUTPUT \"Student \", r, \" total \", RowTotal\nENDFOR",
+          "caption": "Total of each row (each student) — outer loop over rows"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "FOR c FROM 0 TO 2\n    ColTotal ← 0\n    FOR r FROM 0 TO 3\n        ColTotal ← ColTotal + Marks[r, c]\n    ENDFOR\n    OUTPUT \"Test \", c + 1, \" average \", ColTotal / 4\nENDFOR",
+          "caption": "Average of each column (each test) — outer loop over columns"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "arr2D = [[\"red\", \"blue\"],\n         [\"green\", \"yellow\"],\n         [\"black\", \"white\"]]\nprint(len(arr2D))        # 3 rows\nprint(len(arr2D[0]))     # 2 columns\nprint(arr2D[1][0])       # green\nfor row in arr2D:        # visit every element\n    for colour in row:\n        print(colour)",
+          "caption": "A 2D array in Python — list of lists"
+        },
+        {
+          "type": "comparison",
+          "title": "Row totals and column totals of the Marks table",
+          "columns": [
+            "",
+            "Test 1",
+            "Test 2",
+            "Test 3",
+            "**Row total**"
+          ],
+          "rows": [
+            [
+              "Aliya",
+              "12",
+              "15",
+              "18",
+              "**45**"
+            ],
+            [
+              "Bek",
+              "9",
+              "14",
+              "11",
+              "**34**"
+            ],
+            [
+              "Dana",
+              "20",
+              "17",
+              "19",
+              "**56**"
+            ],
+            [
+              "Timur",
+              "16",
+              "10",
+              "13",
+              "**39**"
+            ],
+            [
+              "**Column total**",
+              "**57**",
+              "**56**",
+              "**61**",
+              "174"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "To process **row by row** (each student), the **row** index is the outer loop. To process **column by column** (each test), the **column** index is the outer loop. The inner loop always runs completely for each value of the outer loop."
         }
       ]
     },
@@ -90,31 +1773,83 @@
               "The data has **rows and columns** (a table or grid)"
             ],
             [
-              "One value per item",
-              "Several values per item, or two indexes are natural"
+              "**One value** is stored for each item",
+              "**Several values of the same type** for each item, or two indexes are natural"
             ],
             [
-              "Scores of one student; names of 30 students; daily temperatures for a month",
-              "Marks of 30 students in 6 subjects; a cinema seating plan; a chess board; temperatures per day per city"
+              "One index is enough to find a value",
+              "Two indexes are needed — e.g. student and test, row and seat"
+            ],
+            [
+              "Names of 30 students; daily temperatures in a month; the 11 players on a field",
+              "Marks of 30 students in 6 subjects; a cinema seating plan; a chess or sudoku board; temperature per day per city; pixels of an image"
             ]
           ]
         },
         {
           "type": "example",
-          "title": "Choosing the structure",
-          "content": "- *Store the score of each of 25 students* → **1D** `Score[1:25]`.\n- *Store the scores of 25 students in 4 tests* → **2D** `Score[1:25, 1:4]` (row = student, column = test).\n- *Store a 9×9 sudoku grid* → **2D** `Grid[1:9, 1:9]`."
+          "title": "Selecting the structure for a task",
+          "content": "| Task | Structure | Declaration |\n|---|---|---|\n| Store the score of each of 25 students | **1D** | `Score : ARRAY[0:24] OF INTEGER` |\n| Store the scores of 25 students in 4 tests | **2D** — row = student, column = test | `Score : ARRAY[0:24, 0:3] OF INTEGER` |\n| Store a 9 × 9 sudoku grid | **2D** | `Grid : ARRAY[0:8, 0:8] OF INTEGER` |\n| Store whether each of 12 rows × 20 seats is booked | **2D** of BOOLEAN | `Booked : ARRAY[0:11, 0:19] OF BOOLEAN` |\n| Store the rainfall for each day of a year | **1D** | `Rain : ARRAY[0:364] OF REAL` |\n| Store the rainfall per day for 12 cities | **2D** | `Rain : ARRAY[0:11, 0:364] OF REAL` |"
         },
         {
-          "type": "code",
-          "language": "pseudocode",
-          "content": "FOR s ← 1 TO 25\n    Sum ← 0\n    FOR t ← 1 TO 4\n        Sum ← Sum + Score[s, t]\n    NEXT t\n    OUTPUT \"Student \", s, \" average: \", Sum / 4\nNEXT s",
-          "caption": "Average of each student in a 2D array"
+          "type": "definition",
+          "term": "Parallel arrays",
+          "content": "Two or more **1D arrays** of the **same length** in which elements with the **same index** belong to the same item — e.g. `Name[3]` and `Score[3]` describe the same student. Used when the data items have **different data types** (a STRING name and an INTEGER score), because one array can hold **only one** data type."
         },
         {
-          "type": "exam_tip",
-          "content": "For a 2D array say which index is the **row** and which is the **column** — e.g. \"the first index is the student, the second is the test number\"."
+          "type": "diagram",
+          "format": "ascii",
+          "content": "   Index    0        1        2        3\n          ┌────────┬────────┬────────┬────────┐\n   Name   │ Aliya  │  Bek   │  Dana  │ Timur  │   ARRAY OF STRING\n          └────────┴────────┴────────┴────────┘\n          ┌────────┬────────┬────────┬────────┐\n   Score  │   45   │   34   │   56   │   39   │   ARRAY OF INTEGER\n          └────────┴────────┴────────┴────────┘\n   Name[2] and Score[2] → Dana scored 56",
+          "caption": "Parallel arrays — the same index links the data"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Justify your choice",
+          "content": "An exam answer must give a **reason**: \"A **2D array**, because each student has **several marks of the same type**, so one index is the **student (row)** and the other is the **test (column)**.\" Simply writing \"2D array\" usually earns only part of the marks."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.2.1@paper",
+        "11.5.2.2@paper"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain why the programmer might prefer to use an array instead of a set of variables. [2]**\nOnly **one name** is needed (1); it is **easy to iterate** over the elements with a loop using the index (1). Also accepted: efficient storage of many values of the same type; quicker to search.\n\n**Q: Identify the possible minimum and maximum indexes of an array. [2]**\nMinimum: **0** (1); maximum: **length of array − 1** (1).\n\n**Q: Array fieldP stores 11 players. Determine the indexes of the first and last elements. [1]**\n**0 and 10** (1).\n\n**Q: Write a condition that checks if two adjacent elements of an array ARR are not in ascending order. [1]**\n`IF ARR[i] > ARR[i + 1]` (1).\n\n**Q: The program uses an index outside the bounds of the array. Name the type of error. [1]**\n**Run-time** (execution) error (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying the upper bound is the **length** — for 0-based arrays it is **length − 1**.\n- Writing `FOR i FROM 0 TO LENGTH(A)` — the last pass is **out of range**.\n- Mixing up the order of 2D indexes: say clearly which is the **row** and which is the **column**.\n- Trying to store a name and a score in the **same** array — use **parallel arrays** (or a record).\n- Swapping without a temporary variable, which **loses** one of the values.\n- Shifting elements to the right with a **forward** loop — it copies the same value into every position."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Give four reasons for using an array rather than separate variables.",
+            "Define element, index, lower bound, upper bound and dimension.",
+            "How many elements does `ARRAY[2000:2025]` have? What are the bounds of a 0-based array of 11 elements?",
+            "Write code to find the total, the maximum and the position of a value in a 1D array.",
+            "Write code to move the last element of an array to the front.",
+            "Write nested loops for the row totals and the column totals of a 2D array.",
+            "Choose and justify a 1D or 2D array for: a seating plan, the names of a class, the marks of a class in 5 subjects."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Arrays — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes. Arrays are indexed from 0 unless stated otherwise.",
+    "questions": [
+      "arr-exam-1",
+      "arr-exam-2",
+      "arr-exam-3"
+    ]
+  }
 }

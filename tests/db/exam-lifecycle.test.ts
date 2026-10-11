@@ -139,6 +139,17 @@ describe("RLS", () => {
     });
   });
 
+  it("keeps the AI cache and usage log server-only", async () => {
+    const qid = (await one<{ id: string }>(`select id from questions limit 1`)).id;
+    await db.query(`insert into ai_grading_cache (cache_key, question_id, result) values ('k1', $1, '{"awarded":1}')`, [qid]);
+    await db.query(`insert into ai_usage (context, question_id, prompt_tokens) values ('practice', $1, 700)`, [qid]);
+    await db.as(alice, async () => {
+      await expect(db.query(`select * from ai_grading_cache`)).rejects.toThrow(/permission denied/);
+      expect((await db.query(`select * from ai_usage`)).rows).toHaveLength(0);
+      await expect(db.query(`insert into ai_usage (context) values ('other')`)).rejects.toThrow();
+    });
+  });
+
   it("denies internal functions to clients", async () => {
     await db.as(alice, async () => {
       await expect(db.query(`select finalize_attempt(gen_random_uuid(), 'SYSTEM')`)).rejects.toThrow(/permission denied/);

@@ -1,10 +1,12 @@
 // Tiny Boolean-expression parser for the truth-table widget.
-// Grammar (lowest → highest precedence): OR/NOR/XOR, AND/NAND, NOT, atom.
+// Grammar (lowest → highest precedence): OR/NOR/XOR, AND/NAND (or implicit), NOT, postfix ′, atom.
 export type BoolNode =
   | { op: "var"; name: string }
   | { op: "const"; value: boolean }
   | { op: "not"; a: BoolNode }
   | { op: "and" | "or" | "xor" | "nand" | "nor"; a: BoolNode; b: BoolNode };
+
+const KEYWORDS = new Set(["AND", "OR", "NOT", "XOR", "NAND", "NOR", "TRUE", "FALSE"]);
 
 function tokenize(src: string): string[] {
   const tokens = src
@@ -13,9 +15,12 @@ function tokenize(src: string): string[] {
     .replace(/[∧&·*.]/g, " AND ")
     .replace(/[∨|+]/g, " OR ")
     .replace(/⊕/g, " XOR ")
+    .replace(/['′’]/g, " ' ")
     .split(/\s+/)
     .filter(Boolean)
-    .map((t) => t.toUpperCase());
+    .map((t) => t.toUpperCase())
+    // "AB" written without an operator means A AND B (split into single variables).
+    .flatMap((t) => (/^[A-Z]{2,}$/.test(t) && !KEYWORDS.has(t) ? t.split("") : [t]));
   if (tokens.length === 0) throw new Error("Enter an expression.");
   return tokens;
 }
@@ -26,7 +31,18 @@ export function parseBoolean(src: string): BoolNode {
   const peek = () => tokens[i];
   const take = () => tokens[i++];
 
+  // A postfix prime (A′, (A + B)′) negates the atom before it.
   function atom(): BoolNode {
+    let n = primary();
+    while (peek() === "'") {
+      take();
+      n = { op: "not", a: n };
+    }
+    return n;
+  }
+  const startsAtom = (t: string | undefined) =>
+    t !== undefined && (t === "(" || t === "NOT" || t === "1" || t === "0" || t === "TRUE" || t === "FALSE" || /^[A-Z]$/.test(t));
+  function primary(): BoolNode {
     const t = take();
     if (t === undefined) throw new Error("Unexpected end of expression.");
     if (t === "(") {
@@ -42,8 +58,9 @@ export function parseBoolean(src: string): BoolNode {
   }
   function andExpr(): BoolNode {
     let left = atom();
-    while (peek() === "AND" || peek() === "NAND") {
-      const op = take() === "AND" ? "and" : "nand";
+    while (peek() === "AND" || peek() === "NAND" || startsAtom(peek())) {
+      // Two atoms side by side (A B, A(B + C)) are an implicit AND.
+      const op = startsAtom(peek()) ? "and" : take() === "AND" ? "and" : "nand";
       left = { op, a: left, b: atom() };
     }
     return left;

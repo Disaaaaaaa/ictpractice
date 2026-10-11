@@ -1,7 +1,1096 @@
 {
   "topic": "g11-physical-risks",
-  "questions": [],
-  "summary": "Physical risks that cause data loss and how backup and disk mirroring protect data, with a comparison of the two.",
+  "questions": [
+    {
+      "key": "phr-risk-match",
+      "title": "Risks and prevention",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.2"
+      ],
+      "practice": true,
+      "text": "Match each physical risk to the best prevention.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Power cut"
+          },
+          {
+            "key": "L2",
+            "text": "Fire in the server room"
+          },
+          {
+            "key": "L3",
+            "text": "Laptop stolen"
+          },
+          {
+            "key": "L4",
+            "text": "Server overheating"
+          },
+          {
+            "key": "L5",
+            "text": "Stranger enters the server room"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Uninterruptible power supply (UPS)"
+          },
+          {
+            "key": "R2",
+            "text": "Off-site or cloud backups"
+          },
+          {
+            "key": "R3",
+            "text": "Encrypt the laptop's disk"
+          },
+          {
+            "key": "R4",
+            "text": "Air conditioning and cleaning fans"
+          },
+          {
+            "key": "R5",
+            "text": "Locked doors with ID cards"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L5–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "phr-ups",
+      "title": "UPS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.2"
+      ],
+      "practice": true,
+      "text": "Explain how a UPS protects data when the mains power fails.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Battery supplies power for a short time after the mains fails (1); so data can be saved and the computer shut down safely / files not corrupted (1)",
+        "points": [
+          {
+            "criterion": "Battery power",
+            "marks": 1
+          },
+          {
+            "criterion": "Save / shut down",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Its battery keeps the computer running for a few minutes, giving time to save the work and shut down safely so files are not corrupted."
+      }
+    },
+    {
+      "key": "phr-human-error",
+      "title": "Human error",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.2"
+      ],
+      "practice": true,
+      "text": "State **two** ways to reduce data loss caused by human error.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): staff training; access rights / read-only files; regular backups; recycle bin / undo; confirmation messages before deleting",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Make regular backups so deleted files can be restored.\n2 Give staff read-only access to files they should not change."
+      }
+    },
+    {
+      "key": "phr-backup-define",
+      "title": "Backup",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Define the term **backup**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "A copy of data made at regular intervals (1) stored separately so it can be restored if the original is lost (1)",
+        "points": [
+          {
+            "criterion": "Copy at intervals",
+            "marks": 1
+          },
+          {
+            "criterion": "Stored separately / restore",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A copy of data made regularly and kept separately, so that it can be restored if the original data is lost."
+      }
+    },
+    {
+      "key": "phr-backup-types",
+      "title": "Types of backup",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Match each type of backup to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Full"
+          },
+          {
+            "key": "L2",
+            "text": "Incremental"
+          },
+          {
+            "key": "L3",
+            "text": "Differential"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Copies all the data every time"
+          },
+          {
+            "key": "R2",
+            "text": "Copies only data changed since the last backup of any kind"
+          },
+          {
+            "key": "R3",
+            "text": "Copies all data changed since the last full backup"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "phr-restore",
+      "title": "Restoring backups",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "A full backup is made on Sunday and **incremental** backups on Monday, Tuesday and Wednesday. The disk fails on Thursday. Which backups are needed to restore the data?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Only Wednesday's backup"
+        },
+        {
+          "key": "B",
+          "content": "Sunday's full backup and Wednesday's backup"
+        },
+        {
+          "key": "C",
+          "content": "Sunday's full backup and the Monday, Tuesday and Wednesday backups"
+        },
+        {
+          "key": "D",
+          "content": "Only Sunday's full backup"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        }
+      }
+    },
+    {
+      "key": "phr-321",
+      "title": "3-2-1 rule",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "The 3-2-1 backup rule: keep [[1]] copies of the data, on [[2]] different types of media, with [[3]] copy stored off-site.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) 2 (3) 1",
+        "accepted": {
+          "blanks": [
+            [
+              "3",
+              "three"
+            ],
+            [
+              "2",
+              "two"
+            ],
+            [
+              "1",
+              "one"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "phr-fire",
+      "title": "Fire",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "A company wants to be sure its data survives a fire.",
+      "content": {
+        "fields": [
+          {
+            "key": "how",
+            "label": "Describe how backup helps prevent data loss in the event of a fire",
+            "lines": 2
+          },
+          {
+            "key": "rec",
+            "label": "Suggest one recommendation so that the latest data is not lost",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "How: if the original is destroyed, the backup can be used to restore it / cloud copy on remote servers not affected by the fire (1). Recommendation: back up after every critical change / store a copy in a location separate from the fire area (1)",
+        "points": [
+          {
+            "criterion": "How",
+            "marks": 1
+          },
+          {
+            "criterion": "Recommendation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "How: the data destroyed in the fire can be restored from the backup.\nRecommendation: make backups after every important change and keep them in a different building or the cloud."
+      }
+    },
+    {
+      "key": "phr-media",
+      "title": "Backup media",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Give **one** advantage of each backup medium.",
+      "content": {
+        "columns": [
+          "Medium",
+          "Advantage"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Cloud storage",
+            null
+          ],
+          [
+            "External hard disk",
+            null
+          ],
+          [
+            "Magnetic tape",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Cloud: off-site / automatic / accessible anywhere (1). External HDD: cheap / large / fast / no Internet needed (1). Tape: very large capacity / cheap per GB / long life (1)",
+        "points": [
+          {
+            "criterion": "Cloud",
+            "marks": 1
+          },
+          {
+            "criterion": "HDD",
+            "marks": 1
+          },
+          {
+            "criterion": "Tape",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Medium | Advantage |\n|---|---|\n| Cloud | Stored off-site, so safe from a fire in the building |\n| External HDD | Cheap and fast for large amounts of data |\n| Tape | Huge capacity at low cost |"
+      }
+    },
+    {
+      "key": "phr-mirror-define",
+      "title": "Disk mirroring",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Describe how disk mirroring protects data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Data is written to two disks at the same time / identical copies in real time (1); if one disk fails the other continues without interruption / no data lost (1)",
+        "points": [
+          {
+            "criterion": "Two disks",
+            "marks": 1
+          },
+          {
+            "criterion": "Continues",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every change is written to two disks at the same time, so if one disk fails the system carries on using the identical second disk."
+      }
+    },
+    {
+      "key": "phr-mirror-adv",
+      "title": "Mirroring advantage",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Describe **one** advantage of disk mirroring over backup.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Instant data recovery in case of one disk failure / work continues without interruption / real-time data synchronised so nothing is lost (1)",
+        "points": [
+          {
+            "criterion": "Advantage",
+            "marks": 1
+          }
+        ],
+        "model_answer": "If one disk fails, the system keeps working immediately with up-to-date data on the second disk."
+      }
+    },
+    {
+      "key": "phr-mirror-virus",
+      "title": "Mirroring and viruses",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Disk mirroring protects data against ransomware, because a clean copy is kept on the second disk.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The encrypted (or deleted) data is copied to the second disk immediately."
+      }
+    },
+    {
+      "key": "phr-compare",
+      "title": "Backup vs mirroring",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the method each statement describes.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Backup",
+          "Disk mirroring"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Data is copied continuously in real time",
+            null,
+            null
+          ],
+          [
+            "Older versions of a file can be restored",
+            null,
+            null
+          ],
+          [
+            "Can be stored off-site to survive a fire",
+            null,
+            null
+          ],
+          [
+            "The system continues with no downtime if a disk fails",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Mirroring; backup; backup; mirroring (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "phr-consequences",
+      "title": "Consequences",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "The absence or improper implementation of data protection measures may lead to negative consequences. Give **one** consequence for each measure. Do not repeat your answers.",
+      "content": {
+        "fields": [
+          {
+            "key": "b",
+            "label": "Data backup",
+            "lines": 1
+          },
+          {
+            "key": "m",
+            "label": "Disk mirroring",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Backup: data loss / losing critical data after hardware failure, human error or malicious activity (1). Mirroring: downtime while data is recovered / operational disruption / storage capacity reduced / a failed drive left unreplaced (1). Do not accept repeated answers.",
+        "points": [
+          {
+            "criterion": "Backup",
+            "marks": 1
+          },
+          {
+            "criterion": "Mirroring",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Data backup: critical data is lost for ever after a disk failure.\nDisk mirroring: the system stops (downtime) while the data is recovered."
+      }
+    },
+    {
+      "key": "phr-both",
+      "title": "Use both",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "practice": true,
+      "text": "Explain why a bank uses **both** disk mirroring and backups.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Mirroring keeps the system running with no data loss if a disk fails (1); backups (off-site, older versions) protect against deletion, ransomware, fire or theft, which mirroring cannot (1)",
+        "points": [
+          {
+            "criterion": "Mirroring role",
+            "marks": 1
+          },
+          {
+            "criterion": "Backup role",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Mirroring keeps transactions running without loss if a disk breaks, but it copies mistakes and is in the same building; off-site backups let the bank restore older versions after ransomware, deletion or fire."
+      }
+    },
+    {
+      "key": "phr-exam-1",
+      "title": "Risks in a company",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A small company keeps all its customer and order data on one server in its office.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "phr-exam-1a",
+          "part_label": "(a)",
+          "title": "Risks",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** physical risks to the data and one way to prevent each.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Risk 1 and prevention",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Risk 2 and prevention",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Each risk (1) + matching prevention (1): hardware failure – mirroring / backup; power cut – UPS; fire / flood – off-site backup / fire detection; theft – locks / CCTV / encryption; overheating – air conditioning; human error – training / access rights",
+            "points": [
+              {
+                "criterion": "Risk 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Prevention 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Risk 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Prevention 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 A power cut could corrupt files while they are being saved — install a UPS.\n2 A fire could destroy the server — keep backups in the cloud."
+          }
+        },
+        {
+          "key": "phr-exam-1b",
+          "part_label": "(b)",
+          "title": "Location",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The company backs up to an external disk kept next to the server. Explain why this is not enough.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "A fire / flood / theft in the office would destroy or remove both the server and the backup (1); the backup should be kept off-site / in the cloud (1)",
+            "points": [
+              {
+                "criterion": "Both lost",
+                "marks": 1
+              },
+              {
+                "criterion": "Off-site",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A fire or theft would affect the server and the disk together, so the data would be lost; one copy should be kept off-site or in the cloud."
+          }
+        },
+        {
+          "key": "phr-exam-1c",
+          "part_label": "(c)",
+          "title": "UPS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the company should connect the server to a UPS.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Battery keeps the server running during a power cut (1); data can be saved / server shut down safely, avoiding corruption (1)",
+            "points": [
+              {
+                "criterion": "Battery",
+                "marks": 1
+              },
+              {
+                "criterion": "Save safely",
+                "marks": 1
+              }
+            ],
+            "model_answer": "During a power cut the UPS battery keeps the server on long enough to save data and shut down safely."
+          }
+        }
+      ]
+    },
+    {
+      "key": "phr-exam-2",
+      "title": "Backups",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The company decides to make a **full** backup every Sunday and **differential** backups on the other days.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "phr-exam-2a",
+          "part_label": "(a)",
+          "title": "Differential",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe a differential backup.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Copies all data changed (1) since the last full backup (1)",
+            "points": [
+              {
+                "criterion": "Changed data",
+                "marks": 1
+              },
+              {
+                "criterion": "Since last full",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It copies every file that has changed since the last full backup."
+          }
+        },
+        {
+          "key": "phr-exam-2b",
+          "part_label": "(b)",
+          "title": "Restore",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The server fails on Thursday morning. State which backups are needed to restore the data and what data will still be lost.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Sunday's full backup + Wednesday's differential (1); changes made on Thursday before the failure are lost (1)",
+            "points": [
+              {
+                "criterion": "Backups",
+                "marks": 1
+              },
+              {
+                "criterion": "Lost data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Sunday's full backup and Wednesday's differential; the changes made on Thursday before the crash are lost."
+          }
+        },
+        {
+          "key": "phr-exam-2c",
+          "part_label": "(c)",
+          "title": "Compare",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare differential backups with incremental backups.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Incremental copies changes since the last backup of any kind, so each is smaller / faster (1); but restoring needs every incremental, whereas differential needs only the full + latest differential (1)",
+            "points": [
+              {
+                "criterion": "Size / speed",
+                "marks": 1
+              },
+              {
+                "criterion": "Restore",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Incremental backups are smaller and faster because they copy only changes since the last backup, but restoring needs all of them; a differential is bigger but only the latest one is needed with the full backup."
+          }
+        },
+        {
+          "key": "phr-exam-2d",
+          "part_label": "(d)",
+          "title": "Good practice",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the company should regularly test restoring its backups.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "A backup may be incomplete / corrupted / unreadable (1); testing ensures the data can actually be recovered when needed (1)",
+            "points": [
+              {
+                "criterion": "May fail",
+                "marks": 1
+              },
+              {
+                "criterion": "Ensures recovery",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Backups can be corrupted or incomplete; testing a restore proves the data can really be recovered in an emergency."
+          }
+        }
+      ]
+    },
+    {
+      "key": "phr-exam-3",
+      "title": "Disk mirroring",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The company's online shop must work 24 hours a day, so the server uses disk mirroring.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "phr-exam-3a",
+          "part_label": "(a)",
+          "title": "How it works",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how disk mirroring works.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Data written to two disks at the same time (1); the disks are identical, so if one fails the other is used (1)",
+            "points": [
+              {
+                "criterion": "Two disks",
+                "marks": 1
+              },
+              {
+                "criterion": "Takes over",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Each piece of data is written to two disks at once, so they are identical; if one disk fails the other takes over."
+          }
+        },
+        {
+          "key": "phr-exam-3b",
+          "part_label": "(b)",
+          "title": "Advantage",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** advantage of disk mirroring over backup for the online shop.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Instant recovery / no downtime when a disk fails (1); the shop keeps taking orders with no data lost (1)",
+            "points": [
+              {
+                "criterion": "No downtime",
+                "marks": 1
+              },
+              {
+                "criterion": "Context",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If a disk fails the shop keeps running immediately with all the latest orders, so no sales are lost."
+          }
+        },
+        {
+          "key": "phr-exam-3c",
+          "part_label": "(c)",
+          "title": "Limitations",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** limitations of disk mirroring.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): copies deletions / viruses / ransomware; no protection against fire / theft (same place); halves storage capacity / extra cost; controller failure affects both",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Deleted or encrypted files are copied to the mirror too.\n2 Both disks are destroyed together in a fire."
+          }
+        },
+        {
+          "key": "phr-exam-3d",
+          "part_label": "(d)",
+          "title": "Consequence",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the consequence of not replacing a failed mirrored disk quickly.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "The system runs on a single disk with no copy (1); if that disk also fails, all data is lost / downtime (1)",
+            "points": [
+              {
+                "criterion": "Single disk",
+                "marks": 1
+              },
+              {
+                "criterion": "Next failure",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The server then has only one disk with no mirror, so if that disk fails too all the data is lost and the shop stops."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Physical and environmental risks that cause data loss (hardware failure, power problems, fire, flood, theft, accidental damage, human error) and how to prevent them; backups — full, incremental and differential, media, the 3-2-1 rule, schedules and off-site storage; disk mirroring (RAID 1) and other RAID levels; a detailed comparison of backup and mirroring, and the consequences of not using them.",
   "theory": [
     {
       "title": "Physical risks of data loss",
@@ -10,7 +1099,12 @@
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "Data can be lost not only through hackers and viruses but also through **physical** events that damage or destroy the **hardware** where it is stored. These are **physical risks**."
+        },
+        {
           "type": "comparison",
+          "title": "Physical risks and how to prevent them",
           "columns": [
             "Risk",
             "Example",
@@ -18,46 +1112,65 @@
           ],
           "rows": [
             [
-              "Hardware failure",
-              "Hard disk crash, overheating, worn-out SSD",
-              "Backups, RAID mirroring, cooling, replacing old hardware"
+              "**Hardware failure**",
+              "Hard disk crash, overheating, worn-out SSD, failed power supply",
+              "Backups, RAID mirroring, cooling, replacing old hardware, monitoring disk health"
             ],
             [
-              "Power cut / surge",
-              "Data in RAM lost; files corrupted during saving",
+              "**Power cut / surge**",
+              "Data in RAM lost; files corrupted while being saved",
               "**UPS** (uninterruptible power supply), surge protectors, autosave"
             ],
             [
-              "Fire, flood, natural disaster",
+              "**Fire, flood, natural disaster**",
               "Server room destroyed",
-              "Off-site / cloud backups, fire-proof safes, smoke detectors, servers above ground level"
+              "**Off-site / cloud backups**, fire-proof safes, smoke detectors and gas fire suppression, servers above ground level"
             ],
             [
-              "Theft",
-              "Laptop or USB drive stolen",
-              "Locks, CCTV, security staff, encryption of portable devices"
+              "**Theft**",
+              "Laptop, server or USB drive stolen",
+              "Locks, CCTV, security staff, alarm systems, **encryption** of portable devices"
             ],
             [
-              "Accidental damage",
+              "**Accidental damage**",
               "Coffee spilt on a laptop, device dropped",
               "Careful handling, protective cases, backups"
             ],
             [
-              "Human error",
-              "Deleting or overwriting files",
-              "Training, access rights, backups, \"recycle bin\""
+              "**Human error**",
+              "Deleting or overwriting files, formatting the wrong disk",
+              "Training, access rights, backups, \"recycle bin\", confirmation messages"
             ],
             [
-              "Unauthorised physical access",
+              "**Unauthorised physical access**",
               "Someone plugs a USB into a server",
-              "Locked server rooms, ID cards, biometric doors"
+              "Locked server rooms, ID cards, **biometric** doors, visitor logs"
             ]
           ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Environmental risks",
+              "content": "- **Heat** — computers overheat and fail; server rooms need **air conditioning**.\n- **Humidity and water** — corrosion and short circuits; keep away from pipes and windows.\n- **Dust** — blocks fans and causes overheating; regular cleaning.\n- **Magnetic fields** — can damage data on magnetic disks and tapes."
+            },
+            {
+              "title": "Effects of losing data",
+              "content": "- Work must be **redone**; orders, records and history may be **lost for ever**.\n- The organisation may **stop working** (downtime) and lose **money** and **customers**.\n- Personal data on a stolen device can lead to **identity theft** and **legal** consequences."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "UPS — uninterruptible power supply",
+          "content": "A **battery unit** between the mains and the computer. When the power fails it supplies electricity for a few minutes, so the computer can **save the data** and **shut down safely**. It also protects against **surges** and **spikes**."
         }
       ]
     },
     {
-      "title": "Backup and disk mirroring",
+      "title": "Backup",
       "objectives": [
         "11.1.2.3"
       ],
@@ -66,11 +1179,6 @@
           "type": "definition",
           "term": "Backup",
           "content": "A **copy of data** made at regular times and stored **separately** (another disk, tape, cloud, another building) so that the data can be **restored** after loss."
-        },
-        {
-          "type": "definition",
-          "term": "Disk mirroring (RAID 1)",
-          "content": "Data is written to **two (or more) disks at the same time**, so the disks are identical copies. If one disk fails, the system continues using the other **without interruption**."
         },
         {
           "type": "cards",
@@ -90,6 +1198,122 @@
           ]
         },
         {
+          "type": "example",
+          "title": "Restoring after a crash on Thursday",
+          "content": "A full backup is made on **Sunday**; the disk fails on **Thursday morning**.\n| Strategy | Backups made | What is needed to restore |\n|---|---|---|\n| Full every day | Full Sun, Mon, Tue, Wed | Only **Wednesday's** full backup |\n| Full + incremental | Full Sun; incremental Mon, Tue, Wed | Sunday full **+ Mon + Tue + Wed** incrementals (in order) |\n| Full + differential | Full Sun; differential Mon, Tue, Wed | Sunday full **+ Wednesday's** differential |\n\nIn every case the work done **on Thursday before the crash** is lost — it was not yet backed up."
+        },
+        {
+          "type": "comparison",
+          "title": "Backup media and locations",
+          "columns": [
+            "Medium",
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "**External HDD / SSD**",
+              "Cheap, large, fast",
+              "Can be lost, stolen or damaged with the computer if kept nearby"
+            ],
+            [
+              "**Network storage (NAS / server)**",
+              "Automatic backups of many computers",
+              "In the same building — fire or theft affects both"
+            ],
+            [
+              "**Cloud backup**",
+              "**Off-site**, automatic, accessible from anywhere",
+              "Needs Internet; monthly cost; data held by a third party (security)"
+            ],
+            [
+              "**Magnetic tape**",
+              "Very large and cheap per GB, long life",
+              "Slow, **sequential** access — restoring takes time"
+            ],
+            [
+              "**USB flash drive / optical disc**",
+              "Portable, cheap for small amounts",
+              "Small capacity, easy to lose"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Good backup practice",
+              "content": "- **Regular schedule** — daily, or after every **critical change**; automatic where possible.\n- **3-2-1 rule** — keep **3** copies of the data, on **2** different media, with **1** copy **off-site** (another building or the cloud).\n- Store backups **in a location separate from the original** — so a fire or flood does not destroy both.\n- **Encrypt** backups and keep them **secure**.\n- **Test** restoring regularly — a backup that cannot be restored is useless.\n- Keep **several older versions** (e.g. grandfather–father–son rotation) to recover from viruses or mistakes found later."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Disk mirroring",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Disk mirroring (RAID 1)",
+          "content": "Data is written to **two (or more) disks at the same time**, so the disks are identical copies. If one disk fails, the system continues using the other **without interruption**."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "             write \"Order 1052\"\n   Computer ─────────┬─────────────\n                     │             │\n                ┌────▼────┐   ┌────▼────┐\n                │ Disk 1  │   │ Disk 2  │     identical copies\n                │ Order…  │   │ Order…  │\n                └─────────┘   └─────────┘\n   Disk 1 fails → the system keeps running from Disk 2; the failed disk is replaced\n   and the mirror is rebuilt.",
+          "caption": "Disk mirroring: every write goes to both disks"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages of mirroring",
+              "content": "- **Instant data recovery** if one disk fails — no restore needed.\n- The system keeps **working without interruption** — business continuity.\n- **No data is lost** — every change is on both disks in **real time**.\n- Reading can be faster (data read from either disk)."
+            },
+            {
+              "title": "Disadvantages of mirroring",
+              "content": "- **Storage capacity is halved** — two disks hold one copy of data; extra cost.\n- Copies **mistakes** too: deleted files, viruses and ransomware are written to both disks immediately.\n- Both disks are in the **same place** — no protection against fire, flood or theft.\n- If the **controller** fails, both disks may be affected; a failed disk must be replaced quickly."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "RAID levels (Redundant Array of Independent Disks)",
+          "columns": [
+            "Level",
+            "How it works",
+            "Protects data?"
+          ],
+          "rows": [
+            [
+              "**RAID 0** (striping)",
+              "Data split across disks for speed",
+              "**No** — one failed disk loses everything"
+            ],
+            [
+              "**RAID 1** (mirroring)",
+              "Identical copy on each disk",
+              "**Yes** — survives one disk failure"
+            ],
+            [
+              "**RAID 5** (striping with parity)",
+              "Data and parity spread over 3+ disks",
+              "**Yes** — survives one disk failure; uses less extra space than mirroring"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Backup vs disk mirroring",
+      "objectives": [
+        "11.1.2.3"
+      ],
+      "blocks": [
+        {
           "type": "comparison",
           "title": "Backup vs disk mirroring",
           "columns": [
@@ -99,32 +1323,37 @@
           ],
           "rows": [
             [
-              "When copied",
-              "At intervals (daily, weekly)",
-              "Continuously, in real time"
+              "**When copied**",
+              "At **intervals** (daily, weekly)",
+              "**Continuously**, in real time"
             ],
             [
-              "Location",
-              "Can be off-site / cloud",
-              "Usually in the same computer or server"
+              "**Location**",
+              "Can be **off-site / cloud**",
+              "Usually in the **same** computer or server"
             ],
             [
-              "Protects against hardware failure",
-              "Yes, but data since the last backup is lost and restoring takes time",
-              "Yes — no data lost, no downtime"
+              "**Protects against hardware failure**",
+              "Yes, but data since the last backup is **lost** and restoring takes **time**",
+              "Yes — **no data lost**, **no downtime**"
             ],
             [
-              "Protects against deletion, viruses, ransomware",
+              "**Protects against deletion, viruses, ransomware**",
               "**Yes** — older versions can be restored",
               "**No** — the deletion or corruption is copied to the mirror immediately"
             ],
             [
-              "Protects against fire/theft",
-              "Yes, if stored off-site",
-              "No — both disks are lost together"
+              "**Protects against fire / theft**",
+              "Yes, if stored **off-site**",
+              "**No** — both disks are lost together"
             ],
             [
-              "Cost",
+              "**Recovery speed**",
+              "Slow — data must be restored",
+              "**Instant**"
+            ],
+            [
+              "**Cost**",
               "Cheaper storage media",
               "Needs a second identical disk for every disk"
             ]
@@ -133,8 +1362,74 @@
         {
           "type": "exam_tip",
           "content": "The key comparison: **mirroring gives continuous availability** but copies mistakes too; a **backup can restore earlier versions** but is only as recent as the last backup. Organisations usually use **both**."
+        },
+        {
+          "type": "comparison",
+          "title": "Consequences of not using these measures",
+          "columns": [
+            "Missing measure",
+            "Possible consequences"
+          ],
+          "rows": [
+            [
+              "**No (or poor) backup**",
+              "**Data loss** — critical data lost for ever after hardware failure, human error, fire or malware; work must be redone"
+            ],
+            [
+              "**No disk mirroring**",
+              "**Downtime** while data is recovered or reconstructed; **operational disruption**; transactions lost since the last backup"
+            ],
+            [
+              "**Poorly implemented mirroring**",
+              "Storage capacity reduced by the copies; a failed drive left unreplaced means the next failure loses data"
+            ],
+            [
+              "**Backups kept next to the server**",
+              "Fire, flood or theft destroys the original and the backup together"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.1.2.2",
+        "11.1.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Describe how backup helps prevent data loss in the event of a fire. [1]**\nIf the original data is destroyed in the fire, the **backup** (stored elsewhere / in the cloud) can be used to **restore** it (1).\n\n**Q: Suggest one recommendation to ensure that the latest data is not lost in the event of a fire. [1]**\nPerform backups **after every critical change** / store a copy **in a location separate from the fire area** (1).\n\n**Q: Describe one advantage of disk mirroring over backup. [1]**\n**Instant recovery** — if one disk fails the system **continues without interruption** with up-to-date data on the second disk (1).\n\n**Q: Give one consequence of not using data backup. [1]**\n**Loss of critical data** after hardware failure, human error or malware (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying mirroring protects against **viruses** or **deletion** — it **copies** them to the second disk.\n- Saying a backup is \"a second disk that is always up to date\" — that is **mirroring**.\n- Keeping backups in the **same room** as the original and claiming they protect against fire.\n- Confusing **incremental** (since the last backup) and **differential** (since the last full backup)."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List six physical risks and one prevention for each.",
+            "What does a UPS do?",
+            "Compare full, incremental and differential backups; which backups are needed to restore on Thursday?",
+            "What is the 3-2-1 rule?",
+            "Explain how disk mirroring works and give two disadvantages.",
+            "Give three differences between backup and disk mirroring."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Physical risks, backup and mirroring — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "questions": [
+      "phr-exam-1",
+      "phr-exam-2",
+      "phr-exam-3"
+    ]
+  }
 }

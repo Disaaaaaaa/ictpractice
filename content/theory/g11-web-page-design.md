@@ -1,171 +1,339 @@
 ---
-summary: The structure of a web page, building an interface with HTML and CSS, and creating HTML forms for data entry.
+summary: The structure of a web page and its common elements, building an interface with HTML and CSS, and creating HTML forms for data entry — text boxes, radio buttons, check boxes, drop-down lists, buttons, labels and the GET and POST methods.
 ---
-# Structure of a web page
+# The structure of a web page
 @lo 11.5.3.1
 
-Every HTML document has the same skeleton. The `<head>` holds information **about** the page; the `<body>` holds what the user **sees**.
+A web page is written in **HTML** (HyperText Markup Language). HTML uses **tags** in angle brackets to mark up the **structure and content**; most tags come in pairs — an **opening tag** `<p>` and a **closing tag** `</p>`. **CSS** (Cascading Style Sheets) describes how the elements **look**.
 
-```html | Minimal HTML5 page
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My School Club</title>
-  <link rel="stylesheet" href="style.css">
+```html | The skeleton of every HTML page
+<!DOCTYPE html>                 <!-- tells the browser this is HTML5 -->
+<html lang="en">                <!-- root element -->
+<head>                          <!-- information ABOUT the page (not shown) -->
+    <meta charset="UTF-8">
+    <title>School Library</title>          <!-- text on the browser tab -->
+    <link rel="stylesheet" href="style.css">  <!-- external CSS file -->
 </head>
-<body>
-  <header> … </header>
-  <nav> … </nav>
-  <main> … </main>
-  <footer> … </footer>
+<body>                          <!-- everything the user SEES -->
+    <h1>Welcome to the School Library</h1>
+    <p>Opening hours: 8:00–17:00</p>
 </body>
 </html>
 ```
 
-:::compare Common structural (semantic) elements
+:::compare Parts of an HTML document
 | Element | Purpose |
 |---|---|
-| `<header>` | Top of the page: logo, site name, sometimes navigation |
-| `<nav>` | Main navigation links / menu |
-| `<main>` | The unique main content of the page |
-| `<section>` | A thematic group of content with a heading |
-| `<article>` | Self-contained content, e.g. a news item or blog post |
-| `<aside>` | Side content: adverts, related links, sidebar |
-| `<footer>` | Bottom: contacts, copyright, extra links |
+| `<!DOCTYPE html>` | Declares the document type (HTML5) |
+| `<html>` | The root element that contains the whole page |
+| `<head>` | Information about the page: title, character set, links to CSS, meta data for search engines |
+| `<title>` | The title shown on the browser tab and in search results |
+| `<meta>` | Extra information, e.g. `charset`, `viewport` for mobile screens, description |
+| `<body>` | All the visible content of the page |
 :::
 
-:::compare Basic content elements
-| Element | Use |
+:::definition Element, tag and attribute
+An **element** is a part of the page, e.g. a paragraph: `<p>Hello</p>`. It is made of an **opening tag**, **content** and a **closing tag**. An **attribute** gives extra information inside the opening tag as `name="value"`: `<img src="logo.png" alt="School logo">`.
+:::
+
+# Common elements of a web page
+@lo 11.5.3.1
+
+:::ascii The typical layout of a web page (semantic elements)
++--------------------------------------------------+
+|  <header>   logo, site name                       |
++--------------------------------------------------+
+|  <nav>      Home | Books | Events | Contact       |
++-------------------------------+------------------+
+|  <main>                       |  <aside>          |
+|    <section> / <article>      |  related links,   |
+|    headings, text, images,    |  adverts, news    |
+|    tables, forms              |                   |
++-------------------------------+------------------+
+|  <footer>   copyright, contacts, social links     |
++--------------------------------------------------+
+:::
+
+:::compare Structural (semantic) elements
+| Element | Contains |
 |---|---|
-| `<h1>` … `<h6>` | Headings (one `<h1>` per page) |
-| `<p>` | Paragraph |
-| `<a href="…">` | Hyperlink |
-| `<img src="…" alt="…">` | Image (`alt` = text for screen readers / if the image fails) |
-| `<ul>`, `<ol>`, `<li>` | Unordered / ordered list and list items |
-| `<table>`, `<tr>`, `<th>`, `<td>` | Table, row, header cell, data cell |
-| `<div>`, `<span>` | Generic block / inline containers for styling |
+| `<header>` | Logo, site name, sometimes the navigation |
+| `<nav>` | The main **navigation links** (menu) |
+| `<main>` | The **main content** of the page (only one per page) |
+| `<section>` | A group of related content with a heading |
+| `<article>` | Independent content: a news story, blog post |
+| `<aside>` | Side content: related links, adverts |
+| `<footer>` | Copyright, contact details, links at the bottom |
+| `<div>` | A general container with no special meaning (used for layout with CSS) |
+| `<span>` | A general **inline** container for part of a line of text |
 :::
 
-:::tip
-Semantic elements (`header`, `nav`, `main`, `footer`) make the page easier to read for people, **search engines** and **screen readers** — a common "explain why" answer.
+:::compare Content elements
+| Element | Purpose | Example |
+|---|---|---|
+| `<h1>` … `<h6>` | Headings, from most to least important | `<h1>News</h1>` |
+| `<p>` | Paragraph | `<p>Text…</p>` |
+| `<br>` | Line break (no closing tag) | `Line 1<br>Line 2` |
+| `<hr>` | Horizontal line | `<hr>` |
+| `<strong>`, `<em>` | Important (bold) and emphasised (italic) text | `<strong>Warning</strong>` |
+| `<a href="…">` | **Hyperlink** to another page, file or place | `<a href="books.html">Books</a>` |
+| `<img src="…" alt="…">` | Image; `alt` text is shown if the image cannot load and is read by screen readers | `<img src="cat.jpg" alt="A grey cat">` |
+| `<ul>`, `<ol>`, `<li>` | Unordered (bullets) and ordered (numbered) lists and their items | `<ul><li>Milk</li></ul>` |
+| `<table>`, `<tr>`, `<th>`, `<td>` | Table, row, header cell, data cell | see below |
+:::
+
+```html | Lists, a link, an image and a table
+<h2>Top books this month</h2>
+<ol>
+    <li>Abai — Book of Words</li>
+    <li>The Hobbit</li>
+</ol>
+<a href="https://example.com/catalogue" target="_blank">Open the full catalogue</a>
+<img src="library.jpg" alt="Students reading in the library" width="300">
+
+<table border="1">
+    <tr><th>Day</th><th>Opening hours</th></tr>
+    <tr><td>Monday</td><td>8:00–17:00</td></tr>
+    <tr><td>Saturday</td><td>10:00–14:00</td></tr>
+</table>
+```
+
+:::html What the browser shows | 260
+<h2>Top books this month</h2>
+<ol><li>Abai — Book of Words</li><li>The Hobbit</li></ol>
+<a href="#">Open the full catalogue</a>
+<table border="1" style="margin-top:10px;border-collapse:collapse">
+<tr><th style="padding:4px 10px">Day</th><th style="padding:4px 10px">Opening hours</th></tr>
+<tr><td style="padding:4px 10px">Monday</td><td style="padding:4px 10px">8:00–17:00</td></tr>
+<tr><td style="padding:4px 10px">Saturday</td><td style="padding:4px 10px">10:00–14:00</td></tr>
+</table>
+---css---
+body { font-family: Arial, sans-serif; padding: 8px; }
+:::
+
+:::tip Good structure
+Use **one `<h1>`** per page, headings in order (`h1 → h2 → h3`), **semantic elements** instead of many `<div>`s, and **`alt` text** for every image. This helps search engines and users with **screen readers**.
 :::
 
 # Creating an interface with HTML and CSS
 @lo 11.5.3.2
 
-HTML gives the page its **structure and content**; CSS controls its **appearance**: colours, fonts, spacing and layout.
-
-:::html Page layout with header, navigation, content and footer | 300
-<header><h1>Robotics Club</h1></header>
-<nav><a href="#">Home</a><a href="#">Projects</a><a href="#">Join</a></nav>
-<main>
-  <section><h2>Next meeting</h2><p>Friday, 15:00, room 204.</p></section>
-  <aside>Bring your laptop!</aside>
-</main>
-<footer>© 2026 NIS Robotics Club</footer>
----css---
-body { margin: 0; font-family: Arial, sans-serif; }
-header { background: #1f4fd8; color: white; padding: 12px 20px; }
-header h1 { margin: 0; font-size: 22px; }
-nav { background: #e8eefc; padding: 8px 20px; }
-nav a { margin-right: 16px; color: #1f4fd8; text-decoration: none; font-weight: bold; }
-main { display: flex; gap: 16px; padding: 16px 20px; }
-section { flex: 3; }
-aside { flex: 1; background: #fdf3e2; padding: 10px; border-radius: 6px; }
-footer { background: #222; color: #ccc; text-align: center; padding: 8px; font-size: 13px; }
+:::compare Three ways to add CSS
+| Method | Where | Example | When to use |
+|---|---|---|---|
+| **Inline** | In the `style` attribute of one element | `<p style="color:red;">` | One-off change (avoid) |
+| **Internal** | In a `<style>` element in the `<head>` | `<style> h1 { color: navy; } </style>` | Styles for one page |
+| **External** | In a separate `.css` file linked with `<link>` | `<link rel="stylesheet" href="style.css">` | **Best** for a whole site — one file controls every page |
 :::
 
-## The CSS box model
-
-Every element is a box made of **content**, **padding** (space inside the border), **border** and **margin** (space outside).
-
-:::html The box model | 170
-<div class="box">Content</div>
----css---
-.box { width: 160px; padding: 20px; border: 4px solid #1f4fd8; margin: 24px; background: #e8eefc; text-align: center; font-family: Arial; }
-body { background: #fdf3e2; margin: 0; }
+:::cards
+### CSS rule syntax
+`selector { property: value; property: value; }`
+`h1 { color: navy; text-align: center; }`
+### Selectors
+- **Element**: `p { … }` — every paragraph.
+- **Class**: `.note { … }` used with `class="note"` — can repeat on the page.
+- **ID**: `#menu { … }` used with `id="menu"` — must be **unique**.
+### Common properties
+`color`, `background-color`, `font-family`, `font-size`, `font-weight`, `text-align`, `text-decoration`, `width`, `height`, `margin` (outside space), `padding` (inside space), `border`, `border-radius`, `display`.
 :::
 
-## Principles of good interface design
+```html | A simple page interface
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eco Club</title>
+  <style>
+    body   { font-family: Arial, sans-serif; margin: 0; }
+    header { background-color: #2e7d32; color: white; text-align: center; padding: 12px; }
+    nav a  { margin: 0 10px; color: #2e7d32; font-weight: bold; text-decoration: none; }
+    .card  { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 10px; }
+    footer { font-size: 12px; text-align: center; color: gray; }
+  </style>
+</head>
+<body>
+  <header><h1>Eco Club</h1></header>
+  <nav><a href="#">Home</a><a href="#">Events</a><a href="#">Join</a></nav>
+  <main>
+    <section class="card">
+      <h2>Next event</h2>
+      <p>Tree planting on <strong>Saturday</strong> at 10:00.</p>
+    </section>
+  </main>
+  <footer>© 2026 NIS Eco Club</footer>
+</body>
+</html>
+```
 
-- **Consistency:** the same colours, fonts and navigation on every page.
-- **Readability:** good contrast, readable font size, short paragraphs.
-- **Clear navigation:** the user always knows where they are and how to go back.
-- **Accessibility:** `alt` text for images, labels for form fields, keyboard access.
-- **Responsive design:** the layout adapts to phones and computers.
+:::html The page in the browser | 250
+<header><h1>Eco Club</h1></header>
+<nav><a href="#">Home</a><a href="#">Events</a><a href="#">Join</a></nav>
+<main><section class="card"><h2>Next event</h2><p>Tree planting on <strong>Saturday</strong> at 10:00.</p></section></main>
+<footer>© 2026 NIS Eco Club</footer>
+---css---
+body   { font-family: Arial, sans-serif; margin: 0; }
+header { background-color: #2e7d32; color: white; text-align: center; padding: 6px; }
+header h1 { margin: 6px; }
+nav    { padding: 8px; }
+nav a  { margin: 0 10px; color: #2e7d32; font-weight: bold; text-decoration: none; }
+.card  { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 10px; }
+footer { font-size: 12px; text-align: center; color: gray; }
+:::
+
+:::compare Principles of good interface design
+| Principle | Meaning |
+|---|---|
+| **Consistency** | Same layout, colours, fonts and navigation on every page |
+| **Clear navigation** | The user can always find the menu and get back to the home page |
+| **Readability** | Good contrast between text and background, readable font size |
+| **Simplicity** | Not too much text, colour or animation on one page |
+| **Accessibility** | `alt` text, labels on form fields, works with keyboard and screen readers |
+| **Responsive** | Works on phones and computers (`<meta name="viewport" …>`, flexible widths) |
+:::
 
 # HTML forms for data entry
 @lo 11.5.3.4
 
-A **form** collects data from the user and sends it to the server for processing (e.g. by a PHP or Python script).
+:::definition HTML form
+A part of a web page that **collects data from the user** — text, choices, passwords, files — and **sends it to a server** (or a script) for processing. It is created with the `<form>` element and contains **input controls**.
+:::
 
-```html | A registration form
-<form action="register.php" method="post">
-  <label for="name">Full name:</label>
-  <input type="text" id="name" name="name" required>
-
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required>
-
-  <label for="age">Age:</label>
-  <input type="number" id="age" name="age" min="14" max="18">
-
-  <p>Grade:</p>
-  <input type="radio" id="g11" name="grade" value="11"><label for="g11">11</label>
-  <input type="radio" id="g12" name="grade" value="12"><label for="g12">12</label>
-
-  <label for="club">Club:</label>
-  <select id="club" name="club">
-    <option value="robotics">Robotics</option>
-    <option value="chess">Chess</option>
-  </select>
-
-  <input type="checkbox" id="agree" name="agree"><label for="agree">I agree to the rules</label>
-
-  <textarea name="comment" rows="3"></textarea>
-  <button type="submit">Register</button>
-</form>
-```
-
-:::html The form rendered | 330
-<form>
-  <label>Full name: <input type="text" required></label><br>
-  <label>Email: <input type="email"></label><br>
-  <label>Age: <input type="number" min="14" max="18"></label><br>
-  Grade: <label><input type="radio" name="g"> 11</label> <label><input type="radio" name="g"> 12</label><br>
-  <label>Club: <select><option>Robotics</option><option>Chess</option></select></label><br>
-  <label><input type="checkbox"> I agree to the rules</label><br>
-  <textarea rows="2" cols="30" placeholder="Comment"></textarea><br>
-  <button type="submit">Register</button>
-</form>
----css---
-body { font-family: Arial; font-size: 14px; }
-label, input, select, textarea, button { margin: 4px 0; }
-button { background: #1f4fd8; color: #fff; border: 0; padding: 6px 14px; border-radius: 4px; }
+:::cards
+### Why forms are used
+- To **get data for processing** — registration, log-in, orders, surveys, search.
+- To **collect user input** in a structured way.
+- To **mimic paper forms** and database records.
+- **Validation** (required fields, number ranges) reduces errors before the data is sent.
+### The `<form>` element
+`<form action="register.php" method="post">`
+- `action` — the **file / URL** that will process the data.
+- `method` — **how** the data is sent: `get` or `post`.
+- Every control needs a **`name`** — it becomes the key of the data sent (e.g. `email=ali@mail.kz`).
 :::
 
 :::compare Form controls
-| Control | HTML | When to use |
+| Control | HTML | Use |
 |---|---|---|
-| Text box | `<input type="text">` | Short free text (name) |
-| Password | `<input type="password">` | Hidden characters |
-| Number / email / date | `type="number"`, `"email"`, `"date"` | Built-in format checking |
-| Radio buttons | `type="radio"` with the same `name` | Choose **exactly one** option |
-| Check box | `type="checkbox"` | Choose **zero or more** options |
-| Drop-down list | `<select>` + `<option>` | One option from a long list, saves space |
-| Text area | `<textarea>` | Long text (comments) |
-| Button | `<button type="submit">` | Sends the form |
+| Text box | `<input type="text" name="surname">` | One line of text |
+| Password | `<input type="password" name="pwd">` | Characters are hidden |
+| E-mail / number / date | `<input type="email">`, `<input type="number" min="1" max="12">`, `<input type="date">` | Browser checks the format / range |
+| **Radio buttons** | `<input type="radio" name="gender" value="f">` | Choose **only one** option — all buttons in the group have the **same `name`** |
+| **Check boxes** | `<input type="checkbox" name="club" value="chess">` | Choose **zero or more** options |
+| Drop-down list | `<select name="grade"><option value="11">Grade 11</option></select>` | Choose one from a long list, saves space |
+| Text area | `<textarea name="comment" rows="4" cols="30"></textarea>` | Several lines of text |
+| Label | `<label for="surname">Surname:</label>` | Text for a control; `for` matches the control's `id` (click the label to select it) |
+| Submit button | `<input type="submit" value="Register">` or `<button type="submit">Go</button>` | Sends the data to the `action` |
+| Reset button | `<input type="reset" value="Clear">` | Clears the form |
+:::
+
+```html | A registration form
+<form action="register.php" method="post">
+    <label for="name">Full name:</label>
+    <input type="text" id="name" name="fullname" placeholder="e.g. Aruzhan Bekova" required><br>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="pwd">Password:</label>
+    <input type="password" id="pwd" name="password" minlength="8"><br>
+
+    Gender:
+    <input type="radio" id="f" name="gender" value="female"><label for="f">Female</label>
+    <input type="radio" id="m" name="gender" value="male"><label for="m">Male</label><br>
+
+    Clubs:
+    <input type="checkbox" name="club" value="robotics"> Robotics
+    <input type="checkbox" name="club" value="chess"> Chess<br>
+
+    <label for="grade">Grade:</label>
+    <select id="grade" name="grade">
+        <option value="11">Grade 11</option>
+        <option value="12">Grade 12</option>
+    </select><br>
+
+    <textarea name="about" rows="3" cols="30" placeholder="About you"></textarea><br>
+    <input type="submit" value="Register">
+    <input type="reset" value="Clear">
+</form>
+```
+
+:::html The form in the browser | 330
+<form>
+<label for="name">Full name:</label> <input type="text" id="name" placeholder="e.g. Aruzhan Bekova"><br>
+<label for="email">E-mail:</label> <input type="email" id="email"><br>
+<label for="pwd">Password:</label> <input type="password" id="pwd"><br>
+Gender: <input type="radio" id="f" name="gender"><label for="f">Female</label>
+<input type="radio" id="m" name="gender"><label for="m">Male</label><br>
+Clubs: <input type="checkbox"> Robotics <input type="checkbox"> Chess<br>
+<label for="grade">Grade:</label> <select id="grade"><option>Grade 11</option><option>Grade 12</option></select><br>
+<textarea rows="3" cols="30" placeholder="About you"></textarea><br>
+<input type="submit" value="Register"> <input type="reset" value="Clear">
+</form>
+---css---
+body { font-family: Arial, sans-serif; padding: 8px; line-height: 2; }
+input[type=text], input[type=email], input[type=password] { width: 180px; }
 :::
 
 :::compare GET vs POST
-| `method="get"` | `method="post"` |
-|---|---|
-| Data appears in the URL (`?name=Ali`) | Data is sent in the request body, not visible in the URL |
-| Limited length; can be bookmarked | No practical length limit |
-| For searches and non-sensitive data | For passwords, personal data, uploads |
+| | `method="get"` | `method="post"` |
+|---|---|---|
+| Where the data goes | Added to the **URL**: `search.php?q=books&page=2` | In the **body** of the HTTP request — not visible in the URL |
+| Visible / bookmarkable | Yes — can be bookmarked and shared | No |
+| Security | **Not for passwords** or personal data (stored in history, logs) | Better for passwords and personal data (use HTTPS as well) |
+| Amount of data | Limited by URL length | Large amounts, files |
+| Typical use | Searches, filters | Registration, log-in, orders, uploads |
 :::
 
-:::tip
-The `name` attribute is what the server uses to read the value (`$_POST["name"]`). Radio buttons in one group **must share the same `name`**.
+:::warning Radio buttons
+Radio buttons only work as a group (one choice) when they **all have the same `name`**. Give each a different **`value`** so the server knows which was chosen. Check boxes can share a name, but more than one can be ticked.
+:::
+
+:::compare Built-in validation attributes
+| Attribute | Effect |
+|---|---|
+| `required` | The field cannot be left empty |
+| `min`, `max` | Range for numbers / dates |
+| `minlength`, `maxlength` | Length of text |
+| `pattern` | The text must match a pattern, e.g. `pattern="[0-9]{6}"` |
+| `type="email"` | The browser checks for an e-mail format |
+:::
+
+# Exam practice and summary
+@lo 11.5.3.1 11.5.3.2 11.5.3.4
+
+:::example Exam-style answers
+**Q: Complete the fragment of HTML code for the Gender options of a registration form. [3]**
+```html
+<input type="radio" name="gender" value="male"> Male
+<input type="radio" name="gender" value="female"> Female
+```
+`<input` for each element (1), `type="radio"` (1), the **same** `name` for each element (1).
+
+**Q: Write the attributes for the tag `<form>` to send data from the form using the GET method. [2]**
+`<form action="process.php" method="GET">` — `action` with a file name (1), `method="GET"` (1).
+
+**Q: Write the code to create a text box for the user's city with a hint inside it. [2]**
+`<input type="text" name="city" placeholder="Enter your city">` — `type="text"` (1), `name` and `placeholder` (1).
+
+**Q: Give one argument for using HTML forms in web applications. [1]**
+To **collect user input** / to get data for processing / to mimic paper or database forms.
+:::
+
+:::warning Common mistakes
+- Forgetting the **closing tag** (`</p>`, `</form>`, `</select>`) or nesting tags in the wrong order.
+- Giving radio buttons **different names** — then the user can select all of them.
+- Forgetting the **`name`** attribute — the data from that field is **not sent**.
+- Using `GET` for a password — it appears in the URL.
+- Putting visible content in the `<head>`.
+- Writing CSS without `:` and `;` (`color red` instead of `color: red;`).
+:::
+
+:::steps Check yourself
+- Write the skeleton of an HTML5 page from memory.
+- Name the semantic elements of a page layout and what each contains.
+- What is the difference between an element, a tag and an attribute?
+- Write the HTML for an image with alternative text and a link that opens another page.
+- What are the three ways of adding CSS, and which is best for a whole website?
+- Write a form with a text box, two radio buttons, a drop-down list and a submit button.
+- Compare the GET and POST methods.
 :::

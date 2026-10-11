@@ -1,81 +1,1921 @@
 {
   "topic": "g12-program-compilation-stages",
-  "questions": [],
-  "summary": "The stages of compilation — lexical analysis, syntax analysis, code generation and optimisation — with worked examples of each.",
+  "questions": [
+    {
+      "key": "cs-order-mcq",
+      "title": "Order of the stages",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.3"
+      ],
+      "practice": true,
+      "text": "Which shows the stages of compilation in the correct order?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Syntax analysis → Lexical analysis → Code optimisation → Code generation"
+        },
+        {
+          "key": "B",
+          "content": "Lexical analysis → Syntax analysis → Code generation → Code optimisation"
+        },
+        {
+          "key": "C",
+          "content": "Code generation → Lexical analysis → Syntax analysis → Code optimisation"
+        },
+        {
+          "key": "D",
+          "content": "Lexical analysis → Code generation → Syntax analysis → Code optimisation"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Characters are first turned into tokens, the tokens are checked against the grammar, code is generated from the parse tree and then optimised."
+      }
+    },
+    {
+      "key": "cs-stages-fill",
+      "title": "Name the stage",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.3"
+      ],
+      "practice": true,
+      "text": "Complete the sentences with the name of the compilation stage.\n\nComments and spaces are removed and tokens are produced during [[1]] analysis. The tokens are checked against the grammar rules of the language during [[2]] analysis. Machine-code instructions are produced during code [[3]]. The code is made faster and smaller during code [[4]].",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) lexical (2) syntax (3) generation (4) optimisation",
+        "accepted": {
+          "blanks": [
+            [
+              "lexical"
+            ],
+            [
+              "syntax",
+              "syntactic",
+              "syntactical"
+            ],
+            [
+              "generation"
+            ],
+            [
+              "optimisation",
+              "optimization"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "cs-stage-match",
+      "title": "Stage and output",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.3"
+      ],
+      "practice": true,
+      "text": "Match each compilation stage to its output.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Lexical analysis"
+          },
+          {
+            "key": "L2",
+            "text": "Syntax analysis"
+          },
+          {
+            "key": "L3",
+            "text": "Code generation"
+          },
+          {
+            "key": "L4",
+            "text": "Code optimisation"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "A stream of tokens and a symbol table"
+          },
+          {
+            "key": "R2",
+            "text": "A parse tree (syntax tree)"
+          },
+          {
+            "key": "R3",
+            "text": "Intermediate code / object code"
+          },
+          {
+            "key": "R4",
+            "text": "Faster, smaller object code"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Lexical–R1, Syntax–R2, Code generation–R3, Optimisation–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "cs-lexical-describe",
+      "title": "Describe lexical analysis",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Describe what happens during **lexical analysis**.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Any three (1 each):\n- The source code is read character by character\n- White space and comments are removed\n- Characters are grouped into lexemes / a stream of strings is converted into a sequence of tokens\n- Each token is given a type (keyword, identifier, operator, number, separator)\n- Identifiers are entered into the symbol table\n- Lexical errors (illegal characters / invalid identifiers) are reported",
+        "points": [
+          {
+            "criterion": "First valid point",
+            "marks": 1
+          },
+          {
+            "criterion": "Second valid point",
+            "marks": 1
+          },
+          {
+            "criterion": "Third valid point",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The source code is read character by character, spaces and comments are removed, and the characters are grouped into tokens such as keywords, identifiers and operators. Identifiers are added to the symbol table and any illegal characters are reported as lexical errors."
+      }
+    },
+    {
+      "key": "cs-tokens-table",
+      "title": "Classify the tokens",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "The statement below is processed by the lexical analyser.\n\n```c\nwhile (count < 5) count = count + 1;\n```\n\nComplete the table with the **token type** of each lexeme. Use: **keyword**, **identifier**, **operator**, **number** or **separator**.",
+      "content": {
+        "columns": [
+          "Lexeme",
+          "Token type"
+        ],
+        "rows": 6,
+        "prefill": [
+          [
+            "while",
+            null
+          ],
+          [
+            "(",
+            null
+          ],
+          [
+            "count",
+            null
+          ],
+          [
+            "<",
+            null
+          ],
+          [
+            "5",
+            null
+          ],
+          [
+            ";",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "while – keyword; ( – separator; count – identifier; < – operator; 5 – number; ; – separator\n\nSix correct (4); five (3); three or four (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Five correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All six correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "keyword||reserved word"
+            ],
+            [
+              null,
+              "separator||bracket||punctuation||delimiter"
+            ],
+            [
+              null,
+              "identifier||variable"
+            ],
+            [
+              null,
+              "operator||relational operator||comparison operator"
+            ],
+            [
+              null,
+              "number||literal||constant||integer||numeric literal"
+            ],
+            [
+              null,
+              "separator||punctuation||delimiter||semicolon"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 4 for six correct rows, 3 for five, 2 for three or four, 1 for one or two."
+      }
+    },
+    {
+      "key": "cs-lexeme-token",
+      "title": "Lexeme vs token",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Explain the difference between a **lexeme** and a **token**, using `total` as an example.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A lexeme is the actual sequence of characters in the source code, e.g. total (1)\n- A token is the category / type given to the lexeme, e.g. identifier (1)",
+        "points": [
+          {
+            "criterion": "Lexeme: the characters themselves",
+            "marks": 1
+          },
+          {
+            "criterion": "Token: the category, e.g. identifier",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The lexeme is the actual characters 'total' in the source code; the token is its category, here an identifier."
+      }
+    },
+    {
+      "key": "cs-symbol-table",
+      "title": "The symbol table",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Describe the **symbol table** used by a compiler.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): a data structure / table created during lexical analysis; stores identifiers (variables, constants, function names); with their data type / scope / memory address; used by later stages (syntax analysis, code generation)",
+        "points": [
+          {
+            "criterion": "Stores identifiers",
+            "marks": 1
+          },
+          {
+            "criterion": "With attributes / used by later stages",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A table built during lexical analysis that stores every identifier in the program together with information such as its data type and memory address, which later stages use."
+      }
+    },
+    {
+      "key": "cs-comments-tf",
+      "title": "Comments in compilation",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Comments in the source code are converted into machine code so that they appear in the executable file.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Comments are removed during lexical analysis; they are only for human readers."
+      }
+    },
+    {
+      "key": "cs-syntax-describe",
+      "title": "Describe syntax analysis",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Describe what happens at the stage of **syntax analysis**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): syntax analysers receive their inputs in the form of tokens; the stage analyses the syntax of the statements to ensure they conform to the rules of grammar of the language; builds a parse tree / syntax tree; reports syntax errors",
+        "points": [
+          {
+            "criterion": "Input is tokens",
+            "marks": 1
+          },
+          {
+            "criterion": "Checks statements against grammar rules / builds a parse tree",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The syntax analyser receives the tokens from the lexical analyser and checks that each statement follows the grammar rules of the language, building a parse tree and reporting any syntax errors."
+      }
+    },
+    {
+      "key": "cs-error-stage",
+      "title": "Which stage finds the error?",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show which stage of compilation detects each error.",
+      "content": {
+        "columns": [
+          "Error in the source code",
+          "Lexical analysis",
+          "Syntax analysis"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "`total = (price * 3;` — the closing bracket is missing",
+            null,
+            null
+          ],
+          [
+            "`2count = 0;` — an identifier begins with a digit",
+            null,
+            null
+          ],
+          [
+            "`x = 5 @ 2;` — an illegal character is used",
+            null,
+            null
+          ],
+          [
+            "`if x > 3 then = y;` — tokens are in the wrong order",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Syntax; 2 Lexical; 3 Lexical; 4 Syntax\n\nFour correct (3); three (2); two (1)",
+        "points": [
+          {
+            "criterion": "Two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All four rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 3 for four correct rows, 2 for three, 1 for two."
+      }
+    },
+    {
+      "key": "cs-parse-tree-mcq",
+      "title": "Parse tree",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.4"
+      ],
+      "practice": true,
+      "text": "In the syntax tree for `y = a + b * c`, which operation appears **lowest** in the tree (and is therefore evaluated first)?",
+      "options": [
+        {
+          "key": "A",
+          "content": "="
+        },
+        {
+          "key": "B",
+          "content": "+"
+        },
+        {
+          "key": "C",
+          "content": "*"
+        },
+        {
+          "key": "D",
+          "content": "All are at the same level"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Multiplication has higher precedence, so b * c is a sub-tree of +, which is a sub-tree of the assignment."
+      }
+    },
+    {
+      "key": "cs-codegen-describe",
+      "title": "Code generation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.5"
+      ],
+      "practice": true,
+      "text": "Describe what happens during **code generation**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): the parse tree is converted into intermediate code / object code / machine code; machine instructions for the target processor are chosen; memory addresses / registers are allocated to variables (using the symbol table); output is object code that can be linked into an executable",
+        "points": [
+          {
+            "criterion": "Produces intermediate / object (machine) code from the parse tree",
+            "marks": 1
+          },
+          {
+            "criterion": "Allocates memory / chooses instructions",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The compiler uses the parse tree to produce object code, choosing machine instructions for the processor and allocating memory addresses to the variables in the symbol table."
+      }
+    },
+    {
+      "key": "cs-three-address",
+      "title": "Three-address code",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.5"
+      ],
+      "practice": true,
+      "text": "The statement `z = (a + b) * c - d` is converted into three-address code, using temporary variables `t1`, `t2` and `t3`. Each line may contain only **one** operator. Complete the table.",
+      "content": {
+        "columns": [
+          "Line",
+          "Three-address code"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            "z = t3"
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "t1 = a + b (1)\nt2 = t1 * c (1)\nt3 = t2 - d (1)",
+        "points": [
+          {
+            "criterion": "t1 = a + b",
+            "marks": 1
+          },
+          {
+            "criterion": "t2 = t1 * c",
+            "marks": 1
+          },
+          {
+            "criterion": "t3 = t2 - d",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 t1 = a + b\n2 t2 = t1 * c\n3 t3 = t2 - d",
+        "ai_instructions": "Ignore spacing. Each line must use the result of the previous line correctly and contain one operator."
+      }
+    },
+    {
+      "key": "cs-optimisation-purpose",
+      "title": "Purpose of optimisation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Describe the purpose of **code optimisation**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The code is improved to consume fewer resources / less memory / smaller object code (1)\n- and to increase execution speed, without changing what the program does (1)",
+        "points": [
+          {
+            "criterion": "Fewer resources / smaller code",
+            "marks": 1
+          },
+          {
+            "criterion": "Faster execution without changing the result",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To improve the generated code so that it uses fewer resources and runs faster, while still producing exactly the same results."
+      }
+    },
+    {
+      "key": "cs-dead-code",
+      "title": "Name the optimisation",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "name",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Name the optimisation technique that would be applied to the fragment below.\n\n```c\nint area(int w, int h) {\n    return w * h;\n    printf(\"Area calculated\");\n}\n```",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Dead code elimination (1)",
+        "points": [
+          {
+            "criterion": "Dead code elimination",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Dead code elimination.",
+        "accepted": {
+          "values": [
+            "dead code elimination",
+            "dead-code elimination",
+            "dead code removal",
+            "eliminating dead code",
+            "removing dead code",
+            "dead code"
+          ]
+        },
+        "explanation": "The printf statement after return can never run, so it is removed."
+      }
+    },
+    {
+      "key": "cs-technique-table",
+      "title": "Optimisation techniques",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the table by naming the optimisation technique used in each case. Choose from: **constant folding**, **dead code elimination**, **common sub-expression elimination**, **loop-invariant code motion**.",
+      "content": {
+        "columns": [
+          "Before",
+          "After",
+          "Technique"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "seconds = 24 * 60 * 60",
+            "seconds = 86400",
+            null
+          ],
+          [
+            "a = b * c + 1; d = b * c + 2",
+            "t = b * c; a = t + 1; d = t + 2",
+            null
+          ],
+          [
+            "for i in 1..n: r = PI * 2; s = s + r * i",
+            "r = PI * 2; for i in 1..n: s = s + r * i",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Constant folding (1)\n2 Common sub-expression elimination (1)\n3 Loop-invariant code motion (1)",
+        "points": [
+          {
+            "criterion": "Constant folding",
+            "marks": 1
+          },
+          {
+            "criterion": "Common sub-expression elimination",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop-invariant code motion",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "constant folding"
+            ],
+            [
+              null,
+              null,
+              "common sub-expression elimination||common subexpression elimination||common sub expression elimination||cse"
+            ],
+            [
+              null,
+              null,
+              "loop-invariant code motion||loop invariant code motion||code motion||loop invariant||moving code out of the loop"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "cs-optimise-code",
+      "title": "Optimise a fragment",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Rewrite the fragment below so that it is optimised. The result must stay the same.\n\n```c\nint x = 10;\nint unused = 99;\nint y = x * 4 + x * 4;\nif (0) {\n    printf(\"Never\");\n}\nprintf(\"%d\", y);\n```",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- Removes the unused variable (dead code) (1)\n- Removes the if (0) block (dead code) (1)\n- Simplifies x * 4 + x * 4, e.g. to y = 80 (constant propagation / folding) or t = x * 4; y = t + t (common sub-expression) (1)",
+        "points": [
+          {
+            "criterion": "Unused variable removed",
+            "marks": 1
+          },
+          {
+            "criterion": "if (0) block removed",
+            "marks": 1
+          },
+          {
+            "criterion": "Repeated / constant expression simplified correctly",
+            "marks": 1
+          }
+        ],
+        "model_answer": "int y = 80;\nprintf(\"%d\", y);",
+        "ai_instructions": "Any correct optimised version that prints 80 is acceptable. Deduct the third mark if the value of y would change."
+      }
+    },
+    {
+      "key": "cs-opt-disadvantage",
+      "title": "Disadvantage of optimisation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Explain **one** disadvantage of code optimisation.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Disadvantage (1) + explanation (1), e.g.\n- Compilation takes longer (1) because the compiler has to analyse and rewrite the code (1)\n- Harder to debug (1) because the optimised code no longer matches the source code line by line (1)",
+        "points": [
+          {
+            "criterion": "Valid disadvantage",
+            "marks": 1
+          },
+          {
+            "criterion": "Explanation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The program is harder to debug, because after optimisation the object code no longer matches the source code line by line."
+      }
+    },
+    {
+      "key": "cs-opt-benefits-mr",
+      "title": "Benefits of optimisation",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Select **two** benefits of code optimisation.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The program runs faster"
+        },
+        {
+          "key": "B",
+          "content": "Syntax errors are corrected automatically"
+        },
+        {
+          "key": "C",
+          "content": "The object code needs less memory"
+        },
+        {
+          "key": "D",
+          "content": "The source code becomes easier to read"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "cs-structured-diagram",
+      "title": "Stages A and B",
+      "type": "structured",
+      "marks": 4,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "The diagram shows the stages of compilation.\n\n```text\nSource code → A → Syntax analysis → Code generation → B → Object code\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "cs-diagram-a",
+          "part_label": "(a)",
+          "title": "Stage A",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.3"
+          ],
+          "practice": true,
+          "text": "Name and describe stage **A**.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Name",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Description",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Name: Lexical analysis (1)\nDescription: converting a stream of individual characters / strings into a sequence of tokens (lexemes); removes spaces and comments; lexical errors are found (1)",
+            "points": [
+              {
+                "criterion": "Lexical analysis",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid description",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Name: lexical analysis. Description: the source code is converted into a sequence of tokens and spaces and comments are removed."
+          }
+        },
+        {
+          "key": "cs-diagram-b",
+          "part_label": "(b)",
+          "title": "Stage B",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.3"
+          ],
+          "practice": true,
+          "text": "Name and describe stage **B**.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Name",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Description",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Name: Code optimisation (1)\nDescription: improves the code to consume fewer resources and increase execution speed (1)",
+            "points": [
+              {
+                "criterion": "Code optimisation",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid description",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Name: code optimisation. Description: the code is improved so that it uses fewer resources and runs faster."
+          }
+        }
+      ]
+    },
+    {
+      "key": "cs-extended-trace",
+      "title": "Follow a statement through the compiler",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.1.3",
+        "12.5.1.4",
+        "12.5.1.5",
+        "12.5.1.6"
+      ],
+      "practice": true,
+      "text": "Explain how the statement below is processed by **each** stage of a compiler.\n\n```c\nprice = cost * 2;   // add the profit\n```",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "Lexical analysis (max 2): comment and spaces removed (1); lexemes become tokens — price / cost identifiers, = and * operators, 2 number, ; separator; identifiers added to the symbol table (1)\nSyntax analysis (max 2): tokens checked against the grammar of an assignment statement (1); parse tree built with * below = / syntax errors reported (1)\nCode generation (1): machine instructions produced, e.g. LDA cost, MUL #2, STA price / addresses allocated\nOptimisation (1): e.g. multiply by 2 replaced by addition or shift (strength reduction) / redundant instructions removed\n[Max 6]",
+        "points": [
+          {
+            "criterion": "Lexical: comment / spaces removed",
+            "marks": 1
+          },
+          {
+            "criterion": "Lexical: tokens identified / symbol table",
+            "marks": 1
+          },
+          {
+            "criterion": "Syntax: checked against grammar",
+            "marks": 1
+          },
+          {
+            "criterion": "Syntax: parse tree / errors",
+            "marks": 1
+          },
+          {
+            "criterion": "Code generation described for this statement",
+            "marks": 1
+          },
+          {
+            "criterion": "Optimisation described for this statement",
+            "marks": 1
+          }
+        ],
+        "model_answer": "In lexical analysis the comment and spaces are removed and the statement is split into tokens: price (identifier), = (operator), cost (identifier), * (operator), 2 (number) and ; (separator); price and cost are added to the symbol table. In syntax analysis the tokens are checked against the grammar rule for an assignment, and a parse tree is built with cost * 2 under the = node. In code generation machine instructions are produced, for example LDA cost, MUL #2, STA price, using the addresses from the symbol table. In optimisation the multiplication by 2 can be replaced by a faster shift-left or by adding cost to itself."
+      }
+    },
+    {
+      "key": "cs-exam-1",
+      "title": "The stages of compilation",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A compiler translates a high-level program in four stages.\n\n```text\nSource code → A → Syntax analysis → Code generation → B → Object code\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "cs-exam-1a",
+          "part_label": "(a)",
+          "title": "Stage A",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name and describe compilation stage **A**.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Name A",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Description A",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Name: Lexical analysis (1)\nDescription: the process of parsing a stream of individual characters / converting it into a sequence of lexical tokens; white space / comments removed; lexical errors found (1)",
+            "points": [
+              {
+                "criterion": "Lexical analysis",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid description",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Name: lexical analysis. Description: the stream of characters is converted into a sequence of tokens."
+          }
+        },
+        {
+          "key": "cs-exam-1b",
+          "part_label": "(b)",
+          "title": "Stage B",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name and describe compilation stage **B**.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Name B",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Description B",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Name: Code optimisation (1)\nDescription: improved code to consume fewer resources and increase execution speed (1)",
+            "points": [
+              {
+                "criterion": "Code optimisation",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid description",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Name: code optimisation. Description: the code is changed so that it uses fewer resources and runs faster."
+          }
+        },
+        {
+          "key": "cs-exam-1c",
+          "part_label": "(c)",
+          "title": "Symbol table",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the role of the **symbol table** during compilation.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): created during lexical analysis; stores identifiers / variable names; with data type / scope / address; used by later stages such as syntax analysis and code generation",
+            "points": [
+              {
+                "criterion": "Stores identifiers and their attributes",
+                "marks": 1
+              },
+              {
+                "criterion": "Built during lexical analysis / used by later stages",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is built during lexical analysis and stores each identifier with its data type and address, so that later stages such as code generation can use this information."
+          }
+        },
+        {
+          "key": "cs-exam-1d",
+          "part_label": "(d)",
+          "title": "Which stage",
+          "type": "table_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show the stage in which each task is carried out.",
+          "content": {
+            "columns": [
+              "Task",
+              "Lexical analysis",
+              "Syntax analysis",
+              "Code generation",
+              "Code optimisation"
+            ],
+            "rows": 4,
+            "tick": true,
+            "prefill": [
+              [
+                "Comments are removed",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "A parse tree is built",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "Memory addresses are allocated to variables",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "Unreachable statements are removed",
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Comments → Lexical; Parse tree → Syntax; Addresses → Code generation; Unreachable statements → Optimisation\n\nFour correct (2); two or three (1)",
+            "points": [
+              {
+                "criterion": "Two or three rows correct",
+                "marks": 1
+              },
+              {
+                "criterion": "All four rows correct",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "",
+                  "✓"
+                ]
+              ]
+            },
+            "ai_instructions": "Award 2 for four correct rows, 1 for two or three."
+          }
+        }
+      ]
+    },
+    {
+      "key": "cs-exam-2",
+      "title": "Lexical analysis",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The following line of code is processed by the lexical analyser.\n\n```c\nif (score >= 50) grade = 1;   // pass\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "cs-exam-2a",
+          "part_label": "(a)",
+          "title": "Token types",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table with the token type of each lexeme. Use: **keyword**, **identifier**, **operator**, **number**, **bracket**.",
+          "content": {
+            "columns": [
+              "Lexeme",
+              "Token type"
+            ],
+            "rows": 6,
+            "prefill": [
+              [
+                "if",
+                null
+              ],
+              [
+                "(",
+                null
+              ],
+              [
+                "score",
+                null
+              ],
+              [
+                ">=",
+                null
+              ],
+              [
+                "50",
+                null
+              ],
+              [
+                "grade",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "if – keyword; ( – bracket; score – identifier; >= – operator; 50 – number; grade – identifier\n\nSix correct (4); five (3); three or four (2); one or two (1)",
+            "points": [
+              {
+                "criterion": "One or two correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Three correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Five correct",
+                "marks": 1
+              },
+              {
+                "criterion": "All six correct",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "keyword||reserved word"
+                ],
+                [
+                  null,
+                  "bracket||separator||punctuation||delimiter"
+                ],
+                [
+                  null,
+                  "identifier||variable"
+                ],
+                [
+                  null,
+                  "operator||relational operator||comparison operator"
+                ],
+                [
+                  null,
+                  "number||literal||constant||integer"
+                ],
+                [
+                  null,
+                  "identifier||variable"
+                ]
+              ]
+            },
+            "ai_instructions": "Award 4 for six correct rows, 3 for five, 2 for three or four, 1 for one or two."
+          }
+        },
+        {
+          "key": "cs-exam-2b",
+          "part_label": "(b)",
+          "title": "The comment",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State what the lexical analyser does with the comment `// pass`.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "It is removed / ignored / discarded (1)",
+            "points": [
+              {
+                "criterion": "Removed",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It removes the comment."
+          }
+        },
+        {
+          "key": "cs-exam-2c",
+          "part_label": "(c)",
+          "title": "Lexical error",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **one** example of a lexical error that the lexical analyser could detect.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): illegal character e.g. score # 50; identifier starting with a digit e.g. 1grade; unterminated string; invalid number e.g. 5.5.5",
+            "points": [
+              {
+                "criterion": "Valid lexical error",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An identifier that begins with a digit, such as 1grade."
+          }
+        },
+        {
+          "key": "cs-exam-2d",
+          "part_label": "(d)",
+          "title": "Lexeme and token",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between a lexeme and a token, using an example from the code above.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Lexeme: the actual characters in the code, e.g. score (1)\n- Token: the category of the lexeme, e.g. identifier (1)",
+            "points": [
+              {
+                "criterion": "Lexeme with example",
+                "marks": 1
+              },
+              {
+                "criterion": "Token with example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The lexeme is the actual text in the code, such as 'score'; the token is its category, such as identifier."
+          }
+        }
+      ]
+    },
+    {
+      "key": "cs-exam-3",
+      "title": "Syntax analysis",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "After lexical analysis, the tokens are passed to the syntax analyser.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "cs-exam-3a",
+          "part_label": "(a)",
+          "title": "Describe syntax analysis",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what happens at the stage of syntax analysis.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Syntax analyzers receive their inputs in the form of tokens (1). This stage analyses the syntax of the statements to ensure they conform to the rules of grammar (1). / Builds a parse tree / reports syntax errors (1)\n[Max 2]",
+            "points": [
+              {
+                "criterion": "Receives tokens",
+                "marks": 1
+              },
+              {
+                "criterion": "Checks against grammar rules / parse tree",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The syntax analyser receives the tokens and checks that the statements follow the grammar rules of the language, building a parse tree."
+          }
+        },
+        {
+          "key": "cs-exam-3b",
+          "part_label": "(b)",
+          "title": "Find the syntax error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the syntax error in the statement below and explain why it is a syntax error rather than a lexical error.\n\n```c\ntotal = (price * 3;\n```",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The closing bracket ) is missing (1)\n- Every token is valid, but the arrangement of tokens breaks the grammar rules (1)",
+            "points": [
+              {
+                "criterion": "Missing closing bracket",
+                "marks": 1
+              },
+              {
+                "criterion": "Tokens valid but structure breaks the grammar",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The closing bracket is missing. Each token on its own is valid, so the lexical analyser accepts them, but their arrangement breaks the grammar rules, which is checked in syntax analysis."
+          }
+        },
+        {
+          "key": "cs-exam-3c",
+          "part_label": "(c)",
+          "title": "Which stage detects it",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show which stage detects the error.",
+          "content": {
+            "columns": [
+              "Error",
+              "Lexical analysis",
+              "Syntax analysis"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "`3total = 0;`",
+                null,
+                null
+              ],
+              [
+                "`x = y + ;`",
+                null,
+                null
+              ],
+              [
+                "`name = \"Ali;` (the string is never closed)",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "3total → Lexical (1); x = y + ; → Syntax (1); unterminated string → Lexical (1)",
+            "points": [
+              {
+                "criterion": "3total lexical",
+                "marks": 1
+              },
+              {
+                "criterion": "x = y + ; syntax",
+                "marks": 1
+              },
+              {
+                "criterion": "Unterminated string lexical",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "cs-exam-4",
+      "title": "Code generation and optimisation",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The final stages of compilation produce and improve the object code.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "cs-exam-4a",
+          "part_label": "(a)",
+          "title": "Three-address code",
+          "type": "table_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "During code generation the statement `z = a * b + c` is converted into three-address code. Complete the table using the temporary variables `t1` and `t2`.",
+          "content": {
+            "columns": [
+              "Line",
+              "Three-address code"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "1",
+                null
+              ],
+              [
+                "2",
+                null
+              ],
+              [
+                "3",
+                "z = t2"
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "t1 = a * b (1)\nt2 = t1 + c (1)",
+            "points": [
+              {
+                "criterion": "t1 = a * b",
+                "marks": 1
+              },
+              {
+                "criterion": "t2 = t1 + c",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 t1 = a * b\n2 t2 = t1 + c",
+            "ai_instructions": "Ignore spacing; accept c + t1."
+          }
+        },
+        {
+          "key": "cs-exam-4b",
+          "part_label": "(b)",
+          "title": "Name the technique",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name the optimisation technique used in each case.",
+          "content": {
+            "columns": [
+              "Before optimisation",
+              "After optimisation",
+              "Technique"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "return x; print(x)",
+                "return x",
+                null
+              ],
+              [
+                "area = 3 * 4",
+                "area = 12",
+                null
+              ],
+              [
+                "p = q * r + 1; s = q * r - 1",
+                "t = q * r; p = t + 1; s = t - 1",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 Dead code elimination (1)\n2 Constant folding (1)\n3 Common sub-expression elimination (1)",
+            "points": [
+              {
+                "criterion": "Dead code elimination",
+                "marks": 1
+              },
+              {
+                "criterion": "Constant folding",
+                "marks": 1
+              },
+              {
+                "criterion": "Common sub-expression elimination",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "dead code elimination||dead-code elimination||dead code removal||removing dead code"
+                ],
+                [
+                  null,
+                  null,
+                  "constant folding"
+                ],
+                [
+                  null,
+                  null,
+                  "common sub-expression elimination||common subexpression elimination||common sub expression elimination||cse"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "cs-exam-4c",
+          "part_label": "(c)",
+          "title": "Drawback of optimisation",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** drawback of code optimisation for a programmer.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Drawback (1) + explanation (1), e.g.\n- Harder to debug (1) because the object code no longer matches the source code line by line (1)\n- Compilation takes longer (1) because the compiler must analyse and rewrite the code (1)",
+            "points": [
+              {
+                "criterion": "Valid drawback",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Compilation takes longer, because the compiler has to analyse the generated code and rewrite it before producing the final object code."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "The stages a compiler goes through — lexical analysis, syntax analysis, code generation and code optimisation — with tokens, the symbol table, parse trees, intermediate code and common optimisation techniques.",
   "theory": [
     {
-      "title": "The stages of compilation",
+      "title": "Overview of compilation",
       "objectives": [
         "12.5.1.3"
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "A **compiler** translates the whole **source code** of a high-level program into **object code** (machine code) that the processor can execute. It does this in a sequence of **stages**; each stage takes the output of the previous one."
+        },
+        {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart LR\n  S[Source code] --> L[Lexical analysis] --> Y[Syntax analysis] --> G[Code generation] --> O[Optimisation] --> M[Object / machine code]\n  L -. symbol table .- Y",
-          "caption": "From source code to machine code"
+          "content": "flowchart TB\n  S[Source code] --> L[1 Lexical analysis]\n  L -->|tokens| P[2 Syntax analysis]\n  P -->|parse tree| G[3 Code generation]\n  G -->|intermediate or object code| O[4 Code optimisation]\n  O --> OB[Object code / executable]\n  ST[(Symbol table)] -.- L\n  ST -.- P\n  ST -.- G",
+          "caption": "The stages of compilation"
         },
         {
           "type": "comparison",
           "title": "What each stage does",
           "columns": [
             "Stage",
-            "Input → output",
-            "Main tasks",
+            "Input",
+            "What it does",
+            "Output",
             "Errors found"
           ],
           "rows": [
             [
-              "Lexical analysis",
-              "Characters → **tokens**",
-              "Removes spaces and comments; splits code into tokens (keywords, identifiers, operators, literals); builds the **symbol table**",
-              "Illegal characters, invalid identifiers"
+              "**Lexical analysis**",
+              "Source code (characters)",
+              "Removes spaces and comments; splits the code into **tokens**; builds the **symbol table**",
+              "Token stream",
+              "Lexical errors: illegal characters, invalid identifiers"
             ],
             [
-              "Syntax analysis",
-              "Tokens → **parse (syntax) tree**",
-              "Checks tokens follow the **grammar rules** of the language",
-              "Syntax errors (missing bracket, wrong order)"
+              "**Syntax analysis**",
+              "Tokens",
+              "Checks the tokens follow the **grammar rules** of the language; builds a **parse tree**",
+              "Parse tree / abstract syntax tree",
+              "Syntax errors: missing bracket, wrong order of tokens"
             ],
             [
-              "Code generation",
-              "Parse tree → **object code**",
-              "Produces machine code / intermediate code for each construct",
+              "**Code generation**",
+              "Parse tree",
+              "Produces **intermediate code** and then **object (machine) code**",
+              "Object code",
               "—"
             ],
             [
-              "Optimisation",
-              "Object code → **better object code**",
-              "Makes code faster or smaller without changing what it does",
+              "**Code optimisation**",
+              "Generated code",
+              "Makes the code **faster / smaller** without changing what it does",
+              "Optimised object code",
               "—"
             ]
           ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Symbol table",
+          "content": "The **symbol table** is a data structure built during lexical analysis and used by every later stage. It stores each **identifier** (variable, constant, function name) with information such as its **data type**, **scope** and **memory address**."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Semantic analysis",
+          "content": "Many compilers add **semantic analysis** after syntax analysis: it checks that the program **makes sense** — variables are declared before use and operations have compatible **data types** (e.g. you cannot multiply a string by a Boolean)."
         }
       ]
     },
     {
-      "title": "Lexical and syntax analysis",
+      "title": "Lexical analysis",
       "objectives": [
+        "12.5.1.3",
         "12.5.1.4"
       ],
       "blocks": [
         {
-          "type": "heading",
-          "text": "Lexical analysis — tokens",
-          "level": 2
+          "type": "definition",
+          "term": "Lexical analysis",
+          "content": "The first stage of compilation. The **lexical analyser (lexer / scanner)** reads the source code character by character, **removes white space and comments**, and groups the characters into **lexemes**, which it converts into **tokens**. Identifiers are entered into the **symbol table**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Lexeme",
+              "content": "The actual sequence of characters in the source code, e.g. `total`, `=`, `10`."
+            },
+            {
+              "title": "Token",
+              "content": "The **category** of a lexeme, sometimes with a value or a pointer to the symbol table, e.g. *Identifier (total)*, *Operator (=)*, *Number (10)*."
+            },
+            {
+              "title": "Token types",
+              "content": "**Keyword** (`if`, `while`, `int`), **Identifier** (`x`, `total`), **Operator** (`+`, `==`, `=`), **Number / literal** (`10`, `\"Hi\"`), **Separator / punctuation** (`(`, `)`, `;`, `{`)."
+            }
+          ]
         },
         {
           "type": "code",
           "language": "c",
-          "content": "if (count > 10) total = total + count;   // check limit",
-          "caption": "Source line"
+          "content": "if (x == 10)   // check the counter\n    y = y + 1;",
+          "caption": "Source code"
         },
         {
           "type": "comparison",
-          "title": "Tokens produced (comment and spaces removed)",
+          "title": "Tokens produced by the lexical analyser (the comment and spaces are removed)",
           "columns": [
-            "Token",
-            "Type"
+            "Lexeme",
+            "Token"
           ],
           "rows": [
             [
@@ -87,40 +1927,40 @@
               "Bracket / separator"
             ],
             [
-              "`count`",
+              "`x`",
               "Identifier"
             ],
             [
-              "`>`",
-              "Relational operator"
+              "`==`",
+              "Operator"
             ],
             [
               "`10`",
-              "Numeric literal (constant)"
+              "Number"
             ],
             [
               "`)`",
               "Bracket / separator"
             ],
             [
-              "`total`",
+              "`y`",
               "Identifier"
             ],
             [
               "`=`",
-              "Assignment operator"
+              "Operator (assignment)"
             ],
             [
-              "`total`",
+              "`y`",
               "Identifier"
             ],
             [
               "`+`",
-              "Arithmetic operator"
+              "Operator"
             ],
             [
-              "`count`",
-              "Identifier"
+              "`1`",
+              "Number"
             ],
             [
               "`;`",
@@ -130,131 +1970,300 @@
         },
         {
           "type": "comparison",
-          "title": "Symbol table",
+          "title": "Symbol table after lexical analysis",
           "columns": [
+            "Index",
             "Identifier",
-            "Type",
+            "Kind",
+            "Data type",
             "Address"
           ],
           "rows": [
             [
-              "count",
+              "1",
+              "`x`",
+              "variable",
               "integer",
-              "0x00A4"
+              "(filled in later)"
             ],
             [
-              "total",
+              "2",
+              "`y`",
+              "variable",
               "integer",
-              "0x00A8"
+              "(filled in later)"
             ]
           ]
         },
         {
-          "type": "heading",
-          "text": "Syntax analysis — the parse tree",
-          "level": 2
+          "type": "warning",
+          "content": "The lexer reports a **lexical error** when a sequence of characters does not form any valid token: an **illegal character** (`total = 5 @ 3`), an identifier that **starts with a digit** (`2price`), or an **unterminated string** (`\"Hello`). It does **not** check whether the tokens are in a sensible order — that is syntax analysis."
+        }
+      ]
+    },
+    {
+      "title": "Syntax analysis",
+      "objectives": [
+        "12.5.1.3",
+        "12.5.1.4"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Syntax analysis (parsing)",
+          "content": "The second stage. The **syntax analyser (parser)** receives the **tokens** and checks that they are arranged according to the **grammar rules** (syntax) of the language. It builds a **parse tree** (or **abstract syntax tree**) showing the structure of each statement, and reports **syntax errors**."
         },
         {
-          "type": "paragraph",
-          "content": "The parser checks that the tokens form a valid statement according to the grammar, and builds a tree."
+          "type": "steps",
+          "title": "What happens during syntax analysis",
+          "items": [
+            "The parser receives its input in the form of **tokens** from the lexical analyser.",
+            "It analyses each statement to make sure it **conforms to the rules of grammar** of the language (often written in **BNF**).",
+            "It builds a **parse tree / syntax tree** that represents the structure of the statement.",
+            "If a statement breaks the rules, it reports a **syntax error** with the line number."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A grammar rule in BNF",
+          "content": "```text\n<assignment> ::= <identifier> = <expression> ;\n<expression> ::= <term> | <expression> + <term>\n<term>       ::= <identifier> | <number>\n```\n`y = y + 1 ;` follows the rule, so it is accepted. `y = + 1 y ;` breaks it, so a **syntax error** is reported."
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart TB\n  A[\"=\"] --> T1[total]\n  A --> P[\"+\"]\n  P --> T2[total]\n  P --> C[count]",
-          "caption": "Parse tree for total = total + count"
+          "content": "flowchart TB\n  A[\"=\"] --> Y[y]\n  A --> P[\"+\"]\n  P --> AA[a]\n  P --> M[\"*\"]\n  M --> B[b]\n  M --> C[c]",
+          "caption": "Abstract syntax tree for y = a + b * c"
         },
         {
-          "type": "warning",
-          "content": "`if (count > 10 total = total + count;` passes lexical analysis (all tokens are valid) but **fails syntax analysis** — a bracket is missing."
+          "type": "paragraph",
+          "content": "The tree shows the **order of operations**: `b * c` is lower in the tree, so it is calculated first, then added to `a`."
+        },
+        {
+          "type": "comparison",
+          "title": "Lexical errors vs syntax errors",
+          "columns": [
+            "",
+            "Lexical error",
+            "Syntax error"
+          ],
+          "rows": [
+            [
+              "Found by",
+              "Lexical analyser",
+              "Syntax analyser"
+            ],
+            [
+              "Problem",
+              "Characters do not form a valid token",
+              "Tokens are valid but in the **wrong order / structure**"
+            ],
+            [
+              "Examples",
+              "`2total`, `x = 5 # 2`, `\"text`",
+              "Missing `)` or `;`, `if x == 10` without brackets in C, `y = + 1 y;`"
+            ]
+          ]
         }
       ]
     },
     {
       "title": "Code generation",
       "objectives": [
+        "12.5.1.3",
         "12.5.1.5"
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "Each node of the parse tree is turned into machine-code (or assembly) instructions."
+          "type": "definition",
+          "term": "Code generation",
+          "content": "The stage in which the compiler uses the parse tree and the symbol table to produce **intermediate code** and then **object code** — machine-code (or assembly) instructions for the target processor. Memory **addresses** are allocated to variables."
+        },
+        {
+          "type": "comparison",
+          "title": "From one statement to machine instructions",
+          "columns": [
+            "Source code",
+            "Intermediate (three-address) code",
+            "Assembly / object code"
+          ],
+          "rows": [
+            [
+              "`y = a + b * c`",
+              "`t1 = b * c`",
+              "`LDA b`"
+            ],
+            [
+              "",
+              "`t2 = a + t1`",
+              "`MUL c`"
+            ],
+            [
+              "",
+              "`y = t2`",
+              "`ADD a`"
+            ],
+            [
+              "",
+              "",
+              "`STA y`"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "What the code generator does",
+              "content": "- Translates each node of the parse tree into **instructions** of the target machine.\n- **Allocates memory locations / registers** to variables and temporary values (using the symbol table).\n- Chooses which **machine instructions** to use (e.g. `ADD`, `MUL`, `JMP`).\n- Produces **object code**; a **linker** may later join it with library code into an executable."
+            },
+            {
+              "title": "Intermediate code",
+              "content": "- A simple, machine-independent form (e.g. three-address code: at most one operator per line).\n- Makes it easier to **optimise** and to produce code for **different processors** from the same front end."
+            }
+          ]
         },
         {
           "type": "code",
           "language": "text",
-          "content": "LDA total     ; load total into the accumulator\nADD count     ; add count\nSTO total     ; store the result in total",
-          "caption": "Code generated for total = total + count"
-        },
-        {
-          "type": "list",
-          "items": [
-            "Memory addresses are allocated for variables (from the symbol table).",
-            "The output is **object code**, which the **linker** joins with library code to create an executable file."
-          ]
+          "content": "Source:        if (x == 10) y = y + 1;\n\nAssembly:      LDA x        ; load x into the accumulator\n               CMP #10      ; compare with 10\n               BNE END      ; if not equal, skip the assignment\n               LDA y\n               ADD #1\n               STA y        ; y = y + 1\n       END:    ...",
+          "caption": "An IF statement after code generation"
         }
       ]
     },
     {
       "title": "Code optimisation",
       "objectives": [
+        "12.5.1.3",
         "12.5.1.6"
       ],
       "blocks": [
         {
-          "type": "cards",
-          "items": [
-            {
-              "title": "Constant folding",
-              "content": "Calculate constant expressions at compile time: `x = 60 * 60 * 24` → `x = 86400`."
-            },
-            {
-              "title": "Dead code elimination",
-              "content": "Remove code that can **never run** or whose result is never used: `a = 5; if (a != 5) { … }` — the block is removed."
-            },
-            {
-              "title": "Common sub-expression elimination",
-              "content": "`y = (a+b)*c; z = (a+b)*d;` → compute `t = a+b` once."
-            },
-            {
-              "title": "Loop optimisation",
-              "content": "Move calculations that do not change out of a loop (**loop-invariant code motion**)."
-            },
-            {
-              "title": "Redundant instruction removal",
-              "content": "`STO x` followed immediately by `LDA x` — the `LDA` is unnecessary."
-            }
+          "type": "definition",
+          "term": "Code optimisation",
+          "content": "The stage that **improves the generated code** so that it **runs faster** and/or **uses fewer resources (memory, storage)** — **without changing the result** of the program."
+        },
+        {
+          "type": "comparison",
+          "title": "Common optimisation techniques",
+          "columns": [
+            "Technique",
+            "What it does",
+            "Before",
+            "After"
+          ],
+          "rows": [
+            [
+              "**Constant folding**",
+              "Calculates constant expressions at compile time",
+              "`x = 60 * 60 * 24`",
+              "`x = 86400`"
+            ],
+            [
+              "**Constant propagation**",
+              "Replaces a variable that holds a known constant with the value",
+              "`n = 5; y = n * 2`",
+              "`y = 10`"
+            ],
+            [
+              "**Dead code elimination**",
+              "Removes code that can **never run** or whose result is **never used**",
+              "`if (false) { print(\"x\") }`",
+              "*(removed)*"
+            ],
+            [
+              "**Common sub-expression elimination**",
+              "Calculates a repeated expression once",
+              "`a = b*c + d; e = b*c + f`",
+              "`t = b*c; a = t + d; e = t + f`"
+            ],
+            [
+              "**Loop-invariant code motion**",
+              "Moves a calculation that does not change out of a loop",
+              "`for i…: k = w * h; s = s + k*i`",
+              "`k = w * h; for i…: s = s + k*i`"
+            ],
+            [
+              "**Strength reduction**",
+              "Replaces a slow operation with a faster one",
+              "`x * 2`",
+              "`x + x` / shift left"
+            ],
+            [
+              "**Removing redundant instructions**",
+              "Deletes loads and stores that are not needed",
+              "`STA y` then `LDA y`",
+              "`STA y`"
+            ]
           ]
         },
         {
           "type": "code",
           "language": "c",
-          "content": "// before                          // after\nfor (i = 0; i < n; i++) {          k = r * 2;                 // moved out of the loop\n    k = r * 2;                     for (i = 0; i < n; i++) {\n    a[i] = k + i;                      a[i] = k + i;\n}                                  }",
-          "caption": "Before and after optimisation"
+          "content": "int a = 5;\nint b = 10;          // b is never used afterwards → removed\nreturn a * 2;\nprintf(\"Done\");      // after return → never executed → removed",
+          "caption": "Dead code elimination — the compiler removes the lines that can never run or have no effect"
         },
         {
-          "type": "comparison",
-          "title": "Benefits and drawbacks of optimisation",
-          "columns": [
-            "Benefits",
-            "Drawbacks"
-          ],
-          "rows": [
-            [
-              "Program runs **faster**",
-              "Compilation takes **longer**"
-            ],
-            [
-              "Uses **less memory**",
-              "Debugging is harder — compiled code differs from the source"
-            ],
-            [
-              "Less power used (mobile devices)",
-              "Aggressive optimisation can introduce subtle bugs"
-            ]
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages of optimisation",
+              "content": "- The program **runs faster** — fewer instructions are executed.\n- The object code is **smaller** — uses less memory and storage.\n- Uses **less power** — important for mobile and embedded devices."
+            },
+            {
+              "title": "Disadvantages",
+              "content": "- Compilation takes **longer**.\n- Optimised code is **harder to debug** — it no longer matches the source line by line.\n- An incorrect optimisation could introduce errors (rare)."
+            }
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "In questions that show a code fragment, look for: **code after `return`** or an **`if` that is always false** → *dead code elimination*; **arithmetic on constants** → *constant folding*; the **same expression twice** → *common sub-expression elimination*; something **inside a loop that never changes** → *loop-invariant code motion*."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.1.3",
+        "12.5.1.4",
+        "12.5.1.5",
+        "12.5.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Name and describe compilation stage A (between source code and syntax analysis). [2]**\nName: **Lexical analysis** (1). Description: the stream of characters is converted into a sequence of **tokens** / white space and comments are removed (1).\n\n**Q: Name and describe stage B (after code generation). [2]**\nName: **Code optimisation** (1). Description: the code is improved to **consume fewer resources and increase execution speed** (1).\n\n**Q: Name the compilation stage that produces the table *Keyword – if, Bracket – (, Identifier – x, Operator – ==, Number – 10*. [1]**\n**Lexical analysis.**\n\n**Q: Describe what happens at the stage of syntax analysis. [2]**\nThe syntax analyser receives its input in the form of **tokens** (1) and analyses the statements to ensure they **conform to the rules of grammar** of the language, building a parse tree / reporting syntax errors (1).\n\n**Q: Name the optimisation used when statements after `return` are removed. [1]**\n**Dead code elimination.**"
+        },
+        {
+          "type": "warning",
+          "content": "- Putting the stages in the wrong order — it is **lexical → syntax → code generation → optimisation**.\n- Saying lexical analysis \"checks the grammar\" — it only makes **tokens**; grammar is checked in **syntax analysis**.\n- Saying optimisation \"removes errors\" — it makes **correct** code faster or smaller.\n- Confusing the **lexeme** (the characters) with the **token** (its category).\n- Forgetting the **symbol table** when describing lexical analysis."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the four stages of compilation in order and the output of each.",
+            "What is the difference between a lexeme and a token?",
+            "Tokenise `while (count < 5) count = count + 1;` and name each token type.",
+            "What is stored in the symbol table?",
+            "Give one example of a lexical error and one of a syntax error.",
+            "Write three-address code for `z = (a + b) * (a + b)` and optimise it.",
+            "Name and explain four optimisation techniques."
           ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Program compilation stages — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "cs-exam-1",
+      "cs-exam-2",
+      "cs-exam-3",
+      "cs-exam-4"
+    ]
+  }
 }

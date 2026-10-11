@@ -1,8 +1,1525 @@
 {
   "topic": "g11-scripting-language",
-  "questions": [],
-  "summary": "Selection and iteration in a scripting language, validating and verifying data in code, connecting to a database from a script, and using JavaScript to make pages interactive.",
+  "questions": [
+    {
+      "key": "scr-client-server",
+      "title": "Client or server side",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each statement describes a client-side or a server-side script.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Client-side",
+          "Server-side"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Runs in the user's web browser",
+            null,
+            null
+          ],
+          [
+            "Can read data from a MySQL database",
+            null,
+            null
+          ],
+          [
+            "The user can see the code with View source",
+            null,
+            null
+          ],
+          [
+            "Typically written in PHP",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Client; server; client; server (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-identifier",
+      "title": "Identifier",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "text": "```javascript\nlet answer = prompt(\"What is 7 × 8?\");\nalert(\"You wrote \" + answer);\n```\n\nState the identifier of the variable used in the code.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "answer (1)",
+        "points": [
+          {
+            "criterion": "answer",
+            "marks": 1
+          }
+        ],
+        "model_answer": "answer",
+        "accepted": {
+          "values": [
+            "answer"
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-string-mcq",
+      "title": "Text input",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "The user enters **5** and then **3** into two prompt boxes.\n\n```javascript\nlet a = prompt(\"First number\");\nlet b = prompt(\"Second number\");\nalert(a + b);\n```\n\nWhat is displayed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "8"
+        },
+        {
+          "key": "B",
+          "content": "53"
+        },
+        {
+          "key": "C",
+          "content": "a + b"
+        },
+        {
+          "key": "D",
+          "content": "An error message"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "prompt() returns text, so + joins the strings. Use Number(a) + Number(b)."
+      }
+    },
+    {
+      "key": "scr-pin-if",
+      "title": "Check a PIN",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "Complete the code to check the PIN code. The correct PIN is **'4321'**. If the PIN is correct output \"Access granted\", otherwise output \"Wrong PIN\".",
+      "content": {
+        "language": "javascript",
+        "starter_code": "let pin = prompt(\"Input your PIN code:\");\n"
+      },
+      "scheme": {
+        "mark_scheme": "- condition comparing pin with '4321' as text (1)\n- correct output when true (1)\n- else with error output (1)\nAccept any language / pseudocode. Accept != with branches swapped.",
+        "points": [
+          {
+            "criterion": "Condition",
+            "marks": 1
+          },
+          {
+            "criterion": "True branch",
+            "marks": 1
+          },
+          {
+            "criterion": "Else branch",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```javascript\nif (pin == \"4321\") {\n  alert(\"Access granted\");\n} else {\n  alert(\"Wrong PIN\");\n}\n```"
+      }
+    },
+    {
+      "key": "scr-grade-php",
+      "title": "Grades in PHP",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "Write PHP code that outputs the grade for the variable `$score`: **85 or more** → \"Excellent\", **60–84** → \"Good\", **40–59** → \"Pass\", below 40 → \"Fail\".",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$score = 72;\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- if ($score >= 85) Excellent (1)\n- elseif ($score >= 60) Good (1)\n- elseif ($score >= 40) Pass (1)\n- else Fail with echo output (1)\nAccept equivalent ranges / pseudocode.",
+        "points": [
+          {
+            "criterion": "First condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          },
+          {
+            "criterion": "Third",
+            "marks": 1
+          },
+          {
+            "criterion": "Else + echo",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$score = 72;\nif ($score >= 85) {\n    echo \"Excellent\";\n} elseif ($score >= 60) {\n    echo \"Good\";\n} elseif ($score >= 40) {\n    echo \"Pass\";\n} else {\n    echo \"Fail\";\n}\n?>\n```"
+      }
+    },
+    {
+      "key": "scr-operators-match",
+      "title": "Operators",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "Match each JavaScript operator to its meaning.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "&&"
+          },
+          {
+            "key": "L2",
+            "text": "||"
+          },
+          {
+            "key": "L3",
+            "text": "!="
+          },
+          {
+            "key": "L4",
+            "text": "==="
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "AND"
+          },
+          {
+            "key": "R2",
+            "text": "OR"
+          },
+          {
+            "key": "R3",
+            "text": "Not equal to"
+          },
+          {
+            "key": "R4",
+            "text": "Equal value and equal type"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "&&–AND, ||–OR, !=–not equal, ===–strict equal.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "scr-trace-for",
+      "title": "Trace a for loop",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```javascript\nlet total = 0;\nfor (let i = 1; i <= 7; i += 2) {\n  total = total + i;\n}\nconsole.log(total);\n```\n\nComplete the trace table to show the values of `i` and `total` at the end of each iteration.",
+      "content": {
+        "columns": [
+          "i",
+          "total"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "1 1 (1); 3 4 (1); 5 9 (1); 7 16 (1). Output 16.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| i | total |\n|---|---|\n| 1 | 1 |\n| 3 | 4 |\n| 5 | 9 |\n| 7 | 16 |",
+        "accepted": {
+          "rows": [
+            [
+              "1",
+              "1"
+            ],
+            [
+              "3",
+              "4"
+            ],
+            [
+              "5",
+              "9"
+            ],
+            [
+              "7",
+              "16"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-trace-while",
+      "title": "Trace a while loop",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```javascript\nlet n = 20;\nlet count = 0;\nwhile (n > 1) {\n  n = Math.floor(n / 2);\n  count++;\n}\nalert(count);\n```\n\nComplete the trace table to show `n` and `count` after each iteration. `Math.floor()` rounds down.",
+      "content": {
+        "columns": [
+          "n",
+          "count"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "10 1 (1); 5 2 (1); 2 3 (1); 1 4 (1). Output 4.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| n | count |\n|---|---|\n| 10 | 1 |\n| 5 | 2 |\n| 2 | 3 |\n| 1 | 4 |",
+        "accepted": {
+          "rows": [
+            [
+              "10",
+              "1"
+            ],
+            [
+              "5",
+              "2"
+            ],
+            [
+              "2",
+              "3"
+            ],
+            [
+              "1",
+              "4"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-pin-loop",
+      "title": "Three attempts",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "text": "A website gives the user **3 attempts** to enter the password **'qwerty'**. Write a script using a loop that:\n- asks for the password,\n- stops as soon as the correct password is entered and outputs \"Welcome\",\n- outputs \"Account locked\" if all three attempts are wrong.",
+      "content": {
+        "language": "javascript",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- counter initialised and incremented (1)\n- loop limited to three iterations (1)\n- input inside the loop (1)\n- check password and exit loop / stop when correct with Welcome (1)\n- Account locked message after three failures only (1)\nAccept any language / pseudocode.",
+        "points": [
+          {
+            "criterion": "Counter",
+            "marks": 1
+          },
+          {
+            "criterion": "Three iterations",
+            "marks": 1
+          },
+          {
+            "criterion": "Input in loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Check and exit",
+            "marks": 1
+          },
+          {
+            "criterion": "Locked message",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```javascript\nlet attempts = 0;\nlet ok = false;\nwhile (attempts < 3 && !ok) {\n  let p = prompt(\"Password:\");\n  attempts++;\n  if (p == \"qwerty\") ok = true;\n}\nif (ok) alert(\"Welcome\");\nelse alert(\"Account locked\");\n```"
+      }
+    },
+    {
+      "key": "scr-loop-type",
+      "title": "Choosing a loop",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Explain why a `do … while` loop is suitable for asking the user to enter a password until it has at least 8 characters.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The condition is checked after the body, so the body runs at least once (1)\n- the user must be asked at least once before the length can be checked; it repeats until valid / number of repeats unknown (1)",
+        "points": [
+          {
+            "criterion": "At least once",
+            "marks": 1
+          },
+          {
+            "criterion": "Applied to context",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It checks the condition at the end, so the prompt always appears at least once, and it keeps repeating until the password is long enough — we don't know how many tries are needed."
+      }
+    },
+    {
+      "key": "scr-val-ver",
+      "title": "Validation and verification",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "text": "Explain the difference between data **validation** and data **verification**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Validation: automatic check that data is sensible / follows rules (1)\n- Verification: check that data has been entered / copied correctly, matching the original (1)",
+        "points": [
+          {
+            "criterion": "Validation",
+            "marks": 1
+          },
+          {
+            "criterion": "Verification",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Validation is the program automatically checking that data is reasonable, e.g. in range; verification checks that it was typed correctly, e.g. by entering it twice."
+      }
+    },
+    {
+      "key": "scr-checks-match",
+      "title": "Validation checks",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "text": "Match each line of code to the check it carries out.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "if (name == \"\")"
+          },
+          {
+            "key": "L2",
+            "text": "if (age < 14 || age > 18)"
+          },
+          {
+            "key": "L3",
+            "text": "if (pass.length < 8)"
+          },
+          {
+            "key": "L4",
+            "text": "if (pass != confirm)"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Presence check"
+          },
+          {
+            "key": "R2",
+            "text": "Range check"
+          },
+          {
+            "key": "R3",
+            "text": "Length check"
+          },
+          {
+            "key": "R4",
+            "text": "Verification by double entry"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–presence, L2–range, L3–length, L4–double entry.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "scr-validate-code",
+      "title": "Write validation",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "text": "A form has fields with id **mark** (a test mark from 0 to 100) and a paragraph with id **msg**. Write a JavaScript function `checkMark()` that:\n- displays \"Enter a mark\" in msg if the field is empty,\n- displays \"Mark must be 0–100\" if the value is not a number or out of range,\n- otherwise displays \"Accepted\".",
+      "content": {
+        "language": "javascript",
+        "starter_code": "function checkMark() {\n\n}"
+      },
+      "scheme": {
+        "mark_scheme": "- reads the value with getElementById(\"mark\").value (1)\n- presence check (1)\n- type and range check with || / isNaN (1)\n- outputs messages to msg via textContent / innerHTML (1)",
+        "points": [
+          {
+            "criterion": "Reads value",
+            "marks": 1
+          },
+          {
+            "criterion": "Presence",
+            "marks": 1
+          },
+          {
+            "criterion": "Type + range",
+            "marks": 1
+          },
+          {
+            "criterion": "Output to msg",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```javascript\nfunction checkMark() {\n  const v = document.getElementById(\"mark\").value;\n  const msg = document.getElementById(\"msg\");\n  if (v == \"\") msg.textContent = \"Enter a mark\";\n  else if (isNaN(v) || Number(v) < 0 || Number(v) > 100) msg.textContent = \"Mark must be 0–100\";\n  else msg.textContent = \"Accepted\";\n}\n```"
+      }
+    },
+    {
+      "key": "scr-both-sides",
+      "title": "Validate twice",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "text": "Explain why data from a web form should be validated by a client-side script **and** again by a server-side script.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Client-side gives instant feedback / no round trip to the server (1)\n- client-side checks can be disabled / bypassed, so the server must check before saving (1)",
+        "points": [
+          {
+            "criterion": "Client benefit",
+            "marks": 1
+          },
+          {
+            "criterion": "Server needed",
+            "marks": 1
+          }
+        ],
+        "model_answer": "JavaScript checks give the user immediate feedback, but they can be switched off or bypassed, so PHP must check the data again before it is stored."
+      }
+    },
+    {
+      "key": "scr-connect-fill",
+      "title": "Connect to a database",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "text": "Complete the PHP code to connect to the database **school**.\n\n```php\n<?php\n$conn = [[1]](\"localhost\", \"user\", \"pass\", \"school\");\nif ([[2]]) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$result = [[3]]($conn, \"SELECT * FROM Student\");\n?>\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) mysqli_connect (2) !$conn (3) mysqli_query",
+        "accepted": {
+          "blanks": [
+            [
+              "mysqli_connect"
+            ],
+            [
+              "!$conn",
+              "$conn == false",
+              "$conn === false",
+              "! $conn"
+            ],
+            [
+              "mysqli_query"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-db-steps",
+      "title": "Database steps",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "text": "Complete the table with the PHP function used for each step.",
+      "content": {
+        "columns": [
+          "Step",
+          "Function"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Connect to the database",
+            "mysqli_connect()"
+          ],
+          [
+            "Send an SQL query",
+            null
+          ],
+          [
+            "Get the next row of the result",
+            null
+          ],
+          [
+            "Close the connection",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "mysqli_query (1); mysqli_fetch_assoc (accept fetch_array / fetch_row) (1); mysqli_close (1)",
+        "points": [
+          {
+            "criterion": "query",
+            "marks": 1
+          },
+          {
+            "criterion": "fetch",
+            "marks": 1
+          },
+          {
+            "criterion": "close",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null
+            ],
+            [
+              null,
+              "mysqli_query()||mysqli_query"
+            ],
+            [
+              null,
+              "mysqli_fetch_assoc()||mysqli_fetch_assoc||mysqli_fetch_array()||mysqli_fetch_array||mysqli_fetch_row()||mysqli_fetch_row"
+            ],
+            [
+              null,
+              "mysqli_close()||mysqli_close"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "scr-select-php",
+      "title": "Display records",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "text": "The connection `$conn` to the database is open. The table **Book** has fields **Title** and **Year**. Write PHP code that outputs the title and year of every book published **after 2010**, one per line.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n// $conn is already connected\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- correct SQL SELECT Title, Year FROM Book WHERE Year > 2010 (1)\n- mysqli_query($conn, $sql) (1)\n- while loop with mysqli_fetch_assoc (1)\n- echo of both fields with line break (1)",
+        "points": [
+          {
+            "criterion": "SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "Query",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop fetch",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$sql = \"SELECT Title, Year FROM Book WHERE Year > 2010\";\n$result = mysqli_query($conn, $sql);\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"Title\"] . \" (\" . $row[\"Year\"] . \")<br>\";\n}\n?>\n```"
+      }
+    },
+    {
+      "key": "scr-events-match",
+      "title": "Events",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "text": "Match each event to the moment it happens.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "click"
+          },
+          {
+            "key": "L2",
+            "text": "submit"
+          },
+          {
+            "key": "L3",
+            "text": "mouseover"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The user presses a button"
+          },
+          {
+            "key": "R2",
+            "text": "A form is about to be sent"
+          },
+          {
+            "key": "R3",
+            "text": "The pointer moves onto an element"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "click–R1, submit–R2, mouseover–R3.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "scr-dark-mode",
+      "title": "Interactive button",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "text": "A page has a button with id **big** and a paragraph with id **text**. Write JavaScript so that when the button is clicked, the paragraph's font size becomes **24px** and the button text changes to \"Done\".",
+      "content": {
+        "language": "javascript",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- gets elements by id (1)\n- event handler for click (addEventListener / onclick) (1)\n- changes style.fontSize and button text (1)",
+        "points": [
+          {
+            "criterion": "getElementById",
+            "marks": 1
+          },
+          {
+            "criterion": "Click handler",
+            "marks": 1
+          },
+          {
+            "criterion": "Changes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```javascript\nconst btn = document.getElementById(\"big\");\nbtn.addEventListener(\"click\", function () {\n  document.getElementById(\"text\").style.fontSize = \"24px\";\n  btn.textContent = \"Done\";\n});\n```"
+      }
+    },
+    {
+      "key": "scr-style",
+      "title": "Programming style",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "State **two** rules of good programming style that make a script easier to maintain.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): meaningful identifiers; indentation; comments; constants for fixed values; functions / modular code; consistent naming",
+        "points": [
+          {
+            "criterion": "Rule 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Rule 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Use meaningful variable names. 2 Indent code inside loops and if statements."
+      }
+    },
+    {
+      "key": "scr-exam-1",
+      "title": "PIN confirmation",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "To confirm an online payment, the user must enter a PIN code.\n\n```html\n1  <!DOCTYPE html>\n2  <html>\n3    <head><title>Confirm payment</title></head>\n4    <body>\n5      <script>\n6        code = prompt(\"Enter your PIN code:\");\n7        alert(\"Payment confirmed\");\n8      </script>\n9    </body>\n10 </html>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "scr-exam-1a",
+          "part_label": "(a)",
+          "title": "Identifier",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.8@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the identifier of the variable used in the code.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "code (1)",
+            "points": [
+              {
+                "criterion": "code",
+                "marks": 1
+              }
+            ],
+            "model_answer": "code",
+            "accepted": {
+              "values": [
+                "code"
+              ]
+            }
+          }
+        },
+        {
+          "key": "scr-exam-1b",
+          "part_label": "(b)",
+          "title": "Client side",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.8@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State whether this script runs on the client or on the server.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Client / browser (1)",
+            "points": [
+              {
+                "criterion": "Client",
+                "marks": 1
+              }
+            ],
+            "model_answer": "On the client (in the browser)."
+          }
+        },
+        {
+          "key": "scr-exam-1c",
+          "part_label": "(c)",
+          "title": "Check the PIN",
+          "type": "code_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The correct PIN is **'2580'**. Rewrite line 7 so that \"Payment confirmed\" is shown only for the correct PIN; otherwise show \"Incorrect PIN\".",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "if (code == '2580') (1); alert(\"Payment confirmed\") (1); else alert(\"Incorrect PIN\") (1). Accept != with swapped branches; any language / pseudocode. Do not accept comparison with a number only if code treated as number without conversion.",
+            "points": [
+              {
+                "criterion": "Condition",
+                "marks": 1
+              },
+              {
+                "criterion": "True output",
+                "marks": 1
+              },
+              {
+                "criterion": "Else output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```javascript\nif (code == \"2580\") alert(\"Payment confirmed\");\nelse alert(\"Incorrect PIN\");\n```"
+          }
+        },
+        {
+          "key": "scr-exam-1d",
+          "part_label": "(d)",
+          "title": "Three attempts",
+          "type": "code_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4",
+            "11.5.4.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The system gives the user **3 attempts**. Modify the code using a loop so that:\n- the PIN is requested again after each wrong attempt,\n- the user is told how many attempts are left,\n- the loop ends when the PIN is correct,\n- \"Card blocked\" is shown after three wrong attempts.",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- counter initialised and incremented (1)\n- loop for at most three iterations (1)\n- input inside the loop (1)\n- PIN checked inside the loop (1)\n- exit loop when correct / success message (1)\n- attempts-left message and Card blocked after 3 failures (1)\nAccept any correct alternative / language.",
+            "points": [
+              {
+                "criterion": "Counter",
+                "marks": 1
+              },
+              {
+                "criterion": "Three iterations",
+                "marks": 1
+              },
+              {
+                "criterion": "Input in loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Check in loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Exit when correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Messages",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```javascript\nlet attempts = 0;\nlet ok = false;\nwhile (attempts < 3) {\n  code = prompt(\"Enter your PIN code:\");\n  attempts++;\n  if (code == \"2580\") { ok = true; break; }\n  alert(\"Wrong PIN. Attempts left: \" + (3 - attempts));\n}\nif (ok) alert(\"Payment confirmed\");\nelse alert(\"Card blocked\");\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "scr-exam-2",
+      "title": "Registration form",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school club website has a registration form with fields **name**, **age** (12–18), **password** and **confirm** (the password typed again).",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "scr-exam-2a",
+          "part_label": "(a)",
+          "title": "Validation vs verification",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between validation and verification, using the fields of this form as examples.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Validation: automatic check that data is sensible, e.g. age range 12–18 / name present (1); verification: check data entered correctly, e.g. password typed twice and compared (1)",
+            "points": [
+              {
+                "criterion": "Validation + example",
+                "marks": 1
+              },
+              {
+                "criterion": "Verification + example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Validation checks the data is sensible, e.g. the age is between 12 and 18; verification checks it was entered correctly, e.g. password and confirm must match."
+          }
+        },
+        {
+          "key": "scr-exam-2b",
+          "part_label": "(b)",
+          "title": "Write checks",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a script that checks the four fields and outputs a suitable error message for each problem: name empty; age not a number or outside 12–18; password shorter than 6 characters; password and confirm different. Output \"Registered\" if there are no errors.",
+          "content": {
+            "language": "javascript",
+            "starter_code": "let name = document.getElementById(\"name\").value;\nlet age = document.getElementById(\"age\").value;\nlet password = document.getElementById(\"password\").value;\nlet confirm = document.getElementById(\"confirm\").value;\n"
+          },
+          "scheme": {
+            "mark_scheme": "- presence check on name (1)\n- type and range check on age (1)\n- length check on password (1)\n- comparison of password and confirm (1)\n- error messages output and Registered only when no errors (1)\nAccept PHP / pseudocode.",
+            "points": [
+              {
+                "criterion": "Presence",
+                "marks": 1
+              },
+              {
+                "criterion": "Type + range",
+                "marks": 1
+              },
+              {
+                "criterion": "Length",
+                "marks": 1
+              },
+              {
+                "criterion": "Double entry",
+                "marks": 1
+              },
+              {
+                "criterion": "Outputs",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```javascript\nlet ok = true;\nif (name == \"\") { alert(\"Enter your name\"); ok = false; }\nif (isNaN(age) || age < 12 || age > 18) { alert(\"Age must be 12-18\"); ok = false; }\nif (password.length < 6) { alert(\"Password too short\"); ok = false; }\nif (password != confirm) { alert(\"Passwords do not match\"); ok = false; }\nif (ok) alert(\"Registered\");\n```"
+          }
+        },
+        {
+          "key": "scr-exam-2c",
+          "part_label": "(c)",
+          "title": "Event",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.8@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the script can be run when the user submits the form, and how it stops invalid data from being sent.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Attach the function to the form's submit event (addEventListener(\"submit\") / onsubmit) (1); call event.preventDefault() / return false when there are errors (1)",
+            "points": [
+              {
+                "criterion": "Submit event",
+                "marks": 1
+              },
+              {
+                "criterion": "Cancel sending",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Use form.addEventListener(\"submit\", check); inside check, call event.preventDefault() if any error is found so the form is not sent."
+          }
+        }
+      ]
+    },
+    {
+      "key": "scr-exam-3",
+      "title": "Library database",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A PHP script displays books from the database **library**. The table **Book** has fields **BookID**, **Title**, **Author** and **Copies**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "scr-exam-3a",
+          "part_label": "(a)",
+          "title": "Connect",
+          "type": "fill_blank",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.4.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the code to connect to the database.\n\n```php\n<?php\n$servername = \"localhost\";\n$username = \"username\";\n$password = \"password\";\n$db = \"library\";\n$conn = [[1]]($servername, $username, $password, [[2]]);\nif ([[3]]) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n?>\n```",
+          "content": {
+            "blank_count": 3
+          },
+          "scheme": {
+            "mark_scheme": "(1) mysqli_connect (2) $db (3) !$conn",
+            "accepted": {
+              "blanks": [
+                [
+                  "mysqli_connect"
+                ],
+                [
+                  "$db"
+                ],
+                [
+                  "!$conn",
+                  "$conn == false",
+                  "$conn === false",
+                  "! $conn"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "scr-exam-3b",
+          "part_label": "(b)",
+          "title": "Display books",
+          "type": "code_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.5",
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write PHP code to display the **Title** and **Author** of every book with **no copies left** (Copies = 0).",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n// $conn is connected\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- SQL SELECT Title, Author FROM Book WHERE Copies = 0 (1)\n- mysqli_query($conn, …) (1)\n- loop with mysqli_fetch_assoc (1)\n- echo of Title and Author (1)",
+            "points": [
+              {
+                "criterion": "SQL",
+                "marks": 1
+              },
+              {
+                "criterion": "Query",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$result = mysqli_query($conn, \"SELECT Title, Author FROM Book WHERE Copies = 0\");\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"Title\"] . \" by \" . $row[\"Author\"] . \"<br>\";\n}\n?>\n```"
+          }
+        },
+        {
+          "key": "scr-exam-3c",
+          "part_label": "(c)",
+          "title": "Close",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the statement that closes the connection.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "mysqli_close($conn); (1)",
+            "points": [
+              {
+                "criterion": "mysqli_close($conn)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "mysqli_close($conn);",
+            "accepted": {
+              "values": [
+                "mysqli_close($conn);",
+                "mysqli_close($conn)",
+                "$conn->close();",
+                "$conn->close()"
+              ]
+            }
+          }
+        },
+        {
+          "key": "scr-exam-3d",
+          "part_label": "(d)",
+          "title": "Server side",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the database connection is made in a server-side script rather than in JavaScript in the browser.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Client code is visible to users (1); database username / password would be exposed, server keeps them secret / database is on the server (1)",
+            "points": [
+              {
+                "criterion": "Client code visible",
+                "marks": 1
+              },
+              {
+                "criterion": "Credentials secure",
+                "marks": 1
+              }
+            ],
+            "model_answer": "JavaScript code can be seen by anyone, so the database password would be revealed; PHP runs on the server, so the password and the database stay hidden."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What a scripting language is (client-side JavaScript and server-side PHP), variables, input and output, selection and iteration in scripts, the difference between validation and verification and how to code them, connecting to a database from a PHP script, using JavaScript events to make pages interactive, and good programming style.",
   "theory": [
+    {
+      "title": "What is a scripting language?",
+      "objectives": [
+        "11.5.4.1",
+        "11.5.3.8@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Scripting language",
+          "content": "A high-level, usually **interpreted** programming language used to **automate tasks** and add **behaviour** to applications and web pages. The code (a **script**) is translated and run line by line by an **interpreter** — no separate compilation step."
+        },
+        {
+          "type": "comparison",
+          "title": "Client-side and server-side scripts",
+          "columns": [
+            "",
+            "Client-side (e.g. **JavaScript**)",
+            "Server-side (e.g. **PHP**, Python)"
+          ],
+          "rows": [
+            [
+              "Runs on",
+              "The user's **browser**",
+              "The **web server**"
+            ],
+            [
+              "Code visible to the user",
+              "**Yes** (View source)",
+              "**No** — the user only receives the resulting HTML"
+            ],
+            [
+              "Typical uses",
+              "Interactivity, animations, instant **validation**, changing the page without reloading",
+              "Processing **form data**, **database** access, logins, generating pages"
+            ],
+            [
+              "Embedded in HTML with",
+              "`<script> … </script>`",
+              "`<?php … ?>` (file saved as `.php`)"
+            ],
+            [
+              "Advantages",
+              "Fast response; reduces load on the server",
+              "Secure — data and passwords stay on the server; works in every browser"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<!DOCTYPE html>\n<html>\n  <head><title>Greeting</title></head>\n  <body>\n    <script>\n      let name = prompt(\"What is your name?\");   // input box\n      alert(\"Hello, \" + name + \"!\");              // message box\n    </script>\n  </body>\n</html>",
+          "caption": "Embedding JavaScript in a web page"
+        },
+        {
+          "type": "comparison",
+          "title": "Variables, input and output",
+          "columns": [
+            "Task",
+            "JavaScript",
+            "PHP"
+          ],
+          "rows": [
+            [
+              "Declare a variable",
+              "`let age = 16;`  `const RATE = 0.12;`",
+              "`$age = 16;` (always starts with `$`)"
+            ],
+            [
+              "Input",
+              "`prompt(\"Enter age:\")` — returns **text**; value of a form field: `document.getElementById(\"age\").value`",
+              "`$_POST[\"age\"]` or `$_GET[\"age\"]` from a form"
+            ],
+            [
+              "Convert text to a number",
+              "`Number(x)`, `parseInt(x)`, `parseFloat(x)`",
+              "`(int)$x`, `intval($x)`"
+            ],
+            [
+              "Output",
+              "`alert(…)`, `console.log(…)`, `document.write(…)`, `element.textContent = …`",
+              "`echo …;`"
+            ],
+            [
+              "Join strings",
+              "`\"Total: \" + total`",
+              "`\"Total: \" . $total`"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "`prompt()` and form fields always return a **string**. `\"5\" + \"3\"` gives **\"53\"**, not 8. Convert with `Number()` before doing arithmetic."
+        }
+      ]
+    },
     {
       "title": "Selection in a scripting language",
       "objectives": [
@@ -10,22 +1527,28 @@
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "A **scripting language** is an interpreted language used to automate tasks or to add behaviour to web pages: **JavaScript** runs in the browser (client side); **PHP** and **Python** often run on the web server (server side)."
+          "type": "definition",
+          "term": "Selection (branching)",
+          "content": "A structure that chooses **which statements to run** depending on whether a **condition** is **true or false** — `if`, `else if`, `else` and `switch`."
         },
         {
           "type": "comparison",
           "title": "Selection statements",
           "columns": [
             "Pseudocode",
-            "PHP",
-            "JavaScript"
+            "JavaScript",
+            "PHP"
           ],
           "rows": [
             [
-              "`IF price < 1000 THEN`",
-              "`if ($price < 1000) {`",
-              "`if (price < 1000) {`"
+              "`IF mark >= 50 THEN`",
+              "`if (mark >= 50) {`",
+              "`if ($mark >= 50) {`"
+            ],
+            [
+              "`ELSE IF mark >= 40 THEN`",
+              "`} else if (mark >= 40) {`",
+              "`} elseif ($mark >= 40) {`"
             ],
             [
               "`ELSE`",
@@ -40,38 +1563,50 @@
           ]
         },
         {
-          "type": "code",
-          "language": "php",
-          "content": "<?php\n$mark = 78;\nif ($mark >= 90) {\n    $grade = \"A\";\n} elseif ($mark >= 75) {\n    $grade = \"B\";\n} elseif ($mark >= 50) {\n    $grade = \"C\";\n} else {\n    $grade = \"Fail\";\n}\necho \"Grade: \" . $grade;   // Grade: B\n?>",
-          "caption": "IF … ELSEIF … ELSE in PHP"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "content": "switch (day) {\n  case \"Sat\":\n  case \"Sun\":\n    message = \"Weekend\";\n    break;\n  default:\n    message = \"School day\";\n}",
-          "caption": "switch in JavaScript"
-        },
-        {
           "type": "comparison",
           "title": "Comparison and logical operators",
           "columns": [
             "Meaning",
-            "PHP / JavaScript"
+            "JavaScript / PHP"
           ],
           "rows": [
             [
               "equal / not equal",
-              "`==`  `!=` (strict: `===`  `!==`)"
+              "`==`  `!=` (strict, also compares type: `===`  `!==`)"
             ],
             [
               "less / greater (or equal)",
               "`<`  `>`  `<=`  `>=`"
             ],
             [
-              "and / or / not",
+              "AND / OR / NOT",
               "`&&`  `||`  `!`"
             ]
           ]
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "let pin = prompt(\"Input your PIN code:\");\nif (pin == \"1234\") {                      // PIN compared as text\n  alert(\"You entered successfully\");\n} else {\n  alert(\"Error: incorrect PIN code\");\n}",
+          "caption": "Checking a PIN code (two-way selection)"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$mark = 78;\nif ($mark >= 90) {\n    $grade = \"A\";\n} elseif ($mark >= 75) {\n    $grade = \"B\";\n} elseif ($mark >= 50) {\n    $grade = \"C\";\n} else {\n    $grade = \"Fail\";\n}\necho \"Grade: \" . $grade;   // Grade: B\n?>",
+          "caption": "Multi-way selection in PHP: IF … ELSEIF … ELSE"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "let day = \"Sat\";\nlet message;\nswitch (day) {\n  case \"Sat\":\n  case \"Sun\":\n    message = \"Weekend\";\n    break;                 // leave the switch\n  default:\n    message = \"School day\";\n}",
+          "caption": "switch — choosing between many fixed values"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "let age = 16, member = false;\nif ((age >= 14 && age <= 18) || member) {\n  price = price * 0.9;     // 10% discount\n}",
+          "caption": "Logical operators: a discount for pupils aged 14–18 OR members"
         }
       ]
     },
@@ -82,16 +1617,67 @@
       ],
       "blocks": [
         {
-          "type": "code",
-          "language": "php",
-          "content": "<?php\nfor ($i = 1; $i <= 5; $i++) {        // count-controlled\n    echo $i * $i . \" \";              // 1 4 9 16 25\n}\n\n$total = 0;\n$n = 1;\nwhile ($total <= 100) {              // condition-controlled\n    $total += $n;\n    $n++;\n}\n\n$marks = [7, 9, 4, 10];\nforeach ($marks as $m) {             // every element of an array\n    echo $m . \"<br>\";\n}\n?>",
-          "caption": "for, while and foreach in PHP"
+          "type": "definition",
+          "term": "Iteration (loop)",
+          "content": "A structure that **repeats** a block of statements — a **fixed number of times** (count-controlled `for`) or **while / until a condition** is met (condition-controlled `while`, `do … while`)."
+        },
+        {
+          "type": "comparison",
+          "title": "Loops",
+          "columns": [
+            "Loop",
+            "When to use",
+            "JavaScript",
+            "PHP"
+          ],
+          "rows": [
+            [
+              "**for**",
+              "Number of repetitions known",
+              "`for (let i = 1; i <= 5; i++) { … }`",
+              "`for ($i = 1; $i <= 5; $i++) { … }`"
+            ],
+            [
+              "**while** (pre-condition)",
+              "Repeat **while** a condition is true; may run **0** times",
+              "`while (total <= 100) { … }`",
+              "`while ($total <= 100) { … }`"
+            ],
+            [
+              "**do … while** (post-condition)",
+              "Body must run **at least once**",
+              "`do { … } while (x < 8);`",
+              "`do { … } while ($x < 8);`"
+            ],
+            [
+              "**for … of / foreach**",
+              "Every element of an array",
+              "`for (const m of marks) { … }`",
+              "`foreach ($marks as $m) { … }`"
+            ]
+          ]
         },
         {
           "type": "code",
           "language": "javascript",
-          "content": "for (let i = 10; i >= 0; i -= 2) console.log(i);   // 10 8 6 4 2 0\n\nlet password;\ndo {\n  password = prompt(\"Password:\");\n} while (password.length < 8);                     // post-condition loop",
-          "caption": "Loops in JavaScript"
+          "content": "let attempts = 0;\nlet success = false;\nwhile (attempts < 3) {\n  let pin = prompt(\"Input your PIN code:\");\n  attempts++;                                  // count this attempt\n  if (pin == \"1234\") {\n    success = true;\n    break;                                     // stop the loop early\n  }\n  alert(\"Wrong PIN. Attempts left: \" + (3 - attempts));\n}\nif (success) alert(\"You entered successfully\");\nelse alert(\"Your attempts have ended. Card blocked.\");",
+          "caption": "Three attempts to enter a PIN (loop + selection + break)"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$marks = [7, 9, 4, 10];\n$total = 0;\nforeach ($marks as $m) {\n    $total += $m;                            // add each mark\n}\n$average = $total / count($marks);\necho \"Total: $total, average: $average\";     // Total: 30, average: 7.5\n?>",
+          "caption": "Total and average of an array in PHP"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "let html = \"\";\nfor (let i = 1; i <= 5; i++) {\n  html += \"<li>\" + i + \" × 7 = \" + i * 7 + \"</li>\";\n}\ndocument.getElementById(\"table\").innerHTML = html;   // 7 times table",
+          "caption": "Count-controlled loop that builds HTML"
+        },
+        {
+          "type": "exam_tip",
+          "content": "For questions such as \"write the output\", make a table with a column for **each variable** and a row for **each iteration**: e.g. `for (i = 10; i >= 0; i -= 4)` gives i = 10, 6, 2 — then i = −2 fails the condition and the loop stops."
         }
       ]
     },
@@ -102,14 +1688,92 @@
       ],
       "blocks": [
         {
+          "type": "comparison",
+          "title": "Validation vs verification",
+          "columns": [
+            "",
+            "Validation",
+            "Verification"
+          ],
+          "rows": [
+            [
+              "Meaning",
+              "An **automatic check by the program** that data is **reasonable / sensible** and follows the rules",
+              "A check that data has been **entered or copied correctly** — matches the original"
+            ],
+            [
+              "Question it answers",
+              "\"Is the data **allowed**?\"",
+              "\"Is the data **what the user meant**?\""
+            ],
+            [
+              "Examples",
+              "Presence, length, type, range, format, check digit",
+              "**Double entry** (type twice and compare), **visual check** (proof-reading)"
+            ],
+            [
+              "Limitation",
+              "Valid data can still be **wrong** (age 17 instead of 16)",
+              "Does not check that data is sensible"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Validation checks",
+          "columns": [
+            "Check",
+            "What it tests",
+            "Example in code"
+          ],
+          "rows": [
+            [
+              "**Presence**",
+              "A value has been entered",
+              "`if (name == \"\")`"
+            ],
+            [
+              "**Length**",
+              "Number of characters",
+              "`if (password.length < 8)`"
+            ],
+            [
+              "**Type**",
+              "Correct data type",
+              "`if (isNaN(age))`"
+            ],
+            [
+              "**Range**",
+              "Between a lower and upper limit",
+              "`if (age < 14 || age > 18)`"
+            ],
+            [
+              "**Format**",
+              "Matches a pattern",
+              "`/^\\d{6}$/.test(postcode)`; email contains `@`"
+            ],
+            [
+              "**Lookup**",
+              "Value is in a list",
+              "`[\"A\",\"B\",\"C\"].includes(grade)`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "document.getElementById(\"signup\").addEventListener(\"submit\", function (event) {\n  const name = document.getElementById(\"name\").value.trim();\n  const age = Number(document.getElementById(\"age\").value);\n  const pass = document.getElementById(\"pass\").value;\n  const confirm = document.getElementById(\"confirm\").value;\n  let errors = [];\n\n  if (name === \"\") errors.push(\"Name is required\");                    // presence\n  if (isNaN(age) || age < 14 || age > 18) errors.push(\"Age 14–18\");    // type + range\n  if (pass.length < 8) errors.push(\"Password: at least 8 characters\"); // length\n  if (pass !== confirm) errors.push(\"Passwords do not match\");         // verification\n\n  if (errors.length > 0) {\n    event.preventDefault();                                            // do not send the form\n    document.getElementById(\"msg\").textContent = errors.join(\"; \");\n  }\n});",
+          "caption": "Client-side validation and verification when a form is submitted"
+        },
+        {
           "type": "code",
           "language": "php",
-          "content": "<?php\n$errors = [];\n$name  = trim($_POST[\"name\"] ?? \"\");\n$age   = $_POST[\"age\"] ?? \"\";\n$email = $_POST[\"email\"] ?? \"\";\n\nif ($name === \"\")                               $errors[] = \"Name is required.\";          // presence\nif (strlen($name) > 40)                         $errors[] = \"Name is too long.\";           // length\nif (!is_numeric($age))                          $errors[] = \"Age must be a number.\";       // type\nelseif ($age < 14 || $age > 18)                 $errors[] = \"Age must be 14–18.\";          // range\nif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = \"Email format is invalid.\";    // format\nif ($_POST[\"password\"] !== $_POST[\"confirm\"])   $errors[] = \"Passwords do not match.\";     // verification (double entry)\n\nif ($errors) { foreach ($errors as $e) echo \"<p class='error'>$e</p>\"; }\nelse { echo \"Data accepted.\"; }\n?>",
-          "caption": "Server-side validation of form data"
+          "content": "<?php\n$errors = [];\n$name  = trim($_POST[\"name\"] ?? \"\");\n$age   = $_POST[\"age\"] ?? \"\";\n$email = $_POST[\"email\"] ?? \"\";\n\nif ($name === \"\")                               $errors[] = \"Name is required.\";        // presence\nif (strlen($name) > 40)                         $errors[] = \"Name is too long.\";         // length\nif (!is_numeric($age))                          $errors[] = \"Age must be a number.\";     // type\nelseif ($age < 14 || $age > 18)                 $errors[] = \"Age must be 14–18.\";        // range\nif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = \"Email format is invalid.\";  // format\nif ($_POST[\"password\"] !== $_POST[\"confirm\"])   $errors[] = \"Passwords do not match.\";   // verification\n\nif ($errors) { foreach ($errors as $e) echo \"<p class='error'>$e</p>\"; }\nelse { echo \"Data accepted.\"; }\n?>",
+          "caption": "Server-side validation of the same form in PHP"
         },
         {
           "type": "exam_tip",
-          "content": "Validate on the **client** (JavaScript, HTML `required`/`min`/`max`) for quick feedback, **and** on the **server** (PHP) because client checks can be bypassed."
+          "content": "Validate on the **client** (JavaScript, HTML `required` / `min` / `max` / `pattern`) for **instant feedback**, **and** on the **server** (PHP) because client-side checks can be **switched off or bypassed**."
         }
       ]
     },
@@ -120,20 +1784,68 @@
       ],
       "blocks": [
         {
-          "type": "code",
-          "language": "php",
-          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\nif (!$conn) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$result = mysqli_query($conn, \"SELECT FirstName, Grade FROM Student ORDER BY FirstName\");\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"FirstName\"] . \" — grade \" . $row[\"Grade\"] . \"<br>\";\n}\nmysqli_close($conn);\n?>",
-          "caption": "Connecting to MySQL with mysqli"
+          "type": "paragraph",
+          "content": "A server-side script can **read and change data in a database** (e.g. MySQL) and show the results as a web page."
         },
         {
           "type": "steps",
-          "title": "Steps of working with a database in a script",
+          "title": "Steps of working with a database in PHP",
           "items": [
-            "**Connect** to the database server (host, user, password, database name).",
-            "**Check** that the connection succeeded.",
-            "**Send an SQL query** (SELECT, INSERT, UPDATE, DELETE).",
-            "**Process the result** — loop through the rows and output them.",
-            "**Close** the connection."
+            "**Connect** to the database server with `mysqli_connect(server, username, password, database)`.",
+            "**Check** the connection; if it failed, stop with `die(…)` and show `mysqli_connect_error()`.",
+            "**Send an SQL query** with `mysqli_query($conn, $sql)` — SELECT, INSERT, UPDATE or DELETE.",
+            "**Process the result** — loop through the rows with `mysqli_fetch_assoc($result)`.",
+            "**Close** the connection with `mysqli_close($conn)`."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$servername = \"localhost\";\n$username   = \"username\";\n$password   = \"password\";\n$db         = \"library\";\n\n$conn = mysqli_connect($servername, $username, $password, $db);   // 1 connect\nif (!$conn) {                                                     // 2 check\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\necho \"Connected successfully\";\n\n$sql = \"SELECT Title, Author FROM Book ORDER BY Title\";\n$result = mysqli_query($conn, $sql);                             // 3 query\n\nif (mysqli_num_rows($result) > 0) {\n    while ($row = mysqli_fetch_assoc($result)) {                  // 4 process rows\n        echo $row[\"Title\"] . \" — \" . $row[\"Author\"] . \"<br>\";\n    }\n} else {\n    echo \"No books found\";\n}\nmysqli_close($conn);                                              // 5 close\n?>",
+          "caption": "Connecting to the \"library\" database and listing books"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"username\", \"password\", \"library\");\n$title  = $_POST[\"title\"];\n$author = $_POST[\"author\"];\n\n$stmt = mysqli_prepare($conn, \"INSERT INTO Book (Title, Author) VALUES (?, ?)\");\nmysqli_stmt_bind_param($stmt, \"ss\", $title, $author);   // \"ss\" = two strings\nif (mysqli_stmt_execute($stmt)) echo \"New book added\";\nelse echo \"Error: \" . mysqli_error($conn);\nmysqli_close($conn);\n?>",
+          "caption": "Adding a record from a form (INSERT)"
+        },
+        {
+          "type": "comparison",
+          "title": "Key mysqli functions",
+          "columns": [
+            "Function",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "`mysqli_connect()`",
+              "Opens a connection; returns the connection or **false**"
+            ],
+            [
+              "`mysqli_connect_error()`",
+              "Text describing why the connection failed"
+            ],
+            [
+              "`mysqli_query()`",
+              "Sends an SQL statement; returns a result set for SELECT"
+            ],
+            [
+              "`mysqli_num_rows()`",
+              "Number of rows in a result"
+            ],
+            [
+              "`mysqli_fetch_assoc()`",
+              "Returns the next row as an array indexed by **field name**, or null at the end"
+            ],
+            [
+              "`mysqli_prepare()` / `bind_param()`",
+              "**Prepared statement** — safely inserts user data and prevents **SQL injection**"
+            ],
+            [
+              "`mysqli_close()`",
+              "Closes the connection"
+            ]
           ]
         }
       ]
@@ -146,13 +1858,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "content": "JavaScript reacts to **events** (click, input, submit, mouse over) and changes the page without reloading it."
-        },
-        {
-          "type": "code",
-          "language": "html",
-          "content": "<label>Price (₸): <input id=\"price\" type=\"number\" value=\"800\"></label>\n<p>Selling price: <b id=\"out\"></b></p>\n<p id=\"warn\" style=\"color: red\"></p>\n\n<script>\n  const price = document.getElementById(\"price\");\n  function update() {\n    const p = Number(price.value);\n    document.getElementById(\"warn\").textContent =\n      (p < 1 || p > 50000) ? \"Price must be between 1 and 50 000\" : \"\";\n    const selling = p < 1000 ? p * 1.3 : p * 1.15;\n    document.getElementById(\"out\").textContent = selling.toFixed(0) + \" ₸\";\n  }\n  price.addEventListener(\"input\", update);   // run update() whenever the value changes\n  update();\n</script>",
-          "caption": "Live price calculator: the result updates as the user types (event \"input\")"
+          "content": "JavaScript can **react to events** — clicks, typing, submitting a form, moving the mouse — and **change the page** through the **DOM** (Document Object Model) without reloading it."
         },
         {
           "type": "comparison",
@@ -183,8 +1889,116 @@
               "The page has finished loading"
             ]
           ]
+        },
+        {
+          "type": "comparison",
+          "title": "Changing the page with the DOM",
+          "columns": [
+            "Code",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`document.getElementById(\"out\")`",
+              "Finds the element with `id=\"out\"`"
+            ],
+            [
+              "`el.textContent = \"Hi\"` / `el.innerHTML = \"<b>Hi</b>\"`",
+              "Changes the text / HTML inside the element"
+            ],
+            [
+              "`el.style.color = \"red\"`",
+              "Changes a CSS property"
+            ],
+            [
+              "`el.classList.toggle(\"dark\")`",
+              "Adds or removes a CSS class"
+            ],
+            [
+              "`el.addEventListener(\"click\", f)` or `onclick=\"f()\"`",
+              "Runs function `f` when the event happens"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<label>Price (₸): <input id=\"price\" type=\"number\" value=\"800\"></label>\n<p>Selling price: <b id=\"out\"></b></p>\n<p id=\"warn\" style=\"color: red\"></p>\n\n<script>\n  const price = document.getElementById(\"price\");\n  function update() {\n    const p = Number(price.value);\n    document.getElementById(\"warn\").textContent =\n      (p < 1 || p > 50000) ? \"Price must be between 1 and 50 000\" : \"\";\n    const selling = p < 1000 ? p * 1.3 : p * 1.15;\n    document.getElementById(\"out\").textContent = selling.toFixed(0) + \" ₸\";\n  }\n  price.addEventListener(\"input\", update);   // run update() whenever the value changes\n  update();\n</script>",
+          "caption": "Live price calculator: the result updates as the user types"
+        },
+        {
+          "type": "html_preview",
+          "title": "Try it — a shopping-cost calculator (change the values)",
+          "html": "<h3>Calculator</h3>\n<label><input type=\"radio\" name=\"item\" value=\"20000\" checked> Coat — 20 000 ₸</label><br>\n<label><input type=\"radio\" name=\"item\" value=\"15000\"> Boots — 15 000 ₸</label><br>\n<label><input type=\"radio\" name=\"item\" value=\"12000\"> Jacket — 12 000 ₸</label><br>\n<label>Quantity: <input id=\"qty\" type=\"number\" value=\"1\" min=\"1\" max=\"10\"></label>\n<button id=\"calc\">Calculate</button>\n<p id=\"res\"></p>\n<script>\ndocument.getElementById(\"calc\").addEventListener(\"click\", function () {\n  const price = Number(document.querySelector(\"input[name=item]:checked\").value);\n  const qty = Number(document.getElementById(\"qty\").value);\n  const out = document.getElementById(\"res\");\n  if (!Number.isInteger(qty) || qty < 1 || qty > 10) {\n    out.style.color = \"red\";\n    out.textContent = \"Quantity must be a whole number from 1 to 10\";\n    return;\n  }\n  let total = price * qty;\n  if (price === 20000) total = total * 0.9;   // 10% discount on coats\n  out.style.color = \"green\";\n  out.textContent = \"Total: \" + total.toLocaleString(\"ru-RU\") + \" ₸\";\n});\n</script>",
+          "css": "body { font-family: Arial, sans-serif; padding: 8px; }\nbutton { margin-left: 8px; }",
+          "height": 230
+        }
+      ]
+    },
+    {
+      "title": "Good programming style",
+      "objectives": [
+        "11.5.4.1",
+        "11.5.4.4"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Make code readable",
+              "content": "- **Meaningful identifiers**: `totalCost`, not `x`.\n- **Indentation** inside `if`, loops and functions shows the structure.\n- **Comments** explain *why* the code does something."
+            },
+            {
+              "title": "Make code maintainable",
+              "content": "- Use **constants** for fixed values: `const MAX_ATTEMPTS = 3;`.\n- Split code into **functions** that do one job.\n- Use **one consistent style** for names (camelCase in JavaScript)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.4.1",
+        "11.5.4.3",
+        "11.5.4.4",
+        "11.5.4.5",
+        "11.5.3.8@paper"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Complete the code to check the PIN code 1234; if incorrect, display a message. [3]**\n`if (pin == \"1234\")` (1) `alert(\"You entered successfully\");` (1) `else alert(\"Error, wrong PIN\");` (1).\n\n**Q: Explain the difference between validation and verification. [2]**\nValidation is an **automatic check** that data is **sensible / follows rules** (e.g. a range check) (1); verification checks that data was **entered correctly / matches the original** (e.g. double entry) (1).\n\n**Q: Complete the code to connect to the database \"Library\". [3]**\n`$conn = mysqli_connect($servername, $username, $password, $db);` (1 function, 1 parameters) `if (!$conn) { die(…); }` (1).\n\n**Q: Explain why a form is validated by both JavaScript and PHP. [2]**\nJavaScript gives **instant feedback** without sending data to the server (1); PHP checks are needed because client-side scripts **can be disabled or bypassed** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Using `=` (assignment) instead of `==` / `===` (comparison) in an `if`.\n- Forgetting that `prompt()` returns **text** — convert before arithmetic.\n- A loop that never ends because the counter is **not changed** inside it.\n- Forgetting `$` before PHP variables, or `;` at the end of statements.\n- Saying verification checks whether data is \"reasonable\" — that is **validation**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Give one difference between client-side and server-side scripts.",
+            "Write an `if … else` that outputs \"Pass\" if a mark is at least 50.",
+            "Write a loop that allows three attempts at a password.",
+            "Name four validation checks and one verification method.",
+            "List the five steps of working with a database in PHP.",
+            "Which event would you use to check a form before it is sent?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Scripting language — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. You may write code in JavaScript, PHP or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "scr-exam-1",
+      "scr-exam-2",
+      "scr-exam-3"
+    ]
+  }
 }

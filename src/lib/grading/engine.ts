@@ -1,6 +1,7 @@
 import "server-only";
 import { gradeDeterministic, type MarkingPointResult } from "./deterministic";
-import { AiUnavailableError, PROMPT_VERSION, gradeWithAI } from "./ai";
+import { AiUnavailableError, PROMPT_VERSION, answerAsText, gradeWithAI } from "./ai";
+import { cacheKey, effortFor, getCachedMarking, logAiUsage, putCachedMarking } from "./ai-cache";
 import { isAnswerBlank, type AnswerData, type MarkingEntry, type QuestionContent, type QuestionType } from "../questions/types";
 
 export type GradeOutcome = {
@@ -30,6 +31,9 @@ export type GradeInput = {
   content?: QuestionContent;
   /** Stem shared by the parts of a structured question */
   groupStem?: string | null;
+  /** for the AI result cache and the usage log */
+  questionId?: string;
+  context?: "practice" | "exam";
 };
 
 function base(input: GradeInput): GradeOutcome {
@@ -91,7 +95,8 @@ export async function gradeAnswer(input: GradeInput): Promise<GradeOutcome> {
   // AI or HYBRID fallthrough
   try {
     const questionMarks = marking.question_marks ?? max;
-    const ai = await gradeWithAI({
+    const effort = effortFor(input.questionType, questionMarks);
+    const aiInput = {
       questionText: input.questionText,
       questionType: input.questionType,
       maxMark: questionMarks,
@@ -106,7 +111,32 @@ export async function gradeAnswer(input: GradeInput): Promise<GradeOutcome> {
       groupStem: input.groupStem ?? marking.group_stem ?? null,
       content: input.content,
       answer: input.answer!,
+    };
+    const { answer: _answer, ...promptInputs } = aiInput;
+    void _answer;
+    const key = input.questionId
+      ? cacheKey({
+          questionId: input.questionId,
+          promptInputs,
+          answerText: answerAsText(aiInput.answer, input.questionType, input.content),
+          effort,
+        })
+      : null;
+    const cached = key ? await getCachedMarking(key) : null;
+    const ai = cached
+      ? { ...cached, usage: undefined }
+      : await gradeWithAI(aiInput, { effort });
+    await logAiUsage({
+      context: input.context ?? "other",
+      questionId: input.questionId,
+      model: ai.model,
+      effort,
+      cacheHit: Boolean(cached),
+      usage: ai.usage,
     });
+    if (!cached && key && input.questionId) {
+      await putCachedMarking(key, input.questionId, ai, input.aiConfidenceThreshold);
+    }
     const awarded = rescale(ai.awarded, questionMarks, max);
     return {
       ...out,

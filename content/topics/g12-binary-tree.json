@@ -1,104 +1,1343 @@
 {
   "topic": "g12-binary-tree",
-  "questions": [],
-  "summary": "Binary tree terminology, building a binary search tree, storing it with left and right pointers in arrays, searching it and traversing it.",
+  "questions": [
+    {
+      "key": "bt-terms-match",
+      "title": "Tree terms",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Root"
+          },
+          {
+            "key": "L2",
+            "text": "Leaf"
+          },
+          {
+            "key": "L3",
+            "text": "Parent"
+          },
+          {
+            "key": "L4",
+            "text": "Subtree"
+          },
+          {
+            "key": "L5",
+            "text": "Branch"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The top node, which has no parent"
+          },
+          {
+            "key": "R2",
+            "text": "A node with no children"
+          },
+          {
+            "key": "R3",
+            "text": "A node directly above another node"
+          },
+          {
+            "key": "R4",
+            "text": "A node together with all its descendants"
+          },
+          {
+            "key": "R5",
+            "text": "The link between a parent and a child"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1 … L5–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "bt-bst-define",
+      "title": "Binary search tree",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "Describe a **binary search tree**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Each node has at most two children (left and right) (1)\n- values in the left subtree are smaller and values in the right subtree are greater than the node (1)",
+        "points": [
+          {
+            "criterion": "Two children",
+            "marks": 1
+          },
+          {
+            "criterion": "Ordering rule",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A binary tree where every node has up to two children, all smaller values are in its left subtree and all larger values in its right subtree."
+      }
+    },
+    {
+      "key": "bt-draw-1",
+      "title": "Build a BST",
+      "type": "binary_tree",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "Draw the binary search tree formed when these values are inserted in order: **45, 22, 67, 12, 30, 50, 89, 25**.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Root 45 (1); 22 and 67 as children (1); 12, 30, 50, 89 correct (1); 25 left of 30 (1)",
+        "points": [
+          {
+            "criterion": "Root",
+            "marks": 1
+          },
+          {
+            "criterion": "Level 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Level 2",
+            "marks": 1
+          },
+          {
+            "criterion": "25",
+            "marks": 1
+          }
+        ],
+        "model_answer": "45 is the root; 22 left and 67 right; 12 left and 30 right of 22; 50 left and 89 right of 67; 25 left of 30.",
+        "accepted": {
+          "tree": [
+            "45",
+            "22",
+            "67",
+            "12",
+            "30",
+            "50",
+            "89",
+            null,
+            null,
+            "25"
+          ]
+        }
+      }
+    },
+    {
+      "key": "bt-draw-strings",
+      "title": "BST of strings",
+      "type": "binary_tree",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "Draw the binary search tree formed from the array **[\"Dog\", \"Cat\", \"Fox\", \"Ant\", \"Eel\", \"Bee\"]** (alphabetical order).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Dog root (1); Cat left, Fox right (1); Ant left of Cat, Eel left of Fox (1); Bee right of Ant (1)",
+        "points": [
+          {
+            "criterion": "Root",
+            "marks": 1
+          },
+          {
+            "criterion": "Level 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Ant and Eel",
+            "marks": 1
+          },
+          {
+            "criterion": "Bee",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Dog is the root; Cat left and Fox right; Ant left of Cat; Eel left of Fox; Bee right of Ant.",
+        "accepted": {
+          "tree": [
+            "Dog",
+            "Cat",
+            "Fox",
+            "Ant",
+            null,
+            "Eel",
+            null,
+            null,
+            "Bee"
+          ]
+        }
+      }
+    },
+    {
+      "key": "bt-pointer-table",
+      "title": "Pointer table",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "The values **6, 3, 8, 5, 9, 2** are inserted in order into a BST stored as nodes at indexes 1–6. Complete the left and right pointers (−1 = no child).",
+      "content": {
+        "columns": [
+          "Index",
+          "Left pointer",
+          "Data",
+          "Right pointer"
+        ],
+        "rows": 6,
+        "prefill": [
+          [
+            "1",
+            null,
+            "6",
+            null
+          ],
+          [
+            "2",
+            null,
+            "3",
+            null
+          ],
+          [
+            "3",
+            null,
+            "8",
+            null
+          ],
+          [
+            "4",
+            null,
+            "5",
+            null
+          ],
+          [
+            "5",
+            null,
+            "9",
+            null
+          ],
+          [
+            "6",
+            null,
+            "2",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1: 2, 3; 2: 6, 4; 3: −1, 5; 4–6: −1, −1 (scaled per cell)",
+        "points": [
+          {
+            "criterion": "Node 6",
+            "marks": 1
+          },
+          {
+            "criterion": "Node 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Node 8",
+            "marks": 1
+          },
+          {
+            "criterion": "Leaves",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "2",
+              null,
+              "3"
+            ],
+            [
+              null,
+              "6",
+              null,
+              "4"
+            ],
+            [
+              null,
+              "-1||−1||null",
+              null,
+              "5"
+            ],
+            [
+              null,
+              "-1||−1||null",
+              null,
+              "-1||−1||null"
+            ],
+            [
+              null,
+              "-1||−1||null",
+              null,
+              "-1||−1||null"
+            ],
+            [
+              null,
+              "-1||−1||null",
+              null,
+              "-1||−1||null"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bt-root",
+      "title": "Root value",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "A BST is built from the array **[\"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\"]**. State the value of the root.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "M (1)",
+        "points": [
+          {
+            "criterion": "M",
+            "marks": 1
+          }
+        ],
+        "model_answer": "M",
+        "accepted": {
+          "values": [
+            "M",
+            "\"M\""
+          ]
+        }
+      }
+    },
+    {
+      "key": "bt-leaves",
+      "title": "Leaves",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "In the BST built from **M, B, A, K, H, V, T**, select **all** the leaf nodes.",
+      "options": [
+        {
+          "key": "A",
+          "content": "A"
+        },
+        {
+          "key": "B",
+          "content": "B"
+        },
+        {
+          "key": "C",
+          "content": "H"
+        },
+        {
+          "key": "D",
+          "content": "K"
+        },
+        {
+          "key": "E",
+          "content": "T"
+        },
+        {
+          "key": "F",
+          "content": "V"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, H, T",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ]
+        },
+        "explanation": "B has A and K; K has H; V has T."
+      }
+    },
+    {
+      "key": "bt-traversals",
+      "title": "Traversals",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "For the BST built from **50, 30, 70, 20, 40, 60, 80, 35**, write each traversal (values separated by commas).",
+      "content": {
+        "columns": [
+          "Traversal",
+          "Order of nodes"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "In-order",
+            null
+          ],
+          [
+            "Pre-order",
+            null
+          ],
+          [
+            "Post-order",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "In: 20, 30, 35, 40, 50, 60, 70, 80 (1); Pre: 50, 30, 20, 40, 35, 70, 60, 80 (1); Post: 20, 35, 40, 30, 60, 80, 70, 50 (1)",
+        "points": [
+          {
+            "criterion": "In",
+            "marks": 1
+          },
+          {
+            "criterion": "Pre",
+            "marks": 1
+          },
+          {
+            "criterion": "Post",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "20, 30, 35, 40, 50, 60, 70, 80||20 30 35 40 50 60 70 80||20,30,35,40,50,60,70,80"
+            ],
+            [
+              null,
+              "50, 30, 20, 40, 35, 70, 60, 80||50 30 20 40 35 70 60 80||50,30,20,40,35,70,60,80"
+            ],
+            [
+              null,
+              "20, 35, 40, 30, 60, 80, 70, 50||20 35 40 30 60 80 70 50||20,35,40,30,60,80,70,50"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bt-inorder-sorted",
+      "title": "In-order",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "Which traversal of a binary search tree outputs the values in **ascending order**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Pre-order"
+        },
+        {
+          "key": "B",
+          "content": "In-order"
+        },
+        {
+          "key": "C",
+          "content": "Post-order"
+        },
+        {
+          "key": "D",
+          "content": "None of them"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "bt-search-trace",
+      "title": "Search trace",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "In the BST built from **45, 22, 67, 12, 30, 50, 89, 25**, list the nodes visited when searching for **25**, and the nodes visited when searching for **60**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "25: 45, 22, 30, 25 — found (1); 60: 45, 67, 50 — not found (right of 50 is empty) (1)",
+        "points": [
+          {
+            "criterion": "25",
+            "marks": 1
+          },
+          {
+            "criterion": "60",
+            "marks": 1
+          }
+        ],
+        "model_answer": "25: 45 → 22 → 30 → 25 (found). 60: 45 → 67 → 50 → empty, not found."
+      }
+    },
+    {
+      "key": "bt-search-code",
+      "title": "Search algorithm",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "A BST is stored in arrays `Left[]`, `Data[]`, `Right[]` with the variable `Root`; −1 means no child. Write an algorithm that searches for `Target` and outputs \"Found\" or \"Not found\".",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- Current starts at Root (1)\n- loop while Current <> −1 and Data[Current] <> Target (1)\n- go Left if Target smaller else Right (1)\n- output Found / Not found after the loop (1)",
+        "points": [
+          {
+            "criterion": "Start",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Move left / right",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nCurrent ← Root\nWHILE Current <> -1 AND Data[Current] <> Target DO\n    IF Target < Data[Current] THEN\n        Current ← Left[Current]\n    ELSE\n        Current ← Right[Current]\n    ENDIF\nENDWHILE\nIF Current = -1 THEN\n    OUTPUT \"Not found\"\nELSE\n    OUTPUT \"Found\"\nENDIF\n```"
+      }
+    },
+    {
+      "key": "bt-unbalanced",
+      "title": "Unbalanced tree",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "The values 10, 20, 30, 40, 50 are inserted in this order into an empty BST. Explain the effect on searching.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Every value goes to the right → the tree is a single chain / unbalanced (1)\n- a search may visit every node (like a linear search) instead of about log₂ n (1)",
+        "points": [
+          {
+            "criterion": "Chain",
+            "marks": 1
+          },
+          {
+            "criterion": "Slow search",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each new value is larger, so it goes right every time and the tree becomes one long chain; searching for 50 needs 5 comparisons, as slow as a linear search."
+      }
+    },
+    {
+      "key": "bt-efficiency",
+      "title": "Comparisons",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "A **balanced** BST holds about **1 000 000** values. Estimate the maximum number of comparisons needed to find a value.",
+      "content": {
+        "unit": "comparisons"
+      },
+      "scheme": {
+        "mark_scheme": "log₂ 1 000 000 ≈ 20 (1)",
+        "points": [
+          {
+            "criterion": "20",
+            "marks": 1
+          }
+        ],
+        "model_answer": "20",
+        "accepted": {
+          "values": [
+            "20"
+          ],
+          "numeric": true,
+          "tolerance": 1
+        }
+      }
+    },
+    {
+      "key": "bt-uses",
+      "title": "Uses",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "practice": true,
+      "text": "State **two** uses of binary trees.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): fast searching (BST); sorting via in-order traversal; expression trees; database indexes / file systems; decision trees / expert systems; Huffman compression",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Searching data quickly. 2 Representing arithmetic expressions."
+      }
+    },
+    {
+      "key": "bt-exam-1",
+      "title": "Car models",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The array Cars is given below.\n\n[\"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\"]",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bt-exam-1a",
+          "part_label": "(a)",
+          "title": "Draw",
+          "type": "binary_tree",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the binary search tree created from the Cars array.",
+          "content": {},
+          "scheme": {
+            "mark_scheme": "1 mark for each correct node: B, A, K, H, T (M root, V right of M)",
+            "points": [
+              {
+                "criterion": "B",
+                "marks": 1
+              },
+              {
+                "criterion": "A",
+                "marks": 1
+              },
+              {
+                "criterion": "K",
+                "marks": 1
+              },
+              {
+                "criterion": "H",
+                "marks": 1
+              },
+              {
+                "criterion": "T",
+                "marks": 1
+              }
+            ],
+            "model_answer": "M root; B left and V right; A left of B; K right of B; H left of K; T left of V.",
+            "accepted": {
+              "tree": [
+                "M",
+                "B",
+                "V",
+                "A",
+                "K",
+                "T",
+                null,
+                null,
+                null,
+                "H"
+              ]
+            }
+          }
+        },
+        {
+          "key": "bt-exam-1b",
+          "part_label": "(b)",
+          "title": "Root",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the value of the root.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "M (1)",
+            "points": [
+              {
+                "criterion": "M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "M",
+            "accepted": {
+              "values": [
+                "M",
+                "\"M\""
+              ]
+            }
+          }
+        },
+        {
+          "key": "bt-exam-1c",
+          "part_label": "(c)",
+          "title": "In-order",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the in-order traversal of the tree.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "A, B, H, K, M, T, V (2); one error (1)",
+            "points": [
+              {
+                "criterion": "Order",
+                "marks": 2
+              }
+            ],
+            "model_answer": "A, B, H, K, M, T, V",
+            "accepted": {
+              "values": [
+                "A, B, H, K, M, T, V",
+                "A B H K M T V",
+                "A,B,H,K,M,T,V"
+              ]
+            }
+          }
+        },
+        {
+          "key": "bt-exam-1d",
+          "part_label": "(d)",
+          "title": "Search",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the nodes visited when searching for **H**.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "M, B, K, H (1)",
+            "points": [
+              {
+                "criterion": "M B K H",
+                "marks": 1
+              }
+            ],
+            "model_answer": "M → B → K → H"
+          }
+        }
+      ]
+    },
+    {
+      "key": "bt-exam-2",
+      "title": "Pointers",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The numbers **50, 30, 70, 20, 40, 60, 80, 35** are inserted in order into a BST. Each node has the format **Left pointer | Data | Right pointer**, and nodes are stored at indexes 1–8 in insertion order.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bt-exam-2a",
+          "part_label": "(a)",
+          "title": "Table",
+          "type": "table_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the pointers. Use −1 for no child.",
+          "content": {
+            "columns": [
+              "Index",
+              "Left pointer",
+              "Data",
+              "Right pointer"
+            ],
+            "rows": 8,
+            "prefill": [
+              [
+                "1",
+                null,
+                "50",
+                null
+              ],
+              [
+                "2",
+                null,
+                "30",
+                null
+              ],
+              [
+                "3",
+                null,
+                "70",
+                null
+              ],
+              [
+                "4",
+                null,
+                "20",
+                null
+              ],
+              [
+                "5",
+                null,
+                "40",
+                null
+              ],
+              [
+                "6",
+                null,
+                "60",
+                null
+              ],
+              [
+                "7",
+                null,
+                "80",
+                null
+              ],
+              [
+                "8",
+                null,
+                "35",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1: 2, 3; 2: 4, 5; 3: 6, 7; 5: 8, −1; 4, 6, 7, 8: −1, −1 (scaled per cell)",
+            "points": [
+              {
+                "criterion": "Node 50",
+                "marks": 1
+              },
+              {
+                "criterion": "Node 30",
+                "marks": 1
+              },
+              {
+                "criterion": "Node 70",
+                "marks": 1
+              },
+              {
+                "criterion": "Node 40",
+                "marks": 1
+              },
+              {
+                "criterion": "Leaves",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "2",
+                  null,
+                  "3"
+                ],
+                [
+                  null,
+                  "4",
+                  null,
+                  "5"
+                ],
+                [
+                  null,
+                  "6",
+                  null,
+                  "7"
+                ],
+                [
+                  null,
+                  "-1||−1||null",
+                  null,
+                  "-1||−1||null"
+                ],
+                [
+                  null,
+                  "8",
+                  null,
+                  "-1||−1||null"
+                ],
+                [
+                  null,
+                  "-1||−1||null",
+                  null,
+                  "-1||−1||null"
+                ],
+                [
+                  null,
+                  "-1||−1||null",
+                  null,
+                  "-1||−1||null"
+                ],
+                [
+                  null,
+                  "-1||−1||null",
+                  null,
+                  "-1||−1||null"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "bt-exam-2b",
+          "part_label": "(b)",
+          "title": "Pre-order",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the pre-order traversal.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "50, 30, 20, 40, 35, 70, 60, 80 (2); one error (1)",
+            "points": [
+              {
+                "criterion": "Order",
+                "marks": 2
+              }
+            ],
+            "model_answer": "50, 30, 20, 40, 35, 70, 60, 80",
+            "accepted": {
+              "values": [
+                "50, 30, 20, 40, 35, 70, 60, 80",
+                "50 30 20 40 35 70 60 80",
+                "50,30,20,40,35,70,60,80"
+              ]
+            }
+          }
+        },
+        {
+          "key": "bt-exam-2c",
+          "part_label": "(c)",
+          "title": "Leaf",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the table shows that 35 is a leaf.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Both its left and right pointers are −1 / it has no children (1)",
+            "points": [
+              {
+                "criterion": "Both −1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Its left and right pointers are both −1, so it has no children."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bt-exam-3",
+      "title": "Searching",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A library stores book codes in a binary search tree held in arrays `Left[]`, `Data[]` and `Right[]`, with the variable `Root`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bt-exam-3a",
+          "part_label": "(a)",
+          "title": "Algorithm",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write an algorithm that searches the tree for `Code` and outputs \"Found\" or \"Not found\".",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- start at Root (1)\n- loop until −1 or found (1)\n- compare and move Left / Right (1)\n- correct output (1)",
+            "points": [
+              {
+                "criterion": "Start",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Move",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nCurrent ← Root\nWHILE Current <> -1 AND Data[Current] <> Code DO\n    IF Code < Data[Current] THEN\n        Current ← Left[Current]\n    ELSE\n        Current ← Right[Current]\n    ENDIF\nENDWHILE\nIF Current = -1 THEN OUTPUT \"Not found\" ELSE OUTPUT \"Found\"\n```"
+          }
+        },
+        {
+          "key": "bt-exam-3b",
+          "part_label": "(b)",
+          "title": "Why BST",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why searching a BST is usually faster than a linear search, and when it may not be.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Each comparison discards half / a whole subtree (1); about log₂ n comparisons for a balanced tree vs up to n for linear (1); if data inserted in sorted order the tree is unbalanced / a chain, so up to n comparisons (1)",
+            "points": [
+              {
+                "criterion": "Discards subtree",
+                "marks": 1
+              },
+              {
+                "criterion": "log n vs n",
+                "marks": 1
+              },
+              {
+                "criterion": "Unbalanced case",
+                "marks": 1
+              }
+            ],
+            "model_answer": "At every node the search goes left or right, ignoring the other subtree, so a balanced tree needs about log₂ n comparisons rather than n. But if the codes were inserted in sorted order the tree is a chain and the search is as slow as a linear search."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Tree terminology, binary trees and binary search trees, building a BST from numbers and strings, storing it as nodes with left pointer, data and right pointer, inserting and searching with a trace, in-order, pre-order and post-order traversals, balanced and unbalanced trees, and where binary trees are used.",
   "theory": [
     {
-      "title": "Binary trees and binary search trees",
+      "title": "Trees and binary trees",
       "objectives": [
         "12.5.2.2"
       ],
       "blocks": [
         {
           "type": "definition",
-          "term": "Binary tree",
-          "content": "A hierarchical data structure in which each **node** has **at most two children**: a **left** child and a **right** child."
+          "term": "Tree",
+          "content": "A **hierarchical** (non-linear) data structure made of **nodes** joined by **branches (edges)**. It has one **root** at the top; every other node has exactly **one parent**."
         },
         {
           "type": "definition",
-          "term": "Binary search tree (BST)",
-          "content": "A binary tree where, for every node, all values in the **left subtree are smaller** and all values in the **right subtree are greater** (or equal, by agreement)."
+          "term": "Binary tree",
+          "content": "A tree in which each node has **at most two children**: a **left** child and a **right** child."
         },
         {
           "type": "comparison",
-          "title": "Terms",
+          "title": "Tree terminology",
           "columns": [
             "Term",
             "Meaning"
           ],
           "rows": [
             [
-              "Root",
-              "The top node (no parent)"
+              "**Root**",
+              "The top node — it has **no parent**"
             ],
             [
-              "Parent / child",
+              "**Parent / child**",
               "A node and the nodes directly below it"
             ],
             [
-              "Leaf",
-              "A node with no children"
+              "**Siblings**",
+              "Children of the same parent"
             ],
             [
-              "Subtree",
-              "A node and all its descendants"
+              "**Leaf**",
+              "A node with **no children**"
             ],
             [
-              "Branch (edge)",
-              "A link between a parent and a child"
+              "**Subtree**",
+              "A node together with all its descendants"
             ],
             [
-              "Depth / height",
-              "Number of levels"
+              "**Branch (edge)**",
+              "The link (pointer) between a parent and a child"
+            ],
+            [
+              "**Level / depth**",
+              "How far a node is from the root (root = level 0)"
+            ],
+            [
+              "**Height**",
+              "The number of levels in the tree (or edges on the longest root-to-leaf path)"
             ]
           ]
         },
         {
-          "type": "heading",
-          "text": "Building a BST",
-          "level": 2
+          "type": "diagram",
+          "format": "ascii",
+          "content": "                 [6]            ← root (level 0)\n                /   \\\n             [3]     [8]        ← level 1: 3 and 8 are siblings\n            /   \\       \\\n          [2]   [5]     [9]     ← level 2: leaves (no children)\n\n  3 is the parent of 2 and 5 · the left subtree of 6 is {3, 2, 5}",
+          "caption": "A binary tree with its parts labelled"
+        }
+      ]
+    },
+    {
+      "title": "Binary search trees",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Binary search tree (BST)",
+          "content": "A binary tree where, for **every** node, all values in its **left subtree are smaller** and all values in its **right subtree are greater** (equal values go right, by agreement). Strings are compared **alphabetically**."
         },
         {
           "type": "steps",
-          "title": "Insert 6, 3, 8, 5, 9, 2 in this order",
+          "title": "Inserting a value",
+          "items": [
+            "Start at the **root**.",
+            "If the new value is **smaller** than the node, go **left**; if it is **greater (or equal)**, go **right**.",
+            "Repeat until you reach an **empty** position, and attach the new node there.",
+            "Values must be inserted **in the order given** — a different order gives a different tree."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Build a BST from 6, 3, 8, 5, 9, 2",
           "items": [
             "**6** is the root.",
             "**3** < 6 → left of 6.",
             "**8** > 6 → right of 6.",
-            "**5** < 6 → go left to 3; 5 > 3 → right of 3.",
-            "**9** > 6 → go right to 8; 9 > 8 → right of 8.",
-            "**2** < 6 → left to 3; 2 < 3 → left of 3."
+            "**5** < 6 → go left to 3; 5 > 3 → **right of 3**.",
+            "**9** > 6 → go right to 8; 9 > 8 → **right of 8**.",
+            "**2** < 6 → left to 3; 2 < 3 → **left of 3**."
           ]
         },
         {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart TB\n  N6((6)) --> N3((3))\n  N6 --> N8((8))\n  N3 --> N2((2))\n  N3 --> N5((5))\n  N8 --> N9((9))",
-          "caption": "The resulting binary search tree"
+          "type": "paragraph",
+          "content": "The result is the tree drawn in the previous section."
         },
         {
-          "type": "callout",
-          "tone": "info",
-          "title": "Strings",
-          "content": "Strings are compared **alphabetically**: inserting `M, B, V, A, K, T, H` gives root M; B left of M; V right of M; A left of B; K right of B; T left of V; H left of K."
+          "type": "example",
+          "title": "A BST of strings: \"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\"",
+          "content": "```text\n                 [M]\n               /     \\\n            [B]       [V]\n           /   \\      /\n         [A]   [K]  [T]\n               /\n             [H]\n```\nB < M → left; A < M, A < B → left of B; K < M, K > B → right of B; H < M, H > B, H < K → left of K; V > M → right; T > M, T < V → left of V."
         },
         {
-          "type": "heading",
-          "text": "Storing a tree in arrays (left pointer, data, right pointer)",
-          "level": 2
-        },
+          "type": "example",
+          "title": "A larger tree: 50, 30, 70, 20, 40, 60, 80, 35",
+          "content": "```text\n                  [50]\n               /        \\\n           [30]          [70]\n          /    \\        /    \\\n       [20]    [40]   [60]   [80]\n               /\n            [35]\n```"
+        }
+      ]
+    },
+    {
+      "title": "Storing a tree with pointers",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
         {
           "type": "paragraph",
-          "content": "Each node is stored as **Left pointer | Data | Right pointer**; **−1** (or 0 / null) means \"no child\"."
+          "content": "Each node is stored as **Left pointer | Data | Right pointer**. A pointer holds the **index (address) of the child node**; **−1** (or NULL / 0) means \"**no child**\". A separate **root pointer** holds the index of the root."
         },
         {
           "type": "comparison",
-          "title": "Array representation of the tree above (insertion order 6, 3, 8, 5, 9, 2)",
+          "title": "Array representation of the tree 6, 3, 8, 5, 9, 2 (nodes stored in insertion order)",
           "columns": [
             "Index",
-            "Left",
+            "Left pointer",
             "Data",
-            "Right"
+            "Right pointer"
           ],
           "rows": [
             [
@@ -141,13 +1380,76 @@
         },
         {
           "type": "paragraph",
-          "content": "Root pointer = 1. Node 1 (6) has left → index 2 (3) and right → index 3 (8), and so on."
+          "content": "Root pointer = **1**. Node 1 (6) has left → index **2** (3) and right → index **3** (8). Node 2 (3) has left → **6** (2) and right → **4** (5). Leaves have **−1** in both pointers."
         },
         {
-          "type": "heading",
-          "text": "Searching a BST",
-          "level": 2
+          "type": "comparison",
+          "title": "Array representation of \"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\"",
+          "columns": [
+            "Index",
+            "Left",
+            "Data",
+            "Right"
+          ],
+          "rows": [
+            [
+              "1",
+              "2",
+              "M",
+              "6"
+            ],
+            [
+              "2",
+              "3",
+              "B",
+              "4"
+            ],
+            [
+              "3",
+              "−1",
+              "A",
+              "−1"
+            ],
+            [
+              "4",
+              "5",
+              "K",
+              "−1"
+            ],
+            [
+              "5",
+              "−1",
+              "H",
+              "−1"
+            ],
+            [
+              "6",
+              "7",
+              "V",
+              "−1"
+            ],
+            [
+              "7",
+              "−1",
+              "T",
+              "−1"
+            ]
+          ]
         },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "// Tree[i].Left, Tree[i].Data, Tree[i].Right; FreePtr = next empty index\nPROCEDURE Insert(Value)\n    Tree[FreePtr].Data ← Value\n    Tree[FreePtr].Left ← -1\n    Tree[FreePtr].Right ← -1\n    IF Root = -1 THEN\n        Root ← FreePtr                       // first node becomes the root\n    ELSE\n        Current ← Root\n        Placed ← FALSE\n        WHILE NOT Placed DO\n            IF Value < Tree[Current].Data THEN\n                IF Tree[Current].Left = -1 THEN\n                    Tree[Current].Left ← FreePtr\n                    Placed ← TRUE\n                ELSE\n                    Current ← Tree[Current].Left\n                ENDIF\n            ELSE\n                IF Tree[Current].Right = -1 THEN\n                    Tree[Current].Right ← FreePtr\n                    Placed ← TRUE\n                ELSE\n                    Current ← Tree[Current].Right\n                ENDIF\n            ENDIF\n        ENDWHILE\n    ENDIF\n    FreePtr ← FreePtr + 1\nENDPROCEDURE",
+          "caption": "Inserting a new node into the arrays"
+        }
+      ]
+    },
+    {
+      "title": "Searching a BST",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
         {
           "type": "code",
           "language": "pseudocode",
@@ -155,41 +1457,148 @@
           "caption": "Search for a value"
         },
         {
-          "type": "exam_tip",
-          "content": "Each comparison discards one subtree, so a balanced BST with *n* nodes is searched in about **log₂ n** steps — much faster than a linear search."
+          "type": "example",
+          "title": "Searching for 5 and for 7 in the tree 6, 3, 8, 5, 9, 2",
+          "content": "| Target | Nodes visited | Result |\n|---|---|---|\n| 5 | 6 (5 < 6, go left) → 3 (5 > 3, go right) → **5** | Found at index 4 after **3** comparisons |\n| 7 | 6 (7 > 6, right) → 8 (7 < 8, left) → −1 | **Not found** after 2 comparisons |"
         },
         {
-          "type": "heading",
-          "text": "Traversals",
-          "level": 2
+          "type": "exam_tip",
+          "content": "Each comparison **discards a whole subtree**, so a **balanced** BST with *n* nodes needs about **log₂ n** comparisons: 1 000 000 nodes → about **20** comparisons, instead of up to 1 000 000 for a linear search."
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Unbalanced trees",
+          "content": "If values are inserted **already sorted** (1, 2, 3, 4, 5), every node goes to the **right** and the tree becomes a long chain — like a linked list. Searching then takes up to **n** comparisons. A **balanced** tree has roughly equal numbers of nodes in the left and right subtrees."
+        }
+      ]
+    },
+    {
+      "title": "Traversing a binary tree",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Traversal",
+          "content": "Visiting **every node exactly once** in a fixed order. The three depth-first traversals differ only in **when the node itself is visited**."
         },
         {
           "type": "comparison",
-          "title": "Traversing the tree 6, 3, 8, 5, 9, 2",
+          "title": "The three traversals",
           "columns": [
             "Traversal",
             "Order",
-            "Result"
+            "Result for 6, 3, 8, 5, 9, 2",
+            "Use"
           ],
           "rows": [
             [
-              "In-order",
+              "**In-order**",
               "Left, **Node**, Right",
-              "2, 3, 5, 6, 8, 9 — **sorted**"
+              "2, 3, 5, 6, 8, 9",
+              "Outputs a BST in **sorted order**"
             ],
             [
-              "Pre-order",
+              "**Pre-order**",
               "**Node**, Left, Right",
-              "6, 3, 2, 5, 8, 9"
+              "6, 3, 2, 5, 8, 9",
+              "**Copying** a tree (insert in this order to rebuild it)"
             ],
             [
-              "Post-order",
+              "**Post-order**",
               "Left, Right, **Node**",
-              "2, 5, 3, 9, 8, 6"
+              "2, 5, 3, 9, 8, 6",
+              "**Deleting** a tree; evaluating expression trees"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "PROCEDURE InOrder(Node)\n    IF Node <> -1 THEN\n        InOrder(Tree[Node].Left)      // 1 left subtree\n        OUTPUT Tree[Node].Data        // 2 the node\n        InOrder(Tree[Node].Right)     // 3 right subtree\n    ENDIF\nENDPROCEDURE",
+          "caption": "In-order traversal (recursive)"
+        },
+        {
+          "type": "example",
+          "title": "Traversals of the larger tree 50, 30, 70, 20, 40, 60, 80, 35",
+          "content": "- In-order: 20, 30, 35, 40, 50, 60, 70, 80\n- Pre-order: 50, 30, 20, 40, 35, 70, 60, 80\n- Post-order: 20, 35, 40, 30, 60, 80, 70, 50"
+        },
+        {
+          "type": "exam_tip",
+          "content": "Draw a line around the tree starting at the left of the root. **Pre-order**: write a node when you pass its **left** side; **in-order**: when you pass **underneath** it; **post-order**: when you pass its **right** side."
+        },
+        {
+          "type": "comparison",
+          "title": "Where binary trees are used",
+          "columns": [
+            "Use",
+            "How"
+          ],
+          "rows": [
+            [
+              "**Searching and sorting**",
+              "A BST gives fast search; in-order traversal gives sorted output"
+            ],
+            [
+              "**Expression trees**",
+              "Operators in nodes, operands in leaves: (3 + 4) × 2"
+            ],
+            [
+              "**File systems / indexes**",
+              "Folders and database indexes are organised as trees"
+            ],
+            [
+              "**Decision trees / expert systems**",
+              "Each node asks a yes/no question"
+            ],
+            [
+              "**Compression** (Huffman trees)",
+              "Frequent characters get shorter codes"
             ]
           ]
         }
       ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Complete a binary search tree using 6, 3, 8, 5, 9, 2. Each node is Left pointer | Data | Right pointer. [3]**\nNode for **3** points left to **2** and right to **5** (1); **2** is a leaf with −1 pointers (1); **5** is a leaf with −1 pointers (1).\n\n**Q: State the value of the root of the tree built from \"M\", \"B\", \"A\", \"K\", \"H\", \"V\", \"T\". [1]**\n**M** — the first value inserted (1).\n\n**Q: Write the in-order traversal of the tree. [1]**\nA, B, H, K, M, T, V (1).\n\n**Q: Explain why a BST may become inefficient. [2]**\nIf the data is inserted in **sorted order** the tree becomes **unbalanced** — a single chain (1), so a search may visit **every node** instead of about log₂ n (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Putting smaller values on the **right** — smaller go **left**.\n- Comparing only with the **root** — keep comparing at each level until an empty position is found.\n- Forgetting **−1 / NULL** pointers for leaves.\n- Mixing up pre-order (node **first**) and post-order (node **last**)."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define root, leaf, parent, subtree and height.",
+            "Build the BST for 45, 22, 67, 12, 30, 50, 89, 25 and draw its pointer table.",
+            "Trace a search for 30 and for 60 in that tree.",
+            "Write its in-order, pre-order and post-order traversals.",
+            "What happens if 10, 20, 30, 40 are inserted in this order?",
+            "Give two uses of binary trees."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Binary trees — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. In pointer tables use −1 for an empty pointer. Write algorithms in pseudocode. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes.",
+    "questions": [
+      "bt-exam-1",
+      "bt-exam-2",
+      "bt-exam-3"
+    ]
+  }
 }

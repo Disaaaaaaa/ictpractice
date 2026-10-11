@@ -1,10 +1,1262 @@
 {
   "topic": "g11-normalization",
-  "questions": [],
-  "summary": "The rules of first, second and third normal form, normalising a table step by step to 3NF, and creating a multi-table database for a new system.",
+  "questions": [
+    {
+      "key": "nf-define",
+      "title": "Define normalisation",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "Define the term **normalisation**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Organising data into well-structured / related tables following rules (normal forms) (1)\n- to reduce data redundancy / avoid anomalies / improve integrity (1)",
+        "points": [
+          {
+            "criterion": "Organising into tables by rules",
+            "marks": 1
+          },
+          {
+            "criterion": "Purpose",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The process of organising a database into related tables by following the rules of the normal forms, so that redundancy is reduced and anomalies are avoided."
+      }
+    },
+    {
+      "key": "nf-rules-match",
+      "title": "The normal forms",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "Match each normal form to its rule.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "1NF"
+          },
+          {
+            "key": "L2",
+            "text": "2NF"
+          },
+          {
+            "key": "L3",
+            "text": "3NF"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "All values are atomic and there are no repeating groups"
+          },
+          {
+            "key": "R2",
+            "text": "No non-key field depends on only part of a composite key"
+          },
+          {
+            "key": "R3",
+            "text": "No non-key field depends on another non-key field"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1NF–R1, 2NF–R2, 3NF–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "nf-anomaly-match",
+      "title": "Anomalies",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "In a single table `Orders(OrderID, CustomerName, CustomerAddress, Product)`, match each problem to the type of anomaly.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "A new customer cannot be stored until they place an order"
+          },
+          {
+            "key": "L2",
+            "text": "A customer's address must be changed in every one of their orders"
+          },
+          {
+            "key": "L3",
+            "text": "Deleting a customer's only order also deletes the customer's address"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Insertion anomaly"
+          },
+          {
+            "key": "R2",
+            "text": "Update anomaly"
+          },
+          {
+            "key": "R3",
+            "text": "Deletion anomaly"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–Insertion, L2–Update, L3–Deletion. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "nf-benefits",
+      "title": "Benefits of normalisation",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "State **two** benefits of normalising a database.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): reduced data redundancy / less repeated data; less storage; data consistency / integrity; no update / insertion / deletion anomalies; easier to maintain",
+        "points": [
+          {
+            "criterion": "First benefit",
+            "marks": 1
+          },
+          {
+            "criterion": "Second benefit",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Less repeated data. 2 A change only needs to be made in one place, so the data stays consistent."
+      }
+    },
+    {
+      "key": "nf-atomic-tf",
+      "title": "Atomic values",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "A field `Phones` containing \"87011112233, 87775554411\" is acceptable in first normal form.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The field holds two values, so it is not atomic and breaks 1NF."
+      }
+    },
+    {
+      "key": "nf-movie-1nf",
+      "title": "Why not 1NF",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "| MovieID | Title | Year | Country |\n|---|---|---|---|\n| M1 | The Nomad | 2005 | Kazakhstan, France |\n| M2 | Tulpan | 2008 | Kazakhstan, Germany |\n\nExplain why the table is not in first normal form.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "Data in column Country is not atomic / Country field has multiple values (1). Accept answers only with the specified field name.",
+        "points": [
+          {
+            "criterion": "Names Country as non-atomic",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The Country field contains more than one value in a cell, so it is not atomic."
+      }
+    },
+    {
+      "key": "nf-movie-to-1nf",
+      "title": "Bring to 1NF",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "Describe how the table in the previous question can be changed into first normal form, and state the new primary key.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- One row for each film–country pair / one country per record (or a separate MovieCountries table) (1)\n- primary key (MovieID, Country) (1)",
+        "points": [
+          {
+            "criterion": "One country per record",
+            "marks": 1
+          },
+          {
+            "criterion": "Composite key",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Store one country in each row, repeating the film for each country, so the primary key becomes (MovieID, Country)."
+      }
+    },
+    {
+      "key": "nf-partial",
+      "title": "Partial dependency",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "`Results(StudentID, SubjectID, StudentName, Mark)` has the composite key (StudentID, SubjectID). Explain why the table is not in second normal form.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- StudentName depends only on StudentID, which is part of the key (1)\n- a partial dependency — 2NF requires every non-key field to depend on the whole key (1)",
+        "points": [
+          {
+            "criterion": "StudentName depends on part of the key",
+            "marks": 1
+          },
+          {
+            "criterion": "Partial dependency breaks 2NF",
+            "marks": 1
+          }
+        ],
+        "model_answer": "StudentName depends only on StudentID, not on the whole key (StudentID, SubjectID); this partial dependency breaks 2NF."
+      }
+    },
+    {
+      "key": "nf-transitive",
+      "title": "Transitive dependency",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "`Employees(EmployeeID, Name, DeptID, DeptName)` has primary key EmployeeID. Explain why the table is not in third normal form.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- DeptName depends on DeptID, a non-key field (1)\n- this transitive dependency breaks 3NF / DeptName should be in a Departments table (1)",
+        "points": [
+          {
+            "criterion": "DeptName depends on DeptID",
+            "marks": 1
+          },
+          {
+            "criterion": "Transitive dependency / fix",
+            "marks": 1
+          }
+        ],
+        "model_answer": "DeptName depends on DeptID, which is not the key; this transitive dependency breaks 3NF, so departments should be stored in their own table."
+      }
+    },
+    {
+      "key": "nf-which-form",
+      "title": "Which normal form?",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "Each table has the stated problem. Tick (✓) the **first** normal form that the table breaks.",
+      "content": {
+        "columns": [
+          "Problem",
+          "1NF",
+          "2NF",
+          "3NF"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "A field Hobbies contains \"chess, football\"",
+            null,
+            null,
+            null
+          ],
+          [
+            "With key (OrderID, ProductID), ProductName depends only on ProductID",
+            null,
+            null,
+            null
+          ],
+          [
+            "With key CourseID, TeacherPhone depends on TeacherName",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 1NF (1); 2 2NF (1); 3 3NF (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "nf-single-key-tf",
+      "title": "Single-field keys and 2NF",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "practice": true,
+      "text": "A table in first normal form whose primary key is a single field is automatically in second normal form.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Partial dependencies are only possible when the key has more than one field."
+      }
+    },
+    {
+      "key": "nf-course-3nf",
+      "title": "Bring to 3NF",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "The following table is given. Bring it to third normal form (3NF).\n\n| CourseName | TeacherName | DateOfBirth |\n|---|---|---|\n| Java | Karimov Arman | 12/03/1985 |\n| Python | Karimov Arman | 12/03/1985 |\n| Web design | Sadykova Aigerim | 04/11/1990 |",
+      "content": {
+        "answer_lines": 5
+      },
+      "scheme": {
+        "mark_scheme": "Define \"Course\" table with primary key (1)\nDefine \"Teacher\" table with primary key (1)\nDefine the relationship by indicating a foreign key (1)\n[Max 3]",
+        "points": [
+          {
+            "criterion": "Course table with PK",
+            "marks": 1
+          },
+          {
+            "criterion": "Teacher table with PK",
+            "marks": 1
+          },
+          {
+            "criterion": "Foreign key relationship",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Teachers(TeacherID, TeacherName, DateOfBirth) — primary key TeacherID.\nCourses(CourseID, CourseName, TeacherID) — primary key CourseID, foreign key TeacherID."
+      }
+    },
+    {
+      "key": "nf-orders-3nf",
+      "title": "Normalise an order table",
+      "type": "short_answer",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "Normalise the table below to 3NF. Show the tables with their primary keys and foreign keys.\n\n`Orders ( OrderID, OrderDate, CustomerID, CustomerName, CustomerPhone )`",
+      "content": {
+        "answer_lines": 5
+      },
+      "scheme": {
+        "mark_scheme": "- Identifies that CustomerName / CustomerPhone depend on CustomerID (transitive) (1)\n- Customers(CustomerID, CustomerName, CustomerPhone) with PK CustomerID (1)\n- Orders(OrderID, OrderDate, CustomerID) with PK OrderID (1)\n- CustomerID as a foreign key in Orders (1)",
+        "points": [
+          {
+            "criterion": "Dependency identified",
+            "marks": 1
+          },
+          {
+            "criterion": "Customers table",
+            "marks": 1
+          },
+          {
+            "criterion": "Orders table",
+            "marks": 1
+          },
+          {
+            "criterion": "Foreign key",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CustomerName and CustomerPhone depend on CustomerID, not on OrderID. Customers(CustomerID, CustomerName, CustomerPhone) — PK CustomerID. Orders(OrderID, OrderDate, CustomerID) — PK OrderID, FK CustomerID."
+      }
+    },
+    {
+      "key": "nf-fill-key",
+      "title": "Moving fields",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nWhen fields are moved into a new table, the field they depend on becomes the [[1]] key of the new table and stays in the original table as a [[2]] key.",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) primary (2) foreign",
+        "accepted": {
+          "blanks": [
+            [
+              "primary"
+            ],
+            [
+              "foreign"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "nf-sql-create",
+      "title": "Create linked tables",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "practice": true,
+      "text": "Write SQL to create the normalised tables:\n\n```text\nTeachers ( TeacherID, TeacherName )\nCourses  ( CourseID, CourseName, TeacherID )\n```\n\nInclude the primary keys and the foreign key.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- CREATE TABLE Teachers with TeacherID PRIMARY KEY and TeacherName with data types (1)\n- CREATE TABLE Courses with CourseID PRIMARY KEY (1)\n- CourseName and TeacherID with suitable data types (1)\n- TeacherID REFERENCES Teachers(TeacherID) / FOREIGN KEY clause (1)",
+        "points": [
+          {
+            "criterion": "Teachers table",
+            "marks": 1
+          },
+          {
+            "criterion": "Courses primary key",
+            "marks": 1
+          },
+          {
+            "criterion": "Other fields with types",
+            "marks": 1
+          },
+          {
+            "criterion": "Foreign key",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CREATE TABLE Teachers (\n  TeacherID VARCHAR(5) PRIMARY KEY,\n  TeacherName VARCHAR(40)\n);\nCREATE TABLE Courses (\n  CourseID VARCHAR(5) PRIMARY KEY,\n  CourseName VARCHAR(40),\n  TeacherID VARCHAR(5),\n  FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)\n);",
+        "ai_instructions": "Accept any reasonable data types and dialect."
+      }
+    },
+    {
+      "key": "nf-structured-clubs",
+      "title": "A club register",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "| PupilID | PupilName | Class | ClassTeacher | Clubs |\n|---|---|---|---|---|\n| P1 | Dana | 11A | Mr Omarov | Chess, Robotics |\n| P2 | Timur | 11B | Ms Ivanova | Chess |\n| P3 | Aru | 11A | Mr Omarov | Robotics, Debate |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nf-clubs-a",
+          "part_label": "(a)",
+          "title": "1NF problem",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10"
+          ],
+          "practice": true,
+          "text": "Explain why the table is not in 1NF.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "The Clubs field contains multiple values / is not atomic (1)",
+            "points": [
+              {
+                "criterion": "Clubs not atomic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The Clubs field holds a list of clubs, so it is not atomic."
+          }
+        },
+        {
+          "key": "nf-clubs-b",
+          "part_label": "(b)",
+          "title": "Transitive dependency",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "practice": true,
+          "text": "Identify the transitive dependency in the data.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "ClassTeacher depends on Class (1)",
+            "points": [
+              {
+                "criterion": "ClassTeacher → Class",
+                "marks": 1
+              }
+            ],
+            "model_answer": "ClassTeacher depends on Class, not on PupilID."
+          }
+        },
+        {
+          "key": "nf-clubs-c",
+          "part_label": "(c)",
+          "title": "3NF design",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10",
+            "11.4.1.11"
+          ],
+          "practice": true,
+          "text": "Write the tables of a 3NF design, showing the primary and foreign keys.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Classes(Class, ClassTeacher) PK Class (1)\nPupils(PupilID, PupilName, Class) PK PupilID, FK Class (1)\nClubs(ClubID, ClubName) or club names in the link table (1)\nMemberships(PupilID, ClubID) composite PK / both FKs (1)",
+            "points": [
+              {
+                "criterion": "Classes table",
+                "marks": 1
+              },
+              {
+                "criterion": "Pupils table with FK",
+                "marks": 1
+              },
+              {
+                "criterion": "Clubs table",
+                "marks": 1
+              },
+              {
+                "criterion": "Memberships link table",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Classes(Class, ClassTeacher) — PK Class\nPupils(PupilID, PupilName, Class) — PK PupilID, FK Class\nClubs(ClubID, ClubName) — PK ClubID\nMemberships(PupilID, ClubID) — composite PK, both FKs"
+          }
+        }
+      ]
+    },
+    {
+      "key": "nf-extended",
+      "title": "Explain normalisation",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.9",
+        "11.4.1.10"
+      ],
+      "practice": true,
+      "text": "A clinic stores all its data in one table:\n\n`Visits ( VisitID, VisitDate, PatientName, PatientPhone, DoctorName, DoctorRoom, Diagnosis )`\n\nExplain the problems with this design and how normalisation to 3NF would solve them. Give the final tables with their keys.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "Problems (max 2): patient / doctor details repeated — redundancy; update anomaly (phone / room change); insertion anomaly (new doctor with no visits); deletion anomaly\nNormalisation (max 2): transitive dependencies — PatientPhone depends on patient, DoctorRoom on doctor; moved into separate tables\nFinal tables (max 2): Patients(PatientID, Name, Phone); Doctors(DoctorID, Name, Room); Visits(VisitID, VisitDate, PatientID*, DoctorID*, Diagnosis)",
+        "points": [
+          {
+            "criterion": "Redundancy",
+            "marks": 1
+          },
+          {
+            "criterion": "Anomaly explained",
+            "marks": 1
+          },
+          {
+            "criterion": "Transitive dependency identified",
+            "marks": 1
+          },
+          {
+            "criterion": "How tables are split",
+            "marks": 1
+          },
+          {
+            "criterion": "Patients and Doctors tables",
+            "marks": 1
+          },
+          {
+            "criterion": "Visits with both FKs",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each visit repeats the patient's phone and the doctor's room, which wastes space; if a doctor changes room, every visit row must be updated, and a new doctor cannot be stored until he has a visit. PatientPhone depends on the patient and DoctorRoom on the doctor, not on VisitID — transitive dependencies. Normalising to 3NF moves these into separate tables: Patients(PatientID, Name, Phone), Doctors(DoctorID, Name, Room) and Visits(VisitID, VisitDate, PatientID, DoctorID, Diagnosis), where PatientID and DoctorID are foreign keys."
+      }
+    },
+    {
+      "key": "nf-exam-1",
+      "title": "The rules of normalisation",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A database designer normalises the tables of a new school system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nf-exam-1a",
+          "part_label": "(a)",
+          "title": "Rules",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each normal form to its rule.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "First normal form"
+              },
+              {
+                "key": "L2",
+                "text": "Second normal form"
+              },
+              {
+                "key": "L3",
+                "text": "Third normal form"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Fields contain atomic values; no repeating groups"
+              },
+              {
+                "key": "R2",
+                "text": "No partial dependencies on a composite key"
+              },
+              {
+                "key": "R3",
+                "text": "No transitive dependencies between non-key fields"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1NF–R1, 2NF–R2, 3NF–R3. One mark per line.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3"
+              }
+            }
+          }
+        },
+        {
+          "key": "nf-exam-1b",
+          "part_label": "(b)",
+          "title": "Update anomaly",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what is meant by an **update anomaly**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The same data is stored in several records (1)\n- if it is changed in some records but not all, the data becomes inconsistent (1)",
+            "points": [
+              {
+                "criterion": "Repeated data",
+                "marks": 1
+              },
+              {
+                "criterion": "Inconsistency after partial update",
+                "marks": 1
+              }
+            ],
+            "model_answer": "When the same fact is stored in many rows, changing it in some rows but not others leaves the database inconsistent."
+          }
+        },
+        {
+          "key": "nf-exam-1c",
+          "part_label": "(c)",
+          "title": "Benefits",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** benefits of normalisation.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): reduced redundancy; less storage; consistency / integrity; no anomalies; easier maintenance",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Reduced data redundancy. 2 Data stays consistent."
+          }
+        },
+        {
+          "key": "nf-exam-1d",
+          "part_label": "(d)",
+          "title": "Partial dependency",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain what a **partial dependency** is, using an example.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- A non-key field depends on only part of a composite primary key (1)\n- example, e.g. key (StudentID, SubjectID): StudentName depends only on StudentID (1)",
+            "points": [
+              {
+                "criterion": "Definition",
+                "marks": 1
+              },
+              {
+                "criterion": "Example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A non-key field that depends on only part of a composite key: with key (StudentID, SubjectID), StudentName depends only on StudentID."
+          }
+        }
+      ]
+    },
+    {
+      "key": "nf-exam-2",
+      "title": "A library table",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "| BookID | Title | Authors | PublisherName | PublisherCity |\n|---|---|---|---|---|\n| B1 | Abai Zholy | M. Auezov | Zhazushy | Almaty |\n| B2 | Kazakh Tales | A. Bekova, D. Ospan | Foliant | Astana |\n| B3 | Steppe Songs | D. Ospan | Zhazushy | Almaty |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nf-exam-2a",
+          "part_label": "(a)",
+          "title": "Not 1NF",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the table is not in first normal form.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Data in column Authors is not atomic / Authors field has multiple values (1). Accept only with the field name.",
+            "points": [
+              {
+                "criterion": "Authors not atomic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The Authors field contains more than one author in one cell."
+          }
+        },
+        {
+          "key": "nf-exam-2b",
+          "part_label": "(b)",
+          "title": "Fix 1NF",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the Authors data should be stored to satisfy 1NF.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- One author per record / separate table BookAuthors / Authors linked to Books (1)\n- with a composite key (BookID, AuthorID / Author) (1)",
+            "points": [
+              {
+                "criterion": "One author per record / separate table",
+                "marks": 1
+              },
+              {
+                "criterion": "Composite key",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Store each author in a separate record of a BookAuthors table with the composite key (BookID, Author)."
+          }
+        },
+        {
+          "key": "nf-exam-2c",
+          "part_label": "(c)",
+          "title": "Transitive dependency",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the transitive dependency in the table and explain why it is a problem.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- PublisherCity depends on PublisherName, not on BookID (1)\n- the city of each publisher is repeated for every book / update anomaly if a publisher moves (1)",
+            "points": [
+              {
+                "criterion": "PublisherCity → PublisherName",
+                "marks": 1
+              },
+              {
+                "criterion": "Problem",
+                "marks": 1
+              }
+            ],
+            "model_answer": "PublisherCity depends on PublisherName rather than on BookID, so Zhazushy's city is stored for every book it publishes and would have to be changed in many rows."
+          }
+        },
+        {
+          "key": "nf-exam-2d",
+          "part_label": "(d)",
+          "title": "3NF design",
+          "type": "short_answer",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10",
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a 3NF design for this data, showing every table with its primary key and foreign keys.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Publishers(PublisherID, PublisherName, PublisherCity) — PK (1)\nBooks(BookID, Title, PublisherID) — PK BookID (1), FK PublisherID (1)\nAuthors(AuthorID, AuthorName) — PK (1)\nBookAuthors(BookID, AuthorID) — composite PK / both FKs (1)\nAccept author names stored directly in BookAuthors(BookID, AuthorName) for the last two marks.",
+            "points": [
+              {
+                "criterion": "Publishers table",
+                "marks": 1
+              },
+              {
+                "criterion": "Books table PK",
+                "marks": 1
+              },
+              {
+                "criterion": "FK PublisherID in Books",
+                "marks": 1
+              },
+              {
+                "criterion": "Authors table",
+                "marks": 1
+              },
+              {
+                "criterion": "BookAuthors link table",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Publishers(PublisherID, PublisherName, PublisherCity) — PK PublisherID\nBooks(BookID, Title, PublisherID) — PK BookID, FK PublisherID\nAuthors(AuthorID, AuthorName) — PK AuthorID\nBookAuthors(BookID, AuthorID) — composite PK, both FKs"
+          }
+        }
+      ]
+    },
+    {
+      "key": "nf-exam-3",
+      "title": "Exam results",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school stores results in one table with the composite primary key (StudentID, SubjectCode):\n\n`Results ( StudentID, SubjectCode, StudentName, SubjectName, TeacherID, TeacherRoom, Mark )`\n\nEach subject is taught by one teacher; each teacher has one room.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nf-exam-3a",
+          "part_label": "(a)",
+          "title": "Partial dependencies",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **two** partial dependencies in the table.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): StudentName depends on StudentID; SubjectName depends on SubjectCode; TeacherID depends on SubjectCode",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 StudentName depends only on StudentID. 2 SubjectName depends only on SubjectCode."
+          }
+        },
+        {
+          "key": "nf-exam-3b",
+          "part_label": "(b)",
+          "title": "2NF tables",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the tables in second normal form.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Students(StudentID, StudentName) (1)\nSubjects(SubjectCode, SubjectName, TeacherID, TeacherRoom) (1)\nResults(StudentID, SubjectCode, Mark) with composite key / FKs (1)",
+            "points": [
+              {
+                "criterion": "Students",
+                "marks": 1
+              },
+              {
+                "criterion": "Subjects",
+                "marks": 1
+              },
+              {
+                "criterion": "Results",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Students(StudentID, StudentName)\nSubjects(SubjectCode, SubjectName, TeacherID, TeacherRoom)\nResults(StudentID, SubjectCode, Mark)"
+          }
+        },
+        {
+          "key": "nf-exam-3c",
+          "part_label": "(c)",
+          "title": "3NF",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "One of your 2NF tables is not in 3NF. Identify the problem and write the tables that bring it to 3NF.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- TeacherRoom depends on TeacherID, a non-key field in Subjects (transitive) (1)\n- Teachers(TeacherID, TeacherRoom) (1)\n- Subjects(SubjectCode, SubjectName, TeacherID) with FK TeacherID (1)",
+            "points": [
+              {
+                "criterion": "Transitive dependency identified",
+                "marks": 1
+              },
+              {
+                "criterion": "Teachers table",
+                "marks": 1
+              },
+              {
+                "criterion": "Subjects with FK",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In Subjects, TeacherRoom depends on TeacherID, not on SubjectCode. Teachers(TeacherID, TeacherRoom); Subjects(SubjectCode, SubjectName, TeacherID) with TeacherID as a foreign key."
+          }
+        },
+        {
+          "key": "nf-exam-3d",
+          "part_label": "(d)",
+          "title": "SQL",
+          "type": "sql",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write SQL to create the `Results` table with its composite primary key and foreign keys.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- CREATE TABLE Results with StudentID, SubjectCode, Mark and data types (1)\n- PRIMARY KEY (StudentID, SubjectCode) (1)\n- FOREIGN KEY references to Students and Subjects (1)",
+            "points": [
+              {
+                "criterion": "Fields with types",
+                "marks": 1
+              },
+              {
+                "criterion": "Composite PK",
+                "marks": 1
+              },
+              {
+                "criterion": "Foreign keys",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Results (\n  StudentID VARCHAR(5) REFERENCES Students(StudentID),\n  SubjectCode VARCHAR(6) REFERENCES Subjects(SubjectCode),\n  Mark INTEGER,\n  PRIMARY KEY (StudentID, SubjectCode)\n);",
+            "ai_instructions": "Accept any reasonable data types."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Why databases are normalised, the rules for first, second and third normal form, how to normalise a table step by step to 3NF, and how to create a database with multiple related tables.",
   "theory": [
     {
-      "title": "Normalisation rules: 1NF, 2NF, 3NF",
+      "title": "Why normalise a database?",
       "objectives": [
         "11.4.1.9"
       ],
@@ -12,230 +1264,312 @@
         {
           "type": "definition",
           "term": "Normalisation",
-          "content": "The process of organising data into tables so that **redundancy (repetition) is reduced** and **data integrity is improved**, by applying the rules of the normal forms."
+          "content": "The process of **organising the data in a relational database into well-structured tables** — by following a set of rules called **normal forms** — so that each fact is stored **once**, data **redundancy** is reduced and **anomalies** (problems when inserting, updating or deleting data) are avoided."
+        },
+        {
+          "type": "comparison",
+          "title": "Anomalies in an unnormalised table",
+          "columns": [
+            "Anomaly",
+            "Problem",
+            "Example (one big *Orders* table with customer details in every row)"
+          ],
+          "rows": [
+            [
+              "**Update anomaly**",
+              "The same data is stored many times; changing it in one row but not others makes the data **inconsistent**",
+              "A customer's address must be changed in every order row"
+            ],
+            [
+              "**Insertion anomaly**",
+              "Some data cannot be added without other unrelated data",
+              "A new customer cannot be stored until they place an order"
+            ],
+            [
+              "**Deletion anomaly**",
+              "Deleting one record also deletes other important data",
+              "Deleting a customer's only order deletes the customer too"
+            ]
+          ]
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "First normal form (1NF)",
-              "content": "- Every field contains **atomic (single) values** — no lists in one cell.\n- **No repeating groups** of fields (e.g. Course1, Course2, Course3).\n- Each table has a **primary key**."
+              "title": "Benefits of normalisation",
+              "content": "- **Less redundancy** — less repeated data, less storage.\n- **Data consistency / integrity** — each fact is changed in one place.\n- **No anomalies** when inserting, updating or deleting.\n- Clearer structure; easier to **maintain** and extend."
             },
             {
-              "title": "Second normal form (2NF)",
-              "content": "- The table is in **1NF**, and\n- every non-key field depends on the **whole** primary key, **not just part** of a composite key (no **partial dependencies**)."
-            },
-            {
-              "title": "Third normal form (3NF)",
-              "content": "- The table is in **2NF**, and\n- no non-key field depends on **another non-key field** (no **transitive dependencies**). \"Every non-key field depends on the key, the whole key and nothing but the key.\""
+              "title": "Possible drawback",
+              "content": "- More tables means queries need **joins**, which can make some queries slower or more complex. (Very large systems sometimes **denormalise** a little for speed.)"
             }
           ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "A table with a **single-field** primary key that is in 1NF is automatically in 2NF — partial dependency is only possible with a composite key."
         }
       ]
     },
     {
-      "title": "Normalising a table to 3NF",
+      "title": "The rules of the normal forms",
+      "objectives": [
+        "11.4.1.9"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "First, second and third normal form",
+          "columns": [
+            "Normal form",
+            "Rule",
+            "In other words"
+          ],
+          "rows": [
+            [
+              "**1NF**",
+              "Every field contains **atomic (single) values**; there are **no repeating groups**; each record is **unique** (has a primary key)",
+              "One value per cell; no lists; no columns like `Phone1, Phone2, Phone3`"
+            ],
+            [
+              "**2NF**",
+              "In **1NF**, and every non-key field depends on the **whole** primary key — **no partial dependencies**",
+              "Only matters when the primary key is **composite**: a field must not depend on just part of the key"
+            ],
+            [
+              "**3NF**",
+              "In **2NF**, and **no non-key field depends on another non-key field** — **no transitive dependencies**",
+              "\"Every non-key field depends on **the key, the whole key and nothing but the key**\""
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Functional dependency",
+          "content": "Field B **depends on** field A (A → B) if each value of A determines exactly one value of B. Example: `StudentID → StudentName` (knowing the ID tells you the name)."
+        },
+        {
+          "type": "comparison",
+          "title": "Types of dependency",
+          "columns": [
+            "Dependency",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Full**",
+              "A non-key field depends on the **whole** (composite) key",
+              "`(StudentID, SubjectID) → Mark`"
+            ],
+            [
+              "**Partial** (breaks 2NF)",
+              "A non-key field depends on **part** of a composite key",
+              "`(StudentID, SubjectID) → StudentName`, but `StudentName` depends only on `StudentID`"
+            ],
+            [
+              "**Transitive** (breaks 3NF)",
+              "A non-key field depends on **another non-key field**",
+              "`StudentID → ClassID → ClassTeacher`"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "First normal form (1NF)",
       "objectives": [
         "11.4.1.10"
       ],
       "blocks": [
         {
-          "type": "comparison",
-          "title": "Un-normalised: Orders",
-          "columns": [
-            "OrderID",
-            "OrderDate",
-            "CustomerID",
-            "CustomerName",
-            "CustomerCity",
-            "Products"
-          ],
-          "rows": [
-            [
-              "101",
-              "02/10/2026",
-              "C7",
-              "Asel",
-              "Astana",
-              "P1 Pen ×3, P4 Notebook ×1"
-            ],
-            [
-              "102",
-              "03/10/2026",
-              "C2",
-              "Bolat",
-              "Almaty",
-              "P1 Pen ×10"
-            ]
-          ]
+          "type": "example",
+          "title": "A table that is not in 1NF",
+          "content": "| MovieID | Title | Year | Country |\n|---|---|---|---|\n| M1 | The Nomad | 2005 | Kazakhstan, France |\n| M2 | Tulpan | 2008 | Kazakhstan, Germany, Russia |\n\nThe field **Country** is **not atomic** — it holds **several values**. Searching for \"all films made in Germany\" or counting films per country is difficult and error-prone."
         },
         {
-          "type": "heading",
-          "text": "Step 1 — 1NF: remove repeating groups",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "The *Products* cell holds several values. Give each product its own row and create a key (OrderID, ProductID)."
-        },
-        {
-          "type": "comparison",
-          "title": "1NF: OrderLines",
-          "columns": [
-            "OrderID",
-            "ProductID",
-            "ProductName",
-            "Quantity",
-            "OrderDate",
-            "CustomerID",
-            "CustomerName",
-            "CustomerCity"
-          ],
-          "rows": [
-            [
-              "101",
-              "P1",
-              "Pen",
-              "3",
-              "02/10/2026",
-              "C7",
-              "Asel",
-              "Astana"
-            ],
-            [
-              "101",
-              "P4",
-              "Notebook",
-              "1",
-              "02/10/2026",
-              "C7",
-              "Asel",
-              "Astana"
-            ],
-            [
-              "102",
-              "P1",
-              "Pen",
-              "10",
-              "03/10/2026",
-              "C2",
-              "Bolat",
-              "Almaty"
-            ]
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Step 2 — 2NF: remove partial dependencies",
-          "level": 2
-        },
-        {
-          "type": "paragraph",
-          "content": "The key is (OrderID, ProductID). *ProductName* depends only on ProductID; *OrderDate* and the customer fields depend only on OrderID. Move them into their own tables."
-        },
-        {
-          "type": "list",
+          "type": "steps",
+          "title": "Converting to 1NF",
           "items": [
-            "**Product**(**ProductID**, ProductName)",
-            "**Order**(**OrderID**, OrderDate, CustomerID, CustomerName, CustomerCity)",
-            "**OrderLine**(**OrderID, ProductID**, Quantity)"
+            "Make every field **atomic**: one value per cell (split multi-value fields; split `FullName` into `FirstName` and `Surname` if needed).",
+            "Remove **repeating groups** (columns such as `Country1, Country2…`).",
+            "Ensure each record is unique with a **primary key**."
           ]
         },
         {
-          "type": "heading",
-          "text": "Step 3 — 3NF: remove transitive dependencies",
-          "level": 2
+          "type": "example",
+          "title": "The same data in 1NF — one row per film–country pair",
+          "content": "| MovieID | Title | Year | Country |\n|---|---|---|---|\n| M1 | The Nomad | 2005 | Kazakhstan |\n| M1 | The Nomad | 2005 | France |\n| M2 | Tulpan | 2008 | Kazakhstan |\n| M2 | Tulpan | 2008 | Germany |\n| M2 | Tulpan | 2008 | Russia |\n\nPrimary key: **(MovieID, Country)**. The table is now in 1NF, but `Title` and `Year` are **repeated** — they depend only on `MovieID`, which is **part** of the key → not yet 2NF."
         },
         {
-          "type": "paragraph",
-          "content": "In *Order*, CustomerName and CustomerCity depend on **CustomerID**, which is not the key → move them."
-        },
-        {
-          "type": "comparison",
-          "title": "Final 3NF design",
-          "columns": [
-            "Table",
-            "Fields (PK in bold, FK in italics)"
-          ],
-          "rows": [
-            [
-              "Customer",
-              "**CustomerID**, CustomerName, CustomerCity"
-            ],
-            [
-              "Order",
-              "**OrderID**, OrderDate, *CustomerID*"
-            ],
-            [
-              "Product",
-              "**ProductID**, ProductName"
-            ],
-            [
-              "OrderLine",
-              "***OrderID*, *ProductID***, Quantity"
-            ]
-          ]
-        },
-        {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "erDiagram\n  CUSTOMER ||--o{ ORDER : places\n  ORDER ||--|{ ORDERLINE : contains\n  PRODUCT ||--o{ ORDERLINE : \"appears in\"",
-          "caption": "Relationships after normalisation"
-        },
-        {
-          "type": "comparison",
-          "title": "Benefits and drawbacks of normalisation",
-          "columns": [
-            "Benefits",
-            "Drawbacks"
-          ],
-          "rows": [
-            [
-              "Less redundant data → less storage",
-              "More tables to manage"
-            ],
-            [
-              "No update anomalies — change a customer's city once",
-              "Queries need **joins**, which can be slower"
-            ],
-            [
-              "Better data integrity and consistency",
-              "Design takes more time and skill"
-            ]
-          ]
+          "type": "exam_tip",
+          "content": "If a field mixes two kinds of information, such as `Country = \"Kazakhstan, Almaty\"`, split it into **two atomic fields** `Country` and `City`."
         }
       ]
     },
     {
-      "title": "Creating a multi-table database for a new system",
+      "title": "Second normal form (2NF)",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Converting from 1NF to 2NF",
+          "items": [
+            "Identify the **primary key**. If it is a **single field**, a table in 1NF is **already in 2NF**.",
+            "If the key is **composite**, check each non-key field: does it depend on the **whole** key or only **part** of it?",
+            "Move every field that depends on **only part** of the key into a **new table**, with that part of the key as its primary key.",
+            "Keep the part of the key in the original table as a **foreign key**."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "2NF — splitting the films table",
+          "content": "```text\nMovies         ( _MovieID_, Title, Year )\nMovieCountries ( _MovieID*_, _Country_ )\n```\n`Title` and `Year` now depend on the whole key of `Movies`. `MovieCountries` has only key fields. Both tables are in **2NF**."
+        }
+      ]
+    },
+    {
+      "title": "Third normal form (3NF)",
+      "objectives": [
+        "11.4.1.10"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Converting from 2NF to 3NF",
+          "items": [
+            "Look for a **non-key field that depends on another non-key field** (a transitive dependency).",
+            "Move those fields into a **new table**; the field they depend on becomes the **primary key** of the new table.",
+            "Leave that field in the original table as a **foreign key**."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A table in 2NF but not 3NF",
+          "content": "| CourseName | TeacherName | TeacherDateOfBirth |\n|---|---|---|\n| Java | Karimov Arman | 12/03/1985 |\n| Python | Karimov Arman | 12/03/1985 |\n| Web design | Sadykova Aigerim | 04/11/1990 |\n\nPrimary key: `CourseName`. `TeacherDateOfBirth` depends on **TeacherName**, not on the course → **transitive dependency** (`CourseName → TeacherName → TeacherDateOfBirth`). Karimov's date of birth is stored twice."
+        },
+        {
+          "type": "example",
+          "title": "The same data in 3NF",
+          "content": "```text\nTeachers ( _TeacherID_, TeacherName, DateOfBirth )\nCourses  ( _CourseID_, CourseName, TeacherID* )\n```\n| TeacherID | TeacherName | DateOfBirth |\n|---|---|---|\n| T1 | Karimov Arman | 12/03/1985 |\n| T2 | Sadykova Aigerim | 04/11/1990 |\n\n| CourseID | CourseName | TeacherID |\n|---|---|---|\n| C1 | Java | T1 |\n| C2 | Python | T1 |\n| C3 | Web design | T2 |\n\nEach fact is stored **once**; the relationship is **Teachers 1 — M Courses** through the foreign key `TeacherID`."
+        }
+      ]
+    },
+    {
+      "title": "A full normalisation example",
+      "objectives": [
+        "11.4.1.10",
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Unnormalised data — a school's club register",
+          "content": "| PupilID | PupilName | Class | ClassTeacher | Clubs |\n|---|---|---|---|---|\n| P1 | Dana | 11A | Mr Omarov | Chess, Robotics |\n| P2 | Timur | 11B | Ms Ivanova | Chess |\n| P3 | Aru | 11A | Mr Omarov | Robotics, Debate |"
+        },
+        {
+          "type": "comparison",
+          "title": "Step by step",
+          "columns": [
+            "Step",
+            "Problem found",
+            "Result"
+          ],
+          "rows": [
+            [
+              "**1NF**",
+              "`Clubs` contains lists",
+              "`PupilClubs(PupilID, PupilName, Class, ClassTeacher, Club)` with key **(PupilID, Club)**"
+            ],
+            [
+              "**2NF**",
+              "`PupilName`, `Class`, `ClassTeacher` depend only on `PupilID` (part of the key)",
+              "`Pupils(PupilID, PupilName, Class, ClassTeacher)` and `Memberships(PupilID*, Club)`"
+            ],
+            [
+              "**3NF**",
+              "`ClassTeacher` depends on `Class`, a non-key field",
+              "`Classes(Class, ClassTeacher)`; `Pupils(PupilID, PupilName, Class*)`; `Memberships(PupilID*, Club)`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "Classes     ( _Class_, ClassTeacher )\nPupils      ( _PupilID_, PupilName, Class* )\nClubs       ( _ClubID_, ClubName )\nMemberships ( _PupilID*_, _ClubID*_ )",
+          "caption": "Final 3NF design (with a Clubs table for club details)"
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  CLASSES ||--o{ PUPILS : contains\n  PUPILS ||--o{ MEMBERSHIPS : joins\n  CLUBS ||--o{ MEMBERSHIPS : has",
+          "caption": "ERD of the normalised design"
+        }
+      ]
+    },
+    {
+      "title": "Creating a database with multiple tables",
       "objectives": [
         "11.4.1.11"
       ],
       "blocks": [
         {
           "type": "steps",
-          "title": "Designing the database for a new system",
+          "title": "From the normalised design to a working database",
           "items": [
-            "Identify the **entities** from the requirements (e.g. Student, Book, Loan for a library).",
-            "List the **attributes** of each entity; choose **primary keys**.",
-            "Decide the **relationships** and draw an **ERD**; resolve M:M with link tables.",
-            "**Normalise** each table to 3NF.",
-            "Write the **data dictionary** (types, sizes, validation).",
-            "Create the tables with SQL **CREATE TABLE**, including PRIMARY KEY and FOREIGN KEY constraints.",
-            "Insert test data and check queries return the right results."
+            "Create a table for each entity in the 3NF design, with the correct **data types** (from the data dictionary).",
+            "Set each table's **primary key** (composite where needed).",
+            "Create the **foreign keys** and the **relationships** between tables, with **referential integrity**.",
+            "Enter test data — first in the \"one\" tables, then in the \"many\" tables.",
+            "Test with **queries** that join the tables."
           ]
         },
         {
           "type": "code",
           "language": "sql",
-          "content": "CREATE TABLE Student (\n  StudentID VARCHAR(6) PRIMARY KEY,\n  Name      VARCHAR(40) NOT NULL,\n  Grade     INT\n);\nCREATE TABLE Book (\n  BookID VARCHAR(8) PRIMARY KEY,\n  Title  VARCHAR(100) NOT NULL,\n  Author VARCHAR(60)\n);\nCREATE TABLE Loan (\n  LoanID    INT PRIMARY KEY,\n  StudentID VARCHAR(6) REFERENCES Student(StudentID),\n  BookID    VARCHAR(8) REFERENCES Book(BookID),\n  LoanDate  DATE,\n  ReturnDate DATE\n);",
-          "caption": "Library database in 3NF"
+          "content": "CREATE TABLE Classes (\n    Class        VARCHAR(4)  PRIMARY KEY,\n    ClassTeacher VARCHAR(40) NOT NULL\n);\nCREATE TABLE Pupils (\n    PupilID   VARCHAR(5)  PRIMARY KEY,\n    PupilName VARCHAR(40) NOT NULL,\n    Class     VARCHAR(4)  REFERENCES Classes(Class)\n);\nCREATE TABLE Clubs (\n    ClubID   INTEGER     PRIMARY KEY,\n    ClubName VARCHAR(30) NOT NULL\n);\nCREATE TABLE Memberships (\n    PupilID VARCHAR(5) REFERENCES Pupils(PupilID),\n    ClubID  INTEGER    REFERENCES Clubs(ClubID),\n    PRIMARY KEY (PupilID, ClubID)\n);\n\n-- Which club does each pupil of Mr Omarov's class attend?\nSELECT Pupils.PupilName, Clubs.ClubName\nFROM Pupils\nJOIN Classes     ON Pupils.Class = Classes.Class\nJOIN Memberships ON Pupils.PupilID = Memberships.PupilID\nJOIN Clubs       ON Memberships.ClubID = Clubs.ClubID\nWHERE Classes.ClassTeacher = 'Mr Omarov';",
+          "caption": "Creating the normalised tables in SQL"
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.4.1.9",
+        "11.4.1.10",
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain why the Movie table is not in first normal form. [1]**\nThe data in the column **Country** is **not atomic** — the Country field has **multiple values**. *(Name the field.)*\n\n**Q: Bring the Movie table to the first normal form. [1]**\nSplit the field into atomic values, e.g. add a **City** column: `Movies (MovieID, Title, Year, Genre, Duration, Country, City)`.\n\n**Q: Bring the table (CourseName, TeacherName, DateOfBirth) to third normal form. [3]**\nDefine a **Course** table with a primary key (1); define a **Teacher** table with a primary key (1); define the **relationship** with a **foreign key** (`TeacherID` in Course) (1).\n\n**Q: List the rule for second normal form. [1]**\nThe table is in 1NF and every non-key field depends on the **whole** primary key (**no partial dependencies**)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying a table is \"not in 1NF\" without naming the **field** and the problem.\n- Thinking 2NF matters for single-field keys — a 1NF table with a **single-field key** is automatically in 2NF.\n- Forgetting to leave a **foreign key** behind when moving fields to a new table — the tables can no longer be linked.\n- Splitting tables so much that data is **lost** — every original fact must still be stored.\n- Confusing a **partial** dependency (2NF) with a **transitive** one (3NF)."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is normalisation and why is it used?",
+            "Describe update, insertion and deletion anomalies.",
+            "State the rules for 1NF, 2NF and 3NF.",
+            "What is a partial dependency? A transitive dependency?",
+            "Normalise `Orders(OrderID, CustomerName, CustomerPhone, ProductName, Price, Quantity)` to 3NF.",
+            "Write SQL to create two related tables with a foreign key."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Normalization — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 30 minutes.",
+    "questions": [
+      "nf-exam-1",
+      "nf-exam-2",
+      "nf-exam-3"
+    ]
+  }
 }

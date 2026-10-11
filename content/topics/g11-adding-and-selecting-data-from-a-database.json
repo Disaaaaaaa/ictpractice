@@ -1,8 +1,1367 @@
 {
   "topic": "g11-adding-and-selecting-data-from-a-database",
-  "questions": [],
-  "summary": "Adding records to a database from a web form, extracting data with SELECT, and using two-dimensional arrays to hold table data in a program.",
+  "questions": [
+    {
+      "key": "ads-steps-order",
+      "title": "Steps of a database script",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "The steps of a script that adds a record are:\n\n- **A** Run the INSERT statement\n- **B** Close the connection\n- **C** Connect to the database\n- **D** Validate the form data\n\nWrite the letters in a correct order.",
+      "content": {
+        "columns": [
+          "Order",
+          "Step"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "C, D, A, B — also accept D, C, A, B (1 each)",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          },
+          {
+            "criterion": "3",
+            "marks": 1
+          },
+          {
+            "criterion": "4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "C||D"
+            ],
+            [
+              null,
+              "D||C"
+            ],
+            [
+              null,
+              "A"
+            ],
+            [
+              null,
+              "B"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-insert-sql",
+      "title": "Write an INSERT",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Table **Student** (StudentID auto-increment, Name, Grade, City). Write the SQL statement to add the student **Dana**, grade **12**, from **Almaty**.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "INSERT INTO Student (Name, Grade, City) (1) VALUES ('Dana', 12, 'Almaty') (1). Accept without field list only if all four values given in order with an ID.",
+        "points": [
+          {
+            "criterion": "INSERT INTO with fields",
+            "marks": 1
+          },
+          {
+            "criterion": "VALUES correct",
+            "marks": 1
+          }
+        ],
+        "model_answer": "INSERT INTO Student (Name, Grade, City) VALUES ('Dana', 12, 'Almaty');"
+      }
+    },
+    {
+      "key": "ads-quotes-mcq",
+      "title": "Quotes in SQL",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Which INSERT statement is written correctly?",
+      "options": [
+        {
+          "key": "A",
+          "content": "INSERT INTO Student (Name, Grade) VALUES (Dana, 12);"
+        },
+        {
+          "key": "B",
+          "content": "INSERT INTO Student (Name, Grade) VALUES ('Dana', '12');"
+        },
+        {
+          "key": "C",
+          "content": "INSERT INTO Student (Name, Grade) VALUES ('Dana', 12);"
+        },
+        {
+          "key": "D",
+          "content": "INSERT Student VALUES Name = 'Dana', Grade = 12;"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Text in quotes, numbers without quotes."
+      }
+    },
+    {
+      "key": "ads-php-insert",
+      "title": "Insert from a form",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "A form sends **title** and **price** by POST to add_book.php. The connection `$conn` is open. Write PHP code that checks the title is not empty and the price is positive, adds the book to the table **Book (BookID, Title, Price)** and outputs a success or error message.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n// $conn is connected\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- reads both values from $_POST (1)\n- validation of title and price (1)\n- correct INSERT SQL with fields (1)\n- runs it with mysqli_query / prepared statement (1)\n- success / error message (1)",
+        "points": [
+          {
+            "criterion": "Read",
+            "marks": 1
+          },
+          {
+            "criterion": "Validate",
+            "marks": 1
+          },
+          {
+            "criterion": "SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "Execute",
+            "marks": 1
+          },
+          {
+            "criterion": "Messages",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$title = trim($_POST[\"title\"]);\n$price = (float)$_POST[\"price\"];\nif ($title == \"\" || $price <= 0) {\n    echo \"Enter a title and a positive price\";\n} else {\n    $stmt = mysqli_prepare($conn, \"INSERT INTO Book (Title, Price) VALUES (?, ?)\");\n    mysqli_stmt_bind_param($stmt, \"sd\", $title, $price);\n    if (mysqli_stmt_execute($stmt)) echo \"Book added\";\n    else echo \"Error: \" . mysqli_error($conn);\n}\n?>\n```"
+      }
+    },
+    {
+      "key": "ads-injection",
+      "title": "SQL injection",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "```php\n$sql = \"INSERT INTO Student (Name) VALUES ('\" . $_POST[\"name\"] . \"')\";\nmysqli_query($conn, $sql);\n```\n\nExplain the security risk in this code and how to remove it.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- form data is placed directly into the SQL string (1)\n- a user can type SQL code that changes the query, e.g. deletes / reads data — SQL injection (1)\n- use a prepared statement with placeholders / bind parameters (or escape the input) (1)",
+        "points": [
+          {
+            "criterion": "Data in SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "SQL injection effect",
+            "marks": 1
+          },
+          {
+            "criterion": "Prepared statement",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The name is inserted straight into the SQL, so someone could type SQL code (e.g. '); DELETE FROM Student; --) and change the database. Use a prepared statement with ? placeholders and bind the value."
+      }
+    },
+    {
+      "key": "ads-bind-match",
+      "title": "Bind types",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "practice": true,
+      "text": "Match each value to the bind type letter used in `mysqli_stmt_bind_param()`.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "A pupil's name"
+          },
+          {
+            "key": "L2",
+            "text": "A quantity of 3"
+          },
+          {
+            "key": "L3",
+            "text": "A price of 1499.99"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "s"
+          },
+          {
+            "key": "R2",
+            "text": "i"
+          },
+          {
+            "key": "R3",
+            "text": "d"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "name–s, quantity–i, price–d.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "ads-select-results",
+      "title": "Query results",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "Table Student:\n\n| StudentID | Name | Grade | City |\n|---|---|---|---|\n| 1 | Aruzhan | 11 | Astana |\n| 2 | Daniyar | 12 | Almaty |\n| 3 | Aigerim | 11 | Almaty |\n| 4 | Timur | 10 | Astana |\n| 5 | Madina | 12 | Shymkent |\n\nComplete the result of each query.",
+      "content": {
+        "columns": [
+          "Query",
+          "Result"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "SELECT COUNT(*) FROM Student WHERE City = 'Almaty';",
+            null
+          ],
+          [
+            "SELECT Name FROM Student WHERE Grade = 10;",
+            null
+          ],
+          [
+            "SELECT MAX(Grade) FROM Student;",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "2 (1); Timur (1); 12 (1)",
+        "points": [
+          {
+            "criterion": "2",
+            "marks": 1
+          },
+          {
+            "criterion": "Timur",
+            "marks": 1
+          },
+          {
+            "criterion": "12",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "2"
+            ],
+            [
+              null,
+              "Timur"
+            ],
+            [
+              null,
+              "12"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-select-write",
+      "title": "Write a SELECT",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "Write an SQL query to display the **Name** and **City** of all grade **11** students, in **alphabetical order** of name.",
+      "content": {
+        "language": "sql",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "SELECT Name, City FROM Student (1) WHERE Grade = 11 (1) ORDER BY Name (ASC) (1)",
+        "points": [
+          {
+            "criterion": "SELECT … FROM",
+            "marks": 1
+          },
+          {
+            "criterion": "WHERE",
+            "marks": 1
+          },
+          {
+            "criterion": "ORDER BY",
+            "marks": 1
+          }
+        ],
+        "model_answer": "SELECT Name, City FROM Student WHERE Grade = 11 ORDER BY Name;"
+      }
+    },
+    {
+      "key": "ads-fetch-fill",
+      "title": "Fetching rows",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "Complete the code that outputs every name.\n\n```php\n$result = [[1]]($conn, \"SELECT Name FROM Student\");\nwhile ($row = [[2]]($result)) {\n    echo $row[ [[3]] ] . \"<br>\";\n}\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) mysqli_query (2) mysqli_fetch_assoc (3) \"Name\"",
+        "accepted": {
+          "blanks": [
+            [
+              "mysqli_query"
+            ],
+            [
+              "mysqli_fetch_assoc",
+              "mysqli_fetch_array"
+            ],
+            [
+              "\"Name\"",
+              "'Name'",
+              "Name"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-php-select",
+      "title": "Display as a table",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "The connection `$conn` is open. Write PHP code that displays the **Name** and **Grade** of all students from **Astana** in an HTML table with a heading row, and outputs \"No students found\" if there are none.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n// $conn is connected\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- correct SELECT with WHERE City = 'Astana' (1)\n- query executed (1)\n- check for no rows with mysqli_num_rows (1)\n- loop with mysqli_fetch_assoc (1)\n- table and heading row and <tr><td> output for each row (1)",
+        "points": [
+          {
+            "criterion": "SQL",
+            "marks": 1
+          },
+          {
+            "criterion": "Run",
+            "marks": 1
+          },
+          {
+            "criterion": "No rows",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "HTML table",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$result = mysqli_query($conn, \"SELECT Name, Grade FROM Student WHERE City = 'Astana'\");\nif (mysqli_num_rows($result) == 0) {\n    echo \"No students found\";\n} else {\n    echo \"<table><tr><th>Name</th><th>Grade</th></tr>\";\n    while ($row = mysqli_fetch_assoc($result)) {\n        echo \"<tr><td>\" . $row[\"Name\"] . \"</td><td>\" . $row[\"Grade\"] . \"</td></tr>\";\n    }\n    echo \"</table>\";\n}\n?>\n```"
+      }
+    },
+    {
+      "key": "ads-where-tf",
+      "title": "DELETE without WHERE",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "practice": true,
+      "text": "The statement `DELETE FROM Student;` deletes only the first record of the table.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Without WHERE every record is deleted."
+      }
+    },
+    {
+      "key": "ads-2d-define",
+      "title": "2D array",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "Define a **two-dimensional array**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- An array of arrays / data stored in rows and columns like a table (1)\n- each element accessed with two indexes [row][column] (1)",
+        "points": [
+          {
+            "criterion": "Rows and columns",
+            "marks": 1
+          },
+          {
+            "criterion": "Two indexes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An array of arrays that stores data in rows and columns, where each element is identified by two indexes, row and column."
+      }
+    },
+    {
+      "key": "ads-2d-values",
+      "title": "Elements of a 2D array",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "```php\n$marks = [\n    [7, 8, 6, 9],\n    [10, 9, 9, 8],\n    [5, 6, 7, 6],\n];\n```\n\nComplete the table.",
+      "content": {
+        "columns": [
+          "Expression",
+          "Value"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "$marks[1][2]",
+            null
+          ],
+          [
+            "$marks[2][0]",
+            null
+          ],
+          [
+            "count($marks)",
+            null
+          ],
+          [
+            "count($marks[0])",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "9 (1); 5 (1); 3 (1); 4 (1)",
+        "points": [
+          {
+            "criterion": "9",
+            "marks": 1
+          },
+          {
+            "criterion": "5",
+            "marks": 1
+          },
+          {
+            "criterion": "3",
+            "marks": 1
+          },
+          {
+            "criterion": "4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "9"
+            ],
+            [
+              null,
+              "5"
+            ],
+            [
+              null,
+              "3"
+            ],
+            [
+              null,
+              "4"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-2d-choose",
+      "title": "1D or 2D",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the most suitable data structure for each task.",
+      "content": {
+        "columns": [
+          "Task",
+          "1D array",
+          "2D array"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "The names of the 25 pupils in a class",
+            null,
+            null
+          ],
+          [
+            "The marks of 25 pupils in 6 tests",
+            null,
+            null
+          ],
+          [
+            "A seating plan of 10 rows with 12 seats each",
+            null,
+            null
+          ],
+          [
+            "The daily temperature for one week",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1D; 2D; 2D; 1D (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-2d-trace",
+      "title": "Trace nested loops",
+      "type": "trace_table",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "```php\n$marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]];\nfor ($r = 0; $r < 3; $r++) {\n    $sum = 0;\n    for ($c = 0; $c < 4; $c++) {\n        $sum += $marks[$r][$c];\n    }\n    echo $sum . \" \";\n}\n```\n\nComplete the value of `$sum` that is output for each row.",
+      "content": {
+        "columns": [
+          "$r",
+          "$sum"
+        ],
+        "rows": 3
+      },
+      "scheme": {
+        "mark_scheme": "0 30; 1 36; 2 24 (1 per row)",
+        "points": [
+          {
+            "criterion": "Row 0",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| $r | $sum |\n|---|---|\n| 0 | 30 |\n| 1 | 36 |\n| 2 | 24 |",
+        "accepted": {
+          "rows": [
+            [
+              "0",
+              "30"
+            ],
+            [
+              "1",
+              "36"
+            ],
+            [
+              "2",
+              "24"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ads-2d-max",
+      "title": "Highest mark in a 2D array",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "Write code using nested loops that finds and outputs the **highest** value in the 2D array `$marks` (any number of rows and columns).",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]];\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- max initialised to $marks[0][0] (1)\n- outer loop over rows (1)\n- inner loop over columns using count of the row (1)\n- compare / update and output after loops (1)",
+        "points": [
+          {
+            "criterion": "Initialise",
+            "marks": 1
+          },
+          {
+            "criterion": "Outer loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Inner loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Compare + output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$max = $marks[0][0];\nfor ($r = 0; $r < count($marks); $r++) {\n    for ($c = 0; $c < count($marks[$r]); $c++) {\n        if ($marks[$r][$c] > $max) $max = $marks[$r][$c];\n    }\n}\necho $max;   // 10\n?>\n```"
+      }
+    },
+    {
+      "key": "ads-sum-reset",
+      "title": "Logic error",
+      "type": "code_analysis",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.2"
+      ],
+      "practice": true,
+      "text": "This code should output the total for each row but the second and third totals are too large. Explain the error and how to fix it.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$sum = 0;\nfor ($r = 0; $r < count($marks); $r++) {\n    for ($c = 0; $c < count($marks[$r]); $c++) {\n        $sum += $marks[$r][$c];\n    }\n    echo $sum . \"<br>\";\n}\n?>",
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- $sum is not reset for each row, so it keeps the previous rows' totals (1)\n- move $sum = 0 inside the outer loop, before the inner loop (1)",
+        "points": [
+          {
+            "criterion": "Not reset",
+            "marks": 1
+          },
+          {
+            "criterion": "Fix",
+            "marks": 1
+          }
+        ],
+        "model_answer": "$sum is set to 0 only once, so each row's total adds onto the previous one. Put $sum = 0; inside the outer loop before the inner loop."
+      }
+    },
+    {
+      "key": "ads-exam-1",
+      "title": "Library registration",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school library stores readers in the table **Reader (ReaderID, FirstName, LastName, Grade)**. ReaderID is an auto-increment primary key. A form sends **first**, **last** and **grade** to register.php using POST.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ads-exam-1a",
+          "part_label": "(a)",
+          "title": "INSERT",
+          "type": "sql",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the SQL statement to add the reader **Alikhan Serikov**, grade **11**.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "INSERT INTO Reader (FirstName, LastName, Grade) (1) VALUES ('Alikhan', 'Serikov', 11) (1)",
+            "points": [
+              {
+                "criterion": "INSERT INTO fields",
+                "marks": 1
+              },
+              {
+                "criterion": "VALUES",
+                "marks": 1
+              }
+            ],
+            "model_answer": "INSERT INTO Reader (FirstName, LastName, Grade) VALUES ('Alikhan', 'Serikov', 11);"
+          }
+        },
+        {
+          "key": "ads-exam-1b",
+          "part_label": "(b)",
+          "title": "register.php",
+          "type": "code_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write register.php. It must connect to the database **library**, check that both names are entered and the grade is from 7 to 12, add the reader, output \"Reader registered\" or an error message, and close the connection.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- mysqli_connect with database library and failure check (1)\n- reads three values from $_POST (1)\n- presence and range validation (1)\n- INSERT with correct fields (1)\n- executes and outputs success / error (1)\n- closes connection (1)",
+            "points": [
+              {
+                "criterion": "Connect",
+                "marks": 1
+              },
+              {
+                "criterion": "Read",
+                "marks": 1
+              },
+              {
+                "criterion": "Validate",
+                "marks": 1
+              },
+              {
+                "criterion": "INSERT",
+                "marks": 1
+              },
+              {
+                "criterion": "Execute + messages",
+                "marks": 1
+              },
+              {
+                "criterion": "Close",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$conn = mysqli_connect(\"localhost\", \"user\", \"password\", \"library\");\nif (!$conn) die(\"Connection failed: \" . mysqli_connect_error());\n$first = trim($_POST[\"first\"]);\n$last = trim($_POST[\"last\"]);\n$grade = (int)$_POST[\"grade\"];\nif ($first == \"\" || $last == \"\" || $grade < 7 || $grade > 12) {\n    echo \"Please check the data\";\n} else {\n    $stmt = mysqli_prepare($conn, \"INSERT INTO Reader (FirstName, LastName, Grade) VALUES (?, ?, ?)\");\n    mysqli_stmt_bind_param($stmt, \"ssi\", $first, $last, $grade);\n    if (mysqli_stmt_execute($stmt)) echo \"Reader registered\";\n    else echo \"Error: \" . mysqli_error($conn);\n}\nmysqli_close($conn);\n?>\n```"
+          }
+        },
+        {
+          "key": "ads-exam-1c",
+          "part_label": "(c)",
+          "title": "Prepared statements",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a prepared statement should be used to insert the form data.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Data sent separately from the SQL / placeholders (1); typed SQL code cannot change the query — prevents SQL injection (1)",
+            "points": [
+              {
+                "criterion": "Separate data",
+                "marks": 1
+              },
+              {
+                "criterion": "Prevents injection",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The SQL is prepared with ? placeholders and the form data is bound separately, so anything a user types is treated as data and cannot be run as SQL (prevents SQL injection)."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ads-exam-2",
+      "title": "Searching readers",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Table **Reader (ReaderID, FirstName, LastName, Grade)** contains:\n\n| ReaderID | FirstName | LastName | Grade |\n|---|---|---|---|\n| 1 | Alikhan | Serikov | 11 |\n| 2 | Dana | Akhmetova | 12 |\n| 3 | Arman | Bekov | 11 |\n| 4 | Zarina | Omarova | 10 |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ads-exam-2a",
+          "part_label": "(a)",
+          "title": "Result",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the output of `SELECT FirstName FROM Reader WHERE Grade = 11 ORDER BY FirstName DESC;`",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Arman, Alikhan — both names (1), correct descending order (1)",
+            "points": [
+              {
+                "criterion": "Names",
+                "marks": 1
+              },
+              {
+                "criterion": "Order",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Arman\nAlikhan",
+            "accepted": {
+              "values": [
+                "Arman, Alikhan",
+                "Arman Alikhan",
+                "Arman\nAlikhan"
+              ]
+            }
+          }
+        },
+        {
+          "key": "ads-exam-2b",
+          "part_label": "(b)",
+          "title": "Search script",
+          "type": "code_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A search form sends **grade** by GET. `$conn` is open. Write PHP code that outputs the full names of all readers in that grade, one per line, sorted by last name, followed by the number of readers found.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n// $conn is connected\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads $_GET[\"grade\"] (1)\n- SELECT FirstName, LastName FROM Reader WHERE Grade = … (1)\n- ORDER BY LastName (1)\n- query executed / prepared (1)\n- loop with fetch outputting first + last name (1)\n- outputs mysqli_num_rows / a counter (1)",
+            "points": [
+              {
+                "criterion": "Read GET",
+                "marks": 1
+              },
+              {
+                "criterion": "SELECT WHERE",
+                "marks": 1
+              },
+              {
+                "criterion": "ORDER BY",
+                "marks": 1
+              },
+              {
+                "criterion": "Run",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop output",
+                "marks": 1
+              },
+              {
+                "criterion": "Count",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$grade = (int)$_GET[\"grade\"];\n$result = mysqli_query($conn, \"SELECT FirstName, LastName FROM Reader WHERE Grade = $grade ORDER BY LastName\");\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"FirstName\"] . \" \" . $row[\"LastName\"] . \"<br>\";\n}\necho mysqli_num_rows($result) . \" reader(s) found\";\n?>\n```"
+          }
+        },
+        {
+          "key": "ads-exam-2c",
+          "part_label": "(c)",
+          "title": "Fetch functions",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between `mysqli_fetch_assoc()` and `mysqli_fetch_row()`.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "fetch_assoc returns the row as an array indexed by field names, e.g. $row[\"FirstName\"] (1); fetch_row returns an array indexed by numbers, e.g. $row[0] (1)",
+            "points": [
+              {
+                "criterion": "assoc",
+                "marks": 1
+              },
+              {
+                "criterion": "row",
+                "marks": 1
+              }
+            ],
+            "model_answer": "mysqli_fetch_assoc() gives the row with field names as keys ($row[\"FirstName\"]); mysqli_fetch_row() gives it with numeric indexes ($row[0])."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ads-exam-3",
+      "title": "Monthly sales",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The book sales of 4 shops (rows) over 3 months (columns) are stored in a 2D array:\n\n```php\n$sales = [\n    [12, 15, 9],\n    [20, 18, 22],\n    [7, 11, 10],\n    [14, 16, 13],\n];\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ads-exam-3a",
+          "part_label": "(a)",
+          "title": "Elements",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table.",
+          "content": {
+            "columns": [
+              "Expression",
+              "Value"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "$sales[2][1]",
+                null
+              ],
+              [
+                "$sales[3][0]",
+                null
+              ],
+              [
+                "Total number of elements",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "11 (1); 14 (1); 12 (1)",
+            "points": [
+              {
+                "criterion": "11",
+                "marks": 1
+              },
+              {
+                "criterion": "14",
+                "marks": 1
+              },
+              {
+                "criterion": "12",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "11"
+                ],
+                [
+                  null,
+                  "14"
+                ],
+                [
+                  null,
+                  "12"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "ads-exam-3b",
+          "part_label": "(b)",
+          "title": "Month totals",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write code using nested loops that outputs the **total sales for each month** (each column).",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- outer loop over the 3 columns (1)\n- total reset to 0 for each column (1)\n- inner loop over the 4 rows (1)\n- adds $sales[$r][$c] (1)\n- outputs each month total (53, 60, 54) (1)",
+            "points": [
+              {
+                "criterion": "Outer loop columns",
+                "marks": 1
+              },
+              {
+                "criterion": "Reset",
+                "marks": 1
+              },
+              {
+                "criterion": "Inner loop rows",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct indexes",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\nfor ($c = 0; $c < 3; $c++) {\n    $total = 0;\n    for ($r = 0; $r < 4; $r++) {\n        $total += $sales[$r][$c];\n    }\n    echo \"Month \" . ($c + 1) . \": $total<br>\";   // 53, 60, 54\n}\n?>\n```"
+          }
+        },
+        {
+          "key": "ads-exam-3c",
+          "part_label": "(c)",
+          "title": "Shop total",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the total sales of shop **1** (row index 1).",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "20 + 18 + 22 = 60 (1)",
+            "points": [
+              {
+                "criterion": "60",
+                "marks": 1
+              }
+            ],
+            "model_answer": "60",
+            "accepted": {
+              "values": [
+                "60"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "ads-exam-3d",
+          "part_label": "(d)",
+          "title": "Why 2D",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why a 2D array is more suitable than a 1D array for this data.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Each shop has several values / data is a table of shops × months, accessed by shop and month (1)",
+            "points": [
+              {
+                "criterion": "Table / two indexes",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The data is a table — each shop has a value for every month — so it can be accessed with two indexes, shop and month."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Writing program code that adds records to a database from a web form (INSERT with prepared statements, validation, SQL injection), extracting data with SELECT and displaying it as an HTML table, and using two-dimensional arrays — terms, declaration, nested loops, row and column totals — to hold table data in a program.",
   "theory": [
+    {
+      "title": "The example database",
+      "objectives": [
+        "11.5.4.7",
+        "11.5.4.8"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "All the examples on this page use the database **school_db** with one table, **Student**."
+        },
+        {
+          "type": "comparison",
+          "title": "Table Student",
+          "columns": [
+            "StudentID (PK, auto-increment)",
+            "Name",
+            "Grade",
+            "City"
+          ],
+          "rows": [
+            [
+              "1",
+              "Aruzhan",
+              "11",
+              "Astana"
+            ],
+            [
+              "2",
+              "Daniyar",
+              "12",
+              "Almaty"
+            ],
+            [
+              "3",
+              "Aigerim",
+              "11",
+              "Almaty"
+            ],
+            [
+              "4",
+              "Timur",
+              "10",
+              "Astana"
+            ],
+            [
+              "5",
+              "Madina",
+              "12",
+              "Shymkent"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Every database script follows the same pattern",
+          "items": [
+            "**Connect** — `mysqli_connect(server, user, password, database)`; stop with an error message if it fails.",
+            "**Prepare the SQL** — INSERT to add data, SELECT to extract it.",
+            "**Run** the statement — `mysqli_query()` or a **prepared statement**.",
+            "**Check / process** the result — success message, or loop through the returned rows.",
+            "**Close** the connection — `mysqli_close()`."
+          ]
+        }
+      ]
+    },
     {
       "title": "Adding data to a database from code",
       "objectives": [
@@ -10,64 +1369,184 @@
       ],
       "blocks": [
         {
+          "type": "comparison",
+          "title": "The INSERT statement",
+          "columns": [
+            "Form",
+            "Example"
+          ],
+          "rows": [
+            [
+              "All fields, in table order",
+              "`INSERT INTO Student VALUES (6, 'Nursultan', 11, 'Astana');`"
+            ],
+            [
+              "Named fields (recommended)",
+              "`INSERT INTO Student (Name, Grade, City) VALUES ('Nursultan', 11, 'Astana');`"
+            ],
+            [
+              "Several records",
+              "`INSERT INTO Student (Name, Grade) VALUES ('Ali', 10), ('Dana', 12);`"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Text and dates go in **quotes** (`'Astana'`), numbers do **not** (`11`). An **auto-increment** primary key is left out — the database creates it."
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<form action=\"add_student.php\" method=\"post\">\n  <label>Name: <input type=\"text\" name=\"name\" required></label><br>\n  <label>Grade: <input type=\"number\" name=\"grade\" min=\"7\" max=\"12\" required></label><br>\n  <label>City: <input type=\"text\" name=\"city\"></label><br>\n  <input type=\"submit\" value=\"Add student\">\n</form>",
+          "caption": "add_student.html — the form"
+        },
+        {
           "type": "code",
           "language": "php",
-          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\n\n$name  = trim($_POST[\"name\"]);\n$grade = (int)$_POST[\"grade\"];\n\nif ($name !== \"\" && $grade >= 7 && $grade <= 12) {          // validate first\n    $stmt = mysqli_prepare($conn, \"INSERT INTO Student (Name, Grade) VALUES (?, ?)\");\n    mysqli_stmt_bind_param($stmt, \"si\", $name, $grade);      // s = string, i = integer\n    if (mysqli_stmt_execute($stmt)) {\n        echo \"Student added with ID \" . mysqli_insert_id($conn);\n    } else {\n        echo \"Error: \" . mysqli_error($conn);\n    }\n} else {\n    echo \"Please enter a name and a grade between 7 and 12.\";\n}\nmysqli_close($conn);\n?>",
-          "caption": "Insert a new student from a form (prepared statement)"
+          "content": "<?php\n$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\nif (!$conn) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n\n$name  = trim($_POST[\"name\"] ?? \"\");\n$grade = (int)($_POST[\"grade\"] ?? 0);\n$city  = trim($_POST[\"city\"] ?? \"\");\n\nif ($name === \"\" || $grade < 7 || $grade > 12) {               // 1 validate first\n    die(\"Please enter a name and a grade between 7 and 12.\");\n}\n\n$sql  = \"INSERT INTO Student (Name, Grade, City) VALUES (?, ?, ?)\";\n$stmt = mysqli_prepare($conn, $sql);                            // 2 prepare\nmysqli_stmt_bind_param($stmt, \"sis\", $name, $grade, $city);    // 3 bind: s = string, i = integer\nif (mysqli_stmt_execute($stmt)) {                               // 4 execute\n    echo \"Student added with ID \" . mysqli_insert_id($conn);\n} else {\n    echo \"Error: \" . mysqli_error($conn);\n}\nmysqli_close($conn);                                            // 5 close\n?>",
+          "caption": "add_student.php — validate, then INSERT with a prepared statement"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$sql = \"INSERT INTO Student (Name, Grade, City) VALUES ('$name', $grade, '$city')\";\nif (mysqli_query($conn, $sql)) {\n    echo \"New record created successfully\";\n} else {\n    echo \"Error: \" . $sql . \"<br>\" . mysqli_error($conn);\n}\n?>",
+          "caption": "The simpler (but unsafe) version with mysqli_query"
         },
         {
           "type": "callout",
           "tone": "danger",
           "title": "SQL injection",
-          "content": "Never put form data **directly** into an SQL string (`\"... VALUES ('$name')\"`): a user could type SQL code and change or delete data. Use **prepared statements** (placeholders `?`) or at least escape the input."
+          "content": "If form data is put **directly** into the SQL string, a user can type **SQL code** instead of data. For example the name `x'); DELETE FROM Student; --` could turn the INSERT into a command that **deletes the whole table**. **Prepared statements** send the SQL and the data **separately** (placeholders `?`), so the data can never be run as SQL. At the very least, escape text with `mysqli_real_escape_string()`."
+        },
+        {
+          "type": "comparison",
+          "title": "Bind types for mysqli_stmt_bind_param",
+          "columns": [
+            "Letter",
+            "Type",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`s`",
+              "string",
+              "name, city, date"
+            ],
+            [
+              "`i`",
+              "integer",
+              "grade, quantity"
+            ],
+            [
+              "`d`",
+              "double (decimal)",
+              "price"
+            ]
+          ]
         }
       ]
     },
     {
-      "title": "Extracting data from a database",
+      "title": "Extracting data with SELECT",
       "objectives": [
         "11.5.4.8"
       ],
       "blocks": [
         {
-          "type": "code",
-          "language": "php",
-          "content": "<?php\n$conn  = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\n$grade = (int)$_GET[\"grade\"];\n\n$stmt = mysqli_prepare($conn, \"SELECT StudentID, Name FROM Student WHERE Grade = ? ORDER BY Name\");\nmysqli_stmt_bind_param($stmt, \"i\", $grade);\nmysqli_stmt_execute($stmt);\n$result = mysqli_stmt_get_result($stmt);\n\necho \"<table border='1'><tr><th>ID</th><th>Name</th></tr>\";\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo \"<tr><td>{$row['StudentID']}</td><td>{$row['Name']}</td></tr>\";\n}\necho \"</table>\";\necho mysqli_num_rows($result) . \" student(s) found.\";\n?>",
-          "caption": "Search form → SELECT → HTML table"
-        },
-        {
           "type": "comparison",
-          "title": "Useful mysqli functions",
+          "title": "SELECT recap",
           "columns": [
-            "Function",
-            "Purpose"
+            "Clause",
+            "Purpose",
+            "Example"
           ],
           "rows": [
             [
-              "`mysqli_connect()`",
-              "Open a connection"
+              "`SELECT`",
+              "Which **fields**",
+              "`SELECT Name, Grade` (`*` = all fields)"
             ],
             [
-              "`mysqli_query()`",
-              "Run an SQL statement"
+              "`FROM`",
+              "Which **table(s)**",
+              "`FROM Student`"
             ],
             [
-              "`mysqli_fetch_assoc()`",
-              "Get the next row as an associative array (`$row[\"Name\"]`)"
+              "`WHERE`",
+              "Which **records** (condition)",
+              "`WHERE Grade = 11 AND City = 'Almaty'`"
             ],
             [
-              "`mysqli_num_rows()`",
-              "Number of rows returned"
+              "`ORDER BY`",
+              "**Sort** order",
+              "`ORDER BY Name ASC` / `DESC`"
             ],
             [
-              "`mysqli_insert_id()`",
-              "ID of the last inserted record"
+              "`LIKE`",
+              "Pattern match",
+              "`WHERE Name LIKE 'A%'` (starts with A)"
             ],
             [
-              "`mysqli_close()`",
-              "Close the connection"
+              "`COUNT`, `AVG`, `SUM`, `MAX`, `MIN`",
+              "Calculate a value",
+              "`SELECT COUNT(*) FROM Student WHERE City = 'Almaty'`"
             ]
           ]
+        },
+        {
+          "type": "example",
+          "title": "Results for the example table",
+          "content": "| Query | Result |\n|---|---|\n| `SELECT Name FROM Student WHERE Grade = 11 ORDER BY Name;` | Aigerim, Aruzhan |\n| `SELECT Name, City FROM Student WHERE Grade = 12;` | Daniyar Almaty; Madina Shymkent |\n| `SELECT COUNT(*) FROM Student WHERE City = 'Almaty';` | 2 |\n| `SELECT Name FROM Student WHERE Name LIKE 'A%';` | Aruzhan, Aigerim |\n| `SELECT * FROM Student WHERE Grade > 10 AND City = 'Astana';` | 1, Aruzhan, 11, Astana |"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$conn  = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\n$grade = (int)($_GET[\"grade\"] ?? 11);\n\n$stmt = mysqli_prepare($conn, \"SELECT StudentID, Name, City FROM Student WHERE Grade = ? ORDER BY Name\");\nmysqli_stmt_bind_param($stmt, \"i\", $grade);\nmysqli_stmt_execute($stmt);\n$result = mysqli_stmt_get_result($stmt);\n\nif (mysqli_num_rows($result) == 0) {\n    echo \"No students found in grade $grade.\";\n} else {\n    echo \"<table border='1'><tr><th>ID</th><th>Name</th><th>City</th></tr>\";\n    while ($row = mysqli_fetch_assoc($result)) {            // one row per loop\n        echo \"<tr><td>\" . $row[\"StudentID\"] . \"</td><td>\" . htmlspecialchars($row[\"Name\"])\n           . \"</td><td>\" . htmlspecialchars($row[\"City\"]) . \"</td></tr>\";\n    }\n    echo \"</table>\";\n    echo mysqli_num_rows($result) . \" student(s) found.\";\n}\nmysqli_close($conn);\n?>",
+          "caption": "list_students.php — a search form sends the grade; results shown as a table"
+        },
+        {
+          "type": "html_preview",
+          "title": "Output for grade 11",
+          "html": "<table border=\"1\"><tr><th>ID</th><th>Name</th><th>City</th></tr>\n<tr><td>3</td><td>Aigerim</td><td>Almaty</td></tr>\n<tr><td>1</td><td>Aruzhan</td><td>Astana</td></tr></table>\n<p>2 student(s) found.</p>",
+          "css": "body { font-family: Arial, sans-serif; padding: 8px; }\ntable { border-collapse: collapse; }\nth, td { padding: 4px 12px; }\nth { background: #eef2ff; }",
+          "height": 170
+        },
+        {
+          "type": "comparison",
+          "title": "Ways to read a row",
+          "columns": [
+            "Function",
+            "Row returned as",
+            "Access"
+          ],
+          "rows": [
+            [
+              "`mysqli_fetch_assoc()`",
+              "Associative array (field names)",
+              "`$row[\"Name\"]`"
+            ],
+            [
+              "`mysqli_fetch_row()`",
+              "Numeric array",
+              "`$row[1]`"
+            ],
+            [
+              "`mysqli_fetch_array()`",
+              "Both",
+              "`$row[\"Name\"]` or `$row[1]`"
+            ],
+            [
+              "`mysqli_fetch_all($result, MYSQLI_ASSOC)`",
+              "**All rows at once** — a **2D array**",
+              "`$rows[0][\"Name\"]`"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Changing and removing data",
+          "content": "The same pattern works for `UPDATE Student SET City = ? WHERE StudentID = ?` and `DELETE FROM Student WHERE StudentID = ?`. **Always** include a WHERE clause — without it, **every** record is changed or deleted. `mysqli_affected_rows($conn)` tells you how many records changed."
         }
       ]
     },
@@ -79,20 +1558,178 @@
       "blocks": [
         {
           "type": "definition",
-          "term": "Two-dimensional array",
-          "content": "An array of arrays — data arranged in **rows and columns**, like a table. An element is accessed with **two indexes**: `[row][column]`."
+          "term": "Two-dimensional (2D) array",
+          "content": "An **array of arrays** — data arranged in **rows and columns**, like a table. Each element is accessed with **two indexes**: **[row][column]**."
+        },
+        {
+          "type": "comparison",
+          "title": "A 2D array of marks — 3 students (rows) × 4 tests (columns)",
+          "columns": [
+            "",
+            "[0] Test 1",
+            "[1] Test 2",
+            "[2] Test 3",
+            "[3] Test 4"
+          ],
+          "rows": [
+            [
+              "**[0]** Student 1",
+              "7",
+              "8",
+              "6",
+              "9"
+            ],
+            [
+              "**[1]** Student 2",
+              "10",
+              "9",
+              "9",
+              "8"
+            ],
+            [
+              "**[2]** Student 3",
+              "5",
+              "6",
+              "7",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Declaring a 2D array",
+          "columns": [
+            "Language",
+            "Code"
+          ],
+          "rows": [
+            [
+              "Pseudocode",
+              "`DECLARE Marks : ARRAY[1:3, 1:4] OF INTEGER` — then `Marks[2, 3] ← 9`"
+            ],
+            [
+              "PHP",
+              "`$marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]];`"
+            ],
+            [
+              "JavaScript",
+              "`let marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]];`"
+            ],
+            [
+              "Python",
+              "`marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]]`"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Terms",
+              "content": "- **Rows** = the first index; **columns** = the second index.\n- In PHP / JS / Python both indexes start at **0**; pseudocode often starts at **1**.\n- Number of rows: `count($marks)`; number of columns: `count($marks[0])`."
+            },
+            {
+              "title": "Processing with nested loops",
+              "content": "- The **outer loop** goes through the **rows**.\n- The **inner loop** goes through the **columns** of the current row.\n- Total number of inner-loop iterations = rows × columns."
+            }
+          ]
         },
         {
           "type": "code",
           "language": "php",
-          "content": "<?php\n$students = [];                       // empty 2D array\nwhile ($row = mysqli_fetch_row($result)) {\n    $students[] = $row;               // each row = [ID, Name, Grade]\n}\necho $students[0][1];                 // name in the first row\n\n// marks of 3 students in 4 tests\n$marks = [\n    [7, 8, 6, 9],\n    [10, 9, 9, 8],\n    [5, 6, 7, 6],\n];\nfor ($r = 0; $r < count($marks); $r++) {\n    $sum = 0;\n    for ($c = 0; $c < count($marks[$r]); $c++) {\n        $sum += $marks[$r][$c];\n    }\n    echo \"Student \" . ($r + 1) . \" average: \" . $sum / count($marks[$r]) . \"<br>\";\n}\n?>",
+          "content": "<?php\n$marks = [\n    [7, 8, 6, 9],\n    [10, 9, 9, 8],\n    [5, 6, 7, 6],\n];\nfor ($r = 0; $r < count($marks); $r++) {            // each student (row)\n    $sum = 0;\n    for ($c = 0; $c < count($marks[$r]); $c++) {     // each test (column)\n        $sum += $marks[$r][$c];\n    }\n    $avg = $sum / count($marks[$r]);\n    echo \"Student \" . ($r + 1) . \": total $sum, average $avg<br>\";\n}\n// Student 1: total 30, average 7.5\n// Student 2: total 36, average 9\n// Student 3: total 24, average 6\n?>",
+          "caption": "Row totals and averages with nested loops"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\nfor ($c = 0; $c < count($marks[0]); $c++) {         // each test (column)\n    $sum = 0;\n    for ($r = 0; $r < count($marks); $r++) {         // each student (row)\n        $sum += $marks[$r][$c];\n    }\n    echo \"Test \" . ($c + 1) . \" total: $sum<br>\";    // 22, 23, 22, 23\n}\n?>",
+          "caption": "Column totals — swap the loops"
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$result = mysqli_query($conn, \"SELECT Name, Grade, City FROM Student\");\n$students = [];                             // empty 2D array\nwhile ($row = mysqli_fetch_row($result)) {\n    $students[] = $row;                     // each row = [Name, Grade, City]\n}\necho $students[0][0];                       // \"Aruzhan\" — first row, first column\necho count($students);                      // 5 rows\n?>",
           "caption": "Storing query results in a 2D array"
         },
         {
-          "type": "exam_tip",
-          "content": "Use a **1D array** for a single list of values (marks of one student), and a **2D array** when each item has several values or the data is a grid (marks of many students in many tests, a seating plan, a game board)."
+          "type": "comparison",
+          "title": "Choosing a data structure",
+          "columns": [
+            "Task",
+            "Suitable structure",
+            "Why"
+          ],
+          "rows": [
+            [
+              "The marks of **one** student in 10 tests",
+              "**1D array**",
+              "A single list of values"
+            ],
+            [
+              "The names of all pupils in a class",
+              "**1D array**",
+              "One value per item"
+            ],
+            [
+              "The marks of 30 students in 5 tests",
+              "**2D array** [30][5]",
+              "Each student has several values — a table"
+            ],
+            [
+              "A cinema seating plan (rows and seats)",
+              "**2D array**",
+              "A grid"
+            ],
+            [
+              "A noughts-and-crosses board",
+              "**2D array** [3][3]",
+              "A grid"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.4.7",
+        "11.5.4.8",
+        "11.5.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write the SQL to add the student Dana, grade 12, from Almaty. [2]**\n`INSERT INTO Student (Name, Grade, City)` (1) `VALUES ('Dana', 12, 'Almaty');` (1).\n\n**Q: Write PHP code to output the names of all students in Almaty. [4]**\n`$result = mysqli_query($conn, \"SELECT Name FROM Student WHERE City = 'Almaty'\");` — SQL (1), query (1); `while ($row = mysqli_fetch_assoc($result))` (1) `{ echo $row[\"Name\"] . \"<br>\"; }` (1).\n\n**Q: Explain why prepared statements are used. [2]**\nData from the form is sent **separately** from the SQL (1), so code typed by a user cannot change the query — prevents **SQL injection** (1).\n\n**Q: State the value of marks[2][1] for the example array. [1]**\n**6** (row 2 = Student 3, column 1 = Test 2)."
+        },
+        {
+          "type": "warning",
+          "content": "- Putting **numbers in quotes** or forgetting quotes around **text** in SQL.\n- Forgetting `WHERE` in an UPDATE or DELETE.\n- Mixing up **row** and **column** indexes: `[row][column]`.\n- Starting the indexes at 1 in PHP — they start at **0**.\n- Forgetting to reset `$sum = 0` **inside** the outer loop, so totals keep growing."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List the five steps of a database script.",
+            "Write an INSERT for a new student from the form fields name and grade.",
+            "What is SQL injection and how do prepared statements prevent it?",
+            "Write a SELECT that lists grade-12 students in alphabetical order.",
+            "For the marks array, what is marks[0][3]? How many elements are there?",
+            "Write nested loops that find the highest mark in the 2D array."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Adding and selecting data — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write code in PHP (with SQL) or pseudocode unless stated otherwise. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "ads-exam-1",
+      "ads-exam-2",
+      "ads-exam-3"
+    ]
+  }
 }

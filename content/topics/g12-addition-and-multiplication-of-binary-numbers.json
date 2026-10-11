@@ -1,10 +1,1584 @@
 {
   "topic": "g12-addition-and-multiplication-of-binary-numbers",
-  "questions": [],
-  "summary": "Binary addition and multiplication, two's complement for negative integers, subtraction by adding the complement, fixed-point binary fractions and normalised floating-point representation.",
+  "questions": [
+    {
+      "key": "bar-add-1",
+      "title": "Binary addition",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "practice": true,
+      "text": "Add the 8-bit binary numbers **00111011** and **01010110**. Give the 8-bit result.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "Correct carries / working (1); 10010001 (1)",
+        "points": [
+          {
+            "criterion": "Working",
+            "marks": 1
+          },
+          {
+            "criterion": "10010001",
+            "marks": 1
+          }
+        ],
+        "model_answer": "10010001",
+        "accepted": {
+          "values": [
+            "10010001",
+            "1001 0001"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-add-check",
+      "title": "Check in denary",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "practice": true,
+      "text": "Convert the result **10010001** (unsigned) to denary to check the addition 59 + 86.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "145 (1)",
+        "points": [
+          {
+            "criterion": "145",
+            "marks": 1
+          }
+        ],
+        "model_answer": "145",
+        "accepted": {
+          "values": [
+            "145"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "bar-overflow",
+      "title": "Overflow",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "practice": true,
+      "text": "Two 8-bit unsigned numbers, **10101010** and **10111001**, are added in an 8-bit register. Explain what happens.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The result 355 / needs 9 bits — larger than 255 (1)\n- overflow: the carry out of the 8th bit is lost, so the stored result 01100011 (99) is wrong (1)",
+        "points": [
+          {
+            "criterion": "Too big",
+            "marks": 1
+          },
+          {
+            "criterion": "Overflow, wrong result",
+            "marks": 1
+          }
+        ],
+        "model_answer": "170 + 185 = 355, which needs 9 bits; the 9th bit is lost (overflow), so the register holds 01100011 = 99, a wrong result."
+      }
+    },
+    {
+      "key": "bar-multiply",
+      "title": "Binary multiplication",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "practice": true,
+      "text": "Multiply **1110** by **11** in binary. Show your working.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "Partial products 1110 and 11100 (1); sum 101010 (1)",
+        "points": [
+          {
+            "criterion": "Partial products",
+            "marks": 1
+          },
+          {
+            "criterion": "101010",
+            "marks": 1
+          }
+        ],
+        "model_answer": "101010",
+        "accepted": {
+          "values": [
+            "101010",
+            "00101010"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-shift-mcq",
+      "title": "Shifting",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "practice": true,
+      "text": "The unsigned binary number **00000110** is shifted **two** places to the left. What is the effect?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The number is multiplied by 2"
+        },
+        {
+          "key": "B",
+          "content": "The number is multiplied by 4"
+        },
+        {
+          "key": "C",
+          "content": "The number is divided by 4"
+        },
+        {
+          "key": "D",
+          "content": "The number becomes negative"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "00011000 = 24 = 6 × 4."
+      }
+    },
+    {
+      "key": "bar-tc-neg",
+      "title": "Negative in two's complement",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.4"
+      ],
+      "practice": true,
+      "text": "Represent the denary number **−56** as an 8-bit two's complement binary integer. Show your working.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "+56 = 00111000 (1); invert 11000111 (1); add 1 → 11001000 (1)",
+        "points": [
+          {
+            "criterion": "+56",
+            "marks": 1
+          },
+          {
+            "criterion": "Invert",
+            "marks": 1
+          },
+          {
+            "criterion": "11001000",
+            "marks": 1
+          }
+        ],
+        "model_answer": "11001000",
+        "accepted": {
+          "values": [
+            "11001000",
+            "1100 1000"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-tc-den",
+      "title": "Two's complement to denary",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.4"
+      ],
+      "practice": true,
+      "text": "Each byte is an 8-bit two's complement integer. Complete its denary value.",
+      "content": {
+        "columns": [
+          "Binary",
+          "Denary"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "10110001",
+            null
+          ],
+          [
+            "11100110",
+            null
+          ],
+          [
+            "01111111",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "−79 (1); −26 (1); 127 (1)",
+        "points": [
+          {
+            "criterion": "-79",
+            "marks": 1
+          },
+          {
+            "criterion": "-26",
+            "marks": 1
+          },
+          {
+            "criterion": "127",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "-79||−79"
+            ],
+            [
+              null,
+              "-26||−26"
+            ],
+            [
+              null,
+              "127||+127"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bar-unsigned-signed",
+      "title": "Same byte, two meanings",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.4"
+      ],
+      "practice": true,
+      "text": "The byte **10011011** is stored in memory. State its denary value if it is:",
+      "content": {
+        "fields": [
+          {
+            "key": "u",
+            "label": "an unsigned integer",
+            "lines": 1
+          },
+          {
+            "key": "s",
+            "label": "a two's complement integer",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "155 (1); −101 (1)",
+        "points": [
+          {
+            "criterion": "155",
+            "marks": 1
+          },
+          {
+            "criterion": "-101",
+            "marks": 1
+          }
+        ],
+        "model_answer": "unsigned: 155\ntwo's complement: −101",
+        "accepted": {
+          "fields": {
+            "u": [
+              "155"
+            ],
+            "s": [
+              "-101",
+              "−101"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "bar-range",
+      "title": "Range",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.1.4"
+      ],
+      "practice": true,
+      "text": "In 8-bit two's complement, the smallest number is [[1]] and the largest is [[2]].",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) −128 (2) 127",
+        "accepted": {
+          "blanks": [
+            [
+              "-128",
+              "−128"
+            ],
+            [
+              "127",
+              "+127"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bar-sub-1",
+      "title": "Subtraction",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.5"
+      ],
+      "practice": true,
+      "text": "Perform the subtraction **00110010 − 00010010** (50 − 18) using 8-bit two's complement. Show your working.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "−18 = 11101110 (1); 00110010 + 11101110 = 1 00100000 (1); ignore carry → 00100000 (32) (1)",
+        "points": [
+          {
+            "criterion": "Two's complement of 18",
+            "marks": 1
+          },
+          {
+            "criterion": "Addition",
+            "marks": 1
+          },
+          {
+            "criterion": "00100000",
+            "marks": 1
+          }
+        ],
+        "model_answer": "00100000",
+        "accepted": {
+          "values": [
+            "00100000",
+            "0010 0000"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-sub-neg",
+      "title": "Negative result",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.5"
+      ],
+      "practice": true,
+      "text": "Calculate **12 − 30** using 8-bit two's complement. Give the 8-bit binary result.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "12 = 00001100, −30 = 11100010 (1); sum (1); 11101110 = −18 (1)",
+        "points": [
+          {
+            "criterion": "Operands",
+            "marks": 1
+          },
+          {
+            "criterion": "Addition",
+            "marks": 1
+          },
+          {
+            "criterion": "11101110",
+            "marks": 1
+          }
+        ],
+        "model_answer": "11101110",
+        "accepted": {
+          "values": [
+            "11101110",
+            "1110 1110"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-why-tc",
+      "title": "Why add the complement",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.1.5"
+      ],
+      "practice": true,
+      "text": "Explain why computers subtract by adding the two's complement.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "The same adder circuit can do both addition and subtraction / no separate subtractor needed (1)",
+        "points": [
+          {
+            "criterion": "One adder",
+            "marks": 1
+          }
+        ],
+        "model_answer": "So the CPU only needs an adder circuit: subtraction becomes addition of a negative number."
+      }
+    },
+    {
+      "key": "bar-tc-overflow",
+      "title": "Signed overflow",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.1.1.5"
+      ],
+      "practice": true,
+      "text": "In 8-bit two's complement, 01100100 + 00110010 (100 + 50) gives a negative result because of overflow.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Result 10010110 = −106; 150 is above +127."
+      }
+    },
+    {
+      "key": "bar-fixed-den",
+      "title": "Fixed point to denary",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.6"
+      ],
+      "practice": true,
+      "text": "Each number is unsigned fixed point with **4 integer bits and 4 fraction bits**. Complete the denary values.",
+      "content": {
+        "columns": [
+          "Binary",
+          "Denary"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "0110.1010",
+            null
+          ],
+          [
+            "0101.1010",
+            null
+          ],
+          [
+            "1001.0110",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "6.625 (1); 5.625 (1); 9.375 (1)",
+        "points": [
+          {
+            "criterion": "6.625",
+            "marks": 1
+          },
+          {
+            "criterion": "5.625",
+            "marks": 1
+          },
+          {
+            "criterion": "9.375",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "6.625"
+            ],
+            [
+              null,
+              "5.625"
+            ],
+            [
+              null,
+              "9.375"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bar-fixed-3bits",
+      "title": "Byte as fixed point",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.6"
+      ],
+      "practice": true,
+      "text": "The byte **10110001** is an unsigned fixed-point number whose **right three bits** are the fractional part. Calculate its denary value.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "Integer part 10110 = 22 (1); fraction .001 = 0.125 (1) → 22.125",
+        "points": [
+          {
+            "criterion": "22",
+            "marks": 1
+          },
+          {
+            "criterion": ".125",
+            "marks": 1
+          }
+        ],
+        "model_answer": "22.125",
+        "accepted": {
+          "values": [
+            "22.125"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "bar-fixed-to",
+      "title": "Denary to fixed point",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.6"
+      ],
+      "practice": true,
+      "text": "Convert **5.75** to unsigned fixed point with 4 integer bits and 4 fraction bits.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "0101 (1); .1100 (1)",
+        "points": [
+          {
+            "criterion": "Integer",
+            "marks": 1
+          },
+          {
+            "criterion": "Fraction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "0101.1100",
+        "accepted": {
+          "values": [
+            "0101.1100",
+            "01011100",
+            "0101 1100",
+            "101.11"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "bar-float-den",
+      "title": "Floating point to denary",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.7"
+      ],
+      "practice": true,
+      "text": "Each number uses an **8-bit mantissa** and a **4-bit exponent**, both in two's complement. Complete the denary values.",
+      "content": {
+        "columns": [
+          "Mantissa",
+          "Exponent",
+          "Denary"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "01010000",
+            "0011",
+            null
+          ],
+          [
+            "01100000",
+            "1111",
+            null
+          ],
+          [
+            "10100000",
+            "0010",
+            null
+          ],
+          [
+            "01011000",
+            "0100",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "5 (1); 0.375 (1); −3 (1); 11 (1)",
+        "points": [
+          {
+            "criterion": "5",
+            "marks": 1
+          },
+          {
+            "criterion": "0.375",
+            "marks": 1
+          },
+          {
+            "criterion": "-3",
+            "marks": 1
+          },
+          {
+            "criterion": "11",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "5"
+            ],
+            [
+              null,
+              null,
+              "0.375"
+            ],
+            [
+              null,
+              null,
+              "-3||−3"
+            ],
+            [
+              null,
+              null,
+              "11"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bar-float-to",
+      "title": "Denary to floating point",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.7"
+      ],
+      "practice": true,
+      "text": "Convert **6.75** to normalised floating point with an **8-bit mantissa** and a **4-bit exponent**. Show your working.",
+      "content": {
+        "fields": [
+          {
+            "key": "mantissa",
+            "label": "Mantissa",
+            "lines": 1
+          },
+          {
+            "key": "exponent",
+            "label": "Exponent",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "110.11 (1); 0.11011 × 2³ (1); mantissa 01101100 (1); exponent 0011 (1)",
+        "points": [
+          {
+            "criterion": "Fixed point",
+            "marks": 1
+          },
+          {
+            "criterion": "Normalised",
+            "marks": 1
+          },
+          {
+            "criterion": "Mantissa",
+            "marks": 1
+          },
+          {
+            "criterion": "Exponent",
+            "marks": 1
+          }
+        ],
+        "model_answer": "mantissa: 01101100\nexponent: 0011",
+        "accepted": {
+          "fields": {
+            "mantissa": [
+              "01101100",
+              "0.1101100"
+            ],
+            "exponent": [
+              "0011"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "bar-float-neg",
+      "title": "Negative floating point",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.7"
+      ],
+      "practice": true,
+      "text": "Convert **−6.75** to normalised floating point with an **8-bit mantissa** and a **4-bit exponent**. Show your working.",
+      "content": {
+        "fields": [
+          {
+            "key": "mantissa",
+            "label": "Mantissa",
+            "lines": 1
+          },
+          {
+            "key": "exponent",
+            "label": "Exponent",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "+6.75 = 0.1101100 × 2³ (1); two's complement of mantissa (1) → 10010100 (1); exponent 0011 (1)",
+        "points": [
+          {
+            "criterion": "Positive form",
+            "marks": 1
+          },
+          {
+            "criterion": "Negate method",
+            "marks": 1
+          },
+          {
+            "criterion": "Mantissa",
+            "marks": 1
+          },
+          {
+            "criterion": "Exponent",
+            "marks": 1
+          }
+        ],
+        "model_answer": "mantissa: 10010100\nexponent: 0011",
+        "accepted": {
+          "fields": {
+            "mantissa": [
+              "10010100",
+              "1.0010100"
+            ],
+            "exponent": [
+              "0011"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "bar-normalise",
+      "title": "Normalise",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.1.1.7"
+      ],
+      "practice": true,
+      "text": "The floating-point number with mantissa **00011010** and exponent **0101** is not normalised. Write it in normalised form.",
+      "content": {
+        "fields": [
+          {
+            "key": "mantissa",
+            "label": "Mantissa",
+            "lines": 1
+          },
+          {
+            "key": "exponent",
+            "label": "Exponent",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Mantissa shifted 2 left: 01101000 (1); exponent 5 − 2 = 3 → 0011 (1)",
+        "points": [
+          {
+            "criterion": "Mantissa",
+            "marks": 1
+          },
+          {
+            "criterion": "Exponent",
+            "marks": 1
+          }
+        ],
+        "model_answer": "mantissa: 01101000\nexponent: 0011",
+        "accepted": {
+          "fields": {
+            "mantissa": [
+              "01101000"
+            ],
+            "exponent": [
+              "0011"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "bar-precision-range",
+      "title": "Precision and range",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.1.1.7"
+      ],
+      "practice": true,
+      "text": "A 16-bit floating-point format can use 10 bits for the mantissa and 6 for the exponent, or 12 for the mantissa and 4 for the exponent. Explain the effect of choosing the **12-bit** mantissa.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- More mantissa bits → greater precision / accuracy (1)\n- fewer exponent bits → smaller range of numbers (1)",
+        "points": [
+          {
+            "criterion": "Precision",
+            "marks": 1
+          },
+          {
+            "criterion": "Range",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Numbers can be stored more precisely because the mantissa has more bits, but the range is smaller because the exponent has only 4 bits."
+      }
+    },
+    {
+      "key": "bar-exam-1",
+      "title": "Integers",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A processor uses 8-bit registers.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-exam-1a",
+          "part_label": "(a)",
+          "title": "Addition",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Add the unsigned numbers **01101101** and **00110110**. Show the carries.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Carries shown (1); 10100011 (1)",
+            "points": [
+              {
+                "criterion": "Carries",
+                "marks": 1
+              },
+              {
+                "criterion": "10100011",
+                "marks": 1
+              }
+            ],
+            "model_answer": "10100011",
+            "accepted": {
+              "values": [
+                "10100011",
+                "1010 0011"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-1b",
+          "part_label": "(b)",
+          "title": "Multiplication",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Multiply **1011** by **101**. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Partial products 1011, 0000, 101100 (1); 110111 (1)",
+            "points": [
+              {
+                "criterion": "Working",
+                "marks": 1
+              },
+              {
+                "criterion": "110111",
+                "marks": 1
+              }
+            ],
+            "model_answer": "110111",
+            "accepted": {
+              "values": [
+                "110111",
+                "00110111"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-1c",
+          "part_label": "(c)",
+          "title": "Negative number",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Represent **−100** as an 8-bit two's complement integer. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "+100 = 01100100 (1); invert 10011011 (1); +1 → 10011100 (1)",
+            "points": [
+              {
+                "criterion": "+100",
+                "marks": 1
+              },
+              {
+                "criterion": "Invert",
+                "marks": 1
+              },
+              {
+                "criterion": "10011100",
+                "marks": 1
+              }
+            ],
+            "model_answer": "10011100",
+            "accepted": {
+              "values": [
+                "10011100",
+                "1001 1100"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-1d",
+          "part_label": "(d)",
+          "title": "Subtraction",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Perform the subtraction of **00100111** from **01001001** using two's complement. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "−00100111 = 11011001 (1); 01001001 + 11011001 = 100100010 (1); ignore carry → 00100010 (1)",
+            "points": [
+              {
+                "criterion": "Two's complement",
+                "marks": 1
+              },
+              {
+                "criterion": "Addition",
+                "marks": 1
+              },
+              {
+                "criterion": "00100010",
+                "marks": 1
+              }
+            ],
+            "model_answer": "00100010",
+            "accepted": {
+              "values": [
+                "00100010",
+                "0010 0010"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-1e",
+          "part_label": "(e)",
+          "title": "Range",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the range of integers that can be stored in 8-bit two's complement.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "−128 to +127 (1)",
+            "points": [
+              {
+                "criterion": "-128 to 127",
+                "marks": 1
+              }
+            ],
+            "model_answer": "−128 to +127"
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-exam-2",
+      "title": "Fractions",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The following byte value is stored: **1 0 1 1 0 0 0 1**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-exam-2a",
+          "part_label": "(a)",
+          "title": "Unsigned",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the denary value of the byte as an unsigned integer.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "177 (1)",
+            "points": [
+              {
+                "criterion": "177",
+                "marks": 1
+              }
+            ],
+            "model_answer": "177",
+            "accepted": {
+              "values": [
+                "177"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-2b",
+          "part_label": "(b)",
+          "title": "Two's complement",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the denary value if the byte is a two's complement integer.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "−79 (1)",
+            "points": [
+              {
+                "criterion": "-79",
+                "marks": 1
+              }
+            ],
+            "model_answer": "-79",
+            "accepted": {
+              "values": [
+                "-79"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-2c",
+          "part_label": "(c)",
+          "title": "Fixed point",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the denary value if the byte is an unsigned fixed-point number with the **right four bits** as the fractional part.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "1011 = 11 (1); .0001 = 0.0625 (1) → 11.0625",
+            "points": [
+              {
+                "criterion": "11",
+                "marks": 1
+              },
+              {
+                "criterion": ".0625",
+                "marks": 1
+              }
+            ],
+            "model_answer": "11.0625",
+            "accepted": {
+              "values": [
+                "11.0625"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-2d",
+          "part_label": "(d)",
+          "title": "Denary to fixed point",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **9.375** to unsigned fixed point with 4 integer bits and 4 fraction bits.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "1001 (1); .0110 (1)",
+            "points": [
+              {
+                "criterion": "Integer",
+                "marks": 1
+              },
+              {
+                "criterion": "Fraction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1001.0110",
+            "accepted": {
+              "values": [
+                "1001.0110",
+                "10010110",
+                "1001 0110",
+                "1001.011"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-2e",
+          "part_label": "(e)",
+          "title": "Rounding",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why 0.1 cannot be stored exactly in binary fixed point.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "0.1 is not a sum of powers of ½ / its binary form repeats forever, so it must be rounded (1)",
+            "points": [
+              {
+                "criterion": "Not exact sum / recurring",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0.1 cannot be made from a finite sum of ½, ¼, ⅛ …; its binary fraction repeats for ever, so it is rounded."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-exam-3",
+      "title": "Floating point",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Real numbers are stored in normalised floating point. The mantissa and exponent are both in two's complement.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-exam-3a",
+          "part_label": "(a)",
+          "title": "17.75",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **17.75** into normalised floating point with **10 bits for the mantissa** and **6 bits for the exponent**. Show your working.",
+          "content": {
+            "fields": [
+              {
+                "key": "mantissa",
+                "label": "Mantissa",
+                "lines": 1
+              },
+              {
+                "key": "exponent",
+                "label": "Exponent",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Fixed point 010001.1100 (1); normalised 0.100011100 × 2⁵ (1); exponent 000101 (1); mantissa 0100011100 (1)",
+            "points": [
+              {
+                "criterion": "Fixed point",
+                "marks": 1
+              },
+              {
+                "criterion": "Normalised",
+                "marks": 1
+              },
+              {
+                "criterion": "Exponent",
+                "marks": 1
+              },
+              {
+                "criterion": "Mantissa",
+                "marks": 1
+              }
+            ],
+            "model_answer": "mantissa: 0100011100\nexponent: 000101",
+            "accepted": {
+              "fields": {
+                "mantissa": [
+                  "0100011100",
+                  "0.100011100"
+                ],
+                "exponent": [
+                  "000101"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "bar-exam-3b",
+          "part_label": "(b)",
+          "title": "−23.75",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **−23.75** into normalised floating point with a **12-bit mantissa** and a **4-bit exponent**. Show your working.",
+          "content": {
+            "fields": [
+              {
+                "key": "mantissa",
+                "label": "Mantissa",
+                "lines": 1
+              },
+              {
+                "key": "exponent",
+                "label": "Exponent",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "23 = 10111 (1); 0.75 = .11 (1); mantissa 101000010000 (1); exponent 0101 (1)",
+            "points": [
+              {
+                "criterion": "23",
+                "marks": 1
+              },
+              {
+                "criterion": "0.75",
+                "marks": 1
+              },
+              {
+                "criterion": "Mantissa",
+                "marks": 1
+              },
+              {
+                "criterion": "Exponent",
+                "marks": 1
+              }
+            ],
+            "model_answer": "mantissa: 101000010000\nexponent: 0101",
+            "accepted": {
+              "fields": {
+                "mantissa": [
+                  "101000010000"
+                ],
+                "exponent": [
+                  "0101"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "bar-exam-3c",
+          "part_label": "(c)",
+          "title": "To denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "An 8-bit mantissa **10110000** and 4-bit exponent **0011**. Calculate the denary value.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Mantissa −0.625 / exponent 3 (1); −5 (1)",
+            "points": [
+              {
+                "criterion": "Working",
+                "marks": 1
+              },
+              {
+                "criterion": "-5",
+                "marks": 1
+              }
+            ],
+            "model_answer": "-5",
+            "accepted": {
+              "values": [
+                "-5"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "bar-exam-3d",
+          "part_label": "(d)",
+          "title": "Why normalise",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **two** reasons why floating-point numbers are normalised.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Maximum precision for the bits available / no wasted leading bits (1); each number has a unique representation (1)",
+            "points": [
+              {
+                "criterion": "Precision",
+                "marks": 1
+              },
+              {
+                "criterion": "Unique",
+                "marks": 1
+              }
+            ],
+            "model_answer": "No bits are wasted on leading zeros, so the mantissa gives the greatest possible precision, and each number has only one representation."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Binary addition with carries and overflow, binary multiplication by shift-and-add, representing negative integers in two's complement, subtraction by adding the two's complement, fixed-point binary fractions, and normalised floating-point numbers (mantissa and exponent) — converting in both directions, with range and precision.",
   "theory": [
     {
-      "title": "Binary addition and multiplication",
+      "title": "Binary addition",
       "objectives": [
         "12.1.1.3"
       ],
@@ -14,7 +1588,7 @@
           "title": "Addition rules",
           "columns": [
             "Bits added",
-            "Result",
+            "Sum bit",
             "Carry"
           ],
           "rows": [
@@ -34,32 +1608,82 @@
               "1"
             ],
             [
-              "1 + 1 + 1",
+              "1 + 1 + 1 (with a carry in)",
               "1",
               "1"
             ]
           ]
         },
         {
+          "type": "steps",
+          "title": "Adding two binary numbers",
+          "items": [
+            "Line the numbers up on the **right**.",
+            "Add each column from **right to left**, writing the sum bit and **carrying** 1 to the next column when needed.",
+            "Write the carries in a row above (or below) so they are not forgotten.",
+            "Check by converting to denary."
+          ]
+        },
+        {
           "type": "code",
           "language": "text",
-          "content": "    1 0 1 0 1 0 1 0     (170)\n  + 1 0 1 1 1 0 0 1     (185)\n  -----------------\n  1 0 1 1 0 0 0 1 1     → 9 bits: the 9th bit is an OVERFLOW",
-          "caption": "10101010 + 10111001 in 8 bits"
+          "content": "  carry  1 1 1 1 1 0 0\n         0 1 1 0 1 1 0 1     (109)\n       + 0 0 1 1 0 1 1 0     ( 54)\n         ---------------\n         1 0 1 0 0 0 1 1     (163) ✓",
+          "caption": "01101101 + 00110110 (109 + 54 = 163)"
+        },
+        {
+          "type": "definition",
+          "term": "Overflow",
+          "content": "When the result of a calculation is **too large** to fit in the number of bits available. In an 8-bit register a carry out of the 8th bit is lost, so the stored result is **wrong**."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "         1 0 1 0 1 0 1 0     (170)\n       + 1 0 1 1 1 0 0 1     (185)\n         ---------------\n       1 0 1 1 0 0 0 1 1     → 9 bits: the 9th bit is an OVERFLOW",
+          "caption": "10101010 + 10111001 in 8 bits (170 + 185 = 355)"
         },
         {
           "type": "paragraph",
-          "content": "The 8-bit result is **01100011** (99) — wrong, because 170 + 185 = 355 > 255. This is **overflow**."
+          "content": "The 8-bit result is **01100011** (99), not 355, because the largest 8-bit unsigned value is **255**."
         },
         {
           "type": "interactive",
           "widget": "binary_addition",
           "title": "Practise binary addition"
+        }
+      ]
+    },
+    {
+      "title": "Binary multiplication",
+      "objectives": [
+        "12.1.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Long multiplication (shift and add)",
+          "items": [
+            "Multiply the first number by **each bit** of the second, starting from the right: a **1** copies the number, a **0** gives zeros.",
+            "**Shift** each partial result **one place left** for each new bit.",
+            "**Add** the partial results using binary addition."
+          ]
         },
         {
           "type": "code",
           "language": "text",
-          "content": "        1 1 0 1\n      ×   1 1 0\n      ---------\n        0 0 0 0      × 0\n      1 1 0 1        × 1, shifted 1\n    1 1 0 1          × 1, shifted 2\n    -----------\n    1 0 0 1 1 1 0  = 78",
-          "caption": "Multiplication 1101 × 110 (13 × 6 = 78)"
+          "content": "            1 1 0 1\n          ×   1 1 0\n          ---------\n            0 0 0 0      × 0\n          1 1 0 1        × 1, shifted 1 place\n        1 1 0 1          × 1, shifted 2 places\n        -----------\n        1 0 0 1 1 1 0  = 78 ✓",
+          "caption": "1101 × 110 (13 × 6 = 78)"
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": "            1 0 1 1\n          ×   1 0 1\n          ---------\n            1 0 1 1      × 1\n          0 0 0 0        × 0, shifted 1\n        1 0 1 1          × 1, shifted 2\n        -----------\n        1 1 0 1 1 1    = 55 ✓",
+          "caption": "1011 × 101 (11 × 5 = 55)"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Shifting",
+          "content": "A **logical shift left** by one place **multiplies** an unsigned number by **2** (0011 = 3 → 0110 = 6); a shift right divides by 2. Multiplying by 4 = shift 2 places; by 8 = 3 places."
         }
       ]
     },
@@ -72,7 +1696,7 @@
         {
           "type": "definition",
           "term": "Two's complement",
-          "content": "A way to represent **signed integers** in binary: the most significant bit (MSB) has a **negative place value** (−128 in 8 bits); the other bits are positive."
+          "content": "A way to represent **signed (positive and negative) integers** in binary. The **most significant bit (MSB)** has a **negative place value** (−128 in 8 bits); all other bits are positive. A number starting with **0** is positive; a number starting with **1** is negative."
         },
         {
           "type": "comparison",
@@ -102,23 +1726,32 @@
         },
         {
           "type": "paragraph",
-          "content": "10110001 = −128 + 32 + 16 + 1 = **−79**. (As an *unsigned* integer the same byte is 177.)"
+          "content": "10110001 = −128 + 32 + 16 + 1 = **−79**. (As an **unsigned** integer the same byte is **177**.)"
         },
         {
           "type": "steps",
-          "title": "Writing −45 in 8-bit two's complement",
+          "title": "Writing a negative denary number in two's complement (e.g. −45)",
           "items": [
-            "Write +45 in binary: **00101101**.",
-            "**Invert** every bit: 11010010.",
-            "**Add 1**: 11010011 → **−45**.",
+            "Write the **positive** number in binary with the required number of bits: +45 = **00101101**.",
+            "**Invert** every bit (one's complement): **11010010**.",
+            "**Add 1**: **11010011** → −45.",
             "Check: −128 + 64 + 16 + 2 + 1 = −45 ✓"
           ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Copy the bits from the **right** up to and including the **first 1**, then **invert** all the bits to its left: 00101101 → copy \"1\" → invert the rest → 11010011."
+        },
+        {
+          "type": "example",
+          "title": "More examples (8 bits)",
+          "content": "| Denary | Positive | Invert | +1 → two's complement |\n|---|---|---|---|\n| −15 | 00001111 | 11110000 | **11110001** |\n| −56 | 00111000 | 11000111 | **11001000** |\n| −100 | 01100100 | 10011011 | **10011100** |\n\nTwo's complement → denary: 11100110 = −128 + 64 + 32 + 4 + 2 = **−26**; 10011011 = −128 + 16 + 8 + 2 + 1 = **−101**."
         },
         {
           "type": "callout",
           "tone": "info",
           "title": "Range",
-          "content": "With *n* bits, two's complement represents **−2ⁿ⁻¹ to 2ⁿ⁻¹ − 1**. In 8 bits: **−128 to +127**. A positive number starts with 0, a negative number with 1."
+          "content": "With *n* bits, two's complement represents **−2ⁿ⁻¹ to 2ⁿ⁻¹ − 1**. In **8 bits: −128 to +127**; in 4 bits: −8 to +7; in 16 bits: −32 768 to +32 767. There is only **one zero** (00000000)."
         },
         {
           "type": "interactive",
@@ -135,7 +1768,13 @@
       "blocks": [
         {
           "type": "paragraph",
-          "content": "To calculate **A − B**, add **A + (−B)** where −B is the two's complement of B; ignore any carry out of the MSB."
+          "content": "To calculate **A − B**, the computer **adds A + (−B)**, where −B is the two's complement of B, and **ignores** any carry out of the most significant bit. This way the CPU only needs an **adder** circuit."
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "content": " 39 = 0010 0111 → invert 1101 1000 → +1 → 1101 1001  (−39)\n\n   0100 1001   (73)\n + 1101 1001   (−39)\n -----------\n 1 0010 0010   → ignore the carry → 0010 0010 = 34 ✓",
+          "caption": "73 − 39 in 8 bits (01001001 − 00100111)"
         },
         {
           "type": "code",
@@ -144,8 +1783,14 @@
           "caption": "23 − 14 in 8 bits"
         },
         {
+          "type": "code",
+          "language": "text",
+          "content": " 45 = 0010 1101 → −45 = 1101 0011\n\n   0001 0100   (20)\n + 1101 0011   (−45)\n -----------\n   1110 0111   → MSB is 1, so negative: −128 + 64 + 32 + 4 + 2 + 1 = −25 ✓",
+          "caption": "20 − 45 — a negative answer"
+        },
+        {
           "type": "warning",
-          "content": "Overflow in two's complement happens when adding two numbers **with the same sign** gives a result with the **opposite sign** (e.g. 100 + 50 in 8 bits gives a negative result)."
+          "content": "Overflow happens when adding two numbers **with the same sign** gives a result with the **opposite sign**. Example: 100 + 50 = 01100100 + 00110010 = **10010110**, which reads as **−106** — the real answer 150 is above the 8-bit maximum of +127."
         }
       ]
     },
@@ -156,8 +1801,9 @@
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "A fixed number of bits is used for the **integer part** and for the **fractional part**; the binary point is in a fixed position. Fraction place values are **½, ¼, ⅛, 1/16 …**"
+          "type": "definition",
+          "term": "Fixed-point representation",
+          "content": "A fixed number of bits is used for the **integer part** and a fixed number for the **fractional part**; the **binary point** is always in the same position. Place values after the point are **½, ¼, ⅛, 1/16 …** (0.5, 0.25, 0.125, 0.0625 …)."
         },
         {
           "type": "comparison",
@@ -198,16 +1844,34 @@
         },
         {
           "type": "steps",
-          "title": "Denary → fixed point: 5.75 with 4.4 bits",
+          "title": "Denary → fixed point: 9.375 with 4.4 bits",
           "items": [
-            "Integer part 5 → 0101.",
-            "Fraction 0.75 = 0.5 + 0.25 → .1100.",
-            "Result: **0101.1100**."
+            "Integer part 9 → **1001**.",
+            "Fraction 0.375: multiply by 2 repeatedly — 0.375 × 2 = **0**.75; 0.75 × 2 = **1**.5; 0.5 × 2 = **1**.0 → **.011**.",
+            "Pad to 4 fraction bits: **1001.0110**."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Signed fixed point (two's complement, 4.4 bits)",
+          "content": "The MSB is worth −8: **1110.1000** = −8 + 4 + 2 + 0.5 = **−1.5**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages of fixed point",
+              "content": "- **Simple and fast** arithmetic (like integers).\n- Exact for fractions that are sums of ½, ¼, ⅛ …"
+            },
+            {
+              "title": "Disadvantages",
+              "content": "- **Limited range** — few bits for the integer part.\n- **Limited precision** — few bits for the fraction.\n- Moving bits from one part to the other gains range but loses precision (or the reverse)."
+            }
           ]
         },
         {
           "type": "warning",
-          "content": "Some fractions (e.g. 0.1) **cannot be stored exactly** in binary — they are rounded, which causes small errors."
+          "content": "Some fractions (e.g. **0.1**, 0.2, ⅓) **cannot be stored exactly** in binary — they are **rounded**, which causes small errors in calculations."
         }
       ]
     },
@@ -220,32 +1884,52 @@
         {
           "type": "definition",
           "term": "Floating point",
-          "content": "A number is stored as **mantissa × 2^exponent**. The **mantissa** holds the significant digits (precision); the **exponent** says where the binary point is (range). Both are usually in two's complement."
-        },
-        {
-          "type": "steps",
-          "title": "Denary → normalised floating point: 17.75 (10-bit mantissa, 6-bit exponent)",
-          "items": [
-            "17.75 in binary: 10001.11",
-            "Move the point so the number is 0.1…: **0.1000111** × 2⁵ (point moved 5 places left).",
-            "Mantissa (10 bits, sign bit first): **0100011100**",
-            "Exponent 5 in 6 bits: **000101**"
-          ]
-        },
-        {
-          "type": "steps",
-          "title": "Negative number: −3.5 (8-bit mantissa, 4-bit exponent)",
-          "items": [
-            "+3.5 = 11.1 = 0.111 × 2² → mantissa 0.1110000, exponent 0010.",
-            "Two's complement of the mantissa 01110000 → 10010000.",
-            "−3.5 = mantissa **10010000**, exponent **0010**."
-          ]
+          "content": "A number is stored as **mantissa × 2^exponent**. The **mantissa** holds the significant digits (**precision**); the **exponent** says how far to move the binary point (**range**). Both are usually stored in **two's complement**; the mantissa has an implied binary point **after its first (sign) bit**."
         },
         {
           "type": "callout",
           "tone": "info",
           "title": "Normalisation",
-          "content": "A normalised **positive** mantissa starts **0.1**; a normalised **negative** mantissa starts **1.0**. Normalisation gives the **maximum precision** for the bits available and a **unique** representation for each number."
+          "content": "A normalised **positive** mantissa starts **0.1**; a normalised **negative** mantissa starts **1.0**. Normalisation removes leading 0s (or 1s), giving the **maximum precision** for the bits available and a **unique** representation for each number."
+        },
+        {
+          "type": "steps",
+          "title": "Denary → normalised floating point: 17.75 (10-bit mantissa, 6-bit exponent)",
+          "items": [
+            "17.75 in fixed point: 17 = 10001, 0.75 = .11 → **10001.11**.",
+            "Move the point so the number is 0.1…: **0.100011100** × 2⁵ (the point moved **5** places left).",
+            "Mantissa (10 bits, sign bit first): **0100011100**.",
+            "Exponent 5 in 6-bit two's complement: **000101**."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Negative number: −23.75 (12-bit mantissa, 4-bit exponent)",
+          "items": [
+            "23.75 = 10111.11 = **0.1011111 × 2⁵**.",
+            "Positive mantissa in 12 bits: 010111110000.",
+            "Two's complement (invert, add 1): **101000010000**.",
+            "Exponent 5 → **0101**. Result: mantissa **101000010000**, exponent **0101**."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Floating point → denary",
+          "items": [
+            "Convert the **exponent** (two's complement) to denary.",
+            "Write the mantissa as 0.xxx or 1.xxx and **move the point** right (positive exponent) or left (negative exponent).",
+            "Convert the result to denary (the leading 1 of a negative number is worth −1 before the point moves, or use two's complement on the result)."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Floating point → denary (8-bit mantissa, 4-bit exponent)",
+          "content": "| Mantissa | Exponent | Working | Value |\n|---|---|---|---|\n| 01010000 | 0011 (3) | 0.101 × 2³ = 101.0 | **5** |\n| 01011000 | 0100 (4) | 0.1011 × 2⁴ = 1011 | **11** |\n| 01100000 | 1111 (−1) | 0.11 × 2⁻¹ = 0.011 | **0.375** |\n| 10100000 | 0010 (2) | 1.0100000 = −1 + 0.25 = −0.75; × 2² | **−3** |\n| 10110000 | 0011 (3) | −1 + 0.25 + 0.125 = −0.625; × 2³ | **−5** |"
+        },
+        {
+          "type": "example",
+          "title": "Normalising a number",
+          "content": "Mantissa **00011010**, exponent **0101** (5) is not normalised (starts 0.00…). Shift the mantissa **2** places left → **01101000** and **subtract 2** from the exponent → **0011** (3). Value is unchanged: 0.1101 × 2³ = 110.1 = **6.5**."
         },
         {
           "type": "comparison",
@@ -256,17 +1940,90 @@
           ],
           "rows": [
             [
-              "Greater **precision** (accuracy)",
-              "Greater **range** (larger and smaller numbers)"
+              "Greater **precision** (accuracy, more significant digits)",
+              "Greater **range** (much larger and much smaller numbers)"
+            ],
+            [
+              "Smaller range with the same total bits",
+              "Less precision with the same total bits"
             ]
           ]
         },
         {
+          "type": "comparison",
+          "title": "Fixed point vs floating point",
+          "columns": [
+            "",
+            "Fixed point",
+            "Floating point"
+          ],
+          "rows": [
+            [
+              "Range",
+              "Small",
+              "**Very large** for the same number of bits"
+            ],
+            [
+              "Precision",
+              "Same absolute precision everywhere",
+              "Precision depends on the size of the number"
+            ],
+            [
+              "Speed",
+              "**Faster**, simpler hardware",
+              "Slower, needs more complex processing"
+            ],
+            [
+              "Use",
+              "Money in some systems, simple embedded devices",
+              "Science, graphics, most real numbers in programs"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.1.1.3",
+        "12.1.1.4",
+        "12.1.1.5",
+        "12.1.1.6",
+        "12.1.1.7"
+      ],
+      "blocks": [
+        {
           "type": "example",
-          "title": "Floating point → denary",
-          "content": "Mantissa 0.1010000, exponent 0011 (= 3): 0.101 × 2³ = 101.0₂ = **5**"
+          "title": "Exam-style answers",
+          "content": "**Q: Represent −15 as an 8-bit two's complement integer. Show your working. [3]**\n+15 = 00001111 (1); invert → 11110000 (1); add 1 → **11110001** (1).\n\n**Q: Subtract 14₁₀ from 23₁₀ using binary. [3]**\n23 = 00010111 (1); −14 = 11110010 (1); 00010111 + 11110010 = 1 00001001 → ignore carry → **00001001** = 9 (1).\n\n**Q: The byte 10110001 is an unsigned fixed-point number with three fraction bits. Give its denary value. [2]**\n10110 = **22** (1); .001 = **0.125** (1) → 22.125.\n\n**Q: Convert 17.75 to normalised floating point with a 10-bit mantissa and 6-bit exponent. [4]**\nFixed point 010001.1100 (1); normalised 0.100011100 × 2⁵ (1); exponent **000101** (1); mantissa **0100011100** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting the **carry** in addition, or not ignoring the final carry in two's complement subtraction.\n- Inverting the bits but **forgetting to add 1**.\n- Using the **wrong number of bits** — pad positive numbers with leading 0s **before** inverting.\n- In floating point, moving the point the **wrong way**: a positive exponent moves it **right**.\n- Not **normalising** the mantissa when the question asks for normalised form."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Add 00111011 and 01010110. Did overflow occur?",
+            "Multiply 1110 by 11.",
+            "Write −56 in 8-bit two's complement; convert 10011011 to denary.",
+            "Calculate 12 − 30 using 8-bit two's complement.",
+            "Convert 9.375 to fixed point with 4 integer and 4 fraction bits.",
+            "Convert −6.75 to normalised floating point (8-bit mantissa, 4-bit exponent)."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Binary arithmetic — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. Show your working. Negative numbers, mantissas and exponents are in two's complement unless stated otherwise. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "bar-exam-1",
+      "bar-exam-2",
+      "bar-exam-3"
+    ]
+  }
 }

@@ -1,8 +1,1483 @@
 {
   "topic": "g12-types-of-errors",
-  "questions": [],
-  "summary": "Syntax and logic errors in program code — how to recognise, locate and correct them, with examples in pseudocode and Python.",
+  "questions": [
+    {
+      "key": "te-define-syntax",
+      "title": "Describe a syntax error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "Describe what is meant by a **syntax error**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The code breaks the rules / grammar of the programming language, e.g. misspelt keyword, missing bracket (1)\n- so it cannot be translated / the program will not run and the translator gives an error message (1)",
+        "points": [
+          {
+            "criterion": "Breaks the language rules",
+            "marks": 1
+          },
+          {
+            "criterion": "Cannot be translated / error reported",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An error where the code does not follow the grammar rules of the language, such as a misspelt keyword, so the translator cannot translate it and reports an error."
+      }
+    },
+    {
+      "key": "te-define-logic",
+      "title": "Describe a logic error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Describe what is meant by a **logic error**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- An error in the algorithm / design of the program; the code is syntactically correct and runs (1)\n- but produces incorrect output / does not do what was intended; no error message (1)",
+        "points": [
+          {
+            "criterion": "Program runs / algorithm wrong",
+            "marks": 1
+          },
+          {
+            "criterion": "Wrong result",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An error in the algorithm: the program runs without crashing, but it gives the wrong result, for example because > was used instead of >=."
+      }
+    },
+    {
+      "key": "te-classify-tick",
+      "title": "Classify the errors",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.3.5",
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the type of programming error.",
+      "content": {
+        "columns": [
+          "Description",
+          "Syntax",
+          "Logic",
+          "Runtime"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "The programmer misspelt a statement while coding",
+            null,
+            null,
+            null
+          ],
+          [
+            "Incorrect use of brackets in a calculation",
+            null,
+            null,
+            null
+          ],
+          [
+            "The program divides by a variable that is zero and crashes",
+            null,
+            null,
+            null
+          ],
+          [
+            "A closing quotation mark is missing",
+            null,
+            null,
+            null
+          ],
+          [
+            "The loop runs 9 times instead of 10",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Syntax; 2 Logic; 3 Runtime; 4 Syntax; 5 Logic\n\nFive correct (4); four (3); three (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Four rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All five rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "ai_instructions": "Award 4 for five correct rows, 3 for four, 2 for three, 1 for one or two."
+      }
+    },
+    {
+      "key": "te-message-tf",
+      "title": "Logic errors and messages",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "When a program contains a logic error, the compiler displays an error message with the line number.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Logic errors are syntactically correct code, so the translator does not detect them; they are found by testing."
+      }
+    },
+    {
+      "key": "te-syntax-examples-mr",
+      "title": "Syntax errors",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "Select **two** lines of Python that contain a **syntax** error.",
+      "options": [
+        {
+          "key": "A",
+          "content": "whlie count < 10:"
+        },
+        {
+          "key": "B",
+          "content": "area = length + width   (should multiply)"
+        },
+        {
+          "key": "C",
+          "content": "print(\"Total:\", total"
+        },
+        {
+          "key": "D",
+          "content": "for i in range(1, 10):   (should include 10)"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "A misspells while; C is missing a closing bracket. B and D run but give wrong results — logic errors."
+      }
+    },
+    {
+      "key": "te-fix-syntax",
+      "title": "Correct the syntax errors",
+      "type": "code_analysis",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "```python\n1  score = int(input(\"Enter score: \"))\n2  if score >= 50\n3      print(\"Pass)\n4  else:\n5      pirnt(\"Fail\")\n```\n\nIdentify the **three** syntax errors and write each corrected line.",
+      "content": {
+        "language": "python",
+        "answer_lines": 5
+      },
+      "scheme": {
+        "mark_scheme": "Line 2: missing colon → if score >= 50: (1)\nLine 3: missing closing quotation mark → print(\"Pass\") (1)\nLine 5: misspelt print → print(\"Fail\") (1)",
+        "points": [
+          {
+            "criterion": "Line 2 corrected",
+            "marks": 1
+          },
+          {
+            "criterion": "Line 3 corrected",
+            "marks": 1
+          },
+          {
+            "criterion": "Line 5 corrected",
+            "marks": 1
+          }
+        ],
+        "model_answer": "2: if score >= 50:\n3: print(\"Pass\")\n5: print(\"Fail\")"
+      }
+    },
+    {
+      "key": "te-error-message",
+      "title": "Read an error message",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "```text\n  File \"shop.py\", line 7\n    total = price * quantity +\n                              ^\nSyntaxError: invalid syntax\n```\n\nState the line that contains the error and explain what is wrong with it.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Line",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "What is wrong",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Line 7 (1)\nThe expression ends with + — an operand / value is missing after the operator (1)",
+        "points": [
+          {
+            "criterion": "Line 7",
+            "marks": 1
+          },
+          {
+            "criterion": "Missing operand after +",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Line 7. The expression ends with a + operator but there is no value after it."
+      }
+    },
+    {
+      "key": "te-compiler-interpreter",
+      "title": "Detecting syntax errors",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "Describe how syntax errors are reported by a **compiler** and by an **interpreter**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A compiler checks the whole program and reports all syntax errors (with line numbers) after translation; no executable is produced (1)\n- An interpreter stops at the first syntax error it reaches / reports errors one at a time (1)",
+        "points": [
+          {
+            "criterion": "Compiler: all errors after translation",
+            "marks": 1
+          },
+          {
+            "criterion": "Interpreter: stops at the first error",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A compiler translates the whole program and then lists all the syntax errors with their line numbers, while an interpreter stops as soon as it reaches the first syntax error."
+      }
+    },
+    {
+      "key": "te-brackets",
+      "title": "Brackets in a calculation",
+      "type": "code_completion",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "```python\naverage = a + b + c / 3\n```\n\nThis line should calculate the mean of three numbers. Explain the logic error and write the line in the correct form.",
+      "content": {
+        "language": "python",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- Only c is divided by 3 because division is done before addition / brackets are missing (1)\n- average = (a + b + c) / 3 (1)",
+        "points": [
+          {
+            "criterion": "Explains order of operations",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct line",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Division is carried out before addition, so only c is divided by 3. Correct: average = (a + b + c) / 3"
+      }
+    },
+    {
+      "key": "te-operator",
+      "title": "Wrong relational operator",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "A pupil passes with a mark of **50 or more**. The program uses `if mark > 50:`. Explain the logic error and give a test value that shows it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- > excludes 50, so a pupil with exactly 50 is shown as fail; should be >= (1)\n- test value 50 (1)",
+        "points": [
+          {
+            "criterion": "Explains > vs >=",
+            "marks": 1
+          },
+          {
+            "criterion": "Test value 50",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The condition should be mark >= 50; with > a pupil who scores exactly 50 is wrongly shown as failing. Testing with 50 reveals the error."
+      }
+    },
+    {
+      "key": "te-logic-match",
+      "title": "Logic errors and their effects",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Match each logic error to its effect.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "total = 0 is placed inside the loop"
+          },
+          {
+            "key": "L2",
+            "text": "count is never increased inside a WHILE count < 10 loop"
+          },
+          {
+            "key": "L3",
+            "text": "for i in range(1, 10) is used to print 1 to 10"
+          },
+          {
+            "key": "L4",
+            "text": "and is used instead of or in if mark < 0 and mark > 100"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The total is reset on every repetition"
+          },
+          {
+            "key": "R2",
+            "text": "The loop never ends"
+          },
+          {
+            "key": "R3",
+            "text": "The last number is not printed"
+          },
+          {
+            "key": "R4",
+            "text": "Invalid marks are never rejected"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "te-guess-line",
+      "title": "Find the logic error",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "```text\n1  count ← 0\n2  secret ← 7\n3  guess ← 0\n4  WHILE guess <> secret\n5      INPUT guess\n6      count ← count + 1\n7  ENDWHILE\n8  OUTPUT \"Well done, you took \", count - 1, \" attempts\"\n```\n\nState the number of the line that contains a logic error.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Line 8 (1)",
+        "points": [
+          {
+            "criterion": "8",
+            "marks": 1
+          }
+        ],
+        "model_answer": "8",
+        "accepted": {
+          "values": [
+            "8",
+            "line 8"
+          ]
+        },
+        "explanation": "count already equals the number of attempts, so subtracting 1 gives the wrong answer."
+      }
+    },
+    {
+      "key": "te-guess-rewrite",
+      "title": "Rewrite the line",
+      "type": "code_completion",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Rewrite line 8 of the algorithm in the previous question in the correct form.\n\n```text\n8  OUTPUT \"Well done, you took \", count - 1, \" attempts\"\n```",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "OUTPUT \"Well done, you took \", count, \" attempts\" (1)",
+        "points": [
+          {
+            "criterion": "count without - 1",
+            "marks": 1
+          }
+        ],
+        "model_answer": "OUTPUT \"Well done, you took \", count, \" attempts\""
+      }
+    },
+    {
+      "key": "te-trace-largest",
+      "title": "Trace to find a logic error",
+      "type": "trace_table",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "This code should output the largest number.\n\n```python\nnumbers = [4, 9, 2]\nlargest = 0\nfor n in numbers:\n    if n < largest:\n        largest = n\nprint(largest)\n```\n\nComplete the trace table to show the value of `largest` after each value of `n`.",
+      "content": {
+        "columns": [
+          "n",
+          "largest"
+        ],
+        "rows": 3
+      },
+      "scheme": {
+        "mark_scheme": "4 → 0 (1); 9 → 0 (1); 2 → 0 (1)\n(The output is 0, which shows the comparison should be n > largest.)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| n | largest |\n|---|---|\n| 4 | 0 |\n| 9 | 0 |\n| 2 | 0 |",
+        "accepted": {
+          "rows": [
+            [
+              "4",
+              "0"
+            ],
+            [
+              "9",
+              "0"
+            ],
+            [
+              "2",
+              "0"
+            ]
+          ]
+        },
+        "explanation": "No number is less than 0, so largest never changes. The condition must be n > largest."
+      }
+    },
+    {
+      "key": "te-why-harder",
+      "title": "Why logic errors are hard to find",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Explain why logic errors are usually harder to find than syntax errors.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): no error message / translator does not detect them; the program runs normally; it may only give wrong results for some inputs (boundaries); the programmer must know the expected result / test and trace to find them",
+        "points": [
+          {
+            "criterion": "No error message / program runs",
+            "marks": 1
+          },
+          {
+            "criterion": "Only found by testing / some inputs",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The translator does not report logic errors because the code is valid, so the program runs normally; the error only shows as wrong output, sometimes only for certain inputs, and must be found by testing."
+      }
+    },
+    {
+      "key": "te-debug-tools",
+      "title": "Debugging tools",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Match each debugging tool to what it does.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Breakpoint"
+          },
+          {
+            "key": "L2",
+            "text": "Stepping"
+          },
+          {
+            "key": "L3",
+            "text": "Watch window"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Pauses the program at a chosen line"
+          },
+          {
+            "key": "R2",
+            "text": "Runs the program one line at a time"
+          },
+          {
+            "key": "R3",
+            "text": "Shows the current values of variables"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "te-equals",
+      "title": "= or ==",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.5"
+      ],
+      "practice": true,
+      "text": "In Python, the line `if total = 100:` produces which type of error?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Syntax error"
+        },
+        {
+          "key": "B",
+          "content": "Logic error"
+        },
+        {
+          "key": "C",
+          "content": "Runtime error"
+        },
+        {
+          "key": "D",
+          "content": "No error"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Assignment (=) is not allowed in an if condition in Python; the comparison operator == is required, so the line cannot be translated."
+      }
+    },
+    {
+      "key": "te-structured-average",
+      "title": "A class average program",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "The algorithm should input 5 marks and output how many are **50 or more** and the average mark.\n\n```text\n1  passes ← 0\n2  FOR i ← 1 TO 5\n3      INPUT mark\n4      total ← 0\n5      total ← total + mark\n6      IF mark > 50 THEN\n7          passes ← passes + 1\n8      ENDIF\n9  ENDFOR\n10 OUTPUT passes, total / 5\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "te-avg-a",
+          "part_label": "(a)",
+          "title": "Lines with logic errors",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "practice": true,
+          "text": "Identify the **two** lines that contain logic errors.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Line",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Line",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Line 4 (1)\nLine 6 (1)\nEither order.",
+            "points": [
+              {
+                "criterion": "Line 4",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 6",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Line 4 and line 6."
+          }
+        },
+        {
+          "key": "te-avg-b",
+          "part_label": "(b)",
+          "title": "Correct them",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "practice": true,
+          "text": "Explain how each error should be corrected.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Move total ← 0 before the loop (before line 2) so the total is not reset each time (1)\n- Line 6: IF mark >= 50 THEN (1)",
+            "points": [
+              {
+                "criterion": "Initialise total before the loop",
+                "marks": 1
+              },
+              {
+                "criterion": ">= 50",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Move total ← 0 above the FOR loop so it is not reset every time, and change line 6 to IF mark >= 50 THEN."
+          }
+        },
+        {
+          "key": "te-avg-c",
+          "part_label": "(c)",
+          "title": "Test value",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "practice": true,
+          "text": "Give **one** test value for `mark` that would reveal the error in line 6, and explain why.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "50 (1) — it should count as a pass but > 50 does not count it (1)",
+            "points": [
+              {
+                "criterion": "50",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "50 — it should be counted as a pass, but the condition mark > 50 does not count it."
+          }
+        }
+      ]
+    },
+    {
+      "key": "te-extended-compare",
+      "title": "Syntax vs logic errors",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.5",
+        "12.5.3.6"
+      ],
+      "practice": true,
+      "text": "Compare syntax errors and logic errors. In your answer, explain what causes each type, when and how each is detected, and give a code example of each.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "Syntax (max 3): breaks the language rules (1); detected by the translator during translation, with an error message / line number; program does not run (1); valid example, e.g. misspelt keyword / missing bracket (1)\nLogic (max 3): error in the algorithm; code is valid and runs (1); detected only by testing / trace tables / comparing expected and actual output; no message (1); valid example, e.g. > instead of >=, missing brackets in a formula (1)",
+        "points": [
+          {
+            "criterion": "Cause of syntax errors",
+            "marks": 1
+          },
+          {
+            "criterion": "Detection of syntax errors",
+            "marks": 1
+          },
+          {
+            "criterion": "Example of a syntax error",
+            "marks": 1
+          },
+          {
+            "criterion": "Cause of logic errors",
+            "marks": 1
+          },
+          {
+            "criterion": "Detection of logic errors",
+            "marks": 1
+          },
+          {
+            "criterion": "Example of a logic error",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A syntax error happens when code breaks the grammar rules of the language, for example pritn(\"Hi\") or a missing closing bracket. It is detected by the compiler or interpreter during translation, which gives an error message with the line number, and the program cannot run until it is fixed. A logic error is a mistake in the algorithm: the code is valid and runs, but gives the wrong result, for example average = a + b / 2 instead of (a + b) / 2. There is no error message, so logic errors are found only by testing, comparing expected and actual results, and using trace tables or debugging tools."
+      }
+    },
+    {
+      "key": "te-exam-1",
+      "title": "Types of error",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Programmers make different types of error when writing code.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "te-exam-1a",
+          "part_label": "(a)",
+          "title": "Determine the type",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.3.5",
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Determine the type of programming error by its description. Tick (✓) **one** box in each row.",
+          "content": {
+            "columns": [
+              "Description",
+              "Syntax",
+              "Logic",
+              "Runtime"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "The programmer misspelt a statement while coding",
+                null,
+                null,
+                null
+              ],
+              [
+                "The program uses the index of an array element outside the bounds of the array",
+                null,
+                null,
+                null
+              ],
+              [
+                "Incorrect use of brackets in a calculation",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 Syntax (1); 2 Runtime (1); 3 Logic (1)",
+            "points": [
+              {
+                "criterion": "Row 1 syntax",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2 runtime",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3 logic",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "te-exam-1b",
+          "part_label": "(b)",
+          "title": "Syntax error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe a syntax error in a program code.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Code breaks the rules / grammar of the language (example) (1)\n- the program cannot be translated / run; the translator reports it (1)",
+            "points": [
+              {
+                "criterion": "Breaks language rules",
+                "marks": 1
+              },
+              {
+                "criterion": "Cannot be translated / reported",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An error where the code breaks the rules of the language, such as a missing bracket, so the compiler cannot translate the program and reports the error."
+          }
+        },
+        {
+          "key": "te-exam-1c",
+          "part_label": "(c)",
+          "title": "Logic error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe a logic error in a program code.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Error in the algorithm; the program runs (1)\n- but gives incorrect results / does not do what was intended (1)",
+            "points": [
+              {
+                "criterion": "Program runs, algorithm wrong",
+                "marks": 1
+              },
+              {
+                "criterion": "Incorrect result",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A mistake in the algorithm: the program runs to the end without an error message but produces the wrong output."
+          }
+        },
+        {
+          "key": "te-exam-1d",
+          "part_label": "(d)",
+          "title": "Harder to find",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** reason why logic errors are harder to find than syntax errors.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): no error message; translator does not detect them; program runs normally; only appear for some inputs",
+            "points": [
+              {
+                "criterion": "Valid reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The translator gives no error message, because the code is valid."
+          }
+        }
+      ]
+    },
+    {
+      "key": "te-exam-2",
+      "title": "A shop program",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A program calculates the total cost of an order with a 10% discount.\n\n```python\n1  price = float(input(\"Price: \")\n2  quantity = int(input(\"Quantity: \"))\n3  if quantity > 0\n4      total = price * quantity\n5      discount = total * 10 / 100\n6      pay = total - discount\n7      pirnt(\"To pay:\", pay)\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "te-exam-2a",
+          "part_label": "(a)",
+          "title": "Syntax errors",
+          "type": "code_analysis",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The program contains **three** syntax errors. Identify the line of each error and write the corrected line.",
+          "content": {
+            "language": "python",
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Line 1: missing closing bracket → price = float(input(\"Price: \")) (1)\nLine 3: missing colon → if quantity > 0: (1)\nLine 7: misspelt print → print(\"To pay:\", pay) (1)",
+            "points": [
+              {
+                "criterion": "Line 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 7",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1: price = float(input(\"Price: \"))\n3: if quantity > 0:\n7: print(\"To pay:\", pay)"
+          }
+        },
+        {
+          "key": "te-exam-2b",
+          "part_label": "(b)",
+          "title": "Discount change",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "After the syntax errors are fixed, the shop changes the rules: the discount should be given **only when the quantity is 10 or more**. A programmer changes line 3 to `if quantity > 10:`. Explain why this is a logic error.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- An order of exactly 10 items does not get the discount / > excludes 10 (1)\n- it should be >= 10; the program runs but gives the wrong result (1)",
+            "points": [
+              {
+                "criterion": "10 is excluded",
+                "marks": 1
+              },
+              {
+                "criterion": "Should be >= / runs with wrong result",
+                "marks": 1
+              }
+            ],
+            "model_answer": "With > 10, a customer who buys exactly 10 items does not get the discount, although they should. The condition should be quantity >= 10; the program still runs, but gives a wrong result."
+          }
+        },
+        {
+          "key": "te-exam-2c",
+          "part_label": "(c)",
+          "title": "Brackets",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Another programmer replaces lines 4–6 with `pay = price * quantity - price * quantity * 10 / 100` but types `pay = price * quantity - quantity * 10 / 100`. Explain the error and write the line in the correct form.",
+          "content": {
+            "language": "python",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- price is missing from the discount part, so the discount is calculated on the quantity, not the total (logic error) (1)\n- pay = price * quantity - price * quantity * 10 / 100 / pay = price * quantity * 0.9 (1)",
+            "points": [
+              {
+                "criterion": "Explains the wrong discount",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct line",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The discount uses quantity * 10 / 100 instead of the total price, so it is wrong. Correct: pay = price * quantity * 0.9"
+          }
+        },
+        {
+          "key": "te-exam-2d",
+          "part_label": "(d)",
+          "title": "Error type",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the type of error in part (c).",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Logic error (1)",
+            "points": [
+              {
+                "criterion": "Logic",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Logic error.",
+            "accepted": {
+              "values": [
+                "logic",
+                "logic error",
+                "logical error",
+                "logical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "te-exam-3",
+      "title": "Finding logic errors",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The algorithm should input the temperatures for 7 days and output the number of days that were **below 0** and the **average** temperature.\n\n```text\n1  cold ← 0\n2  FOR day ← 1 TO 7\n3      INPUT temp\n4      sum ← 0\n5      sum ← sum + temp\n6      IF temp > 0 THEN\n7          cold ← cold + 1\n8      ENDIF\n9  ENDFOR\n10 OUTPUT cold, sum / 7\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "te-exam-3a",
+          "part_label": "(a)",
+          "title": "Lines",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the numbers of the **two** lines that contain logic errors.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Line",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Line",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Line 4 (1)\nLine 6 (1)",
+            "points": [
+              {
+                "criterion": "Line 4",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 6",
+                "marks": 1
+              }
+            ],
+            "model_answer": "4 and 6"
+          }
+        },
+        {
+          "key": "te-exam-3b",
+          "part_label": "(b)",
+          "title": "Corrected algorithm",
+          "type": "pseudocode",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Rewrite the algorithm in the correct form.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "scheme": {
+            "mark_scheme": "- sum ← 0 placed before the loop (1)\n- IF temp < 0 THEN (1)\n- rest of the algorithm unchanged and correct (loop, input, sum, count, output) (1)",
+            "points": [
+              {
+                "criterion": "sum initialised before the loop",
+                "marks": 1
+              },
+              {
+                "criterion": "temp < 0",
+                "marks": 1
+              },
+              {
+                "criterion": "Rest correct",
+                "marks": 1
+              }
+            ],
+            "model_answer": "cold ← 0\nsum ← 0\nFOR day ← 1 TO 7\n    INPUT temp\n    sum ← sum + temp\n    IF temp < 0 THEN\n        cold ← cold + 1\n    ENDIF\nENDFOR\nOUTPUT cold, sum / 7"
+          }
+        },
+        {
+          "key": "te-exam-3c",
+          "part_label": "(c)",
+          "title": "Trace tables",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how a trace table could help the programmer find these logic errors.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The programmer follows the algorithm with test data, recording the value of each variable (sum, cold) after each step (1)\n- and compares the values with the expected ones — e.g. sees sum reset every day / cold increasing for warm days (1)",
+            "points": [
+              {
+                "criterion": "Records variable values step by step",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparison reveals where values go wrong",
+                "marks": 1
+              }
+            ],
+            "model_answer": "By dry-running the algorithm with sample temperatures and writing sum and cold after each day, the programmer would see that sum goes back to the current temperature every day and cold increases on warm days, showing which lines are wrong."
+          }
+        },
+        {
+          "key": "te-exam-3d",
+          "part_label": "(d)",
+          "title": "Debugging tool",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "name",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name **one** feature of an IDE that helps to find logic errors.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): breakpoints; stepping through code; watch window / variable inspector; debugger",
+            "points": [
+              {
+                "criterion": "Valid feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Breakpoints."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Syntax errors and logic errors in program code — what causes them, how they are detected, how they differ from runtime errors, and how to find and correct them using error messages, trace tables and debugging tools.",
   "theory": [
+    {
+      "title": "Three kinds of programming error",
+      "objectives": [
+        "12.5.3.5",
+        "12.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Every program a programmer writes can contain errors (**bugs**). They are grouped by **when** they show themselves and **what** goes wrong."
+        },
+        {
+          "type": "comparison",
+          "title": "Syntax, runtime and logic errors",
+          "columns": [
+            "",
+            "Syntax error",
+            "Runtime (execution) error",
+            "Logic error"
+          ],
+          "rows": [
+            [
+              "What is wrong",
+              "The code **breaks the grammar rules** of the language",
+              "An operation is **impossible** while the program runs",
+              "The **algorithm is wrong**"
+            ],
+            [
+              "When it is found",
+              "During **translation** (compiling / interpreting) — before or as the line is run",
+              "While the program is **running**",
+              "Only when the **output is checked**"
+            ],
+            [
+              "Does the program run?",
+              "**No** (compiler) / stops at that line (interpreter)",
+              "Starts, then **crashes**",
+              "**Yes** — it runs to the end"
+            ],
+            [
+              "Error message?",
+              "**Yes**, with a line number",
+              "**Yes** (exception)",
+              "**No**"
+            ],
+            [
+              "Example",
+              "`pritn(\"Hi\")`, missing `)`",
+              "Division by zero, index out of range",
+              "`>` instead of `>=`, wrong formula"
+            ],
+            [
+              "How to find",
+              "Read the translator's error message",
+              "Testing with erroneous / extreme data",
+              "Testing, **trace tables**, dry runs, debugging"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Runtime errors",
+          "content": "Runtime (execution) errors and test data are covered in the topic **Types of test data**. This topic focuses on **syntax** and **logic** errors."
+        }
+      ]
+    },
     {
       "title": "Syntax errors",
       "objectives": [
@@ -12,17 +1487,78 @@
         {
           "type": "definition",
           "term": "Syntax error",
-          "content": "Code that **breaks the grammar rules** of the language, so it cannot be translated. The compiler or interpreter reports it, usually with the line number."
+          "content": "An error in the **spelling, grammar or punctuation** of the program code — the code **does not follow the rules (syntax)** of the programming language — so the **translator cannot translate it** into machine code."
+        },
+        {
+          "type": "comparison",
+          "title": "Common syntax errors",
+          "columns": [
+            "Cause",
+            "Wrong code",
+            "Correct code"
+          ],
+          "rows": [
+            [
+              "**Misspelt keyword** / function name",
+              "`pritn(\"Total\")` / `whlie x < 5:`",
+              "`print(\"Total\")` / `while x < 5:`"
+            ],
+            [
+              "**Missing or extra bracket**",
+              "`print(\"Total\"`",
+              "`print(\"Total\")`"
+            ],
+            [
+              "**Missing quotation mark**",
+              "`print(\"Total)`",
+              "`print(\"Total\")`"
+            ],
+            [
+              "**Missing colon** (Python)",
+              "`if score > 50`",
+              "`if score > 50:`"
+            ],
+            [
+              "**Wrong indentation** (Python)",
+              "`if x > 0:` ⏎ `print(x)` (not indented)",
+              "`if x > 0:` ⏎ `····print(x)`"
+            ],
+            [
+              "**Using `=` instead of `==`** in a condition",
+              "`if x = 5:`",
+              "`if x == 5:`"
+            ],
+            [
+              "**Missing `END…`** in pseudocode",
+              "`IF … THEN … ` (no `ENDIF`)",
+              "`IF … THEN … ENDIF`"
+            ],
+            [
+              "**Invalid variable name**",
+              "`2total = 0`, `my score = 0`",
+              "`total2 = 0`, `my_score = 0`"
+            ],
+            [
+              "**Missing operator**",
+              "`total = price quantity`",
+              "`total = price * quantity`"
+            ],
+            [
+              "**Missing semicolon** (C, Java, PHP)",
+              "`$x = 5`",
+              "`$x = 5;`"
+            ]
+          ]
         },
         {
           "type": "code",
           "language": "python",
-          "content": "1  def average(marks)\n2      total = 0\n3      for m in marks\n4          total = total + m\n5      retrun total / len(marks)\n6  print(average([7, 9, 4])",
-          "caption": "Find the syntax errors"
+          "content": "1  score = int(input(\"Enter score: \"))\n2  if score >= 50\n3      print(\"Pass)\n4  else:\n5      pirnt(\"Fail\")",
+          "caption": "A program with three syntax errors"
         },
         {
           "type": "comparison",
-          "title": "Corrections",
+          "title": "Finding and correcting the syntax errors",
           "columns": [
             "Line",
             "Error",
@@ -30,26 +1566,38 @@
           ],
           "rows": [
             [
-              "1",
-              "Missing colon after the function header",
-              "`def average(marks):`"
+              "2",
+              "Missing colon at the end of the `if` statement",
+              "`if score >= 50:`"
             ],
             [
               "3",
-              "Missing colon after `for`",
-              "`for m in marks:`"
+              "Missing closing quotation mark",
+              "`print(\"Pass\")`"
             ],
             [
               "5",
-              "Misspelt keyword",
-              "`return total / len(marks)`"
-            ],
-            [
-              "6",
-              "Missing closing bracket",
-              "`print(average([7, 9, 4]))`"
+              "Misspelt function name",
+              "`print(\"Fail\")`"
             ]
           ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "How syntax errors are detected",
+              "content": "- The **compiler** lists all syntax errors after translation, with **line numbers and messages**; no executable is produced.\n- An **interpreter** stops at the **first** syntax error it meets.\n- An **IDE** underlines syntax errors **as you type** and suggests fixes."
+            },
+            {
+              "title": "Reading an error message",
+              "content": "```text\n  File \"grades.py\", line 2\n    if score >= 50\n                  ^\nSyntaxError: expected ':'\n```\nThe message gives the **file**, the **line number**, a **pointer** (^) to the place, and the **type** of error."
+            }
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "A missing bracket or quotation mark is often reported on the **next** line, because the translator only notices the problem when it reads further. Check the reported line **and the line before it**."
         }
       ]
     },
@@ -62,82 +1610,234 @@
         {
           "type": "definition",
           "term": "Logic error",
-          "content": "The program runs but **produces incorrect results** because the algorithm or a calculation is wrong. The translator cannot detect it."
-        },
-        {
-          "type": "code",
-          "language": "pseudocode",
-          "content": "01 count ← 0\n02 largest ← 0\n03 FOR i ← 1 TO 9            // array has 10 marks: Marks[1:10]\n04     IF Marks[i] > 5 THEN\n05         count ← count + 1\n06     ENDIF\n07     IF Marks[i] < largest THEN\n08         largest ← Marks[i]\n09     ENDIF\n10 NEXT i\n11 OUTPUT count, largest",
-          "caption": "Find the logic errors: count marks of 5 or more and find the largest mark"
+          "content": "An error in the **design / algorithm** of the program: the code is **syntactically correct** and **runs without crashing**, but it **does not do what was intended** — it gives **wrong output** or behaves incorrectly."
         },
         {
           "type": "comparison",
-          "title": "Corrections",
+          "title": "Common logic errors",
           "columns": [
-            "Line",
-            "Logic error",
-            "Correction"
+            "Cause",
+            "Wrong code",
+            "What happens",
+            "Correct code"
           ],
           "rows": [
             [
-              "03",
-              "Loop stops at 9, the last mark is never checked (off-by-one)",
-              "`FOR i ← 1 TO 10`"
+              "**Wrong relational operator**",
+              "`if age > 18:` (adult means 18 or over)",
+              "An 18-year-old is not counted",
+              "`if age >= 18:`"
             ],
             [
-              "04",
-              "`>` misses marks equal to 5",
-              "`IF Marks[i] >= 5 THEN`"
+              "**Incorrect use of brackets** / order of operations",
+              "`average = a + b + c / 3`",
+              "Only `c` is divided by 3",
+              "`average = (a + b + c) / 3`"
             ],
             [
-              "07",
-              "Wrong comparison: finds nothing (largest stays 0)",
-              "`IF Marks[i] > largest THEN`"
+              "**Wrong arithmetic operator**",
+              "`area = length + width`",
+              "Adds instead of multiplying",
+              "`area = length * width`"
+            ],
+            [
+              "**Off-by-one loop**",
+              "`for i in range(1, 10):` to print 1–10",
+              "Prints 1–9",
+              "`for i in range(1, 11):`"
+            ],
+            [
+              "**Wrong variable**",
+              "`print(count)` instead of `print(total)`",
+              "Shows the wrong value",
+              "`print(total)`"
+            ],
+            [
+              "**Variable not initialised / reset in the wrong place**",
+              "`total = 0` inside the loop",
+              "Total is reset every time",
+              "`total = 0` before the loop"
+            ],
+            [
+              "**Wrong logical operator**",
+              "`if mark < 0 and mark > 100:`",
+              "Condition can never be true — invalid marks accepted",
+              "`if mark < 0 or mark > 100:`"
+            ],
+            [
+              "**Infinite loop**",
+              "`while count < 10:` without `count = count + 1`",
+              "Program never ends",
+              "Increase `count` inside the loop"
+            ],
+            [
+              "**Statements in the wrong order**",
+              "Output before the calculation",
+              "Old value printed",
+              "Calculate, then output"
             ]
           ]
         },
         {
-          "type": "steps",
-          "title": "Finding logic errors",
-          "items": [
-            "Work out the **expected result** by hand for simple test data.",
-            "**Dry-run** the code with a **trace table**, recording every variable after each line.",
-            "Compare the trace with the expected values — the first difference shows the faulty line.",
-            "Use **breakpoints**, **watches** and **step-through** in an IDE debugger, or print intermediate values."
-          ]
+          "type": "code",
+          "language": "text",
+          "content": "1  count ← 0\n2  secret ← 7\n3  guess ← 0\n4  WHILE guess <> secret\n5      INPUT guess\n6      count ← count + 1\n7  ENDWHILE\n8  OUTPUT \"Well done, you took \", count - 1, \" attempts\"",
+          "caption": "Pseudocode with a logic error — find the line"
         },
         {
           "type": "comparison",
-          "title": "Syntax vs logic errors",
+          "title": "Correcting the logic error",
           "columns": [
-            "",
-            "Syntax error",
-            "Logic error"
+            "Line",
+            "Problem",
+            "Correct line"
           ],
           "rows": [
             [
-              "Program runs?",
-              "No",
-              "Yes"
+              "8",
+              "`count` already holds the number of attempts; subtracting 1 gives a wrong answer",
+              "`OUTPUT \"Well done, you took \", count, \" attempts\"`"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "How logic errors are found",
+              "content": "- **Testing** with normal, extreme and erroneous data and comparing the **actual** result with the **expected** result.\n- **Dry run / trace table** — follow the algorithm by hand, writing the value of each variable after each step.\n- **Debugging tools** in the IDE (see below).\n- **Code review** — another programmer reads the code."
+            },
+            {
+              "title": "Why they are the hardest to find",
+              "content": "- There is **no error message** — the translator accepts the code.\n- The program may give correct results for **most** inputs and fail only for some (often at the **boundaries**).\n- The programmer must understand **what the correct result should be**."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Finding logic errors with trace tables",
+      "objectives": [
+        "12.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "python",
+          "content": "numbers = [4, 9, 2, 7]\nlargest = 0\nfor n in numbers:\n    if n < largest:\n        largest = n\nprint(largest)",
+          "caption": "Intended: output the largest of the numbers"
+        },
+        {
+          "type": "comparison",
+          "title": "Trace table — the output should be 9 but is 0",
+          "columns": [
+            "n",
+            "n < largest?",
+            "largest"
+          ],
+          "rows": [
+            [
+              "—",
+              "—",
+              "0"
             ],
             [
-              "Output",
-              "Error message from the translator",
-              "Wrong or unexpected result"
+              "4",
+              "4 < 0 → No",
+              "0"
             ],
             [
-              "Found by",
-              "Compiler / interpreter",
-              "Testing, trace tables, debugging"
+              "9",
+              "9 < 0 → No",
+              "0"
             ],
             [
-              "Example",
-              "`prnt(\"Hi\")`",
-              "`area = length + width` instead of `length * width`"
+              "2",
+              "2 < 0 → No",
+              "0"
+            ],
+            [
+              "7",
+              "7 < 0 → No",
+              "0"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "The trace shows `largest` never changes: the comparison is the **wrong way round**. Correct line: `if n > largest:`. (Better still, start with `largest = numbers[0]`, so the program also works when every number is negative.)"
+        },
+        {
+          "type": "comparison",
+          "title": "Debugging tools in an IDE",
+          "columns": [
+            "Tool",
+            "What it does"
+          ],
+          "rows": [
+            [
+              "**Breakpoint**",
+              "Pauses the program at a chosen line"
+            ],
+            [
+              "**Stepping** (step into / over)",
+              "Runs the program **one line at a time**"
+            ],
+            [
+              "**Watch / variable window**",
+              "Shows the **current values** of variables while paused"
+            ],
+            [
+              "**Print statements**",
+              "Temporary `print()` lines show values at points in the program"
+            ],
+            [
+              "**Error messages / stack trace**",
+              "Show where a syntax or runtime error happened"
             ]
           ]
         }
       ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.3.5",
+        "12.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Determine the type of programming error by its description. [3]**\n(i) *The programmer misspelt a statement while coding* → **syntax error**.\n(ii) *The program tried to divide by zero* → **runtime (execution) error**.\n(iii) *Incorrect use of brackets in calculations* → **logic error**.\n\n**Q: Describe a syntax error. [2]**\nAn error where the code **breaks the rules / grammar of the programming language**, e.g. a misspelt keyword or missing bracket (1), so the program **cannot be translated / will not run** and the translator reports the error (1).\n\n**Q: Describe a logic error. [2]**\nAn error in the **algorithm**: the program **runs without crashing** (1) but **produces incorrect results / does not do what was intended**, e.g. using `>` instead of `>=` (1).\n\n**Q: State the number of the line that contains a logic error, and rewrite it in the correct form. [2]**\nTrace the code with a simple input, compare with the expected result, find the line responsible, then write the **whole corrected line**."
+        },
+        {
+          "type": "warning",
+          "content": "- Calling every error a \"syntax error\". If the program **runs** but the answer is wrong, it is a **logic** error.\n- Saying a logic error \"crashes the program\" — that is a **runtime** error.\n- Saying logic errors produce error messages — they do **not**.\n- Rewriting only part of a line when the question asks to \"rewrite the line\".\n- Forgetting that `=` instead of `==` in a Python condition is a **syntax** error, but `>` instead of `>=` is a **logic** error."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define syntax error and logic error, and give three examples of each.",
+            "How are syntax errors detected by a compiler and by an interpreter?",
+            "Why are logic errors harder to find than syntax errors?",
+            "Classify: missing bracket; `average = a + b / 2`; index outside the array; `for i in range(10)` when 1–10 is needed.",
+            "Use a trace table to find the error in a \"find the largest number\" program.",
+            "Name three debugging tools and what each does."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Types of errors — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. You may write code in pseudocode or any programming language you have studied. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes.",
+    "questions": [
+      "te-exam-1",
+      "te-exam-2",
+      "te-exam-3"
+    ]
+  }
 }

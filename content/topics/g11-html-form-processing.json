@@ -1,8 +1,1436 @@
 {
   "topic": "g11-html-form-processing",
-  "questions": [],
-  "summary": "Processing HTML form data with one-dimensional arrays and loops, and writing program code in a good programming style.",
+  "questions": [
+    {
+      "key": "frm-attributes",
+      "title": "Form attributes",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Complete the form tag so that the data is sent to **calc.php** using the **GET** method.\n\n`<form [[1]]=\"calc.php\" [[2]]=\"get\">`",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) action (2) method",
+        "accepted": {
+          "blanks": [
+            [
+              "action"
+            ],
+            [
+              "method"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "frm-get-post",
+      "title": "GET or POST",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show which method each statement describes.",
+      "content": {
+        "columns": [
+          "Statement",
+          "GET",
+          "POST"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Data appears in the URL after a ?",
+            null,
+            null
+          ],
+          [
+            "Should be used for a login form",
+            null,
+            null
+          ],
+          [
+            "The results page can be bookmarked",
+            null,
+            null
+          ],
+          [
+            "Can be used to upload a file",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "GET; POST; GET; POST (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "frm-name-attr",
+      "title": "The name attribute",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Explain why every input field in a form needs a **name** attribute.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The value is sent as a name = value pair; fields without a name are not sent (1)\n- the script uses the name as the key to read the value, e.g. $_POST[\"price\"] (1)",
+        "points": [
+          {
+            "criterion": "Sent as name=value",
+            "marks": 1
+          },
+          {
+            "criterion": "Key in script",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The browser sends each field as name=value, and the PHP script reads it using that name, e.g. $_POST[\"price\"]; a field with no name is not sent at all."
+      }
+    },
+    {
+      "key": "frm-get-url",
+      "title": "GET URL",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A form with `action=\"search.php\" method=\"get\"` has a field named **q**. The user types **robots**. Which URL is requested?",
+      "options": [
+        {
+          "key": "A",
+          "content": "search.php/robots"
+        },
+        {
+          "key": "B",
+          "content": "search.php?q=robots"
+        },
+        {
+          "key": "C",
+          "content": "search.php#q=robots"
+        },
+        {
+          "key": "D",
+          "content": "search.php — the data is in the request body"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "frm-read-php",
+      "title": "Read and calculate",
+      "type": "code_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A form sends the fields **price** and **quantity** using POST to **cost.php**. Write the PHP code in cost.php that reads both values, calculates the total, and outputs \"Total: … tenge\". If the quantity is **5 or more**, apply a **5%** discount.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- reads $_POST[\"price\"] and $_POST[\"quantity\"] (1)\n- converts / calculates price × quantity (1)\n- if quantity >= 5 multiply by 0.95 (1)\n- echo with the total (1)",
+        "points": [
+          {
+            "criterion": "Reads POST",
+            "marks": 1
+          },
+          {
+            "criterion": "Total",
+            "marks": 1
+          },
+          {
+            "criterion": "Discount",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$price = (float)$_POST[\"price\"];\n$quantity = (int)$_POST[\"quantity\"];\n$total = $price * $quantity;\nif ($quantity >= 5) {\n    $total = $total * 0.95;\n}\necho \"Total: $total tenge\";\n?>\n```"
+      }
+    },
+    {
+      "key": "frm-htmlspecialchars",
+      "title": "Untrusted input",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Explain why a PHP script should use `htmlspecialchars()` before displaying a name the user typed into a form.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The user could type HTML / JavaScript code instead of a name (1)\n- htmlspecialchars converts < > etc. so it is shown as text and not run (prevents cross-site scripting) (1)",
+        "points": [
+          {
+            "criterion": "Malicious code",
+            "marks": 1
+          },
+          {
+            "criterion": "Shown as text",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A user might enter a <script> tag; htmlspecialchars turns the special characters into harmless text, so the code is displayed instead of being executed."
+      }
+    },
+    {
+      "key": "frm-array-terms",
+      "title": "Array terms",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`$cities = [\"Astana\", \"Almaty\", \"Shymkent\", \"Aktobe\", \"Taraz\"];`\n\nComplete the table.",
+      "content": {
+        "columns": [
+          "Term",
+          "Value"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Lower bound",
+            null
+          ],
+          [
+            "Upper bound",
+            null
+          ],
+          [
+            "Length",
+            null
+          ],
+          [
+            "$cities[2]",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "0 (1); 4 (1); 5 (1); Shymkent (1)",
+        "points": [
+          {
+            "criterion": "0",
+            "marks": 1
+          },
+          {
+            "criterion": "4",
+            "marks": 1
+          },
+          {
+            "criterion": "5",
+            "marks": 1
+          },
+          {
+            "criterion": "Shymkent",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "0"
+            ],
+            [
+              null,
+              "4"
+            ],
+            [
+              null,
+              "5"
+            ],
+            [
+              null,
+              "Shymkent||\"Shymkent\""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "frm-array-define",
+      "title": "Define an array",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Define the term **one-dimensional array**.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- A data structure storing several values of the same data type under one identifier (1)\n- elements in a single list, each accessed by one index (1)",
+        "points": [
+          {
+            "criterion": "Same type, one name",
+            "marks": 1
+          },
+          {
+            "criterion": "One index",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A data structure that holds a list of values of the same type under one name, where each element is accessed using a single index."
+      }
+    },
+    {
+      "key": "frm-array-ops",
+      "title": "Array operations",
+      "type": "trace_table",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$a = [3, 8, 5];\n$a[1] = 4;\n$a[] = 9;\nsort($a);\n```\n\nWrite the elements of `$a` (index 0 to 3) after the code has run.",
+      "content": {
+        "columns": [
+          "$a[0]",
+          "$a[1]",
+          "$a[2]",
+          "$a[3]"
+        ],
+        "rows": 1
+      },
+      "scheme": {
+        "mark_scheme": "3 4 5 9 — after [3,4,5] add 9, sort. (3 marks: all four correct; scaled)",
+        "points": [
+          {
+            "criterion": "All elements",
+            "marks": 3
+          }
+        ],
+        "model_answer": "| $a[0] | $a[1] | $a[2] | $a[3] |\n|---|---|---|---|\n| 3 | 4 | 5 | 9 |",
+        "accepted": {
+          "rows": [
+            [
+              "3",
+              "4",
+              "5",
+              "9"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "frm-out-of-range",
+      "title": "Out of range",
+      "type": "code_analysis",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "The code should output every mark. Explain the error and how to correct it.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$marks = [6, 8, 7];\nfor ($i = 0; $i <= count($marks); $i++) {\n    echo $marks[$i] . \"<br>\";\n}\n?>",
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The loop runs for i = 3, which is beyond the upper bound 2 / index out of range (1)\n- change <= to < (or count($marks) - 1) (1)",
+        "points": [
+          {
+            "criterion": "Out of range",
+            "marks": 1
+          },
+          {
+            "criterion": "Fix",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When i = 3 the code tries to read $marks[3], but the upper bound is 2. Use $i < count($marks)."
+      }
+    },
+    {
+      "key": "frm-trace-marks",
+      "title": "Trace the marks script",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$temps = [12, -3, 8, -1];\n$total = 0;\n$min = $temps[0];\nfor ($i = 0; $i < count($temps); $i++) {\n    $total += $temps[$i];\n    if ($temps[$i] < $min) $min = $temps[$i];\n}\n```\n\nComplete the trace table showing `$total` and `$min` at the end of each iteration.",
+      "content": {
+        "columns": [
+          "$i",
+          "$total",
+          "$min"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "0 12 12; 1 9 -3; 2 17 -3; 3 16 -3 (1 per row)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| $i | $total | $min |\n|---|---|---|\n| 0 | 12 | 12 |\n| 1 | 9 | -3 |\n| 2 | 17 | -3 |\n| 3 | 16 | -3 |",
+        "accepted": {
+          "rows": [
+            [
+              "0",
+              "12",
+              "12"
+            ],
+            [
+              "1",
+              "9",
+              "-3"
+            ],
+            [
+              "2",
+              "17",
+              "-3"
+            ],
+            [
+              "3",
+              "16",
+              "-3"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "frm-average-code",
+      "title": "Average and count",
+      "type": "code_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A form sends several fields named **score[]**. Write PHP code that outputs the **average** score and the **number of scores of 50 or more**.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php\n$scores = $_POST[\"score\"];\n\n?>"
+      },
+      "scheme": {
+        "mark_scheme": "- total and counter initialised to 0 (1)\n- loop through every element (1)\n- add each score to total (1)\n- if score >= 50 increment counter (1)\n- average = total / count($scores) and both values output (1)",
+        "points": [
+          {
+            "criterion": "Initialise",
+            "marks": 1
+          },
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Total",
+            "marks": 1
+          },
+          {
+            "criterion": "Count",
+            "marks": 1
+          },
+          {
+            "criterion": "Average + output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\n$scores = $_POST[\"score\"];\n$total = 0;\n$passed = 0;\nforeach ($scores as $s) {\n    $total += (int)$s;\n    if ((int)$s >= 50) $passed++;\n}\n$average = $total / count($scores);\necho \"Average: $average<br>Scores of 50 or more: $passed\";\n?>\n```"
+      }
+    },
+    {
+      "key": "frm-max-start",
+      "title": "Starting value for maximum",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A programmer finds the highest temperature by starting with `$max = 0`. Explain why this may give a wrong answer and how to fix it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- If all temperatures are negative, no value is greater than 0, so 0 is output (1)\n- start with the first element: $max = $temps[0] (1)",
+        "points": [
+          {
+            "criterion": "Negative values",
+            "marks": 1
+          },
+          {
+            "criterion": "Use first element",
+            "marks": 1
+          }
+        ],
+        "model_answer": "If every temperature is below zero, none is bigger than 0, so the result is 0, which is not in the data. Start with $max = $temps[0]."
+      }
+    },
+    {
+      "key": "frm-checkbox",
+      "title": "Checkboxes",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "When a form has checkboxes named `club[]`, PHP receives an array containing **only the ticked** checkboxes' values.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "frm-assoc",
+      "title": "Associative array",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$prices = [\"coat\" => 20000, \"boots\" => 15000, \"jacket\" => 12000];\n$item = \"boots\";\n$qty = 3;\necho $prices[$item] * $qty;\n```\n\nState the output.",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "$prices[\"boots\"] = 15000 (1); × 3 = 45000 (1)",
+        "points": [
+          {
+            "criterion": "15000",
+            "marks": 1
+          },
+          {
+            "criterion": "45000",
+            "marks": 1
+          }
+        ],
+        "model_answer": "45000",
+        "accepted": {
+          "values": [
+            "45000"
+          ],
+          "numeric": true,
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "frm-style-match",
+      "title": "Style rules",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Match each example to the rule of good programming style it shows.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "$averageMark instead of $x"
+          },
+          {
+            "key": "L2",
+            "text": "const VAT = 0.12;"
+          },
+          {
+            "key": "L3",
+            "text": "// Returns the selling price of an item"
+          },
+          {
+            "key": "L4",
+            "text": "function sellingPrice($price) { … }"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Meaningful identifiers"
+          },
+          {
+            "key": "R2",
+            "text": "Constants instead of magic numbers"
+          },
+          {
+            "key": "R3",
+            "text": "Comments"
+          },
+          {
+            "key": "R4",
+            "text": "Subroutines with one task"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "frm-style-why",
+      "title": "Why good style",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Explain **two** benefits of writing code in a good programming style.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): easier to read / understand; easier to debug / find errors; easier to maintain / change later; other programmers can work on it; reusable functions",
+        "points": [
+          {
+            "criterion": "Benefit 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Benefit 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Other programmers can read and understand it quickly, and errors are easier to find and fix when the code is changed later."
+      }
+    },
+    {
+      "key": "frm-improve-style",
+      "title": "Improve the style",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Rewrite the code in a good programming style. It adds 12% VAT to a price from a form.",
+      "content": {
+        "language": "html",
+        "starter_code": "<?php $p=$_POST[\"p\"];$t=$p+$p*0.12;echo $t; ?>"
+      },
+      "scheme": {
+        "mark_scheme": "Any three (1 each): meaningful identifiers; constant for 0.12; comment; indentation / one statement per line; conversion / validation of input",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          },
+          {
+            "criterion": "3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```php\n<?php\nconst VAT_RATE = 0.12;   // 12% value added tax\n\n$price = (float)$_POST[\"price\"];\n$totalPrice = $price + $price * VAT_RATE;\necho \"Price with VAT: \" . $totalPrice;\n?>\n```"
+      }
+    },
+    {
+      "key": "frm-exam-1",
+      "title": "Clothes calculator",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An online store needs a web application to calculate the cost of goods. The form has three radio buttons named **item** (values coat, boots, jacket), a field **price** and a field **quantity**. The script is **pay.php**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "frm-exam-1a",
+          "part_label": "(a)",
+          "title": "Radio button",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the HTML for the radio button for **boots** with its label.",
+          "content": {
+            "language": "html"
+          },
+          "scheme": {
+            "mark_scheme": "<input type=\"radio\" name=\"item\" (1) value=\"boots\"> with label (1)",
+            "points": [
+              {
+                "criterion": "type radio + name",
+                "marks": 1
+              },
+              {
+                "criterion": "value + label",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<input type=\"radio\" id=\"boots\" name=\"item\" value=\"boots\"> <label for=\"boots\">Boots</label>"
+          }
+        },
+        {
+          "key": "frm-exam-1b",
+          "part_label": "(b)",
+          "title": "Form tag",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the opening form tag so that the data is sent to pay.php using the POST method.",
+          "content": {
+            "language": "html"
+          },
+          "scheme": {
+            "mark_scheme": "action=\"pay.php\" (1); method=\"post\" (1)",
+            "points": [
+              {
+                "criterion": "action",
+                "marks": 1
+              },
+              {
+                "criterion": "method",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<form action=\"pay.php\" method=\"post\">"
+          }
+        },
+        {
+          "key": "frm-exam-1c",
+          "part_label": "(c)",
+          "title": "Why POST",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** advantage of POST compared with GET for this form.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Data not shown in the URL / address bar / history (1); so the order details cannot be seen or changed in the link / not bookmarked / no length limit (1)",
+            "points": [
+              {
+                "criterion": "Not in URL",
+                "marks": 1
+              },
+              {
+                "criterion": "Consequence",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The values are sent in the request body rather than the URL, so other people cannot see or edit them in the address bar or history."
+          }
+        },
+        {
+          "key": "frm-exam-1d",
+          "part_label": "(d)",
+          "title": "pay.php",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write pay.php. It must read the three values, check that the quantity is between **1 and 10**, apply a **10% discount** if the item is a coat, and output e.g. **\"coat: 2 * 20000\"** and **\"Total: 36000 tenge\"**.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads item, price, quantity from $_POST (1)\n- range check on quantity with error message (1)\n- total = price × quantity (1)\n- if item == coat apply × 0.9 (1)\n- outputs item line and total (1)",
+            "points": [
+              {
+                "criterion": "Reads",
+                "marks": 1
+              },
+              {
+                "criterion": "Range check",
+                "marks": 1
+              },
+              {
+                "criterion": "Total",
+                "marks": 1
+              },
+              {
+                "criterion": "Discount",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$item = $_POST[\"item\"];\n$price = (float)$_POST[\"price\"];\n$quantity = (int)$_POST[\"quantity\"];\nif ($quantity < 1 || $quantity > 10) {\n    die(\"Quantity must be 1-10\");\n}\n$total = $price * $quantity;\nif ($item == \"coat\") $total = $total * 0.9;\necho \"$item: $quantity * $price<br>\";\necho \"Total: $total tenge\";\n?>\n```"
+          }
+        }
+      ]
+    },
+    {
+      "key": "frm-exam-2",
+      "title": "Test results",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A teacher enters six test results into a form. The fields are named **result[]**, and PHP stores them in the array `$results`. For example: `$results = [14, 9, 18, 11, 20, 7];`",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "frm-exam-2a",
+          "part_label": "(a)",
+          "title": "Bounds",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table for the example array.",
+          "content": {
+            "columns": [
+              "Term",
+              "Value"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Lower bound",
+                null
+              ],
+              [
+                "Upper bound",
+                null
+              ],
+              [
+                "$results[3]",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "0 (1); 5 (1); 11 (1)",
+            "points": [
+              {
+                "criterion": "0",
+                "marks": 1
+              },
+              {
+                "criterion": "5",
+                "marks": 1
+              },
+              {
+                "criterion": "11",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "0"
+                ],
+                [
+                  null,
+                  "5"
+                ],
+                [
+                  null,
+                  "11"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "frm-exam-2b",
+          "part_label": "(b)",
+          "title": "Highest and lowest",
+          "type": "code_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4",
+            "11.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write PHP code using a loop that outputs the **highest** and **lowest** result.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n$results = $_POST[\"result\"];\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- max and min initialised to the first element (1)\n- loop through all elements (1)\n- compare and update max (1)\n- compare and update min (1)\n- output both after the loop (1)",
+            "points": [
+              {
+                "criterion": "Initialise",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Max",
+                "marks": 1
+              },
+              {
+                "criterion": "Min",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\n$results = $_POST[\"result\"];\n$max = (int)$results[0];\n$min = (int)$results[0];\nforeach ($results as $r) {\n    if ($r > $max) $max = $r;\n    if ($r < $min) $min = $r;\n}\necho \"Highest: $max<br>Lowest: $min\";\n?>\n```"
+          }
+        },
+        {
+          "key": "frm-exam-2c",
+          "part_label": "(c)",
+          "title": "Average",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the average of the example results to 2 decimal places.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "79 / 6 = 13.17 (1)",
+            "points": [
+              {
+                "criterion": "13.17",
+                "marks": 1
+              }
+            ],
+            "model_answer": "13.17",
+            "accepted": {
+              "values": [
+                "13.17"
+              ],
+              "numeric": true,
+              "tolerance": 0.01
+            }
+          }
+        },
+        {
+          "key": "frm-exam-2d",
+          "part_label": "(d)",
+          "title": "Trace",
+          "type": "trace_table",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "```php\n$count = 0;\nforeach ($results as $r) {\n    if ($r >= 12) $count++;\n}\necho $count;\n```\n\nFor the example array, state the final value of `$count` and the number of loop iterations.",
+          "content": {
+            "columns": [
+              "$count",
+              "Iterations"
+            ],
+            "rows": 1
+          },
+          "scheme": {
+            "mark_scheme": "count 3 (14, 18, 20) (1); iterations 6 (1) — scaled",
+            "points": [
+              {
+                "criterion": "Both values",
+                "marks": 2
+              }
+            ],
+            "model_answer": "| $count | Iterations |\n|---|---|\n| 3 | 6 |",
+            "accepted": {
+              "rows": [
+                [
+                  "3",
+                  "6"
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "frm-exam-3",
+      "title": "Programming style",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A pupil wrote this script to convert a price in tenge to dollars:\n\n```php\n<?php $a=$_GET[\"x\"];$b=$a/470;echo $b; ?>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "frm-exam-3a",
+          "part_label": "(a)",
+          "title": "Problems",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **three** ways in which the code does not follow good programming style.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): meaningless identifiers $a $b $x; magic number 470 not a constant; no comments; everything on one line / no indentation; no validation of input",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Identifiers a, b and x are not meaningful. 2 The rate 470 is a magic number, not a constant. 3 There are no comments and all statements are on one line."
+          }
+        },
+        {
+          "key": "frm-exam-3b",
+          "part_label": "(b)",
+          "title": "Rewrite",
+          "type": "code_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9",
+            "11.5.4.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Rewrite the script in a good programming style. It must also output an error if the price is not a positive number.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- meaningful identifiers (1)\n- constant for the exchange rate (1)\n- comments / layout one statement per line (1)\n- validation of the input with error message (1)",
+            "points": [
+              {
+                "criterion": "Identifiers",
+                "marks": 1
+              },
+              {
+                "criterion": "Constant",
+                "marks": 1
+              },
+              {
+                "criterion": "Comments / layout",
+                "marks": 1
+              },
+              {
+                "criterion": "Validation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```php\n<?php\nconst TENGE_PER_DOLLAR = 470;   // exchange rate\n\n$priceTenge = $_GET[\"price\"] ?? \"\";\nif (!is_numeric($priceTenge) || $priceTenge <= 0) {\n    echo \"Please enter a positive price\";\n} else {\n    $priceDollars = $priceTenge / TENGE_PER_DOLLAR;\n    echo \"Price: \" . round($priceDollars, 2) . \" $\";\n}\n?>\n```"
+          }
+        },
+        {
+          "key": "frm-exam-3c",
+          "part_label": "(c)",
+          "title": "Benefit",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** benefit of using a constant for the exchange rate.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Only one place to change when the rate changes / clearer meaning / cannot be changed by mistake (1)",
+            "points": [
+              {
+                "criterion": "Benefit",
+                "marks": 1
+              }
+            ],
+            "model_answer": "When the rate changes, it only needs to be updated in one place."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "How an HTML form sends data to a server-side script with GET or POST, reading and validating form data in PHP, one-dimensional arrays and their terminology, processing arrays of form data with loops (total, average, maximum, minimum, counting, searching), associative arrays, and writing code in a good programming style.",
   "theory": [
+    {
+      "title": "Sending form data to a script",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "An HTML **form** collects data from the user. When it is submitted, the browser sends each field as a **name = value** pair to the script named in the form's **action** attribute, where a **server-side script** (e.g. PHP) processes it and sends back a new page."
+        },
+        {
+          "type": "comparison",
+          "title": "Attributes of the form element",
+          "columns": [
+            "Attribute",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`action`",
+              "The **script** that will process the data",
+              "`action=\"order.php\"`"
+            ],
+            [
+              "`method`",
+              "**How** the data is sent: `get` or `post`",
+              "`method=\"post\"`"
+            ],
+            [
+              "`name` (on each field)",
+              "The **key** used to read the value in the script",
+              "`<input name=\"quantity\">` → `$_POST[\"quantity\"]`"
+            ],
+            [
+              "`value`",
+              "The value sent for radio buttons, checkboxes and options",
+              "`<input type=\"radio\" name=\"item\" value=\"coat\">`"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "GET vs POST",
+          "columns": [
+            "",
+            "GET",
+            "POST"
+          ],
+          "rows": [
+            [
+              "Where the data goes",
+              "Added to the **URL**: `order.php?item=coat&qty=2`",
+              "In the **body** of the HTTP request — not visible in the URL"
+            ],
+            [
+              "Data size",
+              "Limited (URL length)",
+              "No practical limit; can send files"
+            ],
+            [
+              "Security",
+              "Visible in the address bar, history and logs — **never for passwords**",
+              "Not shown in the URL (still needs HTTPS to be secure)"
+            ],
+            [
+              "Bookmarking",
+              "Results **can** be bookmarked or shared",
+              "Cannot be bookmarked"
+            ],
+            [
+              "Typical use",
+              "Search forms, filters",
+              "Logins, registrations, orders, uploads"
+            ],
+            [
+              "Read in PHP with",
+              "`$_GET[\"name\"]`",
+              "`$_POST[\"name\"]`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "content": "<form action=\"order.php\" method=\"post\">\n  <p>Type of clothes:</p>\n  <input type=\"radio\" id=\"coat\"  name=\"item\" value=\"coat\">  <label for=\"coat\">Coat</label><br>\n  <input type=\"radio\" id=\"boots\" name=\"item\" value=\"boots\"> <label for=\"boots\">Boots</label><br>\n  <label>Price (₸): <input type=\"number\" name=\"price\" min=\"1\" required></label><br>\n  <label>Quantity:  <input type=\"number\" name=\"quantity\" min=\"1\" max=\"10\" required></label><br>\n  <input type=\"submit\" value=\"Calculate\">\n</form>",
+          "caption": "order.html — a form that sends data to a PHP script"
+        },
+        {
+          "type": "html_preview",
+          "title": "What the form looks like",
+          "html": "<form onsubmit=\"return false\">\n  <p>Type of clothes:</p>\n  <input type=\"radio\" id=\"coat\" name=\"item\" value=\"coat\" checked> <label for=\"coat\">Coat</label><br>\n  <input type=\"radio\" id=\"boots\" name=\"item\" value=\"boots\"> <label for=\"boots\">Boots</label><br>\n  <label>Price (₸): <input type=\"number\" name=\"price\" value=\"20000\"></label><br>\n  <label>Quantity: <input type=\"number\" name=\"quantity\" value=\"2\"></label><br>\n  <input type=\"submit\" value=\"Calculate\">\n</form>",
+          "css": "body { font-family: Arial, sans-serif; padding: 8px; font-size: 14px; }\np { margin: 4px 0; }\ninput[type=number] { width: 90px; margin: 3px 0; }",
+          "height": 200
+        }
+      ]
+    },
+    {
+      "title": "Processing form data in PHP",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "How a PHP script processes a form",
+          "items": [
+            "**Check** that the form was submitted and the fields exist: `isset($_POST[\"price\"])`.",
+            "**Read** each value from `$_POST` (or `$_GET`) using the field's **name**.",
+            "**Convert** text to numbers: `(int)`, `(float)`.",
+            "**Validate** the data (presence, type, range) and show errors if it is wrong.",
+            "**Process** it — calculate, or save to a database.",
+            "**Output** the result as HTML with `echo`."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\nif (!isset($_POST[\"item\"], $_POST[\"price\"], $_POST[\"quantity\"])) {\n    die(\"Please fill in the form.\");\n}\n$item     = $_POST[\"item\"];\n$price    = (float)$_POST[\"price\"];\n$quantity = (int)$_POST[\"quantity\"];\n\nif ($price <= 0 || $quantity < 1 || $quantity > 10) {        // range check\n    die(\"Price must be positive and quantity 1–10.\");\n}\n$total = $price * $quantity;\nif ($item == \"coat\") {\n    $total = $total * 0.9;                                   // 10% discount\n}\necho \"<h2>Payment details</h2>\";\necho \"<p>\" . htmlspecialchars($item) . \": $quantity * $price</p>\";\necho \"<p>Total: $total tenge</p>\";\n?>",
+          "caption": "order.php — calculating the cost (with a 10% discount on coats)"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Never trust form data",
+          "content": "Users can type anything — even HTML or JavaScript. Always **validate** values on the server and use `htmlspecialchars()` before printing text the user entered, so that it is shown as text and **not run as code** (this prevents cross-site scripting)."
+        }
+      ]
+    },
     {
       "title": "One-dimensional arrays",
       "objectives": [
@@ -12,7 +1440,7 @@
         {
           "type": "definition",
           "term": "Array",
-          "content": "A **data structure** that stores **many values of the same type** under **one identifier**; each element is accessed by its **index**."
+          "content": "A **data structure** that stores **many values of the same type** under **one identifier**. Each value is an **element** and is accessed by its **index** (position)."
         },
         {
           "type": "comparison",
@@ -20,76 +1448,148 @@
           "columns": [
             "Term",
             "Meaning",
-            "Example (`marks = [7, 9, 4, 10]`)"
+            "Example: `marks = [7, 9, 4, 10, 6]`"
           ],
           "rows": [
             [
-              "Element",
-              "One value in the array",
+              "**Identifier**",
+              "The name of the array",
+              "`marks`"
+            ],
+            [
+              "**Element**",
+              "One value stored in the array",
               "`9`"
             ],
             [
-              "Index",
-              "Position of an element",
-              "In PHP/JS indexes start at **0**: `marks[1]` = 9"
+              "**Index**",
+              "The position of an element",
+              "In PHP / JavaScript / Python indexes start at **0**: `marks[1]` = 9"
             ],
             [
-              "Lower bound / upper bound",
-              "Smallest / largest index",
-              "0 and 3"
+              "**Lower bound**",
+              "The smallest index",
+              "0"
             ],
             [
-              "Length (size)",
-              "Number of elements",
-              "4"
+              "**Upper bound**",
+              "The largest index",
+              "4 (= length − 1)"
+            ],
+            [
+              "**Length (size)**",
+              "The number of elements",
+              "5"
+            ],
+            [
+              "**One-dimensional (1D)**",
+              "Elements in a single row / list, one index",
+              "`marks[i]`"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "The same array in different languages",
+          "columns": [
+            "Language",
+            "Declare",
+            "Read element",
+            "Length"
+          ],
+          "rows": [
+            [
+              "Pseudocode",
+              "`DECLARE Marks : ARRAY[1:5] OF INTEGER`",
+              "`Marks[2]`",
+              "5 (bounds 1 to 5)"
+            ],
+            [
+              "PHP",
+              "`$marks = [7, 9, 4, 10, 6];`",
+              "`$marks[1]`",
+              "`count($marks)`"
+            ],
+            [
+              "JavaScript",
+              "`let marks = [7, 9, 4, 10, 6];`",
+              "`marks[1]`",
+              "`marks.length`"
+            ],
+            [
+              "Python",
+              "`marks = [7, 9, 4, 10, 6]`",
+              "`marks[1]`",
+              "`len(marks)`"
             ]
           ]
         },
         {
           "type": "code",
           "language": "php",
-          "content": "<?php\n$marks = [7, 9, 4, 10];\n$marks[] = 8;                       // add an element at the end\necho count($marks);                 // 5\necho $marks[0];                     // 7\n$marks[2] = 6;                      // change the third element\nsort($marks);                       // 6 7 8 9 10\n?>",
+          "content": "<?php\n$marks = [7, 9, 4, 10, 6];\necho $marks[0];                     // 7 — the first element (index 0)\necho $marks[count($marks) - 1];     // 6 — the last element (upper bound 4)\n$marks[2] = 5;                      // change the third element: [7, 9, 5, 10, 6]\n$marks[] = 8;                       // add an element at the end: 6 elements now\nsort($marks);                       // ascending: [5, 6, 7, 8, 9, 10]\necho array_sum($marks);             // 45\necho in_array(10, $marks) ? \"found\" : \"not found\";   // found\n?>",
           "caption": "Working with a 1D array in PHP"
         },
         {
-          "type": "callout",
-          "tone": "info",
-          "title": "Pseudocode arrays",
-          "content": "In Cambridge-style pseudocode arrays are usually declared with bounds and often start at 1:\n`DECLARE Marks : ARRAY[1:30] OF INTEGER`"
+          "type": "warning",
+          "content": "Using an index **outside the bounds** (e.g. `$marks[5]` when the upper bound is 4) is an error: PHP gives a warning and returns null, JavaScript returns `undefined`, Python stops with an `IndexError`. A loop `for ($i = 0; $i <= count($marks); $i++)` goes **one step too far** — use `<`."
         }
       ]
     },
     {
-      "title": "Processing form data with loops",
+      "title": "Processing form data with arrays and loops",
       "objectives": [
-        "11.5.4.4"
+        "11.5.4.4",
+        "11.5.2.1"
       ],
       "blocks": [
         {
           "type": "paragraph",
-          "content": "Several form fields with the same name followed by `[]` arrive in PHP as an **array**."
+          "content": "When several fields have the **same name followed by `[]`**, PHP receives them as an **array**."
         },
         {
           "type": "code",
           "language": "html",
-          "content": "<form action=\"marks.php\" method=\"post\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <button>Calculate</button>\n</form>",
-          "caption": "Form sending an array of marks"
+          "content": "<form action=\"marks.php\" method=\"post\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <input type=\"number\" name=\"mark[]\"> <input type=\"number\" name=\"mark[]\">\n  <input type=\"number\" name=\"mark[]\">\n  <button>Calculate</button>\n</form>",
+          "caption": "A form that sends an array of marks"
         },
         {
           "type": "code",
           "language": "php",
-          "content": "<?php\n$marks = $_POST[\"mark\"];            // array of strings\n$total = 0;\n$max   = $marks[0];\n$above = 0;\nfor ($i = 0; $i < count($marks); $i++) {\n    $m = (int)$marks[$i];\n    $total += $m;\n    if ($m > $max)  $max = $m;\n    if ($m > 5)     $above++;\n}\n$average = $total / count($marks);\necho \"Total: $total<br>Average: \" . round($average, 2) . \"<br>Highest: $max<br>Marks above 5: $above\";\n?>",
-          "caption": "marks.php — total, average, maximum and count above 5"
+          "content": "<?php\n$marks = $_POST[\"mark\"];            // e.g. [\"7\", \"9\", \"4\", \"10\", \"6\"]\n$total = 0;\n$max   = (int)$marks[0];            // start with the first element\n$min   = (int)$marks[0];\n$above = 0;\nfor ($i = 0; $i < count($marks); $i++) {\n    $m = (int)$marks[$i];\n    $total += $m;                   // running total\n    if ($m > $max) $max = $m;       // new maximum\n    if ($m < $min) $min = $m;       // new minimum\n    if ($m > 5)    $above++;        // count marks above 5\n}\n$average = $total / count($marks);\necho \"Total: $total<br>Average: \" . round($average, 2);\necho \"<br>Highest: $max<br>Lowest: $min<br>Marks above 5: $above\";\n?>",
+          "caption": "marks.php — total, average, maximum, minimum and a count"
+        },
+        {
+          "type": "example",
+          "title": "Trace of marks.php for the marks 7, 9, 4, 10, 6",
+          "content": "| i | m | total | max | min | above |\n|---|---|---|---|---|---|\n| 0 | 7 | 7 | 7 | 7 | 1 |\n| 1 | 9 | 16 | 9 | 7 | 2 |\n| 2 | 4 | 20 | 9 | 4 | 2 |\n| 3 | 10 | 30 | 10 | 4 | 3 |\n| 4 | 6 | 36 | 10 | 4 | 4 |\n\nOutput: Total 36, Average **7.2**, Highest **10**, Lowest **4**, Marks above 5: **4**."
         },
         {
           "type": "steps",
           "title": "Standard algorithms on an array",
           "items": [
-            "**Total / average:** start `total ← 0`, add every element, divide by the length.",
-            "**Maximum / minimum:** start with the first element, compare each element, keep the larger/smaller.",
-            "**Counting:** start `count ← 0`, add 1 when the condition is true.",
-            "**Linear search:** compare each element with the target until it is found or the array ends."
+            "**Total / average:** `total ← 0`; add every element; divide by the length.",
+            "**Maximum / minimum:** start with the **first element**; compare each element and keep the larger / smaller.",
+            "**Counting:** `count ← 0`; add 1 when the condition is true.",
+            "**Linear search:** compare each element with the target until it is **found** or the array **ends**."
           ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n// <input type=\"checkbox\" name=\"club[]\" value=\"Robotics\"> … value=\"Chess\" …\n$clubs = $_POST[\"club\"] ?? [];          // only the ticked boxes are sent\necho \"You chose \" . count($clubs) . \" clubs:<br>\";\n$found = false;\nforeach ($clubs as $c) {\n    echo htmlspecialchars($c) . \"<br>\";\n    if ($c == \"Robotics\") $found = true;   // linear search\n}\nif ($found) echo \"Robotics meets on Friday.\";\n?>",
+          "caption": "Checkboxes also arrive as an array — linear search with foreach"
+        },
+        {
+          "type": "definition",
+          "term": "Associative array",
+          "content": "An array whose elements are accessed by a **key (name)** instead of a number — useful for **price lists** and for `$_POST` itself."
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "content": "<?php\n$prices = [\"coat\" => 20000, \"boots\" => 15000, \"jacket\" => 12000];\n$item = $_POST[\"item\"];                       // e.g. \"boots\"\n$qty  = (int)$_POST[\"quantity\"];\nif (array_key_exists($item, $prices)) {        // lookup validation\n    echo \"Total: \" . $prices[$item] * $qty . \" tenge\";\n}\nforeach ($prices as $name => $price) {         // key and value\n    echo \"$name — $price<br>\";\n}\n?>",
+          "caption": "Looking up prices with an associative array"
         }
       ]
     },
@@ -104,41 +1604,82 @@
           "items": [
             {
               "title": "Meaningful identifiers",
-              "content": "`$averageMark`, not `$x`. Use a consistent style (camelCase or snake_case)."
+              "content": "`$averageMark`, not `$x`. Use a **consistent** style (camelCase or snake_case)."
             },
             {
               "title": "Comments",
-              "content": "Explain **why** the code does something, and describe each function."
+              "content": "Explain **why** the code does something; describe each function's purpose, inputs and output."
             },
             {
               "title": "Indentation and spacing",
-              "content": "Indent the body of every IF, loop and function so the structure is visible."
+              "content": "Indent the body of every IF, loop and function so the structure is visible; one statement per line."
             },
             {
               "title": "Constants",
-              "content": "`define(\"MAX_STUDENTS\", 30);` instead of \"magic numbers\" in the code."
+              "content": "`const MAX_STUDENTS = 30;` instead of \"magic numbers\" in the code — change the value in one place."
             },
             {
               "title": "Functions / procedures",
-              "content": "Split the program into small, reusable subroutines with one task each."
+              "content": "Split the program into small, **reusable** subroutines with **one task** each."
             },
             {
               "title": "Validation and error handling",
-              "content": "Check input data and handle errors (e.g. a failed database connection)."
+              "content": "Check input data and handle errors (e.g. a failed database connection) with clear messages."
             }
           ]
         },
         {
           "type": "code",
           "language": "php",
-          "content": "<?php\n// Poor\n$a=$_POST[\"p\"];if($a<1000){$b=$a*1.3;}else{$b=$a*1.15;}echo $b;\n\n// Good\nconst MARKUP_CHEAP     = 1.30;   // +30% for goods under 1000 tenge\nconst MARKUP_EXPENSIVE = 1.15;   // +15% otherwise\n\nfunction sellingPrice(float $price): float {\n    return $price < 1000 ? $price * MARKUP_CHEAP : $price * MARKUP_EXPENSIVE;\n}\n\n$price = (float)$_POST[\"price\"];\necho \"Selling price: \" . sellingPrice($price);\n?>",
+          "content": "<?php\n// Poor\n$a=$_POST[\"p\"];if($a<1000){$b=$a*1.3;}else{$b=$a*1.15;}echo $b;\n\n// Good\nconst MARKUP_CHEAP     = 1.30;   // +30% for goods under 1000 tenge\nconst MARKUP_EXPENSIVE = 1.15;   // +15% otherwise\n\n// Returns the selling price of an item bought at $price tenge\nfunction sellingPrice(float $price): float {\n    if ($price < 1000) {\n        return $price * MARKUP_CHEAP;\n    }\n    return $price * MARKUP_EXPENSIVE;\n}\n\n$price = (float)$_POST[\"price\"];\necho \"Selling price: \" . sellingPrice($price);\n?>",
           "caption": "Poor style vs good style"
         },
         {
           "type": "exam_tip",
-          "content": "Good style makes code easier to **read, debug and maintain**, especially when someone else has to change it later — that is the reason to give in \"explain why\" questions."
+          "content": "Good style makes code easier to **read, debug, test and maintain**, especially when **another programmer** has to change it later — give this reason in \"explain why\" questions."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.2.1",
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write the attributes for the form tag to send data to calc.php using the GET method. [2]**\n`<form action=\"calc.php\" method=\"get\">` — `action` (1), `method=\"get\"` (1).\n\n**Q: For the array Cities = [\"Astana\", \"Almaty\", \"Shymkent\", \"Aktobe\"], state the lower bound, the upper bound and Cities[2]. [3]**\nLower bound **0** (1); upper bound **3** (1); Cities[2] = **\"Shymkent\"** (1).\n\n**Q: Write PHP code that outputs the highest mark in the array $marks. [4]**\n`$max = $marks[0];` (1) `foreach ($marks as $m)` / for loop through all elements (1) `if ($m > $max) $max = $m;` (1) `echo $max;` after the loop (1).\n\n**Q: Give two reasons why POST is used for a login form. [2]**\nThe password is **not shown in the URL** / address bar / history (1); data is sent in the request body, so it is **not bookmarked or logged** in server URL logs (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting the **`name`** attribute — fields without a name are **not sent**.\n- Reading `$_POST` when the form uses **GET** (or the other way round).\n- Starting `max` at **0** — it fails if all values are negative; start with the **first element**.\n- Using `<=` with `count()` in a loop — goes **past the upper bound**.\n- Forgetting to convert form values (always **strings**) to numbers."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What do the `action` and `method` attributes do?",
+            "Give three differences between GET and POST.",
+            "Define element, index, lower bound and upper bound.",
+            "How does PHP receive several fields named `mark[]`?",
+            "Write a loop that counts how many marks are at least 50.",
+            "List four rules of good programming style."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "HTML form processing — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. You may write code in PHP, JavaScript or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "frm-exam-1",
+      "frm-exam-2",
+      "frm-exam-3"
+    ]
+  }
 }

@@ -1,8 +1,1423 @@
 {
   "topic": "g12-os-types",
-  "questions": [],
-  "summary": "Real-time, network and batch processing operating systems — their features, how they work and where each is used.",
+  "questions": [
+    {
+      "key": "ost-rtos-describe",
+      "title": "Describe an RTOS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "Describe a **real-time operating system**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Processes inputs / responds within a guaranteed time / deadline (1)\n- to monitor and control a physical process as it happens, e.g. airbag, robot (1)",
+        "points": [
+          {
+            "criterion": "Guaranteed deadline",
+            "marks": 1
+          },
+          {
+            "criterion": "Controls a process",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An OS that responds to inputs within a guaranteed deadline so it can control a physical system as events happen, such as an airbag."
+      }
+    },
+    {
+      "key": "ost-rtos-features-mr",
+      "title": "RTOS features",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "Select **two** features of a real-time operating system.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Priority-based pre-emptive scheduling"
+        },
+        {
+          "key": "B",
+          "content": "Jobs run overnight without interaction"
+        },
+        {
+          "key": "C",
+          "content": "Predictable (deterministic) response times"
+        },
+        {
+          "key": "D",
+          "content": "Central user accounts for a whole network"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "ost-deterministic",
+      "title": "Deterministic",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "Explain why an RTOS must be **deterministic**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Its response time must be predictable / always within the deadline (1)\n- otherwise the controlled system could fail / be dangerous, e.g. brakes respond late (1)",
+        "points": [
+          {
+            "criterion": "Predictable timing",
+            "marks": 1
+          },
+          {
+            "criterion": "Consequence",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The time it takes to respond must always be predictable and within the deadline; if it varied, an airbag or brake system could respond too late and cause injury."
+      }
+    },
+    {
+      "key": "ost-priority",
+      "title": "Priority scheduling",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "In a greenhouse RTOS, the fire sensor triggers while the system is updating the humidity display. Explain what the RTOS does.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The fire task has a higher priority, so it pre-empts / interrupts the display task (1)\n- the alarm / heater switch-off runs immediately; the display task continues later (1)",
+        "points": [
+          {
+            "criterion": "Pre-emption by priority",
+            "marks": 1
+          },
+          {
+            "criterion": "Immediate action",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The fire task has the highest priority, so the RTOS immediately interrupts the display update, sounds the alarm and switches off the heaters, then returns to the display task."
+      }
+    },
+    {
+      "key": "ost-hard-soft",
+      "title": "Hard or soft",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each system is hard or soft real-time.",
+      "content": {
+        "columns": [
+          "System",
+          "Hard real-time",
+          "Soft real-time"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Aircraft flight control",
+            null,
+            null
+          ],
+          [
+            "A video call",
+            null,
+            null
+          ],
+          [
+            "An industrial welding robot",
+            null,
+            null
+          ],
+          [
+            "An online game",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Flight control hard (1); video call soft (1); robot hard (1); game soft (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ost-rtos-vs-gp",
+      "title": "RTOS vs general-purpose OS",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between a real-time OS and a general-purpose OS such as Windows.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: guaranteed deadlines vs good average speed; strict priority vs time-sharing / fairness; deterministic vs variable response; small embedded vs large; minimal vs rich interface",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 An RTOS guarantees a response within a deadline, whereas Windows aims for good average speed. 2 An RTOS is small and embedded with little interface, whereas Windows has a rich GUI."
+      }
+    },
+    {
+      "key": "ost-nos-describe",
+      "title": "Describe a NOS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.2"
+      ],
+      "practice": true,
+      "text": "Describe a **network operating system**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- An OS that manages a network and its shared resources (files, printers, applications) (1)\n- and its users / accounts / security, usually running on a server (1)",
+        "points": [
+          {
+            "criterion": "Manages network resources",
+            "marks": 1
+          },
+          {
+            "criterion": "Users / server",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An OS, usually on a server, that manages the users of a network and the resources they share, such as files and printers."
+      }
+    },
+    {
+      "key": "ost-nos-accounts",
+      "title": "User account management",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.2"
+      ],
+      "practice": true,
+      "text": "Describe how a network operating system implements user account management.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "NOS provides user authentication and authorization mechanisms… (1) … ensuring that only authorized users can access network resources. (1) NOS verifies user identities… (1) … to assign appropriate access rights. (1) [Max 2]",
+        "points": [
+          {
+            "criterion": "Authentication / verification",
+            "marks": 1
+          },
+          {
+            "criterion": "Authorisation / access rights",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The NOS verifies each user's identity at log-in and then gives them the access rights of their account and groups, so only authorised users can use each resource."
+      }
+    },
+    {
+      "key": "ost-nos-functions-match",
+      "title": "NOS functions",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.1.2"
+      ],
+      "practice": true,
+      "text": "Match each NOS function to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Authentication"
+          },
+          {
+            "key": "L2",
+            "text": "Authorisation"
+          },
+          {
+            "key": "L3",
+            "text": "Print queue management"
+          },
+          {
+            "key": "L4",
+            "text": "Audit log"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Checks the user name and password at log-in"
+          },
+          {
+            "key": "R2",
+            "text": "Decides which folders a user may open"
+          },
+          {
+            "key": "R3",
+            "text": "Orders documents waiting for a shared printer"
+          },
+          {
+            "key": "R4",
+            "text": "Records who accessed which file and when"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "ost-cs-p2p",
+      "title": "Client–server vs peer-to-peer",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.2"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between a client–server network managed by a NOS and a peer-to-peer network.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): centralised vs each computer manages itself; strong central security vs weaker; central backup vs individual; needs server / admin vs cheap; large vs small networks",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Client–server has central control of accounts and security on the server, whereas in peer-to-peer each computer manages itself. 2 Client–server backs up data centrally, whereas peer-to-peer users back up their own files."
+      }
+    },
+    {
+      "key": "ost-central-backup-tf",
+      "title": "Central backup",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.1.2"
+      ],
+      "practice": true,
+      "text": "A network operating system can back up all users' files centrally on the server.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "ost-batch-features",
+      "title": "Batch features",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "Some computers use batch operating systems. Give **two** features of the batch operating system.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Jobs with similar requirements are batched together and run through the computer as a group (1); data is collected for a defined period of time and processed as a pack of similar tasks (1); sorting is performed before processing (1); no user interaction (1) [Max 2]",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Jobs with similar requirements are grouped and run together. 2 Data is collected over a period and processed without user interaction."
+      }
+    },
+    {
+      "key": "ost-batch-steps",
+      "title": "Batch steps",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nBatch jobs wait in a job [[1]]. The input data is often [[2]] before processing. The output for slow printers is placed in a queue — this is called [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) queue (2) sorted (3) spooling",
+        "accepted": {
+          "blanks": [
+            [
+              "queue"
+            ],
+            [
+              "sorted"
+            ],
+            [
+              "spooling",
+              "spooled"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ost-batch-suitable",
+      "title": "Why batch",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "Explain why batch processing is used to produce 300 000 water bills every quarter.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): large number of similar jobs; readings collected over the quarter and processed together; not needed immediately; runs automatically at night / off-peak without operator",
+        "points": [
+          {
+            "criterion": "First",
+            "marks": 1
+          },
+          {
+            "criterion": "Second",
+            "marks": 1
+          }
+        ],
+        "model_answer": "All 300 000 bills are similar calculations made only once a quarter, so the meter readings can be collected and processed together automatically overnight."
+      }
+    },
+    {
+      "key": "ost-batch-disadv",
+      "title": "Batch disadvantage",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "Explain **one** disadvantage of batch processing.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Disadvantage (1) + explanation (1): delay — results not immediate / data out of date; errors found only after the batch runs — whole batch repeated; no interaction — jobs cannot be changed",
+        "points": [
+          {
+            "criterion": "Disadvantage",
+            "marks": 1
+          },
+          {
+            "criterion": "Explanation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Results are not immediate: a customer's payment made today only appears after the overnight batch has run."
+      }
+    },
+    {
+      "key": "ost-choose",
+      "title": "Choose the OS type",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.1.1",
+        "12.3.1.2",
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the most suitable OS type for each scenario.",
+      "content": {
+        "columns": [
+          "Scenario",
+          "Real-time",
+          "Network",
+          "Batch"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Overnight processing of all card payments at a bank",
+            null,
+            null,
+            null
+          ],
+          [
+            "A pacemaker",
+            null,
+            null,
+            null
+          ],
+          [
+            "An office of 200 staff sharing folders and printers",
+            null,
+            null,
+            null
+          ],
+          [
+            "Traffic lights that react to sensors at a junction",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Card payments batch (1); pacemaker real-time (1); office network (1); traffic lights real-time (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "ost-extended",
+      "title": "Compare the three OS types",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "12.3.1.1",
+        "12.3.1.2",
+        "12.3.1.3"
+      ],
+      "practice": true,
+      "text": "A hospital uses a real-time OS in its patient monitors, a network OS on its servers and a batch OS for its monthly billing. Describe and compare these three types of operating system, explaining why each suits its use.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "RTOS (max 2): guaranteed deadline / deterministic / priority; suits monitors because alarms must be immediate\nNOS (max 2): manages users, access rights, shared records; suits servers because many staff share data securely\nBatch (max 2): groups similar jobs, no interaction, scheduled; suits monthly bills — large volume, not urgent\nComparison points credited within each",
+        "points": [
+          {
+            "criterion": "RTOS described",
+            "marks": 1
+          },
+          {
+            "criterion": "RTOS suitability",
+            "marks": 1
+          },
+          {
+            "criterion": "NOS described",
+            "marks": 1
+          },
+          {
+            "criterion": "NOS suitability",
+            "marks": 1
+          },
+          {
+            "criterion": "Batch described",
+            "marks": 1
+          },
+          {
+            "criterion": "Batch suitability",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The real-time OS responds to sensor readings within a guaranteed deadline and gives the alarm task the highest priority, which suits patient monitors because a dangerous heart rate must trigger an alarm immediately. The network OS manages user accounts, authentication and access rights to shared files on the servers, so hundreds of staff can securely open the patient records they are allowed to see. The batch OS groups the month's treatments and runs the billing jobs automatically overnight without interaction, which suits billing because there are many similar bills and they are not urgent. Unlike the RTOS, the batch OS does not respond immediately, and unlike the NOS it has no interactive users while running."
+      }
+    },
+    {
+      "key": "ost-exam-1",
+      "title": "A greenhouse controller",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An agricultural company uses a real-time operating system to control the temperature, humidity and fire safety of its greenhouses.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ost-exam-1a",
+          "part_label": "(a)",
+          "title": "Describe",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe a real-time operating system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Guaranteed response / deadline (1); controls a process as it happens (1)",
+            "points": [
+              {
+                "criterion": "Deadline",
+                "marks": 1
+              },
+              {
+                "criterion": "Control",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An OS that responds to sensor inputs within a guaranteed time so it can control the greenhouse as conditions change."
+          }
+        },
+        {
+          "key": "ost-exam-1b",
+          "part_label": "(b)",
+          "title": "Features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** features of the RTOS, other than its response time.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): priority pre-emptive scheduling; deterministic; continuous monitoring / feedback; reliable / fault tolerant; small embedded; minimal interface; fast interrupt handling",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Priority-based scheduling. 2 Continuous monitoring of sensors with feedback."
+          }
+        },
+        {
+          "key": "ost-exam-1c",
+          "part_label": "(c)",
+          "title": "Priority",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The fire sensor triggers while the RTOS is logging humidity data. Explain what happens.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Fire task higher priority pre-empts logging (1); alarm / sprinklers / heaters off immediately, logging resumes after (1)",
+            "points": [
+              {
+                "criterion": "Pre-emption",
+                "marks": 1
+              },
+              {
+                "criterion": "Immediate action",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The fire task has a higher priority, so it interrupts the logging task at once and switches on the alarm and sprinklers; the logging continues afterwards."
+          }
+        },
+        {
+          "key": "ost-exam-1d",
+          "part_label": "(d)",
+          "title": "Hard or soft",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) to show whether each system is hard or soft real-time.",
+          "content": {
+            "columns": [
+              "System",
+              "Hard",
+              "Soft"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "Greenhouse fire-safety controller",
+                null,
+                null
+              ],
+              [
+                "Live video stream from a greenhouse camera",
+                null,
+                null
+              ],
+              [
+                "Car anti-lock braking system",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Fire-safety hard (1); video soft (1); ABS hard (1)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "ost-exam-1e",
+          "part_label": "(e)",
+          "title": "Embedded",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **one** other device that uses an embedded real-time OS.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): airbag controller; pacemaker; autopilot; industrial robot; traffic lights; washing machine controller; drone",
+            "points": [
+              {
+                "criterion": "Valid device",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A car airbag controller."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ost-exam-2",
+      "title": "A school network",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school has 400 computers connected to servers that run a network operating system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ost-exam-2a",
+          "part_label": "(a)",
+          "title": "User accounts",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how a network operating system implements user account management.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "NOS provides user authentication and authorization mechanisms… (1) ensuring only authorized users access network resources (1); verifies identities (1) to assign access rights (1) [Max 2]",
+            "points": [
+              {
+                "criterion": "Authentication",
+                "marks": 1
+              },
+              {
+                "criterion": "Authorisation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It verifies each user's name and password at log-in and gives the account the access rights of its group, so only authorised users can use each resource."
+          }
+        },
+        {
+          "key": "ost-exam-2b",
+          "part_label": "(b)",
+          "title": "Other functions",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** other functions of the NOS.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): file sharing; printer sharing / queues; central backup; security / logs; updates; remote administration; DHCP / DNS / e-mail",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Sharing printers. 2 Backing up users' files centrally."
+          }
+        },
+        {
+          "key": "ost-exam-2c",
+          "part_label": "(c)",
+          "title": "Client–server",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare the school's client–server network with a peer-to-peer network.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), both sides: central vs individual control; security; backup; cost; size",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In the school's network the server controls all accounts and backups centrally, whereas in peer-to-peer each computer manages its own security and files, which would be impossible to control for 400 computers."
+          }
+        },
+        {
+          "key": "ost-exam-2d",
+          "part_label": "(d)",
+          "title": "Authentication vs authorisation",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between authentication and authorisation.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Authentication — verifying who the user is (1); authorisation — deciding what the user may access (1)",
+            "points": [
+              {
+                "criterion": "Authentication",
+                "marks": 1
+              },
+              {
+                "criterion": "Authorisation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Authentication checks who the user is, for example by password; authorisation then decides which folders and printers that user may use."
+          }
+        },
+        {
+          "key": "ost-exam-2e",
+          "part_label": "(e)",
+          "title": "Central backup",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** advantage of the NOS backing up pupils' work centrally.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Advantage (1) + explanation (1): automatic / regular — pupils do not need to remember; work can be restored if a PC fails / file deleted",
+            "points": [
+              {
+                "criterion": "Advantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Backups happen automatically every night, so pupils' work can be restored even if they forget to save a copy or a computer fails."
+          }
+        }
+      ]
+    },
+    {
+      "key": "ost-exam-3",
+      "title": "A water company",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A water company produces bills for 300 000 customers every quarter using a batch processing operating system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "ost-exam-3a",
+          "part_label": "(a)",
+          "title": "Features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **two** features of the batch operating system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Jobs with similar requirements are batched together and run as a group (1); data collected for a defined period and processed as a pack (1); sorting before processing (1); no interaction (1) [Max 2]",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Similar jobs are grouped and run together. 2 Data is collected over a period and processed without user interaction."
+          }
+        },
+        {
+          "key": "ost-exam-3b",
+          "part_label": "(b)",
+          "title": "How it works",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the billing jobs are processed by the batch OS.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): jobs submitted with instructions in advance (JCL / script); placed in a job queue; data sorted (by customer number); run automatically one after another at a scheduled / off-peak time; output spooled to printers / files",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              },
+              {
+                "criterion": "Third",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The billing jobs are submitted with instructions written in advance and placed in a job queue. The meter readings are sorted by customer number, and at night the OS runs the jobs one after another without an operator, spooling the bills to the printers."
+          }
+        },
+        {
+          "key": "ost-exam-3c",
+          "part_label": "(c)",
+          "title": "Suitability",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why batch processing is suitable for producing the bills.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): large volume of similar jobs; not urgent / quarterly; readings collected over the period; off-peak automatic",
+            "points": [
+              {
+                "criterion": "First",
+                "marks": 1
+              },
+              {
+                "criterion": "Second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "There are 300 000 similar bills that are only needed once a quarter, so they can all be calculated together automatically at night."
+          }
+        },
+        {
+          "key": "ost-exam-3d",
+          "part_label": "(d)",
+          "title": "Disadvantage",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** disadvantage of batch processing for the company.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Disadvantage (1) + explanation (1): error found after the whole batch — all bills reprinted; results delayed; cannot change jobs while running",
+            "points": [
+              {
+                "criterion": "Disadvantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If there is an error in the tariff, it may only be noticed after all 300 000 bills are printed, and the whole batch must be run again."
+          }
+        },
+        {
+          "key": "ost-exam-3e",
+          "part_label": "(e)",
+          "title": "When",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State when batch jobs are usually run and why.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "At night / off-peak, when the computer is not busy with other work (1)",
+            "points": [
+              {
+                "criterion": "Off-peak with reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "At night, when the computer is not needed for other work."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Real-time, network and batch processing operating systems in depth — how each works, their key features, scheduling and interrupts in real-time systems, client–server and peer-to-peer networks and user account management in a NOS, job queues and scheduling in batch systems, and how to choose the right type.",
   "theory": [
+    {
+      "title": "Types of operating system",
+      "objectives": [
+        "12.3.1.1",
+        "12.3.1.2",
+        "12.3.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Operating systems are designed for different **workloads**. A laptop OS is optimised for **one user running many programs**; other systems must react **instantly**, serve **hundreds of users over a network**, or process **millions of records without anyone watching**."
+        },
+        {
+          "type": "comparison",
+          "title": "Three specialised OS types",
+          "columns": [
+            "",
+            "Real-time OS",
+            "Network OS",
+            "Batch processing OS"
+          ],
+          "rows": [
+            [
+              "Main goal",
+              "**Respond within a guaranteed deadline**",
+              "**Manage shared network resources and users**",
+              "**Process large volumes of similar jobs efficiently**"
+            ],
+            [
+              "User interaction",
+              "Little or none; sensors and actuators",
+              "Many users at once over the network",
+              "**None** while jobs run"
+            ],
+            [
+              "Where used",
+              "Embedded and control systems",
+              "Servers in schools, offices, data centres",
+              "Mainframes, banks, utilities"
+            ],
+            [
+              "Examples",
+              "FreeRTOS, VxWorks, QNX",
+              "Windows Server, Linux server, Novell NetWare",
+              "IBM z/OS (JCL jobs), scheduled jobs on servers"
+            ]
+          ]
+        }
+      ]
+    },
     {
       "title": "Real-time operating systems",
       "objectives": [
@@ -12,34 +1427,67 @@
         {
           "type": "definition",
           "term": "Real-time operating system (RTOS)",
-          "content": "An OS that guarantees to process input and respond **within a strict, fixed time limit (deadline)**, so that the output can control what happens next."
+          "content": "An operating system that **processes data and responds to events within a strict, guaranteed time limit (deadline)**, so that it can **monitor and control** a physical process as it happens. Correctness depends not only on the **result** but also on **when** it is produced."
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "Hard real-time",
-              "content": "Missing a deadline is a **failure** — may be dangerous. *Airbag control, pacemaker, aircraft fly-by-wire, ABS brakes.*"
+              "title": "Key features",
+              "content": "- **Deterministic** — the time to respond to an event is **predictable** and always within the deadline.\n- **Priority-based pre-emptive scheduling** — the most urgent task **interrupts** lower-priority tasks immediately.\n- **Fast interrupt handling** — very low **interrupt latency** (the time from a signal to the start of its handler).\n- **Continuous monitoring** of sensors with **feedback** to control actuators (motors, valves, displays).\n- **High reliability and fault tolerance** — runs for years without restarting; often has redundant components.\n- **Small and efficient** — stored in ROM / flash in an **embedded** device; minimal or no user interface."
             },
             {
-              "title": "Soft real-time",
-              "content": "Occasional late responses only reduce quality. *Video streaming, online games, VoIP calls.*"
+              "title": "Hard vs soft real-time",
+              "content": "- **Hard** real-time: missing a deadline is a **failure** that may be dangerous — airbags, anti-lock brakes, pacemakers, aircraft flight control, industrial robots.\n- **Soft** real-time: missing a deadline only **reduces quality** — video streaming, online games, VoIP calls, ticket booking."
             }
-          ]
-        },
-        {
-          "type": "list",
-          "items": [
-            "**Deterministic** scheduling by **priority**; the most urgent task always runs first; interrupts handled immediately.",
-            "Works with **sensors** and **actuators** in a **feedback loop**.",
-            "Small, reliable, often **embedded** in a device with no user interface; runs continuously."
           ]
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart LR\n  S[Sensor: measures temperature] --> C[RTOS + program: compare with target]\n  C --> A[Actuator: heater on/off]\n  A --> E[Environment]\n  E --> S",
-          "caption": "Feedback loop in a real-time control system"
+          "content": "flowchart TB\n  S[Sensor measures a value, e.g. temperature] --> I[Interrupt or regular sampling]\n  I --> P[RTOS runs the highest-priority task within the deadline]\n  P --> D{Value outside the limits?}\n  D -- Yes --> A[Actuator acts, e.g. turns heater off]\n  D -- No --> W[Wait for next reading]\n  A --> S\n  W --> S",
+          "caption": "How an RTOS controls a process (feedback loop)"
+        },
+        {
+          "type": "example",
+          "title": "A greenhouse control system",
+          "content": "Sensors measure **temperature** and **humidity** every second. If the temperature rises above 30 °C, the RTOS must open the windows **within 2 seconds**; if a fire sensor triggers, the **highest-priority** task sounds the alarm and switches off the heaters **immediately**, interrupting any other task."
+        },
+        {
+          "type": "comparison",
+          "title": "RTOS vs general-purpose OS",
+          "columns": [
+            "",
+            "RTOS",
+            "General-purpose OS"
+          ],
+          "rows": [
+            [
+              "Priority",
+              "Meet every deadline",
+              "Good average speed and fairness"
+            ],
+            [
+              "Scheduling",
+              "Strict priority, pre-emptive",
+              "Time-sharing between many programs"
+            ],
+            [
+              "Predictability",
+              "Deterministic",
+              "Response times vary"
+            ],
+            [
+              "Size",
+              "Small, embedded",
+              "Large, many features"
+            ],
+            [
+              "Interface",
+              "Minimal",
+              "Rich GUI"
+            ]
+          ]
         }
       ]
     },
@@ -52,18 +1500,61 @@
         {
           "type": "definition",
           "term": "Network operating system (NOS)",
-          "content": "An OS designed to run on **servers** and to manage the resources and users of a **network** centrally."
+          "content": "An operating system that **manages a network** of computers and its **shared resources** — files, printers, applications, Internet access — and the **users** who access them. It usually runs on a **server**, and client computers connect to it."
         },
         {
-          "type": "list",
-          "items": [
-            "**Central user management:** accounts, groups, logins (e.g. Active Directory).",
-            "**Resource sharing:** files, folders, printers, applications, Internet connection.",
-            "**Security:** authentication, access rights, firewalls, encryption, auditing.",
-            "**Administration:** remote management, software deployment, monitoring, central **backup**.",
-            "Supports many simultaneous users and connections; high reliability.",
-            "*Examples:* Windows Server, Linux server distributions (Ubuntu Server, Red Hat), Novell NetWare (historically)."
+          "type": "comparison",
+          "title": "Client–server and peer-to-peer networks",
+          "columns": [
+            "",
+            "Client–server (NOS on a server)",
+            "Peer-to-peer"
+          ],
+          "rows": [
+            [
+              "Control",
+              "**Centralised** — the server manages accounts, security and backups",
+              "Each computer manages itself"
+            ],
+            [
+              "Security",
+              "Strong; one place to set access rights",
+              "Weaker; depends on every user"
+            ],
+            [
+              "Backup",
+              "Central and automatic",
+              "Each user backs up their own files"
+            ],
+            [
+              "Cost",
+              "Server and administrator needed",
+              "Cheap, simple"
+            ],
+            [
+              "Size",
+              "Large networks (schools, companies)",
+              "Small networks (home, small office)"
+            ]
           ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Functions of a NOS",
+              "content": "- **User account management** — creates accounts and **groups**, sets **passwords** and **password policies**.\n- **Authentication and authorisation** — verifies who the user is and gives **access rights** to resources.\n- **File and printer sharing** — central storage, home folders, print queues.\n- **Security** — firewall, encryption, **audit logs** of who accessed what.\n- **Centralised backup** and **software updates** for all clients.\n- **Remote administration** and **network services** — DHCP, DNS, e-mail, web.\n- Supports **many users simultaneously**."
+            },
+            {
+              "title": "How user account management works",
+              "content": "1. The administrator creates an **account** for each user and adds it to **groups** (e.g. Teachers, Grade 11).\n2. When a user **logs in**, the NOS **verifies their identity** (user name + password / 2FA) — **authentication**.\n3. The NOS checks the **access rights** of the user's account and groups — **authorisation**.\n4. The user can only open the folders and printers they are allowed to use; every access may be **logged**."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Access rights on a school server",
+          "content": "| Folder | Teachers | Grade 11 pupils | Office staff |\n|---|---|---|---|\n| \\\\Exams | Read / write | No access | No access |\n| \\\\Homework\\\\Grade11 | Read / write | Read | No access |\n| \\\\Finance | No access | No access | Read / write |"
         }
       ]
     },
@@ -75,78 +1566,137 @@
       "blocks": [
         {
           "type": "definition",
-          "term": "Batch processing",
-          "content": "Jobs (or transactions) are **collected over time** into a **batch** and processed **together, without user interaction**, often at a scheduled time when the computer is not busy."
+          "term": "Batch processing OS",
+          "content": "An operating system that **groups jobs with similar requirements into batches** and **runs them one after another automatically**, **without user interaction**, usually at a **scheduled time**. Data is **collected over a period** and processed together."
         },
         {
           "type": "steps",
-          "title": "How a batch system works",
+          "title": "How batch processing works",
           "items": [
-            "Data/transactions are collected into a **transaction file** during the day.",
-            "The file is **validated** and **sorted** into the same order as the master file.",
-            "At a scheduled time (e.g. overnight) the batch is processed, updating the **master file**.",
-            "Outputs (bills, payslips, reports) are produced at the end."
+            "Jobs (programs + their data) are **submitted** with instructions written in advance (e.g. a **job control language**, JCL, or a script).",
+            "Jobs are placed in a **job queue** and **grouped** with similar jobs.",
+            "Input data is often **sorted** first (e.g. by account number) so it matches the master file.",
+            "At the scheduled time (often **at night**), the OS runs the jobs **one by one**, without an operator.",
+            "Output (bills, payslips, reports) is **spooled** to printers or files."
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Features",
+              "content": "- Jobs with similar requirements are **batched together** and run as a group.\n- Data is **collected over a defined period** and processed as a pack.\n- **No interaction** with users while the jobs run.\n- **Sorting** before processing; **scheduling** at off-peak times.\n- **Spooling** — output is queued for slow devices such as printers."
+            },
+            {
+              "title": "Uses",
+              "content": "- **Payroll** at the end of each month.\n- **Utility bills** and **bank statements**.\n- End-of-day processing of **card transactions** and **cheques**.\n- **Exam results**, census data, overnight database backups and reports."
+            }
           ]
         },
         {
           "type": "comparison",
-          "title": "Comparing the three types",
-          "columns": [
-            "",
-            "Real-time",
-            "Network",
-            "Batch"
-          ],
-          "rows": [
-            [
-              "Response",
-              "Immediate, within a deadline",
-              "Interactive, shared by many users",
-              "Delayed — after the whole batch is processed"
-            ],
-            [
-              "User interaction",
-              "Little or none (sensors)",
-              "Many users at once",
-              "None during processing"
-            ],
-            [
-              "Main aim",
-              "Reliability and timing",
-              "Sharing resources, central control",
-              "Efficient processing of large volumes"
-            ],
-            [
-              "Examples",
-              "Traffic lights, autopilot, industrial robots",
-              "School/office servers",
-              "Payroll, utility bills, bank statements, exam result processing"
-            ]
-          ]
-        },
-        {
-          "type": "comparison",
-          "title": "Batch processing: advantages and disadvantages",
+          "title": "Batch processing — advantages and disadvantages",
           "columns": [
             "Advantages",
             "Disadvantages"
           ],
           "rows": [
             [
-              "Efficient for large amounts of similar data",
-              "Results are not available immediately"
+              "**Efficient** for very large volumes of similar data",
+              "**Delay** — results are not immediate"
             ],
             [
-              "Uses the computer at quiet times (cheaper)",
-              "Errors may be found only after processing"
+              "Uses the computer at **off-peak** times",
+              "Errors may be found only **after** the whole batch has run"
             ],
             [
-              "Little human supervision needed",
-              "Not suitable when up-to-date information is needed (e.g. booking seats)"
+              "**No operator** needed during processing",
+              "Jobs cannot be changed while running"
+            ],
+            [
+              "Repetitive jobs are done **consistently**",
+              "Not suitable for interactive or urgent tasks"
             ]
           ]
         }
       ]
+    },
+    {
+      "title": "Choosing an OS type and exam practice",
+      "objectives": [
+        "12.3.1.1",
+        "12.3.1.2",
+        "12.3.1.3"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Scenario → OS type",
+          "columns": [
+            "Scenario",
+            "OS type",
+            "Reason"
+          ],
+          "rows": [
+            [
+              "An aircraft autopilot",
+              "**Hard real-time**",
+              "Must respond to sensors within milliseconds; failure is dangerous"
+            ],
+            [
+              "A company with 500 employees sharing files and printers",
+              "**Network OS**",
+              "Central accounts, access rights, shared resources"
+            ],
+            [
+              "A water company producing 300 000 bills every quarter",
+              "**Batch**",
+              "Large volume of similar jobs; no interaction needed"
+            ],
+            [
+              "A video-call app",
+              "**Soft real-time**",
+              "Delays reduce quality but are not dangerous"
+            ],
+            [
+              "Overnight processing of all card payments at a bank",
+              "**Batch**",
+              "Transactions collected during the day, processed together"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Give two features of the batch operating system. [2]**\nJobs with similar requirements are **batched together** and run through the computer **as a group** (1). Data is **collected for a defined period** of time and processed as a pack of similar tasks / **no user interaction** / sorting is performed before processing (1).\n\n**Q: Describe how a network operating system implements user account management. [2]**\nThe NOS provides **authentication and authorisation** mechanisms, ensuring that **only authorised users can access network resources** (1); it **verifies user identities** to **assign appropriate access rights** (1).\n\n**Q: Describe a real-time operating system. [2]**\nIt processes inputs and responds **within a guaranteed time / deadline** (1), so it can **control a physical process** as it happens, e.g. an airbag or a factory robot (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying an RTOS is just \"fast\" — the key idea is a **guaranteed deadline** (predictability).\n- Describing a NOS only as \"an OS for the Internet\" — it **manages users and shared resources** on a network.\n- Saying batch processing lets users interact with jobs — it runs **without** interaction.\n- Confusing **multi-user** (many users) with **network** OS (manages a network's resources) — a NOS is usually multi-user, but the focus is the network."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define an RTOS and give four of its features.",
+            "What is the difference between hard and soft real-time? Give two examples of each.",
+            "Compare client–server and peer-to-peer networks.",
+            "Describe step by step how a NOS authenticates and authorises a user.",
+            "Describe how batch jobs are submitted, queued and run.",
+            "Choose an OS type for five scenarios and justify each choice."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "OS types — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "ost-exam-1",
+      "ost-exam-2",
+      "ost-exam-3"
+    ]
+  }
 }

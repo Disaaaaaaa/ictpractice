@@ -1,8 +1,1425 @@
 {
   "topic": "g11-data-testing",
-  "questions": [],
-  "summary": "Testing a program with normal, boundary and erroneous data, choosing test values and recording results in a test plan.",
+  "questions": [
+    {
+      "key": "dtt-types-match",
+      "title": "Types of test data",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.10",
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "Match each type of test data to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Normal"
+          },
+          {
+            "key": "L2",
+            "text": "Boundary"
+          },
+          {
+            "key": "L3",
+            "text": "Erroneous"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Typical, sensible data that should be accepted"
+          },
+          {
+            "key": "R2",
+            "text": "Data at the edges of the valid range"
+          },
+          {
+            "key": "R3",
+            "text": "Data that should be rejected"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "dtt-classify",
+      "title": "Classify the data",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.10",
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "A program accepts a whole number of **tickets from 1 to 10**. Tick (✓) the type of each test value.",
+      "content": {
+        "columns": [
+          "Value",
+          "Normal",
+          "Boundary",
+          "Erroneous"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "5",
+            null,
+            null,
+            null
+          ],
+          [
+            "1",
+            null,
+            null,
+            null
+          ],
+          [
+            "10",
+            null,
+            null,
+            null
+          ],
+          [
+            "25",
+            null,
+            null,
+            null
+          ],
+          [
+            "\"two\"",
+            null,
+            null,
+            null
+          ],
+          [
+            "7",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Normal; boundary; boundary; erroneous; erroneous; normal (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dtt-normal-purpose",
+      "title": "Purpose of normal data",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "State the purpose of testing with normal data.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "To check that the program accepts typical data and gives the correct results / works as expected (1)",
+        "points": [
+          {
+            "criterion": "Correct results",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To check that the program accepts ordinary data and produces the correct results."
+      }
+    },
+    {
+      "key": "dtt-normal-branches",
+      "title": "Normal data for every branch",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "A ticket costs 1500 ₸ for age 0–17, 3000 ₸ for 18–64 and 1000 ₸ for 65–120. Give **one** normal test value for each price band and its expected result.",
+      "content": {
+        "columns": [
+          "Band",
+          "Test value",
+          "Expected result"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "0–17",
+            null,
+            null
+          ],
+          [
+            "18–64",
+            null,
+            null
+          ],
+          [
+            "65–120",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Each row: a value inside the band (not at the limits) with the correct price (1 each): e.g. 10 → 1500; 35 → 3000; 70 → 1000",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Band | Value | Expected |\n|---|---|---|\n| 0–17 | 10 | 1500 ₸ |\n| 18–64 | 35 | 3000 ₸ |\n| 65–120 | 70 | 1000 ₸ |"
+      }
+    },
+    {
+      "key": "dtt-boundary-purpose",
+      "title": "Why boundary data",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.11"
+      ],
+      "practice": true,
+      "text": "Explain why boundary data is used in testing.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Checks that the values at the limits are accepted / values just outside rejected (1)\n- finds off-by-one errors in comparisons such as < instead of <= (1)",
+        "points": [
+          {
+            "criterion": "Limits",
+            "marks": 1
+          },
+          {
+            "criterion": "Off-by-one",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It checks the program accepts the exact limits and rejects values just outside them, which finds off-by-one mistakes such as using < instead of <=."
+      }
+    },
+    {
+      "key": "dtt-boundary-values",
+      "title": "Boundary values",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.11"
+      ],
+      "practice": true,
+      "text": "A mark must be a whole number from **0 to 100**. Select the **two** boundary values that should be **accepted**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "0"
+        },
+        {
+          "key": "B",
+          "content": "1"
+        },
+        {
+          "key": "C",
+          "content": "50"
+        },
+        {
+          "key": "D",
+          "content": "99"
+        },
+        {
+          "key": "E",
+          "content": "100"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, E",
+        "accepted": {
+          "correct": [
+            "A",
+            "E"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dtt-extreme-mid",
+      "title": "Testing the variable mid",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "In a football program the number of midfielders **mid** can only be **3, 4 or 5**. Give examples of data that test the variable mid.",
+      "content": {
+        "fields": [
+          {
+            "key": "extreme",
+            "label": "Extreme",
+            "lines": 1
+          },
+          {
+            "key": "erroneous",
+            "label": "Erroneous",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Extreme data: 3 / 5 (1). Erroneous data: any number that is not 3, 4 or 5, or a non-numerical character (1)",
+        "points": [
+          {
+            "criterion": "Extreme",
+            "marks": 1
+          },
+          {
+            "criterion": "Erroneous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Extreme: 5\nErroneous: 8"
+      }
+    },
+    {
+      "key": "dtt-off-by-one",
+      "title": "Finding the error",
+      "type": "code_analysis",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.11"
+      ],
+      "practice": true,
+      "text": "The code should accept marks from 0 to 100.\n\nIdentify a test value that shows the error, the result it gives, and the correction.",
+      "content": {
+        "language": "python",
+        "starter_code": "mark = int(input(\"Mark: \"))\nif mark > 0 and mark < 100:\n    print(\"Mark saved\")\nelse:\n    print(\"Mark must be 0-100\")",
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Boundary value 0 or 100 (1)\n- is rejected / shows \"Mark must be 0-100\" although it is valid (1)\n- change to mark >= 0 and mark <= 100 (1)",
+        "points": [
+          {
+            "criterion": "Test value",
+            "marks": 1
+          },
+          {
+            "criterion": "Wrong result",
+            "marks": 1
+          },
+          {
+            "criterion": "Correction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Test 100: the program prints \"Mark must be 0-100\" although 100 is valid. Correct the condition to mark >= 0 and mark <= 100."
+      }
+    },
+    {
+      "key": "dtt-erroneous-purpose",
+      "title": "Purpose of erroneous data",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of testing a program with erroneous data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Checks that invalid data is rejected / validation works (1)\n- program does not crash and gives a suitable error message (1)",
+        "points": [
+          {
+            "criterion": "Rejected",
+            "marks": 1
+          },
+          {
+            "criterion": "No crash / message",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To make sure invalid data is rejected by the validation, and that the program shows an error message instead of crashing."
+      }
+    },
+    {
+      "key": "dtt-erroneous-kinds",
+      "title": "Kinds of erroneous data",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "A form asks for an age (whole number 14–18) and an e-mail. Match each test value to the kind of erroneous data.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Age = 35"
+          },
+          {
+            "key": "L2",
+            "text": "Age = \"fifteen\""
+          },
+          {
+            "key": "L3",
+            "text": "E-mail = \"aliya.mail.kz\""
+          },
+          {
+            "key": "L4",
+            "text": "Age left blank"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Out of range"
+          },
+          {
+            "key": "R2",
+            "text": "Wrong data type"
+          },
+          {
+            "key": "R3",
+            "text": "Wrong format"
+          },
+          {
+            "key": "R4",
+            "text": "Missing data"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dtt-password",
+      "title": "Password length",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.10",
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "A password must be **8 to 12 characters** long. Give one test value of each type and the expected result.",
+      "content": {
+        "columns": [
+          "Type",
+          "Test value",
+          "Expected result"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Normal",
+            null,
+            null
+          ],
+          [
+            "Boundary",
+            null,
+            null
+          ],
+          [
+            "Erroneous",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Normal: 9–11 characters → accepted (1); Boundary: exactly 8 or 12 characters → accepted (or 7 / 13 → rejected) (1); Erroneous: e.g. 3 characters / empty → rejected with message (1)",
+        "points": [
+          {
+            "criterion": "Normal",
+            "marks": 1
+          },
+          {
+            "criterion": "Boundary",
+            "marks": 1
+          },
+          {
+            "criterion": "Erroneous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Type | Value | Expected |\n|---|---|---|\n| Normal | Pass1234w (9) | Accepted |\n| Boundary | Pass1234 (8) | Accepted |\n| Erroneous | abc (3) | Rejected: too short |"
+      }
+    },
+    {
+      "key": "dtt-plan-columns",
+      "title": "Test plan columns",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "Select the **three** columns that a test plan must contain **before** testing starts.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Test data"
+        },
+        {
+          "key": "B",
+          "content": "Actual result"
+        },
+        {
+          "key": "C",
+          "content": "Type of test data"
+        },
+        {
+          "key": "D",
+          "content": "Expected result"
+        },
+        {
+          "key": "E",
+          "content": "Name of the user who will buy the program"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C, D",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        },
+        "explanation": "The actual result is filled in during testing."
+      }
+    },
+    {
+      "key": "dtt-expected-first",
+      "title": "Expected results",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "Explain why the expected result of each test is written **before** the program is tested.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "So the actual result can be compared with it to decide pass / fail (1); writing it afterwards risks copying a wrong output as correct (1)",
+        "points": [
+          {
+            "criterion": "Compare",
+            "marks": 1
+          },
+          {
+            "criterion": "Avoid bias",
+            "marks": 1
+          }
+        ],
+        "model_answer": "So that the actual output can be compared with it; if it were written afterwards, a wrong result might simply be copied as the expected one."
+      }
+    },
+    {
+      "key": "dtt-failed",
+      "title": "A failed test",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "Test 5 (an empty field) made the program crash. Describe what the programmer should do next.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Record the actual result / mark as failed (1); find the cause and correct the code, e.g. add a presence check (1); re-run the failed test and the earlier tests (regression testing) (1)",
+        "points": [
+          {
+            "criterion": "Record",
+            "marks": 1
+          },
+          {
+            "criterion": "Fix",
+            "marks": 1
+          },
+          {
+            "criterion": "Re-test",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Record that the test failed, add a presence check so empty input gives an error message, then run test 5 again and repeat the other tests to check nothing else broke."
+      }
+    },
+    {
+      "key": "dtt-trace",
+      "title": "Dry run",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "```python\ntotal = 0\nfor n in [5, -2, 8, 0]:\n    if n > 0:\n        total = total + n\nprint(total)\n```\n\nDry-run the code: complete the value of `total` after each value of n.",
+      "content": {
+        "columns": [
+          "n",
+          "total"
+        ],
+        "rows": 4
+      },
+      "scheme": {
+        "mark_scheme": "5 5; -2 5; 8 13; 0 13 (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| n | total |\n|---|---|\n| 5 | 5 |\n| -2 | 5 |\n| 8 | 13 |\n| 0 | 13 |",
+        "accepted": {
+          "rows": [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "-2",
+              "5"
+            ],
+            [
+              "8",
+              "13"
+            ],
+            [
+              "0",
+              "13"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dtt-box-tf",
+      "title": "Black-box testing",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "practice": true,
+      "text": "In black-box testing the tester chooses test data by reading the program code.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "That is white-box testing; black-box testing only checks inputs and outputs against the requirements."
+      }
+    },
+    {
+      "key": "dtt-only-normal",
+      "title": "Only normal data",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "practice": true,
+      "text": "A programmer tested a registration form only with normal data and every test passed. Explain why the program may still contain errors.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Boundary errors (wrong < / <=) are not found without boundary data (1); validation errors / crashes with invalid input are not found without erroneous data (1)",
+        "points": [
+          {
+            "criterion": "Boundary",
+            "marks": 1
+          },
+          {
+            "criterion": "Erroneous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Normal data does not test the limits, so off-by-one errors stay hidden, and it does not check that invalid input is rejected, so the program might accept wrong data or crash."
+      }
+    },
+    {
+      "key": "dtt-exam-1",
+      "title": "Exam marks program",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A teacher's program asks for a test mark, which must be a **whole number from 0 to 40**, and outputs \"Saved\" or an error message.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dtt-exam-1a",
+          "part_label": "(a)",
+          "title": "Test plan",
+          "type": "table_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.10",
+            "11.5.4.11",
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the test plan with two values of each type and the expected result.",
+          "content": {
+            "columns": [
+              "Type",
+              "Test value",
+              "Expected result"
+            ],
+            "rows": 6,
+            "prefill": [
+              [
+                "Normal",
+                null,
+                null
+              ],
+              [
+                "Normal",
+                null,
+                null
+              ],
+              [
+                "Boundary",
+                null,
+                null
+              ],
+              [
+                "Boundary",
+                null,
+                null
+              ],
+              [
+                "Erroneous",
+                null,
+                null
+              ],
+              [
+                "Erroneous",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 mark per row with correct value and expected result: normal 1–39 → Saved; boundary 0 and 40 → Saved (or −1 / 41 → error); erroneous e.g. 55, −5, \"ten\", 20.5, blank → error message. Two different erroneous kinds expected for both marks.",
+            "points": [
+              {
+                "criterion": "Normal 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Normal 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Boundary 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Boundary 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Type | Value | Expected |\n|---|---|---|\n| Normal | 25 | Saved |\n| Normal | 12 | Saved |\n| Boundary | 0 | Saved |\n| Boundary | 40 | Saved |\n| Erroneous | 47 | Error message |\n| Erroneous | ten | Error message |"
+          }
+        },
+        {
+          "key": "dtt-exam-1b",
+          "part_label": "(b)",
+          "title": "Boundary purpose",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the teacher should test the values 0 and 40.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "They are the limits of the valid range / boundary data (1); check comparisons are correct, e.g. <= not < / off-by-one errors (1)",
+            "points": [
+              {
+                "criterion": "Limits",
+                "marks": 1
+              },
+              {
+                "criterion": "Comparisons",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0 and 40 are the limits, so testing them shows whether the conditions use <= and >= correctly; an off-by-one error would reject them."
+          }
+        },
+        {
+          "key": "dtt-exam-1c",
+          "part_label": "(c)",
+          "title": "Erroneous purpose",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the value \"ten\" is used in testing and what the program should do with it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Erroneous data of the wrong type (1); checks the program does not crash / type check works (1); should reject it and display an error message asking for a number (1)",
+            "points": [
+              {
+                "criterion": "Wrong type",
+                "marks": 1
+              },
+              {
+                "criterion": "No crash",
+                "marks": 1
+              },
+              {
+                "criterion": "Error message",
+                "marks": 1
+              }
+            ],
+            "model_answer": "\"ten\" is erroneous data of the wrong type; it checks the program does not crash when text is entered. It should reject it and ask the teacher to enter a number."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dtt-exam-2",
+      "title": "Formation checker",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A football coach enters the numbers of defenders (def), midfielders (mid) and forwards (fwd). Valid formations are 4-4-2, 4-3-3 and 3-5-2. The variable **mid** may therefore only be 3, 4 or 5.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dtt-exam-2a",
+          "part_label": "(a)",
+          "title": "Test mid",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.11",
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give examples of data that test the variable mid.",
+          "content": {
+            "fields": [
+              {
+                "key": "extreme",
+                "label": "Extreme",
+                "lines": 1
+              },
+              {
+                "key": "erroneous",
+                "label": "Erroneous",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Extreme: 3 / 5 (1); Erroneous: any number not 3, 4, 5 or a non-numeric character (1)",
+            "points": [
+              {
+                "criterion": "Extreme",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Extreme: 3\nErroneous: 7"
+          }
+        },
+        {
+          "key": "dtt-exam-2b",
+          "part_label": "(b)",
+          "title": "Normal formations",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete normal test data that checks each formation and the expected output.",
+          "content": {
+            "columns": [
+              "def",
+              "mid",
+              "fwd",
+              "Expected output"
+            ],
+            "rows": 3
+          },
+          "scheme": {
+            "mark_scheme": "One row per formation (1 each): 4,4,2 → matches 4-4-2; 4,3,3 → matches 4-3-3; 3,5,2 → matches 3-5-2",
+            "points": [
+              {
+                "criterion": "4-4-2",
+                "marks": 1
+              },
+              {
+                "criterion": "4-3-3",
+                "marks": 1
+              },
+              {
+                "criterion": "3-5-2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| def | mid | fwd | Expected |\n|---|---|---|---|\n| 4 | 4 | 2 | Matches 4-4-2 |\n| 4 | 3 | 3 | Matches 4-3-3 |\n| 3 | 5 | 2 | Matches 3-5-2 |"
+          }
+        },
+        {
+          "key": "dtt-exam-2c",
+          "part_label": "(c)",
+          "title": "Invalid team",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The coach enters def = 5, mid = 5, fwd = 0. State the type of this test data and the expected result.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Erroneous / invalid data — no such formation (1); program outputs that the formation does not exist (1)",
+            "points": [
+              {
+                "criterion": "Type",
+                "marks": 1
+              },
+              {
+                "criterion": "Expected",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Erroneous data; the program should output that this formation does not exist."
+          }
+        },
+        {
+          "key": "dtt-exam-2d",
+          "part_label": "(d)",
+          "title": "Text input",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what may happen if the coach types \"four\" for def and how the program should be improved.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Type mismatch / runtime error / crash (1); add a type check / validation with an error message before using the value (1)",
+            "points": [
+              {
+                "criterion": "Error",
+                "marks": 1
+              },
+              {
+                "criterion": "Improvement",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Converting \"four\" to a number causes a runtime (type) error and the program crashes; it should check the input is numeric and ask again with an error message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dtt-exam-3",
+      "title": "Testing and fixing",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "```python\nage = int(input(\"Age: \"))\nif age > 14 and age <= 18:\n    print(\"Can join the club\")\nelse:\n    print(\"Age must be 14 to 18\")\n```\n\nPupils aged **14 to 18** may join the club.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dtt-exam-3a",
+          "part_label": "(a)",
+          "title": "Results",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the actual output of the program for each test value. Write **Join** for \"Can join the club\" and **Error** for \"Age must be 14 to 18\".",
+          "content": {
+            "columns": [
+              "Test value",
+              "Actual output"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "16",
+                null
+              ],
+              [
+                "14",
+                null
+              ],
+              [
+                "18",
+                null
+              ],
+              [
+                "19",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Join; Error; Join; Error (1 each)",
+            "points": [
+              {
+                "criterion": "16",
+                "marks": 1
+              },
+              {
+                "criterion": "14",
+                "marks": 1
+              },
+              {
+                "criterion": "18",
+                "marks": 1
+              },
+              {
+                "criterion": "19",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "Join"
+                ],
+                [
+                  null,
+                  "Error"
+                ],
+                [
+                  null,
+                  "Join"
+                ],
+                [
+                  null,
+                  "Error"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "dtt-exam-3b",
+          "part_label": "(b)",
+          "title": "Which test fails",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the test that fails and the type of test data it uses.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Age 14 fails — rejected though valid (1); boundary data (1)",
+            "points": [
+              {
+                "criterion": "14",
+                "marks": 1
+              },
+              {
+                "criterion": "Boundary",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The test with age 14 fails (it is rejected but should be accepted); it is boundary data."
+          }
+        },
+        {
+          "key": "dtt-exam-3c",
+          "part_label": "(c)",
+          "title": "Correct",
+          "type": "code_completion",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the corrected condition.",
+          "content": {
+            "language": "python",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "if age >= 14 and age <= 18: (1)",
+            "points": [
+              {
+                "criterion": ">= 14",
+                "marks": 1
+              }
+            ],
+            "model_answer": "if age >= 14 and age <= 18:"
+          }
+        },
+        {
+          "key": "dtt-exam-3d",
+          "part_label": "(d)",
+          "title": "After fixing",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.10",
+            "11.5.4.12"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the testing that should be done after the correction, including one more erroneous test.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Re-run the failed test with 14 (1); repeat all earlier tests / regression testing (1); erroneous test e.g. \"sixteen\" or blank → error message without crashing (1)",
+            "points": [
+              {
+                "criterion": "Re-run",
+                "marks": 1
+              },
+              {
+                "criterion": "Regression",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous test",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Run the test with 14 again and repeat the other tests to make sure nothing else broke; also test \"sixteen\", which should give an error message instead of crashing."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Why programs are tested, the types of test data — normal, boundary (extreme) and erroneous (abnormal) — how to choose test values for ranges, lengths, choices, formats and several inputs, writing and using a test plan with expected and actual results, dry runs and trace tables, black-box and white-box testing, and what to do when a test fails.",
   "theory": [
+    {
+      "title": "Why programs are tested",
+      "objectives": [
+        "11.5.4.10"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Testing",
+          "content": "Running a program with **carefully chosen data** to check that it **works correctly**, **meets the requirements** and **does not crash** — and to **find and remove errors** before the program is used for real."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "What testing checks",
+              "content": "- The program gives **correct results** for valid input.\n- It works at the **limits** of what is allowed.\n- It **rejects** invalid input with a **clear error message** instead of crashing.\n- It meets the **user requirements** of the new system."
+            },
+            {
+              "title": "Why it matters",
+              "content": "- Errors found **early** are cheaper and easier to fix.\n- A program with errors can give **wrong results** (wrong marks, wrong bills) and lose **data** or **trust**.\n- Testing gives **evidence** that the system works — required in the project documentation."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Types of test data at a glance",
+          "columns": [
+            "Type",
+            "Also called",
+            "What it is",
+            "Expected result"
+          ],
+          "rows": [
+            [
+              "**Normal**",
+              "Valid, typical",
+              "Sensible data the program **should accept**",
+              "**Accepted**, correct output"
+            ],
+            [
+              "**Boundary**",
+              "Extreme, limit",
+              "Data at the **edges** of the valid range — the largest and smallest accepted values (and the values **just outside** them)",
+              "Limits **accepted**; just outside **rejected**"
+            ],
+            [
+              "**Erroneous**",
+              "Invalid, abnormal",
+              "Data that **should be rejected**: out of range, wrong type, wrong format, missing",
+              "**Rejected** with an error message; no crash"
+            ]
+          ]
+        }
+      ]
+    },
     {
       "title": "Normal test data",
       "objectives": [
@@ -12,11 +1429,25 @@
         {
           "type": "definition",
           "term": "Normal (valid) data",
-          "content": "Typical, **sensible data that the program should accept** and process correctly."
+          "content": "Typical, **sensible data that the program should accept** and process correctly — values well **inside** the valid range and of the correct type."
         },
         {
-          "type": "paragraph",
-          "content": "Purpose: to check that the program gives the **correct results** for ordinary input."
+          "type": "cards",
+          "items": [
+            {
+              "title": "Purpose",
+              "content": "- To check that the program gives the **correct results** for ordinary input — the calculations, decisions and outputs are right."
+            },
+            {
+              "title": "How to choose normal data",
+              "content": "- Pick **several** values from the **middle** of the range, not at the edges.\n- Work out the **expected result** **before** running the test (by hand or with a calculator).\n- Include values that take **different paths** through the program (each branch of an IF)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Normal data for a ticket price program",
+          "content": "Rule: age 0–17 pays 1500 ₸, age 18–64 pays 3000 ₸, age 65–120 pays 1000 ₸.\nNormal test data: **10** → 1500 ₸, **35** → 3000 ₸, **70** → 1000 ₸ (one value for **each** branch)."
         }
       ]
     },
@@ -29,11 +1460,37 @@
         {
           "type": "definition",
           "term": "Boundary (extreme) data",
-          "content": "Data **at the edges of the valid range** — the largest and smallest values that should be accepted, and often the values just outside them."
+          "content": "Data **at the edges of the valid range** — the **largest and smallest values that should be accepted**. Many teachers and mark schemes also test the values **just outside** the limits, which must be rejected."
         },
         {
-          "type": "paragraph",
-          "content": "Purpose: to check that comparisons such as `<` and `<=` are written correctly — off-by-one errors are very common."
+          "type": "cards",
+          "items": [
+            {
+              "title": "Purpose",
+              "content": "- To check that comparisons such as `<` and `<=`, `>` and `>=` are written correctly — **off-by-one errors** are very common.\n- To check that the program does not reject the **limits** themselves."
+            },
+            {
+              "title": "How to choose boundary data",
+              "content": "- Read the **exact limits** from the question.\n- Test **each limit**: the lowest and the highest valid value.\n- Optionally test **just below** the lowest and **just above** the highest value (these are rejected).\n- For **whole numbers** \"just outside\" means ±1; for decimals use the smallest step, e.g. 100.1."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Boundary data for a mark from 0 to 100",
+          "content": "| Value | Accepted? | Reason |\n|---|---|---|\n| **0** | Yes | Lowest valid value |\n| **100** | Yes | Highest valid value |\n| −1 | No | Just below the range |\n| 101 | No | Just above the range |"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Extreme data in NIS mark schemes",
+          "content": "For a variable that may only be **3, 4 or 5** (e.g. midfielders in a football formation), the **extreme** values are **3 and 5** — the smallest and largest accepted values. Erroneous data is any other number (2, 6, 9) or a non-numeric value."
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "mark = int(input(\"Mark: \"))\nif mark > 0 and mark < 100:        # bug: should be >= 0 and <= 100\n    print(\"Mark saved\")\nelse:\n    print(\"Mark must be 0–100\")\n# Test 0   → \"Mark must be 0–100\"   ✗ expected \"Mark saved\"\n# Test 100 → \"Mark must be 0–100\"   ✗ expected \"Mark saved\"\n# Normal data such as 45 would NOT have found this error.",
+          "caption": "An off-by-one error found with boundary data"
         }
       ]
     },
@@ -46,16 +1503,82 @@
         {
           "type": "definition",
           "term": "Erroneous (invalid / abnormal) data",
-          "content": "Data that **should be rejected**: outside the range, of the wrong type, the wrong format or missing."
+          "content": "Data that **should be rejected** by the program: **outside the range**, of the **wrong data type**, in the **wrong format**, too **long / short**, or **missing**."
         },
         {
-          "type": "paragraph",
-          "content": "Purpose: to check that the program **does not crash** and gives a suitable **error message**."
+          "type": "cards",
+          "items": [
+            {
+              "title": "Purpose",
+              "content": "- To check that **validation** works — invalid data is **not accepted** or saved.\n- To check that the program **does not crash** and gives a **suitable error message**, so the user can correct the input."
+            },
+            {
+              "title": "Kinds of erroneous data",
+              "content": "- **Out of range**: −20, 250 for a mark 0–100.\n- **Wrong type**: \"abc\", 45.5 when a whole number is required.\n- **Wrong format**: an e-mail without \"@\", a date 31/02/2026.\n- **Wrong length**: a 3-character password when at least 8 are needed.\n- **Missing**: an empty field."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing test data for different rules",
+          "columns": [
+            "Rule",
+            "Normal",
+            "Boundary",
+            "Erroneous"
+          ],
+          "rows": [
+            [
+              "Age 14–18 (whole number)",
+              "15, 16",
+              "14, 18 (13, 19 rejected)",
+              "25, −3, \"fifteen\", empty"
+            ],
+            [
+              "Password length 8–16 characters",
+              "`Pass1234word` (12)",
+              "8 and 16 characters (7, 17 rejected)",
+              "`abc`, empty"
+            ],
+            [
+              "Choice: grade \"A\", \"B\" or \"C\"",
+              "\"B\"",
+              "\"A\", \"C\"",
+              "\"D\", \"7\", empty"
+            ],
+            [
+              "Price > 0 with 2 decimal places",
+              "450.50",
+              "0.01 (0.00 rejected)",
+              "−10, \"free\""
+            ],
+            [
+              "Date of a lesson in 2026",
+              "15/03/2026",
+              "01/01/2026, 31/12/2026",
+              "31/02/2026, 2025-12-31, \"tomorrow\""
+            ]
+          ]
         },
         {
           "type": "example",
           "title": "Choosing test data: a mark must be a whole number from 0 to 100",
           "content": "| Type | Test values | Expected result |\n|---|---|---|\n| Normal | 45, 73 | Accepted |\n| Boundary | 0, 100 (accepted); −1, 101 (rejected) | As stated |\n| Erroneous | −20, 250, \"abc\", empty, 45.5 | Rejected with an error message |"
+        }
+      ]
+    },
+    {
+      "title": "Test plans",
+      "objectives": [
+        "11.5.4.10",
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Test plan",
+          "content": "A table, written **before** testing, that lists each **test**, its **purpose**, the **test data**, the **type** of data and the **expected result**. During testing the **actual result** is recorded and compared."
         },
         {
           "type": "comparison",
@@ -118,10 +1641,83 @@
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "For each test data item the exam expects: the **value**, its **type** (normal/boundary/erroneous) and the **expected outcome**. Choose boundary values from the **exact limits in the question**."
+          "type": "steps",
+          "title": "What to do when a test fails",
+          "items": [
+            "Record the **actual result** and mark the test as **failed**.",
+            "Find the **cause** — trace the code or use a debugger.",
+            "**Correct** the code.",
+            "**Re-run** the failed test **and** the earlier tests (**regression testing**) to make sure nothing else has broken."
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Dry run and trace table",
+              "content": "- Following the code **by hand** with test data, writing the value of each variable after every step in a **trace table**.\n- Finds **logic errors** before the program is run."
+            },
+            {
+              "title": "Black-box testing",
+              "content": "- Tests **inputs and outputs** against the requirements **without looking at the code** — normal, boundary and erroneous data."
+            },
+            {
+              "title": "White-box testing",
+              "content": "- Tests are chosen **from the code**, so that **every branch and loop** is executed at least once."
+            },
+            {
+              "title": "Testing by users",
+              "content": "- **Alpha** testing by the developers' team; **beta** testing by real users before release; **acceptance** testing by the client."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A dry run with a trace table",
+          "content": "```python\ntotal = 0\nfor n in [4, -1, 6]:\n    if n > 0:\n        total = total + n\nprint(total)\n```\n| n | n > 0 | total |\n|---|---|---|\n| — | — | 0 |\n| 4 | True | 4 |\n| −1 | False | 4 |\n| 6 | True | 10 |\n\nOutput **10** — matches the expected result (sum of the positive numbers)."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.4.10",
+        "11.5.4.11",
+        "11.5.4.12"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: A program accepts the number of midfielders mid = 3, 4 or 5. Give examples of data that test the variable mid. [2]**\nExtreme: **3** (or 5) (1); erroneous: any number that is not 3, 4 or 5, e.g. **9**, or a non-numeric value (1).\n\n**Q: A field accepts a whole number of tickets from 1 to 10. Complete a test plan with one normal, one boundary and one erroneous value. [3]**\nNormal **5** → accepted (1); boundary **10** → accepted (1); erroneous **15** / \"two\" → rejected with an error message (1).\n\n**Q: Explain why boundary data is used in testing. [2]**\nIt checks the program accepts the values **at the limits** (1) and finds **off-by-one errors** in comparisons such as `<` instead of `<=` (1).\n\n**Q: Explain why expected results are written before testing. [2]**\nSo that the **actual result** can be **compared** with them (1) and errors noticed; working out the result after the run may just copy a wrong output (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Giving a **boundary** value that is not the exact limit (e.g. 98 for a range 0–100).\n- Giving only **one** erroneous value when several kinds exist (range, type, missing).\n- Forgetting the **expected result** — every test needs one.\n- Calling \"−1\" normal data for a range 0–100 — it is **boundary (just outside)** or **erroneous**.\n- Testing only with normal data — it does **not** find off-by-one or validation errors."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define normal, boundary and erroneous data with an example for a range 1–50.",
+            "Give test data for a password that must be 8–12 characters long.",
+            "What columns does a test plan have?",
+            "What should happen when a test fails?",
+            "Explain the difference between black-box and white-box testing.",
+            "Dry-run a short loop and record it in a trace table."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Data testing — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "dtt-exam-1",
+      "dtt-exam-2",
+      "dtt-exam-3"
+    ]
+  }
 }

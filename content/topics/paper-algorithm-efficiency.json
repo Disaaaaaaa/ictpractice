@@ -1,10 +1,1239 @@
 {
   "topic": "paper-algorithm-efficiency",
-  "questions": [],
-  "summary": "Time efficiency (counting steps, Big O notation) and space efficiency of algorithms, with linear search, binary search, bubble sort and insertion sort as examples.",
+  "questions": [
+    {
+      "key": "aef-define",
+      "title": "Time and space efficiency",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper",
+        "11.5.2.7@paper"
+      ],
+      "practice": true,
+      "text": "Define each term.",
+      "content": {
+        "fields": [
+          {
+            "key": "t",
+            "label": "Time efficiency",
+            "lines": 2
+          },
+          {
+            "key": "s",
+            "label": "Space efficiency",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Time: how the number of steps / running time grows with the size of the input (1). Space: how much (extra) memory the algorithm needs as the input grows (1)",
+        "points": [
+          {
+            "criterion": "Time",
+            "marks": 1
+          },
+          {
+            "criterion": "Space",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Time efficiency: how quickly the number of steps grows as the input gets bigger.\nSpace efficiency: how much extra memory the algorithm needs."
+      }
+    },
+    {
+      "key": "aef-bigo-match",
+      "title": "Complexity classes",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Match each algorithm to its worst-case time complexity.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Accessing A[5] in an array"
+          },
+          {
+            "key": "L2",
+            "text": "Binary search"
+          },
+          {
+            "key": "L3",
+            "text": "Linear search"
+          },
+          {
+            "key": "L4",
+            "text": "Bubble sort"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "O(1)"
+          },
+          {
+            "key": "R2",
+            "text": "O(log n)"
+          },
+          {
+            "key": "R3",
+            "text": "O(n)"
+          },
+          {
+            "key": "R4",
+            "text": "O(n²)"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "aef-nested",
+      "title": "Nested loops",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "```pseudocode\nFOR i ← 1 TO n\n    FOR j ← 1 TO n\n        count ← count + 1\n    NEXT j\nNEXT i\n```\n\nWhat is the time complexity of this code?",
+      "options": [
+        {
+          "key": "A",
+          "content": "O(1)"
+        },
+        {
+          "key": "B",
+          "content": "O(n)"
+        },
+        {
+          "key": "C",
+          "content": "O(n²)"
+        },
+        {
+          "key": "D",
+          "content": "O(log n)"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        }
+      }
+    },
+    {
+      "key": "aef-simplify",
+      "title": "Big O rules",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Write the Big O notation for each number of steps.",
+      "content": {
+        "columns": [
+          "Number of steps",
+          "Big O"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "3n + 5",
+            null
+          ],
+          [
+            "n² + 4n + 2",
+            null
+          ],
+          [
+            "50",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "O(n) (1); O(n²) (1); O(1) (1)",
+        "points": [
+          {
+            "criterion": "O(n)",
+            "marks": 1
+          },
+          {
+            "criterion": "O(n²)",
+            "marks": 1
+          },
+          {
+            "criterion": "O(1)",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "O(n)"
+            ],
+            [
+              null,
+              "O(n²)||O(n^2)||O(n2)"
+            ],
+            [
+              null,
+              "O(1)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "aef-binary-iter",
+      "title": "Binary search iterations",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "An array of **1000** sorted values is searched with binary search. Calculate the maximum number of iterations.",
+      "content": {
+        "unit": "iterations"
+      },
+      "scheme": {
+        "mark_scheme": "10 — 2¹⁰ = 1024 ≥ 1000 (1)",
+        "points": [
+          {
+            "criterion": "10",
+            "marks": 1
+          }
+        ],
+        "model_answer": "10",
+        "accepted": {
+          "values": [
+            "10"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "aef-binary-500",
+      "title": "Binary search for 500 items",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "State the maximum number of comparisons binary search needs for a sorted list of **500** items.",
+      "content": {
+        "unit": "comparisons"
+      },
+      "scheme": {
+        "mark_scheme": "9 — 2⁹ = 512 ≥ 500 (1)",
+        "points": [
+          {
+            "criterion": "9",
+            "marks": 1
+          }
+        ],
+        "model_answer": "9",
+        "accepted": {
+          "values": [
+            "9"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "aef-linear-binary",
+      "title": "Linear vs binary",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "A phone book holds 100 names in alphabetical order. Compare linear search and binary search for finding a name.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Linear: checks names one by one, up to 100 comparisons / O(n) (1); binary: halves the list each time, at most 7 comparisons / O(log n) (1); binary needs sorted data — the list is sorted, so binary is more efficient (1)",
+        "points": [
+          {
+            "criterion": "Linear",
+            "marks": 1
+          },
+          {
+            "criterion": "Binary",
+            "marks": 1
+          },
+          {
+            "criterion": "Sorted condition / conclusion",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Linear search may check all 100 names (O(n)); binary search halves the list each time and needs at most 7 comparisons (O(log n)). Because the list is already sorted, binary search is much more efficient."
+      }
+    },
+    {
+      "key": "aef-bubble-count",
+      "title": "Bubble sort comparisons",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "A bubble sort without a \"swapped\" flag makes (n − 1) + (n − 2) + … + 1 comparisons. Calculate the number of comparisons for **6** items.",
+      "content": {
+        "unit": "comparisons"
+      },
+      "scheme": {
+        "mark_scheme": "5 + 4 + 3 + 2 + 1 (1) = 15 (1)",
+        "points": [
+          {
+            "criterion": "Method",
+            "marks": 1
+          },
+          {
+            "criterion": "15",
+            "marks": 1
+          }
+        ],
+        "model_answer": "15",
+        "accepted": {
+          "values": [
+            "15"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "aef-best-worst",
+      "title": "Best and worst case",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Complete the best-case and worst-case complexity of each algorithm.",
+      "content": {
+        "columns": [
+          "Algorithm",
+          "Best case",
+          "Worst case"
+        ],
+        "rows": 2,
+        "prefill": [
+          [
+            "Linear search",
+            null,
+            null
+          ],
+          [
+            "Insertion sort",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Linear: O(1), O(n); insertion: O(n), O(n²) (1 each)",
+        "points": [
+          {
+            "criterion": "Linear best",
+            "marks": 1
+          },
+          {
+            "criterion": "Linear worst",
+            "marks": 1
+          },
+          {
+            "criterion": "Insertion best",
+            "marks": 1
+          },
+          {
+            "criterion": "Insertion worst",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "O(1)",
+              "O(n)"
+            ],
+            [
+              null,
+              "O(n)",
+              "O(n²)||O(n^2)||O(n2)"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "aef-even-purpose",
+      "title": "Analyse the code",
+      "type": "code_analysis",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of the pseudocode and state the output.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": "N ← 100\nK ← 0\nFOR i FROM 0 TO N\n   IF i MOD 2 = 0\n   K = K + 1\nENDIF\nENDFOR\nPRINT K",
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Counts the even numbers in the range 0 to 100 (1); prints 51 (1)",
+        "points": [
+          {
+            "criterion": "Purpose",
+            "marks": 1
+          },
+          {
+            "criterion": "51",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It counts how many even numbers there are from 0 to 100 and prints the result, 51."
+      }
+    },
+    {
+      "key": "aef-even-optimise",
+      "title": "Optimise the code",
+      "type": "pseudocode",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper",
+        "11.5.2.7@paper"
+      ],
+      "practice": true,
+      "text": "Rewrite an optimised version of the code in the previous question.",
+      "content": {
+        "language": "pseudocode",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "Reduce the number of iterations (e.g. STEP 2 / formula N DIV 2 + 1) (1); reduce the number of variables / correct indentation (1). [Max 2]",
+        "points": [
+          {
+            "criterion": "Fewer iterations",
+            "marks": 1
+          },
+          {
+            "criterion": "Fewer variables / indentation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```pseudocode\nN ← 100\nPRINT N DIV 2 + 1\n```"
+      }
+    },
+    {
+      "key": "aef-time-actions",
+      "title": "Time optimisation",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "State **two** actions that can optimise a code in terms of time-efficiency.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): select the most appropriate algorithm; use efficient data structures; exclude redundant operations / calculations; minimise loop iterations / exit early. Accept any correct answers.",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Choose a more efficient algorithm, e.g. binary search.\n2 Reduce the number of loop iterations."
+      }
+    },
+    {
+      "key": "aef-space-action",
+      "title": "Space optimisation",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.7@paper"
+      ],
+      "practice": true,
+      "text": "State **one** action that can optimise a code in terms of space-efficiency.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Choose appropriate data structures / eliminate duplicate data / remove unnecessary variables / sort in place (1)",
+        "points": [
+          {
+            "criterion": "Action",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Remove duplicate copies of data."
+      }
+    },
+    {
+      "key": "aef-power",
+      "title": "Replace a loop",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "```pseudocode\nLp ← 1\nFOR i FROM 1 TO K DO\n   Lp ← Lp * L\nENDFOR\n```\n\nExplain **one** way to improve the time-efficiency of this code.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Replace the loop with the power operator Lp ← L ^ K (1); K repeated multiplications become one operation / fewer iterations (1)",
+        "points": [
+          {
+            "criterion": "Method",
+            "marks": 1
+          },
+          {
+            "criterion": "Explanation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Use Lp ← L ^ K instead of the loop, so K separate multiplications are replaced by one operation."
+      }
+    },
+    {
+      "key": "aef-in-place",
+      "title": "Space of sorts",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.7@paper"
+      ],
+      "practice": true,
+      "text": "Insertion sort needs an extra array of the same size as the list being sorted.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "It sorts in place with O(1) extra memory."
+      }
+    },
+    {
+      "key": "aef-tradeoff",
+      "title": "Time–space trade-off",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper",
+        "11.5.2.7@paper"
+      ],
+      "practice": true,
+      "text": "Explain, with an example, what is meant by a time–space trade-off.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Making an algorithm faster often needs more memory, or saving memory makes it slower (1); example: lookup table / cache / index, or merge sort vs insertion sort (1)",
+        "points": [
+          {
+            "criterion": "Idea",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Faster code often uses more memory: storing results in a lookup table avoids recalculating them, but the table takes up memory."
+      }
+    },
+    {
+      "key": "aef-early-exit",
+      "title": "Early exit",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Rewrite the linear search so that it stops as soon as the target is found and outputs its position, or -1 if it is not found.",
+      "content": {
+        "language": "python",
+        "starter_code": "pos = -1\nfor i in range(len(names)):\n    if names[i] == target:\n        pos = i\nprint(pos)"
+      },
+      "scheme": {
+        "mark_scheme": "Loop through the list (1); break / flag / while condition stops when found (1); outputs position or -1 (1)",
+        "points": [
+          {
+            "criterion": "Loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Early stop",
+            "marks": 1
+          },
+          {
+            "criterion": "Output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "```python\npos = -1\nfor i in range(len(names)):\n    if names[i] == target:\n        pos = i\n        break\nprint(pos)\n```"
+      }
+    },
+    {
+      "key": "aef-exam-1",
+      "title": "Binary search",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The array PhoneBook stores **100** names in alphabetical order. The binary search algorithm is used to find a name.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "aef-exam-1a",
+          "part_label": "(a)",
+          "title": "Complexity",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Determine the time complexity of binary search.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "O(log N) / log(100) (1)",
+            "points": [
+              {
+                "criterion": "log N",
+                "marks": 1
+              }
+            ],
+            "model_answer": "O(log n)"
+          }
+        },
+        {
+          "key": "aef-exam-1b",
+          "part_label": "(b)",
+          "title": "Iterations",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define how many iterations the algorithm takes in the worst case.",
+          "content": {
+            "unit": "iterations"
+          },
+          "scheme": {
+            "mark_scheme": "7 (1)",
+            "points": [
+              {
+                "criterion": "7",
+                "marks": 1
+              }
+            ],
+            "model_answer": "7",
+            "accepted": {
+              "values": [
+                "7"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "aef-exam-1c",
+          "part_label": "(c)",
+          "title": "Compare",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare the efficiency of binary search and linear search for this phone book, including the worst-case number of comparisons.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Linear: checks each name in turn (1), worst case 100 comparisons / O(n) (1); binary: compares with the middle and halves the list (1), worst case 7 / O(log n), but needs sorted data (1)",
+            "points": [
+              {
+                "criterion": "Linear method",
+                "marks": 1
+              },
+              {
+                "criterion": "Linear worst",
+                "marks": 1
+              },
+              {
+                "criterion": "Binary method",
+                "marks": 1
+              },
+              {
+                "criterion": "Binary worst / sorted",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Linear search checks names one by one and may need 100 comparisons (O(n)). Binary search compares with the middle name and discards half each time, so it needs at most 7 (O(log n)), but only because the names are sorted."
+          }
+        },
+        {
+          "key": "aef-exam-1d",
+          "part_label": "(d)",
+          "title": "Growth",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The phone book grows to **1 000 000** names. Calculate the worst-case number of iterations of binary search.",
+          "content": {
+            "unit": "iterations"
+          },
+          "scheme": {
+            "mark_scheme": "2²⁰ = 1 048 576 ≥ 1 000 000 (1); 20 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "20",
+                "marks": 1
+              }
+            ],
+            "model_answer": "20",
+            "accepted": {
+              "values": [
+                "20"
+              ],
+              "numeric": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "aef-exam-2",
+      "title": "Optimising code",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Analyse the pseudocode below.\n\n```pseudocode\nN ← 1000\nC ← 0\nFOR i FROM 0 TO N\n   IF i MOD 5 = 0\n   C = C + 1\nENDIF\nENDFOR\nPRINT C\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "aef-exam-2a",
+          "part_label": "(a)",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the purpose of the pseudocode and state its output.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Counts the multiples of 5 in the range 0 to 1000 (1); prints 201 (1)",
+            "points": [
+              {
+                "criterion": "Purpose",
+                "marks": 1
+              },
+              {
+                "criterion": "201",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It counts how many numbers from 0 to 1000 are divisible by 5 and prints 201."
+          }
+        },
+        {
+          "key": "aef-exam-2b",
+          "part_label": "(b)",
+          "title": "Iterations",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State how many times the loop body is executed.",
+          "content": {
+            "unit": "times"
+          },
+          "scheme": {
+            "mark_scheme": "1001 (1)",
+            "points": [
+              {
+                "criterion": "1001",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1001",
+            "accepted": {
+              "values": [
+                "1001"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "aef-exam-2c",
+          "part_label": "(c)",
+          "title": "Optimise",
+          "type": "pseudocode",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper",
+            "11.5.2.7@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Rewrite the optimised version of the fragment.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "Reduce the number of iterations (STEP 5 or formula N DIV 5 + 1) (1); reduce the number of variables / correct indentation (1). [Max 2]",
+            "points": [
+              {
+                "criterion": "Iterations",
+                "marks": 1
+              },
+              {
+                "criterion": "Variables / indentation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "```pseudocode\nN ← 1000\nPRINT N DIV 5 + 1\n```"
+          }
+        },
+        {
+          "key": "aef-exam-2d",
+          "part_label": "(d)",
+          "title": "Time actions",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** actions that can optimise a code in terms of time-efficiency.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): most appropriate algorithm; efficient data structures; exclude redundant operations; minimise loop iterations",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Minimise the loop iterations.\n2 Remove repeated calculations."
+          }
+        },
+        {
+          "key": "aef-exam-2e",
+          "part_label": "(e)",
+          "title": "Space actions",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.7@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** actions that can optimise a code in terms of space-efficiency.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): choose appropriate data structures; eliminate duplicate data; remove unnecessary variables; sort in place; suitable data types",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Remove unnecessary variables.\n2 Avoid storing duplicate data."
+          }
+        }
+      ]
+    },
+    {
+      "key": "aef-exam-3",
+      "title": "Sorting efficiency",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school sorts the marks of its pupils with bubble sort.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "aef-exam-3a",
+          "part_label": "(a)",
+          "title": "Comparisons",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of comparisons a bubble sort without a \"swapped\" flag makes for **10** marks.",
+          "content": {
+            "unit": "comparisons"
+          },
+          "scheme": {
+            "mark_scheme": "9 + 8 + … + 1 / 10 × 9 / 2 (1) = 45 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "45",
+                "marks": 1
+              }
+            ],
+            "model_answer": "45",
+            "accepted": {
+              "values": [
+                "45"
+              ],
+              "numeric": true
+            }
+          }
+        },
+        {
+          "key": "aef-exam-3b",
+          "part_label": "(b)",
+          "title": "Big O",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the worst-case time complexity of bubble sort.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "O(n²) (1)",
+            "points": [
+              {
+                "criterion": "O(n²)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "O(n²)"
+          }
+        },
+        {
+          "key": "aef-exam-3c",
+          "part_label": "(c)",
+          "title": "Flag",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.6@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how a \"swapped\" flag improves the time-efficiency of bubble sort.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "If a whole pass makes no swaps, the list is sorted (1); the algorithm stops early — best case one pass / O(n) (1)",
+            "points": [
+              {
+                "criterion": "No swaps = sorted",
+                "marks": 1
+              },
+              {
+                "criterion": "Stops early",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If a pass makes no swaps, the list is already sorted, so the sort stops instead of doing the remaining passes; a sorted list needs only one pass."
+          }
+        },
+        {
+          "key": "aef-exam-3d",
+          "part_label": "(d)",
+          "title": "Space",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.7@paper"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why bubble sort is space-efficient.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "It sorts in place / within the same array (1); only one temporary variable is needed for swapping — O(1) extra memory (1)",
+            "points": [
+              {
+                "criterion": "In place",
+                "marks": 1
+              },
+              {
+                "criterion": "Temp variable",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It sorts the marks inside the same array and needs only one temporary variable for swapping, so very little extra memory is used."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What makes an algorithm efficient; time efficiency — counting basic operations, best, average and worst cases, Big O notation and its rules, the common complexity classes and how they grow, the complexity of linear search, binary search, bubble sort and insertion sort with worked counts; space efficiency — the extra memory an algorithm needs; practical ways to optimise code for time and for space, worked optimisation examples and the time–space trade-off.",
   "theory": [
     {
-      "title": "Time efficiency of algorithms",
+      "title": "Efficiency of algorithms",
+      "objectives": [
+        "11.5.2.6@paper",
+        "11.5.2.7@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Algorithm efficiency",
+          "content": "How well an algorithm uses **resources** as the size of its input **n** grows: **time** (how many steps / how long it runs) and **space** (how much memory it needs). Two algorithms can give the **same result** with very different efficiency."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Time efficiency",
+              "content": "- How the **number of operations** — and so the running time — grows with **n**.\n- A time-efficient algorithm finishes quickly even for large inputs."
+            },
+            {
+              "title": "Space efficiency",
+              "content": "- How much **extra memory** (variables, arrays, stack space) the algorithm needs as **n** grows.\n- A space-efficient algorithm uses little memory — important on phones and embedded devices."
+            },
+            {
+              "title": "Why efficiency matters",
+              "content": "- Data sets are **huge** (millions of records): an inefficient algorithm can take hours instead of seconds.\n- Faster programs give a better **user experience**, use **less energy** and cost less to run on servers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Time efficiency",
       "objectives": [
         "11.5.2.6@paper"
       ],
@@ -13,6 +1242,67 @@
           "type": "definition",
           "term": "Time complexity",
           "content": "How the **number of steps** (and so the running time) of an algorithm **grows as the size of the input *n* grows**. It is usually described for the **worst case** using **Big O notation**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Counting basic operations",
+              "content": "- We do not measure seconds (they depend on the computer); we **count** the **basic operations**: comparisons, assignments, arithmetic.\n- A statement **outside** loops runs **once**; a statement inside a loop runs **as many times as the loop repeats**."
+            },
+            {
+              "title": "Best, average and worst case",
+              "content": "- **Best case** — the input that needs the **fewest** steps (the item is first in the list).\n- **Worst case** — the input that needs the **most** steps (the item is last or not present).\n- **Average case** — the typical number of steps.\n- Big O normally describes the **worst case**, so we know the **upper limit**."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "total ← 0                          // 1 operation\nFOR i ← 1 TO n\n    total ← total + A[i]           // runs n times\nNEXT i\nOUTPUT total                       // 1 operation\n// about n + 2 operations → O(n)",
+          "caption": "Counting the operations of a single loop — O(n)"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "count ← 0\nFOR i ← 1 TO n\n    FOR j ← 1 TO n\n        count ← count + 1      // runs n × n times\n    NEXT j\nNEXT i",
+          "caption": "Counting the steps of nested loops — O(n²)"
+        },
+        {
+          "type": "code",
+          "language": "pseudocode",
+          "content": "steps ← 0\nWHILE n > 1\n    n ← n DIV 2                    // n is halved\n    steps ← steps + 1\nENDWHILE\n// n = 1024 → 10 steps (2¹⁰ = 1024)",
+          "caption": "Halving the problem each time — O(log n)"
+        },
+        {
+          "type": "comparison",
+          "title": "Big O rules",
+          "columns": [
+            "Rule",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Keep only the **dominant** (fastest-growing) term",
+              "n² + 3n + 5 → **O(n²)**"
+            ],
+            [
+              "**Ignore constants**",
+              "3n + 5 → **O(n)**; 100 → **O(1)**"
+            ],
+            [
+              "Loops **one after another** → add",
+              "O(n) + O(n) = O(n)"
+            ],
+            [
+              "Loops **inside each other** → multiply",
+              "O(n) × O(n) = **O(n²)**"
+            ],
+            [
+              "Halving (or doubling) each step",
+              "**O(log n)**"
+            ]
+          ]
         },
         {
           "type": "comparison",
@@ -63,10 +1353,54 @@
           ]
         },
         {
-          "type": "example",
-          "title": "Binary search: how many iterations in the worst case?",
-          "content": "Each comparison **halves** the list. For 100 items: 100 → 50 → 25 → 13 → 7 → 4 → 2 → 1 → at most **7** comparisons, because 2⁷ = 128 ≥ 100. In general the worst case is ⌈log₂(n + 1)⌉ comparisons."
-        },
+          "type": "comparison",
+          "title": "How fast they grow",
+          "columns": [
+            "n",
+            "log₂ n",
+            "n",
+            "n²",
+            "2ⁿ"
+          ],
+          "rows": [
+            [
+              "10",
+              "≈ 3",
+              "10",
+              "100",
+              "1024"
+            ],
+            [
+              "100",
+              "≈ 7",
+              "100",
+              "10 000",
+              "≈ 1.3 × 10³⁰"
+            ],
+            [
+              "1000",
+              "≈ 10",
+              "1000",
+              "1 000 000",
+              "—"
+            ],
+            [
+              "1 000 000",
+              "≈ 20",
+              "1 000 000",
+              "10¹²",
+              "—"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Efficiency of searching and sorting",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "blocks": [
         {
           "type": "comparison",
           "title": "Searching and sorting algorithms",
@@ -104,19 +1438,57 @@
           ]
         },
         {
-          "type": "code",
-          "language": "pseudocode",
-          "content": "count ← 0\nFOR i ← 1 TO n\n    FOR j ← 1 TO n\n        count ← count + 1      // runs n × n times\n    NEXT j\nNEXT i",
-          "caption": "Counting the steps of nested loops — O(n²)"
+          "type": "example",
+          "title": "Binary search: how many iterations in the worst case?",
+          "content": "Each comparison **halves** the list. For 100 items: 100 → 50 → 25 → 13 → 7 → 4 → 2 → 1 → at most **7** comparisons, because 2⁷ = 128 ≥ 100. In general the worst case is ⌈log₂(n + 1)⌉ comparisons.\n\n| Number of items n | Worst-case comparisons — linear search | Worst-case comparisons — binary search |\n|---|---|---|\n| 100 | 100 | 7 |\n| 1000 | 1000 | 10 |\n| 1 000 000 | 1 000 000 | 20 |"
         },
         {
-          "type": "exam_tip",
-          "content": "To find the complexity, look at the **loops**: one loop over the data → O(n); two nested loops → O(n²); halving the data each step → O(log n). Ignore constants: 3n + 5 is O(n)."
+          "type": "example",
+          "title": "Bubble sort: number of comparisons",
+          "content": "Without the \"swapped\" flag, bubble sort makes (n − 1) + (n − 2) + … + 1 = **n(n − 1) / 2** comparisons.\n- n = 5 → 4 + 3 + 2 + 1 = **10** comparisons.\n- n = 10 → **45**; n = 1000 → **499 500** ≈ n² / 2 → **O(n²)**.\n\nWith the flag, an **already sorted** list needs only **one pass** of n − 1 comparisons → best case **O(n)**."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Choosing an algorithm",
+          "content": "For a **sorted** phone book of 100 names, **binary search** (O(log n), 7 steps) is far better than linear search (up to 100 steps). For a list that changes all the time and is **unsorted**, linear search may be better because sorting first costs O(n²) with a simple sort."
         }
       ]
     },
     {
-      "title": "Space efficiency of algorithms",
+      "title": "Optimising for time",
+      "objectives": [
+        "11.5.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Ways to improve time efficiency",
+              "content": "- **Select the most appropriate algorithm** — binary instead of linear search on sorted data.\n- **Minimise loop iterations** — stop early with a flag or `BREAK` when the answer is found; use a larger step.\n- **Exclude redundant operations** — do not repeat the same calculation inside a loop; move it before the loop.\n- **Use efficient data structures** — an index or hash table instead of searching the whole table.\n- **Use built-in operators** — `L ^ K` instead of a loop of K multiplications."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Optimising \"count the even numbers\"",
+          "content": "```pseudocode\nN ← 100\nK ← 0\nFOR i FROM 0 TO N\n   IF i MOD 2 = 0\n   K = K + 1\nENDIF\nENDFOR\nPRINT K\n```\n**Purpose:** counts (and prints) the number of **even numbers** from 0 to 100 → **51**. The loop runs **101** times and does a MOD test each time.\n\n**Optimised versions:**\n- Step through the even numbers only — `FOR i FROM 0 TO N STEP 2  K ← K + 1` → **51** iterations, no MOD test.\n- Or no loop at all: `PRINT N DIV 2 + 1` → **one** calculation, and the variables `i` and `K` are not needed (better space efficiency too)."
+        },
+        {
+          "type": "example",
+          "title": "Replacing a loop with an operator",
+          "content": "```pseudocode\nLp ← 1\nFOR i FROM 1 TO K DO\n   Lp ← Lp * L          // K multiplications\nENDFOR\n```\nReplace with `Lp ← L ^ K` — the **K repeated multiplications** become **one** operation, so the number of iterations is reduced."
+        },
+        {
+          "type": "example",
+          "title": "Searching with early exit",
+          "content": "```python\nfound = False\nfor name in names:\n    if name == target:\n        found = True\n        break            # stop as soon as the name is found\n```\nWithout `break` the loop always checks **all n** names; with it, the **average** number of comparisons is about **n / 2**."
+        }
+      ]
+    },
+    {
+      "title": "Space efficiency",
       "objectives": [
         "11.5.2.7@paper"
       ],
@@ -162,6 +1534,20 @@
           ]
         },
         {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Ways to improve space efficiency",
+              "content": "- **Choose appropriate data structures** — a 1D array instead of a 2D array when only one value per item is needed.\n- **Eliminate duplicate data** — do not keep two copies of the same list.\n- **Remove unnecessary variables** — calculate a value directly in the output instead of storing it in an extra variable.\n- **Sort in place** instead of creating a new array.\n- Use **suitable data types** — an integer instead of a real, a Boolean instead of a string \"yes\"/\"no\".\n- **Release memory** that is no longer needed (close files, delete large temporary lists)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Removing intermediate variables",
+          "content": "```pseudocode\nLp ← L ^ K\nPoisson ← (Lp * Ep) / factorial\nOUTPUT Poisson\n```\nCan become `OUTPUT (L ^ K * Ep) / factorial` — the variables **Lp** and **Poisson** are no longer needed, so less memory is used."
+        },
+        {
           "type": "comparison",
           "title": "Time–space trade-off",
           "columns": [
@@ -184,6 +1570,46 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.2.6@paper",
+        "11.5.2.7@paper"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: The array PhoneBook stores 100 names in alphabetical order and binary search is used. Determine the time complexity. [1]**\n**O(log N)** — log₂ 100 (1).\n\n**Q: How many iterations will the algorithm take in the worst case? [1]**\n**7** — because 2⁷ = 128 ≥ 100 (1).\n\n**Q: State two actions that can optimise a code in terms of time-efficiency. [2]**\nSelect the **most appropriate algorithm** (1); **minimise loop iterations** / exclude **redundant** operations / use efficient data structures (1).\n\n**Q: State one action that can optimise a code in terms of space-efficiency. [1]**\nChoose **appropriate data structures** / **eliminate duplicate data** / remove unnecessary variables (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying binary search is O(n) — it is **O(log n)**, but only on **sorted** data.\n- Counting the loop **range wrongly**: `FOR i FROM 0 TO 100` runs **101** times.\n- Keeping constants in Big O: write O(n), not O(3n + 5).\n- Confusing **time** efficiency (number of steps) with **space** efficiency (memory)."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Give the Big O of a single loop, two nested loops and a loop that halves n.",
+            "How many comparisons does binary search need in the worst case for 1000 items?",
+            "How many comparisons does bubble sort make for 6 items without the flag?",
+            "Optimise a loop that counts multiples of 5 from 0 to 1000.",
+            "Give three ways to improve time efficiency and two ways to improve space efficiency.",
+            "Explain the time–space trade-off with an example."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Algorithm efficiency — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 40 minutes.",
+    "questions": [
+      "aef-exam-1",
+      "aef-exam-2",
+      "aef-exam-3"
+    ]
+  }
 }

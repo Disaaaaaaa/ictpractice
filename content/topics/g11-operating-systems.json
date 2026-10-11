@@ -1,9 +1,9 @@
 {
   "topic": "g11-operating-systems",
-  "summary": "What an operating system does and how operating systems differ — single-user vs multi-user, single-tasking vs multitasking, and real-time, network and batch processing systems.",
+  "summary": "The main functions of an operating system and the features of single-user, multi-user, single-tasking, multitasking, real-time, network and batch processing operating systems.",
   "theory": [
     {
-      "title": "Functions of an operating system",
+      "title": "What an operating system does",
       "objectives": [
         "11.3.1.5"
       ],
@@ -11,44 +11,111 @@
         {
           "type": "definition",
           "term": "Operating system (OS)",
-          "content": "System software that **manages the computer's hardware and software resources** and provides an interface between the user, applications and the hardware."
+          "content": "System software that **manages the computer's hardware and software resources**, provides a **user interface**, and provides a **platform** on which application software runs."
         },
+        {
+          "type": "paragraph",
+          "content": "Without an OS, every application would need to contain its own code for controlling the screen, keyboard, disks and memory. The OS does this **once, for all programs**, and shares the hardware between them safely."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  U[User] <--> UI[User interface]\n  UI <--> APP[Applications]\n  APP <--> OS[Operating system kernel]\n  OS <--> DRV[Device drivers]\n  DRV <--> HW[Hardware: CPU, RAM, disks, devices]",
+          "caption": "The OS sits between the applications and the hardware"
+        },
+        {
+          "type": "steps",
+          "title": "What happens when a computer is switched on (booting)",
+          "items": [
+            "The **BIOS / UEFI** firmware in ROM runs a **power-on self-test (POST)** of the hardware.",
+            "It finds the storage device that holds the OS and runs the **bootstrap loader**.",
+            "The bootstrap loader copies the OS **kernel** from secondary storage into **RAM**.",
+            "The OS starts its services and drivers and shows the **log-in screen / user interface**."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The main functions of an operating system",
+      "objectives": [
+        "11.3.1.5"
+      ],
+      "blocks": [
         {
           "type": "cards",
           "items": [
             {
               "title": "Memory management",
-              "content": "Allocates RAM to programs and data, keeps programs from using each other's memory, frees memory when a program closes, uses **virtual memory** when RAM is full."
+              "content": "- **Allocates** RAM to each program and its data when it starts, and **frees** it when the program closes.\n- **Protects** memory so one program cannot overwrite another program's data.\n- Uses **virtual memory** (part of the disk used as RAM) when main memory is full."
             },
             {
-              "title": "Process (processor) management",
-              "content": "Decides which process uses the CPU and for how long (**scheduling**), so that several programs appear to run at the same time."
+              "title": "Processor (process) management",
+              "content": "- Decides **which process uses the CPU** and for how long (**scheduling**).\n- Switches between processes so that many programs appear to run at once (**multitasking**).\n- Handles **interrupts** — signals from hardware or software that need the CPU's attention."
             },
             {
               "title": "File management",
-              "content": "Creates, names, saves, copies, moves and deletes files; organises folders; controls access rights to files."
+              "content": "- Creates, names, opens, saves, copies, moves and deletes files.\n- Organises files in a **hierarchical folder (directory) structure**.\n- Records **where** each file is stored on the disk and controls **access rights** to files."
             },
             {
-              "title": "Device (input/output) management",
-              "content": "Communicates with peripherals through **device drivers**; manages buffers and queues (e.g. a print queue); handles **interrupts**."
+              "title": "Input/output and peripheral management",
+              "content": "- Communicates with devices through **device drivers**.\n- Uses **buffers** to hold data travelling between fast and slow devices.\n- Uses **spooling** to queue print jobs so the CPU does not wait for the printer."
             },
             {
-              "title": "Security",
-              "content": "User accounts and passwords, access rights, firewalls, updates/patches, logging of activity."
+              "title": "Security and user management",
+              "content": "- **User accounts**, **log-in** with user names and passwords / biometrics.\n- **Access rights** (read, write, execute) to files and folders.\n- Firewall, security updates, logging of activity."
             },
             {
               "title": "User interface",
-              "content": "Lets the user communicate with the computer (GUI, CLI, touch, voice) and run programs."
+              "content": "- Lets the user communicate with the computer: **GUI**, **command line**, menu, touch, voice.\n- Displays error and status messages."
+            },
+            {
+              "title": "Error handling",
+              "content": "- Detects errors (a device not responding, a program crashing) and reports or recovers from them without stopping the whole system."
+            },
+            {
+              "title": "Loading and running software",
+              "content": "- **Loads** applications from storage into memory, starts and stops them, and provides services (system calls) they can use."
             }
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "\"Describe the functions of an OS\" — name the function **and** say what it does, e.g. \"*Memory management* — allocates RAM to each running program and prevents programs from overwriting each other's data.\""
+          "type": "example",
+          "title": "The OS at work — printing a document",
+          "content": "1. The user clicks **Print** (user interface).\n2. The OS **loads** the printer driver and places the document in the **print queue** (spooling).\n3. While the printer prints, the **processor manager** lets the user continue typing (multitasking).\n4. Data is sent to the printer through a **buffer** (I/O management).\n5. If the printer runs out of paper, an **interrupt** is sent and the OS shows an error message (error handling)."
         },
         {
-          "type": "warning",
-          "content": "Error handling and booting (loading itself from storage when the computer starts) are also OS tasks — accept them as functions too."
+          "type": "comparison",
+          "title": "Memory management terms",
+          "columns": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Allocation",
+              "Giving a program the memory it needs"
+            ],
+            [
+              "Protection",
+              "Preventing a program from accessing another program's memory"
+            ],
+            [
+              "Virtual memory",
+              "Using part of secondary storage as an extension of RAM"
+            ],
+            [
+              "Paging",
+              "Memory divided into fixed-size blocks (pages) moved between RAM and disk"
+            ],
+            [
+              "Thrashing",
+              "The computer slows down because pages are swapped too often"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Name the function **and** say what the OS does: not just \"memory management\", but \"*memory management — the OS allocates RAM to each program and stops programs from overwriting each other's memory*\"."
         }
       ]
     },
@@ -59,43 +126,72 @@
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "Single-user OS",
+          "content": "An OS that allows **only one user** to use the computer **at a time**. Examples: Windows 11 or macOS on a personal laptop, Android on a phone."
+        },
+        {
+          "type": "definition",
+          "term": "Multi-user OS",
+          "content": "An OS that allows **many users** to use the computer's resources **at the same time**, usually from different terminals or over a network. Each user has an account, and the OS shares processor time, memory and storage between them. Examples: **UNIX / Linux servers**, mainframe OSs (z/OS), Windows Server."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  T1[Terminal 1] --> S[Mainframe or server running a multi-user OS]\n  T2[Terminal 2] --> S\n  T3[Terminal 3] --> S\n  T4[Terminal 4] --> S",
+          "caption": "A multi-user system shares one powerful computer between many terminals"
+        },
+        {
           "type": "comparison",
+          "title": "Single-user vs multi-user OS",
           "columns": [
-            "",
-            "Single-user OS",
-            "Multi-user OS"
+            "Feature",
+            "Single-user",
+            "Multi-user"
           ],
           "rows": [
             [
-              "Users at one time",
-              "One user",
-              "Many users simultaneously (often over a network/terminals)"
+              "Users at the same time",
+              "One",
+              "Many"
+            ],
+            [
+              "Hardware",
+              "Personal computer, laptop, phone",
+              "Mainframe, server, supercomputer"
             ],
             [
               "Resource sharing",
               "All resources belong to one user",
-              "CPU time, memory and storage are shared fairly between users"
+              "CPU time, memory and storage are shared fairly between users (**time-sharing**)"
             ],
             [
               "Security",
-              "Simple — one account or a few accounts used one at a time",
-              "Strong — each user has an account, permissions and private files"
+              "Simpler — one account at a time",
+              "Must **keep users' data separate**; strong authentication and access rights"
             ],
             [
-              "Typical hardware",
-              "PC, laptop, smartphone",
-              "Mainframe, server"
+              "Complexity / cost",
+              "Simpler, cheaper",
+              "More complex, more expensive"
+            ],
+            [
+              "If the computer fails",
+              "One user is affected",
+              "All users are affected"
             ],
             [
               "Examples",
-              "Windows 10 Home, macOS, Android",
-              "Unix/Linux servers, Windows Server"
+              "Windows 11 (home), macOS, Android",
+              "Linux / UNIX servers, z/OS, Windows Server"
             ]
           ]
         },
         {
-          "type": "example",
-          "content": "In a bank, hundreds of tellers use terminals connected to one mainframe. The mainframe runs a **multi-user OS** that shares processor time between them and keeps each user's data separate."
+          "type": "callout",
+          "tone": "info",
+          "title": "Single-user can still have many accounts",
+          "content": "A family laptop may have several **user accounts**, but only **one person** is logged in and using it at a time, so it is still a **single-user** OS in this classification."
         }
       ]
     },
@@ -108,15 +204,82 @@
         {
           "type": "definition",
           "term": "Single-tasking OS",
-          "content": "Can run **only one program at a time**. The user must close one program before starting another. *Example: MS-DOS, simple embedded systems.*"
+          "content": "An OS that can run **only one program (task) at a time**. The next task starts only when the current one finishes. Examples: MS-DOS, the OS of a simple calculator or embedded device."
         },
         {
           "type": "definition",
           "term": "Multitasking OS",
-          "content": "Can run **several programs (processes) at the same time**. The CPU switches rapidly between processes (**time-slicing**), so they appear to run simultaneously. *Example: Windows, macOS, Linux, Android.*"
+          "content": "An OS that can run **several programs at the same time**. The processor switches between tasks very quickly, giving each a short **time slice**, so they **appear** to run simultaneously. Examples: Windows, macOS, Linux, Android."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "CPU:  | Music | Browser | Editor | Music | Browser | Editor | Music | ...\ntime  --------------------------------------------------------------->\nThe switching happens many times per second, so the user sees all three programs running.",
+          "caption": "Time slicing — one CPU, three tasks (each block is one time slice)"
+        },
+        {
+          "type": "steps",
+          "title": "How multitasking works",
+          "items": [
+            "Each running program is a **process** held in memory.",
+            "The **scheduler** gives each process a **time slice** of CPU time (e.g. round-robin), often based on **priority**.",
+            "When the time slice ends (or an interrupt occurs), the OS **saves the state** of the process (registers, program counter) and **loads** the next one — a **context switch**.",
+            "The cycle repeats many times per second."
+          ]
         },
         {
           "type": "comparison",
+          "title": "Single-tasking vs multitasking",
+          "columns": [
+            "Feature",
+            "Single-tasking",
+            "Multitasking"
+          ],
+          "rows": [
+            [
+              "Programs at once",
+              "One",
+              "Several"
+            ],
+            [
+              "CPU use",
+              "CPU is idle while the task waits for input/output",
+              "CPU is kept busy — another task runs while one waits"
+            ],
+            [
+              "Memory",
+              "Needs little memory",
+              "Needs more memory — every running task is held in RAM"
+            ],
+            [
+              "Complexity",
+              "Simple OS, few errors",
+              "Complex scheduling, memory protection"
+            ],
+            [
+              "User experience",
+              "Must close one program to open another",
+              "Switch between programs; background tasks (downloads, music)"
+            ],
+            [
+              "Speed of each task",
+              "Full CPU power for one task",
+              "Each task may run slower as the CPU is shared"
+            ],
+            [
+              "Examples",
+              "MS-DOS, simple embedded devices",
+              "Windows, macOS, Linux, Android, iOS"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "On a single-core processor, multitasking only **looks** simultaneous — the CPU runs **one** instruction stream at a time and switches quickly. A **multi-core** processor can really run tasks in parallel."
+        },
+        {
+          "type": "comparison",
+          "title": "The four combinations",
           "columns": [
             "",
             "Single-tasking",
@@ -124,133 +287,387 @@
           ],
           "rows": [
             [
-              "Programs running",
-              "One",
-              "Many"
+              "**Single-user**",
+              "MS-DOS",
+              "Windows 11 on a laptop, Android"
             ],
             [
-              "Hardware needed",
-              "Little memory, simple CPU",
-              "More RAM and processing power"
-            ],
-            [
-              "Complexity",
-              "Simple, reliable, fast for one job",
-              "Complex scheduling and memory management"
-            ],
-            [
-              "User convenience",
-              "Low",
-              "High — e.g. listen to music while writing an essay"
+              "**Multi-user**",
+              "Early batch mainframes",
+              "Linux / UNIX servers, mainframes"
             ]
           ]
         }
       ]
     },
     {
-      "title": "Real-time, network and batch operating systems",
+      "title": "Real-time operating systems",
       "objectives": [
+        "11.3.1.8"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Real-time operating system (RTOS)",
+          "content": "An OS that **processes inputs and responds within a guaranteed, very short time** (a deadline), so that it can **control** a physical process as it happens. Used in embedded and safety-critical systems."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Features of an RTOS",
+              "content": "- **Guaranteed response time** — inputs are processed within a fixed deadline (milliseconds or less).\n- **Deterministic / predictable** — the same input always takes the same time to handle.\n- **Priority-based, pre-emptive scheduling** — the most urgent task interrupts less urgent ones.\n- **Continuously monitors sensors** and uses **feedback** to control actuators.\n- **Very reliable**, runs non-stop for long periods; often has **fail-safe** / backup systems.\n- **Small, efficient** and usually has a **minimal or no user interface**; often stored in ROM (embedded)."
+            },
+            {
+              "title": "Hard and soft real-time",
+              "content": "- **Hard real-time** — missing a deadline is a **system failure** and may be dangerous: airbag control, aircraft autopilot, pacemaker, anti-lock brakes.\n- **Soft real-time** — missing a deadline only **reduces quality**: video streaming, online games, ticket booking."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  S[Sensor reads value] --> P[RTOS processes the input within the deadline]\n  P --> A[Actuator acts]\n  A --> E[Physical process changes]\n  E --> S",
+          "caption": "An RTOS controls a process using a feedback loop"
+        },
+        {
+          "type": "example",
+          "title": "Real-time systems",
+          "content": "| System | Why real time is needed |\n|---|---|\n| **Car airbag** | Must inflate within about 30 ms of a crash being detected |\n| **Anti-lock brakes (ABS)** | Must release and reapply the brakes many times a second |\n| **Aircraft autopilot / flight control** | Must react instantly to changes in speed, height and wind |\n| **Hospital patient monitor** | Must sound an alarm immediately when heart rate is dangerous |\n| **Industrial robot / traffic lights** | Must perform actions at exact times |"
+        },
+        {
+          "type": "comparison",
+          "title": "RTOS vs general-purpose OS",
+          "columns": [
+            "",
+            "Real-time OS",
+            "General-purpose OS (Windows, macOS)"
+          ],
+          "rows": [
+            [
+              "Main aim",
+              "Meet deadlines; predictable response",
+              "Good average performance and ease of use"
+            ],
+            [
+              "Scheduling",
+              "Strict priority, pre-emptive",
+              "Fair sharing between many programs"
+            ],
+            [
+              "User interface",
+              "Minimal or none",
+              "Rich GUI"
+            ],
+            [
+              "Size",
+              "Small, embedded",
+              "Large"
+            ],
+            [
+              "Reliability",
+              "Must not fail; runs continuously",
+              "Occasional crashes are acceptable"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Network operating systems",
+      "objectives": [
+        "11.3.1.9"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Network operating system (NOS)",
+          "content": "An OS designed to **manage a network and its shared resources** — users, files, printers, applications — usually running on a **server** that client computers connect to. Examples: **Windows Server**, **Linux** server distributions (Ubuntu Server), UNIX, Novell NetWare (historic)."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Features of a NOS",
+              "content": "- **User account management** — creates accounts and groups and **authenticates** users when they log in.\n- **Authorisation / access rights** — controls which users can read, change or delete each shared file, folder and printer.\n- **File and printer sharing** — central storage that all authorised users can reach; print queues for network printers.\n- **Security** — firewall, encryption, logging of activity, enforcing password policies.\n- **Centralised backup** and software updates for the whole network.\n- **Remote access** and administration of client computers.\n- **Network services** — e.g. DHCP, DNS, e-mail, web hosting.\n- Supports **multi-user** access at the same time."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "How a NOS implements user account management (exam answer)",
+          "content": "The NOS provides **authentication and authorisation** mechanisms (1) so that only **authorised users** can access network resources (1). It **verifies each user's identity** with a user name and password when they log in (1) and **assigns appropriate access rights** to that user's account or group (1)."
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart LR\n  C1[Client PC] --> SRV[Server running a NOS]\n  C2[Client laptop] --> SRV\n  C3[Client tablet] --> SRV\n  SRV --> F[Shared files]\n  SRV --> PR[Network printer]\n  SRV --> DB[Shared database]",
+          "caption": "Clients use resources managed by the network OS on the server"
+        },
+        {
+          "type": "comparison",
+          "title": "Network OS vs desktop OS",
+          "columns": [
+            "",
+            "Network OS (server)",
+            "Desktop OS (client)"
+          ],
+          "rows": [
+            [
+              "Purpose",
+              "Manages network resources and users",
+              "Runs applications for one user"
+            ],
+            [
+              "Users",
+              "Many at once",
+              "One at a time"
+            ],
+            [
+              "Security",
+              "Centralised accounts, access rights, auditing",
+              "Local accounts"
+            ],
+            [
+              "Hardware",
+              "Powerful server, runs 24/7",
+              "PC or laptop"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Batch processing operating systems",
+      "objectives": [
+        "11.3.1.10"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Batch processing OS",
+          "content": "An OS that **collects jobs with similar requirements into groups (batches)** and processes them **one after another, automatically, without user interaction**, usually at a scheduled time."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Features",
+              "content": "- Jobs with similar requirements are **batched together** and run as a group.\n- Data is **collected over a period of time** (a day, a week, a month) and then processed together.\n- **No interaction** with the user while the jobs run — instructions are given in advance (job control language / scripts).\n- Data is often **sorted before processing** (e.g. by account number).\n- Usually runs at **off-peak times** (at night) when the computer is otherwise idle.\n- Suited to **large volumes** of similar data."
+            },
+            {
+              "title": "Typical uses",
+              "content": "- **Payroll** — all salaries calculated at the end of the month.\n- **Bank statements** and **utility bills** (electricity, water) printed for all customers.\n- **Exam results** processing.\n- Processing **cheques** or end-of-day sales records."
+            }
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  J[Jobs collected during the day] --> B[Grouped into a batch and sorted]\n  B --> R[Run automatically at night, no user input]\n  R --> O[Output: bills, payslips, reports]",
+          "caption": "Batch processing"
+        },
+        {
+          "type": "comparison",
+          "title": "Batch processing — advantages and disadvantages",
+          "columns": [
+            "Advantages",
+            "Disadvantages"
+          ],
+          "rows": [
+            [
+              "Large amounts of data processed **efficiently**",
+              "Results are **not immediate** — there is a delay"
+            ],
+            [
+              "Uses the computer at **off-peak** times",
+              "An error in one job may only be found after the whole batch runs"
+            ],
+            [
+              "**No operator** needed while it runs",
+              "No interaction — jobs cannot be changed while running"
+            ],
+            [
+              "Repetitive jobs are done the same way every time",
+              "Not suitable when up-to-date information is needed"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Batch vs real-time processing",
+          "columns": [
+            "",
+            "Batch",
+            "Real-time"
+          ],
+          "rows": [
+            [
+              "When data is processed",
+              "Later, in groups",
+              "Immediately, as it arrives"
+            ],
+            [
+              "User interaction",
+              "None during processing",
+              "Continuous"
+            ],
+            [
+              "Example",
+              "Monthly electricity bills",
+              "Airline seat booking, airbag control"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Choosing an OS type and exam practice",
+      "objectives": [
+        "11.3.1.5",
+        "11.3.1.6",
+        "11.3.1.7",
         "11.3.1.8",
         "11.3.1.9",
         "11.3.1.10"
       ],
       "blocks": [
         {
-          "type": "heading",
-          "text": "Real-time operating system (RTOS)",
-          "level": 2
-        },
-        {
-          "type": "definition",
-          "term": "Real-time OS",
-          "content": "Processes input and produces output **immediately** (within a fixed, very short time limit) so that the result can affect what happens next."
-        },
-        {
-          "type": "list",
-          "items": [
-            "Guaranteed response time; tasks have strict **deadlines**.",
-            "Usually controls hardware through **sensors** and **actuators**, often in a continuous feedback loop.",
-            "Very high reliability; often runs without a user interface (embedded).",
-            "*Examples:* aircraft autopilot, anti-lock brakes (ABS), traffic-light control, pacemakers, industrial robots, missile guidance."
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Network operating system (NOS)",
-          "level": 2
-        },
-        {
-          "type": "definition",
-          "term": "Network OS",
-          "content": "Runs on a **server** and manages the resources of a network shared by many computers."
-        },
-        {
-          "type": "list",
-          "items": [
-            "Manages user accounts, logins and **access rights** centrally.",
-            "Shares files, printers and applications between clients.",
-            "Provides security (authentication, firewalls), backups and monitoring of the network.",
-            "*Examples:* Windows Server, Linux server distributions, Novell NetWare."
-          ]
-        },
-        {
-          "type": "heading",
-          "text": "Batch processing operating system",
-          "level": 2
-        },
-        {
-          "type": "definition",
-          "term": "Batch processing",
-          "content": "Similar jobs are **collected into a batch** and processed together later **without user interaction**, usually at a quiet time (e.g. overnight)."
-        },
-        {
-          "type": "list",
-          "items": [
-            "Efficient for large volumes of similar data; uses the computer when it is otherwise idle.",
-            "No immediate output — results are available only after the whole batch is processed.",
-            "An error in the data may be found only after processing.",
-            "*Examples:* payroll, utility (electricity/water) bills, bank statements, exam result processing."
-          ]
-        },
-        {
           "type": "comparison",
-          "title": "Choosing a type of OS",
+          "title": "Which type of OS?",
           "columns": [
-            "Situation",
-            "Best type",
-            "Reason"
+            "Scenario",
+            "Type of OS",
+            "Key reason"
           ],
           "rows": [
             [
-              "Controlling an aircraft's engines",
-              "Real-time",
-              "Must respond instantly to sensor data"
+              "Car engine-management system",
+              "**Real-time**",
+              "Must respond to sensors within milliseconds"
             ],
             [
-              "Printing monthly salary slips for 5000 workers",
-              "Batch",
-              "Large volume of similar jobs; no interaction needed"
+              "School network with 300 pupils sharing files and printers",
+              "**Network**",
+              "Central user accounts, access rights, shared resources"
             ],
             [
-              "A school server sharing files and printers",
-              "Network",
-              "Central management of users and shared resources"
+              "A bank printing monthly statements for 2 million customers",
+              "**Batch**",
+              "Large volume of similar jobs, no interaction needed"
             ],
             [
-              "A personal laptop",
-              "Single-user multitasking",
-              "One user running several applications"
+              "A university mainframe used by hundreds of researchers at once",
+              "**Multi-user**",
+              "Many users share one powerful computer"
+            ],
+            [
+              "A pupil's laptop running a browser, music and a word processor",
+              "**Single-user multitasking**",
+              "One user, several programs at once"
+            ],
+            [
+              "A digital watch or a simple calculator",
+              "**Single-tasking** (embedded)",
+              "Only one task needed"
             ]
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "For \"describe a real-time OS\" always mention **immediate response / time limit** and give an example where a delay would be dangerous."
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain two functions of an operating system. [2]**\n1. **Memory management** — allocates RAM to programs and prevents them from overwriting each other's data (1).\n2. **Processor management** — schedules processes so that several programs can share the CPU (multitasking) (1).\n\n**Q: Give two features of the batch operating system. [2]**\nJobs with similar requirements are **batched together** and run as a group (1). Data is **collected over a period of time** and processed **without user interaction** (1).\n\n**Q: Describe one feature of a real-time operating system. [2]**\nIt processes inputs **within a guaranteed time** (1) so that it can control a physical process **immediately**, e.g. inflating an airbag (1).\n\n**Q: Compare single-tasking and multitasking operating systems. [2]**\nA single-tasking OS runs **only one program at a time**, **whereas** a multitasking OS runs **several programs at once** by giving each a **time slice** of the CPU (1). Multitasking keeps the CPU busier but **needs more memory** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Confusing **multi-user** (many people) with **multitasking** (many programs).\n- Saying a multitasking OS runs programs \"at exactly the same time\" on one core — it **switches** between them very quickly.\n- Describing real-time as \"fast\". The key idea is a **guaranteed response within a deadline**.\n- Writing \"the OS manages memory\" without saying **what** it does (allocate, protect, free).\n- Thinking batch processing involves the user — it runs **without** user interaction."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "List six functions of an OS and describe each in one sentence.",
+            "What is the difference between single-user and multi-user OS? Give an example of each.",
+            "Explain how time slicing makes multitasking possible.",
+            "Give three features of an RTOS and two examples of hard real-time systems.",
+            "How does a NOS manage user accounts?",
+            "Give two features, one advantage and one disadvantage of batch processing."
+          ]
         }
       ]
     }
   ],
   "questions": [
+    {
+      "key": "os-define",
+      "title": "Define an operating system",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.5"
+      ],
+      "practice": true,
+      "text": "Define the term **operating system**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- System software that manages the computer's hardware and software resources (1)\n- and provides a user interface / a platform for applications to run (1)",
+        "points": [
+          {
+            "criterion": "System software that manages hardware / resources",
+            "marks": 1
+          },
+          {
+            "criterion": "Provides a user interface or a platform for applications",
+            "marks": 1
+          }
+        ],
+        "model_answer": "System software that manages the computer's hardware and software resources and provides a platform on which applications run."
+      }
+    },
+    {
+      "key": "os-not-function-mcq",
+      "title": "Not a function of the OS",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.3.1.5"
+      ],
+      "practice": true,
+      "text": "Which of the following is **not** a function of an operating system?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Allocating memory to programs"
+        },
+        {
+          "key": "B",
+          "content": "Scheduling processes on the CPU"
+        },
+        {
+          "key": "C",
+          "content": "Calculating the totals in a spreadsheet"
+        },
+        {
+          "key": "D",
+          "content": "Controlling access to files"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Calculating totals is done by the spreadsheet application. The OS manages memory, processes and files."
+      }
+    },
     {
       "key": "os-functions-match",
       "title": "Match OS functions",
@@ -262,7 +679,8 @@
       "objectives": [
         "11.3.1.5"
       ],
-      "text": "Match each operating system function to the task it performs.",
+      "practice": true,
+      "text": "Match each function of an operating system to what the OS does.",
       "content": {
         "left": [
           {
@@ -271,38 +689,38 @@
           },
           {
             "key": "L2",
-            "text": "File management"
+            "text": "Processor management"
           },
           {
             "key": "L3",
-            "text": "Peripheral management"
+            "text": "File management"
           },
           {
             "key": "L4",
-            "text": "Process management"
+            "text": "Security management"
           }
         ],
         "right": [
           {
             "key": "R1",
-            "text": "Allocating RAM to running programs"
+            "text": "Allocates RAM to each program and stops programs overwriting each other's data"
           },
           {
             "key": "R2",
-            "text": "Organising data into folders and controlling access to them"
+            "text": "Decides which process uses the CPU and for how long"
           },
           {
             "key": "R3",
-            "text": "Using device drivers to communicate with a printer"
+            "text": "Saves, names, moves and deletes files in folders"
           },
           {
             "key": "R4",
-            "text": "Deciding which program gets CPU time next"
+            "text": "Checks user names and passwords and sets access rights"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4",
+        "mark_scheme": "Memory–R1, Processor–R2, File–R3, Security–R4. One mark per correct match.",
         "accepted": {
           "pairs": {
             "L1": "R1",
@@ -315,7 +733,7 @@
     },
     {
       "key": "os-describe-memory",
-      "title": "Describe memory management",
+      "title": "Memory management",
       "type": "short_answer",
       "marks": 2,
       "difficulty": "medium",
@@ -324,121 +742,135 @@
       "objectives": [
         "11.3.1.5"
       ],
-      "text": "Describe how the operating system manages memory.",
+      "practice": true,
+      "text": "Describe how an operating system manages **memory**.",
       "content": {
-        "answer_lines": 4
+        "answer_lines": 3
       },
       "scheme": {
-        "mark_scheme": "Any two:\n- Allocates memory/RAM to programs/processes when they load\n- Frees/deallocates memory when a program closes\n- Keeps processes separate / prevents one program overwriting another's memory\n- Uses virtual memory (part of secondary storage) when RAM is full / swaps pages",
+        "mark_scheme": "Any two (1 each):\n- Allocates memory / RAM to programs and data when they are loaded\n- Frees / deallocates memory when a program closes\n- Protects memory so one program cannot access / overwrite another's memory\n- Uses virtual memory when RAM is full / moves pages between RAM and disk\n- Keeps track of which parts of memory are in use",
         "points": [
           {
-            "criterion": "Allocates (and frees) RAM for programs/processes",
+            "criterion": "First valid point",
             "marks": 1
           },
           {
-            "criterion": "Second valid point: protection between processes OR virtual memory/swapping",
+            "criterion": "Second, different valid point",
             "marks": 1
           }
         ],
-        "model_answer": "The OS allocates space in RAM to each program when it is loaded and frees it when the program closes. It keeps each process in its own area so programs cannot overwrite each other, and moves data to virtual memory on the disk when RAM is full."
+        "model_answer": "It allocates RAM to each program when it is loaded and frees it when the program closes, and it protects each program's memory so that other programs cannot overwrite it."
       }
     },
     {
-      "key": "os-multitasking-mcq",
-      "title": "Multitasking",
+      "key": "os-virtual-memory",
+      "title": "Virtual memory",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.5"
+      ],
+      "practice": true,
+      "text": "Explain why an operating system uses **virtual memory**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- When RAM is full, part of secondary storage / the disk is used as if it were RAM (1)\n- so more programs / larger programs can run than would fit in RAM / the computer does not crash when RAM is full (1)",
+        "points": [
+          {
+            "criterion": "Part of the disk is used as an extension of RAM",
+            "marks": 1
+          },
+          {
+            "criterion": "So more / larger programs can run when RAM is full",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When RAM is full, the OS uses part of the hard disk as if it were extra RAM, so that more programs can stay open than would fit in main memory."
+      }
+    },
+    {
+      "key": "os-io-fill",
+      "title": "Input/output management",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.3.1.5"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe OS communicates with each hardware device through a device [[1]]. Data travelling between the fast CPU and a slow printer is held temporarily in a [[2]]. When a device needs the CPU's attention, it sends an [[3]] signal.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) driver (2) buffer (3) interrupt",
+        "accepted": {
+          "blanks": [
+            [
+              "driver",
+              "drivers"
+            ],
+            [
+              "buffer"
+            ],
+            [
+              "interrupt"
+            ]
+          ]
+        },
+        "explanation": "Drivers translate OS commands for a device; buffers hold data between devices of different speeds; interrupts signal that a device needs attention."
+      }
+    },
+    {
+      "key": "os-boot-mcq",
+      "title": "Booting",
       "type": "mcq",
       "marks": 1,
-      "difficulty": "easy",
+      "difficulty": "medium",
       "command_word": "identify",
       "grading": "AUTO",
       "objectives": [
-        "11.3.1.7"
+        "11.3.1.5"
       ],
-      "text": "How does a multitasking operating system make several programs appear to run at the same time on a single-core CPU?",
+      "practice": true,
+      "text": "During booting, which program copies the operating system kernel from secondary storage into RAM?",
       "options": [
         {
           "key": "A",
-          "content": "It runs each program on a different user account"
+          "content": "The device driver"
         },
         {
           "key": "B",
-          "content": "It switches the CPU rapidly between processes, giving each a time slice"
+          "content": "The bootstrap loader"
         },
         {
           "key": "C",
-          "content": "It stores all programs in ROM"
+          "content": "The compiler"
         },
         {
           "key": "D",
-          "content": "It processes all programs together overnight as a batch"
+          "content": "The disk defragmenter"
         }
       ],
       "scheme": {
         "mark_scheme": "B",
         "accepted": {
           "correct": "B"
-        }
-      }
-    },
-    {
-      "key": "os-type-scenarios",
-      "title": "Choose the OS type",
-      "type": "matching",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "identify",
-      "grading": "AUTO",
-      "objectives": [
-        "11.3.1.8",
-        "11.3.1.9",
-        "11.3.1.10"
-      ],
-      "text": "Match each scenario to the most suitable type of operating system.",
-      "content": {
-        "left": [
-          {
-            "key": "L1",
-            "text": "A car's anti-lock braking system"
-          },
-          {
-            "key": "L2",
-            "text": "A school server that stores pupils' files and controls their logins"
-          },
-          {
-            "key": "L3",
-            "text": "A utility company printing one million bills at the end of each month"
-          }
-        ],
-        "right": [
-          {
-            "key": "R1",
-            "text": "Real-time operating system"
-          },
-          {
-            "key": "R2",
-            "text": "Network operating system"
-          },
-          {
-            "key": "R3",
-            "text": "Batch processing operating system"
-          }
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "L1–R1, L2–R2, L3–R3",
-        "accepted": {
-          "pairs": {
-            "L1": "R1",
-            "L2": "R2",
-            "L3": "R3"
-          }
-        }
+        },
+        "explanation": "The BIOS/UEFI runs the POST and then the bootstrap loader, which loads the OS kernel into RAM."
       }
     },
     {
       "key": "os-compare-users",
-      "title": "Compare single-user and multi-user OS",
-      "type": "short_answer",
+      "title": "Single-user vs multi-user",
+      "type": "labelled_answers",
       "marks": 2,
       "difficulty": "medium",
       "command_word": "compare",
@@ -446,62 +878,545 @@
       "objectives": [
         "11.3.1.6"
       ],
-      "text": "Compare single-user and multi-user operating systems.",
+      "practice": true,
+      "text": "Give **two** differences between a single-user and a multi-user operating system.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Difference 1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Difference 2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides stated or clearly implied:\n- Single-user allows one user at a time; multi-user allows many users at the same time\n- Multi-user shares CPU time / memory / storage between users (time-sharing); single-user gives all resources to one user\n- Multi-user needs stronger security to keep users' data separate\n- Single-user runs on PCs / laptops; multi-user on mainframes / servers\n- Multi-user is more complex / expensive",
+        "points": [
+          {
+            "criterion": "First valid difference",
+            "marks": 1
+          },
+          {
+            "criterion": "Second, different valid difference",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 A single-user OS allows only one user at a time, whereas a multi-user OS lets many users use the computer at the same time. 2 A multi-user OS must share the processor and memory fairly between the users and keep their data separate."
+      }
+    },
+    {
+      "key": "os-multiuser-tf",
+      "title": "Multi-user or multitasking",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.3.1.6",
+        "11.3.1.7"
+      ],
+      "practice": true,
+      "text": "A laptop that runs a browser, a music player and a word processor at the same time for one person is using a **multi-user** operating system.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "One person running several programs is single-user multitasking. Multi-user means many people using the computer at the same time."
+      }
+    },
+    {
+      "key": "os-multiuser-examples",
+      "title": "Where multi-user OSs are used",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.3.1.6"
+      ],
+      "practice": true,
+      "text": "Select **two** systems that would use a **multi-user** operating system.",
+      "options": [
+        {
+          "key": "A",
+          "content": "A university mainframe used by hundreds of researchers at once"
+        },
+        {
+          "key": "B",
+          "content": "A smartwatch"
+        },
+        {
+          "key": "C",
+          "content": "A Linux server that many employees log in to remotely"
+        },
+        {
+          "key": "D",
+          "content": "A pupil's tablet"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "os-tasking-table",
+      "title": "Single-tasking or multitasking",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.3.1.7"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes a **single-tasking** or a **multitasking** operating system.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Single-tasking",
+          "Multitasking"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Only one program can run at a time",
+            null,
+            null
+          ],
+          [
+            "The CPU gives each process a time slice",
+            null,
+            null
+          ],
+          [
+            "Needs more memory because several programs are loaded",
+            null,
+            null
+          ],
+          [
+            "The CPU is idle while the program waits for input",
+            null,
+            null
+          ],
+          [
+            "Music can play while a document is edited",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Single; 2 Multi; 3 Multi; 4 Single; 5 Multi\n\nFive correct (3); three or four (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three or four rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All five rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 3 for five correct rows, 2 for three or four, 1 for one or two."
+      }
+    },
+    {
+      "key": "os-time-slicing",
+      "title": "How multitasking works",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.7"
+      ],
+      "practice": true,
+      "text": "A computer has a single-core processor. Explain how a multitasking operating system makes several programs **appear** to run at the same time.",
       "content": {
         "answer_lines": 5
       },
       "scheme": {
-        "mark_scheme": "Comparative points (must refer to both), max 2:\n- Single-user allows one user at a time; multi-user allows many users at the same time\n- Multi-user must share/schedule resources (CPU time, memory) between users; single-user gives all resources to one user\n- Multi-user needs stronger security to keep users' data separate; single-user security is simpler",
+        "mark_scheme": "Any three (1 each):\n- The CPU can only execute one process at a time\n- The scheduler gives each process a short time slice (e.g. round robin / by priority)\n- When the time slice ends the OS saves the state of the process and loads the next one (context switch)\n- Switching happens many times per second, so all programs appear to run simultaneously",
         "points": [
           {
-            "criterion": "Comparison of number of simultaneous users",
+            "criterion": "Only one process runs on the CPU at a time",
             "marks": 1
           },
           {
-            "criterion": "Second comparison (resource sharing or security), referring to both types",
+            "criterion": "Each process is given a time slice by the scheduler",
+            "marks": 1
+          },
+          {
+            "criterion": "Rapid switching / context switch makes them appear simultaneous",
             "marks": 1
           }
         ],
-        "ai_instructions": "A 'compare' answer must refer to BOTH types in each point. A description of only one type earns no marks for that point."
+        "model_answer": "The single CPU can only run one process at any moment. The scheduler gives each process a short time slice; when it ends, the OS saves that process's state and switches to the next one. This switching happens so quickly, many times a second, that all the programs seem to run at the same time."
+      }
+    },
+    {
+      "key": "os-define-rtos",
+      "title": "Define a real-time OS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.8"
+      ],
+      "practice": true,
+      "text": "Define the term **real-time operating system**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- An OS that processes inputs / responds within a guaranteed / fixed (very short) time / deadline (1)\n- so that it can control a physical process / system as it happens (1)",
+        "points": [
+          {
+            "criterion": "Responds within a guaranteed time / deadline",
+            "marks": 1
+          },
+          {
+            "criterion": "To control a process / system immediately",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An operating system that processes inputs and responds within a guaranteed, very short time, so that it can control a physical system as events happen."
+      }
+    },
+    {
+      "key": "os-hard-soft",
+      "title": "Hard or soft real-time",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.3.1.8"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether each system is **hard** real-time or **soft** real-time.",
+      "content": {
+        "columns": [
+          "System",
+          "Hard real-time",
+          "Soft real-time"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "A car airbag controller",
+            null,
+            null
+          ],
+          [
+            "A video-streaming service",
+            null,
+            null
+          ],
+          [
+            "A heart pacemaker",
+            null,
+            null
+          ],
+          [
+            "An online multiplayer game",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Airbag → Hard (1); Video streaming → Soft (1); Pacemaker → Hard (1); Online game → Soft (1)",
+        "points": [
+          {
+            "criterion": "Airbag hard",
+            "marks": 1
+          },
+          {
+            "criterion": "Streaming soft",
+            "marks": 1
+          },
+          {
+            "criterion": "Pacemaker hard",
+            "marks": 1
+          },
+          {
+            "criterion": "Game soft",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "If a hard real-time deadline is missed the system fails and people may be hurt; a missed soft deadline only lowers quality."
+      }
+    },
+    {
+      "key": "os-rtos-features",
+      "title": "Features of an RTOS",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.8"
+      ],
+      "practice": true,
+      "text": "Describe **two** features of a real-time operating system.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Feature 1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Feature 2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): guaranteed response within a deadline; predictable / deterministic timing; priority-based pre-emptive scheduling — urgent tasks interrupt others; continuous monitoring of sensors with feedback; high reliability / fault tolerance / runs continuously; small and efficient / minimal user interface / embedded",
+        "points": [
+          {
+            "criterion": "First valid feature",
+            "marks": 1
+          },
+          {
+            "criterion": "Second, different valid feature",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 It responds to inputs within a guaranteed deadline. 2 It uses priority scheduling, so the most urgent task can interrupt less important ones."
       }
     },
     {
       "key": "os-rtos-explain",
-      "title": "Why a real-time OS?",
-      "type": "scenario",
-      "marks": 3,
-      "difficulty": "exam",
+      "title": "Why an airbag needs an RTOS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
       "command_word": "explain",
       "grading": "AI",
       "objectives": [
         "11.3.1.8"
       ],
-      "text": "A hospital uses a computer to monitor patients in intensive care and to sound an alarm if a patient's heart rate becomes dangerous.\n\nExplain why a **real-time** operating system is needed for this system.",
+      "practice": true,
+      "text": "Explain why the airbag system in a car must use a real-time operating system.",
       "content": {
-        "answer_lines": 6
+        "answer_lines": 3
       },
       "scheme": {
-        "mark_scheme": "Up to 3:\n- Input (heart rate sensor data) is processed immediately / within a guaranteed time (1)\n- The alarm must sound without delay because the patient's life is at risk / any delay could be fatal (1)\n- Output affects the next input / continuous monitoring (1)\n- A batch or ordinary multitasking OS cannot guarantee response time (1)",
+        "mark_scheme": "- The airbag must inflate within a few milliseconds of the crash sensor detecting a collision / within a guaranteed time (1)\n- otherwise it would inflate too late and the driver could be injured / it is safety-critical (1)",
         "points": [
           {
-            "criterion": "Data is processed immediately / within a guaranteed time limit",
+            "criterion": "Response within a guaranteed (very short) time is needed",
             "marks": 1
           },
           {
-            "criterion": "Links the need for speed to the danger to the patient in the scenario",
-            "marks": 1
-          },
-          {
-            "criterion": "Continuous monitoring / output affects next input OR other OS types cannot guarantee response time",
+            "criterion": "Linked to safety: a late response could injure people",
             "marks": 1
           }
         ],
-        "model_answer": "The sensors send heart-rate readings continuously and a real-time OS processes each reading within a guaranteed, very short time. If the heart rate becomes dangerous, the alarm must sound immediately because even a short delay could cost the patient's life. A normal multitasking OS might be busy with other processes and could not guarantee such a fast response."
+        "model_answer": "The airbag must inflate within milliseconds of the sensor detecting a crash; if the response were late, the airbag would be useless and the driver could be injured."
+      }
+    },
+    {
+      "key": "os-nos-mr",
+      "title": "Network OS features",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.3.1.9"
+      ],
+      "practice": true,
+      "text": "Select **two** features of a **network** operating system.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Central management of user accounts and access rights"
+        },
+        {
+          "key": "B",
+          "content": "Guaranteed response to sensors within milliseconds"
+        },
+        {
+          "key": "C",
+          "content": "Sharing files and printers between client computers"
+        },
+        {
+          "key": "D",
+          "content": "Running only one program at a time"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "B is a feature of a real-time OS; D describes a single-tasking OS."
+      }
+    },
+    {
+      "key": "os-nos-accounts",
+      "title": "NOS and user accounts",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.9"
+      ],
+      "practice": true,
+      "text": "Describe how a network operating system implements **user account management**.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each):\n- NOS provides authentication and authorisation mechanisms…\n- …ensuring that only authorised users can access network resources\n- NOS verifies user identities (user name and password) when they log in…\n- …to assign appropriate access rights (to a user or group)\n[Max 2] 1 mark for mentioning authentication / authorisation",
+        "points": [
+          {
+            "criterion": "Authenticates / verifies users at log-in",
+            "marks": 1
+          },
+          {
+            "criterion": "Assigns access rights / only authorised users access resources",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The NOS verifies each user's identity with a user name and password when they log in, and then assigns access rights to that account, so only authorised users can reach each shared resource."
+      }
+    },
+    {
+      "key": "os-batch-features",
+      "title": "Features of batch processing",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.10"
+      ],
+      "practice": true,
+      "text": "Give **two** features of a batch processing operating system.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): jobs with similar requirements are batched together and run as a group; data is collected over a defined period of time and processed together; no user interaction while jobs run; data is sorted before processing; runs at off-peak times / scheduled automatically; suits large volumes of similar data",
+        "points": [
+          {
+            "criterion": "First valid feature",
+            "marks": 1
+          },
+          {
+            "criterion": "Second, different valid feature",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Jobs with similar requirements are grouped into a batch and run together. 2 The batch runs without any user interaction, often at night."
       }
     },
     {
       "key": "os-batch-tf",
-      "title": "Batch processing",
+      "title": "Batch and the user",
       "type": "true_false",
       "marks": 1,
       "difficulty": "easy",
@@ -510,14 +1425,1044 @@
       "objectives": [
         "11.3.1.10"
       ],
-      "text": "A batch processing system requires a user to respond to each job while it is being processed.",
+      "practice": true,
+      "text": "In batch processing, the user enters data and receives results while each job is running.",
       "scheme": {
-        "mark_scheme": "False",
+        "mark_scheme": "False.",
         "accepted": {
           "correct": false
         },
-        "explanation": "Batch processing runs jobs without user interaction, often overnight."
+        "explanation": "Batch jobs run without user interaction; the instructions and data are prepared in advance."
       }
+    },
+    {
+      "key": "os-batch-suitable",
+      "title": "Why batch for electricity bills",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.10"
+      ],
+      "practice": true,
+      "text": "An electricity company produces bills for 800 000 customers at the end of every month. Explain why batch processing is suitable for this task.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each):\n- Large volume of similar jobs / every bill is calculated the same way\n- Meter readings can be collected during the month and processed together\n- Bills are not needed immediately / only once a month\n- Can run automatically at night / off-peak without an operator",
+        "points": [
+          {
+            "criterion": "Large number of similar jobs",
+            "marks": 1
+          },
+          {
+            "criterion": "Results not needed immediately / can run without interaction at off-peak times",
+            "marks": 1
+          }
+        ],
+        "model_answer": "There is a very large number of similar bills that are all calculated in the same way, and they are only needed once a month, so the readings can be collected and processed together automatically at night."
+      }
+    },
+    {
+      "key": "os-type-scenarios",
+      "title": "Which type of OS?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.3.1.8",
+        "11.3.1.9",
+        "11.3.1.10"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the type of operating system that is most suitable.",
+      "content": {
+        "columns": [
+          "System",
+          "Real-time",
+          "Network",
+          "Batch"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Anti-lock brakes in a car",
+            null,
+            null,
+            null
+          ],
+          [
+            "A school server sharing files and printers with 400 pupils",
+            null,
+            null,
+            null
+          ],
+          [
+            "Printing monthly payslips for all employees overnight",
+            null,
+            null,
+            null
+          ],
+          [
+            "A factory robot welding car bodies on a moving line",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "ABS → Real-time (1); School server → Network (1); Payslips → Batch (1); Robot → Real-time (1)",
+        "points": [
+          {
+            "criterion": "ABS real-time",
+            "marks": 1
+          },
+          {
+            "criterion": "School server network",
+            "marks": 1
+          },
+          {
+            "criterion": "Payslips batch",
+            "marks": 1
+          },
+          {
+            "criterion": "Robot real-time",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "os-batch-vs-realtime",
+      "title": "Batch vs real-time",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.8",
+        "11.3.1.10"
+      ],
+      "practice": true,
+      "text": "Compare batch processing with real-time processing.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides needed:\n- Batch processes data later in groups, whereas real-time processes data immediately as it arrives\n- Batch has no user interaction during processing, whereas real-time responds to inputs continuously\n- Batch suits large volumes where results are not urgent (bills), whereas real-time suits control / urgent systems (airbag, booking)",
+        "points": [
+          {
+            "criterion": "First valid comparison",
+            "marks": 1
+          },
+          {
+            "criterion": "Second valid comparison",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Batch processing collects data and processes it later as a group without user interaction, whereas real-time processing handles each input immediately. Batch suits large non-urgent jobs such as monthly bills, while real-time suits control systems such as an airbag."
+      }
+    },
+    {
+      "key": "os-scenario-hospital",
+      "title": "Operating systems in a hospital",
+      "type": "scenario",
+      "marks": 4,
+      "difficulty": "exam",
+      "command_word": "discuss",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.8",
+        "11.3.1.9",
+        "11.3.1.10"
+      ],
+      "practice": true,
+      "text": "A hospital uses computers for three jobs:\n\n- **Job 1** monitors patients' heart rates in intensive care and sounds an alarm immediately if there is a problem.\n- **Job 2** lets 600 staff log in from any computer and open shared patient records.\n- **Job 3** produces a report of every patient's medicines each night.\n\nIdentify the type of operating system or processing most suitable for **two** of the jobs and justify your choices.",
+      "content": {
+        "answer_lines": 10
+      },
+      "scheme": {
+        "mark_scheme": "For each of two jobs: type (1) + justification (1).\n- Job 1: real-time (1) — must respond within a guaranteed time / safety-critical, a delayed alarm could cost a life (1)\n- Job 2: network OS (1) — central user accounts / authentication / access rights to shared records for many users (1)\n- Job 3: batch (1) — large volume of similar records, not urgent, run overnight without interaction (1)\n[Max 4]",
+        "points": [
+          {
+            "criterion": "Correct type for the first job",
+            "marks": 1
+          },
+          {
+            "criterion": "Justification for the first job",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct type for the second job",
+            "marks": 1
+          },
+          {
+            "criterion": "Justification for the second job",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Job 1 needs a real-time OS, because the alarm must sound within a guaranteed time and a delay could endanger the patient. Job 2 needs a network OS, because it manages the 600 user accounts centrally and gives each member of staff access rights to the shared records.",
+        "ai_instructions": "Mark the best two jobs. A justification only scores if it matches the chosen type."
+      }
+    },
+    {
+      "key": "os-structured-airport",
+      "title": "Systems at an airport",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "An international airport uses several computer systems: radar that tracks aircraft, staff computers connected to a central server, and a system that calculates all staff salaries at the end of each month.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "os-airport-a",
+          "part_label": "(a)",
+          "title": "Radar system",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.8"
+          ],
+          "practice": true,
+          "text": "Explain why the radar system needs a **real-time** operating system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- The positions of aircraft change continuously and must be processed within a guaranteed time / immediately (1)\n- so controllers see up-to-date positions and collisions are avoided / safety-critical (1)",
+            "points": [
+              {
+                "criterion": "Data processed within a guaranteed time",
+                "marks": 1
+              },
+              {
+                "criterion": "Linked to safety / up-to-date positions",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Aircraft positions change every second and must be processed immediately, so that controllers always see the current positions and can prevent collisions."
+          }
+        },
+        {
+          "key": "os-airport-b",
+          "part_label": "(b)",
+          "title": "Network OS features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.9"
+          ],
+          "practice": true,
+          "text": "The central server runs a network operating system. State **two** features of the network operating system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): user account management / authentication; access rights / authorisation; file sharing; printer sharing; centralised backup; security / firewall / logging; remote administration; supports many users at once",
+            "points": [
+              {
+                "criterion": "First valid feature",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 It authenticates staff when they log in to their accounts. 2 It lets staff share files and printers on the network."
+          }
+        },
+        {
+          "key": "os-airport-c",
+          "part_label": "(c)",
+          "title": "Salary system",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.10"
+          ],
+          "practice": true,
+          "text": "Explain why the salary system uses **batch** processing.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Salaries of all staff are similar jobs that are calculated together once a month (1)\n- results are not needed immediately, so the batch can run automatically without interaction / overnight (1)",
+            "points": [
+              {
+                "criterion": "Many similar jobs processed together",
+                "marks": 1
+              },
+              {
+                "criterion": "Not urgent / runs without interaction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "All the salaries are similar calculations that are only needed once a month, so they can be grouped and processed together automatically overnight."
+          }
+        }
+      ]
+    },
+    {
+      "key": "os-extended-types",
+      "title": "Comparing OS types",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.3.1.6",
+        "11.3.1.7",
+        "11.3.1.8"
+      ],
+      "practice": true,
+      "text": "A company is choosing operating systems for: the laptops of its employees, its central server used by 200 staff at once, and the controller of a machine on its production line.\n\nCompare single-user, multi-user, multitasking and real-time operating systems, and recommend a suitable type for **each** of the three uses.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "Comparison points (max 4):\n- single-user: one user at a time; multi-user: many users share resources at once (1)\n- multitasking: several programs share the CPU using time slices (1)\n- real-time: guaranteed response within a deadline; priority scheduling (1)\n- multi-user needs strong security / resource sharing; real-time minimal UI / high reliability (1)\n\nRecommendations (max 2, need all three for 2, two for 1):\n- laptops: single-user multitasking\n- server: multi-user (network) OS\n- machine controller: real-time",
+        "points": [
+          {
+            "criterion": "Valid comparison of single-user and multi-user",
+            "marks": 1
+          },
+          {
+            "criterion": "Valid description of multitasking",
+            "marks": 1
+          },
+          {
+            "criterion": "Valid description of real-time",
+            "marks": 1
+          },
+          {
+            "criterion": "Further valid comparison point",
+            "marks": 1
+          },
+          {
+            "criterion": "Two correct recommendations",
+            "marks": 1
+          },
+          {
+            "criterion": "All three recommendations correct and justified",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A single-user OS allows one person to use the computer at a time, while a multi-user OS lets many people share one computer's processor, memory and storage at once, so it needs stronger security to keep their data apart. A multitasking OS runs several programs at once by giving each a time slice of the CPU. A real-time OS responds to inputs within a guaranteed deadline using priority scheduling, and usually has little user interface. The laptops should use a single-user multitasking OS so employees can run several programs; the server should use a multi-user network OS so 200 staff can log in and share resources; the machine controller needs a real-time OS because it must react to sensors immediately."
+      }
+    },
+    {
+      "key": "os-exam-1",
+      "title": "A pupil's laptop",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Madina uses her laptop to write an essay while music plays and a file downloads in the background.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "os-exam-1a",
+          "part_label": "(a)",
+          "title": "Memory management",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the operating system manages **memory** while these programs are running.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): allocates RAM to each program; protects each program's memory from the others; frees memory when a program closes; uses virtual memory if RAM is full; keeps track of used and free memory",
+            "points": [
+              {
+                "criterion": "First valid point",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid point",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It gives each of the three programs its own part of RAM and stops them from overwriting each other's memory; if RAM becomes full it uses virtual memory on the disk."
+          }
+        },
+        {
+          "key": "os-exam-1b",
+          "part_label": "(b)",
+          "title": "Multitasking",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The laptop has a single-core processor. Explain how the operating system allows the three programs to run at the same time.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each):\n- It is a multitasking OS\n- The CPU runs only one process at a time\n- The scheduler gives each program a time slice\n- The OS saves the state of one process and loads the next (context switch)\n- Switching is so fast that the programs appear to run simultaneously",
+            "points": [
+              {
+                "criterion": "First valid point",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid point",
+                "marks": 1
+              },
+              {
+                "criterion": "Third valid point",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The multitasking OS gives each program a short time slice of the CPU in turn. When a slice ends it saves that program's state and switches to the next one, and it does this so quickly that the essay, the music and the download all appear to run at the same time."
+          }
+        },
+        {
+          "key": "os-exam-1c",
+          "part_label": "(c)",
+          "title": "Other OS functions",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** other functions of the operating system, apart from memory management and multitasking.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), described: file management; input/output / peripheral management through drivers; security / user accounts / access rights; providing a user interface; error handling; loading and running applications; handling interrupts",
+            "points": [
+              {
+                "criterion": "First valid function described",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid function described",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 File management — it saves Madina's essay in a folder and records where it is stored on the disk. 2 It provides a graphical user interface so she can open programs with the mouse.",
+            "ai_instructions": "Do not credit memory management or processor scheduling. A function name alone with no description is not enough."
+          }
+        }
+      ]
+    },
+    {
+      "key": "os-exam-2",
+      "title": "Types of operating system",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Different computer systems need different types of operating system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "os-exam-2a",
+          "part_label": "(a)",
+          "title": "Which type",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.3.1.8",
+            "11.3.1.9",
+            "11.3.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show the most suitable type of operating system.",
+          "content": {
+            "columns": [
+              "System",
+              "Real-time",
+              "Network",
+              "Batch"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "Producing all customers' water bills at the end of the month",
+                null,
+                null,
+                null
+              ],
+              [
+                "Controlling the engine temperature of an aircraft",
+                null,
+                null,
+                null
+              ],
+              [
+                "Managing shared folders and printers for 50 office computers",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Water bills → Batch (1); Aircraft engine → Real-time (1); Office folders and printers → Network (1)",
+            "points": [
+              {
+                "criterion": "Bills batch",
+                "marks": 1
+              },
+              {
+                "criterion": "Engine real-time",
+                "marks": 1
+              },
+              {
+                "criterion": "Office network",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "",
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "os-exam-2b",
+          "part_label": "(b)",
+          "title": "Single-user vs multi-user",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare single-user and multi-user operating systems.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), both sides needed: one user at a time vs many users simultaneously; all resources for one user vs resources shared between users (time-sharing); simpler security vs strong security to separate users' data; PC / laptop vs mainframe / server",
+            "points": [
+              {
+                "criterion": "First valid comparison",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid comparison",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A single-user OS lets only one person use the computer at a time, whereas a multi-user OS lets many people use it at once. The multi-user OS must share CPU time and memory between the users and keep each user's data secure."
+          }
+        },
+        {
+          "key": "os-exam-2c",
+          "part_label": "(c)",
+          "title": "Batch features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **two** features of the batch operating system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): jobs with similar requirements are batched together and run as a group; data collected for a defined period and processed as a pack; sorting is performed before processing; no user interaction; runs at off-peak / scheduled times",
+            "points": [
+              {
+                "criterion": "First valid feature",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Jobs with similar requirements are grouped together and run as one batch. 2 The jobs run without any interaction with the user."
+          }
+        }
+      ]
+    },
+    {
+      "key": "os-exam-3",
+      "title": "Real-time systems in a car",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A modern car contains several embedded computers, including the airbag controller and the anti-lock braking system (ABS). Both use a real-time operating system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "os-exam-3a",
+          "part_label": "(a)",
+          "title": "Define RTOS",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define the term **real-time operating system**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Processes inputs / responds within a guaranteed time / deadline (1)\n- to control a system as events happen (1)",
+            "points": [
+              {
+                "criterion": "Guaranteed response time",
+                "marks": 1
+              },
+              {
+                "criterion": "Controls a system as events happen",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An OS that processes inputs and responds within a guaranteed time so that it can control a system as events happen."
+          }
+        },
+        {
+          "key": "os-exam-3b",
+          "part_label": "(b)",
+          "title": "Why hard real-time",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The airbag controller is a **hard** real-time system. Explain what this means.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Every deadline must be met / response must always be within the time limit (1)\n- missing a deadline means system failure / could injure the passengers (1)",
+            "points": [
+              {
+                "criterion": "Deadlines must always be met",
+                "marks": 1
+              },
+              {
+                "criterion": "Missing one is a failure / dangerous",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The airbag must always respond within its deadline; if it ever responds late, the system has failed and the passengers could be injured."
+          }
+        },
+        {
+          "key": "os-exam-3c",
+          "part_label": "(c)",
+          "title": "RTOS features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** features of a real-time operating system, other than its response time.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): priority-based pre-emptive scheduling; deterministic / predictable; continuous monitoring of sensors with feedback; high reliability / fail-safe / runs continuously; small / efficient / embedded in ROM; minimal user interface",
+            "points": [
+              {
+                "criterion": "First valid feature",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 It uses priority scheduling, so the most urgent task interrupts others. 2 It is highly reliable and runs continuously without failing.",
+            "ai_instructions": "Do not credit 'responds quickly / within a deadline' — it is excluded by the question."
+          }
+        },
+        {
+          "key": "os-exam-3d",
+          "part_label": "(d)",
+          "title": "Soft real-time example",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The car's navigation and music screen is a **soft** real-time system. Explain the difference between hard and soft real-time systems, using the car as an example.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- In a soft real-time system a missed deadline only reduces quality / is not dangerous, e.g. the music or map updates late (1)\n- In a hard real-time system a missed deadline is a failure / dangerous, e.g. the airbag / ABS (1)",
+            "points": [
+              {
+                "criterion": "Soft: missed deadline reduces quality, with car example",
+                "marks": 1
+              },
+              {
+                "criterion": "Hard: missed deadline is failure / dangerous, with car example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If the navigation screen misses a deadline, the map just updates a little late, which is annoying but not dangerous. If the airbag or ABS misses a deadline, the system fails and people could be hurt."
+          }
+        }
+      ]
+    },
+    {
+      "key": "os-exam-4",
+      "title": "A school network and a bank",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school has 300 computers connected to a server that runs a **network operating system**. A local bank uses **batch processing** to produce customers' monthly statements.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "os-exam-4a",
+          "part_label": "(a)",
+          "title": "User account management",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the network operating system implements **user account management**.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): provides authentication and authorisation mechanisms; ensures that only authorised users can access network resources; verifies user identities (user name / password) at log-in; assigns appropriate access rights to users / groups\n[Max 2]",
+            "points": [
+              {
+                "criterion": "Authenticates users",
+                "marks": 1
+              },
+              {
+                "criterion": "Assigns access rights / authorisation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The NOS checks each pupil's user name and password when they log in and then gives their account the access rights for their group, so only authorised users can open each shared resource."
+          }
+        },
+        {
+          "key": "os-exam-4b",
+          "part_label": "(b)",
+          "title": "Other NOS features",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** other features of a network operating system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): file sharing; printer sharing / print queues; centralised backup; security / firewall / activity logs; remote administration / software updates for clients; network services (DHCP, DNS, e-mail)",
+            "points": [
+              {
+                "criterion": "First valid feature",
+                "marks": 1
+              },
+              {
+                "criterion": "Second, different valid feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 It lets pupils share files stored on the server. 2 It backs up all the users' work centrally.",
+            "ai_instructions": "Do not credit user accounts / authentication again."
+          }
+        },
+        {
+          "key": "os-exam-4c",
+          "part_label": "(c)",
+          "title": "Why batch for statements",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why batch processing is suitable for producing the monthly statements.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): large number of similar jobs; transactions collected during the month and processed together; statements not needed immediately; can run automatically at night / off-peak without interaction",
+            "points": [
+              {
+                "criterion": "First valid reason",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Every customer's statement is a similar job, and the transactions collected during the month are only needed once a month, so they can be processed together automatically overnight."
+          }
+        },
+        {
+          "key": "os-exam-4d",
+          "part_label": "(d)",
+          "title": "Disadvantage of batch",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** disadvantage of batch processing for the bank.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Disadvantage (1) + explanation (1), e.g.\n- Results are not immediate (1) so balances / statements are out of date until the batch runs (1)\n- An error may only be found after the whole batch has been processed (1) so all statements may have to be produced again (1)\n- No interaction during processing (1) so a job cannot be corrected while running (1)",
+            "points": [
+              {
+                "criterion": "Valid disadvantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation linked to the bank",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The results are not immediate, so a customer's statement does not show transactions until the batch has been run at the end of the month."
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Operating systems — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "os-exam-1",
+      "os-exam-2",
+      "os-exam-3",
+      "os-exam-4"
+    ]
+  }
 }

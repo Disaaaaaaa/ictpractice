@@ -1,8 +1,1634 @@
 {
   "topic": "g12-types-of-test-data",
-  "questions": [],
-  "summary": "Execution (runtime) errors that occur when a program starts or runs, and testing with normal, extreme and erroneous data.",
+  "questions": [
+    {
+      "key": "td-define-runtime",
+      "title": "Define an execution error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "Define the term **execution (runtime) error**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- An error that occurs while the program is running / executing (the code has no syntax errors) (1)\n- an operation cannot be carried out, so the program crashes / stops / shows an error message (1)",
+        "points": [
+          {
+            "criterion": "Occurs while the program runs",
+            "marks": 1
+          },
+          {
+            "criterion": "Program crashes / impossible operation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An error that happens while the program is running, when an operation such as dividing by zero cannot be carried out, so the program crashes."
+      }
+    },
+    {
+      "key": "td-error-type-mcq",
+      "title": "Type of error",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "A program uses the index of an array element that is outside the bounds of the array. What type of error is this?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Syntax error"
+        },
+        {
+          "key": "B",
+          "content": "Run-time (execution) error"
+        },
+        {
+          "key": "C",
+          "content": "Logic error that never stops the program"
+        },
+        {
+          "key": "D",
+          "content": "Lexical error"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The code translates, but accessing a non-existent element is impossible while running, so it crashes."
+      }
+    },
+    {
+      "key": "td-startup-match",
+      "title": "Startup errors",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "Match each execution error that can happen when a program starts to its cause.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "File not found"
+          },
+          {
+            "key": "L2",
+            "text": "Missing library (DLL)"
+          },
+          {
+            "key": "L3",
+            "text": "Database connection failure"
+          },
+          {
+            "key": "L4",
+            "text": "Access denied"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The settings file was deleted or moved"
+          },
+          {
+            "key": "R2",
+            "text": "A component the program needs is not installed"
+          },
+          {
+            "key": "R3",
+            "text": "The database server is not running"
+          },
+          {
+            "key": "R4",
+            "text": "The user has no permission to read the folder"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "td-runtime-examples-mr",
+      "title": "Runtime errors",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "Select **two** situations that cause an **execution** error.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Dividing a number by a variable whose value is 0"
+        },
+        {
+          "key": "B",
+          "content": "Misspelling the keyword print as pritn"
+        },
+        {
+          "key": "C",
+          "content": "Converting the input \"seven\" to an integer"
+        },
+        {
+          "key": "D",
+          "content": "Using > instead of >= in a condition"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "B is a syntax error; D is a logic error."
+      }
+    },
+    {
+      "key": "td-runtime-guess",
+      "title": "Value causing a runtime error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "```python\nguess = int(input(\"Guess a number from 1 to 100: \"))\nif guess == secret:\n    print(\"Correct!\")\n```\n\nGive **one** example of a value for `guess` that will cause a runtime error, and explain why.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Example: a string / text, e.g. \"Twenty\" / \"abc\" / 3.5 / empty input (1)\n- int() cannot convert it to an integer, so the program crashes (ValueError) (1)",
+        "points": [
+          {
+            "criterion": "Valid example",
+            "marks": 1
+          },
+          {
+            "criterion": "Explanation: cannot be converted to an integer",
+            "marks": 1
+          }
+        ],
+        "model_answer": "\"Twenty\" — the int() function cannot convert this text into an integer, so the program stops with a ValueError."
+      }
+    },
+    {
+      "key": "td-div-zero",
+      "title": "Division by zero",
+      "type": "code_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "The code below crashes when no marks have been entered.\n\n```python\naverage = total / count\nprint(average)\n```\n\nRewrite the code so that it does not crash and prints `No marks entered` when `count` is 0.",
+      "content": {
+        "language": "python",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- Checks count before dividing, e.g. IF count > 0 / count != 0 (1)\n- performs the division and prints the average in that branch (1)\n- ELSE prints \"No marks entered\" (1)\nAccept try/except ZeroDivisionError.",
+        "points": [
+          {
+            "criterion": "Condition on count",
+            "marks": 1
+          },
+          {
+            "criterion": "Division in the valid branch",
+            "marks": 1
+          },
+          {
+            "criterion": "Message otherwise",
+            "marks": 1
+          }
+        ],
+        "model_answer": "if count > 0:\n    average = total / count\n    print(average)\nelse:\n    print(\"No marks entered\")"
+      }
+    },
+    {
+      "key": "td-array-bounds",
+      "title": "Out of range",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "```text\nScores ← [12, 15, 9, 20, 17]\nFOR i ← 0 TO 5\n    OUTPUT Scores[i]\nENDFOR\n```\n\nExplain why this algorithm causes an execution error and how to correct it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The array has indexes 0–4; when i = 5, Scores[5] does not exist — out of range / index out of bounds (1)\n- Correct: FOR i ← 0 TO 4 / TO LENGTH(Scores) − 1 (1)",
+        "points": [
+          {
+            "criterion": "Index 5 is outside the bounds",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct loop range",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The array has five elements with indexes 0 to 4, so Scores[5] does not exist and causes an out-of-range error. The loop should be FOR i ← 0 TO 4."
+      }
+    },
+    {
+      "key": "td-prevent-file",
+      "title": "Preventing a startup error",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.1"
+      ],
+      "practice": true,
+      "text": "A quiz program opens the file `questions.txt` as soon as it starts. Describe how the programmer can stop the program crashing if the file is missing.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): check that the file exists before opening it; use exception handling (try … except FileNotFoundError); show a clear error message; use default data / ask the user for the file location instead of crashing",
+        "points": [
+          {
+            "criterion": "Check / exception handling",
+            "marks": 1
+          },
+          {
+            "criterion": "Message / safe alternative",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The programmer can open the file inside a try … except FileNotFoundError block, and if the file is missing, show the message 'Question file missing' and stop safely instead of crashing."
+      }
+    },
+    {
+      "key": "td-types-match",
+      "title": "Types of test data",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "Match each type of test data to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Normal data"
+          },
+          {
+            "key": "L2",
+            "text": "Extreme data"
+          },
+          {
+            "key": "L3",
+            "text": "Erroneous data"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Typical valid data that should be accepted"
+          },
+          {
+            "key": "R2",
+            "text": "Valid data at the limits of the accepted range"
+          },
+          {
+            "key": "R3",
+            "text": "Data that should be rejected"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Normal–R1, Extreme–R2, Erroneous–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "td-month-examples",
+      "title": "Test data for months",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "A program asks the user to enter the number of a month (1 to 12) and outputs the season. Give **one** example of each type of test data.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Normal",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "Extreme",
+            "lines": 1
+          },
+          {
+            "key": "3",
+            "label": "Erroneous",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Normal (1): any whole number 2–11\nExtreme (1): 1 or 12\nErroneous (1): 0, −15, 13, july, 3.5, empty\nAccept any correct answers.",
+        "points": [
+          {
+            "criterion": "Normal",
+            "marks": 1
+          },
+          {
+            "criterion": "Extreme",
+            "marks": 1
+          },
+          {
+            "criterion": "Erroneous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Normal: 6. Extreme: 12. Erroneous: 13."
+      }
+    },
+    {
+      "key": "td-extreme-tf",
+      "title": "Extreme data is valid",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.5.3.3"
+      ],
+      "practice": true,
+      "text": "Extreme data should be rejected by the program.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Extreme data is valid data on the boundary of the range, so it must be accepted."
+      }
+    },
+    {
+      "key": "td-classify-table",
+      "title": "Classify the test data",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "A program accepts an exam mark that is a whole number from **0 to 100**. Tick (✓) **one** box in each row to show the type of each test value.",
+      "content": {
+        "columns": [
+          "Test value",
+          "Normal",
+          "Extreme",
+          "Erroneous"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "57",
+            null,
+            null,
+            null
+          ],
+          [
+            "100",
+            null,
+            null,
+            null
+          ],
+          [
+            "101",
+            null,
+            null,
+            null
+          ],
+          [
+            "0",
+            null,
+            null,
+            null
+          ],
+          [
+            "fifty",
+            null,
+            null,
+            null
+          ],
+          [
+            "83",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "57 N; 100 Ex; 101 Er; 0 Ex; fifty Er; 83 N\n\nSix correct (4); five (3); three or four (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Five rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All six rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        },
+        "ai_instructions": "Award 4 for six correct rows, 3 for five, 2 for three or four, 1 for one or two."
+      }
+    },
+    {
+      "key": "td-why-extreme",
+      "title": "Why test extreme data",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.3"
+      ],
+      "practice": true,
+      "text": "Explain why a programmer should test a program with **extreme** data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- To check that values at the boundaries / limits are accepted / processed correctly (1)\n- because boundary conditions are often coded wrongly, e.g. < instead of <= (1)",
+        "points": [
+          {
+            "criterion": "Checks the boundaries are accepted",
+            "marks": 1
+          },
+          {
+            "criterion": "Finds errors in conditions such as < vs <=",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To check that the values on the limits of the range are still accepted, because programmers often make mistakes in conditions, such as writing < instead of <=."
+      }
+    },
+    {
+      "key": "td-why-erroneous",
+      "title": "Why test erroneous data",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "Explain why a program should be tested with **erroneous** data.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- To check that invalid data is rejected / the validation works (1)\n- so the program does not crash or store / process wrong data; an error message is shown (1)",
+        "points": [
+          {
+            "criterion": "Checks invalid data is rejected",
+            "marks": 1
+          },
+          {
+            "criterion": "No crash / wrong data not processed",
+            "marks": 1
+          }
+        ],
+        "model_answer": "To check that the program rejects invalid data with an error message instead of crashing or processing wrong values."
+      }
+    },
+    {
+      "key": "td-password-boundary",
+      "title": "Password length",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "A password must be **8 to 16 characters** long. State the length of the passwords you would use for boundary testing.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Extreme (lower)",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "Extreme (upper)",
+            "lines": 1
+          },
+          {
+            "key": "3",
+            "label": "Erroneous just below",
+            "lines": 1
+          },
+          {
+            "key": "4",
+            "label": "Erroneous just above",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Extreme lower: 8 characters (1)\nExtreme upper: 16 characters (1)\nErroneous below: 7 characters (1)\nErroneous above: 17 characters (1)",
+        "points": [
+          {
+            "criterion": "8",
+            "marks": 1
+          },
+          {
+            "criterion": "16",
+            "marks": 1
+          },
+          {
+            "criterion": "7",
+            "marks": 1
+          },
+          {
+            "criterion": "17",
+            "marks": 1
+          }
+        ],
+        "model_answer": "8 characters; 16 characters; 7 characters; 17 characters.",
+        "ai_instructions": "Accept an example password of the correct length. Each box is marked separately."
+      }
+    },
+    {
+      "key": "td-test-plan",
+      "title": "Complete a test plan",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "A program accepts the age of a pupil from **11 to 18** and outputs `Accepted` or `Rejected`. Complete the test plan.",
+      "content": {
+        "columns": [
+          "Test data",
+          "Type of test data",
+          "Expected result"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "14",
+            null,
+            null
+          ],
+          [
+            "18",
+            null,
+            null
+          ],
+          [
+            "19",
+            null,
+            null
+          ],
+          [
+            "ten",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "14 – normal – Accepted (1)\n18 – extreme – Accepted (1)\n19 – erroneous – Rejected (1)\nten – erroneous – Rejected (1)\nOne mark per fully correct row.",
+        "points": [
+          {
+            "criterion": "Row 14",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 18",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 19",
+            "marks": 1
+          },
+          {
+            "criterion": "Row ten",
+            "marks": 1
+          }
+        ],
+        "model_answer": "14: normal, Accepted. 18: extreme, Accepted. 19: erroneous, Rejected. ten: erroneous, Rejected.",
+        "ai_instructions": "A row scores only if both the type and the expected result are correct. Accept 'boundary' for extreme and 'invalid / abnormal' for erroneous."
+      }
+    },
+    {
+      "key": "td-validation-loop",
+      "title": "Validate the input",
+      "type": "pseudocode",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "Write pseudocode or program code that asks the user for the number of a month and **keeps asking** until a whole number from 1 to 12 is entered, then outputs `Thank you`.",
+      "content": {
+        "language": "pseudocode"
+      },
+      "scheme": {
+        "mark_scheme": "- Input the month (1)\n- Loop (WHILE / REPEAT) that repeats while the value is invalid (1)\n- Correct condition: < 1 OR > 12 (also checks it is a number, if a language is used) (1)\n- Error message / input again inside the loop and output Thank you after it (1)",
+        "points": [
+          {
+            "criterion": "Input",
+            "marks": 1
+          },
+          {
+            "criterion": "Repeating loop",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct range condition",
+            "marks": 1
+          },
+          {
+            "criterion": "Re-input and final output",
+            "marks": 1
+          }
+        ],
+        "model_answer": "INPUT month\nWHILE month < 1 OR month > 12 DO\n    OUTPUT \"Invalid month, try again\"\n    INPUT month\nENDWHILE\nOUTPUT \"Thank you\"",
+        "ai_instructions": "Accept REPEAT … UNTIL month >= 1 AND month <= 12. Accept any language."
+      }
+    },
+    {
+      "key": "td-structured-cipher",
+      "title": "Testing a cipher function",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "The function below should shift every lowercase letter of a word to the next letter of the alphabet (a → b, b → c …).\n\n```text\nFUNCTION Encrypt(text)\n    alphabet ← \"abcdefghijklmnopqrstuvwxyz\"\n    result ← \"\"\n    text ← lower(text)\n    FOR i ← 0 TO LENGTH(text) - 1\n        FOR j ← 0 TO 25\n            IF text[i] = alphabet[j] THEN\n                result ← result + alphabet[j+1]\n            ENDIF\n        ENDFOR\n    ENDFOR\n    RETURN result\nENDFUNCTION\n```\n\nNote: `lower()` returns the string with all letters in lowercase.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "td-cipher-a",
+          "part_label": "(a)",
+          "title": "Normal data",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.2"
+          ],
+          "practice": true,
+          "text": "Provide **one** example of normal data for the function.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any text without the letter 'z' (1), e.g. hello",
+            "points": [
+              {
+                "criterion": "Text without z",
+                "marks": 1
+              }
+            ],
+            "model_answer": "hello"
+          }
+        },
+        {
+          "key": "td-cipher-b",
+          "part_label": "(b)",
+          "title": "Erroneous data",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.4"
+          ],
+          "practice": true,
+          "text": "Provide **one** example of erroneous data for the function.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Any text with the letter 'z' or containing numbers or symbols (1). Accept any suitable answer.",
+            "points": [
+              {
+                "criterion": "Text with z / digits / symbols",
+                "marks": 1
+              }
+            ],
+            "model_answer": "buzz"
+          }
+        },
+        {
+          "key": "td-cipher-c",
+          "part_label": "(c)",
+          "title": "Type of error",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "practice": true,
+          "text": "Determine the type of error when `Encrypt()` takes the value `\"buZz\"` as an argument, and justify your answer.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Type of error",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Justification",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Runtime error / execution error (1)\nOut-of-range array: for z, j = 25 and alphabet[j+1] = alphabet[26] does not exist (1)",
+            "points": [
+              {
+                "criterion": "Runtime / execution error",
+                "marks": 1
+              },
+              {
+                "criterion": "Index 26 out of range",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Runtime (execution) error. lower() turns Z into z; for z, j = 25, so alphabet[j+1] tries to use index 26, which is outside the array."
+          }
+        },
+        {
+          "key": "td-cipher-d",
+          "part_label": "(d)",
+          "title": "Extreme data",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.3"
+          ],
+          "practice": true,
+          "text": "Suggest **one** test value that checks the limit of the letters the function handles correctly.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "A word containing y (the last letter that works) or a (the first letter), e.g. \"y\" / \"yay\" (1)",
+            "points": [
+              {
+                "criterion": "Value at the limit (y / a)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "y"
+          }
+        }
+      ]
+    },
+    {
+      "key": "td-extended-plan",
+      "title": "Design a full test plan",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "practice": true,
+      "text": "A cinema's booking program asks how many seats a customer wants. A customer can book from **1 to 8** seats. The program outputs the total cost at 2 000 tenge per seat, or `Invalid number of seats`.\n\nWrite a test plan with **six** tests. For each test give the test data, the type of test data and the expected result. Include all three types of test data.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "One mark per correct test (max 5) + 1 mark for including all three types:\n- Normal, e.g. 3 → 6 000 tenge; 5 → 10 000\n- Extreme: 1 → 2 000; 8 → 16 000\n- Erroneous: 0, 9, −2, \"two\", 2.5 → Invalid number of seats\nA test scores only if the data, its type and the expected result are all correct.",
+        "points": [
+          {
+            "criterion": "Correct test 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct test 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct test 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct test 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Correct test 5 / 6",
+            "marks": 1
+          },
+          {
+            "criterion": "All three types included",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Data 3, normal, 6 000 tenge. 2 Data 5, normal, 10 000 tenge. 3 Data 1, extreme, 2 000 tenge. 4 Data 8, extreme, 16 000 tenge. 5 Data 9, erroneous, Invalid number of seats. 6 Data \"two\", erroneous, Invalid number of seats."
+      }
+    },
+    {
+      "key": "td-exam-1",
+      "title": "Ticket program",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A theatre program asks how many tickets a customer wants. A customer can buy from **1 to 10** tickets at 1 500 tenge each.\n\n```text\nINPUT tickets\nIF tickets >= 1 AND tickets <= 10 THEN\n    OUTPUT tickets * 1500\nELSE\n    OUTPUT \"Invalid\"\nENDIF\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "td-exam-1a",
+          "part_label": "(a)",
+          "title": "One of each type",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.2",
+            "12.5.3.3",
+            "12.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **one** example of each test data type for the code.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Normal",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Extreme",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "Erroneous",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Normal: 2 to 9 (1)\nExtreme: 1 or 10 (1)\nErroneous: 0, 11, −3, abc (1)\nAccept any correct answers.",
+            "points": [
+              {
+                "criterion": "Normal",
+                "marks": 1
+              },
+              {
+                "criterion": "Extreme",
+                "marks": 1
+              },
+              {
+                "criterion": "Erroneous",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Normal: 4. Extreme: 10. Erroneous: 11."
+          }
+        },
+        {
+          "key": "td-exam-1b",
+          "part_label": "(b)",
+          "title": "Test plan",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.2",
+            "12.5.3.3",
+            "12.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the test plan.",
+          "content": {
+            "columns": [
+              "Test data",
+              "Type of test data",
+              "Expected result"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "6",
+                null,
+                null
+              ],
+              [
+                "1",
+                null,
+                null
+              ],
+              [
+                "10",
+                null,
+                null
+              ],
+              [
+                "0",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "6 – normal – 9000 (1)\n1 – extreme – 1500 (1)\n10 – extreme – 15000 (1)\n0 – erroneous – Invalid (1)\nOne mark per fully correct row.",
+            "points": [
+              {
+                "criterion": "Row 6",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 10",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 0",
+                "marks": 1
+              }
+            ],
+            "model_answer": "6: normal, 9000. 1: extreme, 1500. 10: extreme, 15000. 0: erroneous, Invalid.",
+            "ai_instructions": "Both the type and the expected result must be correct for the row's mark. Accept 'boundary' for extreme."
+          }
+        },
+        {
+          "key": "td-exam-1c",
+          "part_label": "(c)",
+          "title": "Runtime error value",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The program is written in a language in which `INPUT` stores the value as an integer. Give **one** value that will cause a runtime error and explain why.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- A string / text, e.g. \"five\" (accept 2.5 / empty input) (1)\n- it cannot be converted to / stored as an integer, so the program crashes (1)",
+            "points": [
+              {
+                "criterion": "Valid value",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "\"five\" — the text cannot be stored as an integer, so the program crashes before the IF statement is reached."
+          }
+        },
+        {
+          "key": "td-exam-1d",
+          "part_label": "(d)",
+          "title": "Type of error",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the type of error that occurs in part (c).",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Runtime / execution error (1)",
+            "points": [
+              {
+                "criterion": "Runtime / execution error",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Runtime error.",
+            "accepted": {
+              "values": [
+                "runtime error",
+                "run-time error",
+                "runtime",
+                "run-time",
+                "execution error",
+                "run time error",
+                "execution",
+                "runtime (execution) error"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "td-exam-2",
+      "title": "A quiz program",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "When a quiz program starts, it reads its questions from the file `quiz.txt` and connects to the school database to save the scores. At the end it calculates `average ← total / count`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "td-exam-2a",
+          "part_label": "(a)",
+          "title": "Startup error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **one** execution error that could occur when the program starts.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Error (1) + description of cause / effect (1), e.g.\n- file not found (1): quiz.txt has been deleted / moved, so the program crashes when it tries to open it (1)\n- database connection failure (1): the server is not running / wrong password / no network (1)\n- access denied (1): no permission to read the file (1)",
+            "points": [
+              {
+                "criterion": "Valid startup error",
+                "marks": 1
+              },
+              {
+                "criterion": "Cause / effect described",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A file-not-found error: if quiz.txt has been moved or deleted, the program cannot open it and crashes as soon as it starts."
+          }
+        },
+        {
+          "key": "td-exam-2b",
+          "part_label": "(b)",
+          "title": "Prevention",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the programmer can prevent the error in part (a) from crashing the program.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): check the file exists / the connection succeeded before using it; exception handling (try / except); show a clear error message; use default data / retry / continue without saving",
+            "points": [
+              {
+                "criterion": "Check or exception handling",
+                "marks": 1
+              },
+              {
+                "criterion": "Safe response (message / default)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Open the file inside a try … except block; if it is missing, display 'Quiz file not found' and close the program safely instead of crashing."
+          }
+        },
+        {
+          "key": "td-exam-2c",
+          "part_label": "(c)",
+          "title": "Division by zero",
+          "type": "code_completion",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the execution error that can happen in `average ← total / count`, and write pseudocode that prevents it.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- Division by zero when count = 0 / no answers (1)\n- IF count > 0 THEN average ← total / count ELSE OUTPUT message (1)",
+            "points": [
+              {
+                "criterion": "Division by zero identified",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct check before dividing",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Division by zero if count = 0.\nIF count > 0 THEN\n    average ← total / count\nELSE\n    OUTPUT \"No answers\"\nENDIF"
+          }
+        },
+        {
+          "key": "td-exam-2d",
+          "part_label": "(d)",
+          "title": "Validate the score input",
+          "type": "pseudocode",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Teachers enter the number of questions in the quiz, which must be from **5 to 20**. Write pseudocode or program code that keeps asking until a valid number is entered and then outputs `Saved`.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "scheme": {
+            "mark_scheme": "- INPUT the number (1)\n- loop while invalid (WHILE / REPEAT) (1)\n- correct condition < 5 OR > 20 (1)\n- message and INPUT inside the loop, OUTPUT \"Saved\" after (1)",
+            "points": [
+              {
+                "criterion": "Input",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct condition",
+                "marks": 1
+              },
+              {
+                "criterion": "Re-input and final output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "INPUT n\nWHILE n < 5 OR n > 20 DO\n    OUTPUT \"Enter a number from 5 to 20\"\n    INPUT n\nENDWHILE\nOUTPUT \"Saved\""
+          }
+        }
+      ]
+    },
+    {
+      "key": "td-exam-3",
+      "title": "Arrays and boundaries",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A program stores the scores of five students and checks new passwords.\n\n```text\nScores ← [12, 15, 9, 20, 17]\nFOR i ← 1 TO 5\n    OUTPUT Scores[i]\nENDFOR\n```\n\nArrays start at index 0. A new password must be **6 to 12 characters** long.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "td-exam-3a",
+          "part_label": "(a)",
+          "title": "Type of error",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Determine the type of error in the loop and justify your answer.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Type of error",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Justification",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Runtime / execution error (1)\nWhen i = 5, Scores[5] is outside the array (indexes 0–4) / index out of range (1)",
+            "points": [
+              {
+                "criterion": "Runtime error",
+                "marks": 1
+              },
+              {
+                "criterion": "Index 5 out of range",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Runtime error, because when i = 5 the program accesses Scores[5], but the array only has indexes 0 to 4."
+          }
+        },
+        {
+          "key": "td-exam-3b",
+          "part_label": "(b)",
+          "title": "Correct the loop",
+          "type": "code_completion",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Rewrite the first line of the loop so that all five scores are output without an error.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": "FOR "
+          },
+          "scheme": {
+            "mark_scheme": "FOR i ← 0 TO 4 (accept TO LENGTH(Scores) − 1) (1)",
+            "points": [
+              {
+                "criterion": "FOR i ← 0 TO 4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "FOR i ← 0 TO 4"
+          }
+        },
+        {
+          "key": "td-exam-3c",
+          "part_label": "(c)",
+          "title": "Boundary values",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.3",
+            "12.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the password lengths that should be used for **extreme** data and for **erroneous** data just outside the range.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Extreme 1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Extreme 2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "Erroneous 1",
+                "lines": 1
+              },
+              {
+                "key": "4",
+                "label": "Erroneous 2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Extreme: 6 (1) and 12 (1) characters\nErroneous: 5 (1) and 13 (1) characters\nAccept the values in either order within each type.",
+            "points": [
+              {
+                "criterion": "6",
+                "marks": 1
+              },
+              {
+                "criterion": "12",
+                "marks": 1
+              },
+              {
+                "criterion": "5",
+                "marks": 1
+              },
+              {
+                "criterion": "13",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Extreme: 6 and 12 characters. Erroneous: 5 and 13 characters."
+          }
+        },
+        {
+          "key": "td-exam-3d",
+          "part_label": "(d)",
+          "title": "Why extreme data",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the programmer tests the password check with extreme data.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- To check that passwords of exactly 6 and 12 characters are accepted (1)\n- because boundary conditions are often written wrongly (e.g. > instead of >=) (1)",
+            "points": [
+              {
+                "criterion": "Checks boundary values are accepted",
+                "marks": 1
+              },
+              {
+                "criterion": "Detects boundary condition errors",
+                "marks": 1
+              }
+            ],
+            "model_answer": "To make sure that passwords of exactly 6 and 12 characters are accepted, because a condition such as length > 6 instead of length >= 6 would wrongly reject them."
+          }
+        },
+        {
+          "key": "td-exam-3e",
+          "part_label": "(e)",
+          "title": "Define erroneous data",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "12.5.3.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define **erroneous** test data.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Data that should be rejected by the program — invalid / out of range / wrong type (1)",
+            "points": [
+              {
+                "criterion": "Data that should be rejected",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Invalid data, such as values out of range or of the wrong type, which the program should reject."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Execution (runtime) errors that occur when a program starts or runs and how to prevent them, and testing programs with normal, extreme (boundary) and erroneous data using a test plan.",
   "theory": [
+    {
+      "title": "Why programs are tested",
+      "objectives": [
+        "12.5.3.1",
+        "12.5.3.2"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "**Testing** checks that a program **works correctly for every kind of input**, does not crash, and **rejects** data it should not accept. Testing is planned in advance with a **test plan**: for each test, the **test data**, its **type**, the **expected result**, and later the **actual result**."
+        },
+        {
+          "type": "comparison",
+          "title": "Kinds of error found by testing",
+          "columns": [
+            "Error",
+            "When it appears",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Syntax error**",
+              "Before the program runs (translation)",
+              "`pritn(\"Hi\")`, missing bracket"
+            ],
+            [
+              "**Execution (runtime) error**",
+              "While the program is **starting or running** — it crashes",
+              "Division by zero, file not found"
+            ],
+            [
+              "**Logic error**",
+              "The program runs but gives the **wrong result**",
+              "Using `>` instead of `>=`"
+            ]
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "More about syntax and logic errors",
+          "content": "Syntax and logic errors are studied in the topic **Types of errors**. This topic focuses on **execution errors** and on choosing **test data**."
+        }
+      ]
+    },
     {
       "title": "Execution errors at program startup",
       "objectives": [
@@ -12,59 +1638,221 @@
         {
           "type": "definition",
           "term": "Execution (runtime) error",
-          "content": "An error that happens **while the program is running** — the code is syntactically correct, but an operation is impossible, so the program **crashes** or stops with an error message."
+          "content": "An error that occurs **while the program is executing**: the code is **syntactically correct**, so it is translated, but an operation **cannot be carried out**, so the program **stops (crashes)** or shows an error message."
+        },
+        {
+          "type": "paragraph",
+          "content": "Some execution errors happen **as soon as the program starts**, because something the program needs is **missing or unavailable**:"
         },
         {
           "type": "comparison",
-          "title": "Typical execution errors",
+          "title": "Execution errors at program startup",
           "columns": [
             "Error",
-            "Example",
-            "How to prevent"
+            "Cause",
+            "Typical message / effect"
           ],
           "rows": [
             [
-              "Division by zero",
+              "**File not found**",
+              "A configuration or data file that is opened at startup does not exist or has been moved",
+              "`FileNotFoundError: settings.txt`"
+            ],
+            [
+              "**Missing library / DLL**",
+              "A library the program needs is not installed or has the wrong version",
+              "\"The program can't start because xyz.dll is missing\" / `ModuleNotFoundError`"
+            ],
+            [
+              "**Database connection failure**",
+              "The database server is not running, the password is wrong or the network is down",
+              "\"Cannot open database … Login failed\""
+            ],
+            [
+              "**Insufficient memory**",
+              "Not enough RAM to load the program or a large array",
+              "`MemoryError`, \"Out of memory\""
+            ],
+            [
+              "**Access denied / permissions**",
+              "The user has no right to read a file or write to a folder",
+              "`PermissionError`"
+            ],
+            [
+              "**Invalid start-up arguments / input**",
+              "The program is started with missing or wrong parameters, or the first input has the wrong type",
+              "`IndexError: list index out of range`, `ValueError`"
+            ],
+            [
+              "**Port / device already in use**",
+              "Another program is using the network port, camera or printer",
+              "\"Address already in use\""
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Execution errors while the program runs",
+          "columns": [
+            "Error",
+            "Example",
+            "Prevention"
+          ],
+          "rows": [
+            [
+              "**Division by zero**",
               "`average = total / count` when `count = 0`",
               "Check `count > 0` before dividing"
             ],
             [
-              "Index out of range",
+              "**Index out of range**",
               "`marks[10]` in an array of 10 elements (indexes 0–9)",
-              "Check the index against the array bounds"
+              "Check the index is within the array bounds"
             ],
             [
-              "File not found",
-              "Opening `data.txt` that does not exist",
-              "Check the file exists; use exception handling"
+              "**Type conversion error**",
+              "`int(\"twelve\")` when the user types a word for a number",
+              "Validate input; exception handling"
             ],
             [
-              "Type conversion",
-              "`int(\"twelve\")`",
-              "Validate input; `try … except`"
+              "**Overflow**",
+              "A value too large for its data type",
+              "Use a suitable data type; check limits"
             ],
             [
-              "Missing resource at startup",
-              "Database server not running, missing library (DLL), no network",
-              "Check the connection and show a clear message"
+              "**Stack overflow**",
+              "Recursion with no base case",
+              "Make sure recursion has a base case"
             ],
             [
-              "Out of memory / stack overflow",
-              "Infinite recursion, very large arrays",
-              "Base case in recursion; limits on data size"
+              "**Null / undefined reference**",
+              "Using a variable or object that has no value",
+              "Initialise variables; check before use"
             ]
           ]
         },
         {
           "type": "code",
           "language": "python",
-          "content": "try:\n    with open(\"settings.txt\") as f:\n        settings = f.read()\nexcept FileNotFoundError:\n    print(\"Settings file missing — using default settings.\")\n    settings = \"default\"",
-          "caption": "Handling errors when the program starts"
+          "content": "guess = int(input(\"Guess a number from 1 to 100: \"))   # user types: Twenty\n# ValueError: invalid literal for int() with base 10: 'Twenty'",
+          "caption": "A runtime error caused by input — the program crashes"
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "try:\n    with open(\"questions.txt\") as f:          # needed at startup\n        questions = f.readlines()\nexcept FileNotFoundError:\n    print(\"The question file is missing. Please contact the teacher.\")\n    questions = []\n\nwhile True:\n    try:\n        guess = int(input(\"Guess a number from 1 to 100: \"))\n        break                                  # valid integer entered\n    except ValueError:\n        print(\"Please type digits, for example 42.\")",
+          "caption": "Preventing startup and input errors with exception handling"
+        },
+        {
+          "type": "example",
+          "title": "Run-time error with an array (exam style)",
+          "content": "`Letters` has 26 elements with indexes **0–25**. The code `Letters[j + 1]` is executed when `j = 25`, because the letter **z** has no next letter. Index **26** does not exist, so an **out-of-range (runtime / execution) error** occurs. The fix: when the letter is `z`, use `Letters[0]` (wrap around to `a`)."
+        },
+        {
+          "type": "exam_tip",
+          "content": "State the **type** (runtime / execution error) **and justify** it with the **cause** in that code: \"*runtime error, because the index j + 1 goes outside the bounds of the array when the input contains z*\"."
         }
       ]
     },
     {
-      "title": "Testing with normal, extreme and erroneous data",
+      "title": "Normal data",
+      "objectives": [
+        "12.5.3.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Normal data",
+          "content": "**Typical, valid** data that the program **should accept** and process correctly. It is well **inside** the accepted range and of the correct type and format."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Purpose: to check that the program gives the **correct results** for ordinary use.",
+            "Choose several normal values, not just one, and work out the **expected result** first.",
+            "*Example: a field accepts a month number from 1 to 12 → normal data: 3, 7, 10.*"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Extreme (boundary) data",
+      "objectives": [
+        "12.5.3.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Extreme data",
+          "content": "**Valid** data **at the limits (boundaries)** of the accepted range — the **largest and smallest** values that should still be **accepted**."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Purpose: to check that the boundaries are coded correctly — errors such as `<` instead of `<=` are very common.",
+            "*Example: month 1 to 12 → extreme data: **1** and **12**.*"
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Boundary testing",
+          "content": "Many testers also test the values **just outside** the boundary (0 and 13). These are **erroneous** data — they must be **rejected**. Testing both sides of every boundary is called **boundary testing**."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "      erroneous | extreme   normal   extreme | erroneous\n   ... -1  0    |   1    2 ... 11     12     |   13  14 ...\n   -------------+----------------------------+-------------\n       rejected |          accepted          | rejected",
+          "caption": "Normal, extreme and erroneous data for a range 1–12"
+        }
+      ]
+    },
+    {
+      "title": "Erroneous data",
+      "objectives": [
+        "12.5.3.4"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Erroneous (abnormal / invalid) data",
+          "content": "Data that **should be rejected** by the program because it is **outside the range**, of the **wrong data type**, in the **wrong format** or **missing**. The program should show an error message and ask again — it must **not crash**."
+        },
+        {
+          "type": "comparison",
+          "title": "Kinds of erroneous data (month 1–12)",
+          "columns": [
+            "Kind",
+            "Example",
+            "Expected result"
+          ],
+          "rows": [
+            [
+              "Out of range",
+              "`0`, `13`, `-15`",
+              "\"Invalid month\" message, ask again"
+            ],
+            [
+              "Wrong type",
+              "`july`, `twelve`",
+              "Rejected — no crash"
+            ],
+            [
+              "Wrong format",
+              "`3.5`, `12a`",
+              "Rejected"
+            ],
+            [
+              "Missing (empty)",
+              "*(nothing typed)*",
+              "Rejected"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Test plans",
       "objectives": [
         "12.5.3.2",
         "12.5.3.3",
@@ -72,37 +1860,155 @@
       ],
       "blocks": [
         {
-          "type": "cards",
-          "items": [
-            {
-              "title": "Normal data",
-              "content": "Typical valid data that the program **should accept** and process correctly. *Age 16 for a field that accepts 14–18.*"
-            },
-            {
-              "title": "Extreme (boundary) data",
-              "content": "Valid data **at the very limits** of the accepted range. *Ages 14 and 18.* (Boundary testing often also tries 13 and 19, just outside.)"
-            },
-            {
-              "title": "Erroneous (abnormal) data",
-              "content": "Data that **should be rejected** — wrong type, out of range, wrong format, missing. *Ages 30, −2, \"sixteen\", blank.*"
-            }
+          "type": "code",
+          "language": "python",
+          "content": "month = input(\"Enter the month number (1-12): \")\nif not month.isdigit() or int(month) < 1 or int(month) > 12:\n    print(\"Invalid month\")\nelse:\n    m = int(month)\n    if m == 12 or m == 1 or m == 2:\n        print(\"Winter\")\n    elif m >= 3 and m <= 5:\n        print(\"Spring\")\n    elif m >= 6 and m <= 8:\n        print(\"Summer\")\n    else:\n        print(\"Autumn\")",
+          "caption": "Program to be tested: output the season for a month number"
+        },
+        {
+          "type": "comparison",
+          "title": "Test plan for the season program",
+          "columns": [
+            "Test",
+            "Test data",
+            "Type",
+            "Expected result"
+          ],
+          "rows": [
+            [
+              "1",
+              "4",
+              "Normal",
+              "Spring"
+            ],
+            [
+              "2",
+              "7",
+              "Normal",
+              "Summer"
+            ],
+            [
+              "3",
+              "10",
+              "Normal",
+              "Autumn"
+            ],
+            [
+              "4",
+              "1",
+              "Extreme",
+              "Winter"
+            ],
+            [
+              "5",
+              "12",
+              "Extreme",
+              "Winter"
+            ],
+            [
+              "6",
+              "0",
+              "Erroneous",
+              "Invalid month"
+            ],
+            [
+              "7",
+              "13",
+              "Erroneous",
+              "Invalid month"
+            ],
+            [
+              "8",
+              "july",
+              "Erroneous",
+              "Invalid month (no crash)"
+            ]
           ]
         },
         {
-          "type": "example",
-          "title": "Test plan for: \"Enter the number of persons (1–4) for the quest game\"",
-          "content": "| Test | Data | Type | Expected result |\n|---|---|---|---|\n| 1 | 2 | Normal | Accepted, registration continues |\n| 2 | 1 | Extreme | Accepted |\n| 3 | 4 | Extreme | Accepted |\n| 4 | 0 | Erroneous (just outside the range) | \"Choose 1–4 persons\" |\n| 5 | 7 | Erroneous | \"Choose 1–4 persons\" |\n| 6 | two | Erroneous (wrong type) | \"Enter a number\" |"
+          "type": "comparison",
+          "title": "Choosing test data — more examples",
+          "columns": [
+            "Rule",
+            "Normal",
+            "Extreme",
+            "Erroneous"
+          ],
+          "rows": [
+            [
+              "Exam mark 0–100 (integer)",
+              "45, 78",
+              "0, 100",
+              "−1, 101, \"fifty\""
+            ],
+            [
+              "Password of 8–16 characters",
+              "`kazakh2026` (10 chars)",
+              "8 chars, 16 chars",
+              "7 chars, 17 chars, empty"
+            ],
+            [
+              "Age of a pupil 11–18",
+              "15",
+              "11, 18",
+              "10, 19, 15.5"
+            ]
+          ]
         },
         {
+          "type": "steps",
+          "title": "How to test a program",
+          "items": [
+            "Read the **validation rule** (range, type, length, format).",
+            "Choose **normal** values inside the range, **extreme** values on each boundary and **erroneous** values outside it and of the wrong type.",
+            "Write the **expected result** of each test **before** running it.",
+            "Run the tests and record the **actual result**.",
+            "If the actual result differs, find and correct the error, then **re-test**."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.5.3.1",
+        "12.5.3.2",
+        "12.5.3.3",
+        "12.5.3.4"
+      ],
+      "blocks": [
+        {
           "type": "example",
-          "title": "PIN code: exactly 4 digits",
-          "content": "- Normal: `5821`\n- Extreme: `0000`, `9999`\n- Erroneous: `582` (too short), `58210` (too long), `58a1` (not digits), blank"
+          "title": "Exam-style answers",
+          "content": "**Q: Give one example of each test data type for a program that accepts a month number. [3]**\nNormal: any of 2–11, e.g. **6** (1). Extreme: **1** or **12** (1). Erroneous: **0**, **−15**, **13** or **july** (1).\n\n**Q: Give one example of the value for `guess` that will cause a runtime error. [1]**\nA string such as **\"Twenty\"** — `int()` cannot convert it to an integer.\n\n**Q: The program uses the index of an array element that is outside the bounds of the array indices. State the type of error. [1]**\n**Run-time / execution error.**\n\n**Q: Describe one execution error that could occur when the program starts. [2]**\nThe program tries to open a **settings file that does not exist** (1), so it **crashes with a file-not-found error** unless the error is handled (1)."
         },
         {
-          "type": "exam_tip",
-          "content": "Mark schemes accept **extreme = the largest and smallest valid values**. Write the **expected outcome** for every item of test data, not only the value."
+          "type": "warning",
+          "content": "- Calling extreme data \"invalid\" — extreme data is **valid** and must be **accepted**.\n- Giving erroneous data that is actually valid (e.g. 12 for months 1–12).\n- Giving only out-of-range numbers — also test the **wrong data type** (text instead of a number).\n- Confusing a **runtime** error (program crashes while running) with a **syntax** error (program cannot be translated).\n- Not stating the **expected result** in a test plan."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define an execution (runtime) error and give four examples.",
+            "Which execution errors can happen at program startup? How can they be prevented?",
+            "Define normal, extreme and erroneous data.",
+            "Write a test plan with six tests for a field that accepts a whole number from 18 to 65.",
+            "Why must erroneous data not crash the program?",
+            "What is boundary testing?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Types of test data — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. You may write code in pseudocode or any programming language you have studied. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "td-exam-1",
+      "td-exam-2",
+      "td-exam-3"
+    ]
+  }
 }

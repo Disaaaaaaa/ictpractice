@@ -1,10 +1,1232 @@
 {
   "topic": "paper-blockchain",
-  "questions": [],
-  "summary": "How blockchain works — blocks, hashes, chains, distributed ledgers and consensus — and where blockchain technology is used.",
+  "questions": [
+    {
+      "key": "blk-describe",
+      "title": "What is blockchain?",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Describe what blockchain technology is.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "A distributed database shared among the nodes of a network / a growing list of records (blocks) linked using cryptography / a technology for a secure, decentralised record of transactions (1). Accept any reasonable description.",
+        "points": [
+          {
+            "criterion": "Description",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A decentralised, distributed ledger: a growing list of blocks of transactions linked by hashes and copied to every node of the network."
+      }
+    },
+    {
+      "key": "blk-example",
+      "title": "Uses",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Give **one** example of using blockchain technology.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Cryptocurrencies / Bitcoin / Ethereum; smart contracts; financial services; games / NFTs; supply chain; domain names; certificates; voting (1)",
+        "points": [
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Cryptocurrencies such as Bitcoin."
+      }
+    },
+    {
+      "key": "blk-terms",
+      "title": "Key terms",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nA blockchain is a distributed [[1]] of transactions. Each computer that keeps a copy of it is called a [[2]]. Every block stores the [[3]] of the previous block. The first block of the chain is called the [[4]] block.",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) ledger / database (2) node (3) hash (4) genesis",
+        "accepted": {
+          "blanks": [
+            [
+              "ledger",
+              "database"
+            ],
+            [
+              "node",
+              "peer"
+            ],
+            [
+              "hash"
+            ],
+            [
+              "genesis"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "blk-block-parts",
+      "title": "Contents of a block",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Which **three** of these are stored in a block of a blockchain?",
+      "scheme": {
+        "mark_scheme": "A, C, E",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ]
+        }
+      },
+      "options": [
+        {
+          "key": "A",
+          "content": "The hash of the previous block"
+        },
+        {
+          "key": "B",
+          "content": "The private keys of the users"
+        },
+        {
+          "key": "C",
+          "content": "A timestamp"
+        },
+        {
+          "key": "D",
+          "content": "The password of the central administrator"
+        },
+        {
+          "key": "E",
+          "content": "The transaction data"
+        }
+      ]
+    },
+    {
+      "key": "blk-match",
+      "title": "Blockchain vocabulary",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Hash"
+          },
+          {
+            "key": "L2",
+            "text": "Nonce"
+          },
+          {
+            "key": "L3",
+            "text": "Node"
+          },
+          {
+            "key": "L4",
+            "text": "Smart contract"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Fixed-length fingerprint calculated from the data"
+          },
+          {
+            "key": "R2",
+            "text": "Number changed by miners to find a valid hash"
+          },
+          {
+            "key": "R3",
+            "text": "Computer that keeps a copy of the ledger"
+          },
+          {
+            "key": "R4",
+            "text": "Program on the blockchain that runs automatically when conditions are met"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "blk-hash-props",
+      "title": "Hash properties",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "A SHA-256 hash can be decrypted to get back the original block data.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Hashing is one-way; it is not encryption."
+      }
+    },
+    {
+      "key": "blk-avalanche",
+      "title": "Avalanche effect",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "`Aida pays Bek 10` has the SHA-256 hash `58fac423…1e726b74`, but `Aida pays Bek 90` has the hash `b5ac3f09…4086512a`.\n\nExplain what this shows about hash functions and why it is useful in a blockchain.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "A tiny change in the data gives a completely different hash / avalanche effect (1); so any change to a block's data is detected immediately because the stored hash no longer matches (1)",
+        "points": [
+          {
+            "criterion": "Avalanche",
+            "marks": 1
+          },
+          {
+            "criterion": "Detects tampering",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Changing one digit produces a totally different hash. So if anyone alters a block, its hash changes and the change is detected at once."
+      }
+    },
+    {
+      "key": "blk-link",
+      "title": "Linking blocks",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Explain how the blocks of a blockchain are linked together.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Each block contains the hash of the previous block (1); so the blocks form a chain in order back to the genesis block / a change breaks the link (1)",
+        "points": [
+          {
+            "criterion": "Previous hash",
+            "marks": 1
+          },
+          {
+            "criterion": "Chain / order",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every block stores the hash of the block before it, which links the blocks in order back to the genesis block."
+      }
+    },
+    {
+      "key": "blk-tamper",
+      "title": "Tamper resistance",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Explain why it is very difficult to change a transaction that is already recorded in a blockchain.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Changing the data changes the block's hash (1); the next block's 'previous hash' no longer matches, so the chain is broken / all later blocks would need re-mining (1); every node has a copy and the majority version is accepted, so the altered copy is rejected (1)",
+        "points": [
+          {
+            "criterion": "Hash changes",
+            "marks": 1
+          },
+          {
+            "criterion": "Link broken / re-mine",
+            "marks": 1
+          },
+          {
+            "criterion": "Distributed copies",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The block's hash would change, so it would no longer match the previous-hash stored in the next block; the attacker would have to re-mine every later block, and the other nodes' copies would still show the original, so the change would be rejected."
+      }
+    },
+    {
+      "key": "blk-order",
+      "title": "Adding a transaction",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Put the stages of adding a transaction in order by writing 1–5 in the second column.",
+      "content": {
+        "columns": [
+          "Stage",
+          "Order (1–5)"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "Nodes validate the signature and the balance",
+            null
+          ],
+          [
+            "The user signs the transaction with a private key",
+            null
+          ],
+          [
+            "The block is added to every copy of the chain",
+            null
+          ],
+          [
+            "The transaction is broadcast to the network",
+            null
+          ],
+          [
+            "Nodes reach consensus, e.g. proof of work",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "3, 1, 5, 2, 4 (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "3"
+            ],
+            [
+              null,
+              "1"
+            ],
+            [
+              null,
+              "5"
+            ],
+            [
+              null,
+              "2"
+            ],
+            [
+              null,
+              "4"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "blk-keys",
+      "title": "Keys",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "State what each key is used for in a blockchain transaction.",
+      "content": {
+        "fields": [
+          {
+            "key": "priv",
+            "label": "Private key",
+            "lines": 1
+          },
+          {
+            "key": "pub",
+            "label": "Public key",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Private key: kept secret, used to sign the transaction (1); public key: shared, used by others / nodes to verify the signature (or as the address to receive coins) (1)",
+        "points": [
+          {
+            "criterion": "Private",
+            "marks": 1
+          },
+          {
+            "criterion": "Public",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Private key: kept secret and used to sign the transaction.\nPublic key: shared so that nodes can verify the signature."
+      }
+    },
+    {
+      "key": "blk-mining",
+      "title": "Mining",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Describe the role of miners in a proof-of-work blockchain.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Validate transactions and group them into a block (1); compete to solve the puzzle — change the nonce until the hash meets the target — and the winner adds the block and is rewarded (1)",
+        "points": [
+          {
+            "criterion": "Validate / build block",
+            "marks": 1
+          },
+          {
+            "criterion": "Solve puzzle / reward",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Miners check transactions and put them into a block, then repeatedly change the nonce until the block's hash meets the difficulty target; the first to succeed adds the block and earns a reward."
+      }
+    },
+    {
+      "key": "blk-pow-pos",
+      "title": "Proof of work or stake?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the consensus mechanism each statement describes.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Proof of work",
+          "Proof of stake"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Uses a very large amount of electricity",
+            null,
+            null
+          ],
+          [
+            "Validators lock up their own coins",
+            null,
+            null
+          ],
+          [
+            "Miners change a nonce to find a valid hash",
+            null,
+            null
+          ],
+          [
+            "A cheating validator can lose its coins",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "PoW; PoS; PoW; PoS (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "blk-central",
+      "title": "Central vs distributed",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Which statement describes a blockchain but **not** a central bank database?",
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      },
+      "options": [
+        {
+          "key": "A",
+          "content": "Records are stored electronically"
+        },
+        {
+          "key": "B",
+          "content": "Every node keeps a full copy of the records"
+        },
+        {
+          "key": "C",
+          "content": "Records can be searched"
+        },
+        {
+          "key": "D",
+          "content": "Transactions have a date and time"
+        }
+      ]
+    },
+    {
+      "key": "blk-smart",
+      "title": "Smart contracts",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Describe a smart contract and give an example of its use.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "A program stored on the blockchain that runs automatically when conditions are met (1); example, e.g. payment released when delivery is confirmed / insurance paid when a flight is delayed (1)",
+        "points": [
+          {
+            "criterion": "Description",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A program on the blockchain that executes automatically when agreed conditions are met, e.g. paying a supplier as soon as delivery is confirmed."
+      }
+    },
+    {
+      "key": "blk-51",
+      "title": "51 % attack",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Explain what is meant by a 51 % attack and why it is unlikely on a large public blockchain.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "A group controls more than half of the computing power / stake and can rewrite recent blocks / approve its own version (1); on a large network this needs an enormous amount of hardware and electricity, so it is too expensive (1)",
+        "points": [
+          {
+            "criterion": "Meaning",
+            "marks": 1
+          },
+          {
+            "criterion": "Why unlikely",
+            "marks": 1
+          }
+        ],
+        "model_answer": "If one group controlled over half the network's computing power it could out-mine the honest nodes and rewrite recent blocks; on a network like Bitcoin this would cost far too much."
+      }
+    },
+    {
+      "key": "blk-types",
+      "title": "Types of blockchain",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "Match each type of blockchain to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Public"
+          },
+          {
+            "key": "L2",
+            "text": "Private"
+          },
+          {
+            "key": "L3",
+            "text": "Consortium"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Anyone can read, send transactions and run a node"
+          },
+          {
+            "key": "R2",
+            "text": "Only invited members of one organisation"
+          },
+          {
+            "key": "R3",
+            "text": "Controlled by a group of organisations"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "blk-adv-dis",
+      "title": "Advantages and disadvantages",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "practice": true,
+      "text": "State **two** advantages and **two** disadvantages of blockchain technology.",
+      "content": {
+        "fields": [
+          {
+            "key": "a1",
+            "label": "Advantage 1",
+            "lines": 1
+          },
+          {
+            "key": "a2",
+            "label": "Advantage 2",
+            "lines": 1
+          },
+          {
+            "key": "d1",
+            "label": "Disadvantage 1",
+            "lines": 1
+          },
+          {
+            "key": "d2",
+            "label": "Disadvantage 2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Advantages (1 each, max 2): hard to tamper / data integrity; no central authority / no single point of failure; transparent; fewer intermediaries / lower fees; permanent audit trail. Disadvantages (1 each, max 2): high energy use (PoW); slow; mistakes cannot be undone / lost keys; large storage; legal uncertainty; privacy on public chains.",
+        "points": [
+          {
+            "criterion": "Advantage 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Advantage 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Disadvantage 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Disadvantage 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Advantage 1: records are very hard to tamper with.\nAdvantage 2: no single point of failure.\nDisadvantage 1: proof of work uses a lot of electricity.\nDisadvantage 2: lost private keys mean lost assets."
+      }
+    },
+    {
+      "key": "blk-exam-1",
+      "title": "Tracking medicines",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A pharmaceutical company uses blockchain to record every step of a medicine's journey from the factory to the pharmacy.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "blk-exam-1a",
+          "title": "Describe",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Describe what blockchain technology is.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Distributed database shared among nodes / list of blocks linked using cryptography / secure decentralised record of transactions (1)",
+            "points": [
+              {
+                "criterion": "Description",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A decentralised ledger of records grouped into blocks linked by hashes and copied to many nodes."
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "blk-exam-1b",
+          "title": "Block contents",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "State **three** items stored in each block.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): data / transactions (e.g. location of the medicine); timestamp; hash of the block; hash of the previous block; nonce; block number",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 The data, e.g. where the batch was delivered\n2 A timestamp\n3 The hash of the previous block"
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "blk-exam-1c",
+          "title": "Fake records",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "A criminal wants to change an old record to hide a batch of fake medicines. Explain why this would be detected.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Changing the record changes the block's hash (1); it no longer matches the previous hash stored in the next block / every later block would have to be recalculated (1); other nodes hold the original copy, so the majority rejects the change (1)",
+            "points": [
+              {
+                "criterion": "Hash changes",
+                "marks": 1
+              },
+              {
+                "criterion": "Link broken",
+                "marks": 1
+              },
+              {
+                "criterion": "Other copies",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The edited block would get a new hash that does not match the next block's previous-hash, so the chain breaks; all the other nodes still hold the original chain, so the altered copy is rejected."
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        },
+        {
+          "key": "blk-exam-1d",
+          "title": "Other use",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Give **one** other example of using blockchain technology.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Cryptocurrency; smart contracts; financial services; games; domain names; certificates; voting; land registry (1)",
+            "points": [
+              {
+                "criterion": "Example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Cryptocurrencies such as Bitcoin."
+          },
+          "source": "nis_style",
+          "part_label": "(d)"
+        }
+      ]
+    },
+    {
+      "key": "blk-exam-2",
+      "title": "Cryptocurrency payments",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Dana sends 0.5 coins of a cryptocurrency to Arman.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "blk-exam-2a",
+          "title": "Process",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Describe how Dana's transaction is added to the blockchain.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "Any four (1 each): Dana signs the transaction with her private key; it is broadcast to the network of nodes; nodes validate it (signature / enough balance); it is grouped with others into a block; nodes reach consensus / a miner solves the proof of work; the block is added to every copy of the chain",
+            "points": [
+              {
+                "criterion": "Step 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Step 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Step 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Step 4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Dana signs the transaction with her private key and it is broadcast to the nodes. The nodes validate the signature and her balance, then put it in a block with other transactions. A miner solves the proof of work and the block is added to every copy of the chain."
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "blk-exam-2b",
+          "title": "Keys",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Explain the purpose of Dana's private key and public key.",
+          "content": {
+            "fields": [
+              {
+                "key": "priv",
+                "label": "Private key",
+                "lines": 2
+              },
+              {
+                "key": "pub",
+                "label": "Public key",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Private: secret, used to sign / authorise the transaction, proving it is from Dana (1); public: shared, used by nodes to verify the signature / as her address (1)",
+            "points": [
+              {
+                "criterion": "Private",
+                "marks": 1
+              },
+              {
+                "criterion": "Public",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Private key: kept secret; Dana signs the transaction with it.\nPublic key: nodes use it to check that the signature is Dana's."
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "blk-exam-2c",
+          "title": "Compare",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Compare recording this payment on a blockchain with recording it in a bank's central database.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Blockchain: copied to many nodes / decentralised, no single owner (1); bank: one organisation controls and can edit the records / single point of failure / users must trust the bank (1)",
+            "points": [
+              {
+                "criterion": "Blockchain",
+                "marks": 1
+              },
+              {
+                "criterion": "Bank",
+                "marks": 1
+              }
+            ],
+            "model_answer": "On a blockchain every node has a copy and no one controls it, while a bank's database is held and controlled by one organisation that users must trust."
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        }
+      ]
+    },
+    {
+      "key": "blk-exam-3",
+      "title": "Consensus and certificates",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Nodes of a blockchain must agree before a new block is added.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "blk-exam-3a",
+          "title": "Proof of work",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "Explain how proof of work is used to add a new block.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Miners compete to solve a puzzle (1); repeatedly change the nonce and calculate the hash until it meets the target, e.g. starts with zeros (1); the first miner broadcasts the block, others check it easily and add it; the miner is rewarded (1)",
+            "points": [
+              {
+                "criterion": "Competition",
+                "marks": 1
+              },
+              {
+                "criterion": "Nonce / hash target",
+                "marks": 1
+              },
+              {
+                "criterion": "Broadcast, verify, reward",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Miners compete: each changes the nonce and recalculates the block's hash until it starts with the required zeros. The first to succeed broadcasts the block; other nodes quickly verify it and add it, and the miner gets a reward."
+          },
+          "source": "nis_style",
+          "part_label": "(a)"
+        },
+        {
+          "key": "blk-exam-3b",
+          "title": "Proof of stake",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "State **one** disadvantage of proof of work and explain how proof of stake reduces it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "PoW uses huge amounts of electricity (1); PoS chooses validators by the coins they stake, so no energy-intensive puzzle is needed (1)",
+            "points": [
+              {
+                "criterion": "Disadvantage",
+                "marks": 1
+              },
+              {
+                "criterion": "PoS",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Proof of work uses a lot of electricity; proof of stake picks validators by their staked coins, so no puzzle has to be solved."
+          },
+          "source": "nis_style",
+          "part_label": "(b)"
+        },
+        {
+          "key": "blk-exam-3c",
+          "title": "Hash",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "State **one** property of a cryptographic hash function.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Fixed length / deterministic / one-way / small change gives a completely different hash / collision-resistant (1)",
+            "points": [
+              {
+                "criterion": "Property",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A small change in the data gives a completely different hash."
+          },
+          "source": "nis_style",
+          "part_label": "(c)"
+        },
+        {
+          "key": "blk-exam-3d",
+          "title": "Certificates",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "discuss",
+          "grading": "AI",
+          "objectives": [
+            "11.1.2.6@paper"
+          ],
+          "practice": false,
+          "text": "A university plans to store its diplomas on a blockchain. Give **one** advantage and **one** disadvantage of this plan.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Advantage: employers can verify diplomas / they cannot be forged or changed (1); disadvantage: mistakes cannot be easily corrected / personal data visible / cost, energy, storage / lost keys (1)",
+            "points": [
+              {
+                "criterion": "Advantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Disadvantage",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Advantage: employers can check a diploma is genuine because it cannot be forged.\nDisadvantage: a wrong record cannot simply be edited or deleted."
+          },
+          "source": "nis_style",
+          "part_label": "(d)"
+        }
+      ]
+    }
+  ],
+  "summary": "What blockchain technology is — a decentralised, distributed ledger compared with a central database; its key properties; the structure of a block (data, timestamp, nonce, hash, previous hash) and the genesis block; hash functions and the avalanche effect; public and private keys, digital signatures and wallets; how a transaction is added; consensus — proof of work, mining and proof of stake; why the chain is tamper-resistant and the 51 % attack; public, private and consortium blockchains; smart contracts and other uses; advantages and disadvantages.",
   "theory": [
     {
-      "title": "How blockchain works",
+      "title": "What blockchain is",
       "objectives": [
         "11.1.2.6@paper"
       ],
@@ -12,92 +1234,380 @@
         {
           "type": "definition",
           "term": "Blockchain",
-          "content": "A **decentralised, distributed digital ledger** in which records (transactions) are grouped into **blocks** that are **linked in a chain by cryptographic hashes** and copied to many computers (**nodes**), so that records cannot be changed without detection."
+          "content": "A **decentralised, distributed digital ledger** (a shared database) in which records — usually **transactions** — are grouped into **blocks** that are **linked together using cryptography** (hashes). A copy of the whole chain is kept on many computers (**nodes**), so the records cannot be changed without everyone noticing."
+        },
+        {
+          "type": "definition",
+          "term": "Ledger",
+          "content": "A **record of transactions** — who sent what to whom and when. A bank keeps a ledger of all its customers' payments."
+        },
+        {
+          "type": "comparison",
+          "title": "Central database or blockchain?",
+          "columns": [
+            "Central database (e.g. a bank)",
+            "Blockchain"
+          ],
+          "rows": [
+            [
+              "Stored and controlled by **one organisation**",
+              "**Copied** to every node in a **peer-to-peer** network"
+            ],
+            [
+              "The owner can **edit or delete** records",
+              "Records are **append-only** — new blocks are added, old ones are not changed"
+            ],
+            [
+              "Users must **trust** the central authority",
+              "Trust comes from **cryptography** and **consensus** of the nodes"
+            ],
+            [
+              "A **single point of failure** — if the server is attacked, data may be lost",
+              "No single point of failure — other nodes still have copies"
+            ],
+            [
+              "Usually private",
+              "Often **transparent** — anyone can check the records"
+            ],
+            [
+              "Fast",
+              "Slower — the nodes must agree"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "        CENTRALISED                         DISTRIBUTED (BLOCKCHAIN)\n\n   User   User   User                   Node ────── Node ────── Node\n     \\     |     /                     [copy]      [copy]      [copy]\n      \\    |    /                        │    \\      │      /    │\n     ┌─────────────┐                     │     \\     │     /     │\n     │ Bank server │                   Node ────── Node ────── Node\n     │  (ledger)   │                  [copy]      [copy]      [copy]\n     └─────────────┘\n   One owner, one copy               Every node keeps the whole ledger",
+          "caption": "Centralised and distributed ledgers"
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "Block",
-              "content": "Contains a set of **transactions/data**, a **timestamp**, its own **hash**, and the **hash of the previous block**."
+              "title": "Decentralised",
+              "content": "No central authority (bank, government) controls it; decisions are made by the network."
             },
             {
-              "title": "Hash",
-              "content": "A fixed-length \"fingerprint\" calculated from the block's contents (e.g. SHA-256). Changing even one character gives a completely different hash."
+              "title": "Distributed",
+              "content": "Every **node** stores a **full copy** of the ledger and the copies are kept in sync."
             },
             {
-              "title": "Chain",
-              "content": "Each block stores the previous block's hash, so blocks are linked in order back to the first (**genesis**) block."
+              "title": "Immutable",
+              "content": "Once a block is added it is practically **impossible to change** — data has high **integrity**."
             },
             {
-              "title": "Distributed ledger",
-              "content": "Every node keeps a **full copy** of the blockchain; there is no central authority."
+              "title": "Transparent",
+              "content": "On a public blockchain anyone can **view and verify** all transactions (users appear only as addresses)."
             },
             {
-              "title": "Consensus",
-              "content": "Nodes must **agree** before a new block is added — e.g. **proof of work** (mining: solving a hard puzzle) or **proof of stake**."
+              "title": "Secure",
+              "content": "Uses **hashing** and **public-key cryptography** (digital signatures)."
+            },
+            {
+              "title": "Consensus-based",
+              "content": "Nodes must **agree** that a new block is valid before it is added."
             }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The structure of a block",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "What a block contains",
+          "columns": [
+            "Part",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "**Block number (index)**",
+              "Position of the block in the chain"
+            ],
+            [
+              "**Timestamp**",
+              "When the block was created"
+            ],
+            [
+              "**Data**",
+              "The transactions (sender, receiver, amount) or other records"
+            ],
+            [
+              "**Previous hash**",
+              "The hash of the block **before** it — this is what **links** the chain"
+            ],
+            [
+              "**Nonce**",
+              "A number changed by miners to find a valid hash (proof of work)"
+            ],
+            [
+              "**Hash**",
+              "The block's own \"fingerprint\", calculated from **all** of the contents above"
+            ]
           ]
         },
         {
           "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  B1[\"Block 1<br/>data<br/>hash: 1A2F<br/>prev: 0000\"] --> B2[\"Block 2<br/>data<br/>hash: 7C9E<br/>prev: 1A2F\"] --> B3[\"Block 3<br/>data<br/>hash: 44B0<br/>prev: 7C9E\"]",
+          "format": "ascii",
+          "content": "   ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐\n   │ Block 0 (genesis)   │    │ Block 1             │    │ Block 2             │\n   │ Data: first record  │    │ Data: A → B 10      │    │ Data: B → C 4       │\n   │ Prev hash: 0000     │ ┌─►│ Prev hash: 1A2F     │ ┌─►│ Prev hash: 7C9E     │\n   │ Nonce: 3108         │ │  │ Nonce: 9921         │ │  │ Nonce: 0457         │\n   │ Hash: 1A2F ─────────┼─┘  │ Hash: 7C9E ─────────┼─┘  │ Hash: 44B0          │\n   └─────────────────────┘    └─────────────────────┘    └─────────────────────┘\n   Each block stores the hash of the previous block, so the blocks form a chain.",
           "caption": "Blocks linked by hashes"
         },
         {
-          "type": "steps",
-          "title": "Adding a transaction",
+          "type": "definition",
+          "term": "Genesis block",
+          "content": "The **first** block of a blockchain. It has no block before it, so its \"previous hash\" is a fixed value such as all zeros."
+        },
+        {
+          "type": "definition",
+          "term": "Hash function",
+          "content": "A function that converts data of **any length** into a **fixed-length** string of characters (the **hash** or digest). Blockchains such as Bitcoin use **SHA-256**, which always gives 256 bits (64 hexadecimal characters)."
+        },
+        {
+          "type": "cards",
           "items": [
-            "A user requests a transaction (e.g. send 1 coin to Asel), signed with their **private key**.",
-            "The transaction is **broadcast** to the network of nodes.",
-            "Nodes **validate** it (digital signature, enough balance).",
-            "Valid transactions are grouped into a new **block**.",
-            "Nodes reach **consensus** (e.g. a miner solves the proof-of-work puzzle).",
-            "The block is **added to the chain** on every node; the transaction is complete."
+            {
+              "title": "Properties of a cryptographic hash",
+              "content": "- **Fixed length** — a word and a whole book both give a 64-character SHA-256 hash.\n- **Deterministic** — the same data always gives the **same** hash.\n- **One-way** — the original data **cannot be worked out** from the hash.\n- **Avalanche effect** — a tiny change in the data gives a **completely different** hash.\n- **Collision-resistant** — it is practically impossible to find two different inputs with the same hash."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "The avalanche effect (real SHA-256 hashes)",
+          "content": "| Data | SHA-256 hash |\n|---|---|\n| `Aida pays Bek 10` | `58fac423c8099c22…1e726b74` |\n| `Aida pays Bek 90` | `b5ac3f0990250b67…4086512a` |\n\nChanging **one digit** of the amount produces a totally different hash — so any change to a block is **detected immediately**."
+        }
+      ]
+    },
+    {
+      "title": "Keys, signatures and wallets",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Public and private keys",
+              "content": "- Every user has a **key pair**.\n- The **private key** is kept **secret** — it is used to **sign** transactions.\n- The **public key** (and the **address** made from it) is shared — others use it to send coins and to **check** signatures."
+            },
+            {
+              "title": "Digital signature",
+              "content": "- The sender signs the transaction with their **private key**.\n- Any node can **verify** the signature with the sender's **public key**.\n- This proves the transaction really comes from the owner and has **not been changed**."
+            },
+            {
+              "title": "Wallet",
+              "content": "- Software or a device that stores a user's **keys** and shows their balance.\n- Coins are not \"inside\" the wallet — the blockchain records them; the wallet holds the keys that control them.\n- **Lost private key = lost coins**: there is no bank to reset it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "How a transaction is added",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "Adding a transaction to the blockchain",
+          "items": [
+            "A user **requests** a transaction (e.g. send 1 coin to Asel) and **signs** it with their **private key**.",
+            "The transaction is **broadcast** to the peer-to-peer network of nodes.",
+            "Nodes **validate** it — they check the digital signature and that the sender has enough balance (no double spending).",
+            "Valid transactions are grouped together into a new **block**.",
+            "Nodes reach **consensus** — e.g. a miner solves the **proof-of-work** puzzle.",
+            "The new block, containing the hash of the previous block, is **added to the chain** and **copied to every node**.",
+            "The transaction is **complete** and permanent."
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "   User signs        Broadcast to         Nodes          Grouped        Consensus       Block added\n   transaction  ──►  the network    ──►  validate   ──►  into a    ──►  (mining /  ──►  to every\n   (private key)     of nodes            signature      new block       proof of        copy of\n                                         + balance                      work)           the chain",
+          "caption": "The process"
+        },
+        {
+          "type": "definition",
+          "term": "Consensus mechanism",
+          "content": "The set of rules by which the nodes of a decentralised network **agree** which new block is valid and gets added, without a central authority."
+        },
+        {
+          "type": "comparison",
+          "title": "Proof of work and proof of stake",
+          "columns": [
+            "",
+            "**Proof of work (PoW)**",
+            "**Proof of stake (PoS)**"
+          ],
+          "rows": [
+            [
+              "Who adds the block",
+              "**Miners** compete to solve a hard mathematical puzzle",
+              "**Validators** chosen according to the coins they **stake** (lock up)"
+            ],
+            [
+              "How",
+              "Change the **nonce** again and again until the block's hash starts with a required number of zeros",
+              "Selected validator proposes the block; others check it"
+            ],
+            [
+              "Reward",
+              "New coins + transaction fees",
+              "Transaction fees"
+            ],
+            [
+              "Energy use",
+              "**Very high** — millions of hash calculations per second",
+              "**Low**"
+            ],
+            [
+              "Example",
+              "Bitcoin",
+              "Ethereum (since 2022)"
+            ],
+            [
+              "Cheating costs",
+              "The cost of electricity and hardware",
+              "The validator **loses** its staked coins"
+            ]
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "Mining",
+          "content": "The process in proof of work where nodes (**miners**) repeatedly change the **nonce** and calculate the block's hash until it meets the **difficulty target** (e.g. starts with \"0000\"). The first miner to succeed broadcasts the block and receives a **reward**. Finding the hash is hard, but **checking** it is easy for the other nodes."
+        }
+      ]
+    },
+    {
+      "title": "Why the chain is tamper-resistant",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "What happens if someone changes an old block",
+          "items": [
+            "An attacker changes the amount in **Block 1** from 10 to 90.",
+            "Block 1's **hash changes** completely (avalanche effect).",
+            "**Block 2** still stores the **old** hash as its \"previous hash\", so the **link is broken**.",
+            "To hide the change, the attacker would have to **re-mine Block 1, Block 2 and every later block** — each needing proof of work.",
+            "Meanwhile the honest network keeps adding new blocks, and the attacker's copy also differs from the copies on **all the other nodes**.",
+            "Nodes accept the version held by the **majority**, so the altered chain is **rejected**."
           ]
         },
         {
           "type": "callout",
-          "tone": "info",
-          "title": "Why it is tamper-resistant",
-          "content": "If someone changes data in Block 2, its hash changes, so Block 3's \"previous hash\" no longer matches and the chain is broken. The attacker would have to recalculate every following block **on most of the nodes at once**, which is practically impossible."
+          "tone": "warning",
+          "title": "The 51 % attack",
+          "content": "If one person or group controlled **more than half** of the network's computing power (or stake), they could out-pace the honest nodes and rewrite recent blocks. On large networks such as Bitcoin this would be **extremely expensive**, which is why big public blockchains are considered secure."
         },
         {
           "type": "comparison",
-          "title": "Uses of blockchain",
+          "title": "Types of blockchain",
           "columns": [
-            "Area",
+            "Type",
+            "Who can join and read",
             "Example"
           ],
           "rows": [
             [
-              "Cryptocurrencies",
-              "Bitcoin, Ethereum — payments without banks"
+              "**Public** (permissionless)",
+              "**Anyone** can read, send transactions and become a node",
+              "Bitcoin, Ethereum"
             ],
             [
-              "Smart contracts",
-              "Programs on the blockchain that run automatically when conditions are met"
+              "**Private** (permissioned)",
+              "Only **invited** members of one organisation",
+              "A company's internal records"
             ],
             [
-              "Supply chains",
-              "Tracking food or medicines from producer to shop"
+              "**Consortium**",
+              "Controlled by a **group** of organisations",
+              "Banks sharing settlement records; supply-chain partners"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Uses of blockchain",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Smart contract",
+          "content": "A **program stored on the blockchain** that **runs automatically** when agreed conditions are met, without a middle-man. Example: when a delivery is confirmed, the payment is released to the supplier automatically."
+        },
+        {
+          "type": "comparison",
+          "title": "Uses of blockchain technology",
+          "columns": [
+            "Area",
+            "Example",
+            "Why blockchain helps"
+          ],
+          "rows": [
+            [
+              "**Cryptocurrencies**",
+              "Bitcoin, Ethereum",
+              "Payments between people **without a bank**; no double spending"
             ],
             [
-              "Finance",
-              "Faster international transfers, record keeping"
+              "**Smart contracts**",
+              "Insurance paid automatically when a flight is delayed",
+              "Self-executing, no intermediary"
             ],
             [
-              "Digital identity and certificates",
-              "Tamper-proof diplomas, land registries"
+              "**Financial services**",
+              "International transfers, record keeping",
+              "Faster and cheaper than through several banks"
             ],
             [
-              "Voting",
-              "Transparent, verifiable records of votes"
+              "**Supply chains**",
+              "Tracking food or medicines from producer to shop",
+              "Every step recorded; fakes are detected"
             ],
             [
-              "Games and digital ownership",
-              "NFTs, in-game items; domain names"
+              "**Healthcare**",
+              "Sharing patient records between hospitals",
+              "Tamper-proof history; patient controls access"
+            ],
+            [
+              "**Education**",
+              "Diplomas and certificates",
+              "Employers can verify them; cannot be forged"
+            ],
+            [
+              "**Government**",
+              "Land registries, digital identity",
+              "Ownership records cannot be secretly changed"
+            ],
+            [
+              "**Voting**",
+              "Recording votes",
+              "Transparent and verifiable"
+            ],
+            [
+              "**Games and digital ownership**",
+              "NFTs, in-game items",
+              "Proof of who owns a digital item"
+            ],
+            [
+              "**Domain names**",
+              "Blockchain-based domain names",
+              "No central registrar"
             ]
           ]
         },
@@ -110,28 +1620,72 @@
           ],
           "rows": [
             [
-              "Very hard to tamper with — high data integrity",
-              "Proof of work uses huge amounts of **electricity**"
+              "Very hard to tamper with — **high data integrity**",
+              "**Proof of work** uses huge amounts of **electricity**"
             ],
             [
-              "No central authority or single point of failure",
-              "Slow and limited number of transactions per second"
+              "**No central authority** and no single point of failure",
+              "**Slow** — limited number of transactions per second"
             ],
             [
-              "Transparent — everyone can verify records",
-              "Mistakes cannot be undone; lost private keys = lost assets"
+              "**Transparent** — anyone can verify records",
+              "Mistakes **cannot be undone**; **lost private keys** mean lost assets"
             ],
             [
-              "Lower cost for some transactions (no intermediaries)",
-              "Legal and regulatory uncertainty; used in some crimes"
+              "Fewer **intermediaries** → lower fees, faster international payments",
+              "Every node stores the whole chain → **large storage** needs"
             ],
             [
-              "",
-              "Data stored on a public chain is visible (privacy)"
+              "Records are **permanent** with timestamps — a full audit trail",
+              "**Legal and regulatory** uncertainty; cryptocurrencies used in some crimes"
+            ],
+            [
+              "Strong **cryptography** protects transactions",
+              "Data on a public chain is **visible** to everyone (privacy)"
             ]
           ]
         }
       ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.1.2.6@paper"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Describe what blockchain technology is. [1]**\nA **distributed database** shared among the **nodes** of a computer network / a growing list of records (**blocks**) **linked using cryptography** / a technology for keeping a **secure, decentralised** record of transactions (1).\n\n**Q: Give one example of using blockchain technology. [1]**\nCryptocurrencies (Bitcoin) / smart contracts / financial services / games / supply chain / domain names (1).\n\n**Q: Explain how a blockchain prevents a record from being changed. [3]**\nEach block contains the **hash of the previous block** (1); changing data changes that block's **hash**, so it no longer matches the next block and the chain is broken (1); every node has a **copy**, so the altered chain differs from the majority and is **rejected** (1).\n\n**Q: Describe the role of miners. [2]**\nMiners **validate** transactions and group them into a block (1); they compete to solve the **proof-of-work** puzzle (find a nonce giving a valid hash) and the winner adds the block and is **rewarded** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying blockchain is \"stored on one secure server\" — it is **distributed** across many nodes.\n- Saying a hash can be **decrypted** — hashing is **one-way**, it is not encryption.\n- Confusing the **private** key (secret, used to sign) with the **public** key (shared, used to verify).\n- Writing \"blockchain = Bitcoin\" — Bitcoin is just **one use** of blockchain.\n- Forgetting that each block stores the **previous** block's hash — this is what forms the chain."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define blockchain, ledger, node and genesis block.",
+            "List the six parts of a block and say which part links the chain.",
+            "Give four properties of a cryptographic hash function.",
+            "Describe the steps for adding a transaction to a blockchain.",
+            "Compare proof of work and proof of stake.",
+            "Explain why changing an old block is detected, and what a 51 % attack is.",
+            "Give five uses of blockchain and three advantages and three disadvantages."
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Blockchain technologies — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "questions": [
+      "blk-exam-1",
+      "blk-exam-2",
+      "blk-exam-3"
+    ]
+  }
 }

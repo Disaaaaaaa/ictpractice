@@ -1,34 +1,1668 @@
 {
   "topic": "g11-entity-relationship-diagram",
-  "questions": [],
-  "summary": "One-to-one, one-to-many and many-to-many relationships, how keys link tables, and how to draw entity-relationship diagrams.",
+  "questions": [
+    {
+      "key": "erd-terms-match",
+      "title": "ERD terms",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Entity"
+          },
+          {
+            "key": "L2",
+            "text": "Attribute"
+          },
+          {
+            "key": "L3",
+            "text": "Relationship"
+          },
+          {
+            "key": "L4",
+            "text": "Cardinality"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "A thing about which data is stored, e.g. Student"
+          },
+          {
+            "key": "R2",
+            "text": "A property of an entity, e.g. DateOfBirth"
+          },
+          {
+            "key": "R3",
+            "text": "A link between two entities"
+          },
+          {
+            "key": "R4",
+            "text": "The degree of a relationship, e.g. one-to-many"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-define",
+      "title": "What an ERD shows",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "Describe what an **entity-relationship diagram** shows.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- The entities (tables) of a system (1)\n- the relationships between them and their type / degree (1:1, 1:M, M:M) (1)",
+        "points": [
+          {
+            "criterion": "Entities",
+            "marks": 1
+          },
+          {
+            "criterion": "Relationships with degree",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It shows the entities in a system and the relationships between them, including whether each is one-to-one, one-to-many or many-to-many."
+      }
+    },
+    {
+      "key": "erd-types-tick",
+      "title": "Type of relationship",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the type of relationship.",
+      "content": {
+        "columns": [
+          "Entities",
+          "One-to-one",
+          "One-to-many",
+          "Many-to-many"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Country — Capital city",
+            null,
+            null,
+            null
+          ],
+          [
+            "Mother — Child",
+            null,
+            null,
+            null
+          ],
+          [
+            "Student — Course",
+            null,
+            null,
+            null
+          ],
+          [
+            "Customer — Order",
+            null,
+            null,
+            null
+          ],
+          [
+            "Actor — Film",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Country–Capital 1:1; Mother–Child 1:M; Student–Course M:M; Customer–Order 1:M; Actor–Film M:M\n\nFive correct (4); four (3); three (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "Four rows correct",
+            "marks": 1
+          },
+          {
+            "criterion": "All five rows correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 4 for five correct rows, 3 for four, 2 for three, 1 for one or two."
+      }
+    },
+    {
+      "key": "erd-fk-side-mcq",
+      "title": "Where the foreign key goes",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "One class has many pupils; each pupil is in one class. How is this relationship created in a relational database?",
+      "options": [
+        {
+          "key": "A",
+          "content": "PupilID is added to the Classes table as a foreign key"
+        },
+        {
+          "key": "B",
+          "content": "ClassID is added to the Pupils table as a foreign key"
+        },
+        {
+          "key": "C",
+          "content": "A link table is always needed"
+        },
+        {
+          "key": "D",
+          "content": "The two tables are combined into one"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "In a 1:M relationship the primary key of the 'one' side becomes a foreign key in the 'many' side."
+      }
+    },
+    {
+      "key": "erd-mm-tf",
+      "title": "Many-to-many in a database",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A many-to-many relationship can be created directly by putting a foreign key in one of the two tables.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A many-to-many relationship needs a link (junction) table containing both foreign keys."
+      }
+    },
+    {
+      "key": "erd-publishers-describe",
+      "title": "Publishers and titles",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "```text\nPublishers ( pub_ID, pub_name, city )\nTitles     ( title_ID, title, price, pub_ID )\n```\n\nDescribe the type of relationship between `Publishers` and `Titles`.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Publishers (primary key pub_ID) links to the foreign key pub_ID in Titles (1)\n- one-to-many: one publisher may have many titles; each title has one publisher (1)",
+        "points": [
+          {
+            "criterion": "PK–FK link via pub_ID",
+            "marks": 1
+          },
+          {
+            "criterion": "One-to-many with direction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "pub_ID, the primary key of Publishers, appears in Titles as a foreign key. The relationship is one-to-many: one publisher can publish many titles, but each title has one publisher."
+      }
+    },
+    {
+      "key": "erd-draw-publishers",
+      "title": "Draw the Books ERD",
+      "type": "erd",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "Build the entity-relationship diagram for the Books database.\n\n```text\nPublishers ( pub_ID, pub_name, city )\nTitles     ( title_ID, title, price, pub_ID )\n```",
+      "content": {
+        "starter": {
+          "nodes": [
+            {
+              "id": "publishers",
+              "type": "er_entity",
+              "label": "Publishers\npub_ID, pub_name, city",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "titles",
+              "type": "er_entity",
+              "label": "Titles\ntitle_ID, title, price, pub_ID",
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "edges": []
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Entities Publishers and Titles connected (1)\nOne-to-many relationship, many at Titles (1)",
+        "points": [
+          {
+            "criterion": "Entities connected",
+            "marks": 1
+          },
+          {
+            "criterion": "1:M with many at Titles",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Publishers 1 —— M Titles",
+        "ai_instructions": "Accept crow's foot or labelled cardinality. M:1 drawn from Titles to Publishers is equivalent."
+      }
+    },
+    {
+      "key": "erd-resolve-mm",
+      "title": "Resolve many-to-many",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A student can join many clubs and a club has many students. Explain how this relationship is implemented in a relational database. Include the fields of any new table.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- A link / junction table is created, e.g. Memberships (1)\n- containing the foreign keys StudentID and ClubID (1)\n- whose composite primary key is (StudentID, ClubID); the M:M becomes two 1:M relationships (1)",
+        "points": [
+          {
+            "criterion": "Link table",
+            "marks": 1
+          },
+          {
+            "criterion": "Both foreign keys",
+            "marks": 1
+          },
+          {
+            "criterion": "Composite key / two 1:M",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A link table Memberships(StudentID, ClubID) is created. It holds the two foreign keys, which together form a composite primary key, so Students 1—M Memberships M—1 Clubs."
+      }
+    },
+    {
+      "key": "erd-why-link",
+      "title": "Why a link table",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "Explain why a list of all the student's courses cannot simply be stored in one field of the `Students` table.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A field must hold a single (atomic) value (1)\n- a list would break 1NF / make searching and updating difficult / need many columns; a link table stores one record per student–course pair (1)",
+        "points": [
+          {
+            "criterion": "Fields must be atomic",
+            "marks": 1
+          },
+          {
+            "criterion": "Problem / link table solution",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each field must contain one atomic value; a list of courses in one field could not be searched or updated properly, so a link table with one record for each student–course pair is used."
+      }
+    },
+    {
+      "key": "erd-fk-table",
+      "title": "Where are the foreign keys",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "```text\nTeams   ( TeamID, TeamName, City )\nPlayers ( PlayerID, Name, Position, TeamID )\nCoaches ( CoachID, Name, TeamID )\n```\n\nEach team has many players and exactly one coach. Complete the table.",
+      "content": {
+        "columns": [
+          "Relationship",
+          "Type (1:1, 1:M or M:M)",
+          "Foreign key"
+        ],
+        "rows": 2,
+        "prefill": [
+          [
+            "Teams — Players",
+            null,
+            null
+          ],
+          [
+            "Teams — Coaches",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Teams — Players: 1:M (1), foreign key TeamID in Players\nTeams — Coaches: 1:1 (1), foreign key TeamID in Coaches\nBoth foreign keys correct (1)",
+        "points": [
+          {
+            "criterion": "Teams–Players 1:M",
+            "marks": 1
+          },
+          {
+            "criterion": "Teams–Coaches 1:1",
+            "marks": 1
+          },
+          {
+            "criterion": "Foreign keys correct",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "1:M||1:m||one-to-many||1-M||1:N",
+              "TeamID||TeamID in Players||Players.TeamID"
+            ],
+            [
+              null,
+              "1:1||one-to-one||1-1",
+              "TeamID||TeamID in Coaches||Coaches.TeamID"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "erd-draw-school",
+      "title": "Draw a school ERD",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "```text\nTeachers ( TeacherID, Name, Subject )\nClasses  ( ClassID, Room, TeacherID )\nPupils   ( PupilID, Name, ClassID )\n```\n\nEach class has one teacher, who can teach many classes. Each pupil belongs to one class. Draw the ERD.",
+      "content": {
+        "starter": {
+          "nodes": [
+            {
+              "id": "teachers",
+              "type": "er_entity",
+              "label": "Teachers\nTeacherID, Name, Subject",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "classes",
+              "type": "er_entity",
+              "label": "Classes\nClassID, Room, TeacherID",
+              "x": 1,
+              "y": 0
+            },
+            {
+              "id": "pupils",
+              "type": "er_entity",
+              "label": "Pupils\nPupilID, Name, ClassID",
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "edges": []
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Three entities connected correctly (1)\nTeachers 1 — M Classes (1)\nClasses 1 — M Pupils (1)",
+        "points": [
+          {
+            "criterion": "Correct connections",
+            "marks": 1
+          },
+          {
+            "criterion": "Teachers–Classes 1:M",
+            "marks": 1
+          },
+          {
+            "criterion": "Classes–Pupils 1:M",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Teachers 1 —— M Classes 1 —— M Pupils",
+        "ai_instructions": "Accept equivalent M:1 drawn in the opposite direction."
+      }
+    },
+    {
+      "key": "erd-steps-fill",
+      "title": "Steps to create an ERD",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nTo draw an ERD, first identify the [[1]] (the things about which data is stored). Then decide the degree of each relationship by asking the question in [[2]] directions. Every many-to-many relationship is replaced by a [[3]] table.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) entities (2) both / two (3) link / junction",
+        "accepted": {
+          "blanks": [
+            [
+              "entities",
+              "entity"
+            ],
+            [
+              "both",
+              "two",
+              "2"
+            ],
+            [
+              "link",
+              "junction",
+              "linking",
+              "associative",
+              "bridge"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "erd-scenario-identify",
+      "title": "Entities from a description",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "*A gym has many members. Each member books classes. Each class is led by one trainer, who can lead many classes. A class can be booked by many members.*\n\nState the type of each relationship.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Trainer — Class",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "Member — Class",
+            "lines": 1
+          },
+          {
+            "key": "3",
+            "label": "How Member — Class is implemented",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Trainer — Class: one-to-many (1)\nMember — Class: many-to-many (1)\nImplemented with a link table, e.g. Bookings(MemberID, ClassID) (1)",
+        "points": [
+          {
+            "criterion": "1:M",
+            "marks": 1
+          },
+          {
+            "criterion": "M:M",
+            "marks": 1
+          },
+          {
+            "criterion": "Link table",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Trainer — Class: one-to-many. Member — Class: many-to-many. A Bookings link table with MemberID and ClassID."
+      }
+    },
+    {
+      "key": "erd-draw-mm",
+      "title": "Draw a resolved M:M",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "Students take many courses, and each course has many students. Draw an ERD that implements this relationship with a link table called `Enrolments`.",
+      "content": {
+        "starter": {
+          "nodes": [
+            {
+              "id": "students",
+              "type": "er_entity",
+              "label": "Students\nStudentID, Name",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "courses",
+              "type": "er_entity",
+              "label": "Courses\nCourseID, CourseName",
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "edges": []
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Enrolments entity added between Students and Courses (with StudentID, CourseID) (1)\nStudents 1 — M Enrolments (1)\nCourses 1 — M Enrolments (1)",
+        "points": [
+          {
+            "criterion": "Link entity added",
+            "marks": 1
+          },
+          {
+            "criterion": "Students 1:M Enrolments",
+            "marks": 1
+          },
+          {
+            "criterion": "Courses 1:M Enrolments",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Students 1 —— M Enrolments M —— 1 Courses",
+        "ai_instructions": "A direct M:M line between Students and Courses scores at most 1 mark."
+      }
+    },
+    {
+      "key": "erd-one-to-one",
+      "title": "One-to-one",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "Each employee is given exactly one company car, and each car is given to exactly one employee. State the type of relationship and explain how it can be created.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- One-to-one (1)\n- e.g. EmployeeID as a (unique) foreign key in Cars / CarID in Employees, or combine the tables (1)",
+        "points": [
+          {
+            "criterion": "1:1",
+            "marks": 1
+          },
+          {
+            "criterion": "Implementation",
+            "marks": 1
+          }
+        ],
+        "model_answer": "One-to-one. CarID can be stored as a unique foreign key in the Employees table."
+      }
+    },
+    {
+      "key": "erd-crowsfoot-mcq",
+      "title": "Crow's foot",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "In crow's foot notation, what does the \"crow's foot\" at the end of a relationship line show?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The primary key"
+        },
+        {
+          "key": "B",
+          "content": "The \"many\" side of the relationship"
+        },
+        {
+          "key": "C",
+          "content": "A one-to-one relationship"
+        },
+        {
+          "key": "D",
+          "content": "An attribute"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "erd-structured-hospital",
+      "title": "A hospital database",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A hospital stores data about **wards**, **patients** and **doctors**. Each patient is in one ward; a ward has many patients. A doctor treats many patients and a patient can be treated by many doctors.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "erd-hosp-a",
+          "part_label": "(a)",
+          "title": "Relationship types",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.7"
+          ],
+          "practice": true,
+          "text": "State the type of the relationship between Ward and Patient, and between Doctor and Patient.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Ward — Patient",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Doctor — Patient",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Ward — Patient: one-to-many (1)\nDoctor — Patient: many-to-many (1)",
+            "points": [
+              {
+                "criterion": "1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "M:M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Ward — Patient: one-to-many. Doctor — Patient: many-to-many."
+          }
+        },
+        {
+          "key": "erd-hosp-b",
+          "part_label": "(b)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "practice": true,
+          "text": "Draw the ERD for the hospital. Resolve the many-to-many relationship with a link entity called `Treatments`.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "wards",
+                  "type": "er_entity",
+                  "label": "Wards\nWardID, Name",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "patients",
+                  "type": "er_entity",
+                  "label": "Patients\nPatientID, Name, WardID",
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "id": "doctors",
+                  "type": "er_entity",
+                  "label": "Doctors\nDoctorID, Name",
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "Wards 1 — M Patients (1)\nTreatments entity added (1)\nPatients 1 — M Treatments (1)\nDoctors 1 — M Treatments (1)",
+            "points": [
+              {
+                "criterion": "Wards–Patients 1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Treatments entity",
+                "marks": 1
+              },
+              {
+                "criterion": "Patients–Treatments 1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Doctors–Treatments 1:M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Wards 1 —— M Patients 1 —— M Treatments M —— 1 Doctors",
+            "ai_instructions": "Accept a direct M:M Doctors–Patients line for the relationship marks but not the Treatments marks."
+          }
+        }
+      ]
+    },
+    {
+      "key": "erd-extended-shop",
+      "title": "Design for an online shop",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.7",
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "An online shop stores data about **customers**, **orders** and **products**. A customer can place many orders. An order can contain many products, and a product can appear in many orders.\n\nDescribe the relationships between the entities and explain how they would be implemented in a relational database. Include the tables, primary keys and foreign keys.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "- Customer — Order is 1:M (1)\n- implemented with CustomerID as a foreign key in Orders (1)\n- Order — Product is M:M (1)\n- resolved with a link table, e.g. OrderLines(OrderID, ProductID, Quantity) (1)\n- with composite primary key (OrderID, ProductID) / both foreign keys (1)\n- tables listed with primary keys: Customers(CustomerID…), Orders(OrderID…), Products(ProductID…) (1)",
+        "points": [
+          {
+            "criterion": "Customer–Order 1:M",
+            "marks": 1
+          },
+          {
+            "criterion": "FK CustomerID in Orders",
+            "marks": 1
+          },
+          {
+            "criterion": "Order–Product M:M",
+            "marks": 1
+          },
+          {
+            "criterion": "Link table",
+            "marks": 1
+          },
+          {
+            "criterion": "Composite key / both FKs",
+            "marks": 1
+          },
+          {
+            "criterion": "Tables with primary keys",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The relationship between customers and orders is one-to-many: Customers(CustomerID, Name, Email) is linked to Orders(OrderID, CustomerID, OrderDate) by the foreign key CustomerID in Orders. Orders and products have a many-to-many relationship, which cannot be stored directly, so a link table OrderLines(OrderID, ProductID, Quantity) is created. Its primary key is the composite key (OrderID, ProductID) and both fields are foreign keys to Orders and Products(ProductID, Name, Price). This gives Orders 1—M OrderLines M—1 Products."
+      }
+    },
+    {
+      "key": "erd-exam-1",
+      "title": "A library database",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A library uses this database.\n\n```text\nMembers ( MemberID, Name, Phone )\nBooks   ( BookID, Title, Author )\nLoans   ( LoanID, MemberID, BookID, LoanDate, ReturnDate )\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "erd-exam-1a",
+          "part_label": "(a)",
+          "title": "Members and Loans",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the type of relationship between the tables `Members` and `Loans`.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Members (primary key MemberID) links to foreign key MemberID in Loans (1); relation is one-to-many (1)",
+            "points": [
+              {
+                "criterion": "PK–FK link",
+                "marks": 1
+              },
+              {
+                "criterion": "One-to-many",
+                "marks": 1
+              }
+            ],
+            "model_answer": "MemberID, the primary key of Members, is a foreign key in Loans; one member can have many loans, so it is one-to-many."
+          }
+        },
+        {
+          "key": "erd-exam-1b",
+          "part_label": "(b)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the entity-relationship diagram to show the relationships between the tables in the database.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "members",
+                  "type": "er_entity",
+                  "label": "Members\nMemberID, Name, Phone",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "loans",
+                  "type": "er_entity",
+                  "label": "Loans\nLoanID, MemberID, BookID, LoanDate, ReturnDate",
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "id": "books",
+                  "type": "er_entity",
+                  "label": "Books\nBookID, Title, Author",
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "Correct entities connected (Members–Loans, Loans–Books) (1)\nMembers 1 — M Loans (1)\nLoans M — 1 Books (1)",
+            "points": [
+              {
+                "criterion": "Correct connections",
+                "marks": 1
+              },
+              {
+                "criterion": "Members–Loans 1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Loans–Books M:1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Members 1 —— M Loans M —— 1 Books",
+            "ai_instructions": "Accept different symbols of relationship."
+          }
+        },
+        {
+          "key": "erd-exam-1c",
+          "part_label": "(c)",
+          "title": "Foreign keys",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the field(s) that can be used as foreign keys in `Loans`, and state what each one links to.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "MemberID — links to Members (1)\nBookID — links to Books (1)\nDo not award a mark if only one field is given without the other.",
+            "points": [
+              {
+                "criterion": "MemberID → Members",
+                "marks": 1
+              },
+              {
+                "criterion": "BookID → Books",
+                "marks": 1
+              }
+            ],
+            "model_answer": "MemberID links each loan to a member; BookID links each loan to a book."
+          }
+        },
+        {
+          "key": "erd-exam-1d",
+          "part_label": "(d)",
+          "title": "Members and Books",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.7",
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the relationship between `Members` and `Books`, and why the `Loans` table is needed.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- Members and Books have a many-to-many relationship: a member borrows many books; a book is borrowed by many members (over time) (1)\n- an M:M relationship cannot be created directly (1)\n- Loans is the link table that turns it into two one-to-many relationships (and stores LoanDate etc.) (1)",
+            "points": [
+              {
+                "criterion": "M:M explained",
+                "marks": 1
+              },
+              {
+                "criterion": "Cannot be direct",
+                "marks": 1
+              },
+              {
+                "criterion": "Loans as link table",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A member can borrow many books and a book can be borrowed by many members, so the relationship is many-to-many. This cannot be stored directly, so Loans acts as a link table, giving Members 1—M Loans and Books 1—M Loans, and also stores the loan dates."
+          }
+        }
+      ]
+    },
+    {
+      "key": "erd-exam-2",
+      "title": "A football league",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A football league stores data about **teams**, **players**, **stadiums** and **sponsors**.\n\n- Each team plays its home games in one stadium; each stadium belongs to one team.\n- A team has many players; each player plays for one team.\n- A team can have many sponsors, and a sponsor can sponsor many teams.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "erd-exam-2a",
+          "part_label": "(a)",
+          "title": "Relationship types",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show the type of relationship.",
+          "content": {
+            "columns": [
+              "Relationship",
+              "One-to-one",
+              "One-to-many",
+              "Many-to-many"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "Team — Stadium",
+                null,
+                null,
+                null
+              ],
+              [
+                "Team — Player",
+                null,
+                null,
+                null
+              ],
+              [
+                "Team — Sponsor",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Team–Stadium 1:1 (1); Team–Player 1:M (1); Team–Sponsor M:M (1)",
+            "points": [
+              {
+                "criterion": "1:1",
+                "marks": 1
+              },
+              {
+                "criterion": "1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "M:M",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "erd-exam-2b",
+          "part_label": "(b)",
+          "title": "Implement Team–Player",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the relationship between Team and Player is created in the database.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- TeamID, the primary key of Teams (1)\n- is added as a foreign key to the Players table (the many side) (1)",
+            "points": [
+              {
+                "criterion": "PK of Teams",
+                "marks": 1
+              },
+              {
+                "criterion": "FK in Players",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The primary key TeamID of the Teams table is stored as a foreign key in the Players table."
+          }
+        },
+        {
+          "key": "erd-exam-2c",
+          "part_label": "(c)",
+          "title": "Implement Team–Sponsor",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the relationship between Team and Sponsor is implemented. Name the fields of any new table.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- A link table, e.g. Sponsorships (1)\n- with fields TeamID and SponsorID (foreign keys / composite primary key) (1)",
+            "points": [
+              {
+                "criterion": "Link table",
+                "marks": 1
+              },
+              {
+                "criterion": "TeamID and SponsorID",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A link table Sponsorships(TeamID, SponsorID) is created, whose two foreign keys form a composite primary key."
+          }
+        },
+        {
+          "key": "erd-exam-2d",
+          "part_label": "(d)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the ERD for the league, including the link entity from part (c).",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "teams",
+                  "type": "er_entity",
+                  "label": "Teams\nTeamID, Name",
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "id": "stadiums",
+                  "type": "er_entity",
+                  "label": "Stadiums\nStadiumID, Name, TeamID",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "players",
+                  "type": "er_entity",
+                  "label": "Players\nPlayerID, Name, TeamID",
+                  "x": 1,
+                  "y": 1
+                },
+                {
+                  "id": "sponsors",
+                  "type": "er_entity",
+                  "label": "Sponsors\nSponsorID, Name",
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "Teams 1 — 1 Stadiums and Teams 1 — M Players (1)\nLink entity added between Teams and Sponsors (1)\nTeams 1 — M link and Sponsors 1 — M link (1)",
+            "points": [
+              {
+                "criterion": "Stadium 1:1 and Players 1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Link entity",
+                "marks": 1
+              },
+              {
+                "criterion": "Both 1:M to the link",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Stadiums 1 — 1 Teams 1 — M Players; Teams 1 — M Sponsorships M — 1 Sponsors"
+          }
+        }
+      ]
+    },
+    {
+      "key": "erd-exam-3",
+      "title": "An online shop",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An online shop is designing its database.\n\n```text\nCustomers  ( CustomerID, Name, Email )\nOrders     ( OrderID, CustomerID, OrderDate )\nProducts   ( ProductID, Name, Price )\nOrderLines ( OrderID, ProductID, Quantity )\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "erd-exam-3a",
+          "part_label": "(a)",
+          "title": "Customers and Orders",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the type of relationship between `Customers` and `Orders` and justify your answer.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "One-to-many (1); one customer can place many orders but each order belongs to one customer / CustomerID is a foreign key in Orders (1)",
+            "points": [
+              {
+                "criterion": "1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Justification",
+                "marks": 1
+              }
+            ],
+            "model_answer": "One-to-many: a customer can place many orders, but each order is placed by one customer, so CustomerID appears in Orders as a foreign key."
+          }
+        },
+        {
+          "key": "erd-exam-3b",
+          "part_label": "(b)",
+          "title": "Purpose of OrderLines",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the `OrderLines` table is needed.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Orders and Products have a many-to-many relationship (an order contains many products; a product is in many orders) (1)\n- OrderLines is the link table that resolves it into two 1:M relationships (and stores the quantity) (1)",
+            "points": [
+              {
+                "criterion": "M:M between Orders and Products",
+                "marks": 1
+              },
+              {
+                "criterion": "Link table resolves it",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An order can contain many products and a product can be in many orders, a many-to-many relationship; OrderLines is the link table that turns it into two one-to-many relationships and stores the quantity of each product."
+          }
+        },
+        {
+          "key": "erd-exam-3c",
+          "part_label": "(c)",
+          "title": "Keys of OrderLines",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.8"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) the boxes to show the role of each field in `OrderLines`. A field may have more than one tick.",
+          "content": {
+            "columns": [
+              "Field",
+              "Part of the primary key",
+              "Foreign key"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "OrderID",
+                null,
+                null
+              ],
+              [
+                "ProductID",
+                null,
+                null
+              ],
+              [
+                "Quantity",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "OrderID: PK ✓ FK ✓ (1); ProductID: PK ✓ FK ✓ (1); Quantity: neither (1)",
+            "points": [
+              {
+                "criterion": "OrderID row",
+                "marks": 1
+              },
+              {
+                "criterion": "ProductID row",
+                "marks": 1
+              },
+              {
+                "criterion": "Quantity row",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  "✓"
+                ],
+                [
+                  null,
+                  "",
+                  ""
+                ]
+              ]
+            },
+            "ai_instructions": "One mark per fully correct row."
+          }
+        },
+        {
+          "key": "erd-exam-3d",
+          "part_label": "(d)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the entity-relationship diagram for the shop's database.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "customers",
+                  "type": "er_entity",
+                  "label": "Customers\nCustomerID, Name, Email",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "orders",
+                  "type": "er_entity",
+                  "label": "Orders\nOrderID, CustomerID, OrderDate",
+                  "x": 1,
+                  "y": 0
+                },
+                {
+                  "id": "orderlines",
+                  "type": "er_entity",
+                  "label": "OrderLines\nOrderID, ProductID, Quantity",
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "id": "products",
+                  "type": "er_entity",
+                  "label": "Products\nProductID, Name, Price",
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "Customers 1 — M Orders (1)\nOrders 1 — M OrderLines (1)\nProducts 1 — M OrderLines (1)",
+            "points": [
+              {
+                "criterion": "Customers–Orders",
+                "marks": 1
+              },
+              {
+                "criterion": "Orders–OrderLines",
+                "marks": 1
+              },
+              {
+                "criterion": "Products–OrderLines",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Customers 1 —— M Orders 1 —— M OrderLines M —— 1 Products",
+            "ai_instructions": "Accept different symbols of relationship."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Entities, attributes and relationships; one-to-one, one-to-many and many-to-many relationships; how relationships are created with primary and foreign keys and link tables; and how to read and draw entity-relationship diagrams (ERDs).",
   "theory": [
     {
-      "title": "Types of relationships between tables",
+      "title": "Entities, attributes and relationships",
       "objectives": [
         "11.4.1.7"
       ],
       "blocks": [
         {
-          "type": "cards",
-          "items": [
-            {
-              "title": "One-to-one (1:1)",
-              "content": "One record in table A is linked to **at most one** record in table B, and vice versa. *A student has one student ID card; a card belongs to one student.*"
-            },
-            {
-              "title": "One-to-many (1:M)",
-              "content": "One record in A is linked to **many** records in B, but each record in B is linked to **only one** in A. *One class has many students; each student is in one class.* The most common relationship."
-            },
-            {
-              "title": "Many-to-many (M:M)",
-              "content": "Many records in A are linked to many records in B. *A student takes many courses; a course has many students.*"
-            }
+          "type": "definition",
+          "term": "Entity",
+          "content": "A **thing (person, object, place or event)** about which data is stored — for example *Student*, *Book*, *Order*. Each entity becomes a **table** in a relational database."
+        },
+        {
+          "type": "definition",
+          "term": "Attribute",
+          "content": "A **property** of an entity — one item of data stored about it, e.g. *StudentID*, *Name*, *DateOfBirth*. Each attribute becomes a **field (column)**."
+        },
+        {
+          "type": "definition",
+          "term": "Relationship",
+          "content": "A **link between two entities** that shows how their records are connected, e.g. *a teacher **teaches** many classes*. In a database a relationship is created with a **primary key** in one table and a matching **foreign key** in another."
+        },
+        {
+          "type": "definition",
+          "term": "Entity-relationship diagram (ERD)",
+          "content": "A diagram that shows the **entities** in a system (as boxes), the **relationships** between them (as lines), and the **degree (cardinality)** of each relationship — one-to-one, one-to-many or many-to-many. It is drawn during the **design** stage, before the tables are created."
+        }
+      ]
+    },
+    {
+      "title": "Types of relationship",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "The three types of relationship",
+          "columns": [
+            "Type",
+            "Meaning",
+            "Examples"
+          ],
+          "rows": [
+            [
+              "**One-to-one (1:1)**",
+              "Each record in A is linked to **at most one** record in B, and each record in B to **one** in A",
+              "Country — Capital city; Person — Passport; Student — Locker"
+            ],
+            [
+              "**One-to-many (1:M)**",
+              "One record in A is linked to **many** records in B, but each record in B is linked to **only one** in A",
+              "Publisher — Titles; Class — Pupils; Customer — Orders"
+            ],
+            [
+              "**Many-to-many (M:M)**",
+              "One record in A is linked to **many** in B **and** one record in B is linked to **many** in A",
+              "Students — Courses; Actors — Films; Products — Orders"
+            ]
           ]
         },
         {
-          "type": "warning",
-          "content": "A many-to-many relationship **cannot be implemented directly** in a relational database. It is split into two one-to-many relationships with a **link (junction) table**, e.g. Students — **Enrolments** — Courses."
+          "type": "exam_tip",
+          "content": "Ask the question **in both directions**:\n1. \"Can one **Publisher** have many **Titles**?\" — **Yes**.\n2. \"Can one **Title** have many **Publishers**?\" — **No**.\nOne \"yes\" and one \"no\" → **one-to-many** (the \"many\" is on the Titles side). Two \"yes\" → many-to-many. Two \"no\" → one-to-one."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  One-to-one                One-to-many                 Many-to-many\n+---------+   +---------+  +---------+   +---------+   +---------+   +---------+\n| COUNTRY |---| CAPITAL |  |PUBLISHER|--<|  TITLE  |   | STUDENT |>--<| COURSE  |\n+---------+   +---------+  +---------+   +---------+   +---------+   +---------+\n     1     1:1     1            1     1:M     M             M    M:M    M\n                                    the \"crow's foot\" < marks the MANY side",
+          "caption": "ERD notation — crow's foot and labels"
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  PUBLISHERS ||--o{ TITLES : publishes\n  PUBLISHERS {\n    string pub_ID PK\n    string pub_name\n    string city\n  }\n  TITLES {\n    string title_ID PK\n    string title\n    string pub_ID FK\n  }",
+          "caption": "One-to-many: one publisher publishes many titles"
         }
       ]
     },
@@ -39,86 +1673,139 @@
       ],
       "blocks": [
         {
-          "type": "paragraph",
-          "content": "A relationship is created by placing the **primary key of the \"one\" side** as a **foreign key in the \"many\" side**."
-        },
-        {
           "type": "comparison",
-          "title": "Example: Class 1 : M Student",
+          "title": "How each relationship is implemented",
           "columns": [
-            "Table",
-            "Fields"
+            "Relationship",
+            "How it is created in the database"
           ],
           "rows": [
             [
-              "Class",
-              "**ClassID** (PK), ClassName, Room"
+              "**1:M**",
+              "The **primary key** of the \"one\" table is placed as a **foreign key** in the \"many\" table. *`pub_ID` (PK of Publishers) is a foreign key in Titles.*"
             ],
             [
-              "Student",
-              "**StudentID** (PK), Name, *ClassID* (FK)"
+              "**1:1**",
+              "The primary key of one table is a foreign key in the other (which must be **unique**), or the two tables are combined into one."
+            ],
+            [
+              "**M:M**",
+              "**Cannot be created directly.** It is replaced by a **link (junction) table** whose primary key is usually a **composite key** of the two foreign keys, giving **two 1:M** relationships."
             ]
           ]
         },
         {
           "type": "example",
-          "title": "Resolving M:M",
-          "content": "Students(**StudentID**, Name) and Courses(**CourseID**, Title) have a many-to-many relationship.\nCreate **Enrolments(StudentID, CourseID, Grade)** with the composite primary key (StudentID, CourseID):\n- Students 1 : M Enrolments\n- Courses 1 : M Enrolments"
+          "title": "Resolving a many-to-many relationship",
+          "content": "*A student takes many courses; a course has many students.*\n\n```text\nStudents    ( _StudentID_, Name, Grade )\nCourses     ( _CourseID_, CourseName, Room )\nEnrolments  ( _StudentID*_, _CourseID*_, StartDate )      <- link table, composite key\n```\n`Students 1 —— M Enrolments M —— 1 Courses`"
         },
         {
-          "type": "steps",
-          "title": "Deciding the type of relationship",
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "erDiagram\n  STUDENTS ||--o{ ENROLMENTS : has\n  COURSES ||--o{ ENROLMENTS : has\n  STUDENTS {\n    string StudentID PK\n    string Name\n  }\n  ENROLMENTS {\n    string StudentID FK\n    string CourseID FK\n    date StartDate\n  }\n  COURSES {\n    string CourseID PK\n    string CourseName\n  }",
+          "caption": "The link table turns M:M into two 1:M relationships"
+        },
+        {
+          "type": "cards",
           "items": [
-            "Ask: \"Can one A have **many** B?\"",
-            "Ask the reverse: \"Can one B have **many** A?\"",
-            "Both \"one\" → 1:1. One yes, one no → 1:M (the \"many\" side gets the foreign key). Both yes → M:M → add a link table."
+            {
+              "title": "Why M:M must be resolved",
+              "content": "- A field can hold **only one value** (atomic), so a student record cannot list all its courses in one field.\n- The link table stores **one record per pairing** (student + course) and can hold extra data about the pairing (start date, mark)."
+            },
+            {
+              "title": "Reading the foreign key",
+              "content": "- The table that **contains the foreign key** is on the **\"many\"** side of a 1:M relationship.\n- *`course_tbl` contains `StudentID` → one student has many course records → `student_tbl` 1 — M `course_tbl`.*"
+            }
           ]
+        },
+        {
+          "type": "example",
+          "title": "Describing a relationship (exam style)",
+          "content": "**Q: Describe the type of relationship between tables `student_tbl` and `course_tbl`.**\n`student_tbl` (primary key `StudentID`) links to the **foreign key** `StudentID` in `course_tbl` (1); the relationship is **one-to-many** — one student can appear in many course records (1)."
         }
       ]
     },
     {
-      "title": "Drawing entity-relationship diagrams",
+      "title": "Creating an ERD",
       "objectives": [
         "11.2.2.2"
       ],
       "blocks": [
         {
-          "type": "definition",
-          "term": "Entity-relationship diagram (ERD)",
-          "content": "A diagram that shows the **entities** (tables) of a database and the **relationships** between them, including their **cardinality** (1:1, 1:M, M:M)."
+          "type": "steps",
+          "title": "How to draw an ERD from a description",
+          "items": [
+            "**Find the entities** — the nouns about which data is stored (each becomes a table).",
+            "**List the attributes** of each entity and choose a **primary key**.",
+            "**Find the relationships** — the verbs that link entities (*places*, *teaches*, *borrows*).",
+            "**Decide the degree** of each relationship by asking the question in both directions.",
+            "**Resolve every M:M** relationship with a link table.",
+            "**Draw** the boxes and lines, marking each end **1** or **M** (or a crow's foot); add the **foreign keys** on the \"many\" side."
+          ]
         },
         {
-          "type": "paragraph",
-          "content": "Entities are drawn as rectangles; relationships as lines. Cardinality is shown with **crow's-foot notation** (a \"foot\" on the many side) or by writing 1 and M on the line."
+          "type": "example",
+          "title": "Worked example — a product supply system",
+          "content": "*Stores order products. Each delivery is made to one store and contains one product; a store receives many deliveries and a product appears in many deliveries.*\n\n```text\nStores     ( _Store_code_, Name, City )\nProducts   ( _Product_code_, Name, Price )\nDeliveries ( _Delivery_ID_, Store_code*, Product_code*, Date, Quantity )\n```\nRelationships: **Stores 1 — M Deliveries** and **Products 1 — M Deliveries**. (Deliveries is the link that resolves the M:M relationship between stores and products.)"
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "erDiagram\n  SCHOOL_CLASS ||--o{ STUDENT : contains\n  STUDENT ||--o{ ENROLMENT : makes\n  COURSE ||--o{ ENROLMENT : \"is taken in\"\n  TEACHER ||--o{ COURSE : teaches",
-          "caption": "ERD for a school database (crow's foot)"
+          "content": "erDiagram\n  STORES ||--o{ DELIVERIES : receives\n  PRODUCTS ||--o{ DELIVERIES : \"is delivered in\"\n  STORES {\n    string Store_code PK\n    string Name\n  }\n  DELIVERIES {\n    string Delivery_ID PK\n    string Store_code FK\n    string Product_code FK\n    int Quantity\n  }\n  PRODUCTS {\n    string Product_code PK\n    string Name\n  }",
+          "caption": "ERD for the product supply system"
         },
         {
-          "type": "diagram",
-          "format": "ascii",
-          "content": "SCHOOL_CLASS 1 ──── M STUDENT\nSTUDENT 1 ──── M ENROLMENT M ──── 1 COURSE\nTEACHER 1 ──── M COURSE",
-          "caption": "The same relationships written with 1 and M"
+          "type": "example",
+          "title": "Worked example — a school",
+          "content": "*A teacher can be the form tutor of one class only, and each class has one form tutor. A class has many pupils; each pupil belongs to one class. Pupils take many clubs; each club has many pupils.*\n\n| Relationship | Degree | Implementation |\n|---|---|---|\n| Teacher — Class (form tutor) | **1:1** | `TutorID` (unique) in Classes |\n| Class — Pupil | **1:M** | `ClassID` foreign key in Pupils |\n| Pupil — Club | **M:M** | Link table `Memberships(PupilID, ClubID)` |"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Drawing ERDs on the platform",
+          "content": "In the diagram questions, add an **entity** for each table (name on the first line, attributes below), connect two entities with a line, then **select the line** to set its cardinality: **1:1**, **1:M**, **M:1** or **M:M**."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.4.1.7",
+        "11.4.1.8",
+        "11.2.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Build the ER diagram for the given Books database (Publishers, Titles). [2]**\nTwo entities **Publishers** and **Titles** (1) joined by a **one-to-many** relationship, with the \"many\" at Titles (1).\n\n**Q: Explain the type of connection between the entities. [1]**\nOne item from the **Publishers** table may have **many** related items in the **Titles** table (one-to-many).\n\n**Q: Draw the E–R diagram for `student_tbl`, `course_tbl` and `courseteacher_tbl`. [2]**\n`student_tbl` **1 — M** `course_tbl` (1); `course_tbl` **M — 1** `courseteacher_tbl` (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Putting the \"many\" (crow's foot) at the wrong end — it goes at the table that holds the **foreign key**.\n- Leaving a **many-to-many** relationship without a link table in the database design.\n- Drawing **attributes as separate entities**.\n- Writing \"one-to-many\" without saying **which** side is \"many\".\n- Forgetting to check the relationship **in both directions**."
         },
         {
           "type": "steps",
-          "title": "How to draw an ERD from a scenario",
+          "title": "Check yourself",
           "items": [
-            "Underline the **nouns** in the scenario — they are candidate entities (Student, Course, Teacher).",
-            "List the **attributes** of each entity and choose a **primary key**.",
-            "For each pair of related entities, decide the **cardinality**.",
-            "Replace every M:M relationship with a link entity.",
-            "Draw rectangles and lines; mark 1 and M (or crow's feet) at the correct ends."
+            "Define entity, attribute, relationship and ERD.",
+            "Give a real example of a 1:1, a 1:M and an M:M relationship.",
+            "Where is the foreign key placed in a one-to-many relationship?",
+            "How is a many-to-many relationship implemented in a relational database?",
+            "Draw the ERD for: *a customer places many orders; an order contains many products*."
           ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "In ERD questions marks are usually given **per correct relationship** (e.g. \"student_tbl to course_tbl 1–M (1)\"). Label both ends of every line clearly."
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 30,
+    "title": "Entity relationship diagram — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. Draw diagrams with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 30 minutes.",
+    "questions": [
+      "erd-exam-1",
+      "erd-exam-2",
+      "erd-exam-3"
+    ]
+  }
 }

@@ -1,84 +1,1583 @@
 {
   "topic": "g11-sound-representation",
-  "questions": [],
-  "summary": "How sound is digitised by sampling, the meaning of sampling rate and sample resolution, why analogue sound must be converted to binary, and calculating audio file sizes.",
-  "theory": [
+  "questions": [
     {
-      "title": "Digital representation of sound",
+      "key": "snd-terms-match",
+      "title": "Key terms",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.9"
       ],
-      "blocks": [
-        {
-          "type": "paragraph",
-          "content": "Sound is a **wave** — a continuous (analogue) vibration of air. To store it, a computer measures the wave many times per second and stores each measurement as a binary number."
-        },
-        {
-          "type": "cards",
-          "items": [
-            {
-              "title": "Sampling",
-              "content": "Measuring the **amplitude** (height) of the sound wave at **regular intervals**."
-            },
-            {
-              "title": "Sampling rate",
-              "content": "The **number of samples taken per second**, measured in hertz (Hz). CD quality = 44 100 Hz (44.1 kHz)."
-            },
-            {
-              "title": "Sample resolution (bit depth)",
-              "content": "The **number of bits used to store each sample**. More bits → more possible amplitude levels (2ⁿ levels). CD quality = 16 bits."
-            }
-          ]
-        },
-        {
-          "type": "diagram",
-          "format": "ascii",
-          "content": "amplitude\n   7 |        *  *\n   6 |      *      *\n   5 |    *          *\n   4 |  *              *\n   3 |*                  *              *\n   2 |                     *          *\n   1 |                       *  *  *\n     +--|--|--|--|--|--|--|--|--|--|--|--|-- time",
-          "caption": "Sampling a wave: each | is one sample, its height is stored as a number"
-        },
-        {
-          "type": "comparison",
-          "title": "Effect of sampling rate and resolution",
-          "columns": [
-            "Increase",
-            "Quality",
-            "File size"
-          ],
-          "rows": [
+      "practice": true,
+      "text": "Match each term to its definition.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Sample"
+          },
+          {
+            "key": "L2",
+            "text": "Sampling rate"
+          },
+          {
+            "key": "L3",
+            "text": "Sample resolution"
+          },
+          {
+            "key": "L4",
+            "text": "Channel"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "One measurement of the amplitude of a sound wave"
+          },
+          {
+            "key": "R2",
+            "text": "Number of samples taken per second"
+          },
+          {
+            "key": "R3",
+            "text": "Number of bits used to store each sample"
+          },
+          {
+            "key": "R4",
+            "text": "A separate stream of audio, e.g. left or right"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Sample–R1, Sampling rate–R2, Sample resolution–R3, Channel–R4.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "snd-why-convert",
+      "title": "Why convert",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.10"
+      ],
+      "practice": true,
+      "text": "Explain why sound must be converted from analogue to digital before it can be stored on a computer.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Computers can only store / process binary (digital) data (1)\n- sound is analogue / continuous, so it must be sampled and converted into binary values (1)",
+        "points": [
+          {
+            "criterion": "Computer binary only",
+            "marks": 1
+          },
+          {
+            "criterion": "Sound continuous",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A computer can only process binary data, but sound is a continuous analogue wave, so it must be sampled and turned into binary numbers."
+      }
+    },
+    {
+      "key": "snd-adc-dac",
+      "title": "ADC and DAC",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.10"
+      ],
+      "practice": true,
+      "text": "Complete the sentences using the abbreviations ADC or DAC, and the name of a device.\n\nWhen recording, a microphone produces an analogue signal which an [[1]] converts into binary. When playing back, a [[2]] converts the binary data into an analogue signal that is sent to a [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) ADC (2) DAC (3) speaker / headphones",
+        "accepted": {
+          "blanks": [
             [
-              "Sampling rate",
-              "Closer to the original wave; high frequencies captured",
-              "Larger"
+              "ADC",
+              "analogue-to-digital converter",
+              "analogue to digital converter"
             ],
             [
-              "Sample resolution",
-              "More accurate amplitude, less \"noise\", greater dynamic range",
-              "Larger"
+              "DAC",
+              "digital-to-analogue converter",
+              "digital to analogue converter"
+            ],
+            [
+              "speaker",
+              "speakers",
+              "headphones",
+              "loudspeaker"
             ]
           ]
+        }
+      }
+    },
+    {
+      "key": "snd-describe",
+      "title": "Digital sound",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "practice": true,
+      "text": "Explain how sound is represented digitally.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- The amplitude of the wave is measured / sampled (1)\n- at regular time intervals (sampling rate = samples per second) (1)\n- each sample is stored as a binary number with a fixed number of bits (sample resolution) (1)",
+        "points": [
+          {
+            "criterion": "Amplitude measured",
+            "marks": 1
+          },
+          {
+            "criterion": "Regular intervals",
+            "marks": 1
+          },
+          {
+            "criterion": "Binary with fixed bits",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The amplitude of the sound wave is measured at regular intervals; each measurement (sample) is rounded and stored as a binary number using a fixed number of bits."
+      }
+    },
+    {
+      "key": "snd-levels",
+      "title": "Amplitude levels",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "practice": true,
+      "text": "Complete the table to show the number of amplitude levels for each sample resolution.",
+      "content": {
+        "columns": [
+          "Sample resolution (bits)",
+          "Number of levels"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "3",
+            null
+          ],
+          [
+            "8",
+            null
+          ],
+          [
+            "16",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "8 (1); 256 (1); 65 536 (1)",
+        "points": [
+          {
+            "criterion": "8",
+            "marks": 1
+          },
+          {
+            "criterion": "256",
+            "marks": 1
+          },
+          {
+            "criterion": "65536",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "8"
+            ],
+            [
+              null,
+              "256"
+            ],
+            [
+              null,
+              "65536||65 536||65,536"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "snd-effects-tick",
+      "title": "Effects of changes",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show the effect of each change on the **file size** of a recording.",
+      "content": {
+        "columns": [
+          "Change",
+          "File size increases",
+          "File size decreases"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Sampling rate increased from 22 050 Hz to 44 100 Hz",
+            null,
+            null
+          ],
+          [
+            "Recording changed from stereo to mono",
+            null,
+            null
+          ],
+          [
+            "Sample resolution increased from 8 to 16 bits",
+            null,
+            null
+          ],
+          [
+            "Recording cut from 3 minutes to 2 minutes",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Increase; decrease; increase; decrease (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "snd-rate-quality",
+      "title": "Sampling rate and quality",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "practice": true,
+      "text": "Explain how increasing the sampling rate affects the quality of a recording.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- More samples are taken per second / gaps between samples are smaller (1)\n- so the digital wave is closer to the original / higher frequencies recorded → better quality (1)",
+        "points": [
+          {
+            "criterion": "More samples",
+            "marks": 1
+          },
+          {
+            "criterion": "Closer to original",
+            "marks": 1
+          }
+        ],
+        "model_answer": "More samples are taken each second, so the digital version follows the original wave more closely and sounds better."
+      }
+    },
+    {
+      "key": "snd-quant-tf",
+      "title": "Quantisation",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "practice": true,
+      "text": "Increasing the sample resolution reduces the quantisation (rounding) error of each sample.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "More bits give more levels, so each value is rounded to a closer level."
+      }
+    },
+    {
+      "key": "snd-calc-phone",
+      "title": "Telephone message",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "A voice message is recorded in **mono** at **8 000 Hz** with **8-bit** samples and lasts **10 seconds**. Calculate the file size in **KB**.",
+      "content": {
+        "unit": "KB"
+      },
+      "scheme": {
+        "mark_scheme": "8000 × 8 × 1 × 10 = 640 000 bits (1); ÷ 8 = 80 000 bytes (1); ÷ 1024 = 78.125 KB (1). Accept 80 KB with 1000.",
+        "points": [
+          {
+            "criterion": "Bits",
+            "marks": 1
+          },
+          {
+            "criterion": "Bytes",
+            "marks": 1
+          },
+          {
+            "criterion": "KB",
+            "marks": 1
+          }
+        ],
+        "model_answer": "78.125",
+        "accepted": {
+          "values": [
+            "78.125",
+            "78.13",
+            "78.1",
+            "80"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        }
+      }
+    },
+    {
+      "key": "snd-calc-cd",
+      "title": "CD-quality minute",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "Calculate the size in **MB** of **1 minute** of **stereo** audio sampled at **44 100 Hz** with **16-bit** resolution. Give your answer to 2 decimal places.",
+      "content": {
+        "unit": "MB"
+      },
+      "scheme": {
+        "mark_scheme": "44 100 × 16 × 2 × 60 = 84 672 000 bits (1); ÷ 8 = 10 584 000 bytes (1); ÷ 1024 ÷ 1024 = 10.09 MB (1). Accept 10.58 MB with 1000.",
+        "points": [
+          {
+            "criterion": "Bits",
+            "marks": 1
+          },
+          {
+            "criterion": "Bytes",
+            "marks": 1
+          },
+          {
+            "criterion": "MB",
+            "marks": 1
+          }
+        ],
+        "model_answer": "10.09",
+        "accepted": {
+          "values": [
+            "10.09",
+            "10.58"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        }
+      }
+    },
+    {
+      "key": "snd-calc-podcast",
+      "title": "Podcast clip",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "A **30-second** mono podcast clip is recorded at **22 050 Hz** with **16-bit** samples. Calculate the file size in **bytes**.",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "22 050 × 16 × 30 (1) = 10 584 000 bits (1); ÷ 8 = 1 323 000 bytes (1)",
+        "points": [
+          {
+            "criterion": "Method",
+            "marks": 1
+          },
+          {
+            "criterion": "Bits",
+            "marks": 1
+          },
+          {
+            "criterion": "Bytes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1323000",
+        "accepted": {
+          "values": [
+            "1323000"
+          ],
+          "numeric": true,
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "snd-calc-backwards",
+      "title": "Find the sampling rate",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "A **mono** recording uses **16-bit** samples, lasts **10 seconds** and has a file size of **441 000 bytes**. Calculate the sampling rate in Hz.",
+      "content": {
+        "unit": "Hz"
+      },
+      "scheme": {
+        "mark_scheme": "441 000 × 8 = 3 528 000 bits (1); ÷ (16 × 10) = 22 050 Hz (1)",
+        "points": [
+          {
+            "criterion": "Bits",
+            "marks": 1
+          },
+          {
+            "criterion": "22050",
+            "marks": 1
+          }
+        ],
+        "model_answer": "22050",
+        "accepted": {
+          "values": [
+            "22050"
+          ],
+          "numeric": true,
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "snd-calc-duration",
+      "title": "Find the duration",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "A mono recording at **16 000 Hz** with **8-bit** samples has a file size of **480 000 bytes**. Calculate its duration in seconds.",
+      "content": {
+        "unit": "s"
+      },
+      "scheme": {
+        "mark_scheme": "480 000 × 8 = 3 840 000 bits (1); ÷ (16 000 × 8) = 30 s (1)",
+        "points": [
+          {
+            "criterion": "Bits",
+            "marks": 1
+          },
+          {
+            "criterion": "30",
+            "marks": 1
+          }
+        ],
+        "model_answer": "30",
+        "accepted": {
+          "values": [
+            "30"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "snd-factor-mcq",
+      "title": "Factor of change",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "A stereo recording at 44 100 Hz is converted to **mono** at **22 050 Hz** with the same sample resolution. What happens to the file size?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It halves"
+        },
+        {
+          "key": "B",
+          "content": "It becomes a quarter of the original"
+        },
+        {
+          "key": "C",
+          "content": "It stays the same"
+        },
+        {
+          "key": "D",
+          "content": "It doubles"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Half the channels × half the samples per second = ¼."
+      }
+    },
+    {
+      "key": "snd-reduce",
+      "title": "Reduce the size",
+      "type": "labelled_answers",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.1.1.9",
+        "11.1.1.11"
+      ],
+      "practice": true,
+      "text": "Describe **two** ways to reduce the size of a sound file, giving the drawback of each.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Way 1 and drawback",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Way 2 and drawback",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Per way: method (1) + drawback (1). Lower sampling rate – high frequencies lost / lower quality; lower sample resolution – less accurate, more noise; mono – no stereo effect; lossy compression (MP3) – data permanently lost; shorter recording – less content.",
+        "points": [
+          {
+            "criterion": "Way 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Drawback 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Way 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Drawback 2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Reduce the sampling rate — fewer samples so the sound is less accurate. 2 Record in mono — the left/right stereo effect is lost."
+      }
+    },
+    {
+      "key": "snd-structured",
+      "title": "A music app",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A music streaming app stores songs recorded at **44 100 Hz**, **16-bit**, **stereo**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "snd-str-a",
+          "part_label": "(a)",
+          "title": "Song size",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "practice": true,
+          "text": "Calculate the uncompressed size in **MB** of a **3-minute** song. Give your answer to 2 decimal places.",
+          "content": {
+            "unit": "MB"
+          },
+          "scheme": {
+            "mark_scheme": "44 100 × 16 × 2 × 180 = 254 016 000 bits (1); ÷ 8 = 31 752 000 bytes (1); ≈ 30.28 MB (1). Accept 31.75 with 1000.",
+            "points": [
+              {
+                "criterion": "Bits",
+                "marks": 1
+              },
+              {
+                "criterion": "Bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "MB",
+                "marks": 1
+              }
+            ],
+            "model_answer": "30.28",
+            "accepted": {
+              "values": [
+                "30.28",
+                "31.75"
+              ],
+              "numeric": true,
+              "tolerance": 0.01
+            }
+          }
+        },
+        {
+          "key": "snd-str-b",
+          "part_label": "(b)",
+          "title": "Why 44 100 Hz",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "practice": true,
+          "text": "Explain why a sampling rate of 44 100 Hz is used for music.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Humans hear up to ~20 kHz and the rate must be at least twice the highest frequency / it records all audible frequencies (1)",
+            "points": [
+              {
+                "criterion": "Audible range",
+                "marks": 1
+              }
+            ],
+            "model_answer": "People hear up to about 20 000 Hz, and you need more than twice that rate to record all audible sounds."
+          }
+        },
+        {
+          "key": "snd-str-c",
+          "part_label": "(c)",
+          "title": "Streaming",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "practice": true,
+          "text": "Explain why the app compresses songs before streaming them.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Uncompressed files are large (≈30 MB) (1); compression reduces bandwidth / data use / buffering, faster streaming, less storage (1)",
+            "points": [
+              {
+                "criterion": "Files large",
+                "marks": 1
+              },
+              {
+                "criterion": "Benefit",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A 3-minute song is about 30 MB uncompressed; compressing it uses less bandwidth so songs start quickly without buffering."
+          }
         }
       ]
     },
     {
-      "title": "Why analogue sound must be converted to binary",
+      "key": "snd-exam-1",
+      "title": "Recording sound",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A pupil records a speech for a school podcast using a microphone connected to a computer.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "snd-exam-1a",
+          "part_label": "(a)",
+          "title": "Why convert",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the sound must be converted to binary before it is stored.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Computer stores / processes only binary (1); sound is analogue / continuous so must be sampled (1)",
+            "points": [
+              {
+                "criterion": "Binary only",
+                "marks": 1
+              },
+              {
+                "criterion": "Analogue",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Computers can only store binary data, and sound is a continuous analogue wave, so it has to be sampled and turned into binary numbers."
+          }
+        },
+        {
+          "key": "snd-exam-1b",
+          "part_label": "(b)",
+          "title": "Converter",
+          "type": "fill_blank",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.1.1.10"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the name of the component that converts the analogue signal into digital data: [[1]]",
+          "content": {
+            "blank_count": 1
+          },
+          "scheme": {
+            "mark_scheme": "ADC / analogue-to-digital converter (sound card accepted)",
+            "accepted": {
+              "blanks": [
+                [
+                  "ADC",
+                  "analogue-to-digital converter",
+                  "analogue to digital converter",
+                  "analog to digital converter",
+                  "sound card"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "snd-exam-1c",
+          "part_label": "(c)",
+          "title": "Sampling",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the sound is sampled.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Amplitude measured (1) at regular intervals / set number per second (1); each value rounded and stored as binary with fixed number of bits (1)",
+            "points": [
+              {
+                "criterion": "Amplitude",
+                "marks": 1
+              },
+              {
+                "criterion": "Regular intervals",
+                "marks": 1
+              },
+              {
+                "criterion": "Binary, fixed bits",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The amplitude of the wave is measured at regular time intervals and each measurement is rounded and stored as a binary number with a fixed number of bits."
+          }
+        },
+        {
+          "key": "snd-exam-1d",
+          "part_label": "(d)",
+          "title": "Sample resolution",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The pupil changes the sample resolution from 8 bits to 16 bits. Explain the effect on the recording.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "More amplitude levels (256 → 65 536) so more accurate / better quality (1); file size doubles (1)",
+            "points": [
+              {
+                "criterion": "Quality",
+                "marks": 1
+              },
+              {
+                "criterion": "Size doubles",
+                "marks": 1
+              }
+            ],
+            "model_answer": "There are 65 536 levels instead of 256, so each sample is more accurate, but the file becomes twice as large."
+          }
+        },
+        {
+          "key": "snd-exam-1e",
+          "part_label": "(e)",
+          "title": "Levels",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Calculate the number of amplitude levels available with a **4-bit** sample resolution.",
+          "content": {
+            "unit": "levels"
+          },
+          "scheme": {
+            "mark_scheme": "2⁴ (1) = 16 (1)",
+            "points": [
+              {
+                "criterion": "2^4",
+                "marks": 1
+              },
+              {
+                "criterion": "16",
+                "marks": 1
+              }
+            ],
+            "model_answer": "16",
+            "accepted": {
+              "values": [
+                "16"
+              ],
+              "numeric": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "snd-exam-2",
+      "title": "Calculating file sizes",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Show your working in each calculation.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "snd-exam-2a",
+          "part_label": "(a)",
+          "title": "Formula",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the formula used to calculate the size of a sound file in bits.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Sampling rate × sample resolution × channels × duration in seconds (1)",
+            "points": [
+              {
+                "criterion": "Formula",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Sampling rate × sample resolution × number of channels × time in seconds"
+          }
+        },
+        {
+          "key": "snd-exam-2b",
+          "part_label": "(b)",
+          "title": "Ringtone",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A ringtone lasts **20 seconds**, is **mono**, sampled at **11 025 Hz** with **8-bit** samples. Calculate the file size in **KB**. Give your answer to 2 decimal places.",
+          "content": {
+            "unit": "KB"
+          },
+          "scheme": {
+            "mark_scheme": "11 025 × 8 × 1 × 20 = 1 764 000 bits (1); ÷ 8 = 220 500 bytes (1); ÷ 1024 = 215.33 KB (1). Accept 220.5 with 1000.",
+            "points": [
+              {
+                "criterion": "Bits",
+                "marks": 1
+              },
+              {
+                "criterion": "Bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "KB",
+                "marks": 1
+              }
+            ],
+            "model_answer": "215.33",
+            "accepted": {
+              "values": [
+                "215.33",
+                "220.5"
+              ],
+              "numeric": true,
+              "tolerance": 0.01
+            }
+          }
+        },
+        {
+          "key": "snd-exam-2c",
+          "part_label": "(c)",
+          "title": "Film soundtrack",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A **5-minute** film soundtrack is recorded in **stereo** at **48 000 Hz** with **24-bit** samples. Calculate its size in **MB**. Give your answer to 2 decimal places.",
+          "content": {
+            "unit": "MB"
+          },
+          "scheme": {
+            "mark_scheme": "48 000 × 24 × 2 × 300 = 691 200 000 bits (1); ÷ 8 = 86 400 000 bytes (1); ÷ 1024 ÷ 1024 = 82.40 MB (1). Accept 86.4 with 1000.",
+            "points": [
+              {
+                "criterion": "Bits",
+                "marks": 1
+              },
+              {
+                "criterion": "Bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "MB",
+                "marks": 1
+              }
+            ],
+            "model_answer": "82.40",
+            "accepted": {
+              "values": [
+                "82.40",
+                "86.4"
+              ],
+              "numeric": true,
+              "tolerance": 0.01
+            }
+          }
+        },
+        {
+          "key": "snd-exam-2d",
+          "part_label": "(d)",
+          "title": "Find the rate",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A **mono**, **16-bit** recording lasting **10 seconds** is **441 000 bytes**. Calculate the sampling rate.",
+          "content": {
+            "unit": "Hz"
+          },
+          "scheme": {
+            "mark_scheme": "441 000 × 8 = 3 528 000 bits (1); ÷ 160 = 22 050 Hz (1)",
+            "points": [
+              {
+                "criterion": "Bits",
+                "marks": 1
+              },
+              {
+                "criterion": "22050",
+                "marks": 1
+              }
+            ],
+            "model_answer": "22050",
+            "accepted": {
+              "values": [
+                "22050"
+              ],
+              "numeric": true,
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "snd-exam-2e",
+          "part_label": "(e)",
+          "title": "Factor",
+          "type": "mcq",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The soundtrack in (c) is changed to **mono** and **12-bit** samples. By what factor does the file size change?",
+          "options": [
+            {
+              "key": "A",
+              "content": "It halves"
+            },
+            {
+              "key": "B",
+              "content": "It becomes one quarter"
+            },
+            {
+              "key": "C",
+              "content": "It becomes one eighth"
+            },
+            {
+              "key": "D",
+              "content": "It doubles"
+            }
+          ],
+          "scheme": {
+            "mark_scheme": "B",
+            "accepted": {
+              "correct": "B"
+            }
+          }
+        },
+        {
+          "key": "snd-exam-2f",
+          "part_label": "(f)",
+          "title": "Units",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.11"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the duration must be converted to seconds before using the formula.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Sampling rate is in samples per second (Hz) (1)",
+            "points": [
+              {
+                "criterion": "Hz per second",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The sampling rate is the number of samples per second, so time must also be in seconds."
+          }
+        }
+      ]
+    },
+    {
+      "key": "snd-exam-3",
+      "title": "Choosing settings",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A company records **voice messages** for a phone helpline and **concert music** for an online shop.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "snd-exam-3a",
+          "part_label": "(a)",
+          "title": "Voice settings",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the voice messages can use a low sampling rate (8 000 Hz) and mono.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Speech does not need high quality / limited frequency range, still understandable (1); smaller files → less storage / faster transmission (1)",
+            "points": [
+              {
+                "criterion": "Quality enough",
+                "marks": 1
+              },
+              {
+                "criterion": "Smaller file",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Speech is still clear at low quality, and the files are much smaller, so they need less storage and are sent quickly."
+          }
+        },
+        {
+          "key": "snd-exam-3b",
+          "part_label": "(b)",
+          "title": "Music settings",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the concert music should use a high sampling rate, a high sample resolution and stereo.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "High sampling rate records high frequencies / closer to original (1); high resolution gives accurate amplitude / dynamic range / less noise (1); stereo gives left-right spatial effect (1)",
+            "points": [
+              {
+                "criterion": "Rate",
+                "marks": 1
+              },
+              {
+                "criterion": "Resolution",
+                "marks": 1
+              },
+              {
+                "criterion": "Stereo",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A high sampling rate captures all audible frequencies, a high resolution stores each amplitude accurately with little noise, and stereo keeps the left–right effect of the concert."
+          }
+        },
+        {
+          "key": "snd-exam-3c",
+          "part_label": "(c)",
+          "title": "Effects table",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.1.1.9"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) to show the effect of each change on the **quality** of the recording.",
+          "content": {
+            "columns": [
+              "Change",
+              "Quality improves",
+              "Quality gets worse"
+            ],
+            "rows": 4,
+            "tick": true,
+            "prefill": [
+              [
+                "Sampling rate decreased",
+                null,
+                null
+              ],
+              [
+                "Sample resolution increased",
+                null,
+                null
+              ],
+              [
+                "Lossy compression applied",
+                null,
+                null
+              ],
+              [
+                "Sampling rate increased",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Worse; improves; worse; improves (1 each)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 4",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "How sound is digitised by sampling, what sampling rate, sample resolution and channels mean and how they affect quality and file size, why analogue sound must be converted to binary (ADC and DAC), and how to calculate the size of an audio file.",
+  "theory": [
+    {
+      "title": "Analogue and digital sound",
       "objectives": [
         "11.1.1.10"
       ],
       "blocks": [
         {
-          "type": "list",
+          "type": "paragraph",
+          "content": "Sound is a **vibration** that travels through the air as a **wave**. A microphone turns these vibrations into a **continuously changing electrical voltage** — an **analogue signal**."
+        },
+        {
+          "type": "definition",
+          "term": "Analogue signal",
+          "content": "A signal that varies **continuously** and can take **any value** within a range — for example a real sound wave or the voltage from a microphone."
+        },
+        {
+          "type": "definition",
+          "term": "Digital signal",
+          "content": "A signal made of **discrete (separate) values**, stored as **binary numbers** (0s and 1s)."
+        },
+        {
+          "type": "cards",
           "items": [
-            "Computers can only store and process **digital (binary) data**; sound in the real world is **analogue** (continuous).",
-            "An **ADC** (analogue-to-digital converter), e.g. in a microphone input or sound card, samples the signal and converts each sample to binary.",
-            "To play the sound, a **DAC** (digital-to-analogue converter) turns the binary values back into an analogue signal for the speakers.",
-            "Digital sound can be **edited, compressed, copied without loss of quality** and transmitted over networks."
+            {
+              "title": "Why sound must be converted to binary",
+              "content": "- A computer can **only store and process binary data** (0s and 1s); it cannot store a continuous wave.\n- Digital sound can be **edited, copied, compressed and transmitted** without losing quality.\n- It can be **stored** on storage devices and **streamed** over networks."
+            },
+            {
+              "title": "How it is converted",
+              "content": "- A **microphone** converts the sound wave into an analogue electrical signal.\n- An **ADC (analogue-to-digital converter)**, usually on the **sound card**, measures the signal and converts it into **binary numbers**.\n- To play the sound back, a **DAC (digital-to-analogue converter)** turns the binary values back into an analogue signal for the **speaker**."
+            }
           ]
         },
         {
           "type": "diagram",
           "format": "mermaid",
-          "content": "flowchart LR\n  M[Microphone: analogue signal] --> A[ADC: sample + quantise] --> F[(Binary audio file)] --> D[DAC] --> S[Speaker]",
-          "caption": "From voice to file and back"
+          "content": "flowchart TB\n  A[Sound wave] --> B[Microphone - analogue signal]\n  B --> C[ADC - sampling and quantisation]\n  C --> D[Binary data stored in a file]\n  D --> E[DAC - binary to analogue]\n  E --> F[Speaker - sound wave]",
+          "caption": "From sound wave to file and back"
+        }
+      ]
+    },
+    {
+      "title": "Sampling",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Sampling",
+          "content": "Measuring the **amplitude (height) of the sound wave** at **regular time intervals** and storing each measurement as a **binary number**. Each measurement is called a **sample**."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "Level\n  7 |            *  *\n  6 |         *        *\n  5 |      *              *\n  4 |   *                    *\n  3 |*                          *                    *\n  2 |                              *              *\n  1 |                                 *        *\n  0 |                                    *  *\n    +--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--> time\nSamples: 3 4 5 6 7 7 6 5 4 3 2 1 0 0 1 2 3   (3-bit values 0–7)",
+          "caption": "Sampling a sound wave (each | is one sample; the value is rounded to the nearest level)"
+        },
+        {
+          "type": "definition",
+          "term": "Sampling rate (sampling frequency)",
+          "content": "The **number of samples taken per second**, measured in **hertz (Hz)**. CD-quality audio uses **44 100 Hz (44.1 kHz)** — 44 100 samples every second."
+        },
+        {
+          "type": "definition",
+          "term": "Sample resolution (bit depth)",
+          "content": "The **number of bits used to store each sample**. With *n* bits, **2ⁿ different amplitude levels** can be represented. CD audio uses **16 bits** (65 536 levels)."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Channels",
+              "content": "- **Mono** — **1** channel; the same sound from every speaker.\n- **Stereo** — **2** channels (left and right), so the file stores **twice** as many samples.\n- Surround sound — 6 or more channels."
+            },
+            {
+              "title": "Quantisation",
+              "content": "- Each measured amplitude is **rounded** to the **nearest available level**.\n- The difference between the real value and the stored value is the **quantisation error** — it is smaller when the sample resolution is higher."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Effect on quality and file size",
+      "objectives": [
+        "11.1.1.9"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Sampling rate and sample resolution",
+          "columns": [
+            "",
+            "Higher sampling rate",
+            "Higher sample resolution"
+          ],
+          "rows": [
+            [
+              "What changes",
+              "**More samples per second**",
+              "**More bits per sample** → more amplitude levels"
+            ],
+            [
+              "Effect on quality",
+              "The digital wave follows the original **more closely in time**; higher frequencies can be recorded",
+              "Each sample is **more accurate** (less rounding); **wider dynamic range**, less noise"
+            ],
+            [
+              "Effect on file size",
+              "**Increases** (in proportion)",
+              "**Increases** (in proportion)"
+            ]
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Typical audio settings",
+          "columns": [
+            "Use",
+            "Sampling rate",
+            "Sample resolution",
+            "Channels"
+          ],
+          "rows": [
+            [
+              "Telephone / voice call",
+              "8 000 Hz",
+              "8 bits",
+              "Mono"
+            ],
+            [
+              "Voice recording / podcast",
+              "22 050 Hz",
+              "16 bits",
+              "Mono"
+            ],
+            [
+              "CD audio",
+              "44 100 Hz",
+              "16 bits",
+              "Stereo"
+            ],
+            [
+              "Studio / film",
+              "48 000 – 96 000 Hz",
+              "24 bits",
+              "Stereo or more"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Humans hear up to about **20 000 Hz**. To record a frequency accurately, you need **at least two samples per wave cycle** (the Nyquist rule), so the sampling rate must be more than **2 × 20 000 = 40 000 Hz**. 44 100 Hz is enough for all frequencies people can hear."
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "The trade-off",
+          "content": "Better quality always means a **bigger file**: it needs more **storage**, more **bandwidth** to stream and **longer download** times. Choose settings that are **good enough** for the purpose — a voice message does not need CD quality."
         }
       ]
     },
@@ -89,25 +1588,141 @@
       ],
       "blocks": [
         {
-          "type": "formula",
-          "latex": "\\text{File size (bits)} = \\text{sampling rate} \\times \\text{resolution} \\times \\text{duration (s)} \\times \\text{channels}",
-          "caption": "Stereo = 2 channels, mono = 1"
+          "type": "definition",
+          "term": "Audio file size",
+          "content": "**File size (bits) = sampling rate (Hz) × sample resolution (bits) × number of channels × duration (seconds)**\n\nThen: **÷ 8 → bytes**, **÷ 1024 → KB**, **÷ 1024 → MB**. Always convert the duration to **seconds** first (3 minutes = 180 s)."
         },
         {
           "type": "example",
-          "title": "3-minute song, CD quality (44 100 Hz, 16 bits, stereo)",
-          "content": "- Duration: 3 × 60 = 180 s\n- Bits: 44 100 × 16 × 180 × 2 = 254 016 000 bits\n- Bytes: ÷ 8 = 31 752 000 bytes\n- MiB: ÷ 1024 ÷ 1024 ≈ **30.3 MiB**"
+          "title": "Worked example 1 — 1 minute of CD-quality stereo",
+          "content": "44 100 Hz, 16 bits, stereo (2 channels), 60 s.\n1. Bits: 44 100 × 16 × 2 × 60 = **84 672 000 bits**\n2. Bytes: 84 672 000 ÷ 8 = **10 584 000 bytes**\n3. KB: 10 584 000 ÷ 1024 = **10 335.94 KB**\n4. MB: 10 335.94 ÷ 1024 ≈ **10.09 MB**"
         },
         {
           "type": "example",
-          "title": "Voice recording",
-          "content": "A 10-second mono recording at 8 kHz with 8-bit samples:\n8000 × 8 × 10 × 1 = 640 000 bits = 80 000 bytes ≈ **78.1 KiB**"
+          "title": "Worked example 2 — a telephone message",
+          "content": "8 000 Hz, 8 bits, mono, 10 s: 8 000 × 8 × 1 × 10 = 640 000 bits → ÷ 8 = **80 000 bytes** → ÷ 1024 = **78.125 KB**."
         },
         {
-          "type": "exam_tip",
-          "content": "Convert the **duration to seconds** first and remember the **number of channels**. Show each step — method marks are usually available even if the final answer is wrong."
+          "type": "example",
+          "title": "Worked example 3 — working backwards",
+          "content": "A **mono** recording uses **16-bit** samples, lasts **10 seconds** and has a file size of **441 000 bytes**. Find the sampling rate.\n441 000 × 8 = 3 528 000 bits. 3 528 000 ÷ (16 × 1 × 10) = **22 050 Hz**."
+        },
+        {
+          "type": "example",
+          "title": "Worked example 4 — a 3-minute song",
+          "content": "44 100 Hz, 16 bits, stereo, 3 min = 180 s: 44 100 × 16 × 2 × 180 = 254 016 000 bits = 31 752 000 bytes ≈ **30.28 MB**. That is why music is usually **compressed** (MP3 / AAC) to about 3 MB."
+        },
+        {
+          "type": "comparison",
+          "title": "Effect of changes on file size",
+          "columns": [
+            "Change",
+            "File size"
+          ],
+          "rows": [
+            [
+              "Double the sampling rate",
+              "**× 2**"
+            ],
+            [
+              "Change 8-bit to 16-bit samples",
+              "**× 2**"
+            ],
+            [
+              "Change mono to stereo",
+              "**× 2**"
+            ],
+            [
+              "Halve the duration",
+              "**÷ 2**"
+            ],
+            [
+              "44.1 kHz → 22.05 kHz **and** stereo → mono",
+              "**÷ 4**"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Reducing the size of sound files",
+      "objectives": [
+        "11.1.1.9",
+        "11.1.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Ways to reduce the file size",
+          "columns": [
+            "Method",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "Lower the **sampling rate**",
+              "Smaller file; high frequencies are lost"
+            ],
+            [
+              "Lower the **sample resolution**",
+              "Smaller file; more quantisation noise"
+            ],
+            [
+              "Use **mono** instead of stereo",
+              "Half the size; no left/right effect"
+            ],
+            [
+              "**Lossy compression** (MP3, AAC)",
+              "About 10 × smaller; removes sounds people can hardly hear — cannot be restored"
+            ],
+            [
+              "**Lossless compression** (FLAC)",
+              "About 2 × smaller; the original can be restored exactly"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.1.1.9",
+        "11.1.1.10",
+        "11.1.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain how sound is represented digitally. [3]**\nThe amplitude of the sound wave is **measured (sampled)** at **regular intervals** (1); each sample is stored as a **binary number** using a fixed number of bits — the **sample resolution** (1); the number of samples per second is the **sampling rate** (1).\n\n**Q: Explain why analogue sound must be converted before it can be stored on a computer. [2]**\nA computer can only store and process **binary / digital** data (1); the sound wave is **continuous**, so an **ADC** must sample it and convert it to binary values (1).\n\n**Q: Calculate the file size in MB of a 2-minute stereo recording with a sampling rate of 44.1 kHz and 16-bit resolution. [3]**\n44 100 × 16 × 2 × 120 = 169 344 000 bits (1); ÷ 8 = 21 168 000 bytes (1); ÷ 1024 ÷ 1024 ≈ **20.19 MB** (1).\n\n**Q: Describe the effect of increasing the sample resolution. [2]**\nMore amplitude levels, so each sample is **closer to the original** / better quality (1); the file size **increases** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting to **multiply by the number of channels** for stereo.\n- Leaving the duration in **minutes**.\n- Confusing **sampling rate** (samples per second) with **sample resolution** (bits per sample).\n- Forgetting to **divide by 8** to get bytes.\n- Saying a higher sampling rate makes the sound \"louder\" — it makes it **more accurate**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define sampling, sampling rate and sample resolution.",
+            "Why must a computer convert sound to binary? Which device does it?",
+            "How many amplitude levels are possible with 4-bit and 16-bit samples?",
+            "Give the formula for the size of an audio file.",
+            "Calculate the size in KB of a 20-second mono recording at 11 025 Hz with 8-bit samples.",
+            "What happens to the file size if a recording changes from stereo to mono?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Sound representation — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. Show your working in calculations. Use 1 KB = 1024 bytes and 1 MB = 1024 KB unless stated otherwise. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "snd-exam-1",
+      "snd-exam-2",
+      "snd-exam-3"
+    ]
+  }
 }

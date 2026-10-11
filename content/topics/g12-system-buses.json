@@ -1,8 +1,1536 @@
 {
   "topic": "g12-system-buses",
-  "questions": [],
-  "summary": "The address, data and control buses, the registers used in the fetch-decode-execute cycle, and how clock speed, word length and bus width affect performance.",
+  "questions": [
+    {
+      "key": "bus-define",
+      "title": "System bus",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Define the term **system bus** and name the components it connects.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "- Set of parallel wires / lines that transfer signals / data (1)\n- connecting the CPU, main memory and I/O controllers (1)",
+        "points": [
+          {
+            "criterion": "Parallel wires",
+            "marks": 1
+          },
+          {
+            "criterion": "CPU, memory, I/O",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A set of parallel wires on the motherboard that carries data, addresses and control signals between the CPU, main memory and I/O controllers."
+      }
+    },
+    {
+      "key": "bus-tick",
+      "title": "Which bus?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) one bus for each statement.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Address bus",
+          "Data bus",
+          "Control bus"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Carries the memory read and memory write signals",
+            null,
+            null,
+            null
+          ],
+          [
+            "Is unidirectional (one-way)",
+            null,
+            null,
+            null
+          ],
+          [
+            "Carries an instruction from memory to the CPU",
+            null,
+            null,
+            null
+          ],
+          [
+            "Its width decides how many memory locations can be used",
+            null,
+            null,
+            null
+          ],
+          [
+            "Carries the clock and interrupt signals",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Control; address; data; address; control (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bus-purposes",
+      "title": "Purposes of the buses",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Describe the purpose of each bus.",
+      "content": {
+        "fields": [
+          {
+            "key": "data",
+            "label": "Data bus",
+            "lines": 2
+          },
+          {
+            "key": "address",
+            "label": "Address bus",
+            "lines": 2
+          },
+          {
+            "key": "control",
+            "label": "Control bus",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Data: carries data / instructions between CPU, memory and I/O in both directions (1). Address: carries the address of the location to read from / write to, from the CPU (1). Control: carries control / timing signals e.g. read, write, clock, interrupt (1)",
+        "points": [
+          {
+            "criterion": "Data",
+            "marks": 1
+          },
+          {
+            "criterion": "Address",
+            "marks": 1
+          },
+          {
+            "criterion": "Control",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Data bus: moves data and instructions between components in both directions. Address bus: carries the address of the memory location being used. Control bus: carries signals such as memory read, memory write and the clock."
+      }
+    },
+    {
+      "key": "bus-direction",
+      "title": "Direction of the address bus",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Explain why the address bus is unidirectional but the data bus is bidirectional.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Only the CPU sends addresses / chooses the location, so addresses go one way (1)\n- data must go into the CPU when reading and out when writing (1)",
+        "points": [
+          {
+            "criterion": "Address only from CPU",
+            "marks": 1
+          },
+          {
+            "criterion": "Data read and write",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Only the CPU decides which location to access, so addresses travel only from the CPU; data has to move into the CPU when reading and out of it when writing."
+      }
+    },
+    {
+      "key": "bus-read-order",
+      "title": "Reading from memory",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "The steps for reading data from memory are listed in the wrong order:\n\n- **A** Memory puts the contents of the location on the data bus\n- **B** The address is placed in the MAR and sent on the address bus\n- **C** The data arrives in the MDR\n- **D** A memory read signal is sent on the control bus\n\nWrite the letters in the correct order.",
+      "content": {
+        "columns": [
+          "Order",
+          "Step letter"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "B, D, A, C (1 each)",
+        "points": [
+          {
+            "criterion": "1 B",
+            "marks": 1
+          },
+          {
+            "criterion": "2 D",
+            "marks": 1
+          },
+          {
+            "criterion": "3 A",
+            "marks": 1
+          },
+          {
+            "criterion": "4 C",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "B"
+            ],
+            [
+              null,
+              "D"
+            ],
+            [
+              null,
+              "A"
+            ],
+            [
+              null,
+              "C"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bus-registers-match",
+      "title": "Registers",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Match each register to its purpose.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "PC"
+          },
+          {
+            "key": "L2",
+            "text": "MAR"
+          },
+          {
+            "key": "L3",
+            "text": "MDR"
+          },
+          {
+            "key": "L4",
+            "text": "CIR"
+          },
+          {
+            "key": "L5",
+            "text": "ACC"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Holds the address of the next instruction"
+          },
+          {
+            "key": "R2",
+            "text": "Holds the address of the location to be read or written"
+          },
+          {
+            "key": "R3",
+            "text": "Holds data just read from or about to be written to memory"
+          },
+          {
+            "key": "R4",
+            "text": "Holds the instruction being decoded and executed"
+          },
+          {
+            "key": "R5",
+            "text": "Holds the result of a calculation"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "PC–R1, MAR–R2, MDR–R3, CIR–R4, ACC–R5.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "bus-rtn-errors",
+      "title": "Correct the notation",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "The fetch stage is written in register transfer notation below. Three steps contain an error. Write the correct notation for each wrong step and leave correct steps empty.",
+      "content": {
+        "columns": [
+          "Step",
+          "Given notation",
+          "Correct notation"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            "MDR ← [PC]",
+            null
+          ],
+          [
+            "2",
+            "PC ← [PC] + 2",
+            null
+          ],
+          [
+            "3",
+            "MDR ← [[MAR]]",
+            null
+          ],
+          [
+            "4",
+            "CIR ← [MAR]",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 MAR ← [PC] (1); 2 PC ← [PC] + 1 (1); 3 correct; 4 CIR ← [MDR] (1)",
+        "points": [
+          {
+            "criterion": "Step 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Step 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Step 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "MAR ← [PC]||MAR <- [PC]||MAR←[PC]||MAR <- PC||MAR ← PC"
+            ],
+            [
+              null,
+              null,
+              "PC ← [PC] + 1||PC <- [PC] + 1||PC←[PC]+1||PC ← [PC]+1||PC <- [PC]+1"
+            ],
+            [
+              null,
+              null,
+              ""
+            ],
+            [
+              null,
+              null,
+              "CIR ← [MDR]||CIR <- [MDR]||CIR←[MDR]||CIR <- MDR||CIR ← MDR"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bus-fetch",
+      "title": "The fetch stage",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Describe what happens during the **fetch** stage of the instruction cycle.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Address in PC copied to MAR / sent on address bus (1)\n- PC incremented (1)\n- instruction at that address copied to MDR (via data bus) then to CIR (1)",
+        "points": [
+          {
+            "criterion": "PC → MAR",
+            "marks": 1
+          },
+          {
+            "criterion": "PC + 1",
+            "marks": 1
+          },
+          {
+            "criterion": "MDR → CIR",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The address in the PC is copied to the MAR, the PC is incremented, and the instruction stored at that address is read into the MDR and copied into the CIR."
+      }
+    },
+    {
+      "key": "bus-decode-execute",
+      "title": "Decode and execute",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Explain what happens in the **decode** and **execute** stages.",
+      "content": {
+        "fields": [
+          {
+            "key": "decode",
+            "label": "Decode",
+            "lines": 2
+          },
+          {
+            "key": "execute",
+            "label": "Execute",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Decode: the control unit interprets the instruction / splits into opcode and operand (1). Execute: the instruction is carried out, e.g. ALU performs calculation / data moved / PC changed (1)",
+        "points": [
+          {
+            "criterion": "Decode",
+            "marks": 1
+          },
+          {
+            "criterion": "Execute",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Decode: the control unit splits the instruction in the CIR into opcode and operand and works out what to do. Execute: the instruction is carried out, e.g. the ALU adds or data is loaded."
+      }
+    },
+    {
+      "key": "bus-trace-ldd",
+      "title": "Trace LDD",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "PC = **40**. Memory address 40 contains the instruction **LDD 75**, and address 75 contains **12**.\n\nComplete the table to show the contents of the registers after each step of fetching and executing the instruction.",
+      "content": {
+        "columns": [
+          "Step",
+          "PC",
+          "MAR",
+          "MDR",
+          "ACC"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "MAR ← [PC]; PC ← [PC] + 1",
+            null,
+            null,
+            "",
+            ""
+          ],
+          [
+            "MDR ← [[MAR]]; CIR ← [MDR]",
+            null,
+            null,
+            null,
+            ""
+          ],
+          [
+            "MAR ← 75; MDR ← [[MAR]]",
+            null,
+            null,
+            null,
+            ""
+          ],
+          [
+            "ACC ← [MDR]",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Row 1: 41, 40 (1). Row 2: 41, 40, LDD 75 (1). Row 3: 41, 75, 12 (1). Row 4: 41, 75, 12, 12 (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "model_answer": "| Step | PC | MAR | MDR | ACC |\n|---|---|---|---|---|\n| 1 | 41 | 40 | | |\n| 2 | 41 | 40 | LDD 75 | |\n| 3 | 41 | 75 | 12 | |\n| 4 | 41 | 75 | 12 | 12 |",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "41",
+              "40",
+              null,
+              null
+            ],
+            [
+              null,
+              "41",
+              "40",
+              "LDD 75||LDD75",
+              null
+            ],
+            [
+              null,
+              "41",
+              "75",
+              "12",
+              null
+            ],
+            [
+              null,
+              "41",
+              "75",
+              "12",
+              "12"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "bus-interrupt",
+      "title": "Interrupts",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Explain what an interrupt is and how the CPU deals with it during the instruction cycle.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- Signal from a device / program that needs the CPU's attention (1)\n- CPU checks for interrupts at the end of each cycle (1)\n- saves registers / current state, runs the interrupt service routine, then restores and continues (1)",
+        "points": [
+          {
+            "criterion": "Definition",
+            "marks": 1
+          },
+          {
+            "criterion": "Checked each cycle",
+            "marks": 1
+          },
+          {
+            "criterion": "Save, ISR, restore",
+            "marks": 1
+          }
+        ],
+        "model_answer": "An interrupt is a signal that a device or program needs attention. At the end of each fetch–decode–execute cycle the CPU checks for one; if found, it saves its registers, runs the interrupt service routine and then restores the registers and carries on."
+      }
+    },
+    {
+      "key": "bus-factors-table",
+      "title": "Performance factors",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Define each factor that affects the performance of the CPU.",
+      "content": {
+        "fields": [
+          {
+            "key": "clock",
+            "label": "Clock speed",
+            "lines": 2
+          },
+          {
+            "key": "word",
+            "label": "Word length",
+            "lines": 2
+          },
+          {
+            "key": "bus",
+            "label": "Bus width",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Clock speed: number of cycles the CPU performs per second (1). Word length: number of bits the CPU can process as one unit at a time (1). Bus width: number of bits a bus can carry at one time / number of lines (1)",
+        "points": [
+          {
+            "criterion": "Clock",
+            "marks": 1
+          },
+          {
+            "criterion": "Word",
+            "marks": 1
+          },
+          {
+            "criterion": "Bus",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Clock speed: the number of clock cycles per second. Word length: the number of bits processed by the CPU in one operation. Bus width: the number of bits a bus can transfer at once."
+      }
+    },
+    {
+      "key": "bus-clock-effect",
+      "title": "Clock speed",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Describe the effect of increasing the clock speed of a processor.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- More cycles per second, so instructions are executed faster (1)\n- fetch–decode–execute cycle happens more times per second (1)\n- more heat produced → overheating / malfunction / need cooling (1)",
+        "points": [
+          {
+            "criterion": "Faster execution",
+            "marks": 1
+          },
+          {
+            "criterion": "More cycles",
+            "marks": 1
+          },
+          {
+            "criterion": "Heat",
+            "marks": 1
+          }
+        ],
+        "model_answer": "More cycles happen each second, so more fetch–decode–execute cycles complete and programs run faster, but the CPU produces more heat and may overheat."
+      }
+    },
+    {
+      "key": "bus-data-width-tf",
+      "title": "Data bus width",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Increasing the width of the data bus increases the number of memory locations that can be addressed.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "That is the address bus. A wider data bus carries more bits per transfer."
+      }
+    },
+    {
+      "key": "bus-cycle-time",
+      "title": "Cycle time",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A 64-bit data bus runs at **100 MHz** and transfers one word per cycle. Calculate the maximum data transfer rate in **MB per second** (1 MB = 1 000 000 bytes).",
+      "content": {
+        "unit": "MB/s"
+      },
+      "scheme": {
+        "mark_scheme": "64 bits = 8 bytes (1); 8 × 100 000 000 = 800 000 000 bytes = 800 MB/s (1)",
+        "points": [
+          {
+            "criterion": "8 bytes",
+            "marks": 1
+          },
+          {
+            "criterion": "800",
+            "marks": 1
+          }
+        ],
+        "model_answer": "800",
+        "accepted": {
+          "values": [
+            "800"
+          ],
+          "numeric": true
+        }
+      }
+    },
+    {
+      "key": "bus-cores-mcq",
+      "title": "More cores",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Why does doubling the number of cores **not** always double the performance?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Some tasks cannot be split into parts that run in parallel"
+        },
+        {
+          "key": "B",
+          "content": "Each core has a lower clock speed than one core alone"
+        },
+        {
+          "key": "C",
+          "content": "Extra cores reduce the size of RAM"
+        },
+        {
+          "key": "D",
+          "content": "The address bus becomes narrower"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        }
+      }
+    },
+    {
+      "key": "bus-structured",
+      "title": "Choosing a processor",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "Processor X: 3.0 GHz, 32-bit word, 32-bit data bus. Processor Y: 3.0 GHz, 64-bit word, 64-bit data bus.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bus-str-a",
+          "part_label": "(a)",
+          "title": "Word length",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "practice": true,
+          "text": "Explain how the larger word length of processor Y improves performance.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Processes 64 bits in one operation instead of 32 (1); larger numbers / more data per instruction so fewer instructions / cycles needed (1)",
+            "points": [
+              {
+                "criterion": "More bits per operation",
+                "marks": 1
+              },
+              {
+                "criterion": "Fewer instructions",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Y can process 64 bits in one operation, so large numbers and more data are handled with fewer instructions."
+          }
+        },
+        {
+          "key": "bus-str-b",
+          "part_label": "(b)",
+          "title": "Data bus",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "practice": true,
+          "text": "Explain how the wider data bus of processor Y improves performance.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "8 bytes transferred at once instead of 4 (1); fewer transfers / half the time to move data between memory and CPU (1)",
+            "points": [
+              {
+                "criterion": "More per transfer",
+                "marks": 1
+              },
+              {
+                "criterion": "Fewer transfers",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It carries 64 bits (8 bytes) per transfer instead of 32, so about half as many transfers are needed to move the same data."
+          }
+        },
+        {
+          "key": "bus-str-c",
+          "part_label": "(c)",
+          "title": "Same clock",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "practice": true,
+          "text": "State what the clock speed of 3.0 GHz means.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "3 000 000 000 / 3 billion clock cycles per second (1)",
+            "points": [
+              {
+                "criterion": "3 billion cycles/s",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The clock makes 3 billion cycles every second."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bus-exam-1",
+      "title": "The system bus",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The system bus connects the CPU, the main memory and the I/O controllers. It is made up of a data bus, an address bus and a control bus.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bus-exam-1a",
+          "part_label": "(a)",
+          "title": "Names and purposes",
+          "type": "labelled_answers",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "For each bus, describe its purpose and state its direction.",
+          "content": {
+            "fields": [
+              {
+                "key": "data",
+                "label": "Data bus",
+                "lines": 2
+              },
+              {
+                "key": "address",
+                "label": "Address bus",
+                "lines": 2
+              },
+              {
+                "key": "control",
+                "label": "Control bus",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Data: carries data / instructions between components (1); bidirectional (1). Address: carries address of the location to read / write (1); unidirectional from CPU (1). Control: carries control / timing signals e.g. read, write, clock, interrupt (1); bidirectional (1)",
+            "points": [
+              {
+                "criterion": "Data purpose",
+                "marks": 1
+              },
+              {
+                "criterion": "Data direction",
+                "marks": 1
+              },
+              {
+                "criterion": "Address purpose",
+                "marks": 1
+              },
+              {
+                "criterion": "Address direction",
+                "marks": 1
+              },
+              {
+                "criterion": "Control purpose",
+                "marks": 1
+              },
+              {
+                "criterion": "Control direction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Data bus: carries data and instructions; two-way. Address bus: carries the address of the memory location; one-way from the CPU. Control bus: carries signals such as memory read/write and clock; two-way."
+          }
+        },
+        {
+          "key": "bus-exam-1b",
+          "part_label": "(b)",
+          "title": "Writing to memory",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the three buses are used when the CPU **writes** a value to memory.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Address placed on address bus (from MAR) (1); data placed on data bus (from MDR) (1); memory write signal sent on control bus (1)",
+            "points": [
+              {
+                "criterion": "Address bus",
+                "marks": 1
+              },
+              {
+                "criterion": "Data bus",
+                "marks": 1
+              },
+              {
+                "criterion": "Control bus write",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The address is sent from the MAR along the address bus, the value is sent from the MDR along the data bus, and a memory-write signal is sent along the control bus."
+          }
+        },
+        {
+          "key": "bus-exam-1c",
+          "part_label": "(c)",
+          "title": "Address bus width",
+          "type": "calculation",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "An address bus has **20** lines. Calculate the number of memory locations that can be addressed.",
+          "content": {
+            "unit": "locations"
+          },
+          "scheme": {
+            "mark_scheme": "2²⁰ = 1 048 576 (1)",
+            "points": [
+              {
+                "criterion": "1048576",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1048576",
+            "accepted": {
+              "values": [
+                "1048576"
+              ],
+              "numeric": true,
+              "ignore_spaces": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "bus-exam-2",
+      "title": "Fetch–decode–execute",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The main function of the CPU is to execute programs using the fetch–decode–execute cycle.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bus-exam-2a",
+          "part_label": "(a)",
+          "title": "Correct the notation",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The fetch stage is described in register notation below. The given notation contains **three** errors. Write the correct notation in the last column for each wrong step.",
+          "content": {
+            "columns": [
+              "Step",
+              "Given notation",
+              "Correct notation"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "1",
+                "MAR ← [MDR]",
+                null
+              ],
+              [
+                "2",
+                "PC ← [PC] + 1",
+                null
+              ],
+              [
+                "3",
+                "MDR ← [MAR]",
+                null
+              ],
+              [
+                "4",
+                "CIR ← [PC]",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 MAR ← [PC] (1); 2 correct; 3 MDR ← [[MAR]] (1); 4 CIR ← [MDR] (1)",
+            "points": [
+              {
+                "criterion": "Step 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Step 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Step 4",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "MAR ← [PC]||MAR <- [PC]||MAR←[PC]||MAR <- PC||MAR ← PC"
+                ],
+                [
+                  null,
+                  null,
+                  ""
+                ],
+                [
+                  null,
+                  null,
+                  "MDR ← [[MAR]]||MDR <- [[MAR]]||MDR←[[MAR]]"
+                ],
+                [
+                  null,
+                  null,
+                  "CIR ← [MDR]||CIR <- [MDR]||CIR←[MDR]||CIR <- MDR||CIR ← MDR"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "bus-exam-2b",
+          "part_label": "(b)",
+          "title": "Each stage",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain what happens at each stage of the cycle.",
+          "content": {
+            "fields": [
+              {
+                "key": "fetch",
+                "label": "Fetch",
+                "lines": 2
+              },
+              {
+                "key": "decode",
+                "label": "Decode",
+                "lines": 2
+              },
+              {
+                "key": "execute",
+                "label": "Execute",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Fetch: next instruction copied from memory (address in PC) into CPU registers / CIR, PC incremented (1). Decode: control unit interprets the instruction / opcode and operand (1). Execute: instruction carried out by ALU / CU, e.g. calculation, data transfer, jump (1)",
+            "points": [
+              {
+                "criterion": "Fetch",
+                "marks": 1
+              },
+              {
+                "criterion": "Decode",
+                "marks": 1
+              },
+              {
+                "criterion": "Execute",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Fetch: the instruction at the address in the PC is copied into the CIR and the PC is incremented. Decode: the control unit works out what the opcode and operand mean. Execute: the instruction is carried out, e.g. the ALU performs a calculation."
+          }
+        },
+        {
+          "key": "bus-exam-2c",
+          "part_label": "(c)",
+          "title": "Trace",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "PC = **100**. Address 100 contains **ADD 60**; address 60 contains **5**; the ACC contains **10** before the instruction. Complete the values after the instruction has been fetched and executed.",
+          "content": {
+            "columns": [
+              "PC",
+              "CIR",
+              "ACC"
+            ],
+            "rows": 1
+          },
+          "scheme": {
+            "mark_scheme": "PC 101 (1); CIR ADD 60 (1); ACC 15 (1)",
+            "points": [
+              {
+                "criterion": "101",
+                "marks": 1
+              },
+              {
+                "criterion": "ADD 60",
+                "marks": 1
+              },
+              {
+                "criterion": "15",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| PC | CIR | ACC |\n|---|---|---|\n| 101 | ADD 60 | 15 |",
+            "accepted": {
+              "rows": [
+                [
+                  "101",
+                  "ADD 60||ADD60",
+                  "15"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "bus-exam-2d",
+          "part_label": "(d)",
+          "title": "Interrupts",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how an interrupt from the printer is handled within the cycle.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "CPU checks for interrupts at the end of each cycle (1); saves registers, runs interrupt service routine, restores registers and continues (1)",
+            "points": [
+              {
+                "criterion": "Check end of cycle",
+                "marks": 1
+              },
+              {
+                "criterion": "Save, ISR, restore",
+                "marks": 1
+              }
+            ],
+            "model_answer": "At the end of the current cycle the CPU detects the interrupt, saves its registers, runs the printer's interrupt service routine and then restores the registers to continue the program."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bus-exam-3",
+      "title": "CPU performance",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "When developing a new processor, manufacturers consider different methods to make its performance more efficient.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bus-exam-3a",
+          "part_label": "(a)",
+          "title": "Factors",
+          "type": "table_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table with **three** factors that affect the performance of the CPU. For each factor give a definition.",
+          "content": {
+            "columns": [
+              "Factor",
+              "Definition"
+            ],
+            "rows": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any three factors (1 each) with matching definition (1 each): clock speed — number of cycles per second; bus width — number of bits a bus can carry at one time; word length — number of bits processed as one unit; number of cores — independent processing units; cache size — amount of fast memory in the CPU",
+            "points": [
+              {
+                "criterion": "Factor 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Definition 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Factor 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Definition 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Factor 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Definition 3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Factor | Definition |\n|---|---|\n| Clock speed | Number of cycles per second |\n| Bus width | Number of bits a bus can carry at one time |\n| Word length | Number of bits the CPU processes as one unit |"
+          }
+        },
+        {
+          "key": "bus-exam-3b",
+          "part_label": "(b)",
+          "title": "Clock speed",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe the effect of increasing the clock speed.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Instructions executed at a faster rate (1); fetch–decode–execute cycles happen faster / more per second (1); increased heat may cause overheating / malfunction (1)",
+            "points": [
+              {
+                "criterion": "Faster",
+                "marks": 1
+              },
+              {
+                "criterion": "More cycles",
+                "marks": 1
+              },
+              {
+                "criterion": "Heat",
+                "marks": 1
+              }
+            ],
+            "model_answer": "More cycles per second mean instructions execute faster and more fetch–decode–execute cycles complete, but the processor gets hotter and may overheat."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "The components of the CPU, how data is transferred between the CPU, memory and I/O through the address, data and control buses, the registers and steps of the fetch–decode–execute cycle in register transfer notation, interrupts, and how clock speed, word length, bus width, cores and cache affect performance.",
   "theory": [
+    {
+      "title": "The CPU and the system bus",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Central Processing Unit (CPU)",
+          "content": "The part of the computer that **fetches, decodes and executes** program instructions. It contains the **control unit (CU)**, the **arithmetic logic unit (ALU)**, **registers** and **cache**, and is connected to main memory and input/output devices by the **system bus**."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Control unit (CU)",
+              "content": "- **Decodes** instructions and **sends control signals** to the other components.\n- Coordinates the **fetch–decode–execute** cycle and the movement of data along the buses."
+            },
+            {
+              "title": "Arithmetic logic unit (ALU)",
+              "content": "- Performs **arithmetic** (add, subtract) and **logical** operations (AND, OR, NOT, comparisons, shifts).\n- Results are usually stored in the **accumulator (ACC)**."
+            },
+            {
+              "title": "Registers",
+              "content": "- Very small, very fast storage locations **inside the CPU** that hold addresses, instructions and data being used right now."
+            },
+            {
+              "title": "Clock",
+              "content": "- Sends regular **pulses** that keep all components **synchronised**; each pulse is one **clock cycle**."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "term": "System bus",
+          "content": "A set of **parallel wires (lines)** on the motherboard that **connects the CPU, main memory and input/output (I/O) controllers**. Each wire carries **one bit** at a time. The system bus is made up of the **address bus**, the **data bus** and the **control bus**."
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "   +---------------------------------+\n   |   CPU: control unit, ALU,       |\n   |        registers                |\n   +---------------------------------+\n       |           ^ |          ^ |\n       | address   | | data     | | control\n       | (one-way) | | (two-way)| | (two-way)\n       v           | v          | v\n   ===================================  system bus\n       |           ^ |          ^ |\n       v           | v          | v\n   +--------------+    +--------------+\n   | Main memory  |    |     I/O      |\n   | (RAM / ROM)  |    | controllers  |\n   +--------------+    +--------------+",
+          "caption": "Buses connecting the components"
+        }
+      ]
+    },
     {
       "title": "Address, data and control buses",
       "objectives": [
@@ -10,52 +1538,106 @@
       ],
       "blocks": [
         {
-          "type": "definition",
-          "term": "System bus",
-          "content": "A set of parallel wires that **connects the CPU, main memory and input/output controllers**, made of three buses."
-        },
-        {
           "type": "comparison",
+          "title": "The three buses",
           "columns": [
             "Bus",
             "Carries",
-            "Direction"
+            "Direction",
+            "Width affects"
           ],
           "rows": [
             [
               "**Address bus**",
-              "The **memory address** (or I/O port) to be read or written",
-              "**One-way**: CPU → memory/I/O"
+              "The **address** of the memory location (or I/O port) to be read from or written to",
+              "**Unidirectional** (one-way): CPU → memory / I/O",
+              "How **much memory** can be addressed: n lines → **2ⁿ** locations"
             ],
             [
               "**Data bus**",
               "The **data or instruction** being transferred",
-              "**Two-way** (bidirectional)"
+              "**Bidirectional** (two-way): CPU ↔ memory / I/O",
+              "How **many bits** are transferred **at once**"
             ],
             [
               "**Control bus**",
-              "**Control and timing signals**: memory read, memory write, clock, interrupt request, bus request, reset",
-              "Two-way"
+              "**Control and timing signals**",
+              "**Bidirectional**: signals go both to and from the CPU",
+              "—"
             ]
           ]
         },
         {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  CPU[CPU] -- address bus --> MEM[Main memory]\n  CPU -- address bus --> IO[I/O controllers]\n  CPU <-- data bus --> MEM\n  CPU <-- data bus --> IO\n  CPU <-. control bus .-> MEM\n  CPU <-. control bus .-> IO",
-          "caption": "Buses connecting the components"
+          "type": "comparison",
+          "title": "Signals on the control bus",
+          "columns": [
+            "Signal",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "**Memory read**",
+              "Tells memory to put the contents of the addressed location on the data bus"
+            ],
+            [
+              "**Memory write**",
+              "Tells memory to store the value on the data bus at the addressed location"
+            ],
+            [
+              "**Clock**",
+              "Synchronises the operations of all components"
+            ],
+            [
+              "**Interrupt request**",
+              "A device tells the CPU it needs attention"
+            ],
+            [
+              "**Bus request / bus grant**",
+              "A device asks for / is given control of the bus (e.g. for DMA)"
+            ],
+            [
+              "**Reset**",
+              "Restarts the system"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Reading data from memory",
+          "items": [
+            "The CPU puts the **address** in the **MAR**, and it is sent along the **address bus**.",
+            "The CU sends a **memory read** signal along the **control bus**.",
+            "Memory places the **contents** of that location on the **data bus**.",
+            "The data arrives in the **MDR**."
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Writing data to memory",
+          "items": [
+            "The **address** is placed in the **MAR** and sent along the **address bus**.",
+            "The **data** is placed in the **MDR** and sent along the **data bus**.",
+            "The CU sends a **memory write** signal along the **control bus**.",
+            "Memory stores the data at that address."
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Why is the address bus one-way?",
+          "content": "Only the **CPU** decides **which** location to use, so addresses always travel **from** the CPU. Data must travel **both** ways — into the CPU when reading and out of it when writing — so the data bus is **two-way**."
         }
       ]
     },
     {
-      "title": "The fetch-decode-execute cycle",
+      "title": "Registers used in the cycle",
       "objectives": [
         "12.3.2.5"
       ],
       "blocks": [
         {
           "type": "comparison",
-          "title": "Registers",
+          "title": "Special-purpose registers",
           "columns": [
             "Register",
             "Purpose"
@@ -63,46 +1645,79 @@
           "rows": [
             [
               "**PC** — Program Counter",
-              "Holds the **address of the next instruction**"
+              "Holds the **address of the next instruction** to be fetched"
             ],
             [
               "**MAR** — Memory Address Register",
-              "Holds the address of the location to be read/written"
+              "Holds the **address** of the memory location to be read or written"
             ],
             [
-              "**MDR** — Memory Data Register (MBR)",
-              "Holds the data/instruction just read from or to be written to memory"
+              "**MDR** — Memory Data Register (also **MBR**, Memory Buffer Register)",
+              "Holds the **data or instruction** just read from memory or about to be written"
             ],
             [
               "**CIR** — Current Instruction Register",
-              "Holds the instruction being decoded and executed"
+              "Holds the **instruction** currently being decoded and executed"
             ],
             [
               "**ACC** — Accumulator",
-              "Holds the results of calculations"
+              "Holds the **results** of calculations by the ALU"
             ],
             [
-              "Status register",
-              "Flags: zero, negative, carry, overflow"
+              "**Status register**",
+              "Holds **flags**: zero, negative, carry, overflow, interrupt"
+            ],
+            [
+              "**IX** — Index register",
+              "Used for **indexed addressing**"
             ]
           ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "- **←** means \"is copied into\".\n- **[ ]** means \"**the contents of**\": `[PC]` = the value stored in the PC.\n- **[[MAR]]** means \"the contents of the **memory location** whose address is in the MAR\"."
+        }
+      ]
+    },
+    {
+      "title": "The fetch–decode–execute cycle",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Instruction cycle (fetch–decode–execute)",
+          "content": "The sequence of steps the CPU repeats **for every instruction**: **fetch** the next instruction from memory, **decode** it to work out what it means, and **execute** it."
         },
         {
           "type": "steps",
           "title": "Fetch–decode–execute in register transfer notation",
           "items": [
-            "**MAR ← [PC]** — the address of the next instruction is copied to the MAR (sent along the address bus).",
-            "**PC ← [PC] + 1** — the PC is incremented to point to the following instruction.",
-            "**MDR ← [[MAR]]** — the instruction at that address is read into the MDR via the data bus (control bus: *memory read*).",
-            "**CIR ← [MDR]** — the instruction is copied to the CIR.",
-            "**Decode** — the control unit splits the instruction into **opcode** and **operand** and works out what to do.",
-            "**Execute** — the ALU or control unit carries it out (e.g. load, add, store, jump — a jump changes the PC).",
-            "Check for **interrupts**, then repeat."
+            "**MAR ← [PC]** — the address of the next instruction is copied from the PC to the MAR and sent along the **address bus**.",
+            "**PC ← [PC] + 1** — the PC is **incremented** so it points to the following instruction.",
+            "**MDR ← [[MAR]]** — a **memory read** signal is sent on the **control bus**; the instruction at that address travels along the **data bus** into the MDR.",
+            "**CIR ← [MDR]** — the instruction is copied into the CIR.",
+            "**Decode** — the **control unit** splits the instruction into **opcode** and **operand** and works out what must be done.",
+            "**Execute** — the instruction is carried out: e.g. data is loaded or stored, the **ALU** does a calculation, or a **jump** puts a new address into the PC.",
+            "**Check for interrupts**, then start the next cycle."
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "Learn the notation exactly: square brackets `[ ]` mean **\"the contents of\"**. `[[MAR]]` = the contents of the address held in MAR."
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  F[FETCH: MAR gets PC, PC incremented, MDR gets instruction, CIR gets MDR] --> D[DECODE: control unit splits opcode and operand]\n  D --> E[EXECUTE: ALU calculates, data moved, or PC changed by a jump]\n  E --> I{Interrupt waiting?}\n  I -- no --> F\n  I -- yes --> S[Save registers, run interrupt service routine, restore]\n  S --> F",
+          "caption": "The instruction cycle"
+        },
+        {
+          "type": "example",
+          "title": "Worked example — executing LDD 50 (load the contents of address 50)",
+          "content": "PC = **20**, memory address 20 holds the instruction **LDD 50**, address 50 holds **37**.\n| Step | Notation | Result |\n|---|---|---|\n| 1 | MAR ← [PC] | MAR = 20 |\n| 2 | PC ← [PC] + 1 | PC = 21 |\n| 3 | MDR ← [[MAR]] | MDR = LDD 50 |\n| 4 | CIR ← [MDR] | CIR = LDD 50 |\n| 5 | Decode | Opcode LDD (load direct), operand 50 |\n| 6 | MAR ← 50 | MAR = 50 |\n| 7 | MDR ← [[MAR]] | MDR = 37 |\n| 8 | ACC ← [MDR] | ACC = 37 |"
+        },
+        {
+          "type": "definition",
+          "term": "Interrupt",
+          "content": "A **signal** from hardware or software (e.g. a key pressed, printer out of paper, a timer, a program error) telling the CPU that something **needs attention**. At the end of each cycle the CPU checks for interrupts; if one has a higher priority, it **saves the registers**, runs the **interrupt service routine (ISR)** and then **restores** the registers and continues."
         }
       ]
     },
@@ -114,49 +1729,105 @@
       "blocks": [
         {
           "type": "comparison",
+          "title": "Factors that affect CPU performance",
           "columns": [
             "Factor",
-            "Meaning",
-            "Effect on performance"
+            "Definition",
+            "Effect of increasing it"
           ],
           "rows": [
             [
-              "**Clock speed**",
-              "Number of cycles per second (GHz)",
-              "Higher → more instructions per second (limited by heat)"
+              "**Clock speed** (clock rate)",
+              "The **number of clock cycles per second**, measured in **hertz** (3.5 GHz = 3.5 billion cycles per second)",
+              "**More instructions** executed per second; fetch–decode–execute happens faster. But more **heat** and power — risk of overheating"
             ],
             [
               "**Word length**",
-              "Number of bits the CPU processes as one unit (32, 64 bits)",
-              "Longer → larger numbers and more data per operation"
+              "The **number of bits the CPU can process as one unit** (e.g. 32 or 64 bits)",
+              "Larger numbers and **more data** processed in one operation; fewer instructions needed"
             ],
             [
               "**Data bus width**",
-              "Number of bits transferred at once",
-              "Wider → more data per transfer, fewer transfers"
+              "The **number of bits the data bus can carry at one time**",
+              "**More data per transfer** → fewer transfers needed"
             ],
             [
               "**Address bus width**",
-              "Number of address lines",
-              "Wider → more memory can be addressed (2ⁿ locations)"
+              "The **number of lines** in the address bus",
+              "**More memory locations** can be addressed (2ⁿ)"
             ],
             [
-              "Number of cores",
-              "Independent processing units",
-              "More tasks in parallel (if software supports it)"
+              "**Number of cores**",
+              "Independent processing units on one chip",
+              "Several instructions / tasks processed **in parallel** — if the software is written to use them"
             ],
             [
-              "Cache size",
-              "Fast memory inside the CPU",
-              "Larger → fewer slow RAM accesses"
+              "**Cache size**",
+              "Very fast memory inside / near the CPU",
+              "Frequently used data and instructions found quickly → fewer slow RAM accesses"
             ]
           ]
         },
         {
           "type": "example",
-          "content": "Doubling the data bus width from 32 to 64 bits lets the CPU transfer **8 bytes instead of 4** in one bus cycle, so moving a block of data takes about **half as many** transfers."
+          "title": "Worked examples",
+          "content": "- A **3 GHz** clock gives 3 000 000 000 cycles per second, so one cycle lasts 1 ÷ 3 × 10⁹ ≈ **0.33 ns**.\n- Widening the data bus from **32 to 64 bits** transfers **8 bytes instead of 4** per bus cycle, so moving 1 MB takes about **half** as many transfers.\n- A **64-bit** data bus at **100 MHz** can transfer 8 bytes × 100 000 000 = **800 MB per second**.\n- Adding **one** line to the address bus **doubles** the addressable memory (2²⁰ = 1 MiB → 2²¹ = 2 MiB)."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Limits of clock speed",
+              "content": "- Higher clock speed produces more **heat**; without good cooling the CPU may **malfunction** or slow itself down (**throttling**).\n- **Overclocking** runs a CPU faster than its rated speed — faster, but risk of instability and damage."
+            },
+            {
+              "title": "Limits of more cores",
+              "content": "- Doubling the cores does **not** double the speed: some tasks cannot be split, and cores must **share** the buses and memory."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.3.2.4",
+        "12.3.2.5",
+        "12.3.2.6"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write the names and purposes of the buses used by the CPU. [6]**\n**Data bus** (1) — carries data / instructions between the CPU, memory and I/O, in **both directions** (1). **Address bus** (1) — carries the **address** of the location data is read from or written to, **one way** from the CPU (1). **Control bus** (1) — carries **control signals** such as memory read / write, clock and interrupts (1).\n\n**Q: The notation has errors: MDR ← [PC]; PC ← [PC] + 2; CIR ← [MAR]. Correct them. [3]**\n**MAR ← [PC]** (1); **PC ← [PC] + 1** (1); **CIR ← [MDR]** (1).\n\n**Q: Describe the effect of increasing the clock speed. [3]**\nMore cycles per second, so instructions are **executed faster** (1); the fetch–decode–execute cycle happens **more often** (1); more **heat** is produced, which may cause overheating / malfunction (1).\n\n**Q: Explain what happens in the fetch stage. [3]**\nThe address in the **PC** is copied to the **MAR** (1); the PC is **incremented** (1); the instruction at that address is copied into the **MDR** and then the **CIR** (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying the **address bus** is two-way — it is **one-way** (from the CPU).\n- Writing **MDR ← [PC]** — the PC's value goes to the **MAR**.\n- Saying the PC holds the **current** instruction — it holds the **address** of the **next** one.\n- Confusing **word length** (bits processed at once) with **bus width** (bits transferred at once).\n- Saying a higher clock speed \"makes the computer store more\" — it makes it **process faster**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Name the three buses, what each carries and in which direction.",
+            "Describe how data is read from memory using the buses.",
+            "State the purpose of the PC, MAR, MDR, CIR and ACC.",
+            "Write the fetch stage in register transfer notation.",
+            "What is an interrupt and when does the CPU check for one?",
+            "Explain how clock speed, word length and bus width affect performance."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "System buses and the instruction cycle — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "bus-exam-1",
+      "bus-exam-2",
+      "bus-exam-3"
+    ]
+  }
 }

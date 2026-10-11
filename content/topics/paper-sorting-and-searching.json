@@ -1330,19 +1330,18 @@
       "objectives": [
         "11.5.2.5@paper"
       ],
-      "text": "The array `Number[1:8]` is sorted into ascending order.\n\n| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|\n| Number | 3 | 8 | 12 | 19 | 27 | 31 | 45 | 52 |\n\nTrace a binary search for `Wanted ← 27` using this algorithm.\n\n```text\nLow ← 1\nHigh ← 8\nFound ← FALSE\n\nWHILE Low <= High AND Found = FALSE\n    Middle ← (Low + High) DIV 2\n    IF Number[Middle] = Wanted THEN\n        Found ← TRUE\n    ELSE\n        IF Number[Middle] < Wanted THEN\n            Low ← Middle + 1\n        ELSE\n            High ← Middle - 1\n        ENDIF\n    ENDIF\n    OUTPUT Low, High, Middle, Number[Middle], Found\nENDWHILE\n```\n\nComplete the trace table for each output.",
+      "text": "The array `Number[1:8]` is sorted into ascending order.\n\n| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|\n| Number | 3 | 8 | 12 | 19 | 27 | 31 | 45 | 52 |\n\nTrace a binary search for `Wanted ← 27` using this algorithm.\n\n```text\nLow ← 1\nHigh ← 8\nFound ← FALSE\n\nWHILE Low <= High AND Found = FALSE\n    Middle ← (Low + High) DIV 2\n    OUTPUT Low, High, Middle, Number[Middle]\n    IF Number[Middle] = Wanted THEN\n        Found ← TRUE\n    ELSE\n        IF Number[Middle] < Wanted THEN\n            Low ← Middle + 1\n        ELSE\n            High ← Middle - 1\n        ENDIF\n    ENDIF\nENDWHILE\n```\n\nComplete the trace table to show each line that is output.",
       "content": {
         "columns": [
           "Low",
           "High",
           "Middle",
-          "Number[Middle]",
-          "Found"
+          "Number[Middle]"
         ],
         "rows": 3
       },
       "scheme": {
-        "mark_scheme": "First output row: `5, 8, 4, 19, FALSE` (1)\nSecond output row: `5, 5, 6, 31, FALSE` (1)\nThird output row: `5, 5, 5, 27, TRUE` (1)",
+        "mark_scheme": "First output row: `1, 8, 4, 19` (1)\nSecond output row: `5, 8, 6, 31` (1)\nThird output row: `5, 5, 5, 27` (1)",
         "points": [
           {
             "criterion": "Correct first output row.",
@@ -1357,34 +1356,31 @@
             "marks": 1
           }
         ],
-        "model_answer": "| Low | High | Middle | Number[Middle] | Found |\n|---:|---:|---:|---:|---|\n| 5 | 8 | 4 | 19 | FALSE |\n| 5 | 5 | 6 | 31 | FALSE |\n| 5 | 5 | 5 | 27 | TRUE |",
+        "model_answer": "| Low | High | Middle | Number[Middle] |\n|---:|---:|---:|---:|\n| 1 | 8 | 4 | 19 |\n| 5 | 8 | 6 | 31 |\n| 5 | 5 | 5 | 27 |",
         "accepted": {
           "rows": [
             [
-              "5",
+              "1",
               "8",
               "4",
-              "19",
-              "FALSE"
+              "19"
             ],
             [
               "5",
-              "5",
+              "8",
               "6",
-              "31",
-              "FALSE"
+              "31"
             ],
             [
               "5",
               "5",
               "5",
-              "27",
-              "TRUE"
+              "27"
             ]
           ]
         },
         "ai_instructions": "",
-        "explanation": "The first middle item is 19, so the lower boundary moves to 5. The next middle item is 31, so the upper boundary moves to 5, and the final comparison finds 27."
+        "explanation": "Middle = (1 + 8) DIV 2 = 4 and Number[4] = 19 < 27, so Low becomes 5. Middle = (5 + 8) DIV 2 = 6 and Number[6] = 31 > 27, so High becomes 5. Middle = (5 + 5) DIV 2 = 5 and Number[5] = 27, so Found becomes TRUE and the loop stops."
       }
     },
     {

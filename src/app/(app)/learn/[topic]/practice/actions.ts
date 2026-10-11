@@ -129,6 +129,8 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
     aiConfidenceThreshold: settings.threshold,
     content: question.content,
     groupStem: question.parent?.question_text ?? null,
+    questionId: question.id,
+    context: "practice",
   });
 
   if (outcome.status === "FAILED") {

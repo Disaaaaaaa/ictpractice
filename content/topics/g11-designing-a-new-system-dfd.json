@@ -1,10 +1,1193 @@
 {
   "topic": "g11-designing-a-new-system-dfd",
-  "questions": [],
-  "summary": "Data flow diagrams — their symbols, context (level 0) and level 1 diagrams, and how to draw a DFD that shows input, processing, storage and output.",
+  "questions": [
+    {
+      "key": "dfd-purpose",
+      "title": "Purpose of a DFD",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Describe the purpose of a **data flow diagram**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Shows how data moves / flows through a system (1)\n- its inputs, processes, outputs and storage / where data comes from and goes to (1)",
+        "points": [
+          {
+            "criterion": "Movement of data",
+            "marks": 1
+          },
+          {
+            "criterion": "Inputs, processes, outputs, storage",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It shows how data flows through a system: where it comes from, how it is processed, where it is stored and where the outputs go."
+      }
+    },
+    {
+      "key": "dfd-symbols-match",
+      "title": "DFD symbols",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Match each DFD symbol to what it represents.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Rectangle"
+          },
+          {
+            "key": "L2",
+            "text": "Rounded rectangle with a number"
+          },
+          {
+            "key": "L3",
+            "text": "Open-ended rectangle labelled D1"
+          },
+          {
+            "key": "L4",
+            "text": "Labelled arrow"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "External entity"
+          },
+          {
+            "key": "R2",
+            "text": "Process"
+          },
+          {
+            "key": "R3",
+            "text": "Data store"
+          },
+          {
+            "key": "R4",
+            "text": "Data flow"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–Entity, L2–Process, L3–Store, L4–Flow. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dfd-classify-tick",
+      "title": "Classify elements",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*A hotel booking system: guests send booking requests; the system checks room availability in the rooms file, records the booking in the bookings file and sends a confirmation to the guest.*\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Item",
+          "External entity",
+          "Process",
+          "Data store",
+          "Data flow"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Guest",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Check availability",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Bookings",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Confirmation",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Guest → entity (1); Check availability → process (1); Bookings → data store (1); Confirmation → data flow (1)",
+        "points": [
+          {
+            "criterion": "Guest",
+            "marks": 1
+          },
+          {
+            "criterion": "Check availability",
+            "marks": 1
+          },
+          {
+            "criterion": "Bookings",
+            "marks": 1
+          },
+          {
+            "criterion": "Confirmation",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dfd-flows-tick",
+      "title": "Allowed flows",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each data flow is **allowed** in a DFD.",
+      "content": {
+        "columns": [
+          "Data flow",
+          "Allowed",
+          "Not allowed"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Customer → Process",
+            null,
+            null
+          ],
+          [
+            "Customer → Data store",
+            null,
+            null
+          ],
+          [
+            "Process → Data store",
+            null,
+            null
+          ],
+          [
+            "Data store → Data store",
+            null,
+            null
+          ],
+          [
+            "Customer → Supplier",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Allowed; 2 Not; 3 Allowed; 4 Not; 5 Not\n\nFive correct (4); four (3); three (2); one or two (1)",
+        "points": [
+          {
+            "criterion": "One or two rows",
+            "marks": 1
+          },
+          {
+            "criterion": "Three rows",
+            "marks": 1
+          },
+          {
+            "criterion": "Four rows",
+            "marks": 1
+          },
+          {
+            "criterion": "All five rows",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "ai_instructions": "Award 4 for five correct, 3 for four, 2 for three, 1 for one or two."
+      }
+    },
+    {
+      "key": "dfd-context-level1",
+      "title": "Context vs level 1",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Explain the difference between a **context diagram** and a **first-level DFD**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A context diagram shows the whole system as one process with the external entities and flows; no data stores (1)\n- A level-1 DFD splits the system into its main processes and shows the data stores and flows between them (1)",
+        "points": [
+          {
+            "criterion": "Context diagram",
+            "marks": 1
+          },
+          {
+            "criterion": "Level 1",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A context diagram shows the whole system as a single process connected to the external entities, without data stores; a level-1 DFD breaks it into the main processes and adds the data stores."
+      }
+    },
+    {
+      "key": "dfd-naming-mcq",
+      "title": "Naming a process",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Which is the best name for a **process** in a DFD?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Customer"
+        },
+        {
+          "key": "B",
+          "content": "Order details"
+        },
+        {
+          "key": "C",
+          "content": "Calculate total cost"
+        },
+        {
+          "key": "D",
+          "content": "Orders file"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Processes are named verb + noun. A is an entity, B a data flow, D a data store."
+      }
+    },
+    {
+      "key": "dfd-black-hole",
+      "title": "Black hole",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "In a DFD, the process \"2 Record payment\" has an arrow coming in from the Customer but no arrows going out. Explain why this is an error.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A process must transform input into output / have at least one output (1)\n- this is a black hole — the payment data disappears; it should go to a data store / entity (1)",
+        "points": [
+          {
+            "criterion": "Process needs an output",
+            "marks": 1
+          },
+          {
+            "criterion": "Black hole / correction",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Every process must produce an output; here the payment goes in and disappears (a black hole). It should, for example, be saved to the Payments data store."
+      }
+    },
+    {
+      "key": "dfd-entity-store",
+      "title": "Entity to store",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "A student draws an arrow labelled \"new member details\" from the external entity **Member** directly to the data store **D1 Members**. Explain the error and how to correct it.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- An external entity cannot send data directly to a data store (1)\n- add a process, e.g. \"1 Register member\", between them: Member → process → D1 (1)",
+        "points": [
+          {
+            "criterion": "Rule broken",
+            "marks": 1
+          },
+          {
+            "criterion": "Correction with a process",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Data can only be stored by a process. The flow should go from Member to a process such as \"1 Register member\", which then writes to D1 Members."
+      }
+    },
+    {
+      "key": "dfd-flow-label-tf",
+      "title": "Labelling flows",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Every data flow arrow in a DFD should be labelled with the name of the data it carries.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "dfd-not-flowchart-tf",
+      "title": "Decisions in a DFD",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "A DFD shows the order in which the processes are carried out and the decisions between them.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Order and decisions are shown in a flowchart; a DFD shows only the movement of data."
+      }
+    },
+    {
+      "key": "dfd-identify-elements",
+      "title": "Find the elements",
+      "type": "labelled_answers",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*In a school canteen system, pupils place orders on a tablet. The system checks the menu file for prices, records the order in the orders file and sends the kitchen a list of meals to prepare.*\n\nIdentify:",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Two external entities",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "Two data stores",
+            "lines": 1
+          },
+          {
+            "key": "3",
+            "label": "One process",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Entities: Pupil, Kitchen (1)\nStores: Menu, Orders (1)\nProcess: e.g. Take order / Check price / Send meal list (1)",
+        "points": [
+          {
+            "criterion": "Entities",
+            "marks": 1
+          },
+          {
+            "criterion": "Stores",
+            "marks": 1
+          },
+          {
+            "criterion": "Process",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Entities: Pupil, Kitchen. Data stores: Menu, Orders. Process: Record order."
+      }
+    },
+    {
+      "key": "dfd-draw-context",
+      "title": "Draw a context diagram",
+      "type": "dfd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*A cinema booking system: customers send seat requests and payment details and receive tickets. The bank receives payment requests and returns payment confirmations.*\n\nDraw the **context diagram** for the cinema booking system.",
+      "content": {
+        "starter": {
+          "nodes": [
+            {
+              "id": "system",
+              "type": "dfd_process",
+              "label": "0 Cinema booking system",
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "edges": []
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Entities Customer and Bank (1)\nCustomer → system: seat request, payment details (1)\nSystem → Customer: ticket (1)\nSystem ↔ Bank: payment request / confirmation in correct directions (1)\nNo data stores on a context diagram.",
+        "points": [
+          {
+            "criterion": "Both entities",
+            "marks": 1
+          },
+          {
+            "criterion": "Customer inputs",
+            "marks": 1
+          },
+          {
+            "criterion": "Ticket output",
+            "marks": 1
+          },
+          {
+            "criterion": "Bank flows",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Customer —seat request, payment details→ 0 Cinema booking system —ticket→ Customer; system —payment request→ Bank —payment confirmation→ system.",
+        "ai_instructions": "Deduct 1 mark if data stores are added to the context diagram."
+      }
+    },
+    {
+      "key": "dfd-draw-library",
+      "title": "Draw a level-1 DFD",
+      "type": "dfd",
+      "marks": 6,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AI",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*In a school library, a student gives a book ID and student card. The system checks the student in the Students file and records the loan in the Loans file, then gives the student a loan receipt. When books are returned, the system updates the loan in the Loans file. Each week the system sends the librarian a list of overdue books, using the Loans file.*\n\nDraw a **first-level DFD** for the library system.",
+      "content": {
+        "starter": {
+          "nodes": [
+            {
+              "id": "student",
+              "type": "entity",
+              "label": "Student",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "librarian",
+              "type": "entity",
+              "label": "Librarian",
+              "x": 3,
+              "y": 1
+            }
+          ],
+          "edges": []
+        }
+      },
+      "scheme": {
+        "mark_scheme": "- Processes: Issue book, Return book, Produce overdue list (with verb + noun names) (2)\n- Data stores: D1 Students, D2 Loans (1)\n- Inputs from Student (book ID, student card, returned book) (1)\n- Outputs: loan receipt to Student, overdue list to Librarian (1)\n- Store flows correct (read Students, write / read Loans) and no rule-breaking flows (1)",
+        "points": [
+          {
+            "criterion": "First processes",
+            "marks": 1
+          },
+          {
+            "criterion": "All three processes",
+            "marks": 1
+          },
+          {
+            "criterion": "Data stores",
+            "marks": 1
+          },
+          {
+            "criterion": "Inputs",
+            "marks": 1
+          },
+          {
+            "criterion": "Outputs",
+            "marks": 1
+          },
+          {
+            "criterion": "Store flows / rules",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Student —book ID, student card→ 1 Issue book; D1 Students —student details→ 1; 1 —loan record→ D2 Loans; 1 —loan receipt→ Student. Student —returned book ID→ 2 Return book; 2 —updated loan→ D2 Loans. D2 Loans —loan data→ 3 Produce overdue list —overdue list→ Librarian.",
+        "ai_instructions": "Accept equivalent process names and splits. Deduct for entity–store or store–store flows."
+      }
+    },
+    {
+      "key": "dfd-structured-shop",
+      "title": "An online shop DFD",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "*An online shop: customers send orders. The system checks the price of each product in the Products file and records the order in the Orders file. It sends the customer an invoice, and sends the warehouse a picking list.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-shop-a",
+          "part_label": "(a)",
+          "title": "Inputs and outputs",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "practice": true,
+          "text": "Identify **one** input and **one** output of the system.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Input",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Output",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Input: order (details) (1)\nOutput: invoice / picking list (1)",
+            "points": [
+              {
+                "criterion": "Input",
+                "marks": 1
+              },
+              {
+                "criterion": "Output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Input: order details. Output: invoice."
+          }
+        },
+        {
+          "key": "dfd-shop-b",
+          "part_label": "(b)",
+          "title": "Draw",
+          "type": "dfd",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "practice": true,
+          "text": "Draw a first-level DFD for the online shop.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "customer",
+                  "type": "entity",
+                  "label": "Customer",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "warehouse",
+                  "type": "entity",
+                  "label": "Warehouse",
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- At least two processes, e.g. Process order, Send picking list (1)\n- Data stores D1 Products, D2 Orders with correct read / write flows (1)\n- Order in from Customer, invoice out to Customer (1)\n- Picking list to Warehouse; all flows named, no rule-breaking (1)",
+            "points": [
+              {
+                "criterion": "Processes",
+                "marks": 1
+              },
+              {
+                "criterion": "Data stores",
+                "marks": 1
+              },
+              {
+                "criterion": "Customer flows",
+                "marks": 1
+              },
+              {
+                "criterion": "Warehouse flow / rules",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Customer —order→ 1 Process order; D1 Products —prices→ 1; 1 —order record→ D2 Orders; 1 —invoice→ Customer; D2 Orders —order data→ 2 Produce picking list —picking list→ Warehouse."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-exam-1",
+      "title": "DFD symbols and rules",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A systems analyst is designing a new system for a dental clinic and draws data flow diagrams.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-exam-1a",
+          "part_label": "(a)",
+          "title": "Symbols",
+          "type": "matching",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each DFD element to an example from the clinic.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "External entity"
+              },
+              {
+                "key": "L2",
+                "text": "Process"
+              },
+              {
+                "key": "L3",
+                "text": "Data store"
+              },
+              {
+                "key": "L4",
+                "text": "Data flow"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Patient"
+              },
+              {
+                "key": "R2",
+                "text": "2 Book appointment"
+              },
+              {
+                "key": "R3",
+                "text": "D1 Appointments"
+              },
+              {
+                "key": "R4",
+                "text": "Appointment confirmation"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Entity–Patient, Process–Book appointment, Store–Appointments, Flow–Confirmation. One mark per line.",
+            "accepted": {
+              "pairs": {
+                "L1": "R1",
+                "L2": "R2",
+                "L3": "R3",
+                "L4": "R4"
+              }
+            }
+          }
+        },
+        {
+          "key": "dfd-exam-1b",
+          "part_label": "(b)",
+          "title": "Allowed flows",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) to show whether each flow is allowed in a DFD.",
+          "content": {
+            "columns": [
+              "Flow",
+              "Allowed",
+              "Not allowed"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "Patient → D1 Appointments",
+                null,
+                null
+              ],
+              [
+                "2 Book appointment → D1 Appointments",
+                null,
+                null
+              ],
+              [
+                "Patient → Dentist",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 Not allowed (1); 2 Allowed (1); 3 Not allowed (1)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "dfd-exam-1c",
+          "part_label": "(c)",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the purpose of a data flow diagram.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Shows how data flows through the system — inputs, processes, outputs, storage (1)",
+            "points": [
+              {
+                "criterion": "Purpose",
+                "marks": 1
+              }
+            ],
+            "model_answer": "To show how data moves through the system between entities, processes and data stores."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-exam-2",
+      "title": "Checking a DFD",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A junior analyst describes his level-1 DFD for the clinic:\n\n- `Patient` → `D1 Patients` labelled \"personal details\"\n- `Patient` → `1 Book appointment` labelled \"appointment request\"\n- `1 Book appointment` → `D2 Appointments` labelled \"new appointment\"\n- `D2 Appointments` → `3 Print daily list` labelled \"today's appointments\"\n- `3 Print daily list` has no outgoing flow\n- `1 Book appointment` → `Patient` labelled \"send\"",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-exam-2a",
+          "part_label": "(a)",
+          "title": "Errors",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **two** errors in the DFD and explain how to correct each one.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Error 1 and correction",
+                "lines": 3
+              },
+              {
+                "key": "2",
+                "label": "Error 2 and correction",
+                "lines": 3
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "For each of two errors: error (1) + correction (1):\n- Patient → D1 directly: entity cannot write to a store → add a process, e.g. Register patient\n- Process 3 has no output (black hole) → add output, e.g. daily list → Dentist\n- Flow labelled \"send\" is an action, not data → rename e.g. appointment confirmation",
+            "points": [
+              {
+                "criterion": "First error",
+                "marks": 1
+              },
+              {
+                "criterion": "First correction",
+                "marks": 1
+              },
+              {
+                "criterion": "Second error",
+                "marks": 1
+              },
+              {
+                "criterion": "Second correction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Patient sends data straight to D1 Patients, which is not allowed; add a process \"Register patient\" between them. 2 Process 3 has no output, a black hole; add a flow \"daily appointment list\" to the Dentist."
+          }
+        },
+        {
+          "key": "dfd-exam-2b",
+          "part_label": "(b)",
+          "title": "Context vs level 1",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how this level-1 DFD is different from the context diagram of the clinic system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Context: whole system as one process, entities and flows only, no data stores (1)\n- Level 1: main processes and data stores shown (1)",
+            "points": [
+              {
+                "criterion": "Context",
+                "marks": 1
+              },
+              {
+                "criterion": "Level 1",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The context diagram shows the clinic system as one process connected to the patients and dentists, without data stores; the level-1 DFD shows the separate processes and the data stores."
+          }
+        },
+        {
+          "key": "dfd-exam-2c",
+          "part_label": "(c)",
+          "title": "Naming",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how processes and data flows should be named in a DFD.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Processes: verb + noun, e.g. Book appointment (1)\n- Data flows: noun naming the data carried, e.g. appointment confirmation (1)",
+            "points": [
+              {
+                "criterion": "Processes",
+                "marks": 1
+              },
+              {
+                "criterion": "Flows",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Processes are named with a verb and a noun, such as \"Book appointment\"; data flows are named with the data they carry, such as \"appointment confirmation\"."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-exam-3",
+      "title": "A gym booking system",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "*Members of a gym book classes online. The system checks that the member's membership is valid using the Members file, checks that the class has free places using the Classes file, and records the booking in the Bookings file. The member receives a booking confirmation. Each morning the system sends each trainer a list of the members booked on their classes.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-exam-3a",
+          "part_label": "(a)",
+          "title": "Draw the DFD",
+          "type": "dfd",
+          "marks": 8,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a first-level data flow diagram for the gym booking system. Show input, processing, storage and output.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "member",
+                  "type": "entity",
+                  "label": "Member",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "trainer",
+                  "type": "entity",
+                  "label": "Trainer",
+                  "x": 3,
+                  "y": 1
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- Processes with verb + noun names, e.g. Check membership, Book class, Produce class lists (2)\n- Data stores D1 Members, D2 Classes, D3 Bookings (2)\n- Input booking request from Member; output confirmation to Member (1)\n- Output class list to Trainer (1)\n- Correct read / write flows with stores (1)\n- All flows named; no entity–store / store–store flows (1)",
+            "points": [
+              {
+                "criterion": "Processes (some)",
+                "marks": 1
+              },
+              {
+                "criterion": "Processes (complete)",
+                "marks": 1
+              },
+              {
+                "criterion": "Data stores (some)",
+                "marks": 1
+              },
+              {
+                "criterion": "All three stores",
+                "marks": 1
+              },
+              {
+                "criterion": "Member input / output",
+                "marks": 1
+              },
+              {
+                "criterion": "Trainer output",
+                "marks": 1
+              },
+              {
+                "criterion": "Store flows",
+                "marks": 1
+              },
+              {
+                "criterion": "Named flows, rules kept",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Member —booking request→ 1 Book class; D1 Members —membership status→ 1; D2 Classes —free places→ 1; 1 —booking→ D3 Bookings; 1 —booking confirmation→ Member; D3 Bookings —bookings→ 2 Produce class lists —class list→ Trainer.",
+            "ai_instructions": "Accept any reasonable split of processes. Deduct for missing labels or rule-breaking flows."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Data flow diagrams (DFDs) — what they show, the four symbols (external entity, process, data store, data flow), context diagrams and first-level DFDs, the rules for drawing them correctly, and how to create a level-1 DFD that shows input, processing, storage and output.",
   "theory": [
     {
-      "title": "Data flow diagrams",
+      "title": "What a data flow diagram shows",
       "objectives": [
         "11.2.2.1"
       ],
@@ -12,41 +1195,237 @@
         {
           "type": "definition",
           "term": "Data flow diagram (DFD)",
-          "content": "A diagram that shows **how data moves through a system**: where it comes from, how it is processed, where it is stored and where it goes. It shows *data*, not the order of steps or decisions."
+          "content": "A diagram that shows **how data moves through a system**: where it comes **from** (inputs), how it is **processed**, where it is **stored**, and where it goes **to** (outputs). It shows **what** happens to the data, not **how** the program does it and not the **order** of events."
+        },
+        {
+          "type": "paragraph",
+          "content": "A DFD is drawn during **analysis** (to describe the current system) and **design** (to plan the new system). It helps the analyst, the programmers and the client agree on the **inputs, processes, outputs and storage (IPOS)** of the system."
         },
         {
           "type": "comparison",
-          "title": "DFD symbols",
+          "title": "The four DFD symbols",
           "columns": [
             "Symbol",
-            "Name",
-            "Meaning",
-            "Labelled with"
+            "Shape",
+            "Represents",
+            "Naming",
+            "Examples"
           ],
           "rows": [
             [
-              "Rectangle",
-              "External entity",
-              "A person/organisation/system **outside** the system that sends or receives data",
-              "A noun: *Customer*, *Supplier*"
+              "**External entity**",
+              "Rectangle (square)",
+              "A person, organisation or system **outside** the system that **sends data in or receives data out**",
+              "A **noun**",
+              "Customer, Student, Bank, Supplier"
             ],
             [
-              "Rounded rectangle (or circle)",
-              "Process",
-              "An action that **transforms data**",
-              "Number + verb phrase: *1 Check order*"
+              "**Process**",
+              "Rounded rectangle (or circle) with a **number**",
+              "An action that **transforms** input data into output data",
+              "**Verb + noun**",
+              "1 Check order, 2 Calculate bill, 3 Issue book"
             ],
             [
-              "Open-ended rectangle",
-              "Data store",
-              "Where data is **kept** (file, table)",
-              "ID + name: *D1 Orders*"
+              "**Data store**",
+              "Open-ended rectangle with an ID (D1, D2…)",
+              "Data **held** for later use — a file, database table, folder",
+              "A **noun** (plural)",
+              "D1 Customers, D2 Orders, D3 Books"
             ],
             [
-              "Arrow",
-              "Data flow",
-              "Data moving between the other symbols",
-              "The data: *order details*"
+              "**Data flow**",
+              "**Arrow** with a label",
+              "**Data moving** between the other symbols; the arrow shows the direction",
+              "A **noun** — the data carried",
+              "Order details, Payment, Receipt"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  +-----------+        order details        +-----------------+        +-----+------------+\n  | Customer  | --------------------------> | 1               | -----> | D1  | Orders     |\n  +-----------+                             |  Record order   |        +-----+------------+\n  external entity      data flow            +-----------------+          data store\n                                                 process",
+          "caption": "DFD notation (Gane–Sarson style)"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Different notations",
+          "content": "Some books draw **processes as circles** (Yourdon–DeMarco notation) and data stores as two parallel lines. Any notation is accepted if it is **used consistently** and the symbols are clearly different."
+        }
+      ]
+    },
+    {
+      "title": "Context diagrams and first-level DFDs",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Levels of DFD",
+          "columns": [
+            "Level",
+            "Shows",
+            "Data stores?"
+          ],
+          "rows": [
+            [
+              "**Context diagram (level 0)**",
+              "The **whole system as one process**, with all the **external entities** and the data flows between them and the system",
+              "**No**"
+            ],
+            [
+              "**Level 1 (first-level) DFD**",
+              "The system split into its **main processes** (usually 3–7), with the **data stores** and the flows between processes, stores and entities",
+              "**Yes**"
+            ],
+            [
+              "Level 2",
+              "One level-1 process broken down further",
+              "Yes"
+            ]
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "mermaid",
+          "content": "flowchart TB\n  S[Student] -- borrow request, returned book --> L((0 Library system))\n  L -- loan receipt, overdue notice --> S\n  LB[Librarian] -- new book details --> L\n  L -- loan reports --> LB",
+          "caption": "Context diagram — a school library system"
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": " [Librarian] --new book details--> (1 Register book) --book record--> |D1 Books|\n\n [Student] --student card, book ID--> (2 Issue book) <--student details-- |D2 Students|\n [Student] <--loan receipt----------- (2 Issue book) <--book status------ |D1 Books|\n                                      (2 Issue book) --loan record------> |D3 Loans|\n\n [Student] --returned book ID-------> (3 Return book) <--loan details---- |D3 Loans|\n [Student] <--fine notice------------ (3 Return book) --updated loan----> |D3 Loans|\n\n |D3 Loans| --loan data--> (4 Produce reports) --overdue report--> [Librarian]",
+          "caption": "Level-1 DFD — the same library system   ( [ ] entity   ( ) process   | | data store )"
+        },
+        {
+          "type": "comparison",
+          "title": "Data flows of the library level-1 DFD",
+          "columns": [
+            "From",
+            "Data flow",
+            "To"
+          ],
+          "rows": [
+            [
+              "Librarian",
+              "new book details",
+              "1 Register book"
+            ],
+            [
+              "1 Register book",
+              "book record",
+              "D1 Books"
+            ],
+            [
+              "Student",
+              "student card, book ID",
+              "2 Issue book"
+            ],
+            [
+              "D2 Students, D1 Books",
+              "student details, book status",
+              "2 Issue book"
+            ],
+            [
+              "2 Issue book",
+              "loan record",
+              "D3 Loans"
+            ],
+            [
+              "2 Issue book",
+              "loan receipt",
+              "Student"
+            ],
+            [
+              "Student",
+              "returned book ID",
+              "3 Return book"
+            ],
+            [
+              "D3 Loans ↔ 3 Return book",
+              "loan details / updated loan",
+              "—"
+            ],
+            [
+              "3 Return book",
+              "fine notice",
+              "Student"
+            ],
+            [
+              "D3 Loans",
+              "loan data",
+              "4 Produce reports"
+            ],
+            [
+              "4 Produce reports",
+              "overdue report",
+              "Librarian"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "The level-1 DFD must be **balanced** with the context diagram: it has the **same external entities** and the **same flows** in and out of the system — the level-1 diagram only adds detail inside."
+        }
+      ]
+    },
+    {
+      "title": "Rules for drawing a correct DFD",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Allowed and not allowed data flows",
+          "columns": [
+            "Flow",
+            "Allowed?",
+            "Why"
+          ],
+          "rows": [
+            [
+              "Entity → Process",
+              "✔",
+              "Input to the system"
+            ],
+            [
+              "Process → Entity",
+              "✔",
+              "Output from the system"
+            ],
+            [
+              "Process → Data store",
+              "✔",
+              "Saving / updating data"
+            ],
+            [
+              "Data store → Process",
+              "✔",
+              "Reading data"
+            ],
+            [
+              "Process → Process",
+              "✔",
+              "One process passes data to another"
+            ],
+            [
+              "**Entity → Entity**",
+              "✘",
+              "Outside the system — not shown"
+            ],
+            [
+              "**Entity → Data store** (or store → entity)",
+              "✘",
+              "Data can only be stored or read **by a process**"
+            ],
+            [
+              "**Data store → Data store**",
+              "✘",
+              "Data must be **moved by a process**"
             ]
           ]
         },
@@ -54,73 +1433,156 @@
           "type": "cards",
           "items": [
             {
-              "title": "Context diagram (level 0)",
-              "content": "The **whole system is one process**. Shows only the external entities and the data flows between them and the system. Gives an overview of the system boundary."
+              "title": "Rules for processes",
+              "content": "- Every process needs **at least one input and at least one output**.\n- Name it **verb + noun**: *Validate payment*, *Calculate grade*.\n- Number processes **1, 2, 3 …** (numbers do not show order)."
             },
             {
-              "title": "Level 1 DFD",
-              "content": "Breaks the system into its **main processes** (1, 2, 3 …), shows the **data stores** and every data flow between processes, stores and entities."
+              "title": "Rules for flows and stores",
+              "content": "- Every flow has a **name** (the data, a **noun**), not an action (\"send\" ✘).\n- A data store must be **written to** and **read from** by some process.\n- Do not draw decisions, loops or control signals — a DFD is **not** a flowchart."
             }
           ]
         },
         {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  C[Customer] -- order details --> S((0 Toy shop system))\n  S -- invoice / bill --> C\n  S -- stock request --> P[Supplier]\n  P -- delivery note --> S",
-          "caption": "Context (level 0) diagram — online toy shop"
-        },
-        {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart LR\n  C[Customer] -- order details --> P1([1 Check customer])\n  P1 <-- customer details --> D1[(D1 Customers)]\n  P1 -- valid order --> P2([2 Record order])\n  P2 -- order --> D2[(D2 Orders)]\n  D3[(D3 Products)] -- price, stock --> P2\n  P2 -- order total --> P3([3 Generate bill])\n  P3 -- bill --> C",
-          "caption": "Level 1 DFD — the same system"
-        },
-        {
-          "type": "heading",
-          "text": "Rules for a correct DFD",
-          "level": 2
-        },
-        {
-          "type": "list",
-          "items": [
-            "Every **process** must have at least one input **and** one output.",
-            "Data cannot flow **directly** between two external entities, between two data stores, or between an entity and a data store — it must pass through a **process**.",
-            "Every data flow is **labelled** with the data it carries (nouns, not actions).",
-            "Processes are numbered and named with a **verb** (\"Calculate price\").",
-            "Data stores and entities in level 1 must match the context diagram."
+          "type": "comparison",
+          "title": "Common process errors",
+          "columns": [
+            "Error",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Black hole**",
+              "A process has inputs but **no output**",
+              "\"Record order\" receives order details but sends nothing anywhere"
+            ],
+            [
+              "**Miracle**",
+              "A process has outputs but **no input**",
+              "\"Print invoice\" produces an invoice from nothing"
+            ],
+            [
+              "**Grey hole**",
+              "The outputs could not be produced from the inputs",
+              "\"Calculate total\" receives only the customer's name"
+            ]
           ]
+        }
+      ]
+    },
+    {
+      "title": "Creating a first-level DFD from a description",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "How to draw a level-1 DFD",
+          "items": [
+            "Read the description and **underline the external entities** (who gives or receives data).",
+            "Find the **main processes** — the actions the system performs (verbs): *takes orders*, *checks stock*, *sends invoices*.",
+            "Find the **data stores** — data that is **kept** (customers, products, orders).",
+            "For each process list its **inputs** and **outputs** and where they come from / go to.",
+            "Draw the symbols, connect them with **named arrows**, and **check the rules** (no entity–store links, every process has input and output).",
+            "Check that the diagram is **balanced** with the context diagram."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example — an online pizza shop",
+          "content": "*Customers order pizzas online. The system checks the menu for prices, calculates the total and stores the order. The customer pays by card through the bank, which sends a payment confirmation. The kitchen receives a list of orders to prepare, and the customer receives a receipt by e-mail.*\n\n| Element | Found in the text |\n|---|---|\n| External entities | **Customer**, **Bank**, **Kitchen** |\n| Processes | **1 Take order**, **2 Process payment**, **3 Send order to kitchen** |\n| Data stores | **D1 Menu**, **D2 Orders** |\n| Flows | order details, prices, order, card details, payment confirmation, receipt, kitchen order list |"
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": " [Customer] --order details--> (1 Take order) <--prices---- |D1 Menu|\n                               (1 Take order) --new order--> |D2 Orders|\n                               (1 Take order) --amount due--> (2 Process payment)\n\n [Customer] --card details----> (2 Process payment) --payment request------> [Bank]\n [Customer] <--receipt--------- (2 Process payment) <--payment confirmation-- [Bank]\n                                (2 Process payment) --paid status--> |D2 Orders|\n\n |D2 Orders| --paid orders--> (3 Send order to kitchen) --kitchen order list--> [Kitchen]",
+          "caption": "Level-1 DFD for the pizza shop   ( [ ] entity   ( ) process   | | data store )"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Drawing DFDs on the platform",
+          "content": "In DFD questions, add **external entities**, **processes** and **data stores** from the toolbar, connect them by dragging between the dots, then **select each arrow** and type the name of the data flow."
+        }
+      ]
+    },
+    {
+      "title": "DFDs compared with other diagrams",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "DFD vs flowchart vs ERD",
+          "columns": [
+            "",
+            "DFD",
+            "Flowchart",
+            "ERD"
+          ],
+          "rows": [
+            [
+              "Shows",
+              "**Movement of data** between entities, processes and stores",
+              "The **sequence of steps** and decisions in an algorithm",
+              "**Entities** and the **relationships** between them"
+            ],
+            [
+              "Order / decisions",
+              "Not shown",
+              "Shown (arrows, decision diamonds)",
+              "Not shown"
+            ],
+            [
+              "Used for",
+              "Analysing and designing the **whole system**",
+              "Designing **one process / program**",
+              "Designing the **database**"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: State the purpose of a data flow diagram. [1]**\nTo show **how data flows through a system** — its inputs, processes, outputs and data stores.\n\n**Q: Identify one error in the DFD where the arrow goes directly from \"Customer\" to \"D1 Customers\". [2]**\nAn **external entity cannot send data directly to a data store** (1); the data must pass through a **process**, e.g. \"1 Register customer\" (1).\n\n**Q: Draw a first-level DFD for the system described. [6]**\nCredit is given for: correct **external entities**; correct **processes** with verb + noun names; correct **data stores**; **named data flows** in the correct directions; **no rule-breaking** flows; a diagram that matches the description."
+        },
+        {
+          "type": "warning",
+          "content": "- Joining an **entity directly to a data store**, or two stores together.\n- **Unlabelled arrows**, or labels that are actions (\"check\") instead of data (\"order details\").\n- Processes with **only inputs** (black hole) or **only outputs** (miracle).\n- Including the **user's actions** inside the system as entities, e.g. drawing the database as an external entity.\n- Drawing **decisions and loops** as in a flowchart.\n- Putting data stores on a **context diagram**."
         },
         {
           "type": "steps",
-          "title": "Drawing a level 1 DFD from a scenario",
+          "title": "Check yourself",
           "items": [
-            "Find the **external entities** (who gives or receives data).",
-            "Find the **processes** — the verbs in the scenario (\"checks the client\", \"places the order\", \"generates the bill\").",
-            "Find the **data stores** — data that is saved (customers, orders, products).",
-            "Join them with labelled **data flows**, following the order of events.",
-            "Check the rules above."
+            "Name and draw the four DFD symbols.",
+            "What is the difference between a context diagram and a level-1 DFD?",
+            "Which flows are not allowed in a DFD?",
+            "What are a black hole and a miracle?",
+            "Draw a context diagram and a level-1 DFD for a cinema ticket-booking system.",
+            "How is a DFD different from a flowchart?"
           ]
-        },
-        {
-          "type": "heading",
-          "text": "Why DFDs are used",
-          "level": 2
-        },
-        {
-          "type": "list",
-          "items": [
-            "Show clearly how data moves between processes, stores and users.",
-            "Define the **boundary** of the system (what is inside and outside).",
-            "Help analysts and clients **communicate** — easy to understand without technical knowledge.",
-            "Help find missing or duplicated data and processes before coding.",
-            "Form part of the design documentation."
-          ]
-        },
-        {
-          "type": "exam_tip",
-          "content": "Marks in DFD questions are typically for: correct **entities**, all **processes**, **data stores**, and a number of **correctly labelled data flows**. Never leave an arrow unlabelled."
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 25,
+    "title": "Designing a new system: DFD — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. Draw diagrams with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 25 minutes.",
+    "questions": [
+      "dfd-exam-1",
+      "dfd-exam-2",
+      "dfd-exam-3"
+    ]
+  }
 }

@@ -211,5 +211,17 @@ export async function upsertQuestions(
     }
   }
 
+  // Parts that a structured question no longer lists are archived, so they drop out of exam snapshots.
+  for (const q of opts.questions) {
+    if (!q.parts?.length) continue;
+    const keep = q.parts.map((p) => contentId("question", p.key));
+    await db
+      .from("questions")
+      .update({ status: "archived", archived_at: new Date().toISOString() })
+      .eq("parent_id", contentId("question", q.key))
+      .is("archived_at", null)
+      .not("id", "in", `(${keep.join(",")})`);
+  }
+
   return { ids: items.map(({ q }) => contentId("question", q.key)), changedSchemes };
 }

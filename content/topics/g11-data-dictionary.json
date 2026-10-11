@@ -1,10 +1,1303 @@
 {
   "topic": "g11-data-dictionary",
-  "questions": [],
-  "summary": "What a data dictionary is, why it is used in system design, and how to create one for database tables.",
+  "questions": [
+    {
+      "key": "dd-define",
+      "title": "Define a data dictionary",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "practice": true,
+      "text": "Define the term **data dictionary**.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A document / table describing the structure of a database / data about the data (metadata) (1)\n- listing each field with its name, data type, size, validation, description etc. (1)",
+        "points": [
+          {
+            "criterion": "Describes the database structure / metadata",
+            "marks": 1
+          },
+          {
+            "criterion": "Details recorded for each field",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A table that describes the structure of a database, listing for every field its name, data type, size, key, validation rule and description."
+      }
+    },
+    {
+      "key": "dd-purpose",
+      "title": "Purpose of a data dictionary",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "practice": true,
+      "text": "Explain the purpose of a data dictionary.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): gives one agreed definition of each field; helps programmers build the database / write code correctly; keeps names, types and sizes consistent across tables; records validation rules — improves data integrity; helps maintenance / new developers; part of technical documentation",
+        "points": [
+          {
+            "criterion": "First purpose",
+            "marks": 1
+          },
+          {
+            "criterion": "Second purpose",
+            "marks": 1
+          }
+        ],
+        "model_answer": "It gives programmers a clear definition of every field, so the database is built consistently, and it helps future developers understand and maintain the database."
+      }
+    },
+    {
+      "key": "dd-items-mr",
+      "title": "What is recorded",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "practice": true,
+      "text": "Select **two** items that are recorded in a data dictionary for each field.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Data type"
+        },
+        {
+          "key": "B",
+          "content": "The name of the user who last edited the record"
+        },
+        {
+          "key": "C",
+          "content": "Validation rule"
+        },
+        {
+          "key": "D",
+          "content": "The colour of the input form"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-metadata-tf",
+      "title": "Metadata",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "practice": true,
+      "text": "A data dictionary stores the actual records of the database, such as each pupil's name and marks.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "It stores metadata — descriptions of the fields — not the data itself."
+      }
+    },
+    {
+      "key": "dd-users",
+      "title": "Who uses it",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "practice": true,
+      "text": "State **two** people who use a data dictionary and what each uses it for.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each, role + use): programmer — to create tables / write queries and forms; database designer / analyst — to plan the tables; tester — to choose test data from validation rules; database administrator — to maintain / change the database",
+        "points": [
+          {
+            "criterion": "First user and use",
+            "marks": 1
+          },
+          {
+            "criterion": "Second user and use",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 A programmer uses it to create the tables with the correct data types. 2 A tester uses the validation rules to choose test data."
+      }
+    },
+    {
+      "key": "dd-validation-match",
+      "title": "Validation checks",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each validation rule to the type of check.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Mark must be between 0 and 100"
+          },
+          {
+            "key": "L2",
+            "text": "Surname must not be left empty"
+          },
+          {
+            "key": "L3",
+            "text": "Pupil ID must be S followed by 4 digits"
+          },
+          {
+            "key": "L4",
+            "text": "Grade must be 11 or 12"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Range check"
+          },
+          {
+            "key": "R2",
+            "text": "Presence check"
+          },
+          {
+            "key": "R3",
+            "text": "Format check"
+          },
+          {
+            "key": "R4",
+            "text": "Lookup check"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–Range, L2–Presence, L3–Format, L4–Lookup. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dd-data-types",
+      "title": "Choose data types",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the data dictionary with the most suitable data type for each field. Use: **VARCHAR**, **INTEGER**, **DECIMAL**, **DATE**, **BOOLEAN**.",
+      "content": {
+        "columns": [
+          "Field name",
+          "Description",
+          "Data type"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "MemberID",
+            "Code such as M0042",
+            null
+          ],
+          [
+            "JoinDate",
+            "Date the member joined",
+            null
+          ],
+          [
+            "MonthlyFee",
+            "Fee in tenge, e.g. 8500.50",
+            null
+          ],
+          [
+            "Visits",
+            "Number of visits this month",
+            null
+          ],
+          [
+            "IsActive",
+            "Whether the membership is active",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "MemberID VARCHAR (1); JoinDate DATE (1); MonthlyFee DECIMAL (1); Visits INTEGER (1); IsActive BOOLEAN (1)",
+        "points": [
+          {
+            "criterion": "VARCHAR",
+            "marks": 1
+          },
+          {
+            "criterion": "DATE",
+            "marks": 1
+          },
+          {
+            "criterion": "DECIMAL",
+            "marks": 1
+          },
+          {
+            "criterion": "INTEGER",
+            "marks": 1
+          },
+          {
+            "criterion": "BOOLEAN",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "varchar||text||string||char"
+            ],
+            [
+              null,
+              null,
+              "date||datetime"
+            ],
+            [
+              null,
+              null,
+              "decimal||real||float||currency||numeric"
+            ],
+            [
+              null,
+              null,
+              "integer||int"
+            ],
+            [
+              null,
+              null,
+              "boolean||bool||yes/no"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-validation-table",
+      "title": "Write validation rules",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the data dictionary with a suitable **validation rule** for each field.",
+      "content": {
+        "columns": [
+          "Field name",
+          "Data type",
+          "Validation rule"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Age",
+            "INTEGER",
+            null
+          ],
+          [
+            "Email",
+            "VARCHAR(50)",
+            null
+          ],
+          [
+            "Password",
+            "VARCHAR(16)",
+            null
+          ],
+          [
+            "Size",
+            "VARCHAR(2)",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Age (1): range check, e.g. 6–100 / > 0\nEmail (1): format check — contains @ and a dot / presence / uniqueness\nPassword (1): length check, e.g. 8–16 characters / presence\nSize (1): lookup check — S, M, L, XL",
+        "points": [
+          {
+            "criterion": "Age",
+            "marks": 1
+          },
+          {
+            "criterion": "Email",
+            "marks": 1
+          },
+          {
+            "criterion": "Password",
+            "marks": 1
+          },
+          {
+            "criterion": "Size",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Age: range check 6–100. Email: format check — must contain @. Password: length check 8–16 characters. Size: lookup check — S, M, L or XL.",
+        "ai_instructions": "Each rule must be sensible for that field; name of the check is not required if the rule is clear."
+      }
+    },
+    {
+      "key": "dd-phone-type",
+      "title": "Data type for a phone number",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A designer gives the field `Phone` the data type INTEGER. Explain why this is not suitable and state a better data type.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A phone number may start with + or 0 / contain spaces; no calculations are done; may be too long for an integer (1)\n- VARCHAR / text (1)",
+        "points": [
+          {
+            "criterion": "Reason",
+            "marks": 1
+          },
+          {
+            "criterion": "VARCHAR / text",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A phone number such as +77011234567 contains a + sign and is never used in calculations, so it should be stored as VARCHAR."
+      }
+    },
+    {
+      "key": "dd-fk-same-type",
+      "title": "Foreign key type",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "In a data dictionary, `StudentID` is VARCHAR(5) in the `Students` table. Explain why `StudentID` in the `Loans` table must also be VARCHAR(5).",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- It is a foreign key that refers to the primary key in Students (1)\n- the values must match exactly for the tables to be linked / joined / referential integrity (1)",
+        "points": [
+          {
+            "criterion": "Foreign key referring to the PK",
+            "marks": 1
+          },
+          {
+            "criterion": "Values must match to link",
+            "marks": 1
+          }
+        ],
+        "model_answer": "StudentID in Loans is a foreign key referring to the primary key of Students, so its values must be of the same type and size to match and link the two tables."
+      }
+    },
+    {
+      "key": "dd-validation-verification",
+      "title": "Validation limits",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A range check allows dates of birth between 2005 and 2012. Explain why a pupil's date of birth could still be stored incorrectly.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Validation only checks that data is sensible / within the rules (1)\n- a wrong date inside the range (e.g. a typing mistake) would still be accepted; verification is needed (1)",
+        "points": [
+          {
+            "criterion": "Validation checks reasonableness only",
+            "marks": 1
+          },
+          {
+            "criterion": "Wrong value in range accepted",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Validation only checks that the date is in the allowed range; if 15/04/2009 is typed instead of 14/04/2009, it is still accepted even though it is wrong."
+      }
+    },
+    {
+      "key": "dd-format-fill",
+      "title": "Format rule",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe rule \"BookID must be the letter B followed by five digits\" is a [[1]] check. The rule \"Quantity must not be negative\" is a [[2]] check.",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) format / picture (2) range",
+        "accepted": {
+          "blanks": [
+            [
+              "format",
+              "picture",
+              "format (picture)"
+            ],
+            [
+              "range"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-create-entry",
+      "title": "Create an entry",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the data dictionary entry for the field `Price` in a `Products` table.",
+      "content": {
+        "columns": [
+          "Field name",
+          "Data type",
+          "Key",
+          "Validation",
+          "Example"
+        ],
+        "rows": 1,
+        "prefill": [
+          [
+            "Price",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Data type: DECIMAL / REAL / CURRENCY (1)\nKey: none (1)\nValidation: range check > 0 / presence (1)\nExample: e.g. 450.00 (1)",
+        "points": [
+          {
+            "criterion": "Data type",
+            "marks": 1
+          },
+          {
+            "criterion": "Key none",
+            "marks": 1
+          },
+          {
+            "criterion": "Validation",
+            "marks": 1
+          },
+          {
+            "criterion": "Example",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Price | DECIMAL | — | Range check: greater than 0 | 450.00"
+      }
+    },
+    {
+      "key": "dd-structured-library",
+      "title": "A library data dictionary",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "```text\nBooks ( BookID, Title, Author, YearPublished, Available )\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dd-lib-a",
+          "part_label": "(a)",
+          "title": "Data types",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "practice": true,
+          "text": "Complete the data type for each field.",
+          "content": {
+            "columns": [
+              "Field",
+              "Data type"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Title",
+                null
+              ],
+              [
+                "YearPublished",
+                null
+              ],
+              [
+                "Available",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Title VARCHAR (1); YearPublished INTEGER (1); Available BOOLEAN (1)",
+            "points": [
+              {
+                "criterion": "VARCHAR",
+                "marks": 1
+              },
+              {
+                "criterion": "INTEGER",
+                "marks": 1
+              },
+              {
+                "criterion": "BOOLEAN",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "varchar||text||string"
+                ],
+                [
+                  null,
+                  "integer||int||number"
+                ],
+                [
+                  null,
+                  "boolean||bool||yes/no"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "dd-lib-b",
+          "part_label": "(b)",
+          "title": "Validation",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "practice": true,
+          "text": "State a suitable validation rule for `BookID` and for `YearPublished`.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "BookID",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "YearPublished",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "BookID (1): presence / uniqueness / format, e.g. B + 5 digits\nYearPublished (1): range, e.g. 1450 to the current year",
+            "points": [
+              {
+                "criterion": "BookID rule",
+                "marks": 1
+              },
+              {
+                "criterion": "YearPublished rule",
+                "marks": 1
+              }
+            ],
+            "model_answer": "BookID: format check — B followed by 5 digits. YearPublished: range check 1450 to 2026."
+          }
+        },
+        {
+          "key": "dd-lib-c",
+          "part_label": "(c)",
+          "title": "Primary key",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "practice": true,
+          "text": "Identify the field that should be marked as the primary key.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "BookID (1)",
+            "points": [
+              {
+                "criterion": "BookID",
+                "marks": 1
+              }
+            ],
+            "model_answer": "BookID",
+            "accepted": {
+              "values": [
+                "bookid",
+                "book id",
+                "book_id"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "dd-extended-create",
+      "title": "Create a data dictionary",
+      "type": "extended",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A cinema stores tickets in the table:\n\n```text\nTickets ( TicketID, FilmID, SeatNumber, ShowDate, Price, IsChild )\n```\n\nCreate a data dictionary for this table. For each field give the data type, key (if any) and a validation rule.",
+      "content": {
+        "answer_lines": 14
+      },
+      "scheme": {
+        "mark_scheme": "One mark per field correctly described (data type + sensible key / validation) (max 6):\n- TicketID: INTEGER / VARCHAR, PK, unique / presence\n- FilmID: same type as Films PK, FK, must exist in Films\n- SeatNumber: VARCHAR (e.g. A12), format letter + digits\n- ShowDate: DATE, not in the past / presence\n- Price: DECIMAL, range > 0\n- IsChild: BOOLEAN, true / false",
+        "points": [
+          {
+            "criterion": "TicketID",
+            "marks": 1
+          },
+          {
+            "criterion": "FilmID",
+            "marks": 1
+          },
+          {
+            "criterion": "SeatNumber",
+            "marks": 1
+          },
+          {
+            "criterion": "ShowDate",
+            "marks": 1
+          },
+          {
+            "criterion": "Price",
+            "marks": 1
+          },
+          {
+            "criterion": "IsChild",
+            "marks": 1
+          }
+        ],
+        "model_answer": "TicketID | INTEGER | PK | unique, presence\nFilmID | VARCHAR(6) | FK → Films | must exist in Films\nSeatNumber | VARCHAR(3) | — | format: letter + 1–2 digits (A12)\nShowDate | DATE | — | presence; not before today\nPrice | DECIMAL | — | range > 0\nIsChild | BOOLEAN | — | True / False"
+      }
+    },
+    {
+      "key": "dd-exam-1",
+      "title": "Data dictionaries",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A developer is designing a database for a sports club and writes a data dictionary.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dd-exam-1a",
+          "part_label": "(a)",
+          "title": "Purpose",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the purpose of a data dictionary.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): describes every field / metadata; consistent names, types, sizes; programmers build the database correctly; validation rules → integrity; maintenance / documentation",
+            "points": [
+              {
+                "criterion": "First point",
+                "marks": 1
+              },
+              {
+                "criterion": "Second point",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It describes each field's name, type, size and validation so the database is built consistently, and it helps developers maintain the database later."
+          }
+        },
+        {
+          "key": "dd-exam-1b",
+          "part_label": "(b)",
+          "title": "Items recorded",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State **two** items, other than the field name, recorded for each field.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): data type; size / length; format; key; validation rule; required / null; description; example",
+            "points": [
+              {
+                "criterion": "First item",
+                "marks": 1
+              },
+              {
+                "criterion": "Second item",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Data type. 2 Validation rule."
+          }
+        },
+        {
+          "key": "dd-exam-1c",
+          "part_label": "(c)",
+          "title": "Who uses it",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how a **programmer** would use the data dictionary.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): to create the tables with the correct field names / types / sizes; to set keys; to write validation / input forms; to write queries / code using the exact field names",
+            "points": [
+              {
+                "criterion": "First use",
+                "marks": 1
+              },
+              {
+                "criterion": "Second use",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The programmer uses it to create each table with the exact field names, data types and keys, and to add the validation rules to the input forms."
+          }
+        },
+        {
+          "key": "dd-exam-1d",
+          "part_label": "(d)",
+          "title": "Integrity",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain how the validation rules in a data dictionary improve data integrity.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Rules are applied when data is entered, so unreasonable / invalid data is rejected (1)\n- the stored data is more accurate / consistent (1)",
+            "points": [
+              {
+                "criterion": "Invalid data rejected",
+                "marks": 1
+              },
+              {
+                "criterion": "More accurate / consistent data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The rules are built into the database, so data that breaks them, such as an age of 250, is rejected at entry, which keeps the stored data accurate and consistent."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dd-exam-2",
+      "title": "A shop's product table — structure",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A shop's database contains:\n\n```text\nCategories ( CategoryID, CategoryName )\nProducts   ( ProductID, Name, Price, Quantity, CategoryID )\n```\n\n`ProductID` values look like `P0001`. `CategoryID` values look like `C12`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dd-exam-2a",
+          "part_label": "(a)",
+          "title": "Data types",
+          "type": "table_completion",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the data dictionary for `Products` with the most suitable data type for each field. Use: **VARCHAR**, **INTEGER**, **DECIMAL**.",
+          "content": {
+            "columns": [
+              "Field name",
+              "Data type"
+            ],
+            "rows": 5,
+            "prefill": [
+              [
+                "ProductID",
+                null
+              ],
+              [
+                "Name",
+                null
+              ],
+              [
+                "Price",
+                null
+              ],
+              [
+                "Quantity",
+                null
+              ],
+              [
+                "CategoryID",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "ProductID VARCHAR (1); Name VARCHAR (1); Price DECIMAL (1); Quantity INTEGER (1); CategoryID VARCHAR (1)",
+            "points": [
+              {
+                "criterion": "ProductID",
+                "marks": 1
+              },
+              {
+                "criterion": "Name",
+                "marks": 1
+              },
+              {
+                "criterion": "Price",
+                "marks": 1
+              },
+              {
+                "criterion": "Quantity",
+                "marks": 1
+              },
+              {
+                "criterion": "CategoryID",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "varchar||text||string||char"
+                ],
+                [
+                  null,
+                  "varchar||text||string"
+                ],
+                [
+                  null,
+                  "decimal||real||float||currency||numeric"
+                ],
+                [
+                  null,
+                  "integer||int"
+                ],
+                [
+                  null,
+                  "varchar||text||string||char"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "dd-exam-2c",
+          "part_label": "(b)",
+          "title": "Keys",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the primary key and the foreign key of `Products`.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Primary key",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Foreign key",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Primary key: ProductID (1)\nForeign key: CategoryID (1)",
+            "points": [
+              {
+                "criterion": "ProductID",
+                "marks": 1
+              },
+              {
+                "criterion": "CategoryID",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Primary key: ProductID. Foreign key: CategoryID."
+          }
+        },
+        {
+          "key": "dd-exam-2e",
+          "part_label": "(c)",
+          "title": "Check type",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "name",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name the type of validation check that makes sure `ProductID` looks like `P0001`.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "Format check / picture check (1)",
+            "points": [
+              {
+                "criterion": "Format check",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Format check.",
+            "accepted": {
+              "values": [
+                "format",
+                "format check",
+                "picture check",
+                "picture",
+                "format (picture) check"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "dd-exam-3",
+      "title": "A shop's product table — validation",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A shop's database contains:\n\n```text\nCategories ( CategoryID, CategoryName )\nProducts   ( ProductID, Name, Price, Quantity, CategoryID )\n```\n\n`ProductID` values look like `P0001`. `CategoryID` values look like `C12`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dd-exam-2b",
+          "part_label": "(a)",
+          "title": "Validation rules",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table with a suitable validation rule for each field.",
+          "content": {
+            "columns": [
+              "Field name",
+              "Validation rule"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "ProductID",
+                null
+              ],
+              [
+                "Name",
+                null
+              ],
+              [
+                "Price",
+                null
+              ],
+              [
+                "Quantity",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "ProductID (1): format P + 4 digits / unique / presence\nName (1): presence / length ≤ 50\nPrice (1): range > 0\nQuantity (1): range ≥ 0 / type integer",
+            "points": [
+              {
+                "criterion": "ProductID",
+                "marks": 1
+              },
+              {
+                "criterion": "Name",
+                "marks": 1
+              },
+              {
+                "criterion": "Price",
+                "marks": 1
+              },
+              {
+                "criterion": "Quantity",
+                "marks": 1
+              }
+            ],
+            "model_answer": "ProductID: format check — P followed by 4 digits. Name: presence check. Price: range check greater than 0. Quantity: range check 0 or more."
+          }
+        },
+        {
+          "key": "dd-exam-2d",
+          "part_label": "(b)",
+          "title": "Matching types",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why `CategoryID` must have the same data type and size in both tables.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- CategoryID in Products is a foreign key referring to the primary key of Categories (1)\n- the values must match for the tables to be linked / joined (1)",
+            "points": [
+              {
+                "criterion": "FK refers to PK",
+                "marks": 1
+              },
+              {
+                "criterion": "Values must match",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CategoryID in Products is a foreign key that refers to the primary key of Categories, so the values must be stored the same way to match and link the tables."
+          }
+        },
+        {
+          "key": "dd-exam-2f",
+          "part_label": "(c)",
+          "title": "Price type",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give an example value for `Price` and explain why INTEGER would not be a suitable data type for it.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "- Example with decimals, e.g. 1299.50 (1)\n- prices can contain a decimal part, which an integer cannot store (1)",
+            "points": [
+              {
+                "criterion": "Example",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1299.50 — a price can have a fractional part, which cannot be stored as an integer."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "What a data dictionary is and why it is used, what it records about each field (name, data type, size, format, key, validation, description, example), and how to create a data dictionary for the tables of a database.",
   "theory": [
     {
-      "title": "The purpose of a data dictionary",
+      "title": "What a data dictionary is",
       "objectives": [
         "11.4.1.5"
       ],
@@ -12,27 +1305,152 @@
         {
           "type": "definition",
           "term": "Data dictionary",
-          "content": "A document (or table) that describes **every data item** in a system or database: its name, data type, size, format, description, validation rules, keys and relationships. It is \"data about data\" (**metadata**)."
+          "content": "A **document or table that describes the structure of a database** — \"data about the data\" (**metadata**). For every **table** it lists every **field** with its **name, data type, size, format, key, validation rules, description** and an **example**."
         },
         {
-          "type": "heading",
-          "text": "Why a data dictionary is created",
-          "level": 2
+          "type": "paragraph",
+          "content": "A data dictionary is written during the **design** stage of the system development life cycle, before the database is built, and is kept up to date for as long as the system is used."
         },
         {
-          "type": "list",
+          "type": "comparison",
+          "title": "What a data dictionary records for each field",
+          "columns": [
+            "Item",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Field name**",
+              "The exact name used in the database (no spaces)",
+              "`DateOfBirth`"
+            ],
+            [
+              "**Data type**",
+              "Text / VARCHAR, Integer, Real / Decimal, Date, Boolean",
+              "Date"
+            ],
+            [
+              "**Field size / length**",
+              "Maximum number of characters or digits",
+              "10"
+            ],
+            [
+              "**Format**",
+              "How the data is displayed or entered",
+              "DD/MM/YYYY"
+            ],
+            [
+              "**Key**",
+              "Primary key (PK), foreign key (FK) or none",
+              "PK"
+            ],
+            [
+              "**Validation**",
+              "The rule the data must satisfy",
+              "Presence check; range 01/01/2005 – 31/12/2012"
+            ],
+            [
+              "**Required / null**",
+              "Whether the field must have a value",
+              "Required"
+            ],
+            [
+              "**Description**",
+              "What the field stores",
+              "Date the pupil was born"
+            ],
+            [
+              "**Example**",
+              "A typical value",
+              "14/03/2009"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The purpose of a data dictionary",
+      "objectives": [
+        "11.4.1.5"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
           "items": [
-            "Gives developers a **single, consistent reference** for every field — everyone uses the same names and types.",
-            "Helps to **design and build the database** correctly (types, sizes, keys).",
-            "Defines **validation rules**, which keeps data accurate.",
-            "Makes the system easier to **maintain and extend** later, even by new developers.",
-            "Avoids **duplication and inconsistency** of data items.",
-            "Forms part of the **technical documentation**."
+            {
+              "title": "Why a data dictionary is used",
+              "content": "- Gives **one clear, agreed definition** of every field, so everyone uses the same names and types.\n- Helps **programmers build** the database and write code / SQL correctly.\n- Ensures **consistency** — the same field (e.g. `StudentID`) has the same type and size in every table, so keys match.\n- Records **validation rules**, which improves **data integrity** (fewer invalid entries).\n- Helps **maintenance** — new developers understand the database quickly; changes are documented.\n- Forms part of the **technical documentation** of the system."
+            },
+            {
+              "title": "Who uses it",
+              "content": "- **Database designers** and **analysts** — to plan the tables.\n- **Programmers** — to create the tables and write queries and forms.\n- **Testers** — to choose test data from the validation rules.\n- **Database administrators** — to maintain and change the database later."
+            }
           ]
         },
         {
-          "type": "exam_tip",
-          "content": "\"Name two elements described in a data dictionary\": **field name**, **data type**, **field size/length**, **format**, **description**, **validation rule**, **primary/foreign key**, **example value**."
+          "type": "callout",
+          "tone": "info",
+          "title": "Data dictionary in a DBMS",
+          "content": "Most DBMSs keep an internal **system catalogue** (a data dictionary they update automatically), which stores the table and field definitions, keys, indexes and user permissions."
+        }
+      ]
+    },
+    {
+      "title": "Validation in a data dictionary",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "comparison",
+          "title": "Validation checks",
+          "columns": [
+            "Check",
+            "What it checks",
+            "Example"
+          ],
+          "rows": [
+            [
+              "**Presence check**",
+              "The field is **not empty**",
+              "Surname must be entered"
+            ],
+            [
+              "**Range check**",
+              "The value is **between limits**",
+              "Mark 0–100; Age 11–18"
+            ],
+            [
+              "**Type check**",
+              "The data is the **correct data type**",
+              "Quantity must be an integer"
+            ],
+            [
+              "**Length check**",
+              "The number of **characters** is correct",
+              "Phone has 11 digits; password 8–16 characters"
+            ],
+            [
+              "**Format (picture) check**",
+              "The data matches a **pattern**",
+              "Pupil ID `S` followed by 4 digits, e.g. S0421"
+            ],
+            [
+              "**Lookup (list) check**",
+              "The value is in a **list of allowed values**",
+              "Grade is 11 or 12; Gender is M or F"
+            ],
+            [
+              "**Uniqueness check**",
+              "No two records have the same value",
+              "Primary key, e-mail address"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "**Validation** checks that data is **sensible / reasonable** (it follows the rules). It cannot check that the data is **correct** — \"15/04/2009\" passes a date check even if the pupil was born on 14/04/2009."
         }
       ]
     },
@@ -43,172 +1461,76 @@
       ],
       "blocks": [
         {
-          "type": "comparison",
-          "title": "Data dictionary for the table Students",
-          "columns": [
-            "Field name",
-            "Data type",
-            "Size",
-            "Format / example",
-            "Key",
-            "Validation",
-            "Description"
-          ],
-          "rows": [
-            [
-              "StudentID",
-              "VARCHAR",
-              "6",
-              "S00123",
-              "PK",
-              "Presence; format: S + 5 digits",
-              "Unique student number"
-            ],
-            [
-              "FirstName",
-              "VARCHAR",
-              "30",
-              "Aruzhan",
-              "",
-              "Presence check",
-              "First name"
-            ],
-            [
-              "LastName",
-              "VARCHAR",
-              "30",
-              "Sadykova",
-              "",
-              "Presence check",
-              "Family name"
-            ],
-            [
-              "DateOfBirth",
-              "DATE",
-              "",
-              "DD/MM/YYYY",
-              "",
-              "Range: 2005–2012",
-              "Date of birth"
-            ],
-            [
-              "Grade",
-              "INTEGER",
-              "",
-              "11",
-              "",
-              "Range 7–12",
-              "Current grade"
-            ],
-            [
-              "Email",
-              "VARCHAR",
-              "50",
-              "a.sad@nis.edu.kz",
-              "",
-              "Format check (contains @)",
-              "School email"
-            ],
-            [
-              "ClassID",
-              "VARCHAR",
-              "4",
-              "11A",
-              "FK → Class",
-              "Lookup: must exist in Class",
-              "Student's class"
-            ],
-            [
-              "HasLaptop",
-              "BOOLEAN",
-              "",
-              "TRUE/FALSE",
-              "",
-              "",
-              "Whether the student owns a laptop"
-            ]
+          "type": "steps",
+          "title": "How to create a data dictionary",
+          "items": [
+            "List the **tables** of the database (from the ERD).",
+            "For each table, list every **field** with a clear name (no spaces).",
+            "Choose the most suitable **data type** and **size** for each field.",
+            "Mark the **primary key** and any **foreign keys** (a foreign key must have the **same type and size** as the primary key it refers to).",
+            "Add a **validation rule**, a **format** where needed, a short **description** and an **example**."
           ]
         },
         {
-          "type": "comparison",
-          "title": "Choosing data types",
-          "columns": [
-            "Data",
-            "Type",
-            "Why"
-          ],
-          "rows": [
-            [
-              "Names, addresses",
-              "VARCHAR(n) / text",
-              "Letters and symbols"
-            ],
-            [
-              "Phone numbers, IIN, postcodes",
-              "VARCHAR",
-              "Contain leading zeros/\"+\", no arithmetic is done on them"
-            ],
-            [
-              "Age, quantity",
-              "INTEGER",
-              "Whole numbers used in calculations"
-            ],
-            [
-              "Price, average mark",
-              "DECIMAL / REAL",
-              "Numbers with a fractional part"
-            ],
-            [
-              "Date of birth, order date",
-              "DATE",
-              "Allows sorting and date arithmetic"
-            ],
-            [
-              "Yes/no answers",
-              "BOOLEAN",
-              "Only two values"
-            ]
-          ]
+          "type": "example",
+          "title": "Data dictionary for a school library — table `Students`",
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Unique student number | S0421 |\n| FirstName | VARCHAR | 30 | | Presence | Student's first name | Aruzhan |\n| Surname | VARCHAR | 30 | | Presence | Student's family name | Bekova |\n| Grade | INTEGER | 2 | | Lookup: 11 or 12 | School grade | 11 |\n| DateOfBirth | DATE | — | | Range 01/01/2005 – 31/12/2012 | Date of birth, DD/MM/YYYY | 14/03/2009 |\n| Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77011234567 |"
+        },
+        {
+          "type": "example",
+          "title": "Data dictionary — table `Loans`",
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| LoanID | INTEGER | — | PK | Unique; auto-increment | Loan number | 1057 |\n| StudentID | VARCHAR | 5 | FK → Students | Must exist in Students | Who borrowed the book | S0421 |\n| BookID | VARCHAR | 6 | FK → Books | Must exist in Books | Which book | B00312 |\n| LoanDate | DATE | — | | Presence; not in the future | Date borrowed | 02/10/2026 |\n| ReturnDate | DATE | — | | Must be on or after LoanDate (may be empty) | Date returned | 16/10/2026 |\n| Returned | BOOLEAN | — | | True / False | Has the book been returned? | False |"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE TABLE Students (\n    StudentID   VARCHAR(5)  PRIMARY KEY,\n    FirstName   VARCHAR(30) NOT NULL,\n    Surname     VARCHAR(30) NOT NULL,\n    Grade       INTEGER     CHECK (Grade IN (11, 12)),\n    DateOfBirth DATE,\n    Phone       VARCHAR(12)\n);",
+          "caption": "The data dictionary turned into SQL"
+        },
+        {
+          "type": "exam_tip",
+          "content": "- Numbers you **calculate with** → INTEGER or REAL/DECIMAL (price → DECIMAL).\n- **Codes and numbers you do not calculate with** (phone, ID, postcode) → VARCHAR / TEXT.\n- **Yes/No** values → BOOLEAN.\n- Dates → DATE (so they can be sorted and compared correctly)."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.4.1.5",
+        "11.4.1.6"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain the purpose of a data dictionary. [2]**\nIt **describes every field** of the database — name, data type, size, validation (1) — so that programmers **build the database consistently and correctly** and it is easier to **maintain** later (1).\n\n**Q: Complete the data dictionary entry for the field `Price`. [3]**\nData type: **Decimal / Real** (1); validation: **range check > 0** (1); example: **450.00** (1).\n\n**Q: State why a foreign key must have the same data type and size as the primary key it refers to. [1]**\nSo that the values **match** and the tables can be **linked** (joined) correctly."
         },
         {
           "type": "warning",
-          "content": "A phone number is **text**, not an integer: it can start with 0 or +, and you never add or multiply phone numbers."
+          "content": "- Using INTEGER for phone numbers or IDs with letters or leading zeros.\n- Writing validation that does not match the data (a range check on a name).\n- Giving a description that just repeats the field name (\"Surname — the surname\").\n- Forgetting to mark **primary** and **foreign** keys.\n- Confusing a data dictionary with a **user guide** — it is **technical** documentation."
         },
         {
-          "type": "comparison",
-          "title": "Common validation rules",
-          "columns": [
-            "Check",
-            "Example"
-          ],
-          "rows": [
-            [
-              "Presence",
-              "StudentID must not be empty"
-            ],
-            [
-              "Range",
-              "Grade between 7 and 12"
-            ],
-            [
-              "Length",
-              "Password at least 8 characters"
-            ],
-            [
-              "Type",
-              "Age must be a whole number"
-            ],
-            [
-              "Format",
-              "Email contains \"@\" and \".\"; ID = letter + 5 digits"
-            ],
-            [
-              "Lookup",
-              "ClassID must exist in the Class table"
-            ]
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "What is a data dictionary and when is it created?",
+            "List eight items recorded for each field.",
+            "Give three reasons for using a data dictionary.",
+            "Name six validation checks with an example of each.",
+            "Create a data dictionary for `Products(ProductID, Name, Price, InStock, CategoryID)`."
           ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 25,
+    "title": "Data dictionary — Exam (Paper 2 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 25 minutes.",
+    "questions": [
+      "dd-exam-1",
+      "dd-exam-2",
+      "dd-exam-3"
+    ]
+  }
 }

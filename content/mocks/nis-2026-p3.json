@@ -1,0 +1,1421 @@
+{
+ "key": "nis-2026-p3",
+ "year": 2026,
+ "paper": 3,
+ "grade": 12,
+ "title": "NIS 2026 · Paper 3: Problem-solving and programming skills",
+ "description": "Past paper 2026, Paper 3 (Problem-solving and programming skills) — 120 minutes.",
+ "instructions": "Answer all questions.\nThe number of marks is given in brackets [ ] at the end of each question or part question.\nYou should show all your work.\nNo marks will be awarded for using brand names for software packages or hardware.\nYou can write any code in pseudocode or any other programming language that you studied.\nAnswer all questions in English.",
+ "duration": 120,
+ "integrity_mode": "warn",
+ "max_violations": 3,
+ "show_mark_scheme": true,
+ "include": [],
+ "teacher_resources": [
+  {
+   "label": "Question paper (PDF)",
+   "path": "2026/2026_NIS_G12_CS_03_2RP_AFP.pdf"
+  },
+  {
+   "label": "Mark scheme (PDF)",
+   "path": "2026/2026_NIS_G12_CS_03_MS_3RP.pdf"
+  }
+ ],
+ "questions": [
+  {
+   "key": "m26p3-1",
+   "title": "Assembly language program",
+   "type": "structured",
+   "marks": 8,
+   "difficulty": "exam",
+   "command_word": null,
+   "grading": "AI",
+   "objectives": [],
+   "text": "**Assembly language mnemonics**\n\n| Mnemonic | Description |\n|---|---|\n| INP | Retrieve user input and store it in the Accumulator. |\n| OUT | Output the value stored in the Accumulator. |\n| LDA | Load the Accumulator with the contents of the memory address given. |\n| STA | Store the value in the Accumulator in the memory address given. |\n| ADD | Add the contents of the memory address to the Accumulator. |\n| SUB | Subtract the contents of the memory address from the Accumulator. |\n| BRP | Branch/Jump to the address given if the Accumulator is zero or positive. |\n| BRZ | Jump to the address given in case the Accumulator is zero. |\n| BRA | Jump to the address given. |\n| HLT | Stop the code. |\n| DAT | Used to associate a label to a free memory address. An optional value can also be used to be stored at the memory address. |\n\nAssembly language instructions are written as mnemonics.",
+   "source": "past_paper",
+   "source_reference": "NIS 2026 Paper 3 Q1",
+   "practice": false,
+   "topic": "paper-assembly-and-trace-tables",
+   "scheme": {
+    "mark_scheme": ""
+   },
+   "parts": [
+    {
+     "key": "m26p3-1a",
+     "title": "Assembly language program (a)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "state",
+     "grading": "AI",
+     "objectives": [
+      "11.5.1.3@paper"
+     ],
+     "text": "Give **one** example of an assembly language instruction used for transferring data.",
+     "content": {
+      "answer_lines": 1
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q1(a)",
+     "practice": false,
+     "topic": "paper-assembly-and-trace-tables",
+     "scheme": {
+      "mark_scheme": "LDA (1)\nSTA (1)\n[Max: 1] Accept opcode with operands (e.g. LDA Count).",
+      "points": [
+       {
+        "criterion": "LDA or STA",
+        "marks": 1
+       }
+      ],
+      "model_answer": "LDA",
+      "ai_instructions": "Accept LDA or STA, with or without an operand (e.g. LDA COUNT)."
+     },
+     "part_label": "(a)"
+    },
+    {
+     "key": "m26p3-1bi",
+     "title": "Assembly language program (b)(i)",
+     "type": "table_completion",
+     "marks": 5,
+     "difficulty": "exam",
+     "command_word": "complete",
+     "grading": "AI",
+     "objectives": [
+      "11.5.1.3@paper",
+      "11.5.1.4@paper"
+     ],
+     "text": "Assembly language code is given below.\n\n```assembly\nAddress  Label     Instruction\n00       START     LDA COUNT\n01                 ADD ONE\n02                 STA COUNT\n03                 INP\n04                 STA INPUT\n05                 BRP CHECKR\n06                 BRA START\n07       CHECKR    LDA INPUT\n08                 SUB RANGE\n09                 BRZ OK\n10                 BRP START\n11       OK        LDA INPUT\n12                 ADD ONE\n13                 OUT\n14                 LDA COUNT\n15                 OUT\n16                 HLT\n17       ONE       DAT 1\n18       RANGE     DAT 10\n19       INPUT     DAT\n20       COUNT     DAT 0\n```\n\nTrace the program using the trace table for the input values **-3** and **8**.",
+     "content": {
+      "columns": [
+       "Instruction address",
+       "Accumulator",
+       "17",
+       "18",
+       "19",
+       "20",
+       "Output"
+      ],
+      "rows": 24,
+      "prefill": [
+       [
+        "",
+        "",
+        "1",
+        "10",
+        "",
+        "0",
+        ""
+       ],
+       [
+        "00",
+        "0",
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ],
+       [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+       ]
+      ]
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q1(b)(i)",
+     "practice": false,
+     "topic": "paper-assembly-and-trace-tables",
+     "scheme": {
+      "mark_scheme": "| Instruction address | Acc | 17 | 18 | 19 | 20 | Output |\n|---|---|---|---|---|---|---|\n|  |  | 1 | 10 |  | 0 |  |\n| 00 | 0 |  |  |  |  |  |\n| 01 | 1 |  |  |  |  |  |\n| 02 |  |  |  |  | 1 |  |\n| 03 | -3 |  |  |  |  |  |\n| 04 |  |  |  | -3 |  |  |\n| 05 |  |  |  |  |  |  |\n| 06 |  |  |  |  |  |  |\n| 00 | 1 |  |  |  |  |  |\n| 01 | 2 |  |  |  |  |  |\n| 02 |  |  |  |  | 2 |  |\n| 03 | 8 |  |  |  |  |  |\n| 04 |  |  |  | 8 |  |  |\n| 05 |  |  |  |  |  |  |\n| 07 |  |  |  |  |  |  |\n| 08 | -2 |  |  |  |  |  |\n| 09 |  |  |  |  |  |  |\n| 10 |  |  |  |  |  |  |\n| 11 | 8 |  |  |  |  |  |\n| 12 | 9 |  |  |  |  |  |\n| 13 |  |  |  |  |  | 9 |\n| 14 | 2 |  |  |  |  |  |\n| 15 |  |  |  |  |  | 2 |\n| 16 |  |  |  |  |  |  |\n\n1 mark for each correctly filled highlighted column (Instruction address, Accumulator, 19, 20, Output).\nCells can be left empty if no changes occurred.\n[5]",
+      "points": [
+       {
+        "criterion": "Instruction address column",
+        "marks": 1
+       },
+       {
+        "criterion": "Accumulator column",
+        "marks": 1
+       },
+       {
+        "criterion": "Memory address 19 column",
+        "marks": 1
+       },
+       {
+        "criterion": "Memory address 20 column",
+        "marks": 1
+       },
+       {
+        "criterion": "Output column",
+        "marks": 1
+       }
+      ],
+      "model_answer": "| Instruction address | Acc | 17 | 18 | 19 | 20 | Output |\n|---|---|---|---|---|---|---|\n|  |  | 1 | 10 |  | 0 |  |\n| 00 | 0 |  |  |  |  |  |\n| 01 | 1 |  |  |  |  |  |\n| 02 |  |  |  |  | 1 |  |\n| 03 | -3 |  |  |  |  |  |\n| 04 |  |  |  | -3 |  |  |\n| 05 |  |  |  |  |  |  |\n| 06 |  |  |  |  |  |  |\n| 00 | 1 |  |  |  |  |  |\n| 01 | 2 |  |  |  |  |  |\n| 02 |  |  |  |  | 2 |  |\n| 03 | 8 |  |  |  |  |  |\n| 04 |  |  |  | 8 |  |  |\n| 05 |  |  |  |  |  |  |\n| 07 |  |  |  |  |  |  |\n| 08 | -2 |  |  |  |  |  |\n| 09 |  |  |  |  |  |  |\n| 10 |  |  |  |  |  |  |\n| 11 | 8 |  |  |  |  |  |\n| 12 | 9 |  |  |  |  |  |\n| 13 |  |  |  |  |  | 9 |\n| 14 | 2 |  |  |  |  |  |\n| 15 |  |  |  |  |  | 2 |\n| 16 |  |  |  |  |  |  |",
+      "ai_instructions": "Award 1 mark per column (instruction address, accumulator, 19, 20, output) when the whole column is correct. Cells may be left empty if the value does not change; repeating an unchanged value is not an error."
+     },
+     "part_label": "(b)(i)"
+    },
+    {
+     "key": "m26p3-1bii",
+     "title": "Assembly language program (b)(ii)",
+     "type": "short_answer",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "describe",
+     "grading": "AI",
+     "objectives": [
+      "11.5.1.3@paper"
+     ],
+     "text": "Describe the purpose of this assembly language program.",
+     "content": {
+      "answer_lines": 3
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q1(b)(ii)",
+     "practice": false,
+     "topic": "paper-assembly-and-trace-tables",
+     "scheme": {
+      "mark_scheme": "Validates input between 0 to 10 (1)\nContinues to run until the user inputs valid data (1)\nIncrements the value if it's correct/within range (1)\nOutputs the result/incremented value and the count of attempts (1)\n[Max: 2]",
+      "points": [
+       {
+        "criterion": "Point 1",
+        "marks": 1
+       },
+       {
+        "criterion": "Point 2",
+        "marks": 1
+       }
+      ],
+      "model_answer": "It keeps asking for a number until one between 0 and 10 is entered, then outputs that number plus 1 and the number of attempts."
+     },
+     "part_label": "(b)(ii)"
+    }
+   ]
+  },
+  {
+   "key": "m26p3-2",
+   "title": "School football team",
+   "type": "structured",
+   "marks": 17,
+   "difficulty": "exam",
+   "command_word": null,
+   "grading": "AI",
+   "objectives": [],
+   "text": "A school has a football team. The team consists of 1 goalkeeper and 10 players whose positions depend on the tactical formation chosen.\n\nTactical Formations (10 players):\n\n- 4-4-2: 4 defenders, 4 midfielders, 2 forwards.\n- 4-3-3: 4 defenders, 3 midfielders, 3 forwards.\n- 3-5-2: 3 defenders, 5 midfielders, 2 forwards",
+   "source": "past_paper",
+   "source_reference": "NIS 2026 Paper 3 Q2",
+   "practice": false,
+   "topic": "g11-scripting-language",
+   "scheme": {
+    "mark_scheme": ""
+   },
+   "parts": [
+    {
+     "key": "m26p3-2ai",
+     "title": "School football team (a)(i)",
+     "type": "pseudocode",
+     "marks": 5,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.10@paper"
+     ],
+     "text": "The team coach needs a program that checks if the team is formed according to one of the three tactical formations.\n\nIf the formation is correct, the algorithm should output a confirmation message. Otherwise, it should display a message indicating that the formation does not exist.\n\nTo perform the check, the coach needs to enter values into the following variables:\n\n- def – for defenders\n- mid – for midfielders\n- fwd – for forwards\n\nWrite pseudocode or code in a programming language for this algorithm.",
+     "content": {
+      "language": "pseudocode",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(a)(i)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "INPUT def\nINPUT mid\nINPUT fwd (1)\nIF (def == 4 AND mid == 4 AND fwd == 2) THEN\n    PRINT \"The team division matches the 4-4-2 formation.\"\nELSE IF (def == 4 AND mid == 3 AND fwd == 3) THEN\n    PRINT \"The team division matches the 4-3-3 formation.\"\nELSE IF (def == 3 AND mid == 5 AND fwd == 2) THEN\n    PRINT \"The team division matches the 3-5-2 formation.\"\nELSE\n    PRINT \"The team division does not match any standard tactical formation.\"\nEND IF\n[5]\n1 mark for inputs; 1 mark for correctly implementing the if statements; 1 mark for correctly using logical conditions; 1 mark for the output of confirmation message; 1 mark for the output when condition is false. Accept any valid alternative solutions.",
+      "points": [
+       {
+        "criterion": "Inputs def, mid, fwd",
+        "marks": 1
+       },
+       {
+        "criterion": "IF statements implemented correctly",
+        "marks": 1
+       },
+       {
+        "criterion": "Logical conditions (AND)",
+        "marks": 1
+       },
+       {
+        "criterion": "Confirmation output",
+        "marks": 1
+       },
+       {
+        "criterion": "Output when no formation matches",
+        "marks": 1
+       }
+      ],
+      "model_answer": "INPUT def\nINPUT mid\nINPUT fwd\nIF def = 4 AND mid = 4 AND fwd = 2 THEN\n    OUTPUT \"The team division matches the 4-4-2 formation.\"\nELSE IF def = 4 AND mid = 3 AND fwd = 3 THEN\n    OUTPUT \"The team division matches the 4-3-3 formation.\"\nELSE IF def = 3 AND mid = 5 AND fwd = 2 THEN\n    OUTPUT \"The team division matches the 3-5-2 formation.\"\nELSE\n    OUTPUT \"The team division does not match any standard tactical formation.\"\nENDIF",
+      "ai_instructions": "Accept any valid alternative solutions."
+     },
+     "part_label": "(a)(i)"
+    },
+    {
+     "key": "m26p3-2aii",
+     "title": "School football team (a)(ii)",
+     "type": "labelled_answers",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "state",
+     "grading": "AI",
+     "objectives": [
+      "12.5.3.3@paper",
+      "12.5.3.4@paper"
+     ],
+     "text": "To verify the written program, it is necessary to test it.\n\nGive examples of data that test the variable mid.",
+     "content": {
+      "fields": [
+       {
+        "key": "extreme",
+        "label": "Extreme",
+        "lines": 1
+       },
+       {
+        "key": "erroneous",
+        "label": "Erroneous",
+        "lines": 1
+       }
+      ]
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(a)(ii)",
+     "practice": false,
+     "topic": "g12-types-of-test-data",
+     "scheme": {
+      "mark_scheme": "Extreme data: 3 / 5 (1)\nErroneous data: any number that is not 3, 4, 5 or any other non-numerical character (1)\n[2]",
+      "points": [
+       {
+        "criterion": "Extreme 3 or 5",
+        "marks": 1
+       },
+       {
+        "criterion": "Erroneous value",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Extreme: 5\nErroneous: 9"
+     },
+     "part_label": "(a)(ii)"
+    },
+    {
+     "key": "m26p3-2aiii",
+     "title": "School football team (a)(iii)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "describe",
+     "grading": "AI",
+     "objectives": [
+      "12.5.3.1@paper"
+     ],
+     "text": "Describe an error that will occur if string or character values are entered into the variables def, mid, and fwd instead of numeric values.",
+     "content": {
+      "answer_lines": 2
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(a)(iii)",
+     "practice": false,
+     "topic": "g12-types-of-errors",
+     "scheme": {
+      "mark_scheme": "The program will likely encounter a type mismatch or runtime error [1]\nAccept any valid answer.",
+      "points": [
+       {
+        "criterion": "Type mismatch / runtime error",
+        "marks": 1
+       }
+      ],
+      "model_answer": "A runtime (type mismatch) error, because text cannot be compared with or converted to a number.",
+      "ai_instructions": "Accept any valid answer."
+     },
+     "part_label": "(a)(iii)"
+    },
+    {
+     "key": "m26p3-2aiv",
+     "title": "School football team (a)(iv)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "describe",
+     "grading": "AI",
+     "objectives": [
+      "12.5.3.5@paper"
+     ],
+     "text": "Describe a mistake a programmer might make while writing this code that the translator would catch.",
+     "content": {
+      "answer_lines": 2
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(a)(iv)",
+     "practice": false,
+     "topic": "g12-types-of-errors",
+     "scheme": {
+      "mark_scheme": "Syntax errors like forgetting to close a parenthesis, brace, or bracket / Missing colons, parenthesis, or braces [1]\nAccept any valid answer.",
+      "points": [
+       {
+        "criterion": "Syntax error example",
+        "marks": 1
+       }
+      ],
+      "model_answer": "A syntax error, e.g. forgetting to close a bracket in the IF condition.",
+      "ai_instructions": "Accept any valid answer."
+     },
+     "part_label": "(a)(iv)"
+    },
+    {
+     "key": "m26p3-2b",
+     "title": "School football team (b)",
+     "type": "binary_tree",
+     "marks": 3,
+     "difficulty": "exam",
+     "command_word": "draw",
+     "grading": "HYBRID",
+     "objectives": [
+      "12.5.2.2@paper"
+     ],
+     "text": "The players each have a unique number on their shirts. The player wearing the number 6 is the team's captain. The coach arranges the team in the following order: 6, 10, 4, 2, 8, 3, 9, 7, 1, 5.\n\nBuild a binary tree to represent this arrangement of players.",
+     "content": {},
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(b)",
+     "practice": false,
+     "topic": "g12-binary-tree",
+     "scheme": {
+      "mark_scheme": "Root 6 (1)\nRight side: 10 with left child 8; 8 has children 7 and 9 (1)\nLeft side: 4 with children 2 and 5; 2 has children 1 and 3 (1)\n[Max: 3]\nAlternatively drawn as nodes Left pointer | Data | Right pointer — accept only with correct indexes; accept -1 or NULL instead of empty cells.",
+      "points": [
+       {
+        "criterion": "Root 6",
+        "marks": 1
+       },
+       {
+        "criterion": "Right subtree",
+        "marks": 1
+       },
+       {
+        "criterion": "Left subtree",
+        "marks": 1
+       }
+      ],
+      "model_answer": "6 is the root; 4 is the left child and 10 the right child of 6; 2 and 5 are the children of 4; 1 and 3 are the children of 2; 8 is the left child of 10; 7 and 9 are the children of 8.",
+      "accepted": {
+       "tree": [
+        "6",
+        "4",
+        "10",
+        "2",
+        "5",
+        "8",
+        null,
+        "1",
+        "3",
+        null,
+        null,
+        "7",
+        "9"
+       ]
+      }
+     },
+     "part_label": "(b)"
+    },
+    {
+     "key": "m26p3-2ci",
+     "title": "School football team (c)(i)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "name",
+     "grading": "HYBRID",
+     "objectives": [
+      "12.5.2.1@paper"
+     ],
+     "text": "The football team has its own rules.\n\nBefore the game starts, the one who arrives first goes onto the field first.\n\nName the data structure that corresponds to this principle.",
+     "content": {
+      "answer_lines": 1
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(c)(i)",
+     "practice": false,
+     "topic": "g12-stacks-and-queues",
+     "scheme": {
+      "mark_scheme": "Queue [1]",
+      "points": [
+       {
+        "criterion": "Queue",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Queue",
+      "accepted": {
+       "values": [
+        "Queue",
+        "a queue"
+       ]
+      }
+     },
+     "part_label": "(c)(i)"
+    },
+    {
+     "key": "m26p3-2cii",
+     "title": "School football team (c)(ii)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "name",
+     "grading": "HYBRID",
+     "objectives": [
+      "12.5.2.1@paper"
+     ],
+     "text": "After the game, players place their football uniforms in a box. Before the next game, they take them out again. The player who puts their football uniform in last takes it out first.\n\nName the data structure that corresponds to this principle.",
+     "content": {
+      "answer_lines": 1
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(c)(ii)",
+     "practice": false,
+     "topic": "g12-stacks-and-queues",
+     "scheme": {
+      "mark_scheme": "Stack [1]",
+      "points": [
+       {
+        "criterion": "Stack",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Stack",
+      "accepted": {
+       "values": [
+        "Stack",
+        "a stack"
+       ]
+      }
+     },
+     "part_label": "(c)(ii)"
+    },
+    {
+     "key": "m26p3-2di",
+     "title": "School football team (d)(i)",
+     "type": "code_completion",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "12.5.1.2@paper"
+     ],
+     "text": "A declarative language is used to represent the following facts about the football team.\n\n```prolog\n01 player(ali).\n02 player(bob).\n03 player(chris).\n04 player(dan).\n05 player(eve).\n06 player(frank).\n07 player(grace).\n08 player(heidi).\n09 player(ivan).\n10 player(jack).\n11 player(kate).\n12 position(ali, forward).\n13 position(bob, midfielder).\n14 position(chris, defender).\n15 position(dan, midfielder).\n16 position(eve, defender).\n17 position(frank, forward).\n18 position(grace, midfielder).\n19 position(heidi, goalkeeper).\n20 position(ivan, defender).\n21 position(jack, defender).\n22 position(kate, forward).\n23 injured(ali).\n24 injured(eve).\n25 injured(heidi).\n```\n\nThese facts have the following meanings:\n\n| Facts | Meaning |\n|---|---|\n| 01 | Ali is a player. |\n| 12 | Ali's position is forward. |\n| 23 | Ali is injured. |\n\nWrite the goal, using variable M, to find all the midfielders of the team.",
+     "content": {
+      "language": "prolog",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(d)(i)",
+     "practice": false,
+     "topic": "g12-expert-systems",
+     "scheme": {
+      "mark_scheme": "position(M, midfielder) [1]",
+      "points": [
+       {
+        "criterion": "Correct query",
+        "marks": 1
+       }
+      ],
+      "model_answer": "position(M, midfielder)"
+     },
+     "part_label": "(d)(i)"
+    },
+    {
+     "key": "m26p3-2dii",
+     "title": "School football team (d)(ii)",
+     "type": "code_completion",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "12.5.1.2@paper"
+     ],
+     "text": "Write the goal, using variable X, to find the defenders on the team who are injured.",
+     "content": {
+      "language": "prolog",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q2(d)(ii)",
+     "practice": false,
+     "topic": "g12-expert-systems",
+     "scheme": {
+      "mark_scheme": "position(X, defender), injured(X)\nOR\nposition(X, defender) AND injured(X)\n[Max: 2] 1 mark for clauses; 1 mark for using \",\" or \"AND\".",
+      "points": [
+       {
+        "criterion": "Both clauses",
+        "marks": 1
+       },
+       {
+        "criterion": "Joined with , or AND",
+        "marks": 1
+       }
+      ],
+      "model_answer": "position(X, defender), injured(X)"
+     },
+     "part_label": "(d)(ii)"
+    }
+   ]
+  },
+  {
+   "key": "m26p3-3",
+   "title": "Substitutions",
+   "type": "structured",
+   "marks": 13,
+   "difficulty": "exam",
+   "command_word": null,
+   "grading": "AI",
+   "objectives": [],
+   "text": "In a football game, 11 players are on the field, and 3 substitute players are waiting to play. It is allowed to make three substitutions. When a substitution is needed, the coach selects the player on the field and the substitute player, swaps them and updates his data.\n\nArray fieldP represents the players on the field. Array subP represents the substitute players.\n\nFor example, at the beginning of a game:\n\n`fieldP = [11, 2, 8, 4, 5, 10, 7, 3, 9, 6, 1]`\n\n`subP = [12, 13, 14]`\n\nAt the end of that game:\n\n`fieldP = [11, 2, 8, 4, 13, 10, 14, 12, 9, 6, 1]`\n\n`subP = [3, 5, 7]`",
+   "source": "past_paper",
+   "source_reference": "NIS 2026 Paper 3 Q3",
+   "practice": false,
+   "topic": "paper-arrays",
+   "scheme": {
+    "mark_scheme": ""
+   },
+   "parts": [
+    {
+     "key": "m26p3-3a",
+     "title": "Substitutions (a)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "state",
+     "grading": "AI",
+     "objectives": [
+      "11.5.2.1@paper"
+     ],
+     "text": "Determine the indexes of the first and last elements for the array fieldP.",
+     "content": {
+      "answer_lines": 1
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q3(a)",
+     "practice": false,
+     "topic": "paper-arrays",
+     "scheme": {
+      "mark_scheme": "0 and 10 [1]",
+      "points": [
+       {
+        "criterion": "0 and 10",
+        "marks": 1
+       }
+      ],
+      "model_answer": "First index 0, last index 10",
+      "ai_instructions": "Also accept 1 and 11 if the candidate clearly states arrays indexed from 1."
+     },
+     "part_label": "(a)"
+    },
+    {
+     "key": "m26p3-3b",
+     "title": "Substitutions (b)",
+     "type": "code_completion",
+     "marks": 7,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.2.3@paper"
+     ],
+     "text": "Write pseudocode or code in a programming language for the coach that will update the arrays when a substitution is made.",
+     "content": {
+      "language": "pseudocode",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q3(b)",
+     "practice": false,
+     "topic": "paper-arrays",
+     "scheme": {
+      "mark_scheme": "fieldP[11] ← [11, 2, 8, 4, 5, 10, 7, 3, 9, 6, 1]\nsubP[3] ← [12, 13, 14]\nINPUT s1, s2\nFOR i FROM 0 TO 2\n    IF subP[i] = s2 THEN\n        FOR j FROM 0 TO 10\n            IF fieldP[j] = s1 THEN\n                subP[i] ← fieldP[j]\n                fieldP[j] ← s2\n            ENDIF\n        ENDFOR\n    ENDIF\nENDFOR\n\n1 mark for initialising arrays; 1 mark for declaring variables and getting input for making a substitution; 1 mark for correct use of loop (subP); 1 mark for condition finding the substitute player from subP; 1 mark for correct use of loop (fieldP); 1 mark for condition finding the substituted player from fieldP; 1 mark for correct substitution.\n[Max: 7] Accept any correct solution (C++, Python and pseudocode versions are given in the mark scheme).",
+      "points": [
+       {
+        "criterion": "Arrays initialised",
+        "marks": 1
+       },
+       {
+        "criterion": "Input of the two players",
+        "marks": 1
+       },
+       {
+        "criterion": "Loop through subP",
+        "marks": 1
+       },
+       {
+        "criterion": "Condition finds the substitute",
+        "marks": 1
+       },
+       {
+        "criterion": "Loop through fieldP",
+        "marks": 1
+       },
+       {
+        "criterion": "Condition finds the field player",
+        "marks": 1
+       },
+       {
+        "criterion": "Values swapped correctly",
+        "marks": 1
+       }
+      ],
+      "model_answer": "fieldP = [11, 2, 8, 4, 5, 10, 7, 3, 9, 6, 1]\nsubP = [12, 13, 14]\ns1 = int(input(\"Player to be substituted: \"))\ns2 = int(input(\"Substitute player: \"))\nfor i in range(3):\n    if subP[i] == s2:\n        for j in range(11):\n            if fieldP[j] == s1:\n                subP[i] = fieldP[j]\n                fieldP[j] = s2",
+      "ai_instructions": "Accept any correct solution in pseudocode or a programming language."
+     },
+     "part_label": "(b)"
+    },
+    {
+     "key": "m26p3-3c",
+     "title": "Substitutions (c)",
+     "type": "code_completion",
+     "marks": 5,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.2.4@paper"
+     ],
+     "text": "Write pseudocode or code in a programming language to sort the array fieldP in ascending order using insertion sort.",
+     "content": {
+      "language": "pseudocode",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q3(c)",
+     "practice": false,
+     "topic": "paper-sorting-and-searching",
+     "scheme": {
+      "mark_scheme": "for i in range(1, len(fieldP)):\n    key = fieldP[i]\n    j = i - 1\n    while j >= 0 and key < fieldP[j]:\n        fieldP[j + 1] = fieldP[j]\n        j -= 1\n    fieldP[j + 1] = key\n\n1 mark for the correct external loop with the correct range; 1 mark for defining the key; 1 mark for defining the variable j; 1 mark for the correct internal loop; 1 mark for correctly swapping the elements.\n[Max: 5] Accept valid alternative algorithms.",
+      "points": [
+       {
+        "criterion": "Outer loop from index 1",
+        "marks": 1
+       },
+       {
+        "criterion": "key defined",
+        "marks": 1
+       },
+       {
+        "criterion": "j = i − 1",
+        "marks": 1
+       },
+       {
+        "criterion": "Inner while loop condition",
+        "marks": 1
+       },
+       {
+        "criterion": "Shifting / inserting elements",
+        "marks": 1
+       }
+      ],
+      "model_answer": "for i in range(1, len(fieldP)):\n    key = fieldP[i]\n    j = i - 1\n    while j >= 0 and key < fieldP[j]:\n        fieldP[j + 1] = fieldP[j]\n        j -= 1\n    fieldP[j + 1] = key",
+      "ai_instructions": "Accept valid alternative insertion-sort algorithms (e.g. swapping adjacent elements). Do not accept bubble sort."
+     },
+     "part_label": "(c)"
+    }
+   ]
+  },
+  {
+   "key": "m26p3-4",
+   "title": "Football player web page",
+   "type": "structured",
+   "marks": 15,
+   "difficulty": "exam",
+   "command_word": null,
+   "grading": "AI",
+   "objectives": [],
+   "text": "A page needs to be added to the school's official website. The page should display information about each football player, including their full name, the number of games they played, the number of goals scored, and the number of assists.\n\nTo collect this information, the following form is used.\n\n![Form titled Football Player Information with fields Full name (Enter full name), Matches Played (Enter number of matches), Goals Scored (Enter number of goals), Assists (Enter number of assists) and a Submit button.](https://icnwfwszbwyewktnnupl.supabase.co/storage/v1/object/public/media/mocks/nis-2026-p3/q4-player-form.png)",
+   "source": "past_paper",
+   "source_reference": "NIS 2026 Paper 3 Q4",
+   "practice": false,
+   "topic": "g11-web-page-design",
+   "scheme": {
+    "mark_scheme": ""
+   },
+   "parts": [
+    {
+     "key": "m26p3-4a",
+     "title": "Football player web page (a)",
+     "type": "html_css",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "complete",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.2@paper"
+     ],
+     "text": "Fill in the blanks in HTML-code of this form.",
+     "content": {
+      "language": "html",
+      "starter_code": "<form>\n  <label for=\"name\">Full Name:</label>\n  <input type=\"________\" name=\"________\" placeholder=\"Enter full name\" required>\n\n  <label for=\"matches\">Matches Played:</label>\n  <input type=\"________\" name=\"________\" placeholder=\"Enter number of matches\" required>\n\n  <label for=\"goals\">Goals Scored:</label>\n  <input type=\"________\" name=\"________\" placeholder=\"Enter number of goals\" required>\n\n  <label for=\"assists\">Assists:</label>\n  <input type=\"________\" name=\"________\" placeholder=\"Enter number of assists\" required>\n  <button type=\"submit\">Submit</button\n</form>"
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(a)",
+     "practice": false,
+     "topic": "g11-web-page-design",
+     "scheme": {
+      "mark_scheme": "input type=\"text\" name=\"name\"\ninput type=\"number\" name=\"matches\"\ninput type=\"number\" name=\"goals\"\ninput type=\"number\" name=\"assists\"\n[2]\n1 mark for correctly filling in all input types; 1 mark for appropriately filling in all name attributes. Accept text instead of number data type.",
+      "points": [
+       {
+        "criterion": "All input types",
+        "marks": 1
+       },
+       {
+        "criterion": "All name attributes",
+        "marks": 1
+       }
+      ],
+      "model_answer": "<input type=\"text\" name=\"name\" …>\n<input type=\"number\" name=\"matches\" …>\n<input type=\"number\" name=\"goals\" …>\n<input type=\"number\" name=\"assists\" …>",
+      "ai_instructions": "Accept type=\"text\" instead of \"number\"."
+     },
+     "part_label": "(a)"
+    },
+    {
+     "key": "m26p3-4b",
+     "title": "Football player web page (b)",
+     "type": "html_css",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.1@paper"
+     ],
+     "text": "The page on the school's official website needs to display a photo of the player.\n\nWrite HTML-code to add the player-photo.jpg to the page.",
+     "content": {
+      "language": "html",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(b)",
+     "practice": false,
+     "topic": "g11-web-page-design",
+     "scheme": {
+      "mark_scheme": "<img (1)\nsrc=\"player-photo.jpg\"> (1)\n[2] 1 mark for tag; 1 mark for attribute.",
+      "points": [
+       {
+        "criterion": "img tag",
+        "marks": 1
+       },
+       {
+        "criterion": "src attribute",
+        "marks": 1
+       }
+      ],
+      "model_answer": "<img src=\"player-photo.jpg\">"
+     },
+     "part_label": "(b)"
+    },
+    {
+     "key": "m26p3-4c",
+     "title": "Football player web page (c)",
+     "type": "html_css",
+     "marks": 3,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.3@paper"
+     ],
+     "text": "The football team page needs to be linked to the existing design file named school.css.\n\nWrite HTML-code to add the external school.css file to the page.",
+     "content": {
+      "language": "html",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(c)",
+     "practice": false,
+     "topic": "g11-cascading-style-sheets",
+     "scheme": {
+      "mark_scheme": "<link (1)\nrel=\"stylesheet\" (1)\nhref=\"school.css\"> (1)\n[3] 1 mark for tag; 1 mark for attribute rel; 1 mark for attribute href.",
+      "points": [
+       {
+        "criterion": "link tag",
+        "marks": 1
+       },
+       {
+        "criterion": "rel=\"stylesheet\"",
+        "marks": 1
+       },
+       {
+        "criterion": "href=\"school.css\"",
+        "marks": 1
+       }
+      ],
+      "model_answer": "<link rel=\"stylesheet\" href=\"school.css\">"
+     },
+     "part_label": "(c)"
+    },
+    {
+     "key": "m26p3-4di",
+     "title": "Football player web page (d)(i)",
+     "type": "code_completion",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.5@paper"
+     ],
+     "text": "The school web developer wants to know the information about the total number of matches played.\n\nWrite a script that retrieves the entered number of matches from the Matches Played field.",
+     "content": {
+      "language": "javascript",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(d)(i)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "$mp = $_POST['matches'];\nOR\nlet mp = parseInt(document.getElementById('matches').value, 10);\nOR\nlet mp = Number(document.getElementById('matches').value);\n[Max: 1] 1 mark for getting value. Accept valid alternative answers, GET or POST method, any variable name instead of mp. Accept only with correct input field name.",
+      "points": [
+       {
+        "criterion": "Gets the value of the matches field",
+        "marks": 1
+       }
+      ],
+      "model_answer": "let mp = Number(document.getElementById('matches').value);",
+      "ai_instructions": "Accept PHP ($_POST / $_GET) or JavaScript; any variable name; the field name must be 'matches'."
+     },
+     "part_label": "(d)(i)"
+    },
+    {
+     "key": "m26p3-4dii",
+     "title": "Football player web page (d)(ii)",
+     "type": "code_completion",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.6@paper"
+     ],
+     "text": "Write a script to validate that the input in the Matches Played field is a non-negative number.",
+     "content": {
+      "language": "javascript",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(d)(ii)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "if ($mp < 0) {echo \"Error: The number must be non-negative\";}\nOR\nif (mp < 0) { System.out.println(\"Error: The number must be non-negative\"); }\n[Max: 2] 1 mark for condition; 1 mark for output. Accept valid alternative answers. Accept only correct variable names.",
+      "points": [
+       {
+        "criterion": "Condition < 0",
+        "marks": 1
+       },
+       {
+        "criterion": "Error output",
+        "marks": 1
+       }
+      ],
+      "model_answer": "if (mp < 0) {\n  alert(\"Error: The number must be non-negative\");\n}"
+     },
+     "part_label": "(d)(ii)"
+    },
+    {
+     "key": "m26p3-4diii",
+     "title": "Football player web page (d)(iii)",
+     "type": "code_completion",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.6@paper"
+     ],
+     "text": "Write a script that sums the number of matches and stores it in the variable matchSum.",
+     "content": {
+      "language": "javascript",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(d)(iii)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "$matchSum += $mp; [1] 1 mark for getting sum.",
+      "points": [
+       {
+        "criterion": "matchSum increased by mp",
+        "marks": 1
+       }
+      ],
+      "model_answer": "matchSum += mp;"
+     },
+     "part_label": "(d)(iii)"
+    },
+    {
+     "key": "m26p3-4ei",
+     "title": "Football player web page (e)(i)",
+     "type": "code_completion",
+     "marks": 3,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.11@paper"
+     ],
+     "text": "The developer wants to add information about the total number of goals and the average number of goals per match to the football team page.\n\nWrite pseudocode or program code for calculating the total number of goals that are stored in the array goals.",
+     "content": {
+      "language": "pseudocode",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(e)(i)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "$totalGoals = 0;\nforeach ($goals as $goal) {\n    $totalGoals += $goal; }\nOR\ntotalGoals ← 0\nFOR each goal IN goals DO\n    totalGoals ← totalGoals + goal\nEND FOR\n[Max: 3] 1 mark for initialising variable; 1 mark for correct use of loop; 1 mark for calculating the total number (accept standard function sum). Accept valid alternative answers, any variable name instead of totalGoals.",
+      "points": [
+       {
+        "criterion": "Total initialised to 0",
+        "marks": 1
+       },
+       {
+        "criterion": "Loop over goals",
+        "marks": 1
+       },
+       {
+        "criterion": "Adds each value",
+        "marks": 1
+       }
+      ],
+      "model_answer": "totalGoals ← 0\nFOR each goal IN goals DO\n    totalGoals ← totalGoals + goal\nENDFOR",
+      "ai_instructions": "Accept the standard sum function."
+     },
+     "part_label": "(e)(i)"
+    },
+    {
+     "key": "m26p3-4eii",
+     "title": "Football player web page (e)(ii)",
+     "type": "code_completion",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "write",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.9@paper"
+     ],
+     "text": "Write pseudocode or program code for calculating the average number of goals per match.",
+     "content": {
+      "language": "pseudocode",
+      "starter_code": ""
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q4(e)(ii)",
+     "practice": false,
+     "topic": "g11-scripting-language",
+     "scheme": {
+      "mark_scheme": "let goalsPerMatch = totalGoals / matchSum;\nOR\n$goalsPerMatch = $totalGoals / $matchSum;\nOR\ngoalsPerMatch ← totalGoals / matchSum\n[Max: 1] Accept valid alternative answers.",
+      "points": [
+       {
+        "criterion": "totalGoals / matchSum",
+        "marks": 1
+       }
+      ],
+      "model_answer": "goalsPerMatch ← totalGoals / matchSum"
+     },
+     "part_label": "(e)(ii)"
+    }
+   ]
+  },
+  {
+   "key": "m26p3-5",
+   "title": "Predicting match results",
+   "type": "structured",
+   "marks": 7,
+   "difficulty": "exam",
+   "command_word": null,
+   "grading": "AI",
+   "objectives": [],
+   "text": "Calculations can be used to predict football match results. The probability of how many goals each team will score in the match is calculated using the Poisson distribution:\n\nP(k; λ) = (λ^k · e^(−λ)) / k!  — that is, λ to the power k, multiplied by e to the power −λ, divided by k factorial.\n\nWhere:\n\n- λ — the average expected number of goals (intensity).\n- k — the number of goals.\n- P(k; λ) — the probability that the team will score k goals.\n\nThe pseudocode for Poisson distribution is presented:\n\n```pseudocode\nVAR Ep REAL\nVAR Poisson REAL\nINPUT L\nINPUT K\nLp = 1\nFOR i from 1 to K DO\n   Lp = Lp * L\nENDFOR\ne = 2,71828\nterm = 1\nFOR i from 1 to L DO\n   term = term * e\nENDFOR\nEp = 1 / term\nfactorial = 1\nFOR i from 1 to K DO\n   factorial = factorial * i\nENDFOR\nPoisson = (Lp * Ep) / factorial\nOUTPUT K\n```",
+   "source": "past_paper",
+   "source_reference": "NIS 2026 Paper 3 Q5",
+   "practice": false,
+   "topic": "paper-algorithm-efficiency",
+   "scheme": {
+    "mark_scheme": ""
+   },
+   "parts": [
+    {
+     "key": "m26p3-5a",
+     "title": "Predicting match results (a)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "describe",
+     "grading": "AI",
+     "objectives": [
+      "12.5.3.6@paper"
+     ],
+     "text": "Describe the error in the pseudocode.",
+     "content": {
+      "answer_lines": 2
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q5(a)",
+     "practice": false,
+     "topic": "g12-types-of-errors",
+     "scheme": {
+      "mark_scheme": "Incorrect output (1)\nThe pseudocode is supposed to output the result of the Poisson calculation (1)\n[Max: 1]",
+      "points": [
+       {
+        "criterion": "Wrong value output",
+        "marks": 1
+       }
+      ],
+      "model_answer": "It outputs K instead of the calculated value Poisson."
+     },
+     "part_label": "(a)"
+    },
+    {
+     "key": "m26p3-5b",
+     "title": "Predicting match results (b)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "identify",
+     "grading": "HYBRID",
+     "objectives": [
+      "12.5.3.6@paper"
+     ],
+     "text": "Identify the type of error.",
+     "content": {
+      "answer_lines": 1
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q5(b)",
+     "practice": false,
+     "topic": "g12-types-of-errors",
+     "scheme": {
+      "mark_scheme": "Logical Error [1] Do not accept logic.",
+      "points": [
+       {
+        "criterion": "Logical error",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Logical error",
+      "accepted": {
+       "values": [
+        "Logical error",
+        "Logical",
+        "Logic error"
+       ]
+      },
+      "ai_instructions": "Do not accept 'logic' on its own."
+     },
+     "part_label": "(b)"
+    },
+    {
+     "key": "m26p3-5c",
+     "title": "Predicting match results (c)",
+     "type": "short_answer",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "explain",
+     "grading": "AI",
+     "objectives": [
+      "11.5.2.6@paper"
+     ],
+     "text": "Explain **one** way to improve the time-efficiency of this pseudocode.",
+     "content": {
+      "answer_lines": 3
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q5(c)",
+     "practice": false,
+     "topic": "paper-algorithm-efficiency",
+     "scheme": {
+      "mark_scheme": "Calculate Lp and term with power operator instead of a loop (1) To reduce number of iterations (1)\nReplace loop Lp=Lp*L with Lp=L^K (1) This reduces K repeated multiplications to one operation (1)\nReplace loop term=term*e with term=e^L (1) This reduces L repeated multiplications to one operation (1)\n[Max: 2] 1 mark for the method of optimisation; 1 mark for explaining how efficiency is improved. Accept valid alternative answers.",
+      "points": [
+       {
+        "criterion": "Method",
+        "marks": 1
+       },
+       {
+        "criterion": "How efficiency improves",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Replace the loop Lp = Lp * L with Lp = L^K; this replaces K repeated multiplications with one operation."
+     },
+     "part_label": "(c)"
+    },
+    {
+     "key": "m26p3-5d",
+     "title": "Predicting match results (d)",
+     "type": "short_answer",
+     "marks": 2,
+     "difficulty": "exam",
+     "command_word": "explain",
+     "grading": "AI",
+     "objectives": [
+      "11.5.2.7@paper"
+     ],
+     "text": "Explain **one** way to improve the space-efficiency of this pseudocode.",
+     "content": {
+      "answer_lines": 3
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q5(d)",
+     "practice": false,
+     "topic": "paper-algorithm-efficiency",
+     "scheme": {
+      "mark_scheme": "Use L^K directly in the Poisson formula instead of storing it in Lp / Perform the calculation in the output statement instead of using variable Poisson (1)\nThis removes unnecessary intermediate variables (1)\n[2] 1 mark for the method of optimisation; 1 mark for explaining how efficiency is improved. Accept valid alternative answers.",
+      "points": [
+       {
+        "criterion": "Method",
+        "marks": 1
+       },
+       {
+        "criterion": "Explanation",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Calculate L^K directly inside the Poisson formula instead of storing it in Lp; this removes an unnecessary intermediate variable, so less memory is used."
+     },
+     "part_label": "(d)"
+    },
+    {
+     "key": "m26p3-5e",
+     "title": "Predicting match results (e)",
+     "type": "short_answer",
+     "marks": 1,
+     "difficulty": "exam",
+     "command_word": "state",
+     "grading": "AI",
+     "objectives": [
+      "11.5.3.12@paper"
+     ],
+     "text": "State a good programming practice that could have been followed in this pseudocode.",
+     "content": {
+      "answer_lines": 2
+     },
+     "source": "past_paper",
+     "source_reference": "NIS 2026 Paper 3 Q5(e)",
+     "practice": false,
+     "topic": "paper-assembly-and-trace-tables",
+     "scheme": {
+      "mark_scheme": "Use clear and meaningful variable names (1)\nReplace generic names like Lp, Ep, and term with descriptive ones like lambdaPowerK and exponentialNegativeLambda (1)\nWrite comments to explain the code / help other developers understand its purpose and logic (1)\nUse white space to make the code easy to read (1)\nUse indentation to show the structure of the code (1)\nUse error handling to prevent crashes and unexpected behaviour (1)\n[Max: 1] Accept valid alternative answers.",
+      "points": [
+       {
+        "criterion": "Good practice",
+        "marks": 1
+       }
+      ],
+      "model_answer": "Use meaningful variable names, e.g. lambdaPowerK instead of Lp."
+     },
+     "part_label": "(e)"
+    }
+   ]
+  }
+ ]
+}

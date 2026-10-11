@@ -1,74 +1,1391 @@
 {
   "topic": "g12-circuit-switching-and-packet-switching-packet-routing",
-  "questions": [],
-  "summary": "Circuit switching and packet switching compared, the role of MAC addresses in delivering packets, and how to find the MAC address of a computer.",
+  "questions": [
+    {
+      "key": "csw-define",
+      "title": "Two methods",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Describe each switching method.",
+      "content": {
+        "fields": [
+          {
+            "key": "c",
+            "label": "Circuit switching",
+            "lines": 2
+          },
+          {
+            "key": "p",
+            "label": "Packet switching",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Circuit: a dedicated path is set up and reserved between sender and receiver for the whole communication (1). Packet: data split into packets that travel independently, possibly by different routes, and are reassembled (1)",
+        "points": [
+          {
+            "criterion": "Circuit",
+            "marks": 1
+          },
+          {
+            "criterion": "Packet",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Circuit switching: a dedicated path is reserved between the two devices for the whole session. Packet switching: data is split into packets that may take different routes and are reassembled at the destination."
+      }
+    },
+    {
+      "key": "csw-tick",
+      "title": "Circuit or packet",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the switching method each statement describes.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Circuit switching",
+          "Packet switching"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "A path is set up before any data is sent",
+            null,
+            null
+          ],
+          [
+            "Data may arrive out of order",
+            null,
+            null
+          ],
+          [
+            "Bandwidth is reserved even when no data is sent",
+            null,
+            null
+          ],
+          [
+            "Data is rerouted if a link fails",
+            null,
+            null
+          ],
+          [
+            "Every unit of data carries the destination address",
+            null,
+            null
+          ],
+          [
+            "Used by traditional landline telephone calls",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Circuit; packet; circuit; packet; packet; circuit (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "csw-phases",
+      "title": "Phases of circuit switching",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Put the phases of circuit switching in order:\n\n- **A** Data transfer\n- **B** Circuit release\n- **C** Circuit establishment",
+      "content": {
+        "columns": [
+          "Order",
+          "Phase"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "C, A, B (1 each)",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          },
+          {
+            "criterion": "3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "C"
+            ],
+            [
+              null,
+              "A"
+            ],
+            [
+              null,
+              "B"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "csw-header",
+      "title": "Packet header",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Select the **three** items found in the header of a packet.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Destination IP address"
+        },
+        {
+          "key": "B",
+          "content": "The user's password"
+        },
+        {
+          "key": "C",
+          "content": "Sequence (packet) number"
+        },
+        {
+          "key": "D",
+          "content": "Source IP address"
+        },
+        {
+          "key": "E",
+          "content": "The full message"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C, D",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        }
+      }
+    },
+    {
+      "key": "csw-reassemble",
+      "title": "Reassembly",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Explain how the receiver rebuilds a message sent by packet switching when the packets arrive in the order 3, 1, 4, 2.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Each packet has a sequence number in its header (1)\n- the receiver waits for all packets (requests missing / damaged ones) and puts them in order 1, 2, 3, 4 using the sequence numbers (1)",
+        "points": [
+          {
+            "criterion": "Sequence numbers",
+            "marks": 1
+          },
+          {
+            "criterion": "Reorder / request missing",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each packet carries a sequence number, so the receiver collects all four, asks again for any missing or damaged one, and puts them back in the order 1, 2, 3, 4."
+      }
+    },
+    {
+      "key": "csw-differences",
+      "title": "Two differences",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Explain **two** differences between packet switching and circuit switching.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two, both sides (1 each): addresses only at set-up vs in every packet; one dedicated channel vs different routes; in order vs reassembled; reserved vs shared bandwidth; connection lost vs rerouted on failure; constant vs variable delay",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 In circuit switching addresses are needed only to set up the connection, whereas in packet switching every packet carries the sender and receiver addresses. 2 Circuit switching sends all data along one reserved channel in order, whereas packets can take different routes and are reassembled."
+      }
+    },
+    {
+      "key": "csw-video",
+      "title": "Online classes",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "A university conducts online classes for students. Data is transmitted using packet switching. State **two** problems that can arise.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 1
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 1
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): picture and sound not synchronised; interruptions / video not continuous / freezing; degraded by other competing traffic; lost packets → poor quality",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Picture and sound are not synchronised. 2 The video freezes when packets are delayed by other traffic."
+      }
+    },
+    {
+      "key": "csw-failure",
+      "title": "A link fails",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Explain what happens to the communication when one link of the network fails during (a) a circuit-switched call and (b) a packet-switched transfer.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Circuit: the reserved path is broken so the connection / call is lost and must be set up again (1); Packet: routers send the following packets along another route, the transfer continues / lost packets are resent (1)",
+        "points": [
+          {
+            "criterion": "Circuit",
+            "marks": 1
+          },
+          {
+            "criterion": "Packet",
+            "marks": 1
+          }
+        ],
+        "model_answer": "(a) The dedicated path is broken, so the call is cut off. (b) Routers simply send the remaining packets another way and any lost packets are resent."
+      }
+    },
+    {
+      "key": "csw-bandwidth-mcq",
+      "title": "Efficiency",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "practice": true,
+      "text": "Why does packet switching use network links more efficiently than circuit switching?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Packets never get lost"
+        },
+        {
+          "key": "B",
+          "content": "Links are shared by many users instead of being reserved for one"
+        },
+        {
+          "key": "C",
+          "content": "Packets always take the shortest route"
+        },
+        {
+          "key": "D",
+          "content": "No addresses are needed"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "csw-mac-role",
+      "title": "Role of MAC addresses",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.6.2.2"
+      ],
+      "practice": true,
+      "text": "Describe the role of MAC addresses in packet routing.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- MAC addresses identify the next device on the local link / deliver frames within a LAN (switches use them) (1)\n- they change at each hop while the IP addresses stay the same (1)",
+        "points": [
+          {
+            "criterion": "Local delivery",
+            "marks": 1
+          },
+          {
+            "criterion": "Change per hop",
+            "marks": 1
+          }
+        ],
+        "model_answer": "MAC addresses deliver the frame to the next device on the local link, such as the router or the destination computer; they change at every hop while the source and destination IP addresses stay the same."
+      }
+    },
+    {
+      "key": "csw-hop-tf",
+      "title": "At each hop",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.6.2.2"
+      ],
+      "practice": true,
+      "text": "As a packet travels across the Internet, its destination IP address stays the same but the destination MAC address in the frame changes at each router.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        }
+      }
+    },
+    {
+      "key": "csw-arp",
+      "title": "ARP",
+      "type": "short_answer",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "12.6.2.2"
+      ],
+      "practice": true,
+      "text": "Describe how a computer finds the MAC address of its router when it only knows the router's IP address.",
+      "content": {
+        "answer_lines": 4
+      },
+      "scheme": {
+        "mark_scheme": "- It sends an ARP request broadcast to all devices on the LAN asking who has that IP (1)\n- the router replies with its MAC address (1)\n- the computer stores it in its ARP cache and uses it in the frame header (1)",
+        "points": [
+          {
+            "criterion": "Broadcast request",
+            "marks": 1
+          },
+          {
+            "criterion": "Reply",
+            "marks": 1
+          },
+          {
+            "criterion": "Cache / use",
+            "marks": 1
+          }
+        ],
+        "model_answer": "The computer broadcasts an ARP request \"Who has 192.168.1.1?\"; the router answers with its MAC address, which the computer stores in its ARP cache and puts in the frames it sends."
+      }
+    },
+    {
+      "key": "csw-mac-format",
+      "title": "MAC format",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.2.2"
+      ],
+      "practice": true,
+      "text": "For the MAC address **3C:52:82:1A:9F:04**, complete the table.",
+      "content": {
+        "columns": [
+          "Question",
+          "Answer"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Number of bits",
+            null
+          ],
+          [
+            "Part that identifies the manufacturer",
+            null
+          ],
+          [
+            "Number system used",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "48 (1); 3C:52:82 (1); hexadecimal (1)",
+        "points": [
+          {
+            "criterion": "48",
+            "marks": 1
+          },
+          {
+            "criterion": "3C:52:82",
+            "marks": 1
+          },
+          {
+            "criterion": "Hexadecimal",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "48"
+            ],
+            [
+              null,
+              "3C:52:82||3C-52-82||3C5282"
+            ],
+            [
+              null,
+              "hexadecimal||hex||base 16"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "csw-find-mac",
+      "title": "Find the MAC address",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AI",
+      "objectives": [
+        "12.6.2.3"
+      ],
+      "practice": true,
+      "text": "Write **two** ways to identify the MAC address of a Windows computer.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): command prompt — ipconfig /all or getmac; Control Panel → Network and Internet → View network status and tasks → adapter details; properties of the NIC / network adapter in Device Manager; router admin page / software / online tool",
+        "points": [
+          {
+            "criterion": "1",
+            "marks": 1
+          },
+          {
+            "criterion": "2",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Type ipconfig /all in the command prompt and read the Physical Address. 2 Open Control Panel → Network and Internet → View network status and tasks and look at the adapter's details."
+      }
+    },
+    {
+      "key": "csw-ipconfig",
+      "title": "Reading ipconfig",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "HYBRID",
+      "objectives": [
+        "12.6.2.3"
+      ],
+      "practice": true,
+      "text": "```text\nWireless LAN adapter Wi-Fi:\n   Physical Address. . . . . : A4-5E-60-C2-7D-10\n   IPv4 Address. . . . . . . : 192.168.0.14\n   Default Gateway . . . . . : 192.168.0.1\n```\n\nIdentify the MAC address of this computer.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "A4-5E-60-C2-7D-10 (1)",
+        "points": [
+          {
+            "criterion": "MAC",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A4-5E-60-C2-7D-10",
+        "accepted": {
+          "values": [
+            "A4-5E-60-C2-7D-10",
+            "A4:5E:60:C2:7D:10",
+            "A45E60C27D10"
+          ],
+          "ignore_spaces": true
+        }
+      }
+    },
+    {
+      "key": "csw-two-macs",
+      "title": "Two network cards",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "12.6.2.3"
+      ],
+      "practice": true,
+      "text": "A laptop shows two different MAC addresses, one for Wi-Fi and one for Ethernet. Explain why.",
+      "content": {
+        "answer_lines": 2
+      },
+      "scheme": {
+        "mark_scheme": "A MAC address belongs to a network interface card, not the whole computer (1); the laptop has two NICs (wireless and wired), each with its own unique MAC (1)",
+        "points": [
+          {
+            "criterion": "MAC per NIC",
+            "marks": 1
+          },
+          {
+            "criterion": "Two NICs",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Each network interface has its own MAC address; the laptop has a wireless card and an Ethernet card, so it has two."
+      }
+    },
+    {
+      "key": "csw-exam-1",
+      "title": "Switching methods",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Data can be sent across networks by circuit switching or by packet switching.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "csw-exam-1a",
+          "part_label": "(a)",
+          "title": "Differences",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **two** differences between packet switching and circuit switching.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 3
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 3
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Each difference: circuit side (1) + packet side (1). E.g. addresses only at set-up vs in each packet; dedicated channel / in order vs different routes / reassembled; reserved vs shared bandwidth; lost vs rerouted on failure",
+            "points": [
+              {
+                "criterion": "Difference 1 circuit",
+                "marks": 1
+              },
+              {
+                "criterion": "Difference 1 packet",
+                "marks": 1
+              },
+              {
+                "criterion": "Difference 2 circuit",
+                "marks": 1
+              },
+              {
+                "criterion": "Difference 2 packet",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Circuit switching needs the sender and recipient addresses only when the connection is set up, whereas in packet switching each packet carries both addresses. 2 Circuit switching sends data in order along one dedicated channel, whereas packet switching sends packets by different routes and reassembles them."
+          }
+        },
+        {
+          "key": "csw-exam-1b",
+          "part_label": "(b)",
+          "title": "Steps",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how an e-mail is sent from one computer to another using packet switching.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Any four (1 each): message split into packets; header with source / destination IP and sequence number; routers read destination IP and forward each packet; packets may take different routes / arrive out of order; receiver checks for errors / requests missing packets; packets reassembled in order",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              },
+              {
+                "criterion": "4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The e-mail is split into packets, each with the source and destination IP addresses and a sequence number. Routers forward each packet on the best route available, so they may travel different ways. The receiver checks them, asks for any missing ones and reassembles the e-mail using the sequence numbers."
+          }
+        },
+        {
+          "key": "csw-exam-1c",
+          "part_label": "(c)",
+          "title": "Online class",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A university conducts online classes using packet switching. State **two** problems that can arise.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): picture and sound not synchronised; interruptions / video not continuous; degraded by competing traffic",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Picture and sound are not synchronised. 2 The video is interrupted when the network is busy."
+          }
+        },
+        {
+          "key": "csw-exam-1d",
+          "part_label": "(d)",
+          "title": "Telephone",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why circuit switching suits traditional telephone calls.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Reserved path gives constant low delay / guaranteed bandwidth, so speech is continuous and in order (1)",
+            "points": [
+              {
+                "criterion": "Constant delay / guaranteed",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The reserved circuit gives a constant, low delay, so speech arrives continuously and in order."
+          }
+        }
+      ]
+    },
+    {
+      "key": "csw-exam-2",
+      "title": "Addresses on the journey",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A pupil's laptop (IP 192.168.1.25) sends a request to a web server (IP 185.22.66.10). The request passes through the school router and two routers of the Internet service provider.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "csw-exam-2a",
+          "part_label": "(a)",
+          "title": "MAC vs IP",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** differences between a MAC address and an IP address.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): physical vs network / logical address; assigned by manufacturer vs assigned by the network; identifies the device vs identifies its location / network; fixed vs changes; 48-bit hex vs 32-bit denary",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 A MAC address is a physical address set by the manufacturer, while an IP address is a network address given when the device joins a network. 2 The MAC address identifies the device's network card, while the IP address identifies where the device is on the network."
+          }
+        },
+        {
+          "key": "csw-exam-2b",
+          "part_label": "(b)",
+          "title": "What changes",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain which addresses in the frame and packet change as the request passes from router to router, and which stay the same.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Destination IP 185.22.66.10 stays the same for the whole journey (1); MAC addresses change at each hop (1); destination MAC is always the next router / finally the server; source MAC is the device sending on that link (1)",
+            "points": [
+              {
+                "criterion": "IP same",
+                "marks": 1
+              },
+              {
+                "criterion": "MAC changes",
+                "marks": 1
+              },
+              {
+                "criterion": "Next hop explained",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The destination IP address 185.22.66.10 stays the same. The MAC addresses change at every hop: each frame is addressed from the device sending it to the next router, and on the last link to the web server."
+          }
+        },
+        {
+          "key": "csw-exam-2c",
+          "part_label": "(c)",
+          "title": "ARP",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe how the laptop finds the MAC address of the school router.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "ARP request broadcast asking for the MAC of the router's IP (1); router replies with its MAC, stored in ARP cache (1)",
+            "points": [
+              {
+                "criterion": "Broadcast",
+                "marks": 1
+              },
+              {
+                "criterion": "Reply",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It broadcasts an ARP request asking which device has the router's IP address; the router replies with its MAC address, which the laptop stores in its ARP cache."
+          }
+        },
+        {
+          "key": "csw-exam-2d",
+          "part_label": "(d)",
+          "title": "Find the MAC",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.6.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write **two** ways the pupil can identify the MAC address of the laptop.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): command prompt ipconfig /all / getmac; View network status and tasks / Control Panel → Network and Internet; properties of the NIC / network adapter; software / online tool / router admin page",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Run ipconfig /all in the command prompt.\n2 Open Network and Internet settings and view the adapter's properties."
+          }
+        },
+        {
+          "key": "csw-exam-2e",
+          "part_label": "(e)",
+          "title": "Format",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.6.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the number of bits in a MAC address.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "48 (1)",
+            "points": [
+              {
+                "criterion": "48",
+                "marks": 1
+              }
+            ],
+            "model_answer": "48",
+            "accepted": {
+              "values": [
+                "48",
+                "48 bits"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "csw-exam-3",
+      "title": "Evaluating switching",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A telecom company is replacing its old circuit-switched telephone network with a packet-switched network that carries both calls (VoIP) and Internet data.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "csw-exam-3a",
+          "part_label": "(a)",
+          "title": "Advantages",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **three** advantages of packet switching for the company.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              },
+              {
+                "key": "3",
+                "label": "3",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three (1 each): links shared → more users / efficient use of bandwidth; rerouting around failures → reliable; no set-up time; cheaper; only lost packets resent; one network for voice and data",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              },
+              {
+                "criterion": "3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Links are shared by many users, so more customers are served with the same cables. 2 If a link fails, packets are rerouted, so service continues. 3 One network carries both calls and Internet data, which is cheaper."
+          }
+        },
+        {
+          "key": "csw-exam-3b",
+          "part_label": "(b)",
+          "title": "Disadvantages",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **two** disadvantages of packet switching for voice calls.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): variable delay / jitter → speech breaks up; packets out of order / lost → gaps in speech; quality drops when network congested; header overhead",
+            "points": [
+              {
+                "criterion": "1",
+                "marks": 1
+              },
+              {
+                "criterion": "2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 Packets are delayed by different amounts, so the speech can break up. 2 When the network is busy, packets are lost and the call quality drops."
+          }
+        },
+        {
+          "key": "csw-exam-3c",
+          "part_label": "(c)",
+          "title": "Security",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why calls on the packet-switched network should be encrypted.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Packets travel across shared networks / routers owned by others (1); could be intercepted, encryption makes them unreadable (1)",
+            "points": [
+              {
+                "criterion": "Shared network",
+                "marks": 1
+              },
+              {
+                "criterion": "Encryption",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Packets cross shared networks where they could be intercepted; encryption means anyone capturing them cannot understand the call."
+          }
+        },
+        {
+          "key": "csw-exam-3d",
+          "part_label": "(d)",
+          "title": "Set-up",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.6.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the old network wasted capacity during a call.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "The circuit is reserved for the whole call (1); even during silence no other user can use it (1)",
+            "points": [
+              {
+                "criterion": "Reserved",
+                "marks": 1
+              },
+              {
+                "criterion": "Unused in silence",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The whole circuit was reserved for the call, so during pauses the capacity stayed unused and no one else could use it."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "How networks move data by switching — circuit switching (set-up, transfer, release) and packet switching (packets, headers, independent routes, reassembly) compared with their advantages, disadvantages and problems for live video; the role of MAC and IP addresses at each hop and ARP; the format of a MAC address and ways to find the MAC address of a computer.",
   "theory": [
     {
-      "title": "Circuit switching and packet switching",
+      "title": "Switching in networks",
       "objectives": [
         "12.6.1.1"
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "A large network such as the telephone system or the Internet does not have a direct cable between every pair of devices. Data passes through many **switching nodes** (exchanges, switches, routers). **Switching** is the method used to decide **how** data is passed through these nodes from the sender to the receiver."
+        },
+        {
           "type": "cards",
           "items": [
             {
               "title": "Circuit switching",
-              "content": "A **dedicated path (circuit)** is set up between sender and receiver **before** communication starts and is **reserved** for the whole session. All data follows the same route in order. *Traditional telephone network.*"
+              "content": "A **dedicated path (circuit)** is set up between sender and receiver **before** communication starts and is **reserved** for the whole session. All data follows the **same route**, in order. *Example: the traditional landline telephone network.*"
             },
             {
               "title": "Packet switching",
-              "content": "Data is split into **packets**, each with a header (source and destination addresses, sequence number). Packets travel **independently**, possibly by **different routes**, and are **reassembled** in order at the destination. *The Internet.*"
+              "content": "Data is split into **packets**, each with a **header** (source and destination addresses, sequence number). Packets travel **independently**, possibly by **different routes**, and are **reassembled** in order at the destination. *Example: the Internet.*"
             }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Circuit switching",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "blocks": [
+        {
+          "type": "steps",
+          "title": "The three phases of circuit switching",
+          "items": [
+            "**Circuit establishment** — the sender requests a connection; each exchange on the way reserves a channel until a complete path to the receiver exists (the phone rings).",
+            "**Data transfer** — all data travels along the reserved path, **in order**, with a **constant delay**. The full bandwidth of the circuit belongs to this connection, even during silence.",
+            "**Circuit release (disconnection)** — when the call ends the path is released and the channels can be used by others."
           ]
         },
         {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "  Phone A ══ Exchange 1 ══ Exchange 3 ══ Exchange 4 ══ Phone B     ← reserved circuit\n                 │              │\n             Exchange 2 ── Exchange 5                              ← not used by this call",
+          "caption": "Circuit switching: one reserved path for the whole call"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages",
+              "content": "- **Guaranteed bandwidth** — the line is not shared during the call.\n- **Constant, low delay** after set-up — ideal for real-time voice.\n- Data always arrives **in order**; no reassembly needed.\n- Addresses are needed **only** when the connection is set up."
+            },
+            {
+              "title": "Disadvantages",
+              "content": "- **Set-up time** before any data can be sent.\n- **Wastes bandwidth** — the circuit is reserved even when nobody speaks.\n- If any link on the path **fails**, the connection is **lost**.\n- Fewer users can be served at once — expensive for long distances."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Packet switching",
+      "objectives": [
+        "12.6.1.1"
+      ],
+      "blocks": [
+        {
           "type": "comparison",
+          "title": "Structure of a packet",
           "columns": [
-            "",
-            "Circuit switching",
-            "Packet switching"
+            "Part",
+            "Contents"
           ],
           "rows": [
             [
-              "Connection",
-              "Dedicated path set up first",
-              "No dedicated path"
+              "**Header**",
+              "**Source** and **destination IP addresses**, **sequence (packet) number**, total number of packets, protocol, time to live"
             ],
             [
-              "Route",
-              "Same for all data",
-              "Each packet routed separately"
+              "**Payload (body)**",
+              "A piece of the actual data (e.g. 1500 bytes)"
             ],
             [
-              "Order of arrival",
-              "In order",
-              "May arrive out of order — reassembled using sequence numbers"
-            ],
-            [
-              "Use of bandwidth",
-              "Reserved even when silent — wasteful",
-              "Shared by many users — efficient"
-            ],
-            [
-              "Delay",
-              "Constant, low after set-up — good for real-time voice",
-              "Variable (packets queue at routers)"
-            ],
-            [
-              "Effect of a failure",
-              "Connection is lost",
-              "Packets are rerouted around the failure"
-            ],
-            [
-              "Security",
-              "Harder to intercept",
-              "Packets travel over shared networks — encryption needed"
-            ],
-            [
-              "Example",
-              "Landline telephone calls",
-              "Internet, email, web, VoIP"
+              "**Trailer**",
+              "Error-checking data (checksum) and end-of-packet marker"
             ]
           ]
         },
@@ -76,10 +1393,90 @@
           "type": "steps",
           "title": "Packet switching step by step",
           "items": [
-            "The message is split into packets; each gets a **header**: source IP, destination IP, **sequence number**, packet count, error-check (checksum).",
-            "Each **router** reads the destination IP and forwards the packet along the best route available at that moment.",
-            "Packets may take different routes and arrive out of order.",
-            "The receiver checks each packet, **reorders** them using the sequence numbers and requests any **missing or damaged** packets again."
+            "The message is split into **packets**; each gets a **header** with source IP, destination IP, **sequence number**, packet count and a **checksum**.",
+            "Each packet is sent to the first **router**. Every router reads the **destination IP** and forwards the packet along the **best route available at that moment** (a **hop**).",
+            "Packets of the same message may take **different routes** and arrive **out of order**; some may be delayed, lost or damaged.",
+            "The receiver checks each packet with the checksum, **reorders** them using the sequence numbers and requests **missing or damaged** packets again.",
+            "When all packets have arrived, the original message is **reassembled**."
+          ]
+        },
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "            ┌── R2 ── R4 ──┐\n  Sender ── R1             R6 ── Receiver     packet 1: R1 → R2 → R4 → R6\n            └── R3 ── R5 ──┘                  packet 2: R1 → R3 → R5 → R6\n                                              packet 3: R1 → R2 → R5 → R6\n  Arrival order: 2, 1, 3 → reassembled as 1, 2, 3 using the sequence numbers",
+          "caption": "Packet switching: packets of one message take different routes"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages",
+              "content": "- **Efficient** — links are **shared** by many users; no capacity is wasted during silence.\n- **Reliable** — if a router or link fails, packets are **rerouted** around it.\n- No set-up time — data can be sent **immediately**.\n- Lost or damaged packets are **resent individually**, not the whole message.\n- Suitable for **many simultaneous users** — cheaper."
+            },
+            {
+              "title": "Disadvantages",
+              "content": "- **Variable delay** (packets queue at busy routers) — **jitter**.\n- Packets can **arrive out of order** and must be reassembled — extra processing.\n- Packets can be **lost** during congestion.\n- Every packet carries a header — **overhead**.\n- Data travels over shared networks — **encryption** needed for security."
+            }
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "In a **video lesson** sent by packet switching: picture and sound may be **not synchronised**, the video may **freeze or stutter** (packets delayed or lost), and quality may **drop** when other traffic competes for the same links. Streaming services use **buffering** and protocols that skip late packets to reduce these effects."
+        },
+        {
+          "type": "comparison",
+          "title": "Circuit switching vs packet switching",
+          "columns": [
+            "",
+            "Circuit switching",
+            "Packet switching"
+          ],
+          "rows": [
+            [
+              "**Connection**",
+              "Dedicated path set up first",
+              "No dedicated path"
+            ],
+            [
+              "**Addresses**",
+              "Needed only to set up the connection",
+              "**Every packet** carries source and destination addresses"
+            ],
+            [
+              "**Route**",
+              "Same for all data",
+              "Each packet routed separately"
+            ],
+            [
+              "**Order of arrival**",
+              "In order",
+              "May arrive out of order — reassembled using sequence numbers"
+            ],
+            [
+              "**Use of bandwidth**",
+              "Reserved even when silent — wasteful",
+              "Shared by many users — efficient"
+            ],
+            [
+              "**Delay**",
+              "Constant, low after set-up — good for real-time voice",
+              "Variable (packets queue at routers)"
+            ],
+            [
+              "**Effect of a failure**",
+              "Connection is lost",
+              "Packets are rerouted around the failure"
+            ],
+            [
+              "**Security**",
+              "Harder to intercept",
+              "Packets cross shared networks — encryption needed"
+            ],
+            [
+              "**Example**",
+              "Landline telephone calls",
+              "Internet, e-mail, web, VoIP"
+            ]
           ]
         }
       ]
@@ -91,12 +1488,31 @@
       ],
       "blocks": [
         {
-          "type": "list",
+          "type": "cards",
           "items": [
-            "**IP addresses** get a packet to the right **network** — routers use them to move packets **between networks**.",
-            "**MAC addresses** get the frame to the right **device** on the **local network** — switches use them.",
-            "At each hop the **frame's MAC addresses change** (next device on the link), but the **packet's source and destination IP addresses stay the same**.",
-            "A device finds the MAC address that belongs to an IP address on its LAN using **ARP** (Address Resolution Protocol)."
+            {
+              "title": "Two kinds of address work together",
+              "content": "- **IP addresses** get a packet to the right **network** — **routers** use them to move packets **between networks**.\n- **MAC addresses** get the frame to the right **device** on the **local link** — **switches** and network cards use them."
+            },
+            {
+              "title": "What changes at each hop",
+              "content": "- The **packet's** source and destination **IP addresses stay the same** for the whole journey.\n- The **frame's MAC addresses change** at every hop: the source is the device sending on this link, the destination is the **next** device (a router, or finally the receiver)."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "A packet from a laptop to a web server",
+          "content": "| Hop | Source MAC → destination MAC | Source IP → destination IP |\n|---|---|---|\n| Laptop → school router | Laptop → **school router** | 192.168.1.25 → 185.22.66.10 |\n| School router → ISP router | School router → **ISP router** | (public address after NAT) → 185.22.66.10 |\n| Last router → web server | Last router → **web server** | … → 185.22.66.10 |\n\nThe destination **IP** never changes; the destination **MAC** is always the **next stop**."
+        },
+        {
+          "type": "steps",
+          "title": "ARP — finding the MAC address for an IP address",
+          "items": [
+            "A device knows the **IP address** it wants to reach on its LAN (the router or another computer) but not its **MAC address**.",
+            "It sends an **ARP request** to **all** devices on the LAN (broadcast): \"Who has 192.168.1.1? Tell 192.168.1.25.\"",
+            "The device with that IP replies with its **MAC address** (ARP reply).",
+            "The sender stores the pair in its **ARP cache** and uses the MAC address in the frame header."
           ]
         },
         {
@@ -108,16 +1524,20 @@
           ],
           "rows": [
             [
-              "First 24 bits — **OUI**, identifies the manufacturer",
+              "First 24 bits — **OUI**, identifies the **manufacturer**",
               "`3C:52:82`"
             ],
             [
-              "Last 24 bits — unique number of the device",
+              "Last 24 bits — unique number of the **network card**",
               "`1A:9F:04`"
             ],
             [
               "Total size",
-              "48 bits = 6 bytes = 12 hex digits"
+              "**48 bits** = 6 bytes = **12 hexadecimal digits**"
+            ],
+            [
+              "Written as",
+              "Pairs separated by colons `3C:52:82:1A:9F:04` or hyphens `3C-52-82-1A-9F-04`"
             ]
           ]
         }
@@ -131,45 +1551,102 @@
       "blocks": [
         {
           "type": "comparison",
+          "title": "Ways to find the MAC address",
           "columns": [
-            "System",
-            "Command / place",
+            "Method",
+            "Steps",
             "Look for"
           ],
           "rows": [
             [
-              "Windows",
-              "`ipconfig /all` in Command Prompt (or `getmac`)",
+              "**Command prompt (Windows)**",
+              "Open **cmd** and type `ipconfig /all` (or `getmac`)",
               "\"Physical Address\""
             ],
             [
-              "macOS",
+              "**Settings / Control Panel (Windows)**",
+              "*Control Panel → Network and Internet → Network and Sharing Center → View network status and tasks →* adapter → **Details**",
+              "\"Physical Address\""
+            ],
+            [
+              "**Network adapter properties**",
+              "*Device Manager → Network adapters →* properties of the NIC",
+              "Network address / MAC"
+            ],
+            [
+              "**macOS**",
               "`ifconfig en0` in Terminal, or *System Settings → Network → Details*",
               "\"ether\""
             ],
             [
-              "Linux",
+              "**Linux**",
               "`ip link` or `ifconfig`",
               "\"link/ether\""
             ],
             [
-              "Android / iOS",
+              "**Android / iOS**",
               "*Settings → About phone → Status* / *Settings → General → About*",
               "\"Wi-Fi address\""
+            ],
+            [
+              "**Router admin page / special software**",
+              "List of connected devices",
+              "MAC of each device"
             ]
           ]
         },
         {
           "type": "code",
           "language": "text",
-          "content": "Wireless LAN adapter Wi-Fi:\n   Description . . . . . . . . . . . : Intel(R) Wi-Fi 6 AX201\n   Physical Address. . . . . . . . . : 3C-52-82-1A-9F-04\n   IPv4 Address. . . . . . . . . . . : 192.168.1.25",
+          "content": "Wireless LAN adapter Wi-Fi:\n   Description . . . . . . . . . . . : Intel(R) Wi-Fi 6 AX201\n   Physical Address. . . . . . . . . : 3C-52-82-1A-9F-04\n   IPv4 Address. . . . . . . . . . . : 192.168.1.25\n   Default Gateway . . . . . . . . . : 192.168.1.1",
           "caption": "Part of the output of ipconfig /all"
         },
         {
           "type": "warning",
-          "content": "Phones and laptops may use a **randomised (private) MAC address** for each Wi-Fi network to protect privacy, so the address shown for a network can differ from the hardware address."
+          "content": "Phones and laptops may use a **randomised (private) MAC address** for each Wi-Fi network to protect privacy, so the address shown for a network can differ from the hardware address. A computer with both Wi-Fi and Ethernet has **two** MAC addresses — one per network card."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "12.6.1.1",
+        "12.6.2.2",
+        "12.6.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain two differences between packet switching and circuit switching. [2]**\nIn circuit switching the addresses are only needed when the connection is **set up**, whereas in packet switching **each packet** carries the sender and receiver addresses (1). Circuit switching delivers data **in order along one reserved channel**, whereas in packet switching packets can take **different routes** and are reassembled (1).\n\n**Q: State two problems that can arise when an online class uses packet switching. [2]**\nPicture and sound may be **not synchronised** (1); the video may be **interrupted / not continuous** or degraded by competing traffic (1).\n\n**Q: Write two ways to identify the MAC address of a computer. [2]**\nUsing the **command prompt** with `ipconfig /all` (1); through **Control Panel → Network and Internet → View network status → adapter Details** / NIC properties (1).\n\n**Q: Describe the role of MAC addresses in packet routing. [2]**\nMAC addresses identify the **next device on the local link** so frames reach the right router or computer (1); they **change at each hop**, while the IP addresses stay the same (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Saying packet switching \"sets up a route first\" — that is **circuit switching**.\n- Saying packets always arrive in order — they can arrive **out of order**.\n- Saying MAC addresses are used to route across the Internet — routers use **IP** addresses; MAC is for the **local link**.\n- Giving one-sided differences — mention **both** methods."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Describe the three phases of circuit switching.",
+            "List the contents of a packet header.",
+            "Give two advantages and two disadvantages of each switching method.",
+            "Why can a video call stutter on a packet-switched network?",
+            "Which addresses change at each hop and which stay the same?",
+            "Describe how ARP finds a MAC address, and two ways to find your own MAC address."
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 40,
+    "title": "Switching and MAC addresses — Exam (Paper 1 style)",
+    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "questions": [
+      "csw-exam-1",
+      "csw-exam-2",
+      "csw-exam-3"
+    ]
+  }
 }

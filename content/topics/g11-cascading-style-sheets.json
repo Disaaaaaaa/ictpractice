@@ -1,10 +1,1497 @@
 {
   "topic": "g11-cascading-style-sheets",
-  "questions": [],
-  "summary": "Inline, internal and external CSS and when to use each, CSS syntax, selectors and the most useful properties for designing a website.",
+  "questions": [
+    {
+      "key": "css-define",
+      "title": "What CSS is",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "describe",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Describe the purpose of **CSS** in web design.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- CSS describes how HTML elements are displayed / the presentation: colours, fonts, spacing, layout (1)\n- it separates style from content / one style sheet can control many pages, giving a consistent design that is easy to change (1)",
+        "points": [
+          {
+            "criterion": "Controls the appearance of HTML elements",
+            "marks": 1
+          },
+          {
+            "criterion": "Separation of style / consistency / easy changes",
+            "marks": 1
+          }
+        ],
+        "model_answer": "CSS describes how the HTML elements look — their colours, fonts, spacing and layout — and keeps the style separate from the content, so one style sheet can give a whole website a consistent design."
+      }
+    },
+    {
+      "key": "css-types-match",
+      "title": "Three types of CSS",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "Match each CSS implementation type to where it is written.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Inline CSS"
+          },
+          {
+            "key": "L2",
+            "text": "Internal CSS"
+          },
+          {
+            "key": "L3",
+            "text": "External CSS"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "In the style attribute of one element"
+          },
+          {
+            "key": "R2",
+            "text": "In a <style> element in the <head> of the page"
+          },
+          {
+            "key": "R3",
+            "text": "In a separate .css file linked to the pages"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Inline–R1, Internal–R2, External–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "css-types-tick",
+      "title": "Inline, internal or external",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show which type of CSS is described.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Inline",
+          "Internal",
+          "External"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "One file can change the design of every page of the site",
+            null,
+            null,
+            null
+          ],
+          [
+            "Has the highest priority when rules conflict",
+            null,
+            null,
+            null
+          ],
+          [
+            "Written in a <style> element and affects only that page",
+            null,
+            null,
+            null
+          ],
+          [
+            "Is downloaded once and cached by the browser",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 External (1); 2 Inline (1); 3 Internal (1); 4 External (1)",
+        "points": [
+          {
+            "criterion": "Row 1 external",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2 inline",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3 internal",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4 external",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "css-compare-inline-external",
+      "title": "Compare inline and external",
+      "type": "labelled_answers",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "compare",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "Give **two** differences between inline CSS and external CSS.",
+      "content": {
+        "fields": [
+          {
+            "key": "1",
+            "label": "Difference 1",
+            "lines": 2
+          },
+          {
+            "key": "2",
+            "label": "Difference 2",
+            "lines": 2
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each), both sides: inline in the style attribute of one element vs external in a separate file; inline affects one element vs external affects every linked page; external easy to update — one file vs inline must be changed in every element; external consistent design vs inline inconsistent; external cached vs inline makes HTML larger; inline has higher priority",
+        "points": [
+          {
+            "criterion": "First valid difference",
+            "marks": 1
+          },
+          {
+            "criterion": "Second, different valid difference",
+            "marks": 1
+          }
+        ],
+        "model_answer": "1 Inline CSS is written in the style attribute of one element, whereas external CSS is in a separate file linked to many pages. 2 With external CSS the whole site is changed by editing one file, whereas inline styles must be changed in every element."
+      }
+    },
+    {
+      "key": "css-why-external",
+      "title": "Why external CSS",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "A school website has 50 pages. Explain why the developer should use external CSS.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "Any two (1 each): all 50 pages link to one file; a change in one file updates every page; consistent design across the site; smaller HTML pages / the CSS file is cached so pages load faster; separates content from presentation",
+        "points": [
+          {
+            "criterion": "First valid reason",
+            "marks": 1
+          },
+          {
+            "criterion": "Second valid reason",
+            "marks": 1
+          }
+        ],
+        "model_answer": "All 50 pages can use the same style sheet, so the design is consistent, and the whole site can be redesigned by changing just one file."
+      }
+    },
+    {
+      "key": "css-link-code",
+      "title": "Link a style sheet",
+      "type": "html_css",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "Write the HTML code that links the external style sheet `club.css` to a page, and state where in the page it must be written.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "<link rel=\"stylesheet\" href=\"club.css\"> (1)\nInside the <head> element (1)",
+        "points": [
+          {
+            "criterion": "Correct link element",
+            "marks": 1
+          },
+          {
+            "criterion": "In the head",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<link rel=\"stylesheet\" href=\"club.css\"> — written inside the <head>."
+      }
+    },
+    {
+      "key": "css-inline-code",
+      "title": "Inline style",
+      "type": "html_css",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "Using **inline** CSS, write a paragraph containing the text `Exam tomorrow!` that is displayed in **red** and **bold**.",
+      "content": {
+        "language": "html",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "<p style=\"…\"> with the style attribute (1)\ncolor: red; font-weight: bold; (1)",
+        "points": [
+          {
+            "criterion": "style attribute on <p>",
+            "marks": 1
+          },
+          {
+            "criterion": "color red and font-weight bold",
+            "marks": 1
+          }
+        ],
+        "model_answer": "<p style=\"color: red; font-weight: bold;\">Exam tomorrow!</p>"
+      }
+    },
+    {
+      "key": "css-rule-parts",
+      "title": "Parts of a rule",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "In the rule `h2 { color: navy; }`, `h2` is the [[1]], `color` is the [[2]] and `navy` is the [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) selector (2) property (3) value",
+        "accepted": {
+          "blanks": [
+            [
+              "selector"
+            ],
+            [
+              "property"
+            ],
+            [
+              "value"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "css-heading-rule",
+      "title": "Heading rule",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Create a CSS rule for changing the colour of the heading text to **red** and **underlining** it.",
+      "content": {
+        "language": "css",
+        "starter_code": "<head>\n   <style>\n\n   </style>\n</head>"
+      },
+      "scheme": {
+        "mark_scheme": "h1 (1)\n{ color: red; (1)\ntext-decoration: underline; } (1)\nAccept with “{ }”. Accept any heading level.",
+        "points": [
+          {
+            "criterion": "Selects h1",
+            "marks": 1
+          },
+          {
+            "criterion": "color: red;",
+            "marks": 1
+          },
+          {
+            "criterion": "text-decoration: underline;",
+            "marks": 1
+          }
+        ],
+        "model_answer": "h1 {\n    color: red;\n    text-decoration: underline;\n}"
+      }
+    },
+    {
+      "key": "css-class-id",
+      "title": "Class vs ID",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Explain the difference between a **class** selector and an **ID** selector in CSS.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- A class (.name) can be applied to many elements on a page / reused (1)\n- An ID (#name) must be unique — used for one element only; IDs have higher specificity (1)",
+        "points": [
+          {
+            "criterion": "Class: many elements, written with .",
+            "marks": 1
+          },
+          {
+            "criterion": "ID: one unique element, written with #",
+            "marks": 1
+          }
+        ],
+        "model_answer": "A class selector, written with a dot, can style many elements that share the class, whereas an ID selector, written with #, styles one unique element."
+      }
+    },
+    {
+      "key": "css-selector-match",
+      "title": "Selectors",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Match each selector to the elements it selects.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": ".warning"
+          },
+          {
+            "key": "L2",
+            "text": "#menu"
+          },
+          {
+            "key": "L3",
+            "text": "nav a"
+          },
+          {
+            "key": "L4",
+            "text": "a:hover"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "All elements with class=\"warning\""
+          },
+          {
+            "key": "R2",
+            "text": "The element with id=\"menu\""
+          },
+          {
+            "key": "R3",
+            "text": "Links inside a <nav> element"
+          },
+          {
+            "key": "R4",
+            "text": "A link while the mouse pointer is over it"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "css-specificity-mcq",
+      "title": "Which colour wins?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "```html\n<p id=\"intro\" class=\"lead\">Welcome</p>\n```\n\n```css\np      { color: gray; }\n.lead  { color: orange; }\n#intro { color: blue; }\n```\n\nWhat colour is the text **Welcome**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Gray"
+        },
+        {
+          "key": "B",
+          "content": "Orange"
+        },
+        {
+          "key": "C",
+          "content": "Blue"
+        },
+        {
+          "key": "D",
+          "content": "Black"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The ID selector is more specific than the class and element selectors, so its colour wins."
+      }
+    },
+    {
+      "key": "css-inline-priority-tf",
+      "title": "Priority of inline CSS",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "practice": true,
+      "text": "An inline style overrides a rule for the same property in an external style sheet.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Inline styles have the highest specificity (unless !important is used)."
+      }
+    },
+    {
+      "key": "css-box-model",
+      "title": "Margin and padding",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Explain the difference between the CSS properties `margin` and `padding`.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- padding is the space inside the border, between the border and the content (1)\n- margin is the space outside the border, between the element and other elements (1)",
+        "points": [
+          {
+            "criterion": "padding inside the border",
+            "marks": 1
+          },
+          {
+            "criterion": "margin outside the border",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Padding is the space inside an element's border, around its content, whereas margin is the space outside the border that separates the element from other elements."
+      }
+    },
+    {
+      "key": "css-property-table",
+      "title": "Which property?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "HYBRID",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Complete the table with the CSS **property** needed for each effect.",
+      "content": {
+        "columns": [
+          "Effect",
+          "Property"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "Change the colour of the text",
+            null
+          ],
+          [
+            "Remove the underline from links",
+            null
+          ],
+          [
+            "Centre the text",
+            null
+          ],
+          [
+            "Give a box rounded corners",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "color (1); text-decoration (1); text-align (1); border-radius (1)",
+        "points": [
+          {
+            "criterion": "color",
+            "marks": 1
+          },
+          {
+            "criterion": "text-decoration",
+            "marks": 1
+          },
+          {
+            "criterion": "text-align",
+            "marks": 1
+          },
+          {
+            "criterion": "border-radius",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "color||color:"
+            ],
+            [
+              null,
+              "text-decoration||text-decoration: none||text-decoration:none"
+            ],
+            [
+              null,
+              "text-align||text-align: center||text-align:center"
+            ],
+            [
+              null,
+              "border-radius"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "css-find-errors",
+      "title": "Find the errors",
+      "type": "code_analysis",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "The CSS below contains **three** errors.\n\n```css\nbody { font-family = Arial; }\n#note { colour: blue; }\nh2 { font-size: 20px text-align: center; }\n```\n\nIdentify each error and write the correct code.",
+      "content": {
+        "language": "css",
+        "answer_lines": 6
+      },
+      "scheme": {
+        "mark_scheme": "- = should be : → font-family: Arial; (1)\n- colour should be color (1)\n- missing ; after 20px → font-size: 20px; text-align: center; (1)",
+        "points": [
+          {
+            "criterion": "Colon instead of =",
+            "marks": 1
+          },
+          {
+            "criterion": "color spelling",
+            "marks": 1
+          },
+          {
+            "criterion": "Missing semicolon",
+            "marks": 1
+          }
+        ],
+        "model_answer": "body { font-family: Arial; }\n#note { color: blue; }\nh2 { font-size: 20px; text-align: center; }"
+      }
+    },
+    {
+      "key": "css-nav-hover",
+      "title": "Navigation hover",
+      "type": "html_css",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Write CSS so that links inside `nav` are **not underlined**, and change to **white text on a blue background** when the mouse is over them.",
+      "content": {
+        "language": "css",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "nav a { text-decoration: none; } (1)\nnav a:hover selector (1)\n{ color: white; background-color: blue; } (1)",
+        "points": [
+          {
+            "criterion": "Links not underlined",
+            "marks": 1
+          },
+          {
+            "criterion": "nav a:hover selector",
+            "marks": 1
+          },
+          {
+            "criterion": "White text, blue background",
+            "marks": 1
+          }
+        ],
+        "model_answer": "nav a { text-decoration: none; }\nnav a:hover { color: white; background-color: blue; }",
+        "ai_instructions": "Accept a:hover without nav, and background instead of background-color."
+      }
+    },
+    {
+      "key": "css-inheritance",
+      "title": "Inheritance",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "A developer writes `body { font-family: Arial; color: #333; }`. Explain why the paragraphs and headings on the page also use Arial.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- Text properties such as font-family / color are inherited (1)\n- by child elements of body (paragraphs, headings) unless a more specific rule changes them (1)",
+        "points": [
+          {
+            "criterion": "Inheritance of text properties",
+            "marks": 1
+          },
+          {
+            "criterion": "Children of body inherit unless overridden",
+            "marks": 1
+          }
+        ],
+        "model_answer": "Font and colour properties are inherited, so every element inside the body, such as paragraphs and headings, takes the body's font unless another rule sets a different one."
+      }
+    },
+    {
+      "key": "css-media-query",
+      "title": "Responsive design",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "```css\n@media (max-width: 600px) {\n  .container { flex-direction: column; }\n}\n```\n\nExplain what this code does and why it is useful.",
+      "content": {
+        "answer_lines": 3
+      },
+      "scheme": {
+        "mark_scheme": "- On screens 600 px wide or less, the boxes in .container are placed one under another (column) (1)\n- so the site is readable / works on mobile phones — responsive design (1)",
+        "points": [
+          {
+            "criterion": "Rule applies on narrow screens: column layout",
+            "marks": 1
+          },
+          {
+            "criterion": "Benefit: works on phones",
+            "marks": 1
+          }
+        ],
+        "model_answer": "When the screen is 600 px wide or less, the items in the container are shown one under another instead of side by side, so the page fits and is easy to read on a phone."
+      }
+    },
+    {
+      "key": "css-structured-card",
+      "title": "Styling a news card",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "practice": true,
+      "text": "A page contains:\n\n```html\n<div class=\"card\">\n  <h3>Science fair</h3>\n  <p>Friday at 14:00 in the main hall.</p>\n</div>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "css-card-a",
+          "part_label": "(a)",
+          "title": "Card box",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "practice": true,
+          "text": "Write a CSS rule that gives the card a **1px solid grey border**, **10px padding** and **rounded corners** of 8px.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": ".card selector (1)\nborder: 1px solid grey; (1)\npadding: 10px; border-radius: 8px; (1)",
+            "points": [
+              {
+                "criterion": ".card selector",
+                "marks": 1
+              },
+              {
+                "criterion": "Border",
+                "marks": 1
+              },
+              {
+                "criterion": "Padding and border-radius",
+                "marks": 1
+              }
+            ],
+            "model_answer": ".card {\n    border: 1px solid grey;\n    padding: 10px;\n    border-radius: 8px;\n}"
+          }
+        },
+        {
+          "key": "css-card-b",
+          "part_label": "(b)",
+          "title": "Card heading",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "practice": true,
+          "text": "Write a CSS rule that makes **only the headings inside cards** dark green.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "Descendant selector .card h3 (1)\ncolor: darkgreen; (1)",
+            "points": [
+              {
+                "criterion": ".card h3 selector",
+                "marks": 1
+              },
+              {
+                "criterion": "Dark green colour",
+                "marks": 1
+              }
+            ],
+            "model_answer": ".card h3 { color: darkgreen; }"
+          }
+        },
+        {
+          "key": "css-card-c",
+          "part_label": "(c)",
+          "title": "Which type",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.5"
+          ],
+          "practice": true,
+          "text": "The school has 20 pages with cards. State the most suitable type of CSS for these rules.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "External (1)",
+            "points": [
+              {
+                "criterion": "External",
+                "marks": 1
+              }
+            ],
+            "model_answer": "External CSS."
+          }
+        }
+      ]
+    },
+    {
+      "key": "css-extended-site",
+      "title": "Style a whole page",
+      "type": "html_css",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": "write",
+      "grading": "AI",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "practice": true,
+      "text": "Write the CSS for a page with `header`, `nav`, `main` and `footer` elements so that:\n\n- the whole page uses **Verdana** and has a **light grey** background,\n- the **header** has a **navy** background, **white** text and **centred** text,\n- the **links in nav** are **bold** with **no underline**,\n- the **footer** text is **small** (12px) and **grey**.",
+      "content": {
+        "language": "css",
+        "starter_code": ""
+      },
+      "scheme": {
+        "mark_scheme": "- body { font-family: Verdana; (1) background-color: lightgrey; } (1)\n- header { background-color: navy; color: white; (1) text-align: center; } (1)\n- nav a { font-weight: bold; text-decoration: none; } (1)\n- footer { font-size: 12px; color: grey; } (1)",
+        "points": [
+          {
+            "criterion": "body font",
+            "marks": 1
+          },
+          {
+            "criterion": "body background",
+            "marks": 1
+          },
+          {
+            "criterion": "header colours",
+            "marks": 1
+          },
+          {
+            "criterion": "header centred",
+            "marks": 1
+          },
+          {
+            "criterion": "nav links bold, no underline",
+            "marks": 1
+          },
+          {
+            "criterion": "footer small grey text",
+            "marks": 1
+          }
+        ],
+        "model_answer": "body { font-family: Verdana, sans-serif; background-color: lightgrey; }\nheader { background-color: navy; color: white; text-align: center; }\nnav a { font-weight: bold; text-decoration: none; }\nfooter { font-size: 12px; color: grey; }",
+        "ai_instructions": "Accept any light-grey / grey colour values. Ignore minor formatting."
+      }
+    },
+    {
+      "key": "css-exam-1",
+      "title": "CSS implementation types",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A tourist agency is building a website with 30 pages. The developer must decide how to add CSS to the pages.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "css-exam-1a",
+          "part_label": "(a)",
+          "title": "Which type",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show which CSS implementation type is described.",
+          "content": {
+            "columns": [
+              "Description",
+              "Inline",
+              "Internal",
+              "External"
+            ],
+            "rows": 3,
+            "tick": true,
+            "prefill": [
+              [
+                "Written in the style attribute of a single HTML element",
+                null,
+                null,
+                null
+              ],
+              [
+                "Saved in a .css file and linked with <link>",
+                null,
+                null,
+                null
+              ],
+              [
+                "Written in a <style> element in the head of one page",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 Inline (1); 2 External (1); 3 Internal (1)",
+            "points": [
+              {
+                "criterion": "Row 1 inline",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2 external",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3 internal",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  ""
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "css-exam-1b",
+          "part_label": "(b)",
+          "title": "Compare",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Compare inline CSS and external CSS for the agency's website.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), both sides: external — one file for all 30 pages vs inline — repeated in every element; external — change one file vs inline — change every element; external consistent vs inline inconsistent; external cached vs inline larger pages",
+            "points": [
+              {
+                "criterion": "First valid comparison",
+                "marks": 1
+              },
+              {
+                "criterion": "Second valid comparison",
+                "marks": 1
+              }
+            ],
+            "model_answer": "External CSS is stored in one file that all 30 pages link to, whereas inline CSS must be written in every element. So with external CSS the design is consistent and can be changed by editing one file, while inline styles would have to be changed on every page."
+          }
+        },
+        {
+          "key": "css-exam-1c",
+          "part_label": "(c)",
+          "title": "Link the file",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the HTML code to link the style sheet `tours.css` to a page, and state where it is placed.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "<link rel=\"stylesheet\" href=\"tours.css\"> (1)\nIn the <head> (1)",
+            "points": [
+              {
+                "criterion": "Correct link",
+                "marks": 1
+              },
+              {
+                "criterion": "In the head",
+                "marks": 1
+              }
+            ],
+            "model_answer": "<link rel=\"stylesheet\" href=\"tours.css\"> placed inside <head>."
+          }
+        },
+        {
+          "key": "css-exam-1d",
+          "part_label": "(d)",
+          "title": "Which rule wins",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "`tours.css` contains `h1 { color: navy; }`. One page has `<h1 style=\"color: orange;\">Summer tours</h1>`. State the colour of this heading and explain why.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Orange (1)\n- inline styles have higher priority / specificity than rules in an external style sheet (1)",
+            "points": [
+              {
+                "criterion": "Orange",
+                "marks": 1
+              },
+              {
+                "criterion": "Inline has the highest priority",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Orange, because an inline style has a higher priority than a rule in an external style sheet."
+          }
+        }
+      ]
+    },
+    {
+      "key": "css-exam-2",
+      "title": "Designing the home page",
+      "type": "structured",
+      "marks": 11,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The home page of the agency has this structure:\n\n```html\n<body>\n  <header><h1>Silk Road Tours</h1></header>\n  <nav><a href=\"index.html\">Home</a> <a href=\"tours.html\">Tours</a></nav>\n  <main>\n    <div class=\"card\">Charyn Canyon — 2 days</div>\n    <div class=\"card\">Turkestan — 3 days</div>\n  </main>\n</body>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "css-exam-2a",
+          "part_label": "(a)",
+          "title": "Body",
+          "type": "html_css",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a CSS rule so that the whole page uses the font **Arial** and has a **light yellow** background.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "body { font-family: Arial; (1) background-color: lightyellow; } (1)",
+            "points": [
+              {
+                "criterion": "font-family Arial",
+                "marks": 1
+              },
+              {
+                "criterion": "Light yellow background",
+                "marks": 1
+              }
+            ],
+            "model_answer": "body { font-family: Arial, sans-serif; background-color: lightyellow; }",
+            "ai_instructions": "Accept any light-yellow value (#ffffe0 etc.) and 'background'."
+          }
+        },
+        {
+          "key": "css-exam-2b",
+          "part_label": "(b)",
+          "title": "Header",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a CSS rule so that the header has a **dark green** background, **white** text and the text is **centred**.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "header { background-color: darkgreen; (1) color: white; (1) text-align: center; } (1)",
+            "points": [
+              {
+                "criterion": "Dark green background",
+                "marks": 1
+              },
+              {
+                "criterion": "White text",
+                "marks": 1
+              },
+              {
+                "criterion": "Centred",
+                "marks": 1
+              }
+            ],
+            "model_answer": "header { background-color: darkgreen; color: white; text-align: center; }",
+            "ai_instructions": "Missing header selector loses one mark."
+          }
+        },
+        {
+          "key": "css-exam-2c",
+          "part_label": "(c)",
+          "title": "Navigation links",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write CSS so that the navigation links are **not underlined** and become **orange** when the mouse is over them.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "nav a { text-decoration: none; } (1)\nnav a:hover (1) { color: orange; } (1)",
+            "points": [
+              {
+                "criterion": "No underline",
+                "marks": 1
+              },
+              {
+                "criterion": ":hover selector",
+                "marks": 1
+              },
+              {
+                "criterion": "Orange colour",
+                "marks": 1
+              }
+            ],
+            "model_answer": "nav a { text-decoration: none; }\nnav a:hover { color: orange; }"
+          }
+        },
+        {
+          "key": "css-exam-2d",
+          "part_label": "(d)",
+          "title": "Cards",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write a CSS rule that gives every card a **2px solid orange border**, **12px padding** and a **margin** of 10px.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": ".card selector (1)\nborder: 2px solid orange; (1)\npadding: 12px; margin: 10px; (1)",
+            "points": [
+              {
+                "criterion": ".card selector",
+                "marks": 1
+              },
+              {
+                "criterion": "Border",
+                "marks": 1
+              },
+              {
+                "criterion": "Padding and margin",
+                "marks": 1
+              }
+            ],
+            "model_answer": ".card { border: 2px solid orange; padding: 12px; margin: 10px; }"
+          }
+        }
+      ]
+    },
+    {
+      "key": "css-exam-3",
+      "title": "Debugging and responsive design",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A junior developer has written this CSS for the agency.\n\n```css\n1  .card { background-color = white; }\n2  #price { font-size: 18px font-weight: bold; }\n3  .footer { colour: gray; }\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "css-exam-3a",
+          "part_label": "(a)",
+          "title": "Correct the errors",
+          "type": "code_analysis",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Each line contains **one** error. Write each line correctly.",
+          "content": {
+            "language": "css",
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "1 .card { background-color: white; } — colon instead of = (1)\n2 #price { font-size: 18px; font-weight: bold; } — missing semicolon (1)\n3 .footer { color: gray; } — color, not colour (1)",
+            "points": [
+              {
+                "criterion": "Line 1 corrected",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 2 corrected",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 3 corrected",
+                "marks": 1
+              }
+            ],
+            "model_answer": ".card { background-color: white; }\n#price { font-size: 18px; font-weight: bold; }\n.footer { color: gray; }"
+          }
+        },
+        {
+          "key": "css-exam-3b",
+          "part_label": "(b)",
+          "title": "Class and ID",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Line 1 uses a class selector and line 2 uses an ID selector. Explain the difference between them.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- class (.card) can be used on many elements (1)\n- ID (#price) identifies one unique element / higher specificity (1)",
+            "points": [
+              {
+                "criterion": "Class reusable",
+                "marks": 1
+              },
+              {
+                "criterion": "ID unique",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The class .card can be applied to many elements, such as every tour card, whereas the ID #price must belong to only one element on the page."
+          }
+        },
+        {
+          "key": "css-exam-3c",
+          "part_label": "(c)",
+          "title": "Margin and padding",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between `margin` and `padding`.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- padding: space inside the border, around the content (1)\n- margin: space outside the border, between elements (1)",
+            "points": [
+              {
+                "criterion": "Padding inside",
+                "marks": 1
+              },
+              {
+                "criterion": "Margin outside",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Padding is the space between the content and the border; margin is the space outside the border that separates the element from its neighbours."
+          }
+        },
+        {
+          "key": "css-exam-3d",
+          "part_label": "(d)",
+          "title": "Media query",
+          "type": "html_css",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The cards are inside `<main>`, which has `display: flex;`. Write CSS so that on screens **500px wide or less** the cards are shown **one under another**.",
+          "content": {
+            "language": "css",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "@media (max-width: 500px) (1)\n{ main { (1) flex-direction: column; } } (1)",
+            "points": [
+              {
+                "criterion": "Media query with max-width 500px",
+                "marks": 1
+              },
+              {
+                "criterion": "main selector inside",
+                "marks": 1
+              },
+              {
+                "criterion": "flex-direction: column",
+                "marks": 1
+              }
+            ],
+            "model_answer": "@media (max-width: 500px) {\n    main { flex-direction: column; }\n}",
+            "ai_instructions": "Accept display: block instead of flex-direction: column."
+          }
+        }
+      ]
+    }
+  ],
+  "summary": "Inline, internal and external CSS and how they compare, CSS syntax, selectors, the cascade and specificity, the box model, text, colour and layout properties, and using CSS to design a consistent, responsive website.",
   "theory": [
     {
-      "title": "Ways to add CSS to a page",
+      "title": "What CSS is and why it is used",
       "objectives": [
         "11.5.3.5"
       ],
@@ -12,101 +1499,148 @@
         {
           "type": "definition",
           "term": "CSS (Cascading Style Sheets)",
-          "content": "A language that describes **how HTML elements are displayed**: colours, fonts, sizes, spacing and layout. Separating style from content makes websites easier to maintain."
+          "content": "A style-sheet language that describes **how HTML elements are displayed** — colours, fonts, sizes, spacing, borders, backgrounds and layout. HTML gives the **structure and content**; CSS gives the **presentation**."
         },
         {
           "type": "cards",
           "items": [
             {
+              "title": "Why separate style from content?",
+              "content": "- The **same HTML** can be shown with different designs (e.g. for screens and for printing).\n- One style sheet can control the look of **a whole website** — consistent design.\n- Changes are **quick**: edit one rule instead of every page.\n- HTML files are **smaller and cleaner**, so they are easier to read and maintain.\n- Pages load faster because an external style sheet is **cached** by the browser."
+            },
+            {
+              "title": "What CSS can control",
+              "content": "- Text: font, size, colour, weight, alignment, decoration.\n- Boxes: width, height, margin, padding, border, rounded corners.\n- Backgrounds: colours, images, gradients.\n- Layout: positioning, columns, flexbox, grid.\n- Effects: hover states, transitions, responsive design for phones."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The three ways to add CSS",
+      "objectives": [
+        "11.5.3.5"
+      ],
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
               "title": "Inline CSS",
-              "content": "Written in the `style` attribute of one element.\n`<p style=\"color: red;\">Warning</p>`"
+              "content": "Written in the **`style` attribute** of **one element**.\n`<p style=\"color: red; font-weight: bold;\">Warning</p>`"
             },
             {
               "title": "Internal (embedded) CSS",
-              "content": "Written in a `<style>` element in the `<head>` of **one page**.\n`<style> p { color: red; } </style>`"
+              "content": "Written in a **`<style>` element** in the **`<head>`** of **one page**.\n`<style> p { color: red; } </style>`"
             },
             {
               "title": "External CSS",
-              "content": "Written in a separate **.css file** linked to **many pages**.\n`<link rel=\"stylesheet\" href=\"style.css\">`"
+              "content": "Written in a **separate `.css` file** that is **linked** to many pages with `<link>` in the `<head>`.\n`<link rel=\"stylesheet\" href=\"style.css\">`"
             }
           ]
         },
         {
+          "type": "code",
+          "language": "html",
+          "content": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Book Club</title>\n  <link rel=\"stylesheet\" href=\"style.css\">          <!-- external -->\n  <style>                                             <!-- internal -->\n    h1 { color: navy; }\n  </style>\n</head>\n<body>\n  <h1>Book Club</h1>\n  <p style=\"color: crimson;\">Meeting cancelled!</p>   <!-- inline -->\n  <p>See you next week.</p>\n</body>\n</html>",
+          "caption": "All three types in one page"
+        },
+        {
+          "type": "code",
+          "language": "css",
+          "content": "body { font-family: Verdana, sans-serif; background-color: #fafafa; }\np    { font-size: 16px; }",
+          "caption": "style.css — the external file"
+        },
+        {
           "type": "comparison",
-          "title": "Comparing the three types",
+          "title": "Comparing CSS implementation types",
           "columns": [
-            "",
+            "Criterion",
             "Inline",
             "Internal",
             "External"
           ],
           "rows": [
             [
+              "Where it is written",
+              "`style` attribute of an element",
+              "`<style>` in the `<head>`",
+              "Separate `.css` file"
+            ],
+            [
               "Applies to",
-              "One element",
-              "One page",
-              "Every page that links the file"
+              "**One element**",
+              "**One page**",
+              "**Every page** that links the file"
             ],
             [
               "Maintenance",
-              "Hard — change every element",
-              "Medium — change each page",
-              "Easy — change one file to restyle the whole site"
+              "Hard — every element must be changed",
+              "Medium — each page must be changed",
+              "**Easy** — change **one file** to restyle the whole site"
             ],
             [
               "Consistency across a site",
               "Poor",
               "Poor",
-              "Excellent"
+              "**Excellent**"
             ],
             [
-              "Page loading",
-              "Increases HTML size",
-              "Increases HTML size",
-              "File is downloaded once and **cached**"
+              "Loading",
+              "Makes the HTML larger",
+              "Makes the HTML larger",
+              "Downloaded **once** and **cached** for all pages"
             ],
             [
-              "Priority (specificity)",
-              "Highest",
-              "Middle",
-              "Lowest (if same selector)"
+              "Priority when rules conflict",
+              "**Highest**",
+              "Depends on order (later wins)",
+              "Depends on order (later wins)"
+            ],
+            [
+              "Separation of style and content",
+              "None",
+              "Partial",
+              "**Complete**"
             ],
             [
               "Best for",
-              "A quick one-off change or testing",
-              "A single page with a unique style",
-              "Multi-page websites"
+              "A quick one-off change, testing, e-mails",
+              "A single page with a unique design",
+              "**Multi-page websites**"
             ]
           ]
         },
         {
-          "type": "callout",
-          "tone": "info",
-          "title": "Why \"cascading\"?",
-          "content": "When several rules apply to the same element, the browser decides which wins: **inline** beats **internal/external**, a more **specific** selector beats a general one, and a **later** rule beats an earlier one with the same specificity."
+          "type": "cards",
+          "items": [
+            {
+              "title": "Advantages of external CSS",
+              "content": "- One file controls the **whole site** → consistent design.\n- Change the design of hundreds of pages by editing **one file**.\n- Smaller HTML pages; the CSS file is **cached**, so later pages load faster.\n- Different style sheets can be linked for different devices / printing."
+            },
+            {
+              "title": "Disadvantages of external CSS",
+              "content": "- An **extra file** must be downloaded before the page is styled.\n- If the file is missing or the link is wrong, the page appears **unstyled**.\n- For a single small page it may be unnecessary."
+            }
+          ]
         },
         {
           "type": "exam_tip",
-          "content": "For \"compare CSS implementation types\", the key point is **external CSS = one file controls the whole site** (consistent, easy to update, cached), while **inline CSS** must be repeated in every element."
+          "content": "Give **both sides** each time: \"*External CSS is stored in a separate file that **all pages** link to, so the whole site can be changed by editing **one file**, **whereas** inline CSS must be written in **every element**, which is slow to change and makes pages inconsistent.*\""
         }
       ]
     },
     {
-      "title": "Using CSS to design a website",
+      "title": "CSS syntax and selectors",
       "objectives": [
         "11.5.3.6"
       ],
       "blocks": [
         {
-          "type": "heading",
-          "text": "Syntax",
-          "level": 2
-        },
-        {
           "type": "code",
           "language": "css",
-          "content": "selector {\n  property: value;\n  property: value;\n}\n\nh1 { color: #1f4fd8; font-size: 28px; }",
-          "caption": "A CSS rule"
+          "content": "/* selector   declaration block                    */\n   h1       { color: navy; text-align: center; }\n/*            property: value;  property: value;   */",
+          "caption": "The parts of a CSS rule"
         },
         {
           "type": "comparison",
@@ -118,40 +1652,143 @@
           ],
           "rows": [
             [
-              "Element",
+              "**Element (type)**",
               "`p { }`",
-              "All `<p>` elements"
+              "Every `<p>` element"
             ],
             [
-              "Class",
+              "**Class**",
               "`.note { }`",
-              "Elements with `class=\"note\"` (can be reused)"
+              "Every element with `class=\"note\"` — can be **reused** many times"
             ],
             [
-              "ID",
+              "**ID**",
               "`#logo { }`",
-              "The one element with `id=\"logo\"`"
+              "The **one** element with `id=\"logo\"` — must be **unique**"
             ],
             [
-              "Descendant",
+              "**Grouping**",
+              "`h1, h2, h3 { }`",
+              "All three heading levels"
+            ],
+            [
+              "**Descendant**",
               "`nav a { }`",
-              "Links inside `<nav>`"
+              "Links **inside** a `<nav>`"
             ],
             [
-              "Grouping",
-              "`h1, h2 { }`",
-              "Both `h1` and `h2`"
+              "**Child**",
+              "`ul > li { }`",
+              "`<li>` that are direct children of `<ul>`"
             ],
             [
-              "Pseudo-class",
-              "`a:hover { }`",
-              "A link when the mouse is over it"
+              "**Pseudo-class**",
+              "`a:hover { }`, `li:first-child { }`",
+              "An element in a particular **state** or position"
+            ],
+            [
+              "**Universal**",
+              "`* { }`",
+              "Every element"
+            ],
+            [
+              "**Attribute**",
+              "`input[type=\"text\"] { }`",
+              "Inputs whose type is text"
             ]
           ]
         },
         {
+          "type": "html_preview",
+          "title": "Classes, IDs and hover",
+          "html": "<h1 id=\"title\">Book Club</h1>\n<p class=\"note\">Meeting on Monday.</p>\n<p>Bring a book you liked.</p>\n<p class=\"note\">New members welcome!</p>\n<a href=\"#\">Hover over me</a>",
+          "css": "body { font-family: Arial, sans-serif; padding: 10px; }\n#title { color: #1f4fd8; border-bottom: 3px solid #1f4fd8; padding-bottom: 4px; }\n.note { background: #fdf3e2; border-left: 5px solid #b45309; padding: 6px 10px; }\na { color: #1f4fd8; font-weight: bold; }\na:hover { color: white; background: #1f4fd8; padding: 2px 6px; border-radius: 4px; }",
+          "height": 230
+        },
+        {
+          "type": "warning",
+          "content": "- A **colon** separates the property and the value: `color: red` (not `color = red`).\n- A **semicolon** ends each declaration: `color: red; font-size: 14px;`.\n- Rules are written in **curly braces** `{ }`.\n- A class selector starts with `.`, an ID selector with `#`.\n- The browser simply **ignores** a rule it cannot understand — no error message is shown."
+        }
+      ]
+    },
+    {
+      "title": "The cascade, specificity and inheritance",
+      "objectives": [
+        "11.5.3.5",
+        "11.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "When several rules set the same property of the same element, the browser must decide which one **wins** — this is the **cascade**."
+        },
+        {
+          "type": "steps",
+          "title": "How the browser chooses the winning rule",
+          "items": [
+            "**Importance** — a declaration marked `!important` wins (use rarely).",
+            "**Specificity** — the more **specific** selector wins: **inline style > ID > class / pseudo-class > element**.",
+            "**Order** — if specificity is equal, the rule that comes **later** wins (so a `<style>` block placed after the `<link>` overrides the external file)."
+          ]
+        },
+        {
           "type": "comparison",
-          "title": "Useful properties",
+          "title": "Specificity examples",
+          "columns": [
+            "Rule",
+            "Specificity",
+            "Wins against"
+          ],
+          "rows": [
+            [
+              "`style=\"color: green\"` (inline)",
+              "Highest",
+              "Everything below"
+            ],
+            [
+              "`#intro { color: blue; }`",
+              "ID",
+              "Class and element rules"
+            ],
+            [
+              "`.lead { color: orange; }`",
+              "Class",
+              "Element rules"
+            ],
+            [
+              "`p { color: gray; }`",
+              "Element",
+              "—"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Which colour is the paragraph?",
+          "content": "```html\n<p id=\"intro\" class=\"lead\">Welcome</p>\n```\nRules: `p { color: gray; }`, `.lead { color: orange; }`, `#intro { color: blue; }` → the text is **blue**, because the **ID selector is the most specific**. If the paragraph also had `style=\"color: green\"`, it would be **green** (inline wins)."
+        },
+        {
+          "type": "definition",
+          "term": "Inheritance",
+          "content": "Some properties — mostly **text** properties such as `color`, `font-family` and `font-size` — are **inherited** by child elements. Setting `body { font-family: Arial; }` makes every element on the page use Arial unless a more specific rule changes it. Box properties such as `border`, `margin` and `width` are **not** inherited."
+        }
+      ]
+    },
+    {
+      "title": "The box model and common properties",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "diagram",
+          "format": "ascii",
+          "content": "+---------------------------------------------+\n|                 margin                      |   space OUTSIDE the border\n|   +-------------------------------------+   |\n|   |             border                  |   |\n|   |   +-----------------------------+   |   |\n|   |   |          padding            |   |   |   space INSIDE the border\n|   |   |   +---------------------+   |   |   |\n|   |   |   |   content (text,    |   |   |   |   width x height\n|   |   |   |   images)           |   |   |   |\n|   |   |   +---------------------+   |   |   |\n|   |   +-----------------------------+   |   |\n|   +-------------------------------------+   |\n+---------------------------------------------+",
+          "caption": "The CSS box model — every element is a rectangular box"
+        },
+        {
+          "type": "comparison",
+          "title": "Text and font properties",
           "columns": [
             "Property",
             "Example",
@@ -164,65 +1801,243 @@
               "Text colour"
             ],
             [
-              "`background-color`",
-              "`background-color: #f0f0f0;`",
-              "Background colour"
+              "`font-family`",
+              "`font-family: Arial, sans-serif;`",
+              "Font (with a fallback)"
             ],
             [
-              "`font-family` / `font-size`",
-              "`font-family: Arial; font-size: 16px;`",
-              "Font and size"
+              "`font-size`",
+              "`font-size: 18px;` / `1.2em`",
+              "Size of the text"
             ],
             [
-              "`font-weight` / `text-align`",
-              "`font-weight: bold; text-align: center;`",
-              "Boldness, alignment"
+              "`font-weight`",
+              "`font-weight: bold;`",
+              "Thickness"
             ],
             [
-              "`margin` / `padding`",
-              "`margin: 10px; padding: 8px 12px;`",
-              "Space outside / inside the border"
+              "`font-style`",
+              "`font-style: italic;`",
+              "Italic text"
             ],
             [
-              "`border`",
-              "`border: 2px solid black;`",
-              "Border width, style, colour"
+              "`text-align`",
+              "`text-align: center;`",
+              "left, right, center, justify"
             ],
             [
-              "`width` / `height`",
-              "`width: 50%;`",
-              "Size of the box"
+              "`text-decoration`",
+              "`text-decoration: underline;` / `none`",
+              "Underline, line-through, remove link underline"
             ],
             [
-              "`display`",
-              "`display: flex;`",
-              "Layout model (block, inline, flex, grid, none)"
+              "`line-height`",
+              "`line-height: 1.5;`",
+              "Space between lines"
             ]
           ]
         },
         {
-          "type": "html_preview",
-          "title": "Classes, IDs and hover",
-          "html": "<h1 id=\"title\">Book Club</h1>\n<p class=\"note\">Meeting on Monday.</p>\n<p>Bring a book you liked.</p>\n<p class=\"note\">New members welcome!</p>\n<a href=\"#\">Hover over me</a>",
-          "css": "body { font-family: Arial, sans-serif; padding: 10px; }\n#title { color: #1f4fd8; border-bottom: 3px solid #1f4fd8; padding-bottom: 4px; }\n.note { background: #fdf3e2; border-left: 5px solid #b45309; padding: 6px 10px; }\na { color: #1f4fd8; font-weight: bold; }\na:hover { color: white; background: #1f4fd8; padding: 2px 6px; border-radius: 4px; }",
-          "height": 230
+          "type": "comparison",
+          "title": "Box, background and layout properties",
+          "columns": [
+            "Property",
+            "Example",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "`background-color`",
+              "`background-color: #e8f5e9;`",
+              "Background colour"
+            ],
+            [
+              "`background-image`",
+              "`background-image: url(\"bg.jpg\");`",
+              "Background picture"
+            ],
+            [
+              "`width` / `height`",
+              "`width: 300px;` / `width: 50%;`",
+              "Size of the content box"
+            ],
+            [
+              "`margin`",
+              "`margin: 10px auto;`",
+              "Space outside; `auto` centres a block horizontally"
+            ],
+            [
+              "`padding`",
+              "`padding: 8px 12px;`",
+              "Space inside the border"
+            ],
+            [
+              "`border`",
+              "`border: 2px solid #333;`",
+              "Width, style (solid, dashed, dotted), colour"
+            ],
+            [
+              "`border-radius`",
+              "`border-radius: 8px;`",
+              "Rounded corners"
+            ],
+            [
+              "`display`",
+              "`display: none;` / `block` / `inline` / `flex`",
+              "How the box is laid out (or hidden)"
+            ],
+            [
+              "`float`",
+              "`float: right;`",
+              "Moves a box to the side; text wraps around"
+            ],
+            [
+              "`position`",
+              "`position: fixed; top: 0;`",
+              "Places a box exactly (e.g. a header that stays at the top)"
+            ]
+          ]
         },
         {
-          "type": "heading",
-          "text": "A simple external style sheet for a whole site",
-          "level": 2
-        },
+          "type": "comparison",
+          "title": "Colour and size units",
+          "columns": [
+            "Kind",
+            "Examples"
+          ],
+          "rows": [
+            [
+              "Colour names",
+              "`red`, `navy`, `darkgreen`"
+            ],
+            [
+              "Hexadecimal",
+              "`#ff0000` (red), `#1f4fd8`, short form `#fff`"
+            ],
+            [
+              "RGB",
+              "`rgb(255, 0, 0)`, with transparency `rgba(0, 0, 0, 0.5)`"
+            ],
+            [
+              "Absolute size",
+              "`px` (pixels)"
+            ],
+            [
+              "Relative size",
+              "`%` (of the parent), `em` / `rem` (of the font size), `vw` / `vh` (of the window)"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Designing a website with CSS",
+      "objectives": [
+        "11.5.3.6"
+      ],
+      "blocks": [
         {
           "type": "code",
           "language": "css",
-          "content": "body   { font-family: Verdana, sans-serif; margin: 0; background: #fafafa; }\nheader { background: #1f4fd8; color: #fff; padding: 16px; }\nnav a  { display: inline-block; padding: 8px 12px; color: #1f4fd8; }\nnav a:hover { background: #e8eefc; }\n.card  { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px; }\nfooter { text-align: center; font-size: 12px; color: #666; padding: 12px; }",
-          "caption": "style.css"
+          "content": "* { box-sizing: border-box; }\nbody   { font-family: Verdana, sans-serif; margin: 0; background-color: #fafafa; color: #222; }\nheader { background-color: #1f4fd8; color: white; padding: 16px; text-align: center; }\nnav    { background-color: #e8eefc; padding: 8px; }\nnav a  { display: inline-block; padding: 8px 12px; color: #1f4fd8; text-decoration: none; font-weight: bold; }\nnav a:hover { background-color: #1f4fd8; color: white; border-radius: 4px; }\n.container { display: flex; gap: 12px; padding: 12px; }\n.card  { flex: 1; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; }\nfooter { text-align: center; font-size: 12px; color: #666; padding: 12px; }\n\n@media (max-width: 600px) {          /* phones: cards one under another */\n  .container { flex-direction: column; }\n}",
+          "caption": "style.css — one external style sheet for a whole school-club site"
+        },
+        {
+          "type": "html_preview",
+          "title": "The site design in the browser",
+          "html": "<header><h2 style=\"margin:4px\">Robotics Club</h2></header>\n<nav><a href=\"#\">Home</a><a href=\"#\">Projects</a><a href=\"#\">Join</a></nav>\n<div class=\"container\">\n  <div class=\"card\"><h3>Next meeting</h3><p>Thursday 15:00, room 204.</p></div>\n  <div class=\"card\"><h3>Competition</h3><p>Regional final on 12 May.</p></div>\n</div>\n<footer>© 2026 NIS Robotics Club</footer>",
+          "css": "* { box-sizing: border-box; }\nbody   { font-family: Verdana, sans-serif; margin: 0; padding: 0; background-color: #fafafa; color: #222; }\nheader { background-color: #1f4fd8; color: white; padding: 8px; text-align: center; }\nnav    { background-color: #e8eefc; padding: 6px; }\nnav a  { display: inline-block; padding: 6px 12px; color: #1f4fd8; text-decoration: none; font-weight: bold; }\nnav a:hover { background-color: #1f4fd8; color: white; border-radius: 4px; }\n.container { display: flex; gap: 12px; padding: 12px; }\n.card  { flex: 1; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }\n.card h3 { margin: 0 0 6px; }\nfooter { text-align: center; font-size: 12px; color: #666; padding: 8px; }",
+          "height": 300
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Flexbox for layout",
+              "content": "`display: flex;` places child boxes **in a row** (or a column with `flex-direction: column;`). `gap` sets the space between them, `justify-content` and `align-items` align them. It is the easiest way to build menus and card layouts."
+            },
+            {
+              "title": "Responsive design",
+              "content": "A **media query** `@media (max-width: 600px) { … }` applies rules only on small screens, so the same page works on phones and computers. Use relative widths (`%`) and the viewport meta tag `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Good design practice with CSS",
+          "columns": [
+            "Practice",
+            "Why"
+          ],
+          "rows": [
+            [
+              "Use **one external style sheet** for all pages",
+              "Consistent look; easy to change"
+            ],
+            [
+              "Use **classes** for repeated styles, IDs only for unique elements",
+              "Reusable, tidy code"
+            ],
+            [
+              "Limit the number of fonts and colours",
+              "Professional, readable design"
+            ],
+            [
+              "Ensure good **contrast** between text and background",
+              "Readability and accessibility"
+            ],
+            [
+              "Style links and their **hover** state",
+              "Users can see what is clickable"
+            ],
+            [
+              "Test on **different screen sizes and browsers**",
+              "The design works for every user"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exam practice and summary",
+      "objectives": [
+        "11.5.3.5",
+        "11.5.3.6"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Create a CSS rule for changing the colour of the heading text to red and underlining it. [3]**\n```css\nh1 {\n    color: red;\n    text-decoration: underline;\n}\n```\n`h1` (1), `color: red;` (1), `text-decoration: underline;` (1).\n\n**Q: Compare inline and external CSS. [2]**\nInline CSS is written in the **style attribute of a single element**, **whereas** external CSS is in a **separate file linked to every page** (1). External CSS lets the whole site be updated by **changing one file**, whereas inline styles must be changed **in every element** (1).\n\n**Q: Write the HTML code to link the style sheet `site.css` to a page. [1]**\n`<link rel=\"stylesheet\" href=\"site.css\">` inside the `<head>`.\n\n**Q: Write a CSS rule so that links in the navigation bar are not underlined and turn white on a blue background when the mouse is over them. [3]**\n`nav a { text-decoration: none; }` (1) `nav a:hover { color: white; background-color: blue; }` (selector 1, declarations 1)."
         },
         {
           "type": "warning",
-          "content": "An **ID** must be unique on a page; use a **class** for styles that repeat. Remember the semicolon after each declaration and the colon between property and value — missing ones are common errors in \"find the mistake\" questions."
+          "content": "- Using `=` instead of `:` or forgetting `;` between declarations.\n- Writing `.` before an ID or `#` before a class.\n- Using the **same ID** on several elements — use a **class**.\n- Putting the `<link>` or `<style>` in the `<body>` instead of the `<head>`.\n- Saying external CSS has the highest priority — **inline** styles override it.\n- Writing `colour` (British spelling) — CSS uses **`color`**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Name the three types of CSS and write an example of each.",
+            "Give three ways in which external CSS is better than inline CSS for a website.",
+            "What is the difference between a class selector and an ID selector?",
+            "Which rule wins: `p {}`, `.note {}`, `#main {}` or an inline style? Why?",
+            "Draw the box model and label margin, border, padding and content.",
+            "Write CSS for a navigation bar whose links change colour on hover.",
+            "What does a media query do?"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "topic_exam": {
+    "duration": 50,
+    "title": "Cascading style sheets — Exam (Paper 3 style)",
+    "instructions": "Answer **all** questions. Write HTML and CSS code where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "questions": [
+      "css-exam-1",
+      "css-exam-2",
+      "css-exam-3"
+    ]
+  }
 }

@@ -174,6 +174,14 @@ function parseFile(src: string, file: string): { summary?: string; sections: Sec
           push({ type: "html_preview", ...(title ? { title } : {}), html, ...(css ? { css } : {}), ...(height ? { height: Number(height) } : {}) });
           break;
         }
+        case "image": {
+          // :::image Caption  — inner lines: the URL, then "alt: description"
+          const url = inner.find((l) => l.trim() && !/^\s*alt:/i.test(l))?.trim() ?? "";
+          const alt = inner.find((l) => /^\s*alt:/i.test(l))?.replace(/^\s*alt:\s*/i, "").trim() ?? "";
+          if (!url || !alt) errors.push(":::image needs a URL line and an alt: line");
+          push({ type: "image", url, alt, ...(arg ? { caption: arg } : {}) });
+          break;
+        }
         case "widget": {
           const [widget, ...title] = arg.split(/\s+/);
           push({ type: "interactive", widget: widget as "base_converter", ...(title.length ? { title: title.join(" ") } : {}) });
