@@ -15,8 +15,8 @@ type Row = {
   student_id: string; question_id: string; state: string; awarded_mark: string | null; max_mark: string | null;
   topic_id: string; question_no: number; total: number; done: number;
 };
-const monitor = (who: string, cls: string | null = null) =>
-  db.as(who, async () => (await db.query<Row>(`select * from practice_monitor($1)`, [cls])).rows);
+const monitor = (who: string, cls: string | null = null, topic: string | null = null) =>
+  db.as(who, async () => (await db.query<Row>(`select * from practice_monitor($1, $2)`, [cls, topic])).rows);
 
 beforeAll(async () => {
   db = await createDb({ seed: true });
@@ -79,6 +79,30 @@ describe("practice monitor", () => {
     const [r] = await monitor(teacher);
     expect(r.state).toBe("submitted");
     expect(r.done).toBe(3);
+  });
+
+  it("can be narrowed to one topic", async () => {
+    // alice then checks a question in another topic: that becomes her latest activity
+    const otherTopic = (await db.query<{ id: string }>(`select id from topics where slug = 'paper-blockchain'`)).rows[0].id;
+    const q = (await db.query<{ id: string }>(
+      `select id from questions where topic_id = $1 and status = 'published' and practice_enabled
+          and parent_id is null and question_type::text <> 'structured' limit 1`, [otherTopic])).rows[0].id;
+    await db.query(
+      `insert into practice_attempts (student_id, question_id, answer_data, awarded_mark, max_mark, grading_method)
+       values ($1, $2, '{"text":"x"}', 1, 1, 'AUTO')`, [alice, q]);
+
+    const [latest] = await monitor(teacher);
+    expect(latest.topic_id).toBe(otherTopic);
+    expect(latest.done).toBe(1);
+
+    const [arrays] = await monitor(teacher, null, topicId);
+    expect(arrays.topic_id).toBe(topicId);
+    expect(arrays.question_id).toBe(qs[4].id);
+    expect(arrays.done).toBe(3);
+    expect(arrays.total).toBe(total);
+
+    const sql = (await db.query<{ id: string }>(`select id from topics where slug = 'g11-sql'`)).rows[0].id;
+    expect(await monitor(teacher, null, sql)).toHaveLength(0); // nobody has practised it
   });
 
   it("is limited to the caller's own students and to staff", async () => {
