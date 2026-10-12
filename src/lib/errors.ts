@@ -6,6 +6,7 @@ const MESSAGES: Record<string, string> = {
   EXAM_NOT_AVAILABLE: "This exam is not available right now.",
   EXAM_ARCHIVED: "This exam has been archived.",
   SUMMATIVE_NOT_OPEN: "Your teacher has not opened this assessment for your class.",
+  SUMMATIVE_OTHER_VARIANT: "You have been given a different variant of this assessment. Open it from the Summative page.",
   SUMMATIVE_NOT_PUBLISHED: "Publish the assessment before opening it to a class.",
   CLASS_NOT_FOUND: "This class could not be found.",
   ASSIGNMENT_NOT_FOUND: "This assignment could not be found.",

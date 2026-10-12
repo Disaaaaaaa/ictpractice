@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Lock, LockOpen, Plus } from "lucide-react";
+import { CopyPlus, Lock, LockOpen, Plus } from "lucide-react";
 import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getTeacherSummatives, summativeStartable, type TeacherSummative } from "@/lib/summative";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatPercent } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
@@ -13,7 +13,7 @@ import { Badge, type Tone } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { ConfirmButton } from "@/components/action-form";
-import { setSummativeAccess } from "./actions";
+import { addSummativeVariant, setSummativeAccess } from "./actions";
 
 export const metadata: Metadata = { title: "Summative Assessments" };
 
@@ -29,7 +29,9 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
   const isAdmin = profile.role === "admin";
 
   const renderExam = (e: TeacherSummative) => {
-    const ready = summativeStartable(e);
+    // Access is opened for the whole group; it needs at least one published variant.
+    const ready = e.variants.some(summativeStartable);
+    const many = e.variants.length > 1;
     const openCount = e.classes.filter((c) => c.open).length;
     const ids = e.classes.map((c) => c.cls.id).join(",");
     return (
@@ -47,16 +49,61 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <ButtonLink href={`/teacher/exams/${e.id}/live`} variant="secondary" size="sm">{e.live > 0 ? `Live · ${e.live}` : "Live monitor"}</ButtonLink>
-            <ButtonLink href={`/teacher/results?exam=${e.id}`} variant="secondary" size="sm">Results</ButtonLink>
-            <ButtonLink href={`/teacher/exams/${e.id}`} variant="ghost" size="sm">Edit</ButtonLink>
+            {!many && (
+              <>
+                <ButtonLink href={`/teacher/exams/${e.id}/live`} variant="secondary" size="sm">{e.live > 0 ? `Live · ${e.live}` : "Live monitor"}</ButtonLink>
+                <ButtonLink href={`/teacher/results?exam=${e.id}`} variant="secondary" size="sm">Results</ButtonLink>
+                <ButtonLink href={`/teacher/exams/${e.id}`} variant="ghost" size="sm">Edit</ButtonLink>
+              </>
+            )}
+            <ConfirmButton
+              action={addSummativeVariant}
+              fields={{ exam_id: e.id }}
+              label={<><CopyPlus className="h-4 w-4" /> Add variant</>}
+              confirm="Create another variant? It starts as a draft copy of this assessment: change the numbers and contexts in its questions, then publish it. Students of a class are then split between the variants at random and equally."
+            />
           </div>
         </div>
+        {many && (
+          <div className="border-t border-border">
+            <Table>
+              <thead><tr><Th>Variant</Th><Th>Status</Th><Th>Marks · time</Th><Th>Given to</Th><Th>Sat</Th><Th>Average</Th><Th /></tr></thead>
+              <tbody>
+                {e.variants.map((v) => (
+                  <tr key={v.id}>
+                    <Td>
+                      <span className="mr-2 font-semibold">Variant {v.no}</span>
+                      <Link href={`/teacher/exams/${v.id}`} className="hover:underline">{v.title}</Link>
+                    </Td>
+                    <Td>
+                      <Badge tone={STATUS_TONE[v.status]}>{v.status}</Badge>
+                      {!summativeStartable(v) && <span className="ml-2 text-xs text-muted">not in use</span>}
+                    </Td>
+                    <Td className="tabular-nums">{v.version ? `${v.version.total_marks} · ` : ""}{v.duration_minutes} min</Td>
+                    <Td className="tabular-nums">{v.assigned}</Td>
+                    <Td className="tabular-nums">{v.sat}</Td>
+                    <Td className="tabular-nums">{formatPercent(v.average)}</Td>
+                    <Td className="text-right">
+                      <span className="inline-flex gap-2">
+                        <ButtonLink href={`/teacher/exams/${v.id}/live`} variant="ghost" size="sm">Live</ButtonLink>
+                        <ButtonLink href={`/teacher/results?exam=${v.id}`} variant="ghost" size="sm">Results</ButtonLink>
+                        <ButtonLink href={`/teacher/exams/${v.id}`} variant="ghost" size="sm">Edit</ButtonLink>
+                      </span>
+                    </Td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <p className="px-4 py-2 text-xs text-muted">
+              Each student gets one published variant at random, with equal numbers per variant in the class. Compare the averages to check that the variants are equally hard.
+            </p>
+          </div>
+        )}
         {!ready ? (
           <p className="border-t border-border px-4 py-3 text-sm text-muted">
-            {e.version ? "This assessment is not available (closed, scheduled or outside its dates). " : "Not published yet. "}
+            {e.variants.some((v) => v.version) ? "This assessment is not available (closed, scheduled or outside its dates). " : "Not published yet. "}
             <Link href={`/teacher/exams/${e.id}`} className="font-medium text-primary hover:underline">
-              {e.version ? "Check its settings" : "Add questions and publish it"}
+              {e.variants.some((v) => v.version) ? "Check its settings" : "Add questions and publish it"}
             </Link>{" "}
             before opening it to a class.
           </p>
@@ -67,7 +114,7 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
             <Table>
               <thead>
                 <tr>
-                  <Th>Class</Th><Th>Access</Th><Th>Sat</Th>
+                  <Th>Class</Th><Th>Access</Th><Th>Sat</Th>{many && <Th>Variants</Th>}
                   <Th className="text-right">
                     {e.classes.length > 1 && (
                       <span className="inline-flex gap-2 normal-case">
@@ -96,6 +143,11 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
                       {c.submitted} / {c.cls.member_count}
                       {c.inProgress > 0 && <Badge tone="info" className="ml-2">{c.inProgress} in progress</Badge>}
                     </Td>
+                    {many && (
+                      <Td className="whitespace-nowrap text-xs tabular-nums text-muted">
+                        {c.split.some((n) => n > 0) ? c.split.map((n, i) => `V${i + 1}: ${n}`).join(" · ") : "dealt out on opening"}
+                      </Td>
+                    )}
                     <Td className="text-right">
                       <span className="inline-flex">
                         {c.open ? (

@@ -172,8 +172,9 @@ export async function duplicateExam(formData: FormData) {
   const supabase = await createClient();
   const { data: src } = await supabase.from("exams").select("*").eq("id", examId).single();
   if (!src) return;
-  const { id: _id, current_version_id: _v, created_at: _c, updated_at: _u, archived_at: _a, created_by: _b, status: _s, ...rest } = src;
-  void [_id, _v, _c, _u, _a, _b, _s];
+  // A duplicate is a new exam of its own, not another variant of the same summative.
+  const { id: _id, current_version_id: _v, created_at: _c, updated_at: _u, archived_at: _a, created_by: _b, status: _s, variant_of: _vo, variant_no: _vn, ...rest } = src;
+  void [_id, _v, _c, _u, _a, _b, _s, _vo, _vn];
   const { data: copy } = await supabase
     .from("exams")
     .insert({ ...rest, title: `${src.title} (copy)`, status: "draft", created_by: profile.id })

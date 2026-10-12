@@ -63,6 +63,9 @@ export default async function ExamBuilderPage({ params }: PageProps<"/teacher/ex
       {!canEdit && <Alert tone="info" className="mb-6">This exam was created by someone else. Duplicate it to make an editable copy.</Alert>}
       {summative && (
         <Alert tone="info" className="mb-6">
+          {e.variant_of ? (
+            <>This is <strong>Variant {e.variant_no}</strong> of a summative assessment. Keep the same structure and marks and change only the numbers and contexts. Once published, each student of a class is given one variant at random. </>
+          ) : null}
           A published summative assessment stays hidden from students until you open it for a class on the Summative Assessments page.
         </Alert>
       )}

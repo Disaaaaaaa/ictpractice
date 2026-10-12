@@ -24,6 +24,9 @@ export type SummativeExam = {
   availability_start: string | null;
   availability_end: string | null;
   created_by: string | null;
+  /** the base exam (Variant 1) when this exam is another variant of a summative */
+  variant_of: string | null;
+  variant_no: number;
   version: { version: number; question_count: number; total_marks: number } | null;
 };
 
@@ -31,7 +34,7 @@ export type SummativeUnit<T> = { id: string; code: string; title: string; exams:
 export type SummativeTerm<T> = { grade: number; term: number; title: string; units: SummativeUnit<T>[] };
 
 const EXAM_COLUMNS =
-  "id, title, description, status, unit_id, grade, duration_minutes, attempt_limit, availability_start, availability_end, created_by, current:current_version_id(version, question_count, total_marks)";
+  "id, title, description, status, unit_id, grade, duration_minutes, attempt_limit, availability_start, availability_end, created_by, variant_of, variant_no, current:current_version_id(version, question_count, total_marks)";
 
 async function loadExams(supabase: Supa): Promise<SummativeExam[]> {
   const { data } = await supabase
@@ -86,11 +89,15 @@ export type StudentSummative = SummativeExam & {
 };
 
 export async function getStudentSummatives(supabase: Supa, profile: Pick<Profile, "id" | "grade">) {
-  // RLS returns only the summatives that are open for the student or already sat.
+  // Late joiners get their variant of every open summative before the list is read.
+  await supabase.rpc("ensure_my_summative_variants");
+  // RLS returns only the student's own variant of the summatives that are open for them, plus those already sat.
   const exams = await loadExams(supabase);
   const ids = exams.map((e) => e.id).concat(NONE);
+  // Access is opened once for the whole group of variants, on the base exam.
+  const baseIds = exams.map((e) => e.variant_of ?? e.id).concat(NONE);
   const [{ data: access }, { data: attempts }] = await Promise.all([
-    supabase.from("summative_access").select("exam_id").eq("is_open", true).in("exam_id", ids),
+    supabase.from("summative_access").select("exam_id").eq("is_open", true).in("exam_id", baseIds),
     supabase
       .from("attempts")
       .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")
@@ -101,7 +108,7 @@ export async function getStudentSummatives(supabase: Supa, profile: Pick<Profile
   const openIds = new Set((access ?? []).map((a) => a.exam_id));
   const items: StudentSummative[] = exams.map((e) => ({
     ...e,
-    open: openIds.has(e.id) && summativeStartable(e),
+    open: openIds.has(e.variant_of ?? e.id) && summativeStartable(e),
     attempts: (attempts ?? []).filter((a) => a.exam_id === e.id) as StudentSummative["attempts"],
   }));
   const { terms, other } = await byUnit(items, profile.grade ? [profile.grade] : null);
@@ -124,17 +131,34 @@ export type ClassAccess = {
   closed_at: string | null;
   inProgress: number;
   submitted: number;
+  /** students of the class given each variant (same order as `variants`); empty with a single variant */
+  split: number[];
 };
-export type TeacherSummative = SummativeExam & { classes: ClassAccess[]; attemptCount: number; live: number };
+export type VariantInfo = SummativeExam & {
+  /** 1 for the base exam */
+  no: number;
+  assigned: number;
+  sat: number;
+  /** average of the marked attempts, 0–100 */
+  average: number | null;
+};
+/** A summative with its variants: access is opened for the group as a whole. */
+export type TeacherSummative = SummativeExam & {
+  variants: VariantInfo[];
+  classes: ClassAccess[];
+  attemptCount: number;
+  live: number;
+};
 
 export async function getTeacherSummatives(supabase: Supa, profile: Pick<Profile, "id" | "role">, grade: number) {
   const [exams, classes] = await Promise.all([loadExams(supabase), getTeacherClasses(supabase, profile, true)]);
   const ids = exams.map((e) => e.id).concat(NONE);
   const classIds = classes.map((c) => c.id).concat(NONE);
-  const [{ data: access }, { data: attempts }, { data: members }] = await Promise.all([
+  const [{ data: access }, { data: attempts }, { data: members }, { data: assigned }] = await Promise.all([
     supabase.from("summative_access").select("exam_id, class_id, is_open, opened_at, closed_at").in("exam_id", ids),
-    supabase.from("attempts").select("exam_id, student_id, status").in("exam_id", ids).limit(5000),
+    supabase.from("attempts").select("exam_id, student_id, status, percentage").in("exam_id", ids).limit(5000),
     supabase.from("class_members").select("class_id, student_id").eq("status", "active").in("class_id", classIds).limit(5000),
+    supabase.from("summative_variants").select("base_exam_id, student_id, exam_id").in("base_exam_id", ids).limit(5000),
   ]);
   const membersOf = new Map<string, Set<string>>();
   for (const m of members ?? []) {
@@ -142,16 +166,32 @@ export async function getTeacherSummatives(supabase: Supa, profile: Pick<Profile
     membersOf.get(m.class_id)!.add(m.student_id);
   }
 
-  const items: TeacherSummative[] = exams.map((e) => {
-    const mine = (attempts ?? []).filter((a) => a.exam_id === e.id);
+  const bases = exams.filter((e) => !e.variant_of || !exams.some((b) => b.id === e.variant_of));
+  const items: TeacherSummative[] = bases.map((base) => {
+    const group = [base, ...exams.filter((e) => e.variant_of === base.id).sort((a, b) => a.variant_no - b.variant_no || a.title.localeCompare(b.title))];
+    const groupIds = new Set(group.map((e) => e.id));
+    const mine = (attempts ?? []).filter((a) => groupIds.has(a.exam_id));
+    const given = (assigned ?? []).filter((a) => a.base_exam_id === base.id);
+    const variants: VariantInfo[] = group.map((e, i) => {
+      const own = mine.filter((a) => a.exam_id === e.id);
+      const marked = own.filter((a) => a.status === "GRADED" && a.percentage != null).map((a) => Number(a.percentage));
+      return {
+        ...e,
+        no: i + 1,
+        assigned: given.filter((g) => g.exam_id === e.id).length,
+        sat: new Set(own.filter((a) => a.status !== "IN_PROGRESS").map((a) => a.student_id)).size,
+        average: marked.length ? marked.reduce((x, y) => x + y, 0) / marked.length : null,
+      };
+    });
     return {
-      ...e,
+      ...base,
+      variants,
       attemptCount: mine.length,
       live: mine.filter((a) => a.status === "IN_PROGRESS").length,
       classes: classes
-        .filter((c) => c.grade === (e.grade ?? grade))
+        .filter((c) => c.grade === (base.grade ?? grade))
         .map((cls) => {
-          const row = (access ?? []).find((a) => a.exam_id === e.id && a.class_id === cls.id);
+          const row = (access ?? []).find((a) => a.exam_id === base.id && a.class_id === cls.id);
           const students = membersOf.get(cls.id) ?? new Set<string>();
           const ofClass = mine.filter((a) => students.has(a.student_id));
           return {
@@ -161,6 +201,7 @@ export async function getTeacherSummatives(supabase: Supa, profile: Pick<Profile
             closed_at: row?.closed_at ?? null,
             inProgress: ofClass.filter((a) => a.status === "IN_PROGRESS").length,
             submitted: new Set(ofClass.filter((a) => a.status !== "IN_PROGRESS").map((a) => a.student_id)).size,
+            split: group.length > 1 ? group.map((e) => given.filter((g) => g.exam_id === e.id && students.has(g.student_id)).length) : [],
           };
         }),
     };

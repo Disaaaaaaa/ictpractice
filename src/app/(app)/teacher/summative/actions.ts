@@ -14,6 +14,37 @@ const schema = z.object({
   grade: z.enum(["11", "12"]),
 });
 
+/**
+ * Adds another variant to a summative: a draft copy of the base exam (same
+ * settings and questions) for the teacher to rewrite with different numbers
+ * and contexts, then publish.
+ */
+export async function addSummativeVariant(formData: FormData) {
+  const profile = await requireProfile(["teacher", "admin"]);
+  const baseId = String(formData.get("exam_id") ?? "");
+  if (!z.string().uuid().safeParse(baseId).success) return;
+  const supabase = await createClient();
+  const { data: src } = await supabase.from("exams").select("*").eq("id", baseId).maybeSingle();
+  if (!src || src.kind !== "summative" || src.variant_of) return;
+  const { data: siblings } = await supabase.from("exams").select("variant_no").eq("variant_of", baseId);
+  const no = Math.max(1, ...(siblings ?? []).map((s) => s.variant_no as number)) + 1;
+  if (no > 20) return;
+
+  const { id: _id, current_version_id: _v, created_at: _c, updated_at: _u, archived_at: _a, created_by: _b, status: _s, ...rest } = src;
+  void [_id, _v, _c, _u, _a, _b, _s];
+  const { data: copy } = await supabase
+    .from("exams")
+    .insert({ ...rest, title: `${src.title} — Variant ${no}`, variant_of: baseId, variant_no: no, status: "draft", created_by: profile.id })
+    .select("id")
+    .single();
+  if (!copy) return;
+  const { data: qs } = await supabase.from("exam_questions").select("question_id, sort_order, marks_override, section_label").eq("exam_id", baseId);
+  if (qs?.length) await supabase.from("exam_questions").insert(qs.map((q) => ({ ...q, exam_id: copy.id })));
+  await createAdminClient().from("audit_logs").insert({ actor_id: profile.id, action: "summative.add_variant", entity_type: "exam", entity_id: copy.id, details: { base: baseId, variant_no: no } });
+  revalidatePath("/teacher/summative");
+  redirect(`/teacher/exams/${copy.id}`);
+}
+
 /** Opens or closes a summative assessment for one or more classes. */
 export async function setSummativeAccess(formData: FormData) {
   await requireProfile(["teacher", "admin"]);
@@ -52,7 +83,7 @@ export async function setSummativeAccess(formData: FormData) {
           type: "exam_available",
           title: `Summative assessment open: ${exam.title}`,
           body: "Your teacher has opened this assessment for your class.",
-          link: `/exams/${exam_id}`,
+          link: "/summative", // each student has their own variant
         })),
       );
     }

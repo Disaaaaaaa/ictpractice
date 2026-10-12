@@ -21,6 +21,8 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
   const sp = await searchParams;
   const assignmentId = typeof sp.assignment === "string" ? sp.assignment : null;
   const supabase = await createClient();
+  // A student who joined a class after a summative was opened gets their variant here.
+  if (profile.role === "student") await supabase.rpc("ensure_my_summative_variants");
   const info = await getExamStartInfo(supabase, examId, profile.id, assignmentId);
   if (!info) notFound();
   const { exam, version } = info;

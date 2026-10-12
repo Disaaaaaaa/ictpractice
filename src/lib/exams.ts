@@ -93,7 +93,8 @@ export async function getExamStartInfo(
   if (!reason && !open && !a && e.kind === "summative") {
     const { data: me } = await supabase.from("profiles").select("role").eq("id", studentId).maybeSingle();
     if (me?.role === "student") {
-      const { data: access } = await supabase.from("summative_access").select("class_id").eq("exam_id", examId).eq("is_open", true).limit(1);
+      // Access is opened for the whole group of variants, on the base exam.
+      const { data: access } = await supabase.from("summative_access").select("class_id").eq("exam_id", e.variant_of ?? examId).eq("is_open", true).limit(1);
       if (!access?.length) reason = "Your teacher has not opened this assessment for your class.";
     }
   }

@@ -127,6 +127,9 @@ export type Exam = {
   topic_id: string | null;
   /** set on summative assessments (kind "summative") */
   unit_id: string | null;
+  /** summative variants: the base exam (Variant 1) this exam is another variant of */
+  variant_of: string | null;
+  variant_no: number;
   paper_component_id: string | null;
   year: number | null;
   grade: number | null;
