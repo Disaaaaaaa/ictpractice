@@ -49,13 +49,10 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            {!many && (
-              <>
-                <ButtonLink href={`/teacher/exams/${e.id}/live`} variant="secondary" size="sm">{e.live > 0 ? `Live · ${e.live}` : "Live monitor"}</ButtonLink>
-                <ButtonLink href={`/teacher/results?exam=${e.id}`} variant="secondary" size="sm">Results</ButtonLink>
-                <ButtonLink href={`/teacher/exams/${e.id}`} variant="ghost" size="sm">Edit</ButtonLink>
-              </>
-            )}
+            {!many && <ButtonLink href={`/teacher/exams/${e.id}/live`} variant="secondary" size="sm">{e.live > 0 ? `Live · ${e.live}` : "Live monitor"}</ButtonLink>}
+            {/* one results page for the whole assessment, whatever the variant */}
+            <ButtonLink href={`/teacher/results?exam=${e.id}`} variant="secondary" size="sm">{many ? "Results · all variants" : "Results"}</ButtonLink>
+            {!many && <ButtonLink href={`/teacher/exams/${e.id}`} variant="ghost" size="sm">Edit</ButtonLink>}
             <ConfirmButton
               action={addSummativeVariant}
               fields={{ exam_id: e.id }}
@@ -86,7 +83,6 @@ export default async function TeacherSummativePage({ searchParams }: PageProps<"
                     <Td className="text-right">
                       <span className="inline-flex gap-2">
                         <ButtonLink href={`/teacher/exams/${v.id}/live`} variant="ghost" size="sm">Live</ButtonLink>
-                        <ButtonLink href={`/teacher/results?exam=${v.id}`} variant="ghost" size="sm">Results</ButtonLink>
                         <ButtonLink href={`/teacher/exams/${v.id}`} variant="ghost" size="sm">Edit</ButtonLink>
                       </span>
                     </Td>

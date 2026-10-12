@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import ExcelJS from "exceljs";
 import { createClient } from "@/lib/supabase/server";
 import { displayName } from "@/lib/auth";
-import { getAttempts, getClassRoster, getMasteryByStudent, getVisibleStudents } from "@/lib/teacher-data";
+import { getAttempts, getClassRoster, getExamGroup, getMasteryByStudent, getVisibleStudents } from "@/lib/teacher-data";
 import { getProgressContext, overallMastery, paperReadiness, topicProgress } from "@/lib/progress";
 import { paperLabel, type Paper } from "@/lib/questions/types";
 import type { Profile } from "@/lib/db-types";
@@ -53,21 +53,29 @@ export async function GET(req: NextRequest) {
   let name = "export";
 
   if (kind === "exam") {
-    const attempts = (await getAttempts(supabase, { studentIds: ids, examId: examId ?? undefined, assignmentId: assignmentId ?? undefined, limit: 5000 })).filter((a) => a.status !== "IN_PROGRESS");
+    // A summative with variants is exported as one sheet: all variants, with a Variant column.
+    const group = examId ? await getExamGroup(supabase, examId) : null;
+    const variantNo = new Map((group?.variants ?? []).map((v) => [v.id, v.no]));
+    const many = variantNo.size > 1;
+    const attempts = (await getAttempts(supabase, { studentIds: ids, examIds: group ? group.variants.map((v) => v.id) : undefined, assignmentId: assignmentId ?? undefined, limit: 5000 })).filter((a) => a.status !== "IN_PROGRESS");
     const versionIds = [...new Set(attempts.map((a) => a.exam_version_id))];
     const { data: payloads } = versionIds.length ? await supabase.from("exam_version_payloads").select("exam_version_id, paper").in("exam_version_id", versionIds) : { data: [] };
     const questions = examId && payloads?.length ? (payloads[0].paper as Paper).questions : [];
+    // Variants (and versions) have their own question ids; the columns are matched by question label, e.g. "2(a)".
+    const idByLabel = new Map(
+      (payloads ?? []).map((pl) => [pl.exam_version_id as string, new Map((pl.paper as Paper).questions.map((q) => [paperLabel(q), q.id]))]),
+    );
     const { data: results } = attempts.length
       ? await supabase.from("grading_results").select("attempt_id, question_id, final_mark").in("attempt_id", attempts.map((a) => a.id))
       : { data: [] };
     const mark = new Map((results ?? []).map((r) => [`${r.attempt_id}|${r.question_id}`, r.final_mark == null ? null : Number(r.final_mark)]));
-    rows.push(["Student", "Username", "Exam", "Started", "Submitted", "Status", "Submission", "Score", "Max", "Percentage", "Violations", ...questions.map((q) => `Q${paperLabel(q)} (${q.marks})`)]);
+    rows.push(["Student", "Username", "Exam", ...(many ? ["Variant"] : []), "Started", "Submitted", "Status", "Submission", "Score", "Max", "Percentage", "Violations", ...questions.map((q) => `Q${paperLabel(q)} (${q.marks})`)]);
     for (const a of attempts) {
       rows.push([
-        a.profiles ? displayName(a.profiles) : "", a.profiles?.username ?? "", a.exams?.title ?? "", a.started_at, a.submitted_at, a.status,
+        a.profiles ? displayName(a.profiles) : "", a.profiles?.username ?? "", a.exams?.title ?? "", ...(many ? [variantNo.get(a.exam_id) ?? null] : []), a.started_at, a.submitted_at, a.status,
         a.submission_reason, a.score == null ? null : Number(a.score), a.max_score == null ? null : Number(a.max_score),
         round(a.percentage == null ? null : Number(a.percentage)), a.violation_count,
-        ...questions.map((q) => mark.get(`${a.id}|${q.id}`) ?? null),
+        ...questions.map((q) => mark.get(`${a.id}|${idByLabel.get(a.exam_version_id)?.get(paperLabel(q)) ?? q.id}`) ?? null),
       ]);
     }
     name = "exam-results";

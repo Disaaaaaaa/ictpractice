@@ -67,7 +67,7 @@ export type AttemptRow = Attempt & {
 
 export async function getAttempts(
   supabase: Supa,
-  filter: { studentIds?: string[]; examId?: string; assignmentId?: string; status?: string[]; limit?: number } = {},
+  filter: { studentIds?: string[]; examId?: string; examIds?: string[]; assignmentId?: string; status?: string[]; limit?: number } = {},
 ): Promise<AttemptRow[]> {
   let q = supabase
     .from("attempts")
@@ -75,7 +75,8 @@ export async function getAttempts(
     .order("created_at", { ascending: false })
     .limit(filter.limit ?? 500);
   if (filter.studentIds) q = q.in("student_id", filter.studentIds.length ? filter.studentIds : ["00000000-0000-0000-0000-000000000000"]);
-  if (filter.examId) q = q.eq("exam_id", filter.examId);
+  if (filter.examIds) q = q.in("exam_id", filter.examIds.length ? filter.examIds : ["00000000-0000-0000-0000-000000000000"]);
+  else if (filter.examId) q = q.eq("exam_id", filter.examId);
   if (filter.assignmentId) q = q.eq("assignment_id", filter.assignmentId);
   if (filter.status) q = q.in("status", filter.status);
   const { data } = await q;
@@ -93,4 +94,25 @@ export function stats(values: number[]) {
     min: s[0],
     n: s.length,
   };
+}
+
+export type ExamGroup = { baseId: string; variants: { id: string; title: string; no: number }[] };
+
+/**
+ * A summative with its variants is one assessment: results, exports and
+ * monitoring look at the whole group. Any other exam is a group of one.
+ */
+export async function getExamGroup(supabase: Supa, examId: string): Promise<ExamGroup | null> {
+  const { data: exam } = await supabase.from("exams").select("id, title, variant_of").eq("id", examId).maybeSingle();
+  if (!exam) return null;
+  const baseId = (exam.variant_of as string | null) ?? (exam.id as string);
+  const { data } = await supabase
+    .from("exams")
+    .select("id, title, variant_of, variant_no")
+    .or(`id.eq.${baseId},variant_of.eq.${baseId}`)
+    .is("archived_at", null);
+  const rows = ((data ?? []) as { id: string; title: string; variant_of: string | null; variant_no: number }[]).sort(
+    (a, b) => Number(Boolean(a.variant_of)) - Number(Boolean(b.variant_of)) || a.variant_no - b.variant_no || a.title.localeCompare(b.title),
+  );
+  return { baseId, variants: rows.map((r, i) => ({ id: r.id, title: r.title, no: i + 1 })) };
 }

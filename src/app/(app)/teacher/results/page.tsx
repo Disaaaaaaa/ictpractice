@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Download } from "lucide-react";
 import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getAttempts, getClassRoster, getTeacherClasses, getVisibleStudents } from "@/lib/teacher-data";
+import { getAttempts, getClassRoster, getExamGroup, getTeacherClasses, getVisibleStudents, stats } from "@/lib/teacher-data";
 import { formatDate, formatPercent } from "@/lib/format";
 import { PageHeader } from "@/components/ui/page-header";
+import { Stat } from "@/components/ui/stat";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Table, Td, Th } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -23,13 +24,27 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
   const supabase = await createClient();
   const classes = await getTeacherClasses(supabase, profile);
   const students = f.cls ? ((await getClassRoster(supabase, f.cls))?.students ?? []) : await getVisibleStudents(supabase);
+  // A summative with variants is shown as one assessment: all its variants together.
+  const group = f.exam ? await getExamGroup(supabase, f.exam) : null;
+  const variantNo = new Map((group?.variants ?? []).map((v) => [v.id, v.no]));
+  const many = variantNo.size > 1;
   const attempts = await getAttempts(supabase, {
     studentIds: students.map((s) => s.id),
-    examId: f.exam || undefined,
+    examIds: group ? group.variants.map((v) => v.id) : undefined,
     status: f.status ? [f.status] : ["SUBMITTED", "GRADED", "REVIEW_REQUIRED"],
     limit: 1000,
   });
-  const { data: exams } = await supabase.from("exams").select("id, title").not("current_version_id", "is", null).order("title");
+  const { data: examRows } = await supabase.from("exams").select("id, title, variant_of").not("current_version_id", "is", null).order("title");
+  // Variants are reached through their base exam.
+  const hasVariants = new Set((examRows ?? []).map((e) => e.variant_of as string | null).filter(Boolean));
+  const exams = (examRows ?? []).filter((e) => !e.variant_of || !(examRows ?? []).some((b) => b.id === e.variant_of));
+  const perVariant = many
+    ? group!.variants.map((v) => {
+        const own = attempts.filter((a) => a.exam_id === v.id);
+        return { ...v, sat: new Set(own.map((a) => a.student_id)).size, s: stats(own.filter((a) => a.status === "GRADED" && a.percentage != null).map((a) => Number(a.percentage))) };
+      })
+    : [];
+  const overall = stats(attempts.filter((a) => a.status === "GRADED" && a.percentage != null).map((a) => Number(a.percentage)));
   const { data: queue } = await supabase
     .from("grading_results")
     .select("id, attempt_id, question_id, awarded_mark, max_mark, confidence, error")
@@ -38,7 +53,7 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
     .limit(500);
   const queueByAttempt = new Map<string, number>();
   for (const r of queue ?? []) queueByAttempt.set(r.attempt_id, (queueByAttempt.get(r.attempt_id) ?? 0) + 1);
-  const exportHref = `/api/export?kind=exam&format=xlsx${f.exam ? `&examId=${f.exam}` : ""}${f.cls ? `&classId=${f.cls}` : ""}`;
+  const exportHref = `/api/export?kind=exam&format=xlsx${group ? `&examId=${group.baseId}` : ""}${f.cls ? `&classId=${f.cls}` : ""}`;
 
   return (
     <>
@@ -62,12 +77,20 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
           </CardBody>
         </Card>
       )}
+      {many && (
+        <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Stat label="All variants" value={formatPercent(overall.mean)} sub={`${new Set(attempts.map((a) => a.student_id)).size} students · ${overall.n} marked`} />
+          {perVariant.map((v) => (
+            <Stat key={v.id} label={`Variant ${v.no} — average`} value={formatPercent(v.s.mean)} sub={`${v.sat} students · ${v.s.n} marked`} />
+          ))}
+        </div>
+      )}
       <Card>
         <CardBody>
           <form className="grid gap-2 sm:grid-cols-4">
-            <Select name="exam" defaultValue={f.exam} aria-label="Exam">
+            <Select name="exam" defaultValue={group?.baseId ?? f.exam} aria-label="Exam">
               <option value="">All exams</option>
-              {(exams ?? []).map((e) => <option key={e.id} value={e.id}>{e.title}</option>)}
+              {exams.map((e) => <option key={e.id} value={e.id}>{e.title}{hasVariants.has(e.id) ? " — all variants" : ""}</option>)}
             </Select>
             <Select name="class" defaultValue={f.cls} aria-label="Class">
               <option value="">All my classes</option>
@@ -84,12 +107,13 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
         </CardBody>
         <CardBody className="p-0">
           <Table>
-            <thead><tr><Th>Student</Th><Th>Exam</Th><Th>Submitted</Th><Th>Status</Th><Th>Violations</Th><Th className="text-right">Score</Th></tr></thead>
+            <thead><tr><Th>Student</Th><Th>Exam</Th>{many && <Th>Variant</Th>}<Th>Submitted</Th><Th>Status</Th><Th>Violations</Th><Th className="text-right">Score</Th></tr></thead>
             <tbody>
               {attempts.map((a) => (
                 <tr key={a.id}>
                   <Td><Link href={`/teacher/results/${a.id}`} className="font-medium hover:underline">{a.profiles ? displayName(a.profiles) : "—"}</Link></Td>
                   <Td>{a.exams?.title}</Td>
+                  {many && <Td><Badge tone="primary">Variant {variantNo.get(a.exam_id) ?? "?"}</Badge></Td>}
                   <Td className="text-muted">{formatDate(a.submitted_at)}</Td>
                   <Td>
                     <AttemptStatusBadge status={a.status} />
@@ -99,7 +123,7 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
                   <Td className="text-right tabular-nums">{a.score != null ? `${Number(a.score)}/${Number(a.max_score)} · ${formatPercent(a.percentage)}` : "—"}</Td>
                 </tr>
               ))}
-              {attempts.length === 0 && <tr><Td colSpan={6} className="py-8 text-center text-muted">No submitted attempts.</Td></tr>}
+              {attempts.length === 0 && <tr><Td colSpan={many ? 7 : 6} className="py-8 text-center text-muted">No submitted attempts.</Td></tr>}
             </tbody>
           </Table>
         </CardBody>
