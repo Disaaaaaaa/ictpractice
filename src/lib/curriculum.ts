@@ -13,7 +13,14 @@ export type SchoolTree = {
     number: number;
     title: string;
     hours: number | null;
-    units: { id: string; code: string; title: string; topics: (TopicRef & { lessons: string | null; period: string | null })[] }[];
+    units: {
+      id: string;
+      code: string;
+      title: string;
+      topics: (TopicRef & { lessons: string | null; period: string | null })[];
+      /** topics of the unit the viewer cannot see (hidden from their class, or not published) */
+      hiddenTopics: number;
+    }[];
   }[];
 }[];
 export type PaperTree = {
@@ -82,6 +89,7 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
           id: u.id,
           code: u.code,
           title: u.title,
+          hiddenTopics: u.school_placements.filter((p) => !p.topics).length,
           topics: [...u.school_placements]
             .sort(byOrder)
             .filter((p) => p.topics)

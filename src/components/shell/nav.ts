@@ -3,7 +3,7 @@ import type { Dict } from "@/lib/i18n";
 
 export type IconName =
   | "dashboard" | "learn" | "papers" | "mocks" | "summative" | "progress" | "profile" | "classes" | "students"
-  | "assignments" | "sessions" | "questions" | "results" | "analytics" | "users" | "curriculum"
+  | "assignments" | "visibility" | "sessions" | "questions" | "results" | "analytics" | "users" | "curriculum"
   | "settings" | "audit";
 
 export type NavItem = { href: string; label: string; icon: IconName };
@@ -29,6 +29,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/teacher/classes", label: t.nav.classes, icon: "classes" },
       { href: "/teacher/students", label: t.nav.students, icon: "students" },
       { href: "/teacher/assignments", label: t.nav.assignments, icon: "assignments" },
+      { href: "/teacher/topics", label: t.nav.visibility, icon: "visibility" },
       { href: "/teacher/exams", label: t.nav.sessions, icon: "sessions" },
       { href: "/teacher/summative", label: t.nav.summative, icon: "summative" },
       { href: "/teacher/questions", label: t.nav.questions, icon: "questions" },

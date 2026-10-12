@@ -70,6 +70,7 @@ export default async function ClassPage({ params }: PageProps<"/teacher/classes/
             <ButtonLink href={`/api/export?kind=class&classId=${cls.id}&format=xlsx`} variant="secondary" prefetch={false}>
               <Download className="h-4 w-4" /> Export
             </ButtonLink>
+            <ButtonLink href={`/teacher/topics?class=${cls.id}`} variant="secondary">Topic visibility</ButtonLink>
             <ButtonLink href={`/teacher/assignments/new?type=topic&class=${cls.id}`}>Assign a topic</ButtonLink>
             <ButtonLink href={`/teacher/assignments/new?class=${cls.id}`} variant="secondary">Assign work</ButtonLink>
           </>

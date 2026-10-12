@@ -84,7 +84,9 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
                           {unit.title}
                         </h3>
                         {unit.topics.length === 0 ? (
-                          <p className="text-sm text-muted">Revision unit — use Exam Papers and Mock Exams.</p>
+                          <p className="text-sm text-muted">
+                            {unit.hiddenTopics > 0 ? "The topics of this unit are not open for your class yet." : "Revision unit — use Exam Papers and Mock Exams."}
+                          </p>
                         ) : (
                           <div className="grid gap-2">
                             {unit.topics.map((t) => {

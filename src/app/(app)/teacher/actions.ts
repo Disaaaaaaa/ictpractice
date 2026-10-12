@@ -354,6 +354,50 @@ export async function archiveAssignment(formData: FormData) {
   redirect("/teacher/assignments");
 }
 
+// ---------------------------------------------------------------- topic visibility
+const uuidList = z.array(z.string().uuid()).max(1000);
+
+/** Saves which topics are hidden from a class. `hidden_ids` is the complete list for that class. */
+export async function saveClassTopicVisibility(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const profile = await staff();
+  const classId = String(formData.get("class_id") ?? "");
+  const parsed = uuidList.safeParse(String(formData.get("hidden_ids") ?? "").split(",").filter(Boolean));
+  if (!z.string().uuid().safeParse(classId).success || !parsed.success) return { error: "The list of topics is not valid." };
+  if (!(await canManageClass(classId))) return { error: "You can only change the topics of your own classes." };
+  const hidden = new Set(parsed.data);
+
+  const supabase = await createClient();
+  const { data: current, error: readErr } = await supabase.from("class_hidden_topics").select("topic_id").eq("class_id", classId);
+  if (readErr) return { error: "The current settings could not be read." };
+  const before = new Set((current ?? []).map((r) => r.topic_id as string));
+  const toShow = [...before].filter((id) => !hidden.has(id));
+  const toHide = [...hidden].filter((id) => !before.has(id));
+
+  if (toShow.length) {
+    const { error } = await supabase.from("class_hidden_topics").delete().eq("class_id", classId).in("topic_id", toShow);
+    if (error) return { error: "The changes could not be saved." };
+  }
+  if (toHide.length) {
+    const { error } = await supabase
+      .from("class_hidden_topics")
+      .insert(toHide.map((topic_id) => ({ class_id: classId, topic_id, hidden_by: profile.id })));
+    if (error) return { error: "The changes could not be saved." };
+  }
+  if (toShow.length || toHide.length) {
+    await createAdminClient().from("audit_logs").insert({
+      actor_id: profile.id, action: "class.topic_visibility", entity_type: "class", entity_id: classId,
+      details: { hidden: toHide.length, shown: toShow.length, hidden_total: hidden.size },
+    });
+  }
+  revalidatePath("/teacher/topics");
+  return {
+    ok: true,
+    message: toShow.length || toHide.length
+      ? `Saved: ${toHide.length} topic${toHide.length === 1 ? "" : "s"} hidden, ${toShow.length} shown again. ${hidden.size} hidden in total.`
+      : "Nothing changed.",
+  };
+}
+
 // ---------------------------------------------------------------- live exam control
 export async function forceSubmitAttempt(formData: FormData) {
   await staff();

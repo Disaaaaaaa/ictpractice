@@ -30,7 +30,9 @@ export default async function SearchPage({ searchParams }: PageProps<"/search">)
   type LO = { id: string; code: string; description: string; topic_objectives: { topics: { slug: string; title: string } | null }[] };
   const los = [...new Map([...((losByCode.data ?? []) as unknown as LO[]), ...((losByText.data ?? []) as unknown as LO[])].map((l) => [l.id, l])).values()];
   const topics = (topicsByTitle.data ?? []) as { slug: string; title: string; description: string | null }[];
-  const qs = (questions.data ?? []) as unknown as { id: string; title: string; question_text: string; topics: { slug: string; title: string } | null }[];
+  // A student cannot read a topic that is hidden from their class, so its questions are left out too.
+  const qs = ((questions.data ?? []) as unknown as { id: string; title: string; question_text: string; topics: { slug: string; title: string } | null }[])
+    .filter((x) => isStaff(profile) || x.topics);
   const total = topics.length + los.length + qs.length;
 
   return (
