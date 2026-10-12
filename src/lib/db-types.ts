@@ -204,6 +204,8 @@ export type Attempt = {
   max_score: number | null;
   percentage: number | null;
   violation_count: number;
+  /** set by the teacher: violations are not counted for this attempt */
+  technical_issue: boolean;
   integrity_mode: IntegrityMode;
   max_violations: number;
   show_results: boolean;

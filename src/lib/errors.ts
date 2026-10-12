@@ -14,7 +14,12 @@ const MESSAGES: Record<string, string> = {
   ASSIGNMENT_DEADLINE_PASSED: "The deadline for this assignment has passed.",
   ATTEMPT_LIMIT_REACHED: "You have used all the attempts allowed for this exam.",
   ATTEMPT_NOT_FOUND: "This exam attempt could not be found.",
+  // (ATTEMPT_CLOSED is also raised when a teacher marks a technical issue on a finished attempt)
   ATTEMPT_CLOSED: "This exam has already been submitted.",
+  ATTEMPT_NOT_SUBMITTED: "This exam is still in progress — add time instead.",
+  ATTEMPT_BEING_MARKED: "This work is being marked right now. Try again in a minute.",
+  ATTEMPT_ALREADY_OPEN: "This student already has another attempt at this exam in progress.",
+  INVALID_MINUTES: "Choose between 1 and 180 minutes.",
   SESSION_SUPERSEDED: "This exam was opened in another window or device.",
   QUESTION_NOT_IN_EXAM: "That question is not part of this exam.",
   ANSWER_TOO_LARGE: "Your answer is too long to save.",

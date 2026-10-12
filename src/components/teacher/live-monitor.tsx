@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getBrowserClient } from "@/lib/supabase/client";
@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Table, Td, Th } from "@/components/ui/table";
 import { AttemptStatusBadge } from "@/components/attempt-status";
 import { ConfirmButton } from "@/components/action-form";
-import { forceSubmitAttempt } from "@/app/(app)/teacher/actions";
+import { extendAttemptTime, forceSubmitAttempt, reopenAttempt, setTechnicalIssue, type ActionState } from "@/app/(app)/teacher/actions";
+import { Button } from "@/components/ui/button";
 
 export type MonitorAttempt = {
   id: string;
@@ -25,11 +26,52 @@ export type MonitorAttempt = {
   is_online: boolean;
   percentage: number | null;
   assignment_id: string | null;
+  /** the teacher marked a technical problem: nothing counts as a violation for this attempt */
+  technical_issue: boolean;
 };
 
 export type MonitorStudent = { id: string; name: string };
 
 const STALE_MS = 45_000;
+
+/** "minutes + button" for the two per-student time controls. */
+function MinutesForm({
+  action,
+  attemptId,
+  label,
+  options,
+  defaultMinutes,
+  confirm,
+  ariaLabel,
+}: {
+  action: (prev: ActionState, data: FormData) => Promise<ActionState>;
+  attemptId: string;
+  label: string;
+  options: number[];
+  defaultMinutes: number;
+  confirm?: (minutes: string) => string;
+  ariaLabel: string;
+}) {
+  const [state, formAction, pending] = useActionState<ActionState, FormData>(action, {});
+  return (
+    <form
+      action={formAction}
+      className="flex items-center gap-1"
+      onSubmit={(e) => {
+        const minutes = String(new FormData(e.currentTarget).get("minutes"));
+        if (confirm && !window.confirm(confirm(minutes))) e.preventDefault();
+      }}
+    >
+      <input type="hidden" name="attempt_id" value={attemptId} />
+      <select name="minutes" defaultValue={defaultMinutes} aria-label={ariaLabel}
+        className="h-8 rounded-lg border border-border bg-surface px-1.5 text-sm">
+        {options.map((m) => <option key={m} value={m}>{m} min</option>)}
+      </select>
+      <Button type="submit" variant="secondary" size="sm" disabled={pending}>{pending ? "…" : label}</Button>
+      {state.error && <span role="alert" className="max-w-40 whitespace-normal text-left text-xs text-danger">{state.error}</span>}
+    </form>
+  );
+}
 
 /**
  * Live exam dashboard. Subscribes to attempt and integrity-event changes via
@@ -126,7 +168,7 @@ export function LiveMonitor({
             const elapsed = a ? ((a.submitted_at ? new Date(a.submitted_at).getTime() : now) - new Date(a.started_at).getTime()) / 1000 : 0;
             const remaining = a ? (new Date(a.deadline_at).getTime() - now) / 1000 : 0;
             return (
-              <tr key={s.id} className={a && a.violation_count > 0 && live ? "bg-danger-soft/40" : undefined}>
+              <tr key={s.id} className={a && live && a.technical_issue ? "bg-info-soft/40" : a && a.violation_count > 0 && live ? "bg-danger-soft/40" : undefined}>
                 <Td className="font-medium">{s.name}</Td>
                 <Td>{a ? <AttemptStatusBadge status={a.status} /> : <Badge>Not started</Badge>}</Td>
                 <Td className="tabular-nums">{a && live ? `Question ${a.current_question} / ${questionCount}` : "—"}</Td>
@@ -135,17 +177,41 @@ export function LiveMonitor({
                   {live && <span className="ml-1 text-xs text-muted">({formatClock(remaining)} left)</span>}
                 </Td>
                 <Td className="tabular-nums">{a ? `${a.answered_count} / ${questionCount}` : "—"}</Td>
-                <Td>{a ? (a.violation_count > 0 ? <Badge tone="danger">{a.violation_count}</Badge> : "0") : "—"}</Td>
+                <Td>
+                  {!a ? "—" : a.technical_issue ? (
+                    <Badge tone="info">Technical issue · not counted</Badge>
+                  ) : a.violation_count > 0 ? (
+                    <Badge tone="danger">{a.violation_count}</Badge>
+                  ) : "0"}
+                </Td>
                 <Td>{live ? (online ? <Badge tone="success">Online</Badge> : <Badge tone="warning">Offline</Badge>) : "—"}</Td>
                 <Td>
                   <div className="flex justify-end gap-2">
                     {a && live && (
+                      a.technical_issue ? (
+                        <ConfirmButton action={setTechnicalIssue} fields={{ attempt_id: a.id, on: "0" }} label="End technical issue"
+                          confirm={`Start counting violations for ${s.name} again?`} />
+                      ) : (
+                        <ConfirmButton action={setTechnicalIssue} fields={{ attempt_id: a.id, on: "1" }} label="Technical issue"
+                          confirm={`Mark a technical issue for ${s.name}? Violations will not be counted for this student, and the ${a.violation_count} already counted will be excused.`} />
+                      )
+                    )}
+                    {a && live && (
+                      <MinutesForm action={extendAttemptTime} attemptId={a.id} label="Add time" ariaLabel={`Minutes to add for ${s.name}`}
+                        options={[2, 5, 10, 15, 20, 30]} defaultMinutes={5} />
+                    )}
+                    {a && live && (
                       <ConfirmButton action={forceSubmitAttempt} fields={{ attempt_id: a.id }} label="Force submit" variant="danger" confirm={`Submit ${s.name}'s exam now?`} />
                     )}
                     {a && !live && (
-                      <Link href={`/teacher/results/${a.id}`} className="text-sm font-medium text-primary hover:underline">
+                      <Link href={`/teacher/results/${a.id}`} className="self-center text-sm font-medium text-primary hover:underline">
                         {a.percentage != null ? formatPercent(a.percentage) : "Review"}
                       </Link>
+                    )}
+                    {a && !live && (
+                      <MinutesForm action={reopenAttempt} attemptId={a.id} label="Reopen" ariaLabel={`Minutes to give ${s.name}`}
+                        options={[5, 10, 15, 20, 30, 45]} defaultMinutes={10}
+                        confirm={(m) => `Return ${s.name}'s work to "in progress" with ${m} minutes? The answers are kept and can be changed; the current marks of this attempt are deleted and it is marked again after the student submits.`} />
                     )}
                   </div>
                 </Td>

@@ -209,7 +209,7 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
                   id: x.id, student_id: x.student_id, status: x.status, started_at: x.started_at, deadline_at: x.deadline_at,
                   submitted_at: x.submitted_at, current_question: x.current_question, answered_count: x.answered_count,
                   violation_count: x.violation_count, last_heartbeat_at: x.last_heartbeat_at, is_online: x.is_online,
-                  percentage: x.percentage, assignment_id: x.assignment_id,
+                  percentage: x.percentage, assignment_id: x.assignment_id, technical_issue: x.technical_issue,
                 }) satisfies MonitorAttempt)}
               />
             </CardBody>

@@ -84,6 +84,14 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
   const [online, setOnline] = useState(true);
   const [violations, setViolations] = useState(init.attempt.violation_count);
   const [warning, setWarning] = useState<string | null>(null);
+  // The teacher marked a technical problem: no warnings and no forced fullscreen for this student.
+  const [technicalIssue, setTechnicalIssueState] = useState(false);
+  const technicalRef = useRef(false);
+  const setTechnicalIssue = useCallback((on: boolean) => {
+    technicalRef.current = on;
+    setTechnicalIssueState(on);
+    if (on) setWarning(null);
+  }, []);
   const [superseded, setSuperseded] = useState(false);
   const [needsFullscreen, setNeedsFullscreen] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
@@ -266,15 +274,16 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
         eventQueue.current.push(ev);
         return null;
       }
-      const r = data as { event_id?: string; violation_count?: number; auto_submitted?: boolean; ignored?: boolean };
+      const r = data as { event_id?: string; violation_count?: number; auto_submitted?: boolean; ignored?: boolean; technical_issue?: boolean };
       if (typeof r.violation_count === "number") setViolations(r.violation_count);
+      if (typeof r.technical_issue === "boolean") setTechnicalIssue(r.technical_issue);
       if (r.auto_submitted) {
         finished.current = true;
         router.replace(`/results/${attemptId}?reason=violations`);
       }
       return r.event_id ?? null;
     },
-    [attemptId, router, supabase],
+    [attemptId, router, setTechnicalIssue, supabase],
   );
 
   const startEvent = useCallback(
@@ -293,7 +302,7 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
       delete openEvents.current[key];
       const id = await pending;
       if (id) await supabase.rpc("close_integrity_event", { p_event_id: id, p_ended_at: new Date(serverNow()).toISOString() });
-      if (warn && init.attempt.integrity_mode !== "monitor" && !finished.current) setWarning(key);
+      if (warn && init.attempt.integrity_mode !== "monitor" && !finished.current && !technicalRef.current) setWarning(key);
     },
      
     [init.attempt.integrity_mode, supabase],
@@ -520,10 +529,11 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
         p_online: true,
       });
       if (error || !data) return;
-      const r = data as { status: string; server_now: string; deadline_at: string; violation_count: number; superseded: boolean };
+      const r = data as { status: string; server_now: string; deadline_at: string; violation_count: number; superseded: boolean; technical_issue?: boolean };
       offset.current = new Date(r.server_now).getTime() - Date.now();
       deadline.current = new Date(r.deadline_at).getTime();
       setViolations(r.violation_count);
+      setTechnicalIssue(Boolean(r.technical_issue));
       if (r.superseded) setSuperseded(true);
       if (r.status !== "IN_PROGRESS") {
         finished.current = true;
@@ -536,7 +546,7 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
       clearInterval(id);
       clearTimeout(first);
     };
-  }, [attemptId, router, supabase]);
+  }, [attemptId, router, setTechnicalIssue, supabase]);
 
   // Keyboard navigation (not while typing).
   useEffect(() => {
@@ -641,7 +651,8 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
           <div className="hidden text-sm font-medium tabular-nums sm:block">
             Q {paperLabel(current)} · {index + 1}/{questions.length}
           </div>
-          {violations > 0 && (
+          {technicalIssue && <Badge tone="info">Technical issue — violations are not counted</Badge>}
+          {violations > 0 && !technicalIssue && (
             <Badge tone="danger">
               <AlertTriangle className="h-3 w-3" /> {violations}
               {init.attempt.integrity_mode === "auto_submit" ? ` / ${init.attempt.max_violations}` : ""}
@@ -784,7 +795,7 @@ export function ExamRunner({ init }: { init: RunnerInit }) {
         </Modal>
       )}
 
-      {needsFullscreen && !superseded && !warning && (
+      {needsFullscreen && !superseded && !warning && !technicalIssue && (
         <Modal labelledBy="fs-title">
           <h2 id="fs-title" className="text-lg font-semibold">Fullscreen required</h2>
           <p className="mt-2 text-sm text-muted">

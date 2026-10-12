@@ -408,6 +408,41 @@ export async function forceSubmitAttempt(formData: FormData) {
   revalidatePath("/teacher", "layout");
 }
 
+/** Switches "Technical issue" on or off for one running attempt: while it is on, nothing counts as a violation. */
+export async function setTechnicalIssue(formData: FormData) {
+  await staff();
+  const attemptId = String(formData.get("attempt_id"));
+  const supabase = await createClient();
+  await supabase.rpc("teacher_set_technical_issue", { p_attempt_id: attemptId, p_on: formData.get("on") === "1" });
+  revalidatePath("/teacher", "layout");
+}
+
+const minutesSchema = z.object({ attempt_id: z.string().uuid(), minutes: z.coerce.number().int().min(1).max(180) });
+
+/** Adds minutes to one student's running attempt. */
+export async function extendAttemptTime(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  await staff();
+  const parsed = minutesSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (!parsed.success) return { error: "Choose between 1 and 180 minutes." };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("teacher_extend_attempt", { p_attempt_id: parsed.data.attempt_id, p_minutes: parsed.data.minutes });
+  if (error) return { error: friendlyError(error, "The time could not be added.") };
+  revalidatePath("/teacher", "layout");
+  return { ok: true, message: `+${parsed.data.minutes} min` };
+}
+
+/** Returns a submitted attempt to "in progress" with a new time limit; its marks are discarded. */
+export async function reopenAttempt(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  await staff();
+  const parsed = minutesSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (!parsed.success) return { error: "Choose between 1 and 180 minutes." };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("teacher_reopen_attempt", { p_attempt_id: parsed.data.attempt_id, p_minutes: parsed.data.minutes });
+  if (error) return { error: friendlyError(error, "The work could not be reopened.") };
+  revalidatePath("/teacher", "layout");
+  return { ok: true, message: "Reopened" };
+}
+
 // ---------------------------------------------------------------- moderation
 export async function reviewMark(_prev: ActionState, formData: FormData): Promise<ActionState> {
   await staff();
