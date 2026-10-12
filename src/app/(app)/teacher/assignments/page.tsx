@@ -12,7 +12,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata: Metadata = { title: "Assignments" };
 
-const TYPE_LABEL = { practice: "Practice", topic_exam: "Topic Exam", mock_exam: "Mock Exam", revision: "Revision" } as const;
+const TYPE_LABEL = { topic: "Topic", practice: "Practice", topic_exam: "Topic Exam", mock_exam: "Mock Exam", revision: "Revision" } as const;
 
 export default async function AssignmentsPage() {
   const profile = await requireProfile(["teacher", "admin"]);
@@ -35,9 +35,18 @@ export default async function AssignmentsPage() {
   const rows = (data ?? []) as unknown as Row[];
   return (
     <>
-      <PageHeader title="Assignments" actions={<ButtonLink href="/teacher/assignments/new">New assignment</ButtonLink>} />
+      <PageHeader
+        title="Assignments"
+        description="Assign a whole topic (theory, practice and exam) to a class with deadlines, or set a single exam or practice task."
+        actions={
+          <>
+            <ButtonLink href="/teacher/assignments/new?type=topic">Assign a topic</ButtonLink>
+            <ButtonLink href="/teacher/assignments/new" variant="secondary">Other assignment</ButtonLink>
+          </>
+        }
+      />
       {rows.length === 0 ? (
-        <EmptyState title="No assignments yet" action={<ButtonLink href="/teacher/assignments/new">Create one</ButtonLink>} />
+        <EmptyState title="No assignments yet" action={<ButtonLink href="/teacher/assignments/new?type=topic">Assign a topic</ButtonLink>} />
       ) : (
         <Card>
           <CardBody className="p-0">
@@ -49,7 +58,7 @@ export default async function AssignmentsPage() {
                   return (
                     <tr key={a.id}>
                       <Td><Link href={`/teacher/assignments/${a.id}`} className="font-medium hover:underline">{a.title}</Link></Td>
-                      <Td><Badge>{TYPE_LABEL[a.assignment_type]}</Badge></Td>
+                      <Td><Badge tone={a.assignment_type === "topic" ? "primary" : "neutral"}>{TYPE_LABEL[a.assignment_type]}</Badge></Td>
                       <Td className="text-sm">{a.assignment_targets.map((t) => t.classes?.name ?? t.profiles?.username).filter(Boolean).join(", ")}</Td>
                       <Td className="text-muted">{formatDate(a.available_from)}</Td>
                       <Td>{a.deadline ? <span className={overdue ? "text-muted" : ""}>{formatDate(a.deadline)}</span> : "—"}</Td>

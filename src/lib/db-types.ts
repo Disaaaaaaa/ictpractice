@@ -21,7 +21,7 @@ export type ExamStatus = "draft" | "scheduled" | "published" | "closed" | "archi
 export type AttemptStatus = "IN_PROGRESS" | "SUBMITTED" | "GRADED" | "REVIEW_REQUIRED";
 export type SubmissionReason = "MANUAL_SUBMIT" | "TIME_EXPIRED" | "VIOLATION_LIMIT" | "TEACHER_FORCED" | "SYSTEM";
 export type GradingStatus = "PENDING" | "IN_PROGRESS" | "COMPLETE" | "FAILED";
-export type AssignmentType = "practice" | "topic_exam" | "mock_exam" | "revision";
+export type AssignmentType = "practice" | "topic_exam" | "mock_exam" | "revision" | "topic";
 export type IntegrityEventType =
   | "TAB_HIDDEN"
   | "WINDOW_BLUR"
@@ -168,6 +168,11 @@ export type Assignment = {
   topic_id: string | null;
   available_from: string;
   deadline: string | null;
+  /** topic assignments: own deadlines for the theory and practice parts (null = `deadline`) */
+  theory_deadline: string | null;
+  practice_deadline: string | null;
+  /** topic assignments: % of the topic's practice set to complete */
+  practice_target: number;
   attempt_limit: number | null;
   duration_override_minutes: number | null;
   show_results: boolean;

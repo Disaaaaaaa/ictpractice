@@ -147,11 +147,11 @@ export default async function StudentDashboard() {
 
         <div className="space-y-6">
           <Card>
-            <CardHeader title="Upcoming exams" />
+            <CardHeader title="Assignments and upcoming exams" action={<Link href="/assignments" className="text-sm font-medium text-primary hover:underline">All</Link>} />
             <CardBody className="space-y-3">
               {upcoming.length === 0 && (mocks ?? []).length === 0 && <p className="text-sm text-muted">Nothing scheduled.</p>}
               {upcoming.map((a) => {
-                const href = a.exam_id ? `/exams/${a.exam_id}?assignment=${a.id}` : a.topics ? `/learn/${a.topics.slug}/practice` : "#";
+                const href = a.assignment_type === "topic" ? `/assignments/${a.id}` : a.exam_id ? `/exams/${a.exam_id}?assignment=${a.id}` : a.topics ? `/learn/${a.topics.slug}/practice` : "#";
                 return (
                   <Link key={a.id} href={href} className="block rounded-lg border border-border p-3 hover:bg-surface-2">
                     <div className="flex items-start justify-between gap-2">

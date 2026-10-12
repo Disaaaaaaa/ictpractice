@@ -13,6 +13,8 @@ export function AssignmentForm({
   topics,
   defaultClass,
   defaultExam,
+  defaultType,
+  defaultTopic,
 }: {
   classes: Option[];
   students: Option[];
@@ -20,13 +22,20 @@ export function AssignmentForm({
   topics: Option[];
   defaultClass?: string;
   defaultExam?: string;
+  defaultType?: string;
+  defaultTopic?: string;
 }) {
-  const initialType = defaultExam ? (exams.find((e) => e.id === defaultExam)?.kind === "mock" ? "mock_exam" : "topic_exam") : "topic_exam";
+  const initialType = defaultType === "topic"
+    ? "topic"
+    : defaultExam ? (exams.find((e) => e.id === defaultExam)?.kind === "mock" ? "mock_exam" : "topic_exam") : "topic_exam";
   const [type, setType] = useState(initialType);
   const [mode, setMode] = useState("warn");
   const tz = useMemo(() => new Date().getTimezoneOffset(), []);
   const examOptions = exams.filter((e) => (type === "mock_exam" ? e.kind === "mock" : type === "topic_exam" ? e.kind !== "mock" : true));
   const needsExam = type === "topic_exam" || type === "mock_exam";
+  // A whole topic: theory, practice and the topic exam, each with a deadline.
+  const isTopic = type === "topic";
+  const examSettings = needsExam || isTopic;
 
   return (
     <ActionForm action={createAssignment} submitLabel="Create assignment" pendingLabel="Creating…" className="space-y-6">
@@ -34,6 +43,7 @@ export function AssignmentForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Type" htmlFor="assignment_type">
           <Select id="assignment_type" name="assignment_type" value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="topic">Topic — theory, practice and exam</option>
             <option value="topic_exam">Topic Exam</option>
             <option value="mock_exam">Mock Exam</option>
             <option value="practice">Practice</option>
@@ -41,9 +51,14 @@ export function AssignmentForm({
           </Select>
         </Field>
         <Field label="Title" htmlFor="title">
-          <Input id="title" name="title" required maxLength={200} placeholder="e.g. SDLC topic test" />
+          <Input id="title" name="title" required={!isTopic} maxLength={200} placeholder={isTopic ? "Empty = the topic's name" : "e.g. SDLC topic test"} />
         </Field>
       </div>
+      {isTopic && (
+        <p className="rounded-lg bg-info-soft px-4 py-3 text-sm text-info">
+          Students must read the topic&apos;s theory pack, complete its practice set and sit the topic exam in Exam Mode. You will see each student&apos;s progress and who is overdue.
+        </p>
+      )}
 
       {needsExam || type === "revision" ? (
         <Field label={needsExam ? "Exam" : "Exam (optional)"} htmlFor="exam_id">
@@ -57,7 +72,7 @@ export function AssignmentForm({
       ) : null}
       {!needsExam && (
         <Field label="Topic" htmlFor="topic_id">
-          <Select id="topic_id" name="topic_id" defaultValue="">
+          <Select id="topic_id" name="topic_id" defaultValue={defaultTopic ?? ""} required={isTopic}>
             <option value="">Choose…</option>
             {topics.map((t) => (
               <option key={t.id} value={t.id}>{t.label}</option>
@@ -94,12 +109,25 @@ export function AssignmentForm({
         <Field label="Available from" htmlFor="available_from" hint="Leave empty to open now.">
           <Input id="available_from" name="available_from" type="datetime-local" />
         </Field>
-        <Field label="Deadline" htmlFor="deadline">
-          <Input id="deadline" name="deadline" type="datetime-local" />
+        <Field label={isTopic ? "Final deadline (exam)" : "Deadline"} htmlFor="deadline" hint={isTopic ? "Everything, including the topic exam, is due by this time." : undefined}>
+          <Input id="deadline" name="deadline" type="datetime-local" required={isTopic} />
         </Field>
-        {needsExam && (
+        {isTopic && (
           <>
-            <Field label="Attempt limit" htmlFor="attempt_limit" hint="Empty = use the exam's limit.">
+            <Field label="Theory deadline (optional)" htmlFor="theory_deadline" hint="Empty = the final deadline.">
+              <Input id="theory_deadline" name="theory_deadline" type="datetime-local" />
+            </Field>
+            <Field label="Practice deadline (optional)" htmlFor="practice_deadline" hint="Empty = the final deadline.">
+              <Input id="practice_deadline" name="practice_deadline" type="datetime-local" />
+            </Field>
+            <Field label="Practice to complete (%)" htmlFor="practice_target" hint="Share of the topic's practice questions each student must answer and check.">
+              <Input id="practice_target" name="practice_target" type="number" min={1} max={100} defaultValue={100} required />
+            </Field>
+          </>
+        )}
+        {examSettings && (
+          <>
+            <Field label={isTopic ? "Exam attempt limit" : "Attempt limit"} htmlFor="attempt_limit" hint="Empty = use the exam's limit.">
               <Input id="attempt_limit" name="attempt_limit" type="number" min={1} max={20} defaultValue={1} />
             </Field>
             <Field label="Time limit override (minutes)" htmlFor="duration_override_minutes" hint="Empty = the exam's duration.">
@@ -109,7 +137,7 @@ export function AssignmentForm({
         )}
       </div>
 
-      {needsExam && (
+      {examSettings && (
         <div className="grid gap-4 rounded-lg border border-border p-4 sm:grid-cols-2">
           <Field label="Integrity policy" htmlFor="integrity_mode">
             <Select id="integrity_mode" name="integrity_mode" value={mode} onChange={(e) => setMode(e.target.value)}>
@@ -130,7 +158,7 @@ export function AssignmentForm({
           </Field>
         </div>
       )}
-      {!needsExam && (
+      {!examSettings && (
         <>
           <input type="hidden" name="integrity_mode" value="monitor" />
           <input type="hidden" name="max_violations" value="3" />

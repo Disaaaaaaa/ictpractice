@@ -5,11 +5,20 @@ import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAttempts } from "@/lib/teacher-data";
 import { INTEGRITY_LABEL } from "@/lib/exams";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatPercent, nowMs } from "@/lib/format";
+import {
+  OVERALL_STATE, PART_LABEL, PART_STATE, overallPercent, overallState, partDeadline, topicParts,
+  type OverallState, type TopicProgressRow,
+} from "@/lib/topic-assignments";
 import type { Assignment, Profile } from "@/lib/db-types";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Stat } from "@/components/ui/stat";
+import { Badge } from "@/components/ui/badge";
+import { ProgressBar } from "@/components/ui/progress";
+import { Table, Td, Th } from "@/components/ui/table";
+import Link from "next/link";
+import { AssignmentDeadlinesForm } from "@/components/teacher/assignment-deadlines-form";
 import { ButtonLink } from "@/components/ui/button";
 import { ConfirmButton } from "@/components/action-form";
 import { LiveMonitor, type MonitorAttempt } from "@/components/teacher/live-monitor";
@@ -50,6 +59,24 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
   const statusOf = (sid: string) => latest.get(sid)?.status;
   const qCount = a.exams?.exam_versions.find((v) => v.id === a.exams?.current_version_id)?.question_count ?? 0;
 
+  // Topic assignment: theory + practice + exam progress of every student.
+  const isTopic = a.assignment_type === "topic";
+  const { data: progressRows } = isTopic ? await supabase.rpc("topic_assignment_progress", { p_assignment_id: a.id }) : { data: null };
+  const progressBy = new Map(((progressRows ?? []) as TopicProgressRow[]).map((r) => [r.student_id, r]));
+  const now = nowMs();
+  const ORDER: OverallState[] = ["overdue", "not_started", "in_progress", "completed_late", "completed"];
+  const board = isTopic
+    ? students
+        .map((st) => {
+          const row = progressBy.get(st.id);
+          const parts = topicParts(a, row, now);
+          return { st, row, parts, overall: overallState(parts), percent: overallPercent(parts) };
+        })
+        .sort((x, y) => ORDER.indexOf(x.overall) - ORDER.indexOf(y.overall) || x.st.name.localeCompare(y.st.name))
+    : [];
+  const tally = (s: OverallState[]) => board.filter((b) => s.includes(b.overall)).length;
+  const sample = topicParts(a, progressRows?.[0] as TopicProgressRow | undefined, now);
+
   return (
     <>
       <PageHeader
@@ -59,7 +86,7 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
           a.exams?.title ?? a.topics?.title,
           a.assignment_targets.map((t) => t.classes?.name).filter(Boolean).join(", "),
           a.deadline ? `Due ${formatDate(a.deadline)}` : "No deadline",
-          a.exam_id ? INTEGRITY_LABEL[a.integrity_mode] : null,
+          a.exam_id && !isTopic ? INTEGRITY_LABEL[a.integrity_mode] : null,
         ].filter(Boolean).join(" · ")}
         actions={
           <>
@@ -72,17 +99,106 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
           </>
         }
       />
+      {isTopic && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Stat label="Completed" value={tally(["completed", "completed_late"])} sub={`of ${board.length} students${tally(["completed_late"]) ? ` · ${tally(["completed_late"])} late` : ""}`} />
+            <Stat label="In progress" value={tally(["in_progress"])} />
+            <Stat label="Not started" value={tally(["not_started"])} />
+            <Stat label="Overdue" value={tally(["overdue"])} sub="Missed a deadline" />
+          </div>
+
+          <Card className="mt-6">
+            <CardHeader
+              title="What the students have to do"
+              description={a.instructions ?? undefined}
+              action={a.topics && <Link href={`/learn/${a.topics.slug}`} className="text-sm font-medium text-primary hover:underline">Open the topic</Link>}
+            />
+            <CardBody>
+              <ol className="grid gap-3 sm:grid-cols-3">
+                {sample.map((p, i) => (
+                  <li key={p.key} className="rounded-lg border border-border p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted">Step {i + 1}</p>
+                    <p className="font-semibold">{PART_LABEL[p.key]}</p>
+                    <p className="mt-1 text-sm text-muted">
+                      {p.state === "none"
+                        ? `${p.detail} for this topic — not required.`
+                        : p.key === "theory"
+                          ? `Read all ${progressRows?.[0]?.theory_total ?? ""} sections of the theory pack.`
+                          : p.key === "practice"
+                            ? `Answer and check ${progressRows?.[0]?.practice_needed ?? ""} of ${progressRows?.[0]?.practice_total ?? ""} practice questions (${a.practice_target}%).`
+                            : `Sit “${a.exams?.title}” in Exam Mode.`}
+                    </p>
+                    {p.state !== "none" && <p className="mt-2 text-sm font-medium">Due {formatDate(partDeadline(a, p.key))}</p>}
+                  </li>
+                ))}
+              </ol>
+            </CardBody>
+          </Card>
+
+          <Card className="mt-6">
+            <CardHeader title="Progress by student" description="Theory = sections opened. Practice = questions answered and checked, out of the number required. Students who need attention are listed first." />
+            <CardBody className="p-0">
+              <Table>
+                <thead><tr><Th>Student</Th><Th>Status</Th><Th>Theory</Th><Th>Practice</Th><Th>Exam Mode</Th><Th className="w-40">Overall</Th></tr></thead>
+                <tbody>
+                  {board.map(({ st, row, parts, overall, percent }) => (
+                    <tr key={st.id}>
+                      <Td className="whitespace-nowrap"><Link href={`/teacher/students/${st.id}`} className="font-medium hover:underline">{st.name}</Link></Td>
+                      <Td><Badge tone={OVERALL_STATE[overall].tone}>{OVERALL_STATE[overall].label}</Badge></Td>
+                      {parts.map((p) => (
+                        <Td key={p.key}>
+                          {p.state === "none" ? (
+                            <span className="text-muted">—</span>
+                          ) : (
+                            <>
+                              <Badge tone={PART_STATE[p.state].tone}>{PART_STATE[p.state].label}</Badge>
+                              <p className="mt-1 text-xs text-muted">
+                                {p.key === "exam" && row?.exam_attempt_id && row.exam_status !== "IN_PROGRESS" ? (
+                                  <Link href={`/teacher/results/${row.exam_attempt_id}`} className="hover:underline">
+                                    {row.exam_status === "GRADED" ? formatPercent(row.exam_percentage) : "Being marked"}
+                                  </Link>
+                                ) : (
+                                  p.detail
+                                )}
+                              </p>
+                            </>
+                          )}
+                        </Td>
+                      ))}
+                      <Td>
+                        <div className="flex items-center gap-2">
+                          <ProgressBar value={percent} tone={percent >= 100 ? "success" : "primary"} label={`${st.name}: overall progress`} />
+                          <span className="w-9 text-right text-xs tabular-nums">{Math.round(percent)}%</span>
+                        </div>
+                      </Td>
+                    </tr>
+                  ))}
+                  {board.length === 0 && <tr><Td colSpan={6} className="py-6 text-center text-muted">No students are assigned.</Td></tr>}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+
+          <Card className="mt-6">
+            <CardHeader title="Deadlines" description="Move a deadline to give the class more time. Work already finished keeps its original completion time." />
+            <CardBody>
+              <AssignmentDeadlinesForm assignmentId={a.id} deadline={a.deadline} theoryDeadline={a.theory_deadline} practiceDeadline={a.practice_deadline} hasExam={Boolean(a.exam_id)} />
+            </CardBody>
+          </Card>
+        </>
+      )}
       {a.exam_id ? (
         <>
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {!isTopic && <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
             <Stat label="Not Started" value={count((s) => !statusOf(s))} />
             <Stat label="In Progress" value={count((s) => statusOf(s) === "IN_PROGRESS")} />
             <Stat label="Submitted" value={count((s) => statusOf(s) === "SUBMITTED")} sub="being marked" />
             <Stat label="Graded" value={count((s) => statusOf(s) === "GRADED")} />
             <Stat label="Teacher Review Required" value={count((s) => statusOf(s) === "REVIEW_REQUIRED")} />
-          </div>
+          </div>}
           <Card className="mt-6">
-            <CardHeader title="Live exam monitoring" description="Updates in real time while students sit the exam." />
+            <CardHeader title="Live exam monitoring" description={isTopic ? "Students who started the topic exam from this assignment. Updates in real time." : "Updates in real time while students sit the exam."} />
             <CardBody className="p-0 pb-2">
               <LiveMonitor
                 examId={a.exam_id}
@@ -99,7 +215,7 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
             </CardBody>
           </Card>
         </>
-      ) : (
+      ) : isTopic ? null : (
         <Card>
           <CardBody>
             <p className="text-sm">

@@ -14,6 +14,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
     items: [
       { href: "/student/dashboard", label: t.nav.dashboard, icon: "dashboard" },
       { href: "/learn", label: t.nav.learn, icon: "learn" },
+      { href: "/assignments", label: t.nav.assignments, icon: "assignments" },
       { href: "/papers", label: t.nav.papers, icon: "papers" },
       { href: "/mock-exams", label: t.nav.mocks, icon: "mocks" },
       { href: "/summative", label: t.nav.summative, icon: "summative" },

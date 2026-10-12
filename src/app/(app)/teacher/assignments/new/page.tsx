@@ -22,7 +22,11 @@ export default async function NewAssignmentPage({ searchParams }: PageProps<"/te
   ]);
   return (
     <div className="mx-auto max-w-3xl">
-      <PageHeader breadcrumbs={[{ label: "Assignments", href: "/teacher/assignments" }, { label: "New" }]} title="New assignment" />
+      <PageHeader
+        breadcrumbs={[{ label: "Assignments", href: "/teacher/assignments" }, { label: "New" }]}
+        title={sp.type === "topic" ? "Assign a topic" : "New assignment"}
+        description={sp.type === "topic" ? "Assign a whole topic to a class: theory, practice and the topic exam, with deadlines." : undefined}
+      />
       <Card>
         <CardBody className="p-6">
           <AssignmentForm
@@ -32,6 +36,8 @@ export default async function NewAssignmentPage({ searchParams }: PageProps<"/te
             topics={(topics ?? []).map((t) => ({ id: t.id, label: t.title }))}
             defaultClass={typeof sp.class === "string" ? sp.class : undefined}
             defaultExam={typeof sp.exam === "string" ? sp.exam : undefined}
+            defaultType={typeof sp.type === "string" ? sp.type : undefined}
+            defaultTopic={typeof sp.topic === "string" ? sp.topic : undefined}
           />
         </CardBody>
       </Card>

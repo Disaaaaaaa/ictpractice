@@ -176,13 +176,16 @@ export async function resetStudentPassword(formData: FormData) {
 
 // ---------------------------------------------------------------- assignments
 const assignmentSchema = z.object({
-  assignment_type: z.enum(["practice", "topic_exam", "mock_exam", "revision"]),
-  title: z.string().trim().min(1).max(200),
+  assignment_type: z.enum(["practice", "topic_exam", "mock_exam", "revision", "topic"]),
+  title: z.string().trim().max(200),
   instructions: z.string().max(5000).optional(),
   exam_id: z.string().uuid().optional().or(z.literal("")),
   topic_id: z.string().uuid().optional().or(z.literal("")),
   available_from: z.string().optional(),
   deadline: z.string().optional(),
+  theory_deadline: z.string().optional(),
+  practice_deadline: z.string().optional(),
+  practice_target: z.coerce.number().int().min(1).max(100).optional().or(z.literal("")),
   attempt_limit: z.coerce.number().int().min(1).max(20).optional().or(z.literal("")),
   duration_override_minutes: z.coerce.number().int().min(1).max(600).optional().or(z.literal("")),
   show_results: z.string().optional(),
@@ -211,8 +214,11 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
   const studentIds = formData.getAll("student_ids").map(String).filter(Boolean);
   if (classIds.length === 0 && studentIds.length === 0) return { error: "Choose at least one class or student." };
   const needsExam = v.assignment_type === "topic_exam" || v.assignment_type === "mock_exam";
+  const isTopic = v.assignment_type === "topic";
   if (needsExam && !v.exam_id) return { error: "Choose an exam." };
+  if (isTopic && !v.topic_id) return { error: "Choose the topic to assign." };
   if (!needsExam && !v.topic_id && !v.exam_id) return { error: "Choose a topic or an exam." };
+  if (!isTopic && !v.title) return { error: "Enter a title." };
 
   for (const c of classIds) if (!(await canManageClass(c))) return { error: "You can only assign to your own classes." };
   for (const s of studentIds) if (!(await canManageStudent(s))) return { error: "You can only assign to your own students." };
@@ -222,17 +228,52 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
   const deadline = localToIso(v.deadline, tz);
   if (deadline && deadline <= availableFrom) return { error: "The deadline must be after the start time." };
 
+  // A topic assignment: theory + practice + the topic's own exam (when it has a published one).
+  let title = v.title;
+  let examId = v.exam_id || null;
+  let theoryDeadline: string | null = null;
+  let practiceDeadline: string | null = null;
+  if (isTopic) {
+    if (!deadline) return { error: "Set the final deadline." };
+    theoryDeadline = localToIso(v.theory_deadline, tz);
+    practiceDeadline = localToIso(v.practice_deadline, tz);
+    for (const [name, d] of [["theory", theoryDeadline], ["practice", practiceDeadline]] as const) {
+      if (d && d <= availableFrom) return { error: `The ${name} deadline must be after the start time.` };
+      if (d && d > deadline) return { error: `The ${name} deadline cannot be later than the final deadline.` };
+    }
+    const [{ data: topic }, { data: exam }] = await Promise.all([
+      supabase.from("topics").select("title").eq("id", v.topic_id as string).maybeSingle(),
+      supabase
+        .from("exams")
+        .select("id")
+        .eq("topic_id", v.topic_id as string)
+        .eq("kind", "topic")
+        .in("status", ["published", "scheduled"])
+        .is("archived_at", null)
+        .not("current_version_id", "is", null)
+        .order("created_at")
+        .limit(1)
+        .maybeSingle(),
+    ]);
+    if (!topic) return { error: "That topic could not be found." };
+    title = title || topic.title;
+    examId = exam?.id ?? null;
+  }
+
   const { data: assignment, error } = await supabase
     .from("assignments")
     .insert({
       teacher_id: profile.id,
       assignment_type: v.assignment_type,
-      title: v.title,
+      title,
       instructions: v.instructions || null,
-      exam_id: v.exam_id || null,
+      exam_id: examId,
       topic_id: v.topic_id || null,
       available_from: availableFrom,
       deadline,
+      theory_deadline: theoryDeadline,
+      practice_deadline: practiceDeadline,
+      practice_target: isTopic && v.practice_target !== "" && v.practice_target !== undefined ? v.practice_target : 100,
       attempt_limit: v.attempt_limit === "" || v.attempt_limit === undefined ? null : v.attempt_limit,
       duration_override_minutes: v.duration_override_minutes === "" || v.duration_override_minutes === undefined ? null : v.duration_override_minutes,
       show_results: v.show_results === "on",
@@ -259,12 +300,12 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
     : { data: [] };
   const recipients = [...new Set([...(members ?? []).map((m) => m.student_id as string), ...studentIds])];
   if (recipients.length) {
-    const link = v.exam_id ? `/exams/${v.exam_id}?assignment=${assignment.id}` : "/student/dashboard";
+    const link = isTopic ? `/assignments/${assignment.id}` : v.exam_id ? `/exams/${v.exam_id}?assignment=${assignment.id}` : "/student/dashboard";
     await admin.from("notifications").insert(
       recipients.map((user_id) => ({
         user_id,
         type: "assignment",
-        title: `New assignment: ${v.title}`,
+        title: `New assignment: ${title}`,
         body: deadline ? `Due ${new Date(deadline).toLocaleString("en-GB")}` : null,
         link,
       })),
@@ -273,6 +314,35 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
   await admin.from("audit_logs").insert({ actor_id: profile.id, action: "assignment.create", entity_type: "assignment", entity_id: assignment.id, details: { classes: classIds.length, students: studentIds.length } });
   revalidatePath("/teacher/assignments");
   redirect(`/teacher/assignments/${assignment.id}`);
+}
+
+/** Moves the deadlines of a topic assignment (e.g. to give the class more time). */
+export async function updateAssignmentDeadlines(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  await staff();
+  const id = String(formData.get("assignment_id"));
+  const tz = Number(formData.get("tz_offset") ?? 0) || 0;
+  const get = (k: string) => localToIso(String(formData.get(k) ?? "") || undefined, tz);
+  const deadline = get("deadline");
+  const theory = get("theory_deadline");
+  const practice = get("practice_deadline");
+  if (!deadline) return { error: "Set the final deadline." };
+  const supabase = await createClient();
+  const { data: a } = await supabase.from("assignments").select("available_from, assignment_type").eq("id", id).maybeSingle();
+  if (!a || a.assignment_type !== "topic") return { error: "This assignment could not be found." };
+  if (deadline <= new Date(a.available_from).toISOString()) return { error: "The final deadline must be after the start time." };
+  for (const [name, d] of [["theory", theory], ["practice", practice]] as const) {
+    if (d && d > deadline) return { error: `The ${name} deadline cannot be later than the final deadline.` };
+  }
+  // RLS: only the teacher who owns the assignment (or an admin) can change it.
+  const { data, error } = await supabase
+    .from("assignments")
+    .update({ deadline, theory_deadline: theory, practice_deadline: practice })
+    .eq("id", id)
+    .select("id");
+  if (error || !data?.length) return { error: "The deadlines could not be saved." };
+  revalidatePath(`/teacher/assignments/${id}`);
+  revalidatePath("/assignments", "layout");
+  return { ok: true, message: "Deadlines saved." };
 }
 
 export async function archiveAssignment(formData: FormData) {
