@@ -7,7 +7,7 @@
  * content/summative/ is not in the repository (the papers and their mark
  * schemes must not be public).
  *
- *   npm run summative:apply -- <key> --owner <username> [--exam <exam id> | --variant-of <exam id>]
+ *   npm run summative:apply -- <key> --owner <username> [--exam <exam id> | --variant-of <exam id>] [--publish]
  *
  * --owner  the teacher who will own the exam and its questions (so they can
  *          edit and publish them)
@@ -40,7 +40,7 @@ const schema = z.object({
 const ROOT = join(__dirname, "..");
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { owner: { type: "string" }, exam: { type: "string" }, "variant-of": { type: "string" } },
+  options: { owner: { type: "string" }, exam: { type: "string" }, "variant-of": { type: "string" }, publish: { type: "boolean", default: false } },
 });
 
 async function main() {
@@ -149,13 +149,21 @@ async function main() {
     .insert(doc.questions.map((q, i) => ({ exam_id: examId, question_id: contentId("question", q.key), sort_order: i })));
   if (eqErr) throw new Error(`exam questions: ${eqErr.message}`);
 
+  // Only on request: publishing makes the exam usable, but it stays hidden until access is opened for a class.
+  let published = "";
+  if (values.publish) {
+    const { error: pErr } = await db.rpc("publish_exam", { p_exam_id: examId });
+    if (pErr) throw new Error(`publish: ${pErr.message}`);
+    const { data: e } = await db.from("exams").select("status, exam_versions!exams_current_version_fk(version, total_marks)").eq("id", examId).single();
+    published = ` — PUBLISHED (${e?.status})`;
+  }
   await db.from("audit_logs").insert({ action: "summative.import", entity_type: "exam", entity_id: examId, details: { key: doc.key, questions: ids.length } });
   const marks = doc.questions.reduce((s, q) => s + marksOf(q), 0);
   console.log(
     `✓ ${doc.key}: ${doc.questions.length} questions (${ids.length} rows), ${marks} marks, ${doc.duration} min, ${changedSchemes} mark scheme(s) written — ` +
       `exam "${existing?.title ?? doc.title}" is ${existing?.status ?? "draft"}${existing?.current_version_id ? " (already has a published version; publish again to release these questions)" : ", not published"}`,
   );
-  console.log(`  /teacher/exams/${examId}`);
+  console.log(`  /teacher/exams/${examId}${published}`);
 }
 
 main().catch((e) => {
