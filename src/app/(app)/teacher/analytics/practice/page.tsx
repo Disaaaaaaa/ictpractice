@@ -15,7 +15,7 @@ import { Select } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
-import { LinkTabs } from "@/components/ui/tabs";
+import { AnalyticsTabs } from "@/components/teacher/analytics-tabs";
 import { AutoRefresh } from "@/components/teacher/auto-refresh";
 
 export const metadata: Metadata = { title: "Practice monitor" };
@@ -96,12 +96,7 @@ export default async function PracticeMonitorPage({ searchParams }: PageProps<"/
           : "Which practice question each student is working on right now, and how much of that topic's practice set they have completed."}
         actions={<AutoRefresh seconds={15} />}
       />
-      <div className="mb-6">
-        <LinkTabs
-          tabs={[{ href: "/teacher/analytics", label: "Overview" }, { href: "/teacher/analytics/practice", label: "Practice monitor" }]}
-          exact={["/teacher/analytics"]}
-        />
-      </div>
+      <AnalyticsTabs />
 
       {students.length === 0 ? (
         <EmptyState title="No students yet">Add students to a class to see what they are practising.</EmptyState>

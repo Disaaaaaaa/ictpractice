@@ -35,6 +35,7 @@ export default async function TopicLayout({ children, params }: { children: Reac
           tabs={[
             { href: base, label: "Overview" },
             { href: `${base}/theory`, label: "Theory Pack" },
+            { href: `${base}/notes`, label: "Notes Check" },
             { href: `${base}/practice`, label: "Practice" },
             { href: `${base}/exam`, label: "Exam Mode" },
             { href: `${base}/progress`, label: "Progress" },

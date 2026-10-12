@@ -60,7 +60,7 @@ export async function putCachedMarking(key: string, questionId: string, r: Cache
 }
 
 export async function logAiUsage(p: {
-  context: "practice" | "exam" | "other";
+  context: "practice" | "exam" | "other" | "notes";
   questionId?: string | null;
   model?: string | null;
   effort?: Effort | null;

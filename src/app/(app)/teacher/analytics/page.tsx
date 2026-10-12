@@ -19,7 +19,7 @@ import { Select } from "@/components/ui/form";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoCode } from "@/components/lo-code";
-import { LinkTabs } from "@/components/ui/tabs";
+import { AnalyticsTabs } from "@/components/teacher/analytics-tabs";
 
 export const metadata: Metadata = { title: "Analytics" };
 
@@ -122,12 +122,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/teache
         description={`${students.length} students${f.cls ? ` in ${classes.find((c) => c.id === f.cls)?.name}` : " in your classes"}`}
         actions={<ButtonLink href={`/api/export?kind=lo&format=xlsx${f.cls ? `&classId=${f.cls}` : ""}`} variant="secondary" prefetch={false}><Download className="h-4 w-4" /> Export LO report</ButtonLink>}
       />
-      <div className="mb-6">
-        <LinkTabs
-          tabs={[{ href: "/teacher/analytics", label: "Overview" }, { href: "/teacher/analytics/practice", label: "Practice monitor" }]}
-          exact={["/teacher/analytics"]}
-        />
-      </div>
+      <AnalyticsTabs />
       <Card>
         <CardBody>
           <form className="grid gap-2 sm:grid-cols-5">
