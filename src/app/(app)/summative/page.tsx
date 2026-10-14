@@ -34,9 +34,9 @@ function Assessment({ e }: { e: StudentSummative }) {
           </p>
         </div>
         {running ? (
-          <ButtonLink href={`/exams/${e.id}`} size="sm">Resume</ButtonLink>
+          <ButtonLink href={`/exams/${e.id}${e.assignmentId ? `?assignment=${e.assignmentId}` : ""}`} size="sm">Resume</ButtonLink>
         ) : e.open && left ? (
-          <ButtonLink href={`/exams/${e.id}`} size="sm">Open</ButtonLink>
+          <ButtonLink href={`/exams/${e.id}${e.assignmentId ? `?assignment=${e.assignmentId}` : ""}`} size="sm">Open</ButtonLink>
         ) : null}
       </div>
       {e.attempts.length > 0 && (

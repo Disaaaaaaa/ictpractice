@@ -14,6 +14,7 @@
  * --exam   fill an existing draft summative instead of creating a new one;
  *          its title and settings are kept, only the duration, empty
  *          instructions and the question list are set
+ * --no-dates  with --variant-of: do not copy the base exam's availability window
  * --variant-of  create the exam as another variant of that summative: its
  *          time, attempt limit, integrity rules and dates are copied from the
  *          base exam so that every variant is sat under the same conditions
@@ -40,7 +41,7 @@ const schema = z.object({
 const ROOT = join(__dirname, "..");
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { owner: { type: "string" }, exam: { type: "string" }, "variant-of": { type: "string" }, publish: { type: "boolean", default: false } },
+  options: { owner: { type: "string" }, exam: { type: "string" }, "variant-of": { type: "string" }, publish: { type: "boolean", default: false }, "no-dates": { type: "boolean", default: false } },
 });
 
 async function main() {
@@ -108,8 +109,9 @@ async function main() {
       unit_id: base.unit_id,
       grade: base.grade,
       duration_minutes: base.duration_minutes,
-      availability_start: base.availability_start,
-      availability_end: base.availability_end,
+      // --no-dates: e.g. a retake variant, sat through an assignment with its own dates
+      availability_start: values["no-dates"] ? null : base.availability_start,
+      availability_end: values["no-dates"] ? null : base.availability_end,
       attempt_limit: base.attempt_limit,
       integrity_mode: base.integrity_mode,
       max_violations: base.max_violations,

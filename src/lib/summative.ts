@@ -83,8 +83,10 @@ export function summativeStartable(e: Pick<SummativeExam, "status" | "availabili
 // Student
 // ---------------------------------------------------------------------------
 export type StudentSummative = SummativeExam & {
-  /** open for one of the student's classes right now */
+  /** open for one of the student's classes right now, or through an assignment (a retake) */
   open: boolean;
+  /** set when the teacher gave this paper to the student individually: it is started through the assignment */
+  assignmentId: string | null;
   attempts: { id: string; status: AttemptStatus; percentage: number | null; show_results: boolean; submitted_at: string | null; started_at: string }[];
 };
 
@@ -96,7 +98,7 @@ export async function getStudentSummatives(supabase: Supa, profile: Pick<Profile
   const ids = exams.map((e) => e.id).concat(NONE);
   // Access is opened once for the whole group of variants, on the base exam.
   const baseIds = exams.map((e) => e.variant_of ?? e.id).concat(NONE);
-  const [{ data: access }, { data: attempts }] = await Promise.all([
+  const [{ data: access }, { data: attempts }, { data: assigned }] = await Promise.all([
     supabase.from("summative_access").select("exam_id").eq("is_open", true).in("exam_id", baseIds),
     supabase
       .from("attempts")
@@ -104,11 +106,18 @@ export async function getStudentSummatives(supabase: Supa, profile: Pick<Profile
       .eq("student_id", profile.id)
       .in("exam_id", ids)
       .order("created_at", { ascending: false }),
+    // RLS: only assignments targeted at the student
+    supabase.from("assignments").select("id, exam_id, available_from, deadline").in("exam_id", ids).is("archived_at", null),
   ]);
   const openIds = new Set((access ?? []).map((a) => a.exam_id));
+  const now = Date.now();
+  const activeAssignment = (examId: string) =>
+    (assigned ?? []).find((a) => a.exam_id === examId && new Date(a.available_from).getTime() <= now && (!a.deadline || new Date(a.deadline).getTime() > now));
   const items: StudentSummative[] = exams.map((e) => ({
     ...e,
-    open: openIds.has(e.variant_of ?? e.id) && summativeStartable(e),
+    assignmentId: activeAssignment(e.id)?.id ?? null,
+    // an assignment has its own dates, so the paper's own window does not apply to it
+    open: (openIds.has(e.variant_of ?? e.id) && summativeStartable(e)) || (Boolean(activeAssignment(e.id)) && Boolean(e.version)),
     attempts: (attempts ?? []).filter((a) => a.exam_id === e.id) as StudentSummative["attempts"],
   }));
   const { terms, other } = await byUnit(items, profile.grade ? [profile.grade] : null);

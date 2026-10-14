@@ -250,3 +250,67 @@ describe("summative variants", () => {
   });
 });
 
+describe("summative retake for one student", () => {
+  let base: string;
+  let v3: string;
+  let cls: string;
+  let sat: string; // sat Variant 1, needs a retake
+  let peer: string; // classmate, sat Variant 1 too
+
+  beforeAll(async () => {
+    const source = await one<{ id: string; curriculum_version_id: string }>(
+      `select id, curriculum_version_id from exams where kind = 'topic' and current_version_id is not null limit 1`);
+    const unit = await one<{ id: string }>(`select id from units order by code limit 1`);
+    const make = async (title: string, variantOf: string | null, no: number) => {
+      const id = (await one<{ id: string }>(
+        `insert into exams (curriculum_version_id, kind, title, unit_id, grade, duration_minutes, attempt_limit, created_by, variant_of, variant_no)
+         values ($1, 'summative', $2, $3, 11, 30, 1, $4, $5, $6) returning id`,
+        [source.curriculum_version_id, title, unit.id, teacher, variantOf, no])).id;
+      await db.query(
+        `insert into exam_questions (exam_id, question_id, sort_order) select $1, question_id, sort_order from exam_questions where exam_id = $2`,
+        [id, source.id]);
+      await db.as(teacher, async () => db.query(`select publish_exam($1)`, [id]));
+      return id;
+    };
+    base = await make("SAU retake", null, 1);
+    cls = (await one<{ id: string }>(
+      `insert into classes (name, grade, academic_year, teacher_id) values ('11R', 11, '2026-2027', $1) returning id`, [teacher])).id;
+    sat = await db.createUser("r.sat", "student", 11);
+    peer = await db.createUser("r.peer", "student", 11);
+    await db.query(`insert into class_members (class_id, student_id) values ($1, $2), ($1, $3)`, [cls, sat, peer]);
+    await db.as(teacher, async () => db.query(`select set_summative_access($1, $2, true)`, [base, cls]));
+    for (const s of [sat, peer]) {
+      await db.as(s, async () => {
+        const id = (await one<{ id: string }>(`select start_attempt($1) as id`, [base])).id;
+        await db.query(`select claim_attempt_session($1, 'session-aaaaaaaa', false)`, [id]);
+        await db.query(`select submit_attempt($1, 'session-aaaaaaaa')`, [id]);
+      });
+    }
+    v3 = await make("SAU retake — Variant 3", base, 3);
+  }, 60_000);
+
+  const sees = (who: string) => db.as(who, async () => (await db.query(`select 1 from exams where id = $1`, [v3])).rows.length === 1);
+
+  it("keeps a new variant hidden from students who already sat the paper", async () => {
+    expect(await sees(sat)).toBe(false);
+    await expect(db.as(sat, async () => db.query(`select start_attempt($1)`, [v3]))).rejects.toThrow(/SUMMATIVE_OTHER_VARIANT|EXAM_NOT_FOUND/);
+  });
+
+  it("lets the teacher give it to one student with an individual assignment", async () => {
+    const assignment = await db.as(teacher, async () => {
+      const id = (await one<{ id: string }>(
+        `insert into assignments (teacher_id, assignment_type, title, exam_id, deadline, attempt_limit, integrity_mode)
+         values ($1, 'topic_exam', 'SAU retake', $2, now() + interval '1 day', 1, 'warn') returning id`, [teacher, v3])).id;
+      await db.query(`insert into assignment_targets (assignment_id, student_id) values ($1, $2)`, [id, sat]);
+      return id;
+    });
+    expect(await sees(sat)).toBe(true);
+    expect(await sees(peer)).toBe(false);
+    const attempt = await db.as(sat, async () => (await one<{ id: string }>(`select start_attempt($1, $2) as id`, [v3, assignment])).id);
+    expect(attempt).toBeTruthy();
+    // the original attempt is kept: the teacher sees both in the group's results
+    expect((await db.query(`select exam_id from attempts where student_id = $1 order by created_at`, [sat])).rows.map((r) => (r as { exam_id: string }).exam_id)).toEqual([base, v3]);
+    await expect(db.as(peer, async () => db.query(`select start_attempt($1, $2)`, [v3, assignment]))).rejects.toThrow(/ASSIGNMENT_NOT_FOUND/);
+  });
+});
+
