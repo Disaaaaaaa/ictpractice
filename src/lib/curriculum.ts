@@ -21,7 +21,7 @@ export type SchoolTree = {
       id: string;
       code: string;
       title: string;
-      topics: (TopicRef & { lessons: string | null; period: string | null })[];
+      topics: (TopicRef & { lessons: string | null; period: string | null; hours: number | null })[];
       /** topics of the unit the viewer cannot see (hidden from their class, or not published) */
       hiddenTopics: number;
     }[];
@@ -58,11 +58,12 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
   const { data } = await supabase
     .from("grades")
     .select(
-      "number, title, sort_order, for_student_grade, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, period, sort_order, topics(id, slug, title, status, recommended_minutes))))",
+      "number, title, sort_order, for_student_grade, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, hours, period, sort_order, topics(id, slug, title, status, recommended_minutes))))",
     )
     .eq("curriculum_version_id", version.id)
     .order("number")
-    .order("sort_order");
+    // the grade's own plan before a cohort plan of the same grade
+    .order("for_student_grade", { ascending: true, nullsFirst: true });
   type Row = {
     number: number;
     title: string;
@@ -77,7 +78,7 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
         code: string;
         title: string;
         sort_order: number;
-        school_placements: { lessons: string | null; period: string | null; sort_order: number; topics: TopicRef | null }[];
+        school_placements: { lessons: string | null; hours: number | null; period: string | null; sort_order: number; topics: TopicRef | null }[];
       }[];
     }[];
   };
@@ -101,7 +102,7 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
           topics: [...u.school_placements]
             .sort(byOrder)
             .filter((p) => p.topics)
-            .map((p) => ({ ...(p.topics as TopicRef), lessons: p.lessons, period: p.period })),
+            .map((p) => ({ ...(p.topics as TopicRef), lessons: p.lessons, period: p.period, hours: p.hours })),
         })),
       })),
   }));
@@ -230,7 +231,7 @@ export type TopicDetail = {
   objectives: { id: string; code: string; description: string; paper: boolean }[];
   examOnly: boolean;
   curriculumVersionId: string;
-  school: { grade: number; forStudentGrade: number | null; plan: string; term: string; termNumber: number; unitCode: string; unitTitle: string; lessons: string | null; period: string | null; resources: string | null }[];
+  school: { grade: number; forStudentGrade: number | null; plan: string; term: string; termNumber: number; unitCode: string; unitTitle: string; lessons: string | null; hours: number | null; period: string | null; resources: string | null }[];
   exam: { paper: number; paperTitle: string; group: string | null; sectionCode: string | null; section: string }[];
 };
 
@@ -243,7 +244,7 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
     .select(
       `id, slug, title, description, recommended_minutes, status,
        topic_objectives(learning_objectives(id, code, description, sort_key, curriculum_version_id)),
-       school_placements(lessons, period, resources, units(code, title, terms(number, title, grades(number, title, for_student_grade)))),
+       school_placements(lessons, hours, period, resources, units(code, title, terms(number, title, grades(number, title, for_student_grade)))),
        exam_placements(paper_sections(code, title, parent:parent_id(title), paper_components(number, title)))`,
     )
     .eq("curriculum_version_id", version.id)
@@ -260,6 +261,7 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
     topic_objectives: { learning_objectives: { id: string; code: string; description: string; sort_key: number[]; curriculum_version_id: string } }[];
     school_placements: {
       lessons: string | null;
+      hours: number | null;
       period: string | null;
       resources: string | null;
       units: { code: string; title: string; terms: { number: number; title: string; grades: { number: number; title: string; for_student_grade: number | null } } };
@@ -303,6 +305,7 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
       unitCode: p.units.code,
       unitTitle: p.units.title,
       lessons: p.lessons,
+      hours: p.hours,
       period: p.period,
       resources: p.resources,
     })),

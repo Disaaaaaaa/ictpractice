@@ -94,6 +94,7 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
                   <Row label="Grade" value={s.forStudentGrade ? s.plan : String(s.grade)} />
                   <Row label="Term" value={s.term} />
                   <Row label="Unit" value={`${s.unitCode} ${s.unitTitle}`} />
+                  {!isStudent && s.hours != null && <Row label="Hours (KTP)" value={`${s.hours} h`} />}
                   {s.period && <Row label="Taught" value={s.period} />}
                 </div>
               ))}

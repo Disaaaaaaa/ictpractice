@@ -89,6 +89,9 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
                         <h3 id={`unit-${unit.id}`} className="mb-2 text-sm font-semibold">
                           <span className="mr-2 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs text-muted">{unit.code}</span>
                           {unit.title}
+                          {!isStudent && unit.topics.some((t) => t.hours) && (
+                            <span className="ml-2 text-xs font-normal text-muted">{unit.topics.reduce((h, t) => h + (t.hours ?? 0), 0)} h</span>
+                          )}
                         </h3>
                         {unit.topics.length === 0 ? (
                           <p className="text-sm text-muted">
@@ -104,6 +107,7 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
                                   slug={t.slug}
                                   title={t.title}
                                   meta={[t.lessons && `Lessons ${t.lessons}`, t.period].filter(Boolean).join(" · ")}
+                                  hours={isStudent ? undefined : t.hours}
                                   mastery={p?.mastery ?? null}
                                   status={p?.status ?? "Not Started"}
                                   showProgress={isStudent}

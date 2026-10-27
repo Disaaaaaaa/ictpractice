@@ -111,11 +111,14 @@ def main(path):
             out.append(f"  insert into public.units (term_id, code, title, sort_order) values (t, {q(un['code'])}, {q(un['title'].strip())}, {ui}) returning id into u;")
             placed = {}
             for tp in un["topics"]:
-                for slug in topics_for(tp["title"]):
+                slugs = topics_for(tp["title"])
+                # a lesson taught through several topics shares its hours between them
+                share, extra = divmod(tp["hours"] or 0, len(slugs))
+                for k, slug in enumerate(slugs):
                     p = placed.setdefault(slug, {"lessons": [], "hours": 0, "period": [], "resources": []})
                     if tp["lessons"]:
                         p["lessons"].append(tp["lessons"])
-                    p["hours"] += tp["hours"] or 0
+                    p["hours"] += share + (1 if k < extra else 0)
                     if tp["period"]:
                         p["period"].append(tp["period"])
                     if tp["resources"]:

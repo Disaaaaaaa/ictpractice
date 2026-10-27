@@ -11,6 +11,7 @@ export function TopicRow({
   mastery,
   status,
   showProgress,
+  hours,
 }: {
   slug: string;
   title: string;
@@ -18,6 +19,8 @@ export function TopicRow({
   mastery: number | null;
   status: MasteryStatus;
   showProgress: boolean;
+  /** KTP hours for the topic; shown to teachers */
+  hours?: number | null;
 }) {
   return (
     <Link
@@ -28,6 +31,11 @@ export function TopicRow({
         <p className="truncate font-medium group-hover:text-primary">{title}</p>
         {meta && <p className="truncate text-xs text-muted">{meta}</p>}
       </div>
+      {hours != null && (
+        <span title="Hours in the KTP" className="shrink-0">
+          <Badge tone="neutral" className="tabular-nums">{hours} h</Badge>
+        </span>
+      )}
       {showProgress && (
         <div className="hidden w-32 shrink-0 items-center gap-2 sm:flex">
           <ProgressBar value={mastery} label={`${title} mastery`} />
