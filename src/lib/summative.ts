@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "./supabase/server";
-import { getSchoolTree } from "./curriculum";
+import { getSchoolTree, mainPlans } from "./curriculum";
 import { getTeacherClasses, type ClassWithCount } from "./teacher-data";
 import type { AttemptStatus, ExamStatus, Profile } from "./db-types";
 
@@ -49,7 +49,8 @@ async function loadExams(supabase: Supa): Promise<SummativeExam[]> {
 
 /** Places each item under its unit; items whose unit is missing go to `other`. */
 async function byUnit<T extends { unit_id: string | null }>(items: T[], grades: number[] | null) {
-  const tree = await getSchoolTree();
+  // SAUs belong to the units of the grade's own plan
+  const tree = mainPlans(await getSchoolTree());
   const placed = new Set<T>();
   const terms: SummativeTerm<T>[] = [];
   for (const g of tree) {
@@ -221,7 +222,7 @@ export async function getTeacherSummatives(supabase: Supa, profile: Pick<Profile
 
 /** Units of the school programme for a select box: "11.1A · Computer systems". */
 export async function getUnitOptions(): Promise<{ id: string; label: string; grade: number }[]> {
-  const tree = await getSchoolTree();
+  const tree = mainPlans(await getSchoolTree());
   return tree.flatMap((g) =>
     g.terms.flatMap((t) => t.units.map((u) => ({ id: u.id, label: `${u.code} · ${u.title} (Grade ${g.grade}, ${t.title})`, grade: g.grade }))),
   );

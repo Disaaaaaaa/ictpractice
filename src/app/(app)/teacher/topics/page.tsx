@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getActiveVersion, getSchoolTree } from "@/lib/curriculum";
+import { getActiveVersion, getSchoolTree, plansFor } from "@/lib/curriculum";
 import { getTeacherClasses } from "@/lib/teacher-data";
 import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/page-header";
@@ -46,16 +46,18 @@ export default async function TopicVisibilityPage({ searchParams }: PageProps<"/
 
   // The class's own grade first, then the other grade, then topics that are only in the exam papers.
   const placed = new Set<string>();
-  const sections: VisibilitySection[] = [...tree]
+  // The plans the class's students see: a Grade 12 class gets the 2025-26 Grade 11 KTP.
+  const sections: VisibilitySection[] = plansFor(tree, { role: "student", grade: cls.grade })
     .sort((a, b) => Number(b.grade === cls.grade) - Number(a.grade === cls.grade) || a.grade - b.grade)
     .map((g) => ({
-      key: `g${g.grade}`,
-      title: `Grade ${g.grade}${g.grade === cls.grade ? "" : " (other grade)"}`,
+      key: `g${g.key}`,
+      title: `${g.forStudentGrade ? g.title : `Grade ${g.grade}`}${g.grade === cls.grade ? "" : " (other grade)"}`,
       groups: g.terms.flatMap((t) =>
         t.units.map((u) => ({
           key: u.id,
           title: `${t.title} · ${u.code} ${u.title}`,
-          topics: u.topics.filter((x) => published.has(x.id)).map((x) => {
+          // a topic the plan teaches twice gets one checkbox, where it is first taught
+          topics: u.topics.filter((x) => published.has(x.id) && !placed.has(x.id)).map((x) => {
             placed.add(x.id);
             return { id: x.id, title: x.title };
           }),

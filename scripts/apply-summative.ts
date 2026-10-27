@@ -56,12 +56,12 @@ async function main() {
   const { data: version } = await db.from("curriculum_versions").select("id").eq("code", PROGRAMME_VERSION).single();
   const versionId = version!.id as string;
   const [{ data: units }, { data: topics }, { data: owner }] = await Promise.all([
-    db.from("units").select("id, code, terms!inner(grades!inner(number, curriculum_version_id))").eq("code", doc.unit),
+    db.from("units").select("id, code, terms!inner(grades!inner(number, curriculum_version_id, for_student_grade))").eq("code", doc.unit),
     db.from("topics").select("id, slug").eq("curriculum_version_id", versionId),
     db.from("profiles").select("id, role").eq("username", values.owner).maybeSingle(),
   ]);
-  type Unit = { id: string; terms: { grades: { number: number; curriculum_version_id: string } } };
-  const unit = ((units ?? []) as unknown as Unit[]).find((u) => u.terms.grades.curriculum_version_id === versionId);
+  type Unit = { id: string; terms: { grades: { number: number; curriculum_version_id: string; for_student_grade: number | null } } };
+  const unit = ((units ?? []) as unknown as Unit[]).find((u) => u.terms.grades.curriculum_version_id === versionId && u.terms.grades.for_student_grade === null);
   if (!unit) throw new Error(`Unit ${doc.unit} not found`);
   if (!owner || owner.role === "student") throw new Error(`No teacher or admin with the username ${values.owner}`);
   const grade = unit.terms.grades.number;

@@ -134,7 +134,13 @@ export async function saveTopic(_prev: AdminState, formData: FormData): Promise<
     topicId = data.id;
   }
   if (v.unit_id) {
-    await db.from("school_placements").delete().eq("topic_id", topicId!);
+    // Only the placement in the grade's own plan: a cohort plan (an earlier KTP) keeps its own.
+    const { data: mainUnits } = await db.from("units").select("id, terms!inner(grades!inner(for_student_grade))").is("terms.grades.for_student_grade", null);
+    await db
+      .from("school_placements")
+      .delete()
+      .eq("topic_id", topicId!)
+      .in("unit_id", (mainUnits ?? []).map((u) => u.id as string).concat("00000000-0000-0000-0000-000000000000"));
     await db.from("school_placements").insert({ topic_id: topicId, unit_id: v.unit_id });
   }
   const sections = formData.getAll("section_ids").map(String);

@@ -39,7 +39,7 @@ export const getProgressContext = cache(async (): Promise<ProgressContext> => {
   const [{ data: topicRows }, { data: ktpRows }] = await Promise.all([
     supabase
       .from("topics")
-      .select("id, slug, title, sort_order, school_placements(units(code, title, terms(number, title, grades(number)))), topic_objectives(learning_objective_id)")
+      .select("id, slug, title, sort_order, school_placements(units(code, title, terms(number, title, grades(number, for_student_grade)))), topic_objectives(learning_objective_id)")
       .eq("curriculum_version_id", version?.id ?? "")
       .eq("status", "published"),
     supabase.from("learning_objectives").select(loSelect).eq("curriculum_version_id", version?.id ?? ""),
@@ -60,7 +60,7 @@ export const getProgressContext = cache(async (): Promise<ProgressContext> => {
     slug: string;
     title: string;
     sort_order: number;
-    school_placements: { units: { code: string; title: string; terms: { number: number; title: string; grades: { number: number } } } }[];
+    school_placements: { units: { code: string; title: string; terms: { number: number; title: string; grades: { number: number; for_student_grade: number | null } } } }[];
     topic_objectives: { learning_objective_id: string }[];
   };
   type L = {
@@ -89,7 +89,8 @@ export const getProgressContext = cache(async (): Promise<ProgressContext> => {
   const loById = new Map(los.map((l) => [l.id, l]));
   const topics: ProgressTopic[] = ((topicRows ?? []) as unknown as T[])
     .map((t) => {
-      const sp = t.school_placements[0]?.units;
+      // the grade's own plan: a cohort plan (an earlier KTP) does not move a topic
+      const sp = t.school_placements.find((p) => p.units.terms.grades.for_student_grade === null)?.units;
       const loIds = t.topic_objectives.map((o) => o.learning_objective_id);
       for (const id of loIds) loById.get(id)?.topicIds.push(t.id);
       const loGrades = loIds.map((id) => loById.get(id)?.grade).filter((g): g is number => !!g);

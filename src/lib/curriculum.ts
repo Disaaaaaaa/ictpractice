@@ -8,6 +8,10 @@ export type TopicRef = { id: string; slug: string; title: string; status: string
 export type SchoolTree = {
   grade: number;
   title: string;
+  /** null for the grade's plan; otherwise the earlier KTP shown instead to students of this grade */
+  forStudentGrade: number | null;
+  /** grade, or "11-for-12" for a cohort plan (URL parameter) */
+  key: string;
   terms: {
     id: string;
     number: number;
@@ -54,13 +58,15 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
   const { data } = await supabase
     .from("grades")
     .select(
-      "number, title, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, period, sort_order, topics(id, slug, title, status, recommended_minutes))))",
+      "number, title, sort_order, for_student_grade, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, period, sort_order, topics(id, slug, title, status, recommended_minutes))))",
     )
     .eq("curriculum_version_id", version.id)
-    .order("number");
+    .order("number")
+    .order("sort_order");
   type Row = {
     number: number;
     title: string;
+    for_student_grade: number | null;
     terms: {
       id: string;
       number: number;
@@ -78,6 +84,8 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
   return ((data ?? []) as unknown as Row[]).map((g) => ({
     grade: g.number,
     title: g.title,
+    forStudentGrade: g.for_student_grade,
+    key: planKey(g.number, g.for_student_grade),
     terms: [...g.terms]
       .sort((a, b) => a.number - b.number)
       .map((t) => ({
@@ -98,6 +106,34 @@ export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
       })),
   }));
 });
+
+/**
+ * The plans a viewer works through: a student gets one plan per grade, the
+ * plan of their cohort where there is one (Grade 12 students see the 2025-26
+ * Grade 11 KTP they were taught by); staff see every plan.
+ */
+export function plansFor(tree: SchoolTree, viewer: { role: string; grade: number | null } | null): SchoolTree {
+  if (!viewer || viewer.role !== "student") return tree;
+  return tree.filter((g) => {
+    if (g.forStudentGrade !== null) return g.forStudentGrade === viewer.grade;
+    return !tree.some((o) => o.grade === g.grade && o.forStudentGrade !== null && o.forStudentGrade === viewer.grade);
+  });
+}
+
+export const planKey = (grade: number, forStudentGrade: number | null) => (forStudentGrade ? `${grade}-for-${forStudentGrade}` : String(grade));
+
+/** Where a topic sits in the plans this viewer works through (see plansFor). */
+export function placementsFor<T extends { grade: number; forStudentGrade: number | null }>(
+  school: T[],
+  tree: SchoolTree,
+  viewer: { role: string; grade: number | null },
+): T[] {
+  const visible = new Set(plansFor(tree, viewer).map((g) => g.key));
+  return school.filter((s) => visible.has(planKey(s.grade, s.forStudentGrade)));
+}
+
+/** The plan of each grade that everyone else sees (no cohort plans). */
+export const mainPlans = (tree: SchoolTree) => tree.filter((g) => g.forStudentGrade === null);
 
 export const getPaperTree = cache(async (): Promise<PaperTree> => {
   const version = await getActiveVersion();
@@ -194,7 +230,7 @@ export type TopicDetail = {
   objectives: { id: string; code: string; description: string; paper: boolean }[];
   examOnly: boolean;
   curriculumVersionId: string;
-  school: { grade: number; term: string; termNumber: number; unitCode: string; unitTitle: string; lessons: string | null; period: string | null; resources: string | null }[];
+  school: { grade: number; forStudentGrade: number | null; plan: string; term: string; termNumber: number; unitCode: string; unitTitle: string; lessons: string | null; period: string | null; resources: string | null }[];
   exam: { paper: number; paperTitle: string; group: string | null; sectionCode: string | null; section: string }[];
 };
 
@@ -207,7 +243,7 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
     .select(
       `id, slug, title, description, recommended_minutes, status,
        topic_objectives(learning_objectives(id, code, description, sort_key, curriculum_version_id)),
-       school_placements(lessons, period, resources, units(code, title, terms(number, title, grades(number)))),
+       school_placements(lessons, period, resources, units(code, title, terms(number, title, grades(number, title, for_student_grade)))),
        exam_placements(paper_sections(code, title, parent:parent_id(title), paper_components(number, title)))`,
     )
     .eq("curriculum_version_id", version.id)
@@ -226,7 +262,7 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
       lessons: string | null;
       period: string | null;
       resources: string | null;
-      units: { code: string; title: string; terms: { number: number; title: string; grades: { number: number } } };
+      units: { code: string; title: string; terms: { number: number; title: string; grades: { number: number; title: string; for_student_grade: number | null } } };
     }[];
     exam_placements: {
       paper_sections: {
@@ -253,10 +289,15 @@ export const getTopicBySlug = cache(async (slug: string): Promise<TopicDetail | 
       .map((o) => o.learning_objectives)
       .sort((a, b) => cmp(a.sort_key, b.sort_key))
       .map(({ id, code, description, curriculum_version_id }) => ({ id, code, description, paper: curriculum_version_id !== version.id })),
-    examOnly: t.school_placements.length === 0,
+    examOnly: !t.school_placements.some((p) => p.units.terms.grades.for_student_grade === null),
     curriculumVersionId: version.id,
-    school: t.school_placements.map((p) => ({
+    // the grade's own plan first, then an earlier KTP of one cohort
+    school: [...t.school_placements]
+      .sort((a, b) => Number(a.units.terms.grades.for_student_grade !== null) - Number(b.units.terms.grades.for_student_grade !== null))
+      .map((p) => ({
       grade: p.units.terms.grades.number,
+      forStudentGrade: p.units.terms.grades.for_student_grade,
+      plan: p.units.terms.grades.title,
       term: p.units.terms.title,
       termNumber: p.units.terms.number,
       unitCode: p.units.code,

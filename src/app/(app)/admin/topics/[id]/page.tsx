@@ -21,7 +21,7 @@ export default async function EditTopicPage({ params }: PageProps<"/admin/topics
   const [{ data: topic }, opts] = await Promise.all([
     supabase
       .from("topics")
-      .select("id, slug, title, description, status, recommended_minutes, school_placements(unit_id), exam_placements(paper_section_id), topic_objectives(learning_objectives(id, code, description, curriculum_versions(kind)))")
+      .select("id, slug, title, description, status, recommended_minutes, school_placements(unit_id, units(terms(grades(for_student_grade)))), exam_placements(paper_section_id), topic_objectives(learning_objectives(id, code, description, curriculum_versions(kind)))")
       .eq("id", id)
       .maybeSingle(),
     getPlacementOptions(),
@@ -29,7 +29,7 @@ export default async function EditTopicPage({ params }: PageProps<"/admin/topics
   if (!topic) notFound();
   const t = topic as unknown as {
     id: string; slug: string; title: string; description: string | null; status: string; recommended_minutes: number | null;
-    school_placements: { unit_id: string }[]; exam_placements: { paper_section_id: string }[];
+    school_placements: { unit_id: string; units: { terms: { grades: { for_student_grade: number | null } } } }[]; exam_placements: { paper_section_id: string }[];
     topic_objectives: { learning_objectives: { id: string; code: string; description: string; curriculum_versions: { kind: string } | null } }[];
   };
   return (
@@ -50,7 +50,7 @@ export default async function EditTopicPage({ params }: PageProps<"/admin/topics
         <Card>
           <CardHeader title="Topic" />
           <CardBody>
-            <TopicForm topic={t} units={opts.units} sections={opts.sections} unitId={t.school_placements[0]?.unit_id} sectionIds={t.exam_placements.map((e) => e.paper_section_id)} />
+            <TopicForm topic={t} units={opts.units} sections={opts.sections} unitId={t.school_placements.find((p) => p.units.terms.grades.for_student_grade === null)?.unit_id} sectionIds={t.exam_placements.map((e) => e.paper_section_id)} />
           </CardBody>
         </Card>
         <Card>

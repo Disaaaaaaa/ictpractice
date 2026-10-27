@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getMasteryMap, getSchoolTree } from "@/lib/curriculum";
+import { getMasteryMap, getSchoolTree, mainPlans, plansFor } from "@/lib/curriculum";
 import { getProgressContext, loAverage, topicProgress } from "@/lib/progress";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardBody } from "@/components/ui/card";
@@ -20,15 +20,21 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
   const sp = await searchParams;
   const supabase = await createClient();
   const isStudent = profile.role === "student";
-  const [tree, ctx, mastery] = await Promise.all([
+  const [fullTree, ctx, mastery] = await Promise.all([
     getSchoolTree(),
     getProgressContext(),
     isStudent ? getMasteryMap(supabase, profile.id) : Promise.resolve(new Map<string, number>()),
   ]);
   const progress = new Map(topicProgress(ctx, mastery).map((t) => [t.id, t]));
-  const gradeParam = Number(sp.grade);
-  const grade = tree.find((g) => g.grade === gradeParam)?.grade ?? (profile.grade && tree.some((g) => g.grade === profile.grade) ? profile.grade : tree[0]?.grade);
-  const current = tree.find((g) => g.grade === grade);
+  // Grade 12 students get the 2025-26 Grade 11 KTP they were taught by instead of the new one.
+  const tree = plansFor(fullTree, profile);
+  const param = typeof sp.grade === "string" ? sp.grade : "";
+  const current =
+    tree.find((g) => g.key === param) ??
+    tree.find((g) => String(g.grade) === param) ??
+    tree.find((g) => g.grade === profile.grade && g.forStudentGrade === null) ??
+    tree.find((g) => g.grade === profile.grade) ??
+    tree[0];
 
   return (
     <>
@@ -44,15 +50,16 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
           <nav className="mb-6 flex gap-2" aria-label="Grade">
             {tree.map((g) => (
               <Link
-                key={g.grade}
-                href={`/learn?grade=${g.grade}`}
-                aria-current={g.grade === grade ? "page" : undefined}
+                key={g.key}
+                href={`/learn?grade=${g.key}`}
+                aria-current={g === current ? "page" : undefined}
                 className={cn(
                   "rounded-full border px-4 py-1.5 text-sm font-medium",
-                  g.grade === grade ? "border-primary bg-primary text-primary-fg" : "border-border bg-surface hover:bg-surface-2",
+                  g === current ? "border-primary bg-primary text-primary-fg" : "border-border bg-surface hover:bg-surface-2",
                 )}
               >
                 {g.title}
+                {!isStudent && g.forStudentGrade ? ` (Grade ${g.forStudentGrade} students)` : ""}
               </Link>
             ))}
           </nav>
@@ -112,14 +119,16 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
               );
             })}
             {(() => {
-              const examOnly = [...progress.values()].filter((t) => t.examOnly);
+              // not in any plan of the viewer: for Grade 12 students the 2025-26 KTP covers most of them
+              const planned = new Set((isStudent ? tree : mainPlans(tree)).flatMap((g) => g.terms.flatMap((t) => t.units.flatMap((u) => u.topics.map((x) => x.id)))));
+              const examOnly = [...progress.values()].filter((t) => t.examOnly && !planned.has(t.id));
               if (!examOnly.length) return null;
               return (
                 <Card className="border-warning/40">
                   <div className="border-b border-border px-5 py-4">
                     <h2 className="text-lg font-semibold">Exam-only topics</h2>
                     <p className="text-sm text-muted">
-                      Assessed in Paper 1-2-3 but not part of the 2026-2027 calendar plan. They also appear under Exam Papers.
+                      Assessed in Paper 1-2-3 but not part of the calendar plan. They also appear under Exam Papers.
                     </p>
                   </div>
                   <CardBody className="grid gap-2">

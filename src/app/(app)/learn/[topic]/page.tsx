@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { BookOpen, Clock, FileQuestion, GraduationCap } from "lucide-react";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getMasteryMap, getTopicBySlug } from "@/lib/curriculum";
+import { getMasteryMap, getSchoolTree, getTopicBySlug, placementsFor } from "@/lib/curriculum";
 import { masteryStatus, STATUS_TONE } from "@/lib/mastery";
 import { loAverage } from "@/lib/progress";
 import { formatPercent } from "@/lib/format";
@@ -38,11 +38,12 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
   const status = masteryStatus(value, attempted);
   const sections = (pack as { theory_sections: { id: string }[] } | null)?.theory_sections.length ?? 0;
   const base = `/learn/${topic.slug}`;
+  const school = placementsFor(topic.school, await getSchoolTree(), profile);
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="space-y-6 lg:col-span-2">
-        {topic.examOnly && (
+        {topic.examOnly && school.length === 0 && (
           <Alert tone="warning" title="Exam-only topic">
             These objectives are assessed in the exam (Paper 1-2-3 specification) but are not part of the 2026-2027 calendar plan.
           </Alert>
@@ -87,10 +88,10 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
           <CardHeader title="Topic details" />
           <CardBody>
             <dl className="space-y-3 text-sm">
-              {topic.examOnly && <Row label="Programme" value="Exam only (Paper 1-2-3)" />}
-              {topic.school.map((s, i) => (
+              {school.length === 0 && <Row label="Programme" value="Exam only (Paper 1-2-3)" />}
+              {school.map((s, i) => (
                 <div key={i} className="space-y-3">
-                  <Row label="Grade" value={String(s.grade)} />
+                  <Row label="Grade" value={s.forStudentGrade ? s.plan : String(s.grade)} />
                   <Row label="Term" value={s.term} />
                   <Row label="Unit" value={`${s.unitCode} ${s.unitTitle}`} />
                   {s.period && <Row label="Taught" value={s.period} />}
