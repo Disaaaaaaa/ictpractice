@@ -12,6 +12,10 @@ export const INTERACTIVE_WIDGETS = [
   "stack_queue",
   "sort_visualizer",
   "binary_search",
+  "caesar_cipher",
+  "firewall_rules",
+  "password_strength",
+  "backup_restore",
 ] as const;
 export type InteractiveWidget = (typeof INTERACTIVE_WIDGETS)[number];
 
@@ -23,6 +27,10 @@ export const INTERACTIVE_WIDGET_LABELS: Record<InteractiveWidget, string> = {
   stack_queue: "Stack & queue simulator",
   sort_visualizer: "Bubble / insertion sort step-through",
   binary_search: "Binary search step-through",
+  caesar_cipher: "Caesar cipher",
+  firewall_rules: "Firewall rule tester",
+  password_strength: "Password strength",
+  backup_restore: "Restoring from backups",
 };
 
 const text = z.string().max(20000);

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import type { InteractiveWidget } from "@/lib/theory/blocks";
 import { evaluateBoolean, parseBoolean, variablesOf } from "@/lib/boolean";
 import { BinarySearchVisualizer, SortVisualizer } from "./algorithms";
+import { BackupRestore, CaesarCipher, FirewallTester, PasswordStrength } from "./security";
 
 const box = "rounded-lg border border-border bg-surface p-4";
 const inputCls =
@@ -329,6 +330,14 @@ export function InteractiveBlock({ widget, title, config }: { widget: Interactiv
         const values = Array.isArray(config?.values) ? (config.values as unknown[]).filter((x): x is number => typeof x === "number") : undefined;
         return <BinarySearchVisualizer values={values && values.length >= 2 ? values : undefined} target={typeof config?.target === "number" ? config.target : undefined} />;
       }
+      case "caesar_cipher":
+        return <CaesarCipher />;
+      case "firewall_rules":
+        return <FirewallTester />;
+      case "password_strength":
+        return <PasswordStrength />;
+      case "backup_restore":
+        return <BackupRestore />;
     }
   })();
   return (

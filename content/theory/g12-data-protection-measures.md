@@ -118,6 +118,9 @@ flowchart TB
 A visitor opening the website is allowed (rule 1). A hacker trying to log in to the database from outside is blocked (rule 3). The last rule blocks everything that is not allowed — "deny by default".
 :::
 
+:::widget firewall_rules Test the school firewall
+:::
+
 # Encryption
 @lo 12.1.2.1
 
@@ -163,6 +166,9 @@ flowchart TB
 | Cipher | D | E | F | … | A | B | C |
 
 `CAT` → `FDW`; `HELLO` → `KHOOR`. The **algorithm** is "shift the letters"; the **key** is **3**. To decrypt, shift back by 3. With only 25 possible keys it is broken in seconds by trying all of them (**brute force**) — real encryption uses keys with billions of billions of possibilities.
+:::
+
+:::widget caesar_cipher Encrypt, decrypt and break a Caesar cipher
 :::
 
 :::steps How HTTPS uses both kinds of encryption
@@ -245,6 +251,51 @@ Combining **two different types** of evidence — something you **know** (passwo
 
 :::warning Two passwords are not two factors
 A password **and** a PIN are both "something you know" — this is **not** two-factor authentication. 2FA needs factors of **different types**.
+:::
+
+# Passwords and access control
+@lo 12.1.2.1
+
+Biometrics prove **who** a user is, but most systems still rely on **passwords** — and on giving each user only the access they need.
+
+:::cards
+### A strong password
+- **Long** — at least 12 characters; length matters most.
+- Mixes **upper and lower case, digits and symbols**.
+- **Not** a dictionary word, name, date of birth or keyboard pattern (`qwerty`, `123456`).
+- **Different** for every account, so one leak does not open the others.
+- Kept in a **password manager**, not on a sticky note.
+### A password policy (set by the organisation)
+- Minimum length and required character types.
+- **Account lockout** after a few wrong attempts (e.g. 5), which stops brute-force attacks.
+- Passwords are stored as **hashes**, never as plain text.
+- Passwords are changed **at once** if they may have leaked.
+- **Two-factor authentication** for important accounts (e-mail, banking, administrators).
+:::
+
+:::widget password_strength How long would a brute-force attack take?
+:::
+
+:::definition Access rights (permissions)
+Rules set by the administrator that decide **what each user may do** with each file, folder or table: **no access**, **read only**, **read and write (change)**, or **full control** (also delete and change permissions).
+:::
+
+:::example Access rights in a school information system
+| User | Pupils' marks | Pupils' personal data | Staff salaries |
+|---|---|---|---|
+| Pupil | Read **own** marks only | Read **own** data only | No access |
+| Teacher | Read and write for **their classes** | Read for their classes | No access |
+| Accountant | No access | No access | Read and write |
+| Administrator | Full control | Full control | Full control |
+:::
+
+:::cards
+### Principle of least privilege
+Every user gets **only the access needed for their job** — no more. If an account is stolen or a user makes a mistake, the damage is limited to that small area.
+### Audit trail (log)
+The system **records who did what and when** (logged in, opened, changed, deleted). Logs help to find the cause of a problem and discourage misuse.
+### Smart cards and tokens
+A **smart card** or USB **security key** contains a chip that proves the user has it ("something you have"). A **one-time password (OTP)** from an app or SMS changes every 30–60 seconds, so a stolen code is soon useless.
 :::
 
 # Computer virus countermeasures
@@ -341,6 +392,9 @@ A full backup is made on **Sunday** night; from Monday to Wednesday a backup is 
 Work done on Thursday before the failure is **lost** in both cases — it was never backed up.
 :::
 
+:::widget backup_restore Choose the method and the day of the failure
+:::
+
 :::cards
 ### A good backup strategy
 - Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.
@@ -417,6 +471,45 @@ If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the chan
 
 :::callout info Hot-swapping
 In servers the failed disk can often be **replaced while the system keeps running** (hot-swap); the RAID controller then copies the data onto the new disk.
+:::
+
+# Disaster recovery and archiving
+@lo 12.1.2.2
+
+:::definition Disaster recovery plan
+A written plan of **how an organisation will restore its systems and data and continue working** after a serious incident — fire, flood, ransomware, a failed server or a long power cut.
+:::
+
+:::cards
+### What the plan contains
+- A list of the **critical systems and data**, in order of importance.
+- **Where the backups are** and **how to restore** them, step by step.
+- **Who is responsible** for each task, with contact details.
+- **How long** each system may be unavailable, and **how much recent data** may be lost (e.g. "at most one day of sales").
+- **Alternative arrangements**: spare equipment, a second site, working on paper.
+- How and when the plan is **tested**.
+### Why it matters
+- Decisions are made **in advance**, calmly, not during the crisis.
+- Systems come back **faster**, so less money and trust are lost.
+- Staff know **exactly what to do**.
+- A plan that is **never tested** may fail when it is needed.
+:::
+
+:::compare Backup vs archive
+| | Backup | Archive |
+|---|---|---|
+| Purpose | **Restore** data after it is lost or damaged | **Keep old data** that is no longer used every day, for the long term |
+| Data | A **copy** — the original stays in use | The data is **moved** off the working system |
+| How long kept | Replaced regularly (e.g. kept for a few weeks) | Kept for **years** (e.g. pupils' records after they leave, old accounts by law) |
+| Example | Last night's copy of the school database | Records of pupils who left school five years ago |
+:::
+
+:::example Ransomware at a college — recovery in practice
+1. Staff see that files will not open and a ransom note appears.
+2. The IT team **disconnects** the infected computers and the server from the network.
+3. They follow the **disaster recovery plan**: the server is wiped and the system reinstalled.
+4. Data is restored from the **offline backup** made the night before; mirroring did not help, because the encrypted files were copied to both disks.
+5. Lessons continue the next day; only half a day of work is lost. **No ransom is paid.**
 :::
 
 # Exam practice and summary
