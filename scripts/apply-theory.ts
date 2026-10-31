@@ -8,6 +8,8 @@ import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { authoredTopicSchema } from "../src/lib/content/schema";
 import { pushTheory } from "./lib/push-theory";
+import { pushLessons, serviceClient } from "./lib/push-lessons";
+import { getTopicInfo } from "./lib/topic-block";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { draft: { type: "boolean", default: false } } });
 const slug = positionals[0];
@@ -32,6 +34,11 @@ async function main() {
   const status = values.draft ? "draft" : "published";
   await pushTheory({ slug, title: meta.title, summary: topic.summary, sections: topic.theory, status, source: `${slug}.json` });
   console.log(`✓ ${meta.title}: ${topic.theory.length} sections uploaded (${status})`);
+  // the sections were rewritten: put them back into their lessons
+  if (topic.lessons) {
+    const info = getTopicInfo(slug);
+    console.log(`  lessons: ${await pushLessons(serviceClient(), slug, topic, meta.title, Math.min(...info.refs.map((x) => Number(x.slice(0, 2)))))}`);
+  }
 }
 
 main().catch((e) => {

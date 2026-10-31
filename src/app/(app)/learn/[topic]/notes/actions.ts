@@ -4,6 +4,7 @@ import { requireProfile } from "@/lib/auth";
 import { getTopicBySlug } from "@/lib/curriculum";
 import { AiUnavailableError } from "@/lib/grading/ai";
 import { NOTE_LIMITS, NotesError, runNoteCheck } from "@/lib/notes/service";
+import { getTopicLessons } from "@/lib/lessons";
 
 export type NotesActionResult = { ok: true; id: string; reused: boolean } | { ok: false; error: string };
 
@@ -19,11 +20,15 @@ function looksLikeImage(b: Buffer): boolean {
 }
 
 /** Checks the photos of a student's notes for the topic and stores the result. */
-export async function submitNotes(slug: string, formData: FormData): Promise<NotesActionResult> {
+export async function submitNotes(slug: string, lesson: number | null, formData: FormData): Promise<NotesActionResult> {
   const profile = await requireProfile();
   // RLS: a topic hidden from the student's class is not found.
   const topic = await getTopicBySlug(slug);
   if (!topic) return { ok: false, error: "This topic could not be found." };
+  // a topic taught in lessons is checked lesson by lesson
+  const lessons = await getTopicLessons(topic.id);
+  if (lessons.length && !lessons.some((l) => l.number === lesson)) return { ok: false, error: "Choose the lesson your notes are for." };
+  const lessonNo = lessons.length ? lesson : null;
 
   const files = formData.getAll("photos").filter((f): f is File => f instanceof File && f.size > 0);
   if (files.length === 0) return { ok: false, error: "Add at least one photo of your notes." };
@@ -36,7 +41,7 @@ export async function submitNotes(slug: string, formData: FormData): Promise<Not
   if (photos.some((p) => !looksLikeImage(p.bytes))) return { ok: false, error: "One of the files is not a valid image." };
 
   try {
-    const done = await runNoteCheck({ studentId: profile.id, topic: { id: topic.id, title: topic.title }, photos });
+    const done = await runNoteCheck({ studentId: profile.id, topic: { id: topic.id, title: topic.title }, lesson: lessonNo, photos });
     revalidatePath(`/learn/${slug}/notes`);
     return { ok: true, ...done };
   } catch (e) {

@@ -13,20 +13,25 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2 } from "lucide-react";
 import { LoCode } from "@/components/lo-code";
 import { TheoryFullscreen } from "@/components/theory/theory-fullscreen";
+import { LessonPicker } from "@/components/lesson-picker";
+import { getTopicLessons, lessonParam } from "@/lib/lessons";
 
 export const metadata: Metadata = { title: "Theory Pack" };
 
 export default async function TheoryPage({
   params,
+  searchParams,
 }: PageProps<"/learn/[topic]/theory">) {
   const profile = await requireProfile();
   const topic = await getTopicBySlug((await params).topic);
   if (!topic) notFound();
+  const lessons = await getTopicLessons(topic.id);
+  const lesson = lessonParam(lessons, (await searchParams).lesson);
   const supabase = await createClient();
   const { data: pack } = await supabase
     .from("theory_packs")
     .select(
-      "id, title, summary, status, theory_sections(id, title, blocks, sort_order, theory_section_objectives(learning_objectives(code, curriculum_version_id)))",
+      "id, title, summary, status, theory_sections(id, title, blocks, sort_order, lesson_no, theory_section_objectives(learning_objectives(code, curriculum_version_id)))",
     )
     .eq("topic_id", topic.id)
     .maybeSingle();
@@ -39,6 +44,7 @@ export default async function TheoryPage({
       title: string;
       blocks: unknown;
       sort_order: number;
+      lesson_no: number | null;
       theory_section_objectives: {
         learning_objectives: { code: string; curriculum_version_id: string };
       }[];
@@ -71,12 +77,14 @@ export default async function TheoryPage({
   const viewedIds = new Set(
     (viewed ?? []).map((v) => v.theory_section_id as string),
   );
-  const sections = [...p.theory_sections].sort(
-    (a, b) => a.sort_order - b.sort_order,
-  );
+  const sections = [...p.theory_sections]
+    .filter((s) => lesson === null || s.lesson_no === lesson)
+    .sort((a, b) => a.sort_order - b.sort_order);
+  const lessonQuery = lesson ? `?lesson=${lesson}` : "";
 
   return (
     <TheoryFullscreen title={`${topic.title} — Theory`}>
+      <LessonPicker base={`/learn/${topic.slug}/theory`} lessons={lessons} current={lesson} />
       <div className="grid gap-6 lg:grid-cols-[14rem_1fr]">
         <nav aria-label="Theory sections" className="hidden lg:block">
           <ol className="sticky top-24 space-y-1 text-sm group-data-[fs=true]:top-16">
@@ -151,8 +159,8 @@ export default async function TheoryPage({
             );
           })}
           <div className="flex justify-end">
-            <ButtonLink href={`/learn/${topic.slug}/practice`}>
-              Practise this topic
+            <ButtonLink href={`/learn/${topic.slug}/practice${lessonQuery}`}>
+              {lesson ? `Practise lesson ${lesson}` : "Practise this topic"}
             </ButtonLink>
           </div>
         </div>

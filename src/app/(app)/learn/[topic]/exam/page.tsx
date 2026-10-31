@@ -21,17 +21,19 @@ export default async function TopicExamPage({ params }: PageProps<"/learn/[topic
   const supabase = await createClient();
   const { data: exams } = await supabase
     .from("exams")
-    .select("id, title, duration_minutes, exam_versions!exam_versions_exam_id_fkey(question_count, total_marks, id)")
+    .select("id, title, duration_minutes, lesson_no, exam_versions!exam_versions_exam_id_fkey(question_count, total_marks, id)")
     .eq("topic_id", topic.id)
     .eq("kind", "topic")
     .in("status", ["published", "scheduled"])
     .is("archived_at", null);
-  const list = (exams ?? []) as unknown as {
+  // lesson tests first, in lesson order; the whole-topic exam last
+  const list = ((exams ?? []) as unknown as {
     id: string;
     title: string;
     duration_minutes: number;
+    lesson_no: number | null;
     exam_versions: { id: string; question_count: number; total_marks: number }[];
-  }[];
+  }[]).sort((a, b) => (a.lesson_no ?? 99) - (b.lesson_no ?? 99));
   const { data: attempts } = await supabase
     .from("attempts")
     .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")
@@ -58,6 +60,7 @@ export default async function TopicExamPage({ params }: PageProps<"/learn/[topic
             <CardBody>
               <p className="mb-3 text-sm text-muted">
                 Exam Mode is a timed assessment: no hints or feedback until you submit. Leaving the exam window is recorded.
+                {e.lesson_no ? " Your first attempt counts towards your SAU points (2 points for the lesson)." : ""}
               </p>
               {mine.length > 0 && (
                 <ul className="divide-y divide-border rounded-lg border border-border">

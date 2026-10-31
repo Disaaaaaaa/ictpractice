@@ -3,8 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BarChart3, BookOpen, ClipboardCheck, ClipboardList, Eye, Database, FileText, GraduationCap, Layers, LayoutDashboard,
-  LineChart, Radio, ScrollText, Settings, Target, User, Users, Library,
-} from "lucide-react";
+  LineChart, Radio, ScrollText, Settings, Target, User, Users, Library, Trophy } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { IconName, NavGroup } from "./nav";
 
@@ -14,6 +13,7 @@ const ICONS: Record<IconName, typeof User> = {
   papers: FileText,
   mocks: GraduationCap,
   summative: ClipboardCheck,
+  points: Trophy,
   progress: Target,
   profile: User,
   classes: Layers,

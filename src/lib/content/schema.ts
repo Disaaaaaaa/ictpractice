@@ -240,11 +240,57 @@ export const authoredTopicSchema = z.object({
       questions: z.array(z.string()).optional(),
     })
     .optional(),
+  /**
+   * The lessons the topic is taught in (one per 2 hours of the KTP), in order.
+   * Every theory section and every practice question belongs to exactly one
+   * lesson; a lesson exam is a short Exam Mode test on that lesson.
+   */
+  lessons: z
+    .array(
+      z.object({
+        title: z.string().min(1).max(300),
+        /** theory section titles */
+        sections: z.array(z.string()).min(1),
+        /** keys of the practice questions (a structured question brings its parts) */
+        questions: z.array(z.string()).default([]),
+        exam: z
+          .object({
+            duration: z.number().int().min(5).max(60),
+            title: z.string().optional(),
+            questions: z.array(z.string()).min(1),
+          })
+          .optional(),
+      }),
+    )
+    .max(20)
+    .optional(),
 }).superRefine((t, ctx) => {
   const keys = new Set(t.questions.map((q) => q.key));
   for (const k of t.topic_exam?.questions ?? []) {
     if (!keys.has(k)) ctx.addIssue({ code: "custom", message: `topic_exam.questions: unknown question ${k}` });
   }
+  if (!t.lessons) return;
+  const issue = (message: string) => ctx.addIssue({ code: "custom", message });
+  const titles = new Set(t.theory.map((s) => s.title));
+  const seenSections = new Map<string, number>();
+  const seenQuestions = new Map<string, number>();
+  t.lessons.forEach((l, i) => {
+    for (const s of l.sections) {
+      if (t.theory.length && !titles.has(s)) issue(`lessons[${i}]: unknown theory section "${s}"`);
+      if (seenSections.has(s)) issue(`lessons[${i}]: section "${s}" is already in lesson ${seenSections.get(s)! + 1}`);
+      seenSections.set(s, i);
+    }
+    for (const k of l.questions) {
+      const q = t.questions.find((x) => x.key === k);
+      if (!q) issue(`lessons[${i}]: unknown question ${k}`);
+      else if (q.practice === false) issue(`lessons[${i}]: ${k} is not a practice question`);
+      if (seenQuestions.has(k)) issue(`lessons[${i}]: ${k} is already in lesson ${seenQuestions.get(k)! + 1}`);
+      seenQuestions.set(k, i);
+    }
+    for (const k of l.exam?.questions ?? []) if (!keys.has(k)) issue(`lessons[${i}].exam: unknown question ${k}`);
+  });
+  for (const s of t.theory) if (!seenSections.has(s.title)) issue(`lessons: theory section "${s.title}" is in no lesson`);
+  for (const q of t.questions) if (q.practice !== false && !seenQuestions.has(q.key)) issue(`lessons: practice question ${q.key} is in no lesson`);
 });
 export type AuthoredTopic = z.infer<typeof authoredTopicSchema>;
 

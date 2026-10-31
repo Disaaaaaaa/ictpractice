@@ -4,7 +4,7 @@ import type { Dict } from "@/lib/i18n";
 export type IconName =
   | "dashboard" | "learn" | "papers" | "mocks" | "summative" | "progress" | "profile" | "classes" | "students"
   | "assignments" | "visibility" | "sessions" | "questions" | "results" | "analytics" | "users" | "curriculum"
-  | "settings" | "audit";
+  | "settings" | "audit" | "points";
 
 export type NavItem = { href: string; label: string; icon: IconName };
 export type NavGroup = { label?: string; items: NavItem[] };
@@ -18,6 +18,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/papers", label: t.nav.papers, icon: "papers" },
       { href: "/mock-exams", label: t.nav.mocks, icon: "mocks" },
       { href: "/summative", label: t.nav.summative, icon: "summative" },
+      { href: "/points", label: t.nav.points, icon: "points" },
       { href: "/progress", label: t.nav.progress, icon: "progress" },
       { href: "/profile", label: t.nav.profile, icon: "profile" },
     ],
@@ -32,6 +33,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/teacher/topics", label: t.nav.visibility, icon: "visibility" },
       { href: "/teacher/exams", label: t.nav.sessions, icon: "sessions" },
       { href: "/teacher/summative", label: t.nav.summative, icon: "summative" },
+      { href: "/teacher/points", label: t.nav.points, icon: "points" },
       { href: "/teacher/questions", label: t.nav.questions, icon: "questions" },
       { href: "/teacher/results", label: t.nav.results, icon: "results" },
       { href: "/teacher/analytics", label: t.nav.analytics, icon: "analytics" },

@@ -181,6 +181,7 @@ const assignmentSchema = z.object({
   instructions: z.string().max(5000).optional(),
   exam_id: z.string().uuid().optional().or(z.literal("")),
   topic_id: z.string().uuid().optional().or(z.literal("")),
+  lesson_no: z.coerce.number().int().min(1).max(20).optional().or(z.literal("")),
   available_from: z.string().optional(),
   deadline: z.string().optional(),
   theory_deadline: z.string().optional(),
@@ -232,6 +233,7 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
   let title = v.title;
   let examId = v.exam_id || null;
   let theoryDeadline: string | null = null;
+  let lessonNo: number | null = null;
   let practiceDeadline: string | null = null;
   if (isTopic) {
     if (!deadline) return { error: "Set the final deadline." };
@@ -241,13 +243,19 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
       if (d && d <= availableFrom) return { error: `The ${name} deadline must be after the start time.` };
       if (d && d > deadline) return { error: `The ${name} deadline cannot be later than the final deadline.` };
     }
-    const [{ data: topic }, { data: exam }] = await Promise.all([
+    lessonNo = typeof v.lesson_no === "number" ? v.lesson_no : null;
+    const examQuery = supabase
+      .from("exams")
+      .select("id")
+      .eq("topic_id", v.topic_id as string)
+      .eq("kind", "topic");
+    const [{ data: topic }, { data: lesson }, { data: exam }] = await Promise.all([
       supabase.from("topics").select("title").eq("id", v.topic_id as string).maybeSingle(),
-      supabase
-        .from("exams")
-        .select("id")
-        .eq("topic_id", v.topic_id as string)
-        .eq("kind", "topic")
+      lessonNo
+        ? supabase.from("topic_lessons").select("title").eq("topic_id", v.topic_id as string).eq("number", lessonNo).maybeSingle()
+        : Promise.resolve({ data: null }),
+      // a lesson has its own test; a whole topic uses the topic exam
+      (lessonNo ? examQuery.eq("lesson_no", lessonNo) : examQuery.is("lesson_no", null))
         .in("status", ["published", "scheduled"])
         .is("archived_at", null)
         .not("current_version_id", "is", null)
@@ -256,7 +264,8 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
         .maybeSingle(),
     ]);
     if (!topic) return { error: "That topic could not be found." };
-    title = title || topic.title;
+    if (lessonNo && !lesson) return { error: "That lesson could not be found." };
+    title = title || (lessonNo ? `${topic.title} · Lesson ${lessonNo}: ${lesson!.title}` : topic.title);
     examId = exam?.id ?? null;
   }
 
@@ -269,6 +278,7 @@ export async function createAssignment(_prev: ActionState, formData: FormData): 
       instructions: v.instructions || null,
       exam_id: examId,
       topic_id: v.topic_id || null,
+      lesson_no: lessonNo,
       available_from: availableFrom,
       deadline,
       theory_deadline: theoryDeadline,

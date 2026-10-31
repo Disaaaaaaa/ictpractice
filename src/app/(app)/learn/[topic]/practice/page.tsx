@@ -7,22 +7,28 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PracticeSession, type PracticeQuestion, type SavedPractice } from "@/components/practice/practice-session";
 import type { PracticeResult } from "./actions";
 import type { AnswerData } from "@/lib/questions/types";
+import { LessonPicker } from "@/components/lesson-picker";
+import { getTopicLessons, lessonParam } from "@/lib/lessons";
 
 export const metadata: Metadata = { title: "Practice" };
 
-export default async function PracticePage({ params }: PageProps<"/learn/[topic]/practice">) {
+export default async function PracticePage({ params, searchParams }: PageProps<"/learn/[topic]/practice">) {
   const profile = await requireProfile();
   const topic = await getTopicBySlug((await params).topic);
   if (!topic) notFound();
+  const lessons = await getTopicLessons(topic.id);
+  const lesson = lessonParam(lessons, (await searchParams).lesson);
   const supabase = await createClient();
-  const { data } = await supabase
+  const query = supabase
     .from("questions")
-    .select("id, title, question_text, question_type, marks, difficulty, command_word, grading_method, content, parent_id, part_label, part_order, created_at, question_options(key, content, sort_order), question_objectives(learning_objectives(code))")
+    .select("id, title, question_text, question_type, marks, difficulty, command_word, grading_method, content, parent_id, part_label, part_order, created_at, lesson_no, question_options(key, content, sort_order), question_objectives(learning_objectives(code))")
     .eq("topic_id", topic.id)
     .eq("status", "published")
     .eq("practice_enabled", true)
     .is("archived_at", null)
     .order("created_at");
+  // one lesson: its questions (a structured question and its parts share the lesson)
+  const { data } = await (lesson ? query.eq("lesson_no", lesson) : query);
   type Row = Omit<PracticeQuestion, "options" | "objectives"> & {
     parent_id: string | null;
     part_order: number;
@@ -60,8 +66,14 @@ export default async function PracticePage({ params }: PageProps<"/learn/[topic]
       };
     });
 
+  const picker = <LessonPicker base={`/learn/${topic.slug}/practice`} lessons={lessons} current={lesson} />;
   if (questions.length === 0) {
-    return <EmptyState title="No practice questions yet">Questions for this topic will appear here once they are published.</EmptyState>;
+    return (
+      <>
+        {picker}
+        <EmptyState title="No practice questions yet">Questions for this {lesson ? "lesson" : "topic"} will appear here once they are published.</EmptyState>
+      </>
+    );
   }
   // Restore the student's work: the newest of the latest checked attempt and the draft wins.
   const ids = questions.map((q) => q.id);
@@ -100,12 +112,18 @@ export default async function PracticePage({ params }: PageProps<"/learn/[topic]
   const startIndex = Math.max(0, questions.findIndex((q) => q.id === lastId));
 
   return (
+    <>
+    {picker}
+    {lesson && profile.role === "student" && (
+      <p className="mb-4 text-sm text-muted">Your first answer to each question counts towards your SAU points (2 points for the lesson).</p>
+    )}
     <PracticeSession
-      key={topic.id}
+      key={`${topic.id}-${lesson ?? "all"}`}
       questions={questions}
       canReveal={profile.role !== "student"}
       saved={saved}
       startIndex={startIndex}
     />
+    </>
   );
 }

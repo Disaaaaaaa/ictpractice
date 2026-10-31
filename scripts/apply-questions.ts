@@ -10,6 +10,7 @@ import { parseArgs } from "node:util";
 import { authoredTopicSchema } from "../src/lib/content/schema";
 import { getTopicInfo } from "./lib/topic-block";
 import { pushQuestions } from "./lib/push-questions";
+import { pushLessons, serviceClient } from "./lib/push-lessons";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { draft: { type: "boolean", default: false } } });
 const slug = positionals[0];
@@ -34,6 +35,8 @@ async function main() {
     source: `${slug}.json`,
   });
   console.log(`✓ ${topic.questions.length} questions uploaded (${values.draft ? "draft" : "published"}); ${r.examNote}`);
+  // re-uploaded questions keep their lessons
+  if (topic.lessons && !values.draft) console.log(`  lessons: ${await pushLessons(serviceClient(), slug, topic, info.title, Math.min(...info.refs.map((x) => Number(x.slice(0, 2)))))}`);
 }
 
 main().catch((e) => {

@@ -14,6 +14,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress";
 import { LoCode } from "@/components/lo-code";
 import { Alert } from "@/components/ui/alert";
+import { TopicLessons } from "@/components/topic-lessons";
+import { getMyTopicPoints, getTopicLessons } from "@/lib/lessons";
 
 export async function generateMetadata({ params }: PageProps<"/learn/[topic]">): Promise<Metadata> {
   const topic = await getTopicBySlug((await params).topic);
@@ -30,7 +32,7 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
     isStudent ? getMasteryMap(supabase, profile.id) : Promise.resolve(new Map<string, number>()),
     supabase.from("questions").select("id", { count: "exact", head: true }).eq("topic_id", topic.id).eq("status", "published").eq("practice_enabled", true),
     supabase.from("theory_packs").select("id, theory_sections(id)").eq("topic_id", topic.id).eq("status", "published").maybeSingle(),
-    supabase.from("exams").select("id, duration_minutes").eq("topic_id", topic.id).eq("kind", "topic").eq("status", "published").limit(1).maybeSingle(),
+    supabase.from("exams").select("id, duration_minutes").eq("topic_id", topic.id).eq("kind", "topic").eq("status", "published").is("lesson_no", null).limit(1).maybeSingle(),
   ]);
   const loIds = topic.objectives.map((o) => o.id);
   const attempted = loIds.some((id) => mastery.has(id));
@@ -39,6 +41,14 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
   const sections = (pack as { theory_sections: { id: string }[] } | null)?.theory_sections.length ?? 0;
   const base = `/learn/${topic.slug}`;
   const school = placementsFor(topic.school, await getSchoolTree(), profile);
+  const lessons = await getTopicLessons(topic.id);
+  const [{ data: lessonExams }, lessonPoints] = lessons.length
+    ? await Promise.all([
+        supabase.from("exams").select("id, lesson_no").eq("topic_id", topic.id).not("lesson_no", "is", null).eq("status", "published").is("archived_at", null),
+        isStudent ? getMyTopicPoints(supabase, profile, topic.id) : Promise.resolve(new Map()),
+      ])
+    : [{ data: [] }, new Map()];
+  const lessonExamIds = new Map(((lessonExams ?? []) as { id: string; lesson_no: number }[]).map((e) => [e.lesson_no, e.id]));
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
@@ -63,6 +73,8 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
             })}
           </CardBody>
         </Card>
+
+        <TopicLessons slug={topic.slug} lessons={lessons} examIds={lessonExamIds} points={lessonPoints} isStudent={isStudent} />
 
         <div className="grid gap-4 sm:grid-cols-3">
           <Link href={`${base}/theory`} className="rounded-xl border border-border bg-surface p-4 hover:bg-surface-2">

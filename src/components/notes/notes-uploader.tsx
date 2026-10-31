@@ -29,7 +29,7 @@ async function downscale(file: File): Promise<Blob> {
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("no blob"))), "image/jpeg", JPEG_QUALITY));
 }
 
-export function NotesUploader({ slug, maxPhotos, remaining }: { slug: string; maxPhotos: number; remaining: number }) {
+export function NotesUploader({ slug, lesson = null, maxPhotos, remaining }: { slug: string; lesson?: number | null; maxPhotos: number; remaining: number }) {
   const router = useRouter();
   const input = useRef<HTMLInputElement>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -77,13 +77,13 @@ export function NotesUploader({ slug, maxPhotos, remaining }: { slug: string; ma
     const data = new FormData();
     photos.forEach((p, i) => data.append("photos", new File([p.blob], `page-${i + 1}.jpg`, { type: "image/jpeg" })));
     startTransition(async () => {
-      const res = await submitNotes(slug, data);
+      const res = await submitNotes(slug, lesson, data);
       if (!res.ok) {
         setError(res.error);
         return;
       }
       setPhotos([]);
-      router.push(`/learn/${slug}/notes?check=${res.id}`);
+      router.push(`/learn/${slug}/notes?${lesson ? `lesson=${lesson}&` : ""}check=${res.id}`);
       router.refresh();
     });
   };

@@ -15,21 +15,25 @@ export function AssignmentForm({
   defaultExam,
   defaultType,
   defaultTopic,
+  defaultLesson,
 }: {
   classes: Option[];
   students: Option[];
   exams: (Option & { kind: string })[];
-  topics: Option[];
+  topics: (Option & { lessons?: { number: number; title: string }[] })[];
   defaultClass?: string;
   defaultExam?: string;
   defaultType?: string;
   defaultTopic?: string;
+  defaultLesson?: string;
 }) {
   const initialType = defaultType === "topic"
     ? "topic"
     : defaultExam ? (exams.find((e) => e.id === defaultExam)?.kind === "mock" ? "mock_exam" : "topic_exam") : "topic_exam";
   const [type, setType] = useState(initialType);
   const [mode, setMode] = useState("warn");
+  const [topicId, setTopicId] = useState(defaultTopic ?? "");
+  const lessons = topics.find((t) => t.id === topicId)?.lessons ?? [];
   const tz = useMemo(() => new Date().getTimezoneOffset(), []);
   const examOptions = exams.filter((e) => (type === "mock_exam" ? e.kind === "mock" : type === "topic_exam" ? e.kind !== "mock" : true));
   const needsExam = type === "topic_exam" || type === "mock_exam";
@@ -72,11 +76,21 @@ export function AssignmentForm({
       ) : null}
       {!needsExam && (
         <Field label="Topic" htmlFor="topic_id">
-          <Select id="topic_id" name="topic_id" defaultValue={defaultTopic ?? ""} required={isTopic}>
+          <Select id="topic_id" name="topic_id" value={topicId} onChange={(e) => setTopicId(e.target.value)} required={isTopic}>
             <option value="">Choose…</option>
             {topics.map((t) => (
-              <option key={t.id} value={t.id}>{t.label}</option>
+              <option key={t.id} value={t.id}>{t.label}{t.lessons?.length ? ` (${t.lessons.length} lesson${t.lessons.length === 1 ? "" : "s"})` : ""}</option>
             ))}
+          </Select>
+        </Field>
+      )}
+      {isTopic && lessons.length > 0 && (
+        <Field label="Lesson" htmlFor="lesson_no" hint="One lesson: its part of the theory, its practice, notes check and lesson test. Its points count towards the unit's SAU.">
+          <Select id="lesson_no" name="lesson_no" defaultValue={defaultLesson ?? "1"}>
+            {lessons.map((l) => (
+              <option key={l.number} value={l.number}>Lesson {l.number}: {l.title}</option>
+            ))}
+            <option value="">The whole topic</option>
           </Select>
         </Field>
       )}

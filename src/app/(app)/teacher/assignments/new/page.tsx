@@ -18,7 +18,7 @@ export default async function NewAssignmentPage({ searchParams }: PageProps<"/te
     getTeacherClasses(supabase, profile),
     getVisibleStudents(supabase),
     supabase.from("exams").select("id, title, kind, year, duration_minutes").in("status", ["published", "scheduled"]).is("archived_at", null).not("current_version_id", "is", null).order("kind").order("title"),
-    supabase.from("topics").select("id, title, slug").eq("curriculum_version_id", version?.id ?? "").eq("status", "published").order("sort_order"),
+    supabase.from("topics").select("id, title, slug, topic_lessons(number, title)").eq("curriculum_version_id", version?.id ?? "").eq("status", "published").order("sort_order"),
   ]);
   return (
     <div className="mx-auto max-w-3xl">
@@ -33,7 +33,12 @@ export default async function NewAssignmentPage({ searchParams }: PageProps<"/te
             classes={classes.map((c) => ({ id: c.id, label: `${c.name} (${c.member_count})` }))}
             students={students.map((s) => ({ id: s.id, label: `${displayName(s)} · ${s.username}` }))}
             exams={(exams ?? []).map((e) => ({ id: e.id, kind: e.kind, label: `${e.kind === "mock" ? `Mock ${e.year ?? ""} · ` : ""}${e.title} (${e.duration_minutes} min)` }))}
-            topics={(topics ?? []).map((t) => ({ id: t.id, label: t.title }))}
+            topics={(topics ?? []).map((t) => ({
+              id: t.id,
+              label: t.title,
+              lessons: ((t.topic_lessons ?? []) as { number: number; title: string }[]).sort((a, b) => a.number - b.number),
+            }))}
+            defaultLesson={typeof sp.lesson === "string" ? sp.lesson : undefined}
             defaultClass={typeof sp.class === "string" ? sp.class : undefined}
             defaultExam={typeof sp.exam === "string" ? sp.exam : undefined}
             defaultType={typeof sp.type === "string" ? sp.type : undefined}
