@@ -18,6 +18,27 @@ Data and computer systems are at risk from **people** (hackers, thieves, careles
 | Accidental deletion | **Backup**, access rights, version history |
 :::
 
+## What we are protecting: confidentiality, integrity, availability
+
+:::cards
+### Confidentiality
+Only **authorised** people can **read** the data. Broken when a hacker reads pupils' marks or a laptop with customers' data is stolen. Protected by **access rights, passwords, encryption**.
+### Integrity
+The data is **correct and complete** and is changed only by authorised people. Broken when a virus corrupts files or a pupil changes marks. Protected by **access rights, validation, anti-virus, backups**.
+### Availability
+The data and the system can be **used when they are needed**. Broken by a power cut, a failed disk or ransomware. Protected by **UPS, disk mirroring, backups**.
+:::
+
+:::example Layers of protection for a school server
+1. **Physical:** the server is in a locked, air-conditioned room with a UPS.
+2. **Network:** a firewall between the school network and the Internet.
+3. **Access:** every user has their own account, a strong password and only the rights they need.
+4. **Data:** sensitive data is encrypted; anti-virus scans every file.
+5. **Recovery:** disks are mirrored and a backup is made every night and kept off-site.
+
+If one layer fails — for example a teacher's password is stolen — the other layers still protect the data.
+:::
+
 # Protection against physical risks
 @lo 12.1.2.1
 
@@ -35,6 +56,17 @@ Data and computer systems are at risk from **people** (hackers, thieves, careles
 
 :::definition Uninterruptible power supply (UPS)
 A device with a **battery** that keeps computers running for a short time when the mains power fails, so that work can be **saved** and the system **shut down safely** (or a generator started).
+:::
+
+:::steps What happens in a power cut
+- The mains power fails — the **UPS battery** takes over at once, so the server does not switch off.
+- The UPS tells the server that it is running on battery.
+- Users have a few minutes to **save** their work; the server **shuts down safely** if the power does not return (or a **generator** starts).
+- Without a UPS, files being written could be **corrupted** and unsaved work **lost**.
+:::
+
+:::definition Surge protector
+A device that stops a sudden **spike in voltage** (for example from lightning) from reaching and damaging the computer. Unlike a UPS, it does **not** keep the computer running when the power fails.
 :::
 
 # Firewalls (inter-network screens)
@@ -62,6 +94,28 @@ flowchart TB
 - Cannot stop malware that arrives through **allowed** channels (e-mail attachments, USB sticks).
 - Does not protect against **insiders** already inside the network.
 - Must be **configured correctly** — bad rules either block useful traffic or let attacks through.
+:::
+
+## Types of firewall
+
+:::compare Hardware and software firewalls
+| | Hardware (network) firewall | Software (personal / host) firewall |
+|---|---|---|
+| Where | A separate device (often in the router) between the network and the Internet | A program on each computer, e.g. Windows Defender Firewall |
+| Protects | **The whole network** | **One computer** |
+| Can control | Traffic in and out of the network | Which **programs** on that computer may use the network |
+| Typical user | Schools, companies | Home users, laptops used on public Wi-Fi |
+:::
+
+:::example Firewall rules for a school web server
+| Rule | Port / service | Source | Action |
+|---|---|---|---|
+| 1 | 443 (HTTPS — the school website) | Any | **Allow** |
+| 2 | 22 (SSH — remote administration) | Only the IT office's IP address | **Allow** |
+| 3 | 3306 (MySQL database) | Any address outside the school | **Block** |
+| 4 | Everything else | Any | **Block** |
+
+A visitor opening the website is allowed (rule 1). A hacker trying to log in to the database from outside is blocked (rule 3). The last rule blocks everything that is not allowed — "deny by default".
 :::
 
 # Encryption
@@ -101,11 +155,58 @@ flowchart TB
 - ✘ Takes processing time; does not stop deletion or ransomware.
 :::
 
+## A simple cipher: the Caesar cipher
+
+:::example Shift each letter 3 places forward
+| Plain | A | B | C | … | X | Y | Z |
+|---|---|---|---|---|---|---|---|
+| Cipher | D | E | F | … | A | B | C |
+
+`CAT` → `FDW`; `HELLO` → `KHOOR`. The **algorithm** is "shift the letters"; the **key** is **3**. To decrypt, shift back by 3. With only 25 possible keys it is broken in seconds by trying all of them (**brute force**) — real encryption uses keys with billions of billions of possibilities.
+:::
+
+:::steps How HTTPS uses both kinds of encryption
+- The browser connects to `https://` and receives the website's **public key** (in its digital certificate).
+- The browser creates a **session key** and sends it **encrypted with the public key** — only the website's **private key** can decrypt it (**asymmetric**).
+- From then on, all data is encrypted with the fast **symmetric** session key.
+- Result: the key is shared safely **and** the data travels quickly.
+:::
+
+# Exam practice: threats, firewalls and encryption
+@lo 12.1.2.1
+
+:::example Exam-style answers
+**Q: State one threat that a firewall cannot protect against. [1]**
+Malware in an e-mail attachment or on a USB stick / an insider already in the network / weak passwords.
+
+**Q: Explain how encryption protects pupils' marks if a teacher's laptop is stolen. [2]**
+The data is stored as **ciphertext** (1); the thief cannot read it without the **key / password** (1).
+
+**Q: Explain why a server is connected to a UPS. [2]**
+If the power fails, the UPS **battery keeps the server running** (1) so data can be saved and the server **shut down safely** — no corruption or data loss (1).
+:::
+
 # Biometrics
 @lo 12.1.2.1
 
 :::definition Biometrics
 Authentication using **unique physical or behavioural characteristics** of a person, which are compared with a stored **template**. Examples: **fingerprint**, **face recognition**, **iris / retina scan**, **voice recognition**, **hand geometry**, **signature dynamics**.
+:::
+
+:::steps How biometric authentication works
+- **Enrolment:** the user's fingerprint (face, iris…) is scanned several times; the important features are turned into a **template** and stored — the image itself is usually not kept.
+- **Log-in:** a new scan is made and turned into features in the same way.
+- **Matching:** the new features are **compared** with the template and a **similarity score** is calculated.
+- **Decision:** if the score is above a **threshold**, access is allowed; otherwise it is refused.
+:::
+
+:::compare False rejection and false acceptance
+| | False rejection | False acceptance |
+|---|---|---|
+| What happens | An **authorised** user is **refused** | An **unauthorised** person is **let in** |
+| Example | Your phone does not recognise your wet finger | Someone else's face unlocks your phone |
+| Result | Annoying — the user tries again | **Dangerous** — a security breach |
+| If the threshold is made **stricter** | Happens **more** often | Happens **less** often |
 :::
 
 :::compare Biometric methods
@@ -134,11 +235,33 @@ Authentication using **unique physical or behavioural characteristics** of a per
 Combining **two different types** of evidence — something you **know** (password), something you **have** (phone, card) and something you **are** (biometric) — makes unauthorised access much harder. Example: a password plus a code sent to your phone.
 :::
 
+:::compare The three authentication factors
+| Factor | Examples | Weakness on its own |
+|---|---|---|
+| Something you **know** | Password, PIN, answer to a security question | Can be guessed, stolen by phishing, forgotten |
+| Something you **have** | Phone (SMS code, app), bank card, key card, USB token | Can be lost or stolen |
+| Something you **are** | Fingerprint, face, iris, voice | False acceptance / rejection; cannot be changed if leaked |
+:::
+
+:::warning Two passwords are not two factors
+A password **and** a PIN are both "something you know" — this is **not** two-factor authentication. 2FA needs factors of **different types**.
+:::
+
 # Computer virus countermeasures
 @lo 12.1.2.1
 
 :::definition Anti-virus software
 A utility program that **scans** files, e-mails, downloads and memory to **detect, quarantine and remove malware** (viruses, worms, Trojans, spyware, ransomware).
+:::
+
+:::compare Malware and how it spreads
+| Type | What it does | How it usually spreads |
+|---|---|---|
+| **Virus** | Attaches itself to files or programs and damages data | Runs when the infected file is opened; USB drives, e-mail |
+| **Worm** | Copies itself across a network by itself | Network security holes — no user action needed |
+| **Trojan** | Pretends to be useful software but harms the computer | The user downloads and installs it |
+| **Spyware** | Secretly records keystrokes, passwords, activity | Bundled with free software, Trojans |
+| **Ransomware** | Encrypts files and demands payment | Phishing e-mails, security holes |
 :::
 
 :::steps How anti-virus software works
@@ -160,6 +283,38 @@ A utility program that **scans** files, e-mails, downloads and memory to **detec
 | **User training** | People recognise phishing and suspicious files |
 :::
 
+
+:::compare Signature-based vs heuristic detection
+| | Signature-based | Heuristic / behaviour-based |
+|---|---|---|
+| How | Compares files with a database of **known** malware signatures | Looks for **suspicious code or behaviour** |
+| Detects new malware? | **No** — only malware already in the database | **Yes** — can catch new ("zero-day") malware |
+| False alarms | Very few | More — a normal program may look suspicious |
+| Needs | **Regular updates** of the signature database | Good rules; more processing |
+:::
+
+:::steps What to do if a computer is infected
+- **Disconnect** it from the network so the malware cannot spread.
+- Run a **full scan** with updated anti-virus software; **quarantine / delete** infected files.
+- **Change passwords** that may have been stolen (from a clean computer).
+- **Restore** damaged files from a clean **backup**.
+- Find out **how** it got in (attachment, USB, missing update) and fix the cause.
+:::
+
+# Exam practice: biometrics and malware
+@lo 12.1.2.1
+
+:::example Exam-style answers
+**Q: State two biometric methods. [2]**
+Any two: fingerprint, face recognition, iris / retina scan, voice recognition, hand geometry.
+
+**Q: Explain how two-factor authentication improves security. [2]**
+The user must give **two different types** of evidence, e.g. a password **and** a code sent to their phone (1); a criminal who steals the password still **cannot log in without the phone** (1).
+
+**Q: Explain how anti-virus software can detect a new virus that is not in its signature database. [2]**
+**Heuristic / behaviour analysis** (1): it watches for suspicious actions, such as a program changing many system files, and blocks it (1).
+:::
+
 # Data backup
 @lo 12.1.2.2
 
@@ -175,6 +330,17 @@ A **copy of data** stored on a **separate medium**, preferably in a **different 
 | **Differential** | Data changed **since the last full** backup | Medium | Full backup **plus the latest** differential |
 :::
 
+:::example Restoring after a failure on Thursday morning
+A full backup is made on **Sunday** night; from Monday to Wednesday a backup is made every night. The disk fails on **Thursday** morning.
+
+| Method used Mon–Wed | Backups needed to restore |
+|---|---|
+| **Incremental** | Sunday full **+ Monday + Tuesday + Wednesday** incrementals (all of them, in order) |
+| **Differential** | Sunday full **+ Wednesday** differential only |
+
+Work done on Thursday before the failure is **lost** in both cases — it was never backed up.
+:::
+
 :::cards
 ### A good backup strategy
 - Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.
@@ -187,6 +353,22 @@ A **copy of data** stored on a **separate medium**, preferably in a **different 
 - Magnetic **tape** (cheap for very large amounts, used by companies).
 - **Cloud storage** — off-site automatically; needs an Internet connection.
 - Network-attached storage (NAS).
+:::
+
+:::compare Cloud backup
+| Advantages | Disadvantages |
+|---|---|
+| **Off-site automatically** — safe from fire or theft at school | Needs a fast, reliable **Internet connection** |
+| No hardware to buy or look after | **Monthly cost** that grows with the amount of data |
+| Can be restored from anywhere | Data is held by **another company** — privacy and law (where are the servers?) |
+| Usually keeps **old versions** of files | Restoring a lot of data can be **slow** |
+:::
+
+:::example A backup plan for a small shop
+- **Every night at 23:00**: incremental backup of the sales database to a NAS in the office.
+- **Every Sunday**: full backup to the NAS **and** to cloud storage (the off-site copy).
+- **Once a month**: test that a file can really be restored.
+- The NAS is not shared with ordinary users, so ransomware on a till computer cannot reach it.
 :::
 
 # Disk mirroring (RAID 1)
@@ -221,6 +403,20 @@ Data is written to **two (or more) disks at the same time**, so that every disk 
 
 :::warning Mirroring is not a backup
 If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. Organisations therefore use **both**: mirroring for **availability** and backups for **recovery**.
+:::
+
+## Other RAID levels
+
+:::compare RAID levels you may meet
+| Level | How it works | If one disk fails |
+|---|---|---|
+| **RAID 0** (striping) | Data is split across disks for **speed** | **All data is lost** — no protection |
+| **RAID 1** (mirroring) | Every disk holds an identical copy | Work continues from the other disk |
+| **RAID 5** (striping with parity) | Data and **parity** information are spread over 3 or more disks | The lost disk's data is **rebuilt** from the others |
+:::
+
+:::callout info Hot-swapping
+In servers the failed disk can often be **replaced while the system keeps running** (hot-swap); the RAID controller then copies the data onto the new disk.
 :::
 
 # Exam practice and summary
