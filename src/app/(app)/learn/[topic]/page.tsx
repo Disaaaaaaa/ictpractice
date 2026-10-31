@@ -15,14 +15,14 @@ import { ProgressBar } from "@/components/ui/progress";
 import { LoCode } from "@/components/lo-code";
 import { Alert } from "@/components/ui/alert";
 import { TopicLessons } from "@/components/topic-lessons";
-import { getMyTopicPoints, getTopicLessons } from "@/lib/lessons";
+import { getMyTopicPoints, getTopicLessons, lessonParam } from "@/lib/lessons";
 
 export async function generateMetadata({ params }: PageProps<"/learn/[topic]">): Promise<Metadata> {
   const topic = await getTopicBySlug((await params).topic);
   return { title: topic?.title ?? "Topic" };
 }
 
-export default async function TopicOverview({ params }: PageProps<"/learn/[topic]">) {
+export default async function TopicOverview({ params, searchParams }: PageProps<"/learn/[topic]">) {
   const profile = await requireProfile();
   const topic = await getTopicBySlug((await params).topic);
   if (!topic) notFound();
@@ -42,6 +42,8 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
   const base = `/learn/${topic.slug}`;
   const school = placementsFor(topic.school, await getSchoolTree(), profile);
   const lessons = await getTopicLessons(topic.id);
+  // a lesson opened from Learn & Practice: show just that lesson
+  const openLesson = lessonParam(lessons, (await searchParams).lesson);
   const [{ data: lessonExams }, lessonPoints] = lessons.length
     ? await Promise.all([
         supabase.from("exams").select("id, lesson_no").eq("topic_id", topic.id).not("lesson_no", "is", null).eq("status", "published").is("archived_at", null),
@@ -74,7 +76,7 @@ export default async function TopicOverview({ params }: PageProps<"/learn/[topic
           </CardBody>
         </Card>
 
-        <TopicLessons slug={topic.slug} lessons={lessons} examIds={lessonExamIds} points={lessonPoints} isStudent={isStudent} />
+        <TopicLessons slug={topic.slug} lessons={openLesson ? lessons.filter((l) => l.number === openLesson) : lessons} total={lessons.length} examIds={lessonExamIds} points={lessonPoints} isStudent={isStudent} />
 
         <div className="grid gap-4 sm:grid-cols-3">
           <Link href={`${base}/theory`} className="rounded-xl border border-border bg-surface p-4 hover:bg-surface-2">

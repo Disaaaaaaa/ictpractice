@@ -14,10 +14,11 @@ import type { Attempt } from "@/lib/db-types";
 
 export const metadata: Metadata = { title: "Exam Mode" };
 
-export default async function TopicExamPage({ params }: PageProps<"/learn/[topic]/exam">) {
+export default async function TopicExamPage({ params, searchParams }: PageProps<"/learn/[topic]/exam">) {
   const profile = await requireProfile();
   const topic = await getTopicBySlug((await params).topic);
   if (!topic) notFound();
+  const sp = await searchParams;
   const supabase = await createClient();
   const { data: exams } = await supabase
     .from("exams")
@@ -33,7 +34,13 @@ export default async function TopicExamPage({ params }: PageProps<"/learn/[topic
     duration_minutes: number;
     lesson_no: number | null;
     exam_versions: { id: string; question_count: number; total_marks: number }[];
-  }[]).sort((a, b) => (a.lesson_no ?? 99) - (b.lesson_no ?? 99));
+  }[])
+    .sort((a, b) => (a.lesson_no ?? 99) - (b.lesson_no ?? 99))
+    // a lesson opened from Learn & Practice: only its test
+    .filter((e, _, all) => {
+      const n = Number((sp.lesson as string | undefined) ?? NaN);
+      return !all.some((x) => x.lesson_no === n) || e.lesson_no === n;
+    });
   const { data: attempts } = await supabase
     .from("attempts")
     .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")

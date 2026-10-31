@@ -10,6 +10,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ProgressBar } from "@/components/ui/progress";
 import { CurriculumViewToggle } from "@/components/view-toggle";
 import { TopicRow } from "@/components/topic-card";
+import { getLessonRows, getStudentClass, lessonKey, scoreLesson, type LessonScore } from "@/lib/lessons";
+import { masteryStatus } from "@/lib/mastery";
 import { formatPercent } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
@@ -35,6 +37,30 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
     tree.find((g) => g.grade === profile.grade && g.forStudentGrade === null) ??
     tree.find((g) => g.grade === profile.grade) ??
     tree[0];
+
+  // Topics taught in several lessons are listed lesson by lesson ("Topic: Lesson 1").
+  const topicIds = (current?.terms ?? []).flatMap((t) => t.units.flatMap((u) => u.topics.map((x) => x.id)));
+  const { data: lessonRows } = await supabase
+    .from("topic_lessons")
+    .select("topic_id, number, title")
+    .in("topic_id", topicIds.concat("00000000-0000-0000-0000-000000000000"))
+    .order("number");
+  const lessonsOf = new Map<string, { number: number; title: string }[]>();
+  for (const l of (lessonRows ?? []) as { topic_id: string; number: number; title: string }[]) {
+    lessonsOf.set(l.topic_id, [...(lessonsOf.get(l.topic_id) ?? []), { number: l.number, title: l.title }]);
+  }
+  // a lesson is 2 hours: a topic split into lessons takes 2 h per lesson
+  const hoursOf = (t: { id: string; hours: number | null }) => (lessonsOf.get(t.id)?.length ? lessonsOf.get(t.id)!.length * 2 : t.hours);
+  // a student's points for each lesson, in their class
+  const lessonPoints = new Map<string, LessonScore>();
+  if (isStudent && lessonsOf.size) {
+    const classId = await getStudentClass(supabase, profile.id, profile.grade);
+    const units = (current?.terms ?? []).flatMap((t) => t.units).filter((u) => u.topics.some((x) => lessonsOf.has(x.id)));
+    if (classId) {
+      const rows = (await Promise.all(units.map((u) => getLessonRows(supabase, classId, u.id)))).flat();
+      for (const r of rows) if (r.student_id === profile.id) lessonPoints.set(lessonKey(r.topic_id, r.lesson_no), scoreLesson(r));
+    }
+  }
 
   return (
     <>
@@ -89,8 +115,8 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
                         <h3 id={`unit-${unit.id}`} className="mb-2 text-sm font-semibold">
                           <span className="mr-2 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs text-muted">{unit.code}</span>
                           {unit.title}
-                          {!isStudent && unit.topics.some((t) => t.hours) && (
-                            <span className="ml-2 text-xs font-normal text-muted">{unit.topics.reduce((h, t) => h + (t.hours ?? 0), 0)} h</span>
+                          {!isStudent && unit.topics.some((t) => hoursOf(t)) && (
+                            <span className="ml-2 text-xs font-normal text-muted">{unit.topics.reduce((h, t) => h + (hoursOf(t) ?? 0), 0)} h</span>
                           )}
                         </h3>
                         {unit.topics.length === 0 ? (
@@ -101,13 +127,33 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
                           <div className="grid gap-2">
                             {unit.topics.map((t) => {
                               const p = progress.get(t.id);
+                              const lessons = lessonsOf.get(t.id) ?? [];
+                              if (lessons.length > 1) {
+                                return lessons.map((l) => {
+                                  const x = lessonPoints.get(lessonKey(t.id, l.number));
+                                  const pct = x && x.max ? (x.total / x.max) * 100 : null;
+                                  return (
+                                    <TopicRow
+                                      key={`${t.id}-${l.number}`}
+                                      slug={t.slug}
+                                      href={`/learn/${t.slug}?lesson=${l.number}`}
+                                      title={`${t.title}: Lesson ${l.number}`}
+                                      meta={[l.title, x ? `${x.total} / ${x.max} points` : null].filter(Boolean).join(" · ")}
+                                      hours={isStudent ? undefined : 2}
+                                      mastery={pct}
+                                      status={masteryStatus(pct, Boolean(x && x.total > 0))}
+                                      showProgress={isStudent}
+                                    />
+                                  );
+                                });
+                              }
                               return (
                                 <TopicRow
                                   key={t.id}
                                   slug={t.slug}
                                   title={t.title}
                                   meta={[t.lessons && `Lessons ${t.lessons}`, t.period].filter(Boolean).join(" · ")}
-                                  hours={isStudent ? undefined : t.hours}
+                                  hours={isStudent ? undefined : hoursOf(t)}
                                   mastery={p?.mastery ?? null}
                                   status={p?.status ?? "Not Started"}
                                   showProgress={isStudent}

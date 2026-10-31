@@ -133,7 +133,7 @@ This table has **3 records** (rows) and **4 fields** (columns). The **field valu
 - Each table stores data about **one entity** only (pupils **or** books, not both).
 - Each **field** holds **one** item of data (not two phone numbers in one field).
 - Every record has the **same fields**, in the same order.
-- Every record can be **identified uniquely** (by the primary key — Lesson 2).
+- Every record can be **identified uniquely** (by the primary key — see below).
 - Field names are **short, clear and without spaces**, e.g. `DateOfBirth`.
 :::
 
@@ -215,7 +215,7 @@ A library table has 2 000 000 loans and staff often search by `StudentID` → ad
 | Fields often used in `WHERE` or `ORDER BY`, e.g. `Surname` | Fields that **change very often** (every update rewrites the index) |
 :::
 
-# Lesson 1 — exam practice
+# Exam practice: databases, tables and indexes
 @lo 11.4.1.1 11.4.1.2
 
 :::example Exam-style answers
@@ -235,7 +235,7 @@ It stores the values of a field in **sorted order with pointers** to the records
 Uses **extra storage**, or makes **inserting / updating** records **slower**.
 :::
 
-:::warning Common mistakes in Lesson 1
+:::warning Common mistakes: databases, tables and indexes
 - Calling MySQL a **database** — it is a **DBMS**.
 - Counting the **field names** row as a record.
 - Storing numbers you calculate with (price, quantity) as **text**, or phone numbers as **integers**.

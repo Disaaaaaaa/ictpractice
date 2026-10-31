@@ -5,11 +5,15 @@ import { getSchoolTree, getTopicBySlug, placementsFor, planKey } from "@/lib/cur
 import { PageHeader } from "@/components/ui/page-header";
 import { Badge } from "@/components/ui/badge";
 import { LinkTabs } from "@/components/ui/tabs";
+import { LessonHeading } from "@/components/lesson-heading";
+import { getTopicLessons } from "@/lib/lessons";
+import { Suspense } from "react";
 
 export default async function TopicLayout({ children, params }: { children: ReactNode; params: Promise<{ topic: string }> }) {
   const { topic: slug } = await params;
   const [topic, profile, tree] = await Promise.all([getTopicBySlug(slug), requireProfile(), getSchoolTree()]);
   if (!topic) notFound();
+  const lessons = await getTopicLessons(topic.id);
   const school = placementsFor(topic.school, tree, profile)[0];
   const gradeHref = school ? `/learn?grade=${planKey(school.grade, school.forStudentGrade)}` : "";
   const base = `/learn/${topic.slug}`;
@@ -32,8 +36,13 @@ export default async function TopicLayout({ children, params }: { children: Reac
           </div>
         }
       />
+      <Suspense>
+        <LessonHeading lessons={lessons} />
+      </Suspense>
       <div className="mb-6">
+        <Suspense>
         <LinkTabs
+          keep={["lesson"]}
           exact={[base]}
           tabs={[
             { href: base, label: "Overview" },
@@ -44,6 +53,7 @@ export default async function TopicLayout({ children, params }: { children: Reac
             { href: `${base}/progress`, label: "Progress" },
           ]}
         />
+        </Suspense>
       </div>
       {children}
     </>

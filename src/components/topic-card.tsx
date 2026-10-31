@@ -6,6 +6,7 @@ import { formatPercent } from "@/lib/format";
 
 export function TopicRow({
   slug,
+  href,
   title,
   meta,
   mastery,
@@ -14,6 +15,8 @@ export function TopicRow({
   hours,
 }: {
   slug: string;
+  /** default: the topic page */
+  href?: string;
   title: string;
   meta?: string;
   mastery: number | null;
@@ -24,7 +27,7 @@ export function TopicRow({
 }) {
   return (
     <Link
-      href={`/learn/${slug}`}
+      href={href ?? `/learn/${slug}`}
       className="group flex items-center gap-4 rounded-lg border border-border bg-surface px-4 py-3 transition-colors hover:border-primary/40 hover:bg-surface-2"
     >
       <div className="min-w-0 flex-1">

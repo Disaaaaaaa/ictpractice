@@ -10,12 +10,15 @@ const fmt = (x: number) => (Number.isInteger(x) ? String(x) : x.toFixed(1));
 export function TopicLessons({
   slug,
   lessons,
+  total,
   examIds,
   points,
   isStudent,
 }: {
   slug: string;
   lessons: TopicLesson[];
+  /** lessons of the topic (when only one of them is shown) */
+  total?: number;
   /** lesson number → its test */
   examIds: Map<number, string>;
   points: Map<number, LessonScore & { deadline: string | null }>;
@@ -27,7 +30,7 @@ export function TopicLessons({
   return (
     <Card>
       <CardHeader
-        title={`Lessons (${lessons.length})`}
+        title={lessons.length === 1 && (total ?? 1) > 1 ? `Lesson ${lessons[0].number} of ${total}` : `Lessons (${lessons.length})`}
         description={`Each lesson: theory, practice (${LESSON_POINTS.practice} points), notes check (${LESSON_POINTS.notes}) and a short test (${LESSON_POINTS.exam}) — up to ${per} points towards the unit's SAU. Work done before the lesson's deadline counts.`}
       />
       <CardBody className="space-y-3">
