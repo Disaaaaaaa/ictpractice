@@ -26,7 +26,8 @@ export type NoteSubmission = {
   topic_id: string;
   lesson_no: number | null;
   image_paths: string[];
-  status: "CHECKED" | "UNREADABLE";
+  /** PENDING: handed in, waiting for the teacher's check (queue mode) */
+  status: "PENDING" | "CHECKED" | "UNREADABLE";
   percentage: number | null;
   result: NoteResult;
   created_at: string;
@@ -73,6 +74,66 @@ export async function getOrCreateRubric(admin: Admin, topic: { id: string; title
   return { points: built.points, hash };
 }
 
+/**
+ * "queue": notes wait for the teacher, who checks the whole class at once
+ * (no AI call); "ai": checked at once by the AI. system_settings.notes.mode.
+ */
+export async function getNotesMode(admin: Admin): Promise<"queue" | "ai"> {
+  const { data } = await admin.from("system_settings").select("value").eq("key", "notes").maybeSingle();
+  return (data?.value as { mode?: string } | null)?.mode === "ai" ? "ai" : "queue";
+}
+
+async function storePhotos(admin: Admin, studentId: string, id: string, photos: { bytes: Buffer; type: string }[]) {
+  const paths: string[] = [];
+  for (const [i, photo] of photos.entries()) {
+    const path = `${studentId}/${id}/${i + 1}.jpg`;
+    const { error } = await admin.storage.from("notes").upload(path, photo.bytes, { contentType: photo.type, upsert: false });
+    if (error) {
+      if (paths.length) await admin.storage.from("notes").remove(paths);
+      throw new NotesError("The photos could not be saved. Please try again.");
+    }
+    paths.push(path);
+  }
+  return paths;
+}
+
+/** Hands the notes in for the teacher's check (queue mode). */
+async function queueNotes(admin: Admin, p: { studentId: string; topic: { id: string }; lesson: number | null; photos: { bytes: Buffer; type: string }[] }) {
+  const contentHash = sha(...p.photos.map((x) => x.bytes));
+  const same = admin
+    .from("note_submissions")
+    .select("id")
+    .eq("student_id", p.studentId)
+    .eq("topic_id", p.topic.id)
+    .eq("content_hash", contentHash)
+    .order("created_at", { ascending: false })
+    .limit(1);
+  const { data: dup } = await (p.lesson ? same.eq("lesson_no", p.lesson) : same.is("lesson_no", null)).maybeSingle();
+  if (dup) return { id: dup.id as string, reused: true };
+  if ((await remainingChecks(admin, p.studentId, p.topic.id, p.lesson)) <= 0) {
+    throw new NotesError("You have reached today's limit for handing in notes. Try again tomorrow.");
+  }
+  const id = randomUUID();
+  const paths = await storePhotos(admin, p.studentId, id, p.photos);
+  const { error } = await admin.from("note_submissions").insert({
+    id,
+    student_id: p.studentId,
+    topic_id: p.topic.id,
+    lesson_no: p.lesson,
+    image_paths: paths,
+    content_hash: contentHash,
+    rubric_hash: "pending",
+    status: "PENDING",
+    percentage: null,
+    result: { points: [], errors: [], advice: [] },
+  });
+  if (error) {
+    await admin.storage.from("notes").remove(paths);
+    throw new NotesError("Your notes could not be handed in. Please try again.");
+  }
+  return { id, reused: false };
+}
+
 /** How many checks the student may still run today (per topic or lesson, and overall). */
 export async function remainingChecks(admin: Admin, studentId: string, topicId: string, lesson: number | null = null) {
   const since = new Date(Date.now() - 24 * 3600_000).toISOString();
@@ -95,6 +156,7 @@ export async function runNoteCheck(p: {
   photos: { bytes: Buffer; type: string }[];
 }): Promise<{ id: string; reused: boolean }> {
   const admin = createAdminClient();
+  if ((await getNotesMode(admin)) === "queue") return queueNotes(admin, p);
   const rubric = await getOrCreateRubric(admin, p.topic, p.lesson);
   const contentHash = sha(...p.photos.map((x) => x.bytes));
 
@@ -126,16 +188,7 @@ export async function runNoteCheck(p: {
 
   // Photos are kept so the teacher can look at what was checked.
   const id = randomUUID();
-  const paths: string[] = [];
-  for (const [i, photo] of p.photos.entries()) {
-    const path = `${p.studentId}/${id}/${i + 1}.jpg`;
-    const { error } = await admin.storage.from("notes").upload(path, photo.bytes, { contentType: photo.type, upsert: false });
-    if (error) {
-      if (paths.length) await admin.storage.from("notes").remove(paths);
-      throw new NotesError("The photos could not be saved. Please try again.");
-    }
-    paths.push(path);
-  }
+  const paths = await storePhotos(admin, p.studentId, id, p.photos);
   const { error } = await admin.from("note_submissions").insert({
     id,
     student_id: p.studentId,
@@ -150,6 +203,8 @@ export async function runNoteCheck(p: {
       ? scored.result
       : { points: [], errors: [], advice: [], reason: checked.check.readable ? "off_topic" : "unreadable" },
     model: checked.model,
+    checked_at: new Date().toISOString(),
+    checked_by: "ai",
     prompt_tokens: checked.usage.promptTokens,
     completion_tokens: checked.usage.completionTokens,
   });

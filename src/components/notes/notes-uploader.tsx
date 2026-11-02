@@ -29,7 +29,20 @@ async function downscale(file: File): Promise<Blob> {
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("no blob"))), "image/jpeg", JPEG_QUALITY));
 }
 
-export function NotesUploader({ slug, lesson = null, maxPhotos, remaining }: { slug: string; lesson?: number | null; maxPhotos: number; remaining: number }) {
+export function NotesUploader({
+  slug,
+  lesson = null,
+  maxPhotos,
+  remaining,
+  queue = false,
+}: {
+  slug: string;
+  lesson?: number | null;
+  maxPhotos: number;
+  remaining: number;
+  /** the teacher checks handed-in notes later (no instant AI check) */
+  queue?: boolean;
+}) {
   const router = useRouter();
   const input = useRef<HTMLInputElement>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -125,13 +138,19 @@ export function NotesUploader({ slug, lesson = null, maxPhotos, remaining }: { s
         </Button>
         <Button onClick={submit} disabled={disabled || preparing || photos.length === 0}>
           {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-          {pending ? "Checking your notes…" : "Check my notes"}
+          {pending ? (queue ? "Handing in…" : "Checking your notes…") : queue ? "Hand in for checking" : "Check my notes"}
         </Button>
         <span className="text-xs text-muted">
-          {remaining <= 0 ? "Daily limit reached — try again tomorrow." : `Up to ${maxPhotos} pages · ${remaining} check${remaining === 1 ? "" : "s"} left today`}
+          {remaining <= 0
+            ? "Daily limit reached — try again tomorrow."
+            : `Up to ${maxPhotos} pages · ${remaining} ${queue ? "hand-in" : "check"}${remaining === 1 ? "" : "s"} left today`}
         </span>
       </div>
-      {pending && <p className="text-sm text-muted" role="status">The AI is reading your handwriting. This usually takes 20–60 seconds — keep this page open.</p>}
+      {pending && (
+        <p className="text-sm text-muted" role="status">
+          {queue ? "Uploading your photos…" : "The AI is reading your handwriting. This usually takes 20–60 seconds — keep this page open."}
+        </p>
+      )}
     </div>
   );
 }

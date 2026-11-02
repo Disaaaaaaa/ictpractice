@@ -11,7 +11,7 @@ import type { RubricPoint, Verdict } from "./score";
 //  2. checkPhotos  — vision, once per submission: checklist + photos →
 //                    one letter per point. No theory, no prose, no score.
 
-export const NOTES_PROMPT_VERSION = "notes-v2";
+export { NOTES_PROMPT_VERSION } from "./score";
 
 type Effort = "minimal" | "low" | "medium" | "high";
 type Part = { type: "text"; text: string } | { type: "image_url"; image_url: { url: string; detail: "high" | "low" | "auto" } };

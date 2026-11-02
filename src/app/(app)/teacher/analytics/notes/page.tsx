@@ -63,7 +63,7 @@ export default async function NotesChecksPage({ searchParams }: PageProps<"/teac
     <>
       <PageHeader
         title="Analytics"
-        description="Notes checks: students photograph their handwritten notes and the AI checks them against the key points of the topic's theory. The result is a percentage of the key points covered."
+        description="Notes checks: students photograph their handwritten notes, which are checked against the key points of the topic's theory (in batches for the whole class). The result is a percentage of the key points covered."
       />
       <AnalyticsTabs />
       {students.length === 0 ? (
@@ -108,9 +108,11 @@ export default async function NotesChecksPage({ searchParams }: PageProps<"/teac
                       <Td><Link href={`/teacher/analytics/notes/${r.id}`} className="font-medium hover:underline">{names.get(r.student_id) ?? "Student"}</Link></Td>
                       <Td>{topics.get(r.topic_id) ?? "—"}</Td>
                       <Td>
-                        {r.percentage != null
-                          ? <Badge tone={percentTone(Number(r.percentage))}>{Math.round(Number(r.percentage))}%</Badge>
-                          : <Badge tone="warning">Not readable</Badge>}
+                        {r.status === "PENDING"
+                          ? <Badge tone="info">Waiting for check</Badge>
+                          : r.percentage != null
+                            ? <Badge tone={percentTone(Number(r.percentage))}>{Math.round(Number(r.percentage))}%</Badge>
+                            : <Badge tone="warning">Not readable</Badge>}
                       </Td>
                       <Td className="tabular-nums">{r.image_paths.length}</Td>
                       {view === "best" && <Td className="tabular-nums">{r.attempts}</Td>}

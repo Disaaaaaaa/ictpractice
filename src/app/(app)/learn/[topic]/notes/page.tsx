@@ -8,7 +8,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getTopicBySlug } from "@/lib/curriculum";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/cn";
-import { NOTE_LIMITS, remainingChecks, signedPhotoUrls, type NoteSubmission } from "@/lib/notes/service";
+import { NOTE_LIMITS, getNotesMode, remainingChecks, signedPhotoUrls, type NoteSubmission } from "@/lib/notes/service";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { NotesUploader } from "@/components/notes/notes-uploader";
@@ -36,10 +36,12 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
     .eq("topic_id", topic.id)
     .order("created_at", { ascending: false })
     .limit(30);
-  const [{ data }, remaining] = await Promise.all([
+  const [{ data }, remaining, mode] = await Promise.all([
     lesson ? notesQuery.eq("lesson_no", lesson) : notesQuery,
     remainingChecks(createAdminClient(), profile.id, topic.id, lesson),
+    getNotesMode(createAdminClient()),
   ]);
+  const queue = mode === "queue";
   const history = (data ?? []) as NoteSubmission[];
   const shown = history.find((h) => h.id === sp.check) ?? history[0];
   const photoUrls = shown ? await signedPhotoUrls(shown.image_paths) : [];
@@ -53,16 +55,16 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
       <Card>
         <CardHeader
           title={lesson ? `Check your notes · Lesson ${lesson}: ${lessonTitle}` : "Check your notes"}
-          description={lesson ? "Write your own notes on this lesson's theory by hand, photograph the pages and let the AI check that you covered every key point. Your best check before the deadline gives up to 2 SAU points." : "Write your own notes on this topic by hand, photograph the pages and let the AI check that you covered every key point of the theory."}
+          description={`Write your own notes on this ${lesson ? "lesson's theory" : "topic"} by hand and photograph the pages; ${queue ? "your teacher checks" : "the AI checks"} that you covered every key point.${lesson ? " Your best result for notes handed in before the deadline gives up to 2 SAU points." : ""}`}
           action={best != null ? <Badge tone={percentTone(best)}>Best: {Math.round(best)}%</Badge> : undefined}
         />
         <CardBody className="space-y-5">
           <ol className="grid gap-3 text-sm sm:grid-cols-3">
             <li className="flex gap-2"><Camera className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> Photograph each page straight from above, in good light, with the whole page in the frame.</li>
-            <li className="flex gap-2"><Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> The AI compares your notes with the key points of the topic and gives a percentage.</li>
+            <li className="flex gap-2"><Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> {queue ? "Hand them in. Your teacher checks the notes of the whole class against the key points and gives a percentage." : "The AI compares your notes with the key points of the topic and gives a percentage."}</li>
             <li className="flex gap-2"><ListChecks className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> You see what is missing, add it to your notebook and check again.</li>
           </ol>
-          <NotesUploader slug={topic.slug} lesson={lesson} maxPhotos={NOTE_LIMITS.maxPhotos} remaining={remaining} />
+          <NotesUploader slug={topic.slug} lesson={lesson} queue={queue} maxPhotos={NOTE_LIMITS.maxPhotos} remaining={remaining} />
         </CardBody>
       </Card>
 
@@ -78,7 +80,9 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
                   <Link href={`${base}?${lesson ? `lesson=${lesson}&` : ""}check=${h.id}`} className={cn("flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-surface-2", h.id === shown?.id && "bg-surface-2")}>
                     <span className="flex-1">{formatDate(h.created_at)}</span>
                     <span className="text-xs text-muted">{h.image_paths.length} page{h.image_paths.length === 1 ? "" : "s"}</span>
-                    {h.percentage != null ? (
+                    {h.status === "PENDING" ? (
+                      <Badge tone="info">Waiting</Badge>
+                    ) : h.percentage != null ? (
                       <Badge tone={percentTone(Number(h.percentage))}>{Math.round(Number(h.percentage))}%</Badge>
                     ) : (
                       <Badge tone="warning">Not readable</Badge>

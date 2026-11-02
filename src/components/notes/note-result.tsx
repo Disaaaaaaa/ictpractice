@@ -43,6 +43,26 @@ export function NoteResultView({
   const mine = audience === "student";
   const counts = (st: PointStatus) => r.points.filter((p) => p.status === st).length;
 
+  if (s.status === "PENDING") {
+    return (
+      <Card>
+        <CardHeader
+          title={mine ? "Handed in — waiting for your teacher's check" : "Waiting for the teacher's check"}
+          description={`${topicTitle ? `${topicTitle} · ` : ""}${formatDate(s.created_at)}`}
+          action={<Badge tone="info">Waiting</Badge>}
+        />
+        <CardBody className="space-y-4">
+          <p className="text-sm text-muted">
+            {mine
+              ? "Your teacher checks the notes of the whole class together. Your percentage and advice on what to add will appear here, and you will get a notification. Your notes count as handed in now, so the deadline is met."
+              : "These notes are in the queue for the class check."}
+          </p>
+          <Photos urls={photoUrls} />
+        </CardBody>
+      </Card>
+    );
+  }
+
   if (s.status === "UNREADABLE") {
     return (
       <Card>
@@ -51,7 +71,7 @@ export function NoteResultView({
           <Alert tone="warning">
             {r.reason === "off_topic"
               ? mine ? "These notes do not seem to be about this topic. Check that you opened the right topic and photographed the right pages." : "The photos do not seem to be notes on this topic."
-              : mine ? "The AI could not read the photos. Take them again in good light, straight from above, with the whole page in the frame." : "The AI could not read the photos."}
+              : mine ? "The photos could not be read. Take them again in good light, straight from above, with the whole page in the frame." : "The photos could not be read."}
           </Alert>
           <Photos urls={photoUrls} />
         </CardBody>

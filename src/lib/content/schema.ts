@@ -264,6 +264,12 @@ export const authoredTopicSchema = z.object({
     )
     .max(20)
     .optional(),
+  /**
+   * Practice questions kept out of every lesson: shown under "All lessons"
+   * only and not counted for points (e.g. AI-marked questions while lessons
+   * are marked without AI).
+   */
+  unassigned_practice: z.array(z.string()).optional(),
 }).superRefine((t, ctx) => {
   const keys = new Set(t.questions.map((q) => q.key));
   for (const k of t.topic_exam?.questions ?? []) {
@@ -290,7 +296,11 @@ export const authoredTopicSchema = z.object({
     for (const k of l.exam?.questions ?? []) if (!keys.has(k)) issue(`lessons[${i}].exam: unknown question ${k}`);
   });
   for (const s of t.theory) if (!seenSections.has(s.title)) issue(`lessons: theory section "${s.title}" is in no lesson`);
-  for (const q of t.questions) if (q.practice !== false && !seenQuestions.has(q.key)) issue(`lessons: practice question ${q.key} is in no lesson`);
+  const unassigned = new Set(t.unassigned_practice ?? []);
+  for (const k of unassigned) if (seenQuestions.has(k)) issue(`unassigned_practice: ${k} is also in a lesson`);
+  for (const q of t.questions) {
+    if (q.practice !== false && !seenQuestions.has(q.key) && !unassigned.has(q.key)) issue(`lessons: practice question ${q.key} is in no lesson`);
+  }
 });
 export type AuthoredTopic = z.infer<typeof authoredTopicSchema>;
 

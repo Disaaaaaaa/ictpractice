@@ -97,6 +97,15 @@ describe("lesson_points", () => {
     expect(await points(other)).toHaveLength(0);
   });
 
+  it("counts notes waiting for the teacher only once they are checked", async () => {
+    const id = (await one<{ id: string }>(
+      `insert into note_submissions (student_id, topic_id, lesson_no, image_paths, content_hash, rubric_hash, status, percentage, result)
+       values ($1, $2, 1, '{a.jpg}', 'queued', 'pending', 'PENDING', null, '{}') returning id`, [alice, topicId])).id;
+    expect(Number((await points(teacher))[0].notes_pct)).toBe(80);
+    await db.query(`update note_submissions set status = 'CHECKED', percentage = 95, checked_by = 'teacher', checked_at = now() where id = $1`, [id]);
+    expect(Number((await points(teacher))[0].notes_pct)).toBe(95);
+  });
+
   it("lets students read the lessons of a topic they can see", async () => {
     const rows = await db.as(alice, async () => (await db.query(`select number from topic_lessons where topic_id = $1`, [topicId])).rows);
     expect(rows).toHaveLength(2);

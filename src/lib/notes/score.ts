@@ -2,6 +2,9 @@
 // Pure functions — the percentage never comes from the model, so the same
 // verdicts always give the same result and it can later be mapped to a mark.
 
+/** Part of the checklist's hash: a new version rebuilds every checklist. */
+export const NOTES_PROMPT_VERSION = "notes-v2";
+
 export type RubricPoint = {
   /** short name of the key point */
   title: string;
