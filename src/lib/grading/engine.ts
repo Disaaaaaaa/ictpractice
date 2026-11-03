@@ -34,6 +34,8 @@ export type GradeInput = {
   /** for the AI result cache and the usage log */
   questionId?: string;
   context?: "practice" | "exam";
+  /** queue mode: what needs the AI waits for the teacher's check instead */
+  aiDisabled?: boolean;
 };
 
 function base(input: GradeInput): GradeOutcome {
@@ -93,6 +95,9 @@ export async function gradeAnswer(input: GradeInput): Promise<GradeOutcome> {
   }
 
   // AI or HYBRID fallthrough
+  if (input.aiDisabled) {
+    return { ...out, awarded: null, needsReview: true, error: "waiting for the teacher's check" };
+  }
   try {
     const questionMarks = marking.question_marks ?? max;
     const effort = effortFor(input.questionType, questionMarks);

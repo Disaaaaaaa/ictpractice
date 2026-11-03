@@ -20,6 +20,39 @@ A **link between two entities** that shows how their records are connected, e.g.
 A diagram that shows the **entities** in a system (as boxes), the **relationships** between them (as lines), and the **degree (cardinality)** of each relationship — one-to-one, one-to-many or many-to-many. It is drawn during the **design** stage, before the tables are created.
 :::
 
+## Finding entities and attributes in a description
+
+:::steps Reading a description like an analyst
+- Underline the **nouns**: the important ones about which **many records** are kept are **entities** (*member*, *trainer*, *class*).
+- The **details** stored about each entity are its **attributes** (*member's name*, *phone*, *date joined*).
+- The **verbs** that connect two entities are **relationships** (*a trainer **leads** a class*, *a member **books** a class*).
+- Choose an attribute that is **unique** for every record as its identifier (*MemberID*) — it will become the primary key.
+:::
+
+:::example A gym
+*A gym has many **members**. Each member has a member number, a name, a phone number and the date they joined. Members **book** fitness **classes**; each class has a code, a name, a day and a time. Each class is **led** by one **trainer**; a trainer has a staff number and a name and can lead several classes.*
+
+| Entity | Attributes | Identifier |
+|---|---|---|
+| Member | MemberNo, Name, Phone, DateJoined | MemberNo |
+| Class | ClassCode, ClassName, Day, Time | ClassCode |
+| Trainer | StaffNo, Name | StaffNo |
+
+Relationships: *Trainer **leads** Class*, *Member **books** Class*.
+:::
+
+:::compare Entity, attribute or value?
+| | Entity | Attribute | Value |
+|---|---|---|---|
+| What it is | A **kind of thing** with many records | A **property** of that thing | **One piece of data** in one record |
+| Becomes | A table | A field | A cell |
+| Example | `Pupil` | `Surname`, `Class` | `Bekova`, `11A` |
+:::
+
+:::warning Typical confusion
+`11A` is a **value** of the attribute `Class`, not an entity. `DateOfBirth` is an **attribute** of `Pupil`. Something becomes a separate entity only if you need to store **several facts about it** (e.g. `Class` with its room and form tutor).
+:::
+
 # Types of relationship
 @lo 11.4.1.7
 
@@ -60,6 +93,61 @@ erDiagram
     string title
     string pub_ID FK
   }
+:::
+
+## Practising the degree of a relationship
+
+:::compare Reading relationship sentences
+| Sentence | Ask in both directions | Degree |
+|---|---|---|
+| Each pupil has one locker; each locker belongs to one pupil. | 1 pupil → many lockers? **No**. 1 locker → many pupils? **No** | **1:1** |
+| A team has many players; each player plays for one team. | **Yes** / **No** | **1:M** (many = Player) |
+| A customer places many orders; each order is placed by one customer. | **Yes** / **No** | **1:M** (many = Order) |
+| A pupil studies many subjects; a subject is studied by many pupils. | **Yes** / **Yes** | **M:M** |
+| A doctor treats many patients; a patient is treated by many doctors. | **Yes** / **Yes** | **M:M** |
+| Each country has one capital; each capital is in one country. | **No** / **No** | **1:1** |
+| A class has many pupils; each pupil is in one class. | **Yes** / **No** | **1:M** (many = Pupil) |
+| An author writes many books; a book can have many authors. | **Yes** / **Yes** | **M:M** |
+:::
+
+:::callout info Cardinality and degree
+Both words are used for "how many records on each side": **one-to-one**, **one-to-many**, **many-to-many**. In the exam, always say **which side is "many"**, e.g. "one-to-many: one class has many pupils".
+:::
+
+## ERD notation
+
+:::compare Symbols used in ERDs
+| Symbol | Meaning |
+|---|---|
+| Rectangle with a name | An **entity** (later a table) |
+| Attributes listed inside or under the box | Its **attributes**; the identifier is underlined or marked **PK** |
+| Line between two boxes | A **relationship**, often labelled with a verb (*places*, *teaches*) |
+| `1` or a short bar across the line at an end | **One** |
+| `M` or a crow's foot `<` at an end | **Many** |
+:::
+
+:::tip Where the crow's foot goes
+Read the sentence "one **Class** has many **Pupils**": the crow's foot is drawn at the **Pupil** end — the side that has many records for one record on the other side.
+:::
+
+# Lesson 1 — exam practice
+@lo 11.4.1.7
+
+:::example Exam-style answers
+**Q: Identify two entities in a library system and two attributes of one of them. [3]**
+Entities: Member, Book (1 each). Attributes of Book: BookID, Title (1).
+
+**Q: State the type of relationship between Team and Player. Justify your answer. [2]**
+One-to-many (1): one team has many players, but each player plays for only one team (1).
+
+**Q: Define the term entity. [1]**
+A thing (person, object, place or event) about which data is stored.
+:::
+
+:::warning Common mistakes in Lesson 1
+- Naming a **value** (*11A*, *Abai Zholy*) as an entity.
+- Saying "one-to-many" without saying **which** entity is on the "many" side.
+- Checking the relationship in **one** direction only.
 :::
 
 # Defining relationships with keys
@@ -117,6 +205,26 @@ erDiagram
 `student_tbl` (primary key `StudentID`) links to the **foreign key** `StudentID` in `course_tbl` (1); the relationship is **one-to-many** — one student can appear in many course records (1).
 :::
 
+## From an ERD to tables
+
+:::steps Turning an ERD into a relational design
+- Each **entity** becomes a **table**; its identifier becomes the **primary key**.
+- For each **1:M** relationship, copy the primary key of the "one" table into the "many" table as a **foreign key**.
+- For each **M:M** relationship, create a **link table** with both primary keys as foreign keys (together usually a **composite primary key**).
+- For each **1:1** relationship, put the primary key of one table into the other as a **unique** foreign key — or merge the two tables.
+:::
+
+:::example A library
+*A member can borrow many books over time and a book is borrowed by many members (M:M). Each loan has a loan date and a return date.*
+
+```text
+Members ( _MemberID_, Name, Phone )
+Books   ( _BookID_, Title, Author )
+Loans   ( _LoanID_, MemberID*, BookID*, LoanDate, ReturnDate )
+```
+`Members 1 — M Loans M — 1 Books`. Here the link table has its own key `LoanID`, because the same member can borrow the same book again on another date — the pair (MemberID, BookID) is **not** unique.
+:::
+
 # Creating an ERD
 @lo 11.2.2.2
 
@@ -172,6 +280,27 @@ erDiagram
 
 :::callout info Drawing ERDs on the platform
 In the diagram questions, add an **entity** for each table (name on the first line, attributes below), connect two entities with a line, then **select the line** to set its cardinality: **1:1**, **1:M**, **M:1** or **M:M**.
+:::
+
+## Checking your ERD
+
+:::steps Before you hand in an ERD
+- Every entity is a **box** with a **singular** name (*Pupil*, not *Pupils data*) and its attributes.
+- Every relationship line has **both ends** marked (1 or M).
+- **No M:M** relationship is left in the final database design — each has a link table.
+- Each "many" table contains the **foreign key** of the "one" table.
+- Attributes are **not** drawn as separate entities.
+:::
+
+:::example A hospital
+*A hospital has wards. Each patient is in one ward; a ward holds many patients. A doctor treats many patients and a patient can be treated by many doctors; for each treatment the date and the medicine are recorded.*
+
+| Relationship | Degree | Implementation |
+|---|---|---|
+| Ward — Patient | **1:M** | `WardID` foreign key in Patients |
+| Doctor — Patient | **M:M** | Link table `Treatments(TreatmentID, DoctorID*, PatientID*, Date, Medicine)` |
+
+`Wards 1 — M Patients 1 — M Treatments M — 1 Doctors`
 :::
 
 # Exam practice and summary

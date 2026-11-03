@@ -6,9 +6,15 @@ import type { AnswerData, MarkingEntry, Paper } from "../questions/types";
 type Admin = ReturnType<typeof createAdminClient>;
 
 export async function getGradingSettings(admin: Admin) {
-  const { data } = await admin.from("system_settings").select("value").eq("key", "ai_grading").maybeSingle();
-  const v = (data?.value ?? {}) as { confidence_threshold?: number; max_retries?: number };
-  return { threshold: v.confidence_threshold ?? 0.8, maxRetries: v.max_retries ?? 5 };
+  const { data } = await admin.from("system_settings").select("key, value").in("key", ["ai_grading", "exam_marking"]);
+  const v = (data?.find((r) => r.key === "ai_grading")?.value ?? {}) as { confidence_threshold?: number; max_retries?: number };
+  const exam = (data?.find((r) => r.key === "exam_marking")?.value ?? {}) as { mode?: string };
+  return {
+    threshold: v.confidence_threshold ?? 0.8,
+    maxRetries: v.max_retries ?? 5,
+    /** "queue": exam answers that need the AI wait for the teacher's check (scripts/exam-queue.ts) */
+    examQueue: exam.mode !== "ai",
+  };
 }
 
 async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
@@ -99,6 +105,7 @@ export async function gradeAttempt(attemptId: string): Promise<{ status: string;
           groupStem: q.group_stem ?? null,
           questionId: q.id,
           context: "exam",
+          aiDisabled: settings.examQueue,
         });
       }
       // Give up on AI after max retries: the teacher marks it.
