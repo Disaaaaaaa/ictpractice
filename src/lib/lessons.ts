@@ -8,6 +8,8 @@ import { createClient } from "./supabase/server";
 type Supa = Awaited<ReturnType<typeof createClient>>;
 
 export const LESSON_POINTS = { practice: 2, notes: 2, exam: 2 } as const;
+/** Notes checked at this percentage or more earn the full notes points. */
+export const NOTES_FULL_AT = 70;
 
 export type TopicLesson = { number: number; title: string };
 
@@ -58,7 +60,8 @@ const round1 = (x: number) => Math.round(x * 10) / 10;
 
 export function scoreLesson(r: LessonRow): LessonScore {
   const practice = r.practice_max > 0 ? (LESSON_POINTS.practice * r.practice_awarded) / r.practice_max : 0;
-  const notes = r.notes_pct != null ? (LESSON_POINTS.notes * r.notes_pct) / 100 : 0;
+  const notes =
+    r.notes_pct == null ? 0 : r.notes_pct >= NOTES_FULL_AT ? LESSON_POINTS.notes : (LESSON_POINTS.notes * r.notes_pct) / 100;
   const exam = r.exam_pct != null ? (LESSON_POINTS.exam * r.exam_pct) / 100 : 0;
   const max = (r.practice_max > 0 ? LESSON_POINTS.practice : 0) + LESSON_POINTS.notes + (r.exam_id ? LESSON_POINTS.exam : 0);
   return {

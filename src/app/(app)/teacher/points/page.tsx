@@ -5,7 +5,7 @@ import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getSchoolTree, mainPlans } from "@/lib/curriculum";
 import { getTeacherClasses } from "@/lib/teacher-data";
-import { getUnitBoard, LESSON_POINTS } from "@/lib/lessons";
+import { getUnitBoard, LESSON_POINTS, NOTES_FULL_AT } from "@/lib/lessons";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/page-header";
@@ -27,7 +27,7 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Each lesson (2 hours of the KTP) gives up to ${LESSON_POINTS.practice + LESSON_POINTS.notes + LESSON_POINTS.exam} points: practice ${LESSON_POINTS.practice}, notes check ${LESSON_POINTS.notes}, lesson test ${LESSON_POINTS.exam}. The unit's points are added up and the SAU is worth as many points again.`}
+      description={`Each lesson (2 hours of the KTP) gives up to ${LESSON_POINTS.practice + LESSON_POINTS.notes + LESSON_POINTS.exam} points: practice ${LESSON_POINTS.practice}, notes check ${LESSON_POINTS.notes} (full from ${NOTES_FULL_AT}%), lesson test ${LESSON_POINTS.exam}. The unit's points are added up and the SAU is worth as many points again.`}
     />
   );
   if (classes.length === 0) {
@@ -120,7 +120,7 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
                   <Card id="lesson" className="scroll-mt-24">
                     <CardHeader
                       title={`${selected.topicTitle} · Lesson ${selected.number}: ${selected.title}`}
-                      description={`${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result. Test: first attempt.`}
+                      description={`${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result (${NOTES_FULL_AT}% or more = full ${LESSON_POINTS.notes}). Test: first attempt.`}
                       action={<Link href={`/learn/${selected.slug}?lesson=${selected.number}`} className="text-sm font-medium text-primary hover:underline">Open the lesson</Link>}
                     />
                     <CardBody className="p-0">

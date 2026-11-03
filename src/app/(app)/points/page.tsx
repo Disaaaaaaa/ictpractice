@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getSchoolTree, plansFor } from "@/lib/curriculum";
-import { getStudentClass, getUnitBoard, LESSON_POINTS } from "@/lib/lessons";
+import { getStudentClass, getUnitBoard, LESSON_POINTS, NOTES_FULL_AT } from "@/lib/lessons";
 import { formatDate } from "@/lib/format";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
@@ -23,7 +23,7 @@ export default async function StudentPointsPage() {
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Every lesson gives up to ${LESSON_POINTS.practice + LESSON_POINTS.notes + LESSON_POINTS.exam} points: practice ${LESSON_POINTS.practice} (your best answer to each question), notes check ${LESSON_POINTS.notes} (your best check) and the lesson test ${LESSON_POINTS.exam} (your first attempt). Only work done before the lesson's deadline counts. The SAU at the end of the unit is worth as many points as all its lessons.`}
+      description={`Every lesson gives up to ${LESSON_POINTS.practice + LESSON_POINTS.notes + LESSON_POINTS.exam} points: practice ${LESSON_POINTS.practice} (your best answer to each question), notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}) and the lesson test ${LESSON_POINTS.exam} (your first attempt). Only work done before the lesson's deadline counts. The SAU at the end of the unit is worth as many points as all its lessons.`}
     />
   );
   const classId = await getStudentClass(supabase, profile.id, profile.grade);

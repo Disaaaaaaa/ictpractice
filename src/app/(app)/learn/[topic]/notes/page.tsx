@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { NotesUploader } from "@/components/notes/notes-uploader";
 import { NoteResultView, percentTone } from "@/components/notes/note-result";
 import { LessonPicker } from "@/components/lesson-picker";
-import { getTopicLessons, lessonParam } from "@/lib/lessons";
+import { getTopicLessons, LESSON_POINTS, lessonParam, NOTES_FULL_AT } from "@/lib/lessons";
 
 export const metadata: Metadata = { title: "Notes check" };
 // The AI reads the photos inside the server action started from this page.
@@ -55,7 +55,7 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
       <Card>
         <CardHeader
           title={lesson ? `Check your notes · Lesson ${lesson}: ${lessonTitle}` : "Check your notes"}
-          description={`Write your own notes on this ${lesson ? "lesson's theory" : "topic"} by hand and photograph the pages; ${queue ? "your teacher checks" : "the AI checks"} that you covered every key point.${lesson ? " Your best result for notes handed in before the deadline gives up to 2 SAU points." : ""}`}
+          description={`Write your own notes on this ${lesson ? "lesson's theory" : "topic"} by hand and photograph the pages; ${queue ? "your teacher checks" : "the AI checks"} that you covered every key point.${lesson ? ` Your best result for notes handed in before the deadline gives up to ${LESSON_POINTS.notes} SAU points — ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}.` : ""}`}
           action={best != null ? <Badge tone={percentTone(best)}>Best: {Math.round(best)}%</Badge> : undefined}
         />
         <CardBody className="space-y-5">
