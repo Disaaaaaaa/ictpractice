@@ -60,7 +60,7 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
         />
         <CardBody className="space-y-5">
           <ol className="grid gap-3 text-sm sm:grid-cols-3">
-            <li className="flex gap-2"><Camera className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> Photograph each page straight from above, in good light, with the whole page in the frame.</li>
+            <li className="flex gap-2"><Camera className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> Write the notes <strong>by hand</strong> in your notebook — typed or printed notes are not accepted. Photograph each page straight from above, in good light, with the whole page in the frame.</li>
             <li className="flex gap-2"><Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> {queue ? "Hand them in. Your teacher checks the notes of the whole class against the key points and gives a percentage." : "The AI compares your notes with the key points of the topic and gives a percentage."}</li>
             <li className="flex gap-2"><ListChecks className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden /> You see what is missing, add it to your notebook and check again.</li>
           </ol>
@@ -85,7 +85,7 @@ export default async function TopicNotesPage({ params, searchParams }: PageProps
                     ) : h.percentage != null ? (
                       <Badge tone={percentTone(Number(h.percentage))}>{Math.round(Number(h.percentage))}%</Badge>
                     ) : (
-                      <Badge tone="warning">Not readable</Badge>
+                      <Badge tone="warning">{h.result?.reason === "not_handwritten" ? "Not handwritten" : "Not readable"}</Badge>
                     )}
                   </Link>
                 </li>

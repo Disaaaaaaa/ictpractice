@@ -27,8 +27,8 @@ export type NoteResult = {
   points: CheckedPoint[];
   errors: string[];
   advice: Advice[];
-  /** set when the photos could not be marked */
-  reason?: "unreadable" | "off_topic";
+  /** set when the photos could not be marked; not_handwritten: typed or printed, only handwritten notes count */
+  reason?: "unreadable" | "off_topic" | "not_handwritten";
 };
 
 /** One verdict per checklist point, as returned by the model: c = covered, p = partly, m = missing. */

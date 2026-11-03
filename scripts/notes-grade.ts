@@ -29,6 +29,8 @@ const fileSchema = z.object({
       id: z.string().uuid(),
       readable: z.boolean(),
       on_topic: z.boolean().default(true),
+      /** false: typed or printed — only handwritten notes are accepted */
+      handwritten: z.boolean().default(true),
       verdicts: z.array(z.object({ n: z.number().int().min(1), s: z.enum(["c", "p", "m"]), note: z.string().max(200).optional() })).default([]),
       errors: z.array(z.string().max(300)).max(3).default([]),
     }),
@@ -81,27 +83,32 @@ async function main() {
       points = rub.points as RubricPoint[];
       hash = rub.source_hash as string;
     }
-    const ok = r.readable && r.on_topic;
+    const ok = r.readable && r.on_topic && r.handwritten;
+    const reason = !r.handwritten ? "not_handwritten" : !r.readable ? "unreadable" : "off_topic";
     const scored = scoreNotes(points, ok ? r.verdicts : [], ok ? r.errors : []);
     const update = {
       status: ok ? "CHECKED" : "UNREADABLE",
       percentage: ok ? scored.percentage : null,
-      result: ok ? scored.result : { points: [], errors: [], advice: [], reason: r.readable ? "off_topic" : "unreadable" },
+      result: ok ? scored.result : { points: [], errors: [], advice: [], reason },
       rubric_hash: hash,
       model: "teacher",
       checked_by: "teacher",
       checked_at: new Date().toISOString(),
     };
     const label = `${topic.title}${s.lesson_no ? `, lesson ${s.lesson_no}` : ""}`;
-    console.log(`${r.id}: ${ok ? `${scored.percentage}%` : update.status}  (${label})`);
+    console.log(`${r.id}: ${ok ? `${scored.percentage}%` : `${update.status} (${reason})`}  (${label})`);
     if (dry) continue;
     const { error } = await db.from("note_submissions").update(update).eq("id", r.id).eq("status", "PENDING");
     if (error) throw new Error(`${r.id}: ${error.message}`);
     await db.from("notifications").insert({
       user_id: s.student_id,
       type: "feedback",
-      title: ok ? `Your notes were checked: ${scored.percentage}%` : "Your notes could not be checked",
-      body: ok ? `${label}. See what to add for a higher score.` : `${label}. Take the photos again and hand them in once more.`,
+      title: ok ? `Your notes were checked: ${scored.percentage}%` : reason === "not_handwritten" ? "Your notes were not accepted" : "Your notes could not be checked",
+      body: ok
+        ? `${label}. See what to add for a higher score.`
+        : reason === "not_handwritten"
+          ? `${label}. Only handwritten notes are accepted — write them in your notebook and hand in photos of the pages.`
+          : `${label}. Take the photos again and hand them in once more.`,
       link: `/learn/${topic.slug}/notes?${s.lesson_no ? `lesson=${s.lesson_no}&` : ""}check=${r.id}`,
     });
   }

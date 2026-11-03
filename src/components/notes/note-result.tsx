@@ -66,10 +66,14 @@ export function NoteResultView({
   if (s.status === "UNREADABLE") {
     return (
       <Card>
-        <CardHeader title="The notes could not be checked" description={`${topicTitle ? `${topicTitle} · ` : ""}${formatDate(s.created_at)}`} />
+        <CardHeader title={r.reason === "not_handwritten" ? "Not accepted: the notes are not handwritten" : "The notes could not be checked"} description={`${topicTitle ? `${topicTitle} · ` : ""}${formatDate(s.created_at)}`} />
         <CardBody className="space-y-4">
           <Alert tone="warning">
-            {r.reason === "off_topic"
+            {r.reason === "not_handwritten"
+              ? mine
+                ? "These notes were typed or printed. Only notes written by hand in your notebook are accepted: write them out by hand, photograph the pages and hand them in again."
+                : "The notes were typed or printed, not written by hand."
+              : r.reason === "off_topic"
               ? mine ? "These notes do not seem to be about this topic. Check that you opened the right topic and photographed the right pages." : "The photos do not seem to be notes on this topic."
               : mine ? "The photos could not be read. Take them again in good light, straight from above, with the whole page in the frame." : "The photos could not be read."}
           </Alert>
