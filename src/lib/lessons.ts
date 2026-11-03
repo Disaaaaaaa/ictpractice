@@ -44,6 +44,14 @@ export type LessonScore = {
   /** points that can be earned: a part the lesson does not have yet is left out */
   max: number;
   examPending: boolean;
+  /** the figures behind the points */
+  raw: {
+    practiceAwarded: number;
+    practiceMax: number;
+    notesPct: number | null;
+    examPct: number | null;
+    hasExam: boolean;
+  };
 };
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
@@ -60,6 +68,7 @@ export function scoreLesson(r: LessonRow): LessonScore {
     total: round1(practice + notes + exam),
     max,
     examPending: r.exam_pending,
+    raw: { practiceAwarded: r.practice_awarded, practiceMax: r.practice_max, notesPct: r.notes_pct, examPct: r.exam_pct, hasExam: Boolean(r.exam_id) },
   };
 }
 

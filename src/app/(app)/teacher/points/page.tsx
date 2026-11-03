@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 export const metadata: Metadata = { title: "SAU points" };
 
 const fmt = (x: number | null) => (x == null ? "—" : Number.isInteger(x) ? String(x) : x.toFixed(1));
+const round1 = (x: number | null) => (x == null ? null : Math.round(x * 10) / 10);
 
 export default async function TeacherPointsPage({ searchParams }: PageProps<"/teacher/points">) {
   const profile = await requireProfile(["teacher", "admin"]);
@@ -53,6 +54,18 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
   type M = { student_id: string; profiles: { first_name: string; last_name: string; username: string } | null };
   const names = new Map(((members ?? []) as unknown as M[]).map((m) => [m.student_id, m.profiles ? displayName(m.profiles) : m.student_id]));
   const board = unit ? await getUnitBoard(supabase, { classId: cls.id, unit, names }) : null;
+  // one lesson in detail: practice, notes and test for every student
+  const selected = board?.lessons.find((l) => l.key === sp.lesson) ?? null;
+  const { data: waiting } = selected
+    ? await supabase
+        .from("note_submissions")
+        .select("student_id")
+        .eq("topic_id", selected.topicId)
+        .eq("lesson_no", selected.number)
+        .eq("status", "PENDING")
+    : { data: [] };
+  const waitingNotes = new Set((waiting ?? []).map((w) => w.student_id as string));
+  const unitHref = unit ? `/teacher/points?class=${cls.id}&unit=${unit.id}` : "";
 
   const pill = (active: boolean) =>
     cn("rounded-full border px-3 py-1 text-sm font-medium", active ? "border-primary bg-primary text-primary-fg" : "border-border bg-surface hover:bg-surface-2");
@@ -80,6 +93,84 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
           </nav>
           {unit && board && (
             <div className="space-y-6">
+              <nav className="flex flex-wrap items-center gap-1.5" aria-label="Lesson">
+                <span className="mr-1 text-sm font-medium text-muted">Lesson:</span>
+                <Link href={unitHref} aria-current={!selected ? "page" : undefined} className={cn(pill(!selected), "px-2.5 py-0.5 text-xs")}>All</Link>
+                {board.lessons.map((l, i) => (
+                  <Link
+                    key={l.key}
+                    href={`${unitHref}&lesson=${encodeURIComponent(l.key)}#lesson`}
+                    aria-current={selected?.key === l.key ? "page" : undefined}
+                    title={`${l.topicTitle} · Lesson ${l.number}: ${l.title}`}
+                    className={cn(pill(selected?.key === l.key), "px-2.5 py-0.5 text-xs")}
+                  >
+                    L{i + 1}
+                  </Link>
+                ))}
+              </nav>
+
+              {selected && (() => {
+                const rows = board.students.map((st) => ({ st, x: st.lessons.get(selected.key) }));
+                const avg = (f: (x: NonNullable<(typeof rows)[number]["x"]>) => number) => {
+                  const xs = rows.map((r) => r.x).filter((x): x is NonNullable<typeof x> => Boolean(x));
+                  return xs.length ? xs.reduce((a, x) => a + f(x), 0) / xs.length : null;
+                };
+                const any = rows.find((r) => r.x)?.x;
+                return (
+                  <Card id="lesson" className="scroll-mt-24">
+                    <CardHeader
+                      title={`${selected.topicTitle} · Lesson ${selected.number}: ${selected.title}`}
+                      description={`${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: first attempts at ${any?.raw.practiceMax ?? 0} marks of questions. Notes: best checked result. Test: first attempt.`}
+                      action={<Link href={`/learn/${selected.slug}?lesson=${selected.number}`} className="text-sm font-medium text-primary hover:underline">Open the lesson</Link>}
+                    />
+                    <CardBody className="p-0">
+                      <Table>
+                        <thead>
+                          <tr>
+                            <Th>Student</Th>
+                            <Th className="text-right">Practice / {LESSON_POINTS.practice}</Th>
+                            <Th className="text-right">Notes / {LESSON_POINTS.notes}</Th>
+                            <Th className="text-right">Exam Mode / {LESSON_POINTS.exam}</Th>
+                            <Th className="text-right">Lesson / {any?.max ?? 6}</Th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows.map(({ st, x }) => (
+                            <tr key={st.id}>
+                              <Td className="whitespace-nowrap font-medium">{st.name}</Td>
+                              <Td className="text-right tabular-nums">
+                                <span className="font-semibold">{fmt(x?.practice ?? 0)}</span>
+                                <span className="ml-2 text-xs text-muted">{x && x.raw.practiceMax ? `${fmt(x.raw.practiceAwarded)} / ${fmt(x.raw.practiceMax)} marks` : "no practice"}</span>
+                              </Td>
+                              <Td className="text-right tabular-nums">
+                                <span className="font-semibold">{fmt(x?.notes ?? 0)}</span>
+                                <span className="ml-2 text-xs text-muted">
+                                  {x?.raw.notesPct != null ? `best ${Math.round(x.raw.notesPct)}%` : waitingNotes.has(st.id) ? <Badge tone="info">waiting for check</Badge> : "not handed in"}
+                                </span>
+                              </Td>
+                              <Td className="text-right tabular-nums">
+                                <span className="font-semibold">{fmt(x?.exam ?? 0)}</span>
+                                <span className="ml-2 text-xs text-muted">
+                                  {!x?.raw.hasExam ? "no test" : x.examPending ? "being marked" : x.raw.examPct != null ? `${Math.round(x.raw.examPct)}%` : "not sat"}
+                                </span>
+                              </Td>
+                              <Td className="text-right font-semibold tabular-nums">{fmt(x?.total ?? 0)}</Td>
+                            </tr>
+                          ))}
+                          <tr className="bg-surface-2">
+                            <Td className="font-semibold">Class average</Td>
+                            <Td className="text-right font-semibold tabular-nums">{fmt(round1(avg((x) => x.practice)))}</Td>
+                            <Td className="text-right font-semibold tabular-nums">{fmt(round1(avg((x) => x.notes)))}</Td>
+                            <Td className="text-right font-semibold tabular-nums">{fmt(round1(avg((x) => x.exam)))}</Td>
+                            <Td className="text-right font-semibold tabular-nums">{fmt(round1(avg((x) => x.total)))}</Td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                  </Card>
+                );
+              })()}
+
               <Card>
                 <CardHeader
                   title={`${unit.code} ${unit.title} · ${cls.name}`}
@@ -91,8 +182,8 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
                       <tr>
                         <Th className="sticky left-0 z-10">Student</Th>
                         {board.lessons.map((l, i) => (
-                          <Th key={l.key} className="text-center normal-case" title={`${l.topicTitle} · Lesson ${l.number}: ${l.title}`}>
-                            L{i + 1}
+                          <Th key={l.key} className={cn("text-center normal-case", selected?.key === l.key && "bg-primary-soft text-primary")} title={`${l.topicTitle} · Lesson ${l.number}: ${l.title}`}>
+                            <Link href={`${unitHref}&lesson=${encodeURIComponent(l.key)}#lesson`} className="hover:underline">L{i + 1}</Link>
                           </Th>
                         ))}
                         <Th className="text-right">Lessons / {board.max}</Th>
