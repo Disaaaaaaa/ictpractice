@@ -57,7 +57,7 @@ beforeAll(async () => {
   const practise = (q: string, mark: number, max: number, minutesAgo: number) =>
     db.query(`insert into practice_attempts (student_id, question_id, answer_data, awarded_mark, max_mark, grading_method, created_at)
               values ($1, $2, '{}', $3, $4, 'AUTO', now() - make_interval(mins => $5))`, [alice, q, mark, max, minutesAgo]);
-  await practise(q1.id, 0, q1.marks, 30); // first attempt counts
+  await practise(q1.id, 0, q1.marks, 30); // the better second attempt counts
   await practise(q1.id, q1.marks, q1.marks, 10);
   await practise(q2.id, q2.marks, q2.marks, 20);
   await practise(q3.id, q3.marks, q3.marks, 5); // after lesson 2's deadline
@@ -74,10 +74,11 @@ beforeAll(async () => {
 }, 60_000);
 
 describe("lesson_points", () => {
-  it("counts the first practice attempt, the best notes and the first exam attempt", async () => {
+  it("counts the best practice attempt, the best notes and the first exam attempt", async () => {
     const [l1] = await points(teacher);
     expect(Number(l1.practice_max)).toBe(q1.marks + q2.marks);
-    expect(Number(l1.practice_awarded)).toBe(q2.marks);
+    // q1: 0 at first, full marks on the second try → the best counts
+    expect(Number(l1.practice_awarded)).toBe(q1.marks + q2.marks);
     expect(Number(l1.notes_pct)).toBe(80);
     expect(l1.exam_id).toBe(examId);
     expect(Number(l1.exam_pct)).toBe(50);

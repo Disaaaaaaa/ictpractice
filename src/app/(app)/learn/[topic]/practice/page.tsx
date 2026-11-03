@@ -96,8 +96,9 @@ export default async function PracticePage({ params, searchParams }: PageProps<"
     const max = Number(a.max_mark);
     saved[a.question_id] = {
       answer: a.answer_data,
+      // older attempts stored the right option even after a wrong answer: never show it then
       result: a.result?.ok
-        ? a.result
+        ? { ...a.result, correctKeys: a.result.fullMarks ? a.result.correctKeys : undefined }
         : { ok: true, awarded, max, feedback: a.feedback, points: [], needsReview: false, fullMarks: awarded === max },
     };
     touched[a.question_id] = a.created_at;
@@ -115,7 +116,7 @@ export default async function PracticePage({ params, searchParams }: PageProps<"
     <>
     {picker}
     {lesson && profile.role === "student" && (
-      <p className="mb-4 text-sm text-muted">Your first answer to each question counts towards your SAU points (2 points for the lesson).</p>
+      <p className="mb-4 text-sm text-muted">Your best answer to each question before the deadline counts towards your SAU points (2 points for the lesson).</p>
     )}
     <PracticeSession
       key={`${topic.id}-${lesson ?? "all"}`}

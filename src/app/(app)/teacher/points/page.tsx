@@ -120,7 +120,7 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
                   <Card id="lesson" className="scroll-mt-24">
                     <CardHeader
                       title={`${selected.topicTitle} · Lesson ${selected.number}: ${selected.title}`}
-                      description={`${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: first attempts at ${any?.raw.practiceMax ?? 0} marks of questions. Notes: best checked result. Test: first attempt.`}
+                      description={`${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result. Test: first attempt.`}
                       action={<Link href={`/learn/${selected.slug}?lesson=${selected.number}`} className="text-sm font-medium text-primary hover:underline">Open the lesson</Link>}
                     />
                     <CardBody className="p-0">

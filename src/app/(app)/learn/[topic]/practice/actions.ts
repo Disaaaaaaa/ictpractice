@@ -146,7 +146,8 @@ export async function checkPracticeAnswer(questionId: string, answer: AnswerData
       (outcome.needsReview ? "This answer cannot be marked automatically — ask your teacher to check it." : null),
     points: outcome.points,
     needsReview: outcome.needsReview,
-    correctKeys: outcome.awarded !== null ? correctKeysOf(scheme.accepted_answers) : undefined,
+    // the right option is shown only once the student has found it: a wrong answer gives no hint
+    correctKeys: outcome.awarded !== null && outcome.awarded === outcome.max ? correctKeysOf(scheme.accepted_answers) : undefined,
     fullMarks: outcome.awarded === outcome.max,
   };
 
