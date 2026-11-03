@@ -42,7 +42,7 @@ async function main() {
   const answerBy = new Map((answers ?? []).map((a) => [a.id as string, a.submitted_answer]));
   const students = [...new Set(rows.map((r) => r.attempts.student_id))];
   const { data: profiles } = await db.from("profiles").select("id, first_name, last_name, username").in("id", students.concat("00000000-0000-0000-0000-000000000000"));
-  const nameOf = new Map((profiles ?? []).map((p) => [p.id as string, `${p.first_name} ${p.last_name}`.trim() || (p.username as string)]));
+  const nameOf = new Map((profiles ?? []).map((p) => [p.id as string, `${p.last_name} ${p.first_name}`.trim() || (p.username as string)]));
 
   const manifest = rows
     .sort((a, b) => a.attempts.exams.title.localeCompare(b.attempts.exams.title) || a.question_id.localeCompare(b.question_id) || a.attempts.submitted_at.localeCompare(b.attempts.submitted_at))

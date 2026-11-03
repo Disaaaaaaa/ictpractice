@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { requireProfile, displayName } from "@/lib/auth";
+import { requireProfile, displayName, compareNames } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getActiveVersion } from "@/lib/curriculum";
 import { getClassRoster, getTeacherClasses, getVisibleStudents, stats } from "@/lib/teacher-data";
@@ -55,7 +55,9 @@ export default async function NotesChecksPage({ searchParams }: PageProps<"/teac
     if (!cur) best.set(key, { ...r, attempts: 1 });
     else best.set(key, { ...(Number(r.percentage ?? -1) > Number(cur.percentage ?? -1) ? r : cur), attempts: cur.attempts + 1 });
   }
-  const rows: (Row & { attempts?: number })[] = view === "best" ? [...best.values()].sort((a, b) => b.created_at.localeCompare(a.created_at)) : all;
+  // by student ("Фамилия Имя Отчество"), newest check first for each
+  const byStudent = (a: Row, b: Row) => compareNames(names.get(a.student_id) ?? "", names.get(b.student_id) ?? "") || b.created_at.localeCompare(a.created_at);
+  const rows: (Row & { attempts?: number })[] = (view === "best" ? [...best.values()] : [...all]).sort(byStudent);
   const s = stats([...best.values()].filter((r) => r.percentage != null).map((r) => Number(r.percentage)));
   const studentsChecked = new Set(all.map((r) => r.student_id)).size;
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Download } from "lucide-react";
-import { requireProfile, displayName, shortName } from "@/lib/auth";
+import { requireProfile, displayName, shortName, byName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAttempts, getClassRoster, getMasteryByStudent, getTeacherClasses, getVisibleStudents, stats } from "@/lib/teacher-data";
 import { getProgressContext, loAverage, overallMastery, paperReadiness, topicProgress } from "@/lib/progress";
@@ -90,7 +90,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/teache
         n: mine.length,
       };
     })
-    .sort((a, b) => b.overall - a.overall);
+    .sort((a, b) => byName(a.st, b.st));
 
   // LO heatmap columns
   const heatLos = ctx.los

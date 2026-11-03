@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { createClient } from "./supabase/server";
+import { compareNames } from "./auth";
 
 // Lessons of a topic and their points towards the unit's SAU. See
 // supabase/migrations/20261030000020_lessons.sql.
@@ -179,6 +180,6 @@ export async function getUnitBoard(
     s.sau = s.sauPct == null ? null : round1((s.sauPct / 100) * max);
     s.total = round1(s.accumulated + (s.sau ?? 0));
   }
-  students.sort((a, b) => a.name.localeCompare(b.name));
+  students.sort((a, b) => compareNames(a.name, b.name));
   return { lessons, students, max, sauExamIds };
 }

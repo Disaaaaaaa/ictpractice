@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Download } from "lucide-react";
-import { requireProfile, displayName } from "@/lib/auth";
+import { requireProfile, displayName, compareNames } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAttempts } from "@/lib/teacher-data";
 import { INTEGRITY_LABEL } from "@/lib/exams";
@@ -64,7 +64,6 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
   const { data: progressRows } = isTopic ? await supabase.rpc("topic_assignment_progress", { p_assignment_id: a.id }) : { data: null };
   const progressBy = new Map(((progressRows ?? []) as TopicProgressRow[]).map((r) => [r.student_id, r]));
   const now = nowMs();
-  const ORDER: OverallState[] = ["overdue", "not_started", "in_progress", "completed_late", "completed"];
   const board = isTopic
     ? students
         .map((st) => {
@@ -72,7 +71,7 @@ export default async function AssignmentPage({ params }: PageProps<"/teacher/ass
           const parts = topicParts(a, row, now);
           return { st, row, parts, overall: overallState(parts), percent: overallPercent(parts) };
         })
-        .sort((x, y) => ORDER.indexOf(x.overall) - ORDER.indexOf(y.overall) || x.st.name.localeCompare(y.st.name))
+        .sort((x, y) => compareNames(x.st.name, y.st.name))
     : [];
   const tally = (s: OverallState[]) => board.filter((b) => s.includes(b.overall)).length;
   const sample = topicParts(a, progressRows?.[0] as TopicProgressRow | undefined, now);

@@ -73,7 +73,7 @@ async function main() {
         const { data: blob } = await db.storage.from("notes").download(path);
         if (!blob) continue;
         const h = md5(Buffer.from(await blob.arrayBuffer()));
-        seen.set(h, [...(seen.get(h) ?? []), { student_id: o.student_id, student: `${o.profiles.first_name} ${o.profiles.last_name}`.trim(), submission: o.id }]);
+        seen.set(h, [...(seen.get(h) ?? []), { student_id: o.student_id, student: `${o.profiles.last_name} ${o.profiles.first_name}`.trim(), submission: o.id }]);
       }
     }
 
@@ -95,7 +95,7 @@ async function main() {
       }
       submissions.push({
         id: r.id,
-        student: `${r.profiles.first_name} ${r.profiles.last_name}`.trim() || r.profiles.username,
+        student: `${r.profiles.last_name} ${r.profiles.first_name}`.trim() || r.profiles.username,
         class: classOf.get(r.student_id) ?? null,
         handed_in: r.created_at,
         photos,

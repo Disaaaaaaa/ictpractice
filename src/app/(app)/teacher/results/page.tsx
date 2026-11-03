@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Download } from "lucide-react";
-import { requireProfile, displayName } from "@/lib/auth";
+import { requireProfile, displayName, compareNames } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAttempts, getClassRoster, getExamGroup, getTeacherClasses, getVisibleStudents, stats } from "@/lib/teacher-data";
 import { formatDate, formatPercent } from "@/lib/format";
@@ -28,12 +28,14 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
   const group = f.exam ? await getExamGroup(supabase, f.exam) : null;
   const variantNo = new Map((group?.variants ?? []).map((v) => [v.id, v.no]));
   const many = variantNo.size > 1;
-  const attempts = await getAttempts(supabase, {
-    studentIds: students.map((s) => s.id),
-    examIds: group ? group.variants.map((v) => v.id) : undefined,
-    status: f.status ? [f.status] : ["SUBMITTED", "GRADED", "REVIEW_REQUIRED"],
-    limit: 1000,
-  });
+  const attempts = (
+    await getAttempts(supabase, {
+      studentIds: students.map((s) => s.id),
+      examIds: group ? group.variants.map((v) => v.id) : undefined,
+      status: f.status ? [f.status] : ["SUBMITTED", "GRADED", "REVIEW_REQUIRED"],
+      limit: 1000,
+    })
+  ).sort((a, b) => compareNames(a.profiles ? displayName(a.profiles) : "", b.profiles ? displayName(b.profiles) : "") || (b.submitted_at ?? "").localeCompare(a.submitted_at ?? ""));
   const { data: examRows } = await supabase.from("exams").select("id, title, variant_of").not("current_version_id", "is", null).order("title");
   // Variants are reached through their base exam.
   const hasVariants = new Set((examRows ?? []).map((e) => e.variant_of as string | null).filter(Boolean));

@@ -28,14 +28,23 @@ export function homeFor(role: Role): string {
   }
 }
 
+/** "Фамилия Имя Отчество": last_name first, then first_name (which holds the given name and the patronymic). */
 export function displayName(p: Pick<Profile, "first_name" | "last_name" | "username">): string {
-  const name = `${p.first_name} ${p.last_name}`.trim();
+  const name = `${p.last_name} ${p.first_name}`.trim();
   return name || p.username;
 }
 
+const names = new Intl.Collator("kk", { sensitivity: "base", numeric: true });
+/** Alphabetical order of names, Kazakh letters included (Ә, Ғ, Қ, Ң, Ө, Ұ, Ү, Һ, І). */
+export const compareNames = (a: string, b: string) => names.compare(a, b);
+/** Orders people by "Фамилия Имя Отчество". */
+export const byName = (a: Pick<Profile, "first_name" | "last_name" | "username">, b: Pick<Profile, "first_name" | "last_name" | "username">) =>
+  compareNames(displayName(a), displayName(b));
+
 export function shortName(p: Pick<Profile, "first_name" | "last_name" | "username">): string {
-  if (!p.first_name) return p.username;
-  return p.last_name ? `${p.first_name} ${p.last_name[0]}.` : p.first_name;
+  // "Фамилия И."
+  if (!p.last_name) return p.first_name || p.username;
+  return p.first_name ? `${p.last_name} ${p.first_name[0]}.` : p.last_name;
 }
 
 /** The signed-in user's profile, or null. Deduplicated per request. */

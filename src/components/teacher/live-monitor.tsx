@@ -142,10 +142,8 @@ export function LiveMonitor({
   const active = [...latestByStudent.values()].filter((a) => a.status === "IN_PROGRESS" && new Date(a.deadline_at).getTime() > now);
   const rows = students
     .map((s) => ({ s, a: latestByStudent.get(s.id) }))
-    .sort((x, y) => {
-      const rank = (a?: MonitorAttempt) => (!a ? 3 : a.status === "IN_PROGRESS" ? 0 : a.status === "SUBMITTED" || a.status === "REVIEW_REQUIRED" ? 1 : 2);
-      return rank(x.a) - rank(y.a) || x.s.name.localeCompare(y.s.name);
-    });
+    // by "Фамилия Имя Отчество"
+    .sort((x, y) => x.s.name.localeCompare(y.s.name, "kk", { sensitivity: "base" }));
 
   return (
     <div className="space-y-3">

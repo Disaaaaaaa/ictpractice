@@ -1,4 +1,5 @@
 import "server-only";
+import { byName } from "./auth";
 import { createClient } from "./supabase/server";
 import type { Attempt, ClassRow, Exam, Profile } from "./db-types";
 
@@ -33,14 +34,14 @@ export async function getClassRoster(supabase: Supa, classId: string) {
   const students = ((data ?? []) as unknown as { joined_at: string; profiles: Profile }[])
     .filter((r) => r.profiles)
     .map((r) => ({ ...r.profiles, joined_at: r.joined_at }))
-    .sort((a, b) => `${a.last_name} ${a.first_name}`.localeCompare(`${b.last_name} ${b.first_name}`));
+    .sort(byName);
   return { cls: cls as ClassRow, students };
 }
 
 /** All students the caller can see (their classes; admin: everyone). */
 export async function getVisibleStudents(supabase: Supa): Promise<Profile[]> {
   const { data } = await supabase.from("profiles").select("*").eq("role", "student").order("last_name").order("first_name");
-  return (data ?? []) as Profile[];
+  return ((data ?? []) as Profile[]).sort(byName);
 }
 
 export async function getMasteryByStudent(supabase: Supa, studentIds: string[]) {

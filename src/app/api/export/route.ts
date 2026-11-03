@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import ExcelJS from "exceljs";
 import { createClient } from "@/lib/supabase/server";
-import { displayName } from "@/lib/auth";
+import { displayName, compareNames } from "@/lib/auth";
 import { getAttempts, getClassRoster, getExamGroup, getMasteryByStudent, getVisibleStudents } from "@/lib/teacher-data";
 import { getProgressContext, overallMastery, paperReadiness, topicProgress } from "@/lib/progress";
 import { paperLabel, type Paper } from "@/lib/questions/types";
@@ -57,7 +57,9 @@ export async function GET(req: NextRequest) {
     const group = examId ? await getExamGroup(supabase, examId) : null;
     const variantNo = new Map((group?.variants ?? []).map((v) => [v.id, v.no]));
     const many = variantNo.size > 1;
-    const attempts = (await getAttempts(supabase, { studentIds: ids, examIds: group ? group.variants.map((v) => v.id) : undefined, assignmentId: assignmentId ?? undefined, limit: 5000 })).filter((a) => a.status !== "IN_PROGRESS");
+    const attempts = (await getAttempts(supabase, { studentIds: ids, examIds: group ? group.variants.map((v) => v.id) : undefined, assignmentId: assignmentId ?? undefined, limit: 5000 }))
+      .filter((a) => a.status !== "IN_PROGRESS")
+      .sort((a, b) => compareNames(a.profiles ? displayName(a.profiles) : "", b.profiles ? displayName(b.profiles) : "") || (a.started_at ?? "").localeCompare(b.started_at ?? ""));
     const versionIds = [...new Set(attempts.map((a) => a.exam_version_id))];
     const { data: payloads } = versionIds.length ? await supabase.from("exam_version_payloads").select("exam_version_id, paper").in("exam_version_id", versionIds) : { data: [] };
     const questions = examId && payloads?.length ? (payloads[0].paper as Paper).questions : [];

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { requireProfile, displayName } from "@/lib/auth";
+import { requireProfile, displayName, byName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getActiveVersion } from "@/lib/curriculum";
 import { getClassRoster, getTeacherClasses, getVisibleStudents } from "@/lib/teacher-data";
@@ -78,7 +78,7 @@ export default async function PracticeMonitorPage({ searchParams }: PageProps<"/
 
   const rows = students
     .map((st) => ({ st, r: byStudent.get(st.id) }))
-    .sort((a, b) => age(a.r) - age(b.r) || displayName(a.st).localeCompare(displayName(b.st)));
+    .sort((a, b) => byName(a.st, b.st));
   const working = rows.filter((x) => age(x.r) <= NOW_MS).length;
   const lastHour = rows.filter((x) => age(x.r) <= HOUR_MS).length;
   const never = rows.filter((x) => !x.r).length;
