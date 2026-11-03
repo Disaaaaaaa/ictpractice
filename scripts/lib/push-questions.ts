@@ -38,7 +38,8 @@ export async function pushQuestions(opts: {
   });
   // Questions of this topic that are no longer in the file are archived (never deleted: exams may use them).
   const keep = new Set(ids);
-  const { data: existing } = await db.from("questions").select("id").eq("topic_id", topic.id).eq("source_type", "original").is("archived_at", null);
+  // the file owns its own questions and its exam-style (nis_style) ones; teacher and past-paper questions are never touched
+  const { data: existing } = await db.from("questions").select("id").eq("topic_id", topic.id).in("source_type", ["original", "nis_style"]).is("archived_at", null);
   const stale = (existing ?? []).map((q) => q.id as string).filter((id) => !keep.has(id));
   if (stale.length) await db.from("questions").update({ status: "archived", archived_at: new Date().toISOString() }).in("id", stale);
 
