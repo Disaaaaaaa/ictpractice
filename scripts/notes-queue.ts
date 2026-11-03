@@ -11,6 +11,7 @@
  * The photos are pupils' work: keep <dir> private and delete it afterwards.
  */
 import { createHash } from "node:crypto";
+const md5 = (b: Buffer) => createHash("md5").update(b).digest("hex");
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
@@ -64,17 +65,33 @@ async function main() {
     const { data: rubric } = await db.from("topic_note_rubrics").select("points, source_hash").eq("topic_id", topicId).eq("lesson_no", lesson ?? 0).maybeSingle();
     const current = rubric?.source_hash === hash ? rubric.points : null;
 
+    // Every photo another student handed in for this topic, to catch copies (identical files).
+    const { data: others } = await db.from("note_submissions").select("id, student_id, image_paths, profiles!note_submissions_student_id_fkey(first_name, last_name)").eq("topic_id", topicId);
+    const seen = new Map<string, { student_id: string; student: string; submission: string }[]>();
+    for (const o of (others ?? []) as unknown as { id: string; student_id: string; image_paths: string[]; profiles: { first_name: string; last_name: string } }[]) {
+      for (const path of o.image_paths) {
+        const { data: blob } = await db.storage.from("notes").download(path);
+        if (!blob) continue;
+        const h = md5(Buffer.from(await blob.arrayBuffer()));
+        seen.set(h, [...(seen.get(h) ?? []), { student_id: o.student_id, student: `${o.profiles.first_name} ${o.profiles.last_name}`.trim(), submission: o.id }]);
+      }
+    }
+
     const submissions = [];
     for (const r of list) {
       const dir = join(values.out, r.id);
       mkdirSync(dir, { recursive: true });
       const photos: string[] = [];
+      /** photos identical to a file another student handed in: a copy */
+      const copies: { photo: number; same_as: string; submission: string }[] = [];
       for (const [i, path] of r.image_paths.entries()) {
         const { data: blob, error: dErr } = await db.storage.from("notes").download(path);
         if (dErr || !blob) throw new Error(`${r.id}: ${dErr?.message}`);
         const file = join(dir, `${i + 1}.jpg`);
-        writeFileSync(file, Buffer.from(await blob.arrayBuffer()));
+        const bytes = Buffer.from(await blob.arrayBuffer());
+        writeFileSync(file, bytes);
         photos.push(file);
+        for (const o of seen.get(md5(bytes)) ?? []) if (o.student_id !== r.student_id) copies.push({ photo: i + 1, same_as: o.student, submission: o.submission });
       }
       submissions.push({
         id: r.id,
@@ -82,13 +99,17 @@ async function main() {
         class: classOf.get(r.student_id) ?? null,
         handed_in: r.created_at,
         photos,
+        copies,
       });
     }
     manifest.push({ key: k, topic: topics.slug, topic_title: topics.title, lesson, rubric_hash: hash, rubric: current, theory: current ? undefined : text, submissions });
   }
   writeFileSync(join(values.out, "manifest.json"), JSON.stringify(manifest, null, 2));
   console.log(`${rows.length} waiting notes in ${manifest.length} lesson group(s) → ${values.out}/manifest.json`);
-  for (const g of manifest) console.log(`  ${g.topic} L${g.lesson ?? "-"}: ${g.submissions.length} · checklist ${g.rubric ? "ready" : "MISSING — write one from the theory text"}`);
+  for (const g of manifest) {
+    console.log(`  ${g.topic} L${g.lesson ?? "-"}: ${g.submissions.length} · checklist ${g.rubric ? "ready" : "MISSING — write one from the theory text"}`);
+    for (const x of g.submissions) for (const c of x.copies) console.log(`    COPY: ${x.student} photo ${c.photo} = a photo handed in by ${c.same_as}`);
+  }
 }
 
 main().catch((e) => {
