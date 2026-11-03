@@ -31,6 +31,8 @@ const fileSchema = z.object({
       on_topic: z.boolean().default(true),
       /** false: typed or printed — only handwritten notes are accepted */
       handwritten: z.boolean().default(true),
+      /** false: someone else's notes (e.g. the same pages as another student's) */
+      own: z.boolean().default(true),
       verdicts: z.array(z.object({ n: z.number().int().min(1), s: z.enum(["c", "p", "m"]), note: z.string().max(200).optional() })).default([]),
       errors: z.array(z.string().max(300)).max(3).default([]),
     }),
@@ -83,8 +85,8 @@ async function main() {
       points = rub.points as RubricPoint[];
       hash = rub.source_hash as string;
     }
-    const ok = r.readable && r.on_topic && r.handwritten;
-    const reason = !r.handwritten ? "not_handwritten" : !r.readable ? "unreadable" : "off_topic";
+    const ok = r.readable && r.on_topic && r.handwritten && r.own;
+    const reason = !r.own ? "not_own" : !r.handwritten ? "not_handwritten" : !r.readable ? "unreadable" : "off_topic";
     const scored = scoreNotes(points, ok ? r.verdicts : [], ok ? r.errors : []);
     const update = {
       status: ok ? "CHECKED" : "UNREADABLE",
@@ -103,10 +105,12 @@ async function main() {
     await db.from("notifications").insert({
       user_id: s.student_id,
       type: "feedback",
-      title: ok ? `Your notes were checked: ${scored.percentage}%` : reason === "not_handwritten" ? "Your notes were not accepted" : "Your notes could not be checked",
+      title: ok ? `Your notes were checked: ${scored.percentage}%` : reason === "not_handwritten" || reason === "not_own" ? "Your notes were not accepted" : "Your notes could not be checked",
       body: ok
         ? `${label}. See what to add for a higher score.`
-        : reason === "not_handwritten"
+        : reason === "not_own"
+          ? `${label}. These are not your own notes — only notes you wrote yourself by hand are accepted.`
+          : reason === "not_handwritten"
           ? `${label}. Only handwritten notes are accepted — write them in your notebook and hand in photos of the pages.`
           : `${label}. Take the photos again and hand them in once more.`,
       link: `/learn/${topic.slug}/notes?${s.lesson_no ? `lesson=${s.lesson_no}&` : ""}check=${r.id}`,
