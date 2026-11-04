@@ -11,11 +11,10 @@ import { theoryToText } from "./theory-text";
 // supabase/migrations/20261012000013_note_checks.sql for the cost-saving design.
 
 export const NOTE_LIMITS = {
-  maxPhotos: 4,
+  /** the browser uploads the photos straight to storage, so many pages fit */
+  maxPhotos: 20,
   /** each photo after the browser has downscaled it */
   maxPhotoBytes: 1_500_000,
-  /** Vercel functions accept request bodies up to 4.5 MB */
-  maxTotalBytes: 4_000_000,
   perTopicPerDay: 5,
   perDay: 15,
 };
@@ -98,7 +97,7 @@ async function storePhotos(admin: Admin, studentId: string, id: string, photos: 
 }
 
 /** Hands the notes in for the teacher's check (queue mode). */
-async function queueNotes(admin: Admin, p: { studentId: string; topic: { id: string }; lesson: number | null; photos: { bytes: Buffer; type: string }[] }) {
+async function queueNotes(admin: Admin, p: { studentId: string; topic: { id: string }; lesson: number | null; photos: { bytes: Buffer; type: string }[]; stored?: { id: string; paths: string[] } }) {
   const contentHash = sha(...p.photos.map((x) => x.bytes));
   const same = admin
     .from("note_submissions")
@@ -109,12 +108,16 @@ async function queueNotes(admin: Admin, p: { studentId: string; topic: { id: str
     .order("created_at", { ascending: false })
     .limit(1);
   const { data: dup } = await (p.lesson ? same.eq("lesson_no", p.lesson) : same.is("lesson_no", null)).maybeSingle();
-  if (dup) return { id: dup.id as string, reused: true };
+  if (dup) {
+    if (p.stored) await admin.storage.from("notes").remove(p.stored.paths);
+    return { id: dup.id as string, reused: true };
+  }
   if ((await remainingChecks(admin, p.studentId, p.topic.id, p.lesson)) <= 0) {
+    if (p.stored) await admin.storage.from("notes").remove(p.stored.paths);
     throw new NotesError("You have reached today's limit for handing in notes. Try again tomorrow.");
   }
-  const id = randomUUID();
-  const paths = await storePhotos(admin, p.studentId, id, p.photos);
+  const id = p.stored?.id ?? randomUUID();
+  const paths = p.stored?.paths ?? (await storePhotos(admin, p.studentId, id, p.photos));
   const { error } = await admin.from("note_submissions").insert({
     id,
     student_id: p.studentId,
@@ -154,9 +157,14 @@ export async function runNoteCheck(p: {
   /** the lesson the notes are for (topics taught in lessons) */
   lesson: number | null;
   photos: { bytes: Buffer; type: string }[];
+  /** photos the browser already uploaded to storage (see notePhotoPaths) */
+  stored?: { id: string; paths: string[] };
 }): Promise<{ id: string; reused: boolean }> {
   const admin = createAdminClient();
   if ((await getNotesMode(admin)) === "queue") return queueNotes(admin, p);
+  const dropStored = async () => {
+    if (p.stored) await admin.storage.from("notes").remove(p.stored.paths);
+  };
   const rubric = await getOrCreateRubric(admin, p.topic, p.lesson);
   const contentHash = sha(...p.photos.map((x) => x.bytes));
 
@@ -170,9 +178,13 @@ export async function runNoteCheck(p: {
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
-  if (same) return { id: same.id as string, reused: true };
+  if (same) {
+    await dropStored();
+    return { id: same.id as string, reused: true };
+  }
 
   if ((await remainingChecks(admin, p.studentId, p.topic.id, p.lesson)) <= 0) {
+    await dropStored();
     throw new NotesError("You have reached today's limit of notes checks. Improve your notes and try again tomorrow.");
   }
 
@@ -180,15 +192,18 @@ export async function runNoteCheck(p: {
     p.topic.title,
     rubric.points,
     p.photos.map((x) => `data:${x.type};base64,${x.bytes.toString("base64")}`),
-  );
+  ).catch(async (e) => {
+    await dropStored();
+    throw e;
+  });
   await logAiUsage({ context: "notes", model: checked.model, cacheHit: false, usage: checked.usage });
 
   const readable = checked.check.readable && checked.check.onTopic;
   const scored = scoreNotes(rubric.points, readable ? checked.check.verdicts : [], readable ? checked.check.errors : []);
 
   // Photos are kept so the teacher can look at what was checked.
-  const id = randomUUID();
-  const paths = await storePhotos(admin, p.studentId, id, p.photos);
+  const id = p.stored?.id ?? randomUUID();
+  const paths = p.stored?.paths ?? (await storePhotos(admin, p.studentId, id, p.photos));
   const { error } = await admin.from("note_submissions").insert({
     id,
     student_id: p.studentId,
@@ -213,6 +228,11 @@ export async function runNoteCheck(p: {
     throw new NotesError("The result could not be saved. Please try again.");
   }
   return { id, reused: false };
+}
+
+/** Where the photos of a hand-in are stored: one folder per student and hand-in. */
+export function notePhotoPaths(studentId: string, id: string, count: number): string[] {
+  return Array.from({ length: count }, (_, i) => `${studentId}/${id}/${i + 1}.jpg`);
 }
 
 /** Short-lived links to the photos of a submission (the bucket is private). */

@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { Camera, Loader2, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
-import { submitNotes } from "@/app/(app)/learn/[topic]/notes/actions";
+import { finishNotesUpload, startNotesUpload } from "@/app/(app)/learn/[topic]/notes/actions";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 // Photos are downscaled here before upload: a notebook page is still easy to
 // read at this size, the upload is fast on a phone, and the AI is charged for
@@ -48,6 +49,7 @@ export function NotesUploader({
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [preparing, setPreparing] = useState(false);
+  const [uploaded, setUploaded] = useState<number | null>(null);
   const [pending, startTransition] = useTransition();
 
   // Release the preview URLs when the component goes away.
@@ -87,10 +89,32 @@ export function NotesUploader({
 
   const submit = () => {
     setError(null);
-    const data = new FormData();
-    photos.forEach((p, i) => data.append("photos", new File([p.blob], `page-${i + 1}.jpg`, { type: "image/jpeg" })));
     startTransition(async () => {
-      const res = await submitNotes(slug, lesson, data);
+      const start = await startNotesUpload(slug, lesson, photos.length);
+      if (!start.ok) {
+        setError(start.error);
+        return;
+      }
+      // The photos go straight to storage, a few at a time.
+      const storage = getBrowserClient().storage.from("notes");
+      let done = 0;
+      setUploaded(0);
+      const queue = start.uploads.map((u, i) => ({ ...u, blob: photos[i].blob }));
+      let failed = false;
+      const worker = async () => {
+        for (let next = queue.shift(); next && !failed; next = queue.shift()) {
+          const { error: upErr } = await storage.uploadToSignedUrl(next.path, next.token, next.blob, { contentType: "image/jpeg" });
+          if (upErr) failed = true;
+          else setUploaded(++done);
+        }
+      };
+      await Promise.all(Array.from({ length: 4 }, worker));
+      setUploaded(null);
+      if (failed) {
+        setError("Some photos did not upload. Check your Internet connection and try again.");
+        return;
+      }
+      const res = await finishNotesUpload(slug, lesson, start.id, photos.length);
       if (!res.ok) {
         setError(res.error);
         return;
@@ -148,7 +172,11 @@ export function NotesUploader({
       </div>
       {pending && (
         <p className="text-sm text-muted" role="status">
-          {queue ? "Uploading your photos…" : "The AI is reading your handwriting. This usually takes 20–60 seconds — keep this page open."}
+          {uploaded !== null
+            ? `Uploading your photos… ${uploaded} / ${photos.length}`
+            : queue
+              ? "Handing in your notes…"
+              : "The AI is reading your handwriting. This usually takes 20–60 seconds — keep this page open."}
         </p>
       )}
     </div>
