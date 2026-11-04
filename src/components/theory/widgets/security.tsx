@@ -1,7 +1,7 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
-import { SCHOOL_RULES, WEEK, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, log10Combinations } from "@/lib/theory/security";
+import { SCHOOL_RULES, TOY_RSA, WEEK, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, log10Combinations, rsaApply, vigenere } from "@/lib/theory/security";
 
 const box = "rounded-lg border border-border bg-surface p-4";
 const inputCls = "h-10 w-full rounded-lg border border-border bg-surface px-3 font-mono text-sm focus:border-primary focus:outline-none";
@@ -180,6 +180,150 @@ export function BackupRestore() {
           : "Differential backups grow every night, but only the full backup and the latest differential are needed to restore."}{" "}
         Work done on {WEEK[failDay]} morning before the failure is lost.
       </p>
+    </div>
+  );
+}
+
+/** Symmetric (one shared key), asymmetric (a public / private key pair) and hashing side by side. */
+export function EncryptionKeys() {
+  const [tab, setTab] = useState<"symmetric" | "asymmetric" | "hashing">("symmetric");
+  return (
+    <div className={box}>
+      <div role="tablist" className="mb-4 flex flex-wrap gap-2">
+        {(["symmetric", "asymmetric", "hashing"] as const).map((t) => (
+          <button
+            key={t}
+            role="tab"
+            type="button"
+            aria-selected={tab === t}
+            onClick={() => setTab(t)}
+            className={cn("rounded-md border px-3 py-1.5 text-sm font-medium capitalize", tab === t ? "border-primary bg-primary text-primary-fg" : "border-border hover:bg-surface-2")}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+      {tab === "symmetric" ? <SymmetricDemo /> : tab === "asymmetric" ? <AsymmetricDemo /> : <HashDemo />}
+    </div>
+  );
+}
+
+const out = "rounded-md bg-surface-2 px-3 py-2";
+
+function SymmetricDemo() {
+  const [text, setText] = useState("MEET AT NOON");
+  const [key, setKey] = useState("SECRET");
+  const [bobKey, setBobKey] = useState("SECRET");
+  const cipher = vigenere(text, key);
+  const back = vigenere(cipher, bobKey, true);
+  const ok = back === text;
+  return (
+    <div className="space-y-3 text-sm">
+      <p className="text-muted">Alice and Bob share <b>one secret key</b>. The same key encrypts and decrypts (here a Vigenère cipher: each letter is shifted by the matching letter of the key).</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="space-y-1">
+          <span className="font-medium">Alice&apos;s message (plaintext)</span>
+          <input className={inputCls} value={text} maxLength={60} onChange={(e) => setText(e.target.value)} />
+        </label>
+        <label className="space-y-1">
+          <span className="font-medium">Secret key</span>
+          <input className={inputCls} value={key} maxLength={20} onChange={(e) => setKey(e.target.value)} />
+        </label>
+      </div>
+      <div className={out}>
+        <p className="text-xs text-muted">Ciphertext sent over the Internet</p>
+        <p className="font-mono font-semibold break-all">{cipher || "—"}</p>
+      </div>
+      <label className="block space-y-1">
+        <span className="font-medium">Bob decrypts with the key</span>
+        <input className={inputCls} value={bobKey} maxLength={20} onChange={(e) => setBobKey(e.target.value)} />
+      </label>
+      <div className={cn(out, "border", ok ? "border-success" : "border-danger")}>
+        <p className="text-xs text-muted">Bob reads</p>
+        <p className="font-mono font-semibold break-all">{back || "—"}</p>
+        <p className={cn("mt-1 text-xs font-semibold", ok ? "text-success" : "text-danger")}>
+          {ok ? "Same key — the message is readable." : "Different key — the message stays unreadable."}
+        </p>
+      </div>
+      <p className="text-xs text-muted">The problem: Alice must get the key to Bob <b>secretly</b> first. Anyone who intercepts the key can read every message.</p>
+    </div>
+  );
+}
+
+const asChars = (codes: number[]) => codes.map((c) => (c >= 32 && c < 127) || (c >= 0x400 && c < 0x4ff) ? String.fromCharCode(c) : "·").join("");
+
+function AsymmetricDemo() {
+  const [text, setText] = useState("HELLO BOB");
+  const [using, setUsing] = useState<"private" | "public">("private");
+  const codes = [...text].map((c) => c.charCodeAt(0)).filter((c) => c < TOY_RSA.n);
+  const cipher = rsaApply(codes, TOY_RSA.e);
+  const back = rsaApply(cipher, using === "private" ? TOY_RSA.d : TOY_RSA.e);
+  const ok = using === "private";
+  return (
+    <div className="space-y-3 text-sm">
+      <p className="text-muted">Bob has a <b>key pair</b>. He gives his <b>public key</b> to everyone and keeps his <b>private key</b> secret. What one key locks, only the other can unlock.</p>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <div className="rounded-md border border-info px-3 py-2">
+          <p className="text-xs text-muted">Bob&apos;s public key — anyone may have it</p>
+          <p className="font-mono font-semibold">e = {TOY_RSA.e}, n = {TOY_RSA.n}</p>
+        </div>
+        <div className="rounded-md border border-warning px-3 py-2">
+          <p className="text-xs text-muted">Bob&apos;s private key — only Bob</p>
+          <p className="font-mono font-semibold">d = {TOY_RSA.d}, n = {TOY_RSA.n}</p>
+        </div>
+      </div>
+      <label className="block space-y-1">
+        <span className="font-medium">Alice&apos;s message</span>
+        <input className={inputCls} value={text} maxLength={30} onChange={(e) => setText(e.target.value)} />
+      </label>
+      <div className={out}>
+        <p className="text-xs text-muted">Each character code m is encrypted with Bob&apos;s public key: c = m^{TOY_RSA.e} mod {TOY_RSA.n}</p>
+        <p className="font-mono text-xs font-semibold break-all">{cipher.join(" ") || "—"}</p>
+      </div>
+      <label className="block space-y-1">
+        <span className="font-medium">Try to decrypt with</span>
+        <select className={inputCls} value={using} onChange={(e) => setUsing(e.target.value as "private" | "public")}>
+          <option value="private">Bob&apos;s private key (Bob)</option>
+          <option value="public">Bob&apos;s public key (a hacker who has it)</option>
+        </select>
+      </label>
+      <div className={cn(out, "border", ok ? "border-success" : "border-danger")}>
+        <p className="font-mono font-semibold break-all">{asChars(back) || "—"}</p>
+        <p className={cn("mt-1 text-xs font-semibold", ok ? "text-success" : "text-danger")}>
+          {ok ? "The private key decrypts the message." : "The public key cannot undo its own encryption — the hacker gets nonsense."}
+        </p>
+      </div>
+      <p className="text-xs text-muted">This toy key uses tiny numbers (n = 61 × 53). Real RSA keys are 2048 bits or longer, so finding the private key from the public key would take millions of years.</p>
+    </div>
+  );
+}
+
+function HashDemo() {
+  const [text, setText] = useState("Password123");
+  const [hash, setHash] = useState("");
+  useEffect(() => {
+    let live = true;
+    const subtle = globalThis.crypto?.subtle;
+    if (!subtle) return;
+    subtle.digest("SHA-256", new TextEncoder().encode(text)).then((buf) => {
+      if (live) setHash([...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join(""));
+    });
+    return () => {
+      live = false;
+    };
+  }, [text]);
+  return (
+    <div className="space-y-3 text-sm">
+      <p className="text-muted">A <b>hash</b> is a fixed-length fingerprint of the data. It uses <b>no key</b> and is <b>one-way</b>: it cannot be turned back into the original. Change one character and the whole hash changes.</p>
+      <label className="block space-y-1">
+        <span className="font-medium">Text (do not type a real password)</span>
+        <input className={inputCls} value={text} maxLength={80} autoComplete="off" spellCheck={false} onChange={(e) => setText(e.target.value)} />
+      </label>
+      <div className={out}>
+        <p className="text-xs text-muted">SHA-256 hash (always 64 hexadecimal characters)</p>
+        <p className="font-mono text-xs font-semibold break-all">{hash || "—"}</p>
+      </div>
+      <p className="text-xs text-muted">Websites store the hash of your password, not the password. At login they hash what you type and compare the two hashes. Nothing typed here leaves the page.</p>
     </div>
   );
 }

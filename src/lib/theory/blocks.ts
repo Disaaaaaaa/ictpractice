@@ -16,6 +16,7 @@ export const INTERACTIVE_WIDGETS = [
   "firewall_rules",
   "password_strength",
   "backup_restore",
+  "encryption_keys",
 ] as const;
 export type InteractiveWidget = (typeof INTERACTIVE_WIDGETS)[number];
 
@@ -31,6 +32,7 @@ export const INTERACTIVE_WIDGET_LABELS: Record<InteractiveWidget, string> = {
   firewall_rules: "Firewall rule tester",
   password_strength: "Password strength",
   backup_restore: "Restoring from backups",
+  encryption_keys: "Symmetric, asymmetric and hashing",
 };
 
 const text = z.string().max(20000);

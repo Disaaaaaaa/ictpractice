@@ -82,3 +82,37 @@ export function backupsNeeded(method: "incremental" | "differential", failDay: n
   if (method === "incremental") return needed.concat(nights.map((d) => `${d} (incremental)`));
   return needed.concat(`${nights[nights.length - 1]} (differential)`);
 }
+
+// ---------------------------------------------------------------------------
+// Symmetric and asymmetric encryption (toy versions for the theory widget)
+// ---------------------------------------------------------------------------
+/**
+ * Vigenère cipher: each letter is shifted by the matching letter of the key
+ * (A = 0 … Z = 25), so the same secret key encrypts and decrypts — symmetric.
+ * Other characters are kept and do not use up a key letter.
+ */
+export function vigenere(text: string, key: string, decrypt = false): string {
+  const shifts = [...key.toUpperCase()].filter((c) => c >= "A" && c <= "Z").map((c) => c.charCodeAt(0) - 65);
+  if (shifts.length === 0) return text;
+  let i = 0;
+  return text.replace(/[a-z]/gi, (ch) => caesar(ch, (decrypt ? -1 : 1) * shifts[i++ % shifts.length]));
+}
+
+/** base^exp mod m (exact while m² stays below 2^53, as for the toy key). */
+export function modPow(base: number, exp: number, m: number): number {
+  let r = 1;
+  let b = base % m;
+  for (let e = exp; e > 0; e = Math.floor(e / 2)) {
+    if (e % 2 === 1) r = (r * b) % m;
+    b = (b * b) % m;
+  }
+  return r;
+}
+
+/** A tiny RSA key pair (p = 61, q = 53). Real keys are 2048 bits or more. */
+export const TOY_RSA = { n: 3233, e: 17, d: 2753 } as const;
+
+/** Applies an RSA key (exponent, n) to every number: c = m^exp mod n. */
+export function rsaApply(values: number[], exp: number, n: number = TOY_RSA.n): number[] {
+  return values.map((v) => modPow(v, exp, n));
+}

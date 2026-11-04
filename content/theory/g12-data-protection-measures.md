@@ -6,6 +6,29 @@ summary: Measures that protect data and computer systems — protection against 
 
 Data and computer systems are at risk from **people** (hackers, thieves, careless users), **malicious software** and **physical events** (fire, flood, power cuts, hardware failure). No single measure protects against everything, so organisations use **several layers of protection** ("defence in depth").
 
+## Types of threats
+
+:::compare Common threats to data
+| Threat | What happens | Example |
+|---|---|---|
+| **Hacking** | Someone gains **unauthorised access** to a computer or network | A pupil guesses the teacher's password and changes marks |
+| **Malware** | Malicious software (virus, worm, Trojan, spyware, ransomware) damages, steals or locks data | Ransomware encrypts the school's files and demands payment |
+| **Phishing** | Fake e-mails or websites trick users into giving passwords or bank details | An e-mail "from the bank" asks the user to "confirm" their card number |
+| **Pharming** | Malicious code redirects the user from a real website to a fake one | Typing the bank's address opens a copy of the site that records the password |
+| **Interception (eavesdropping)** | Data is read or changed while it travels over a network | A hacker on public Wi-Fi reads unencrypted messages |
+| **Denial of service (DoS)** | A server is flooded with requests until it cannot answer real users | The school website stops working on the day of exam results |
+| **Social engineering** | People are manipulated into breaking security rules | A caller pretends to be IT support and asks for a password |
+| **Human error** | Data is lost or leaked by mistake | A teacher deletes a folder or e-mails pupils' data to the wrong address |
+| **Physical threats** | Hardware or storage media is damaged or stolen | A fire in the server room; a laptop stolen from a car |
+:::
+
+:::cards
+### Internal and external threats
+**External** threats come from outside the organisation: hackers, malware from the Internet, thieves. **Internal** threats come from people **inside**: employees who misuse their access, careless users, a disgruntled worker. A firewall stops many external attacks but not internal ones — those need **access rights** and an **audit trail**.
+### Accidental and deliberate threats
+**Accidental:** deleting a file, spilling coffee on a laptop, a power cut, a failed disk. **Deliberate:** hacking, malware, theft, sabotage. Backups and UPSs protect against accidents; firewalls, passwords and encryption protect mostly against deliberate attacks.
+:::
+
 :::compare Threats and the measures that protect against them
 | Threat | Main protection measures |
 |---|---|
@@ -15,6 +38,7 @@ Data and computer systems are at risk from **people** (hackers, thieves, careles
 | Interception of data in transit, stolen laptops | **Encryption** |
 | Someone using another person's account | **Biometrics**, two-factor authentication |
 | Viruses, worms, Trojans, ransomware | **Anti-virus** software, updates, user training, backup |
+| Phishing, social engineering | **User training**, e-mail filters, two-factor authentication |
 | Accidental deletion | **Backup**, access rights, version history |
 :::
 
@@ -24,9 +48,9 @@ Data and computer systems are at risk from **people** (hackers, thieves, careles
 ### Confidentiality
 Only **authorised** people can **read** the data. Broken when a hacker reads pupils' marks or a laptop with customers' data is stolen. Protected by **access rights, passwords, encryption**.
 ### Integrity
-The data is **correct and complete** and is changed only by authorised people. Broken when a virus corrupts files or a pupil changes marks. Protected by **access rights, validation, anti-virus, backups**.
+The data is **correct and complete** and is changed only by authorised people. Broken when a virus corrupts files or a pupil changes marks. Protected by **access rights, validation, anti-virus, backups, hashes and digital signatures**.
 ### Availability
-The data and the system can be **used when they are needed**. Broken by a power cut, a failed disk or ransomware. Protected by **UPS, disk mirroring, backups**.
+The data and the system can be **used when they are needed**. Broken by a power cut, a failed disk, a DoS attack or ransomware. Protected by **UPS, disk mirroring, backups, firewalls**.
 :::
 
 :::example Layers of protection for a school server
@@ -37,6 +61,10 @@ The data and the system can be **used when they are needed**. Broken by a power 
 5. **Recovery:** disks are mirrored and a backup is made every night and kept off-site.
 
 If one layer fails — for example a teacher's password is stolen — the other layers still protect the data.
+:::
+
+:::tip
+In the exam, always **link the measure to the threat** in the scenario: not just "use a firewall", but "a firewall blocks unauthorised connections from the Internet to the school's server".
 :::
 
 # Protection against physical risks
@@ -54,6 +82,24 @@ If one layer fails — for example a teacher's password is stolen — the other 
 | **Accidental damage** (spilled drinks, dropped laptops) | No food or drink near computers, protective cases, user training |
 :::
 
+## Controlling physical access
+
+:::cards
+### Keeping people out
+- **Locks** on server rooms and network cabinets; keys only for IT staff.
+- **Key cards** (RFID / smart cards) or **PIN pads** on doors — each entry is logged.
+- **Biometric** door locks (fingerprint, face) — a card can be lent, a finger cannot.
+- **Security guards**, reception desk and a **visitor log**; visitors are accompanied.
+### Watching and recording
+- **CCTV** cameras deter thieves and record who entered.
+- **Alarms** and motion sensors outside working hours.
+- **Door logs** from key cards show who was in the room and when.
+### Protecting the devices themselves
+- **Cable locks** for laptops and PCs in classrooms.
+- Laptops and USB drives **encrypted**, so a stolen device does not expose data.
+- Old disks **securely wiped or shredded** before they are thrown away.
+:::
+
 :::definition Uninterruptible power supply (UPS)
 A device with a **battery** that keeps computers running for a short time when the mains power fails, so that work can be **saved** and the system **shut down safely** (or a generator started).
 :::
@@ -67,6 +113,27 @@ A device with a **battery** that keeps computers running for a short time when t
 
 :::definition Surge protector
 A device that stops a sudden **spike in voltage** (for example from lightning) from reaching and damaging the computer. Unlike a UPS, it does **not** keep the computer running when the power fails.
+:::
+
+:::compare UPS, surge protector and generator
+| | UPS | Surge protector | Back-up generator |
+|---|---|---|---|
+| Protects against | Power cut, short dips in voltage | Voltage spikes (lightning, faults) | Long power cuts |
+| How long | Minutes (battery) | — | Hours or days (fuel) |
+| Starts | **Instantly** — no break in power | Always on | After a few seconds, so a UPS is needed until it starts |
+| Typical use | Servers, network equipment | Every PC, printer, TV | Hospitals, data centres |
+:::
+
+:::warning
+Water must never be used to put out a fire in a server room: it damages the equipment and can cause electric shocks. Server rooms use **gas-based** fire suppression (e.g. CO₂ or inert gas), which removes oxygen without harming the hardware.
+:::
+
+:::example Protecting a school's server room — a model answer
+- The room is **locked** and opened only with IT staff **key cards**; entries are **logged** and watched by **CCTV** (theft, unauthorised access).
+- A **UPS** keeps the servers running in a power cut so they can shut down safely; **surge protectors** stop voltage spikes (power).
+- **Air conditioning** and temperature sensors prevent overheating.
+- **Smoke detectors** and **gas fire suppression**; backups are kept in a **fireproof safe or off-site** (fire).
+- Servers are on **racks above the floor**, not in the basement (flood).
 :::
 
 # Firewalls (inter-network screens)
@@ -87,13 +154,32 @@ flowchart TB
 ### What a firewall does
 - Checks the **source and destination IP address**, **port number** and protocol of every packet.
 - **Blocks** packets that do not match the rules (e.g. connections to unused ports, known bad addresses).
+- Checks traffic in **both directions**: **inbound** (from the Internet) and **outbound** (e.g. stops spyware sending data out).
 - Can **block access** to certain websites or applications.
 - **Logs** attempts to connect, so attacks can be investigated.
 - Can hide the internal addresses of the network from outsiders.
 ### Limitations
 - Cannot stop malware that arrives through **allowed** channels (e-mail attachments, USB sticks).
 - Does not protect against **insiders** already inside the network.
+- Does not stop **phishing** — the user opens the fake page through allowed web traffic.
 - Must be **configured correctly** — bad rules either block useful traffic or let attacks through.
+:::
+
+## How a firewall decides
+
+:::compare Three ways a firewall can check traffic
+| Method | What it checks | Strength | Weakness |
+|---|---|---|---|
+| **Packet filtering** | Each packet on its own: IP addresses, port, protocol | Fast and simple | Does not look inside the data; can be fooled by faked addresses |
+| **Stateful inspection** | Also remembers open connections and lets in only replies to requests made from inside | Blocks packets that do not belong to any connection | Needs more memory and processing |
+| **Proxy (application-level) firewall** | Stands between users and the Internet, receives the request and fetches the page itself; can check the **content** | Hides internal computers; can block websites, files and viruses in web traffic | Slower; each application needs its own rules |
+:::
+
+:::steps Rules are checked from the top
+- A packet arrives at the firewall.
+- The firewall compares it with **rule 1**, then rule 2, and so on.
+- The **first rule that matches** decides: the packet is allowed or blocked; later rules are not checked.
+- The **last rule** usually blocks everything that no rule allowed — "**deny by default**".
 :::
 
 ## Types of firewall
@@ -121,6 +207,10 @@ A visitor opening the website is allowed (rule 1). A hacker trying to log in to 
 :::widget firewall_rules Test the school firewall
 :::
 
+:::warning
+A firewall is **not** anti-virus software. It decides which connections may pass; it does not scan files for viruses. A school needs **both**.
+:::
+
 # Encryption
 @lo 12.1.2.1
 
@@ -135,30 +225,61 @@ flowchart TB
   C2 -->|decrypt with key| P2[Plaintext: Exam on Monday]
 :::
 
-:::compare Symmetric and asymmetric encryption
-| | Symmetric | Asymmetric (public-key) |
+:::cards
+### Plaintext and ciphertext
+**Plaintext** is the original, readable data. **Ciphertext** is the scrambled result of encryption.
+### Algorithm (cipher)
+The **method** used to encrypt, e.g. "shift every letter" or AES. Algorithms are usually **public**; the security comes from the key.
+### Key
+A **secret value** (a number or string of bits) used by the algorithm. Different keys give different ciphertext from the same plaintext.
+### Key length
+The number of **bits** in the key. Each extra bit **doubles** the number of possible keys, so longer keys are much harder to break by **brute force** (trying every key).
+:::
+
+## Key length and brute force
+
+:::compare How many keys an attacker must try
+| Cipher | Key length | Possible keys | Time to try them all at 10¹² keys per second |
+|---|---|---|---|
+| Caesar cipher | — | 25 | Instantly |
+| DES (1977) | 56 bits | 2⁵⁶ ≈ 7.2 × 10¹⁶ | About 20 hours — DES is **no longer safe** |
+| AES-128 | 128 bits | 2¹²⁸ ≈ 3.4 × 10³⁸ | About 10¹⁹ years |
+| AES-256 | 256 bits | 2²⁵⁶ ≈ 1.2 × 10⁷⁷ | Far longer than the age of the universe |
+:::
+
+## Encryption at rest and in transit
+
+:::compare Where the data is when it is encrypted
+| | Data at rest | Data in transit |
 |---|---|---|
-| Keys | The **same key** encrypts and decrypts | A **public key** encrypts, a **private key** decrypts |
-| Speed | Fast | Slower |
-| Problem | The key must be shared **securely** | Solves key sharing — the public key can be given to anyone |
-| Example use | Encrypting a hard disk (BitLocker), files | HTTPS, secure e-mail, digital signatures |
+| Meaning | Data **stored** on a disk, USB drive, phone or server | Data **travelling** over a network |
+| Threat | Theft or loss of the device | **Interception** (eavesdropping) on the network |
+| Examples | Full-disk encryption (BitLocker, FileVault), encrypted USB drives, encrypted databases | HTTPS (TLS), WPA2 / WPA3 Wi-Fi, VPN, end-to-end encrypted messaging |
+:::
+
+:::definition End-to-end encryption
+The message is encrypted on the **sender's device** and decrypted only on the **receiver's device**. Even the company that runs the service (e.g. a messaging app) cannot read it on its servers.
 :::
 
 :::cards
 ### Where encryption is used
 - **HTTPS / SSL / TLS** — web pages, online banking, payments.
 - **Full-disk encryption** on laptops and phones, encrypted USB drives.
-- **Wi-Fi** (WPA2 / WPA3).
-- Messaging apps with end-to-end encryption.
+- **Wi-Fi** (WPA2 / WPA3) and **VPNs** for working from home.
+- Messaging apps with **end-to-end** encryption.
 - Storing **passwords** as hashes (one-way) rather than plain text.
 ### Advantages and disadvantages
 - ✔ Stolen or intercepted data cannot be read.
 - ✔ Protects data on lost devices.
+- ✔ Helps an organisation follow data-protection laws.
 - ✘ If the **key is lost**, the data is lost too.
 - ✘ Takes processing time; does not stop deletion or ransomware.
+- ✘ Criminals use it too — ransomware **encrypts** the victim's files.
 :::
 
 ## A simple cipher: the Caesar cipher
+
+The oldest ciphers are **substitution ciphers** (each letter is replaced by another) and **transposition ciphers** (the letters stay the same but their **order** is changed, e.g. writing the message in rows and reading it in columns). The Caesar cipher is a substitution cipher.
 
 :::example Shift each letter 3 places forward
 | Plain | A | B | C | … | X | Y | Z |
@@ -171,11 +292,148 @@ flowchart TB
 :::widget caesar_cipher Encrypt, decrypt and break a Caesar cipher
 :::
 
+# Symmetric and asymmetric encryption
+@lo 12.1.2.1
+
+There are two main **types of encryption**, which differ in **how many keys** are used and **who holds them**.
+
+## Symmetric encryption
+
+:::definition Symmetric encryption
+Encryption in which the **same secret key** is used to **encrypt and decrypt** the data. The sender and the receiver must both have this key, and it must be kept secret.
+:::
+
+:::steps Sending a message with symmetric encryption
+- Alice and Bob agree on **one secret key** in advance.
+- Alice encrypts the message with the key and sends the ciphertext.
+- Anyone who intercepts the ciphertext cannot read it without the key.
+- Bob decrypts it with **the same key**.
+:::
+
+:::mermaid Symmetric: one shared key
+flowchart LR
+  A[Alice: plaintext] -->|encrypt with the shared key| C[Ciphertext]
+  C -->|decrypt with the same key| B[Bob: plaintext]
+:::
+
+:::cards
+### Algorithms
+- **AES** (Advanced Encryption Standard) — today's standard, 128-, 192- or 256-bit keys.
+- **DES** — older, 56-bit key, now broken by brute force; **3DES** applies it three times.
+### Advantages
+- **Fast** — suitable for large amounts of data (whole disks, video calls).
+- Uses short keys for the same security.
+### Disadvantages
+- **Key distribution problem:** the key has to reach the receiver **securely** — if it is sent by e-mail and intercepted, all messages can be read.
+- Each pair of people needs its own key: 100 people need **4 950** different keys (n(n − 1) / 2).
+### Typical uses
+Encrypting hard disks and USB drives (BitLocker), files and databases, Wi-Fi (WPA2 / WPA3), the data part of an HTTPS connection.
+:::
+
+## Asymmetric (public-key) encryption
+
+:::definition Asymmetric encryption
+Encryption that uses a **pair of keys**: a **public key**, which anyone may have and which is used to **encrypt**, and a **private key**, which only the owner keeps and which is used to **decrypt**. Data encrypted with the public key can be decrypted **only** with the matching private key.
+:::
+
+:::steps Sending a message with asymmetric encryption
+- Bob creates a **key pair** and publishes his **public key**; he keeps the **private key** secret.
+- Alice encrypts her message with **Bob's public key**.
+- Even Alice — and any hacker who has the public key — **cannot** decrypt the ciphertext.
+- Only Bob can decrypt it, with **his private key**.
+:::
+
+:::mermaid Asymmetric: the receiver's key pair
+flowchart LR
+  A[Alice: plaintext] -->|encrypt with Bob's PUBLIC key| C[Ciphertext]
+  C -->|decrypt with Bob's PRIVATE key| B[Bob: plaintext]
+:::
+
+:::cards
+### Algorithms
+- **RSA** — keys of 2048 bits or more; based on how hard it is to find the two prime factors of a very large number.
+- **ECC** (elliptic-curve cryptography) — the same security with shorter keys; used on phones.
+### Advantages
+- **Solves the key distribution problem:** the public key can be sent openly; the private key never leaves its owner.
+- 100 people need only **100 key pairs**.
+- Makes **digital signatures** possible.
+### Disadvantages
+- Much **slower** than symmetric encryption — not used for large files.
+- Needs very long keys; if the private key is stolen, the security is lost.
+### Typical uses
+Exchanging keys in **HTTPS**, secure e-mail, **digital signatures** and **digital certificates**, SSH logins, cryptocurrency wallets.
+:::
+
+:::compare Symmetric and asymmetric encryption
+| | Symmetric | Asymmetric (public-key) |
+|---|---|---|
+| Keys | **One** shared secret key | A **pair**: public key and private key |
+| Encrypt with | The secret key | The **receiver's public** key |
+| Decrypt with | The **same** secret key | The **receiver's private** key |
+| Speed | **Fast** | **Slower** |
+| Typical key length | 128–256 bits (AES) | 2048–4096 bits (RSA) |
+| Key sharing | The key must be shared **securely** in advance | The public key can be given to **anyone** |
+| Example algorithms | AES, DES, 3DES | RSA, ECC |
+| Example use | Encrypting a hard disk, files, Wi-Fi | HTTPS key exchange, secure e-mail, digital signatures |
+:::
+
+:::widget encryption_keys Try symmetric, asymmetric and hashing
+:::
+
+## Digital signatures and certificates
+
+:::definition Digital signature
+Data attached to a message or file to prove **who sent it** (authentication) and that it **has not been changed** (integrity). The sender creates it with their **private key**; anyone can check it with the sender's **public key**.
+:::
+
+:::steps Signing and checking a document
+- The sender calculates a **hash** of the document.
+- The hash is encrypted with the **sender's private key** — this is the digital signature.
+- The receiver decrypts the signature with the **sender's public key** and calculates the hash of the document again.
+- If the two hashes are the same, the document really came from the sender and was **not changed** on the way.
+:::
+
+:::definition Digital certificate
+An electronic document issued by a trusted **certificate authority (CA)** that links a **public key** to its owner (e.g. a website's domain name). The browser checks the certificate before trusting the website's public key — this is what the **padlock** in the address bar shows.
+:::
+
+:::warning
+The keys are used **the other way round** for the two jobs. For **secrecy**, encrypt with the **receiver's public key** (only the receiver's private key decrypts). For a **signature**, sign with the **sender's private key** (anyone checks it with the sender's public key). The padlock means the connection is encrypted — **not** that the website is honest.
+:::
+
+## Hashing — one-way, not encryption
+
+:::definition Hashing
+A **hash function** turns any data into a **fixed-length** value (the hash, or digest). It uses **no key** and is **one-way**: the original data cannot be worked out from the hash. A tiny change in the data gives a completely different hash. Examples: **SHA-256**, SHA-3 (MD5 is old and unsafe).
+:::
+
+:::compare Encryption and hashing
+| | Encryption | Hashing |
+|---|---|---|
+| Can it be reversed? | **Yes** — decrypt with the key | **No** — one-way |
+| Key | Needed | Not used |
+| Output length | About the same as the data | Always the same (e.g. 256 bits for SHA-256) |
+| Used for | Keeping data **secret** | Storing **passwords**, checking **integrity** (files not changed), digital signatures |
+:::
+
+:::steps How a website checks a password without storing it
+- At sign-up, the website stores only the **hash** of the password.
+- At login, it hashes the password the user types.
+- If the two hashes match, the password is correct.
+- If hackers steal the database, they get only hashes — not the passwords.
+:::
+
+## Using both: how HTTPS works
+
 :::steps How HTTPS uses both kinds of encryption
-- The browser connects to `https://` and receives the website's **public key** (in its digital certificate).
-- The browser creates a **session key** and sends it **encrypted with the public key** — only the website's **private key** can decrypt it (**asymmetric**).
-- From then on, all data is encrypted with the fast **symmetric** session key.
+- The browser connects to `https://` and receives the website's **public key** in its **digital certificate**; it checks the certificate.
+- The browser creates a random **session key** and sends it **encrypted with the website's public key** — only the website's **private key** can decrypt it (**asymmetric**).
+- From then on, all data is encrypted with the fast **symmetric** session key (e.g. AES).
 - Result: the key is shared safely **and** the data travels quickly.
+:::
+
+:::tip
+"Explain why HTTPS uses both" is a common question: **asymmetric** solves the problem of **sharing the key** safely; **symmetric** is used for the data because it is **faster**.
 :::
 
 # Exam practice: threats, firewalls and encryption
@@ -183,13 +441,28 @@ flowchart TB
 
 :::example Exam-style answers
 **Q: State one threat that a firewall cannot protect against. [1]**
-Malware in an e-mail attachment or on a USB stick / an insider already in the network / weak passwords.
+Malware in an e-mail attachment or on a USB stick / an insider already in the network / phishing / weak passwords.
 
 **Q: Explain how encryption protects pupils' marks if a teacher's laptop is stolen. [2]**
 The data is stored as **ciphertext** (1); the thief cannot read it without the **key / password** (1).
 
 **Q: Explain why a server is connected to a UPS. [2]**
 If the power fails, the UPS **battery keeps the server running** (1) so data can be saved and the server **shut down safely** — no corruption or data loss (1).
+
+**Q: Describe how a firewall uses packet filtering. [2]**
+It checks each packet's **IP address / port number / protocol** against a list of **rules** (1); packets that are not allowed by the rules are **blocked** (1).
+
+**Q: Describe two differences between symmetric and asymmetric encryption. [2]**
+Symmetric uses **one shared key** to encrypt and decrypt; asymmetric uses a **public key** to encrypt and a **private key** to decrypt (1). Symmetric is **faster** / asymmetric does not need the key to be shared secretly (1).
+
+**Q: Alice wants to send Bob a confidential message using asymmetric encryption. Describe how the keys are used. [3]**
+Alice encrypts the message with **Bob's public key** (1); the ciphertext is sent (1); only **Bob's private key** can decrypt it, so only Bob can read it (1).
+
+**Q: Explain why passwords are stored as hashes. [2]**
+A hash is **one-way** / cannot be turned back into the password (1), so if the database is stolen the hackers do not get the passwords (1).
+
+**Q: State three measures that protect a server room against theft. [3]**
+Locked door with key cards / biometric lock (1); CCTV / alarms (1); security guard / visitor log / cable locks (1).
 :::
 
 # Biometrics

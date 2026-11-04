@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SCHOOL_RULES, backupsNeeded, caesar, charsetSize, crackTime, firstMatch } from "@/lib/theory/security";
+import { SCHOOL_RULES, TOY_RSA, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, modPow, rsaApply, vigenere } from "@/lib/theory/security";
 
 describe("caesar", () => {
   it("shifts letters and wraps around", () => {
@@ -33,5 +33,21 @@ describe("restoring backups", () => {
     expect(backupsNeeded("incremental", 4)).toEqual(["Sunday (full)", "Monday (incremental)", "Tuesday (incremental)", "Wednesday (incremental)"]);
     expect(backupsNeeded("differential", 4)).toEqual(["Sunday (full)", "Wednesday (differential)"]);
     expect(backupsNeeded("differential", 1)).toEqual(["Sunday (full)"]);
+  });
+});
+
+describe("symmetric and asymmetric toy ciphers", () => {
+  it("Vigenère: the same key encrypts and decrypts", () => {
+    expect(vigenere("ATTACKATDAWN", "LEMON")).toBe("LXFOPVEFRNHR");
+    expect(vigenere("Meet at noon!", "key")).toBe("Wicd er xsmx!");
+    expect(vigenere(vigenere("Meet at noon!", "key"), "key", true)).toBe("Meet at noon!");
+    expect(vigenere("abc", "123")).toBe("abc");
+  });
+  it("RSA: the public key encrypts, only the private key decrypts", () => {
+    expect(modPow(65, 17, 3233)).toBe(2790);
+    const codes = [..."HELLO"].map((c) => c.charCodeAt(0));
+    const cipher = rsaApply(codes, TOY_RSA.e);
+    expect(rsaApply(cipher, TOY_RSA.d)).toEqual(codes);
+    expect(rsaApply(cipher, TOY_RSA.e)).not.toEqual(codes);
   });
 });
