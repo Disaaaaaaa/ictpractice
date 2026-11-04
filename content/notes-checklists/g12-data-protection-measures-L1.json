@@ -48,9 +48,14 @@
       "weight": 3
     },
     {
-      "title": "Symmetric and asymmetric encryption",
-      "must": "Symmetric: the same key encrypts and decrypts, fast, the key must be shared secretly. Asymmetric: a public key encrypts, a private key decrypts.",
-      "weight": 3
+      "title": "Symmetric encryption",
+      "must": "The same secret key encrypts and decrypts; it is fast (used for disks, files, Wi-Fi); the key must be shared secretly (key distribution problem); e.g. AES (DES is old and broken).",
+      "weight": 2
+    },
+    {
+      "title": "Asymmetric encryption",
+      "must": "A key pair: the receiver's public key encrypts, only the matching private key decrypts; slower; solves the key-sharing problem; e.g. RSA; used in HTTPS key exchange and digital signatures.",
+      "weight": 2
     },
     {
       "title": "Uses of encryption",
@@ -60,6 +65,26 @@
     {
       "title": "Caesar cipher",
       "must": "Each letter is shifted by the key; only 25 keys, so it is broken by brute force.",
+      "weight": 1
+    },
+    {
+      "title": "Types of threats",
+      "must": "Several named threats with what happens, e.g. phishing, pharming, denial of service, interception, social engineering; internal vs external or accidental vs deliberate.",
+      "weight": 1
+    },
+    {
+      "title": "How a firewall decides",
+      "must": "Packet filtering (IP address, port), stateful inspection (only replies to connections from inside) and/or proxy firewall (fetches pages, checks content).",
+      "weight": 1
+    },
+    {
+      "title": "Key length; at rest and in transit",
+      "must": "Longer keys mean many more possible keys, so brute force takes far longer (DES 56-bit broken, AES 128/256-bit safe); data at rest (disk encryption) vs in transit (HTTPS, Wi-Fi, VPN).",
+      "weight": 1
+    },
+    {
+      "title": "Digital signatures, certificates, hashing",
+      "must": "A signature is made with the sender's private key and checked with their public key (proves sender and integrity); a certificate links a public key to a website; a hash is one-way with no key (passwords stored as hashes).",
       "weight": 1
     }
   ]
