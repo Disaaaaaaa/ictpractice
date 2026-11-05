@@ -81,3 +81,23 @@ describe("ERD attributes written in different ways", () => {
     }
   });
 });
+
+describe("many-to-many left in a final-form diagram", () => {
+  const k: ErdKey = {
+    entities: [{ name: "Doctor" }, { name: "Patient" }, { name: "Treatment" }],
+    relationships: [
+      { a: "Doctor", b: "Treatment", degree: "1:M" },
+      { a: "Patient", b: "Treatment", degree: "1:M" },
+    ],
+  };
+  it("costs marks and says why, without giving the answer", () => {
+    const r = gradeDeterministic("erd", 3, { erd: k }, { diagram: { nodes: [box("d", "Doctor"), box("p", "Patient")], edges: [line("d", "p", "M:M")] } });
+    expect(r.decided && r.awarded).toBe(0);
+    expect(r.decided && r.feedback).toContain("replace it with a link entity");
+    expect(r.decided && r.feedback).not.toContain("Treatment");
+  });
+  it("full marks once the link entity is drawn", () => {
+    const d = { nodes: [box("d", "Doctor"), box("p", "Patient"), box("t", "Treatments")], edges: [line("d", "t", "1:M"), line("t", "p", "M:1")] };
+    expect(gradeDeterministic("erd", 3, { erd: k }, { diagram: d })).toMatchObject({ decided: true, awarded: 3 });
+  });
+});

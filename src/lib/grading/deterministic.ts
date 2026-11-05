@@ -1,5 +1,5 @@
 import type { AcceptedAnswers, AnswerData, QuestionType } from "../questions/types";
-import { compileCircuit, equivalentTo, expressionFunction, markErd, treeLevelOrder } from "../diagrams";
+import { compileCircuit, equivalentTo, erdDegree, markErd, expressionFunction, treeLevelOrder } from "../diagrams";
 
 export type MarkingPointResult = { criterion: string; awarded: boolean; comment?: string };
 
@@ -366,6 +366,8 @@ export function gradeDeterministic(
         ...(m.keys.total ? [`${m.keys.found} of ${m.keys.total} identifiers`] : []),
         `${m.relationships.linked} of ${m.relationships.total} relationships drawn, ${m.relationships.correct} with the right degree`,
       ];
+      // a many-to-many line left in a diagram whose final form has none
+      const mmLeft = !key.erd.relationships.some((r) => r.degree === "M:M") && a.diagram.edges.some((e) => erdDegree(e.label) === "M:M");
       return {
         decided: true,
         awarded: ok ? marks : scale(Math.max(0, got - m.extra), total, marks, key.scoring),
@@ -374,7 +376,9 @@ export function gradeDeterministic(
         points,
         feedback: ok
           ? "Correct — every entity and relationship is right."
-          : `${parts.join("; ")}${m.extra ? `; ${m.extra} extra box${m.extra === 1 ? "" : "es"} or line${m.extra === 1 ? "" : "s"} the scenario does not need` : ""}. Select a line to set its degree (1:1, 1:M, M:1 or M:M).`,
+          : `${parts.join("; ")}${m.extra ? `; ${m.extra} extra box${m.extra === 1 ? "" : "es"} or line${m.extra === 1 ? "" : "s"} the scenario does not need` : ""}.${
+              mmLeft ? " A many-to-many relationship cannot be stored — replace it with a link entity and two one-to-many relationships." : ""
+            } Select a line to set its degree.`,
       };
     }
 

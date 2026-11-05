@@ -2603,7 +2603,7 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "A school keeps data about its classes. Each class has many pupils, and each pupil belongs to one class. Every class has one form tutor (a teacher), and each teacher is the form tutor of only one class.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "A school keeps data about its classes. Each class has many pupils, and each pupil belongs to one class. Every class has one form tutor (a teacher), and each teacher is the form tutor of only one class.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
         "mark_scheme": "Entities: Class, Pupil, Teacher (1 item each)\nRelationships: Class 1:M Pupil; Teacher 1:1 Class (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
@@ -2663,11 +2663,11 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "A hospital has many wards. Each ward has many patients, and each patient stays in one ward. A patient is treated by several doctors, and each doctor treats many patients.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "A hospital has many wards. Each ward has many patients, and each patient stays in one ward. A patient is treated by several doctors, and each doctor treats many patients. Use a link entity called **Treatment** for doctors and patients.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
-        "mark_scheme": "Entities: Ward, Patient, Doctor (1 item each)\nRelationships: Ward 1:M Patient; Doctor M:M Patient (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
-        "model_answer": "Ward 1 —— M Patient; Doctor M —— M Patient",
+        "mark_scheme": "Entities: Ward, Patient, Doctor, Treatment (1 item each)\nRelationships: Ward 1:M Patient; Doctor 1:M Treatment; Patient 1:M Treatment (1 item each, with the correct degree)\nNo many-to-many relationship may be left: each one is replaced by its link entity.\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Ward 1 —— M Patient 1 —— M Treatment M —— 1 Doctor",
         "accepted": {
           "erd": {
             "entities": [
@@ -2679,6 +2679,12 @@
               },
               {
                 "name": "Doctor"
+              },
+              {
+                "name": "Treatment",
+                "aliases": [
+                  "Treatments"
+                ]
               }
             ],
             "relationships": [
@@ -2689,8 +2695,13 @@
               },
               {
                 "a": "Doctor",
-                "b": "Patient",
-                "degree": "M:M"
+                "b": "Treatment",
+                "degree": "1:M"
+              },
+              {
+                "a": "Patient",
+                "b": "Treatment",
+                "degree": "1:M"
               }
             ]
           }
@@ -2709,7 +2720,7 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "An online shop stores data about customers, orders and couriers. A customer places many orders, and each order is placed by one customer. Each order is delivered by one courier, and a courier delivers many orders.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "An online shop stores data about customers, orders and couriers. A customer places many orders, and each order is placed by one customer. Each order is delivered by one courier, and a courier delivers many orders.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
         "mark_scheme": "Entities: Customer, Order, Courier (1 item each)\nRelationships: Customer 1:M Order; Courier 1:M Order (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
@@ -2761,7 +2772,7 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "A football association stores data about its league. The league is made up of many teams, and each team plays in one league. A team has many players, and each player plays for one team. Each team has one home stadium, and each stadium is the home of only one team.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "A football association stores data about its league. The league is made up of many teams, and each team plays in one league. A team has many players, and each player plays for one team. Each team has one home stadium, and each stadium is the home of only one team.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
         "mark_scheme": "Entities: League, Team, Player, Stadium (1 item each)\nRelationships: League 1:M Team; Team 1:M Player; Team 1:1 Stadium (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
@@ -2813,7 +2824,7 @@
       "key": "erd-build-music",
       "title": "Build an ERD: a music app",
       "type": "erd",
-      "marks": 3,
+      "marks": 4,
       "difficulty": "medium",
       "command_word": "draw",
       "grading": "AUTO",
@@ -2821,11 +2832,11 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "A music streaming app stores artists, songs, listeners and playlists. An artist records many songs, and a song can be recorded by several artists. Each listener creates many playlists, and each playlist belongs to one listener. A playlist contains many songs, and a song can appear in many playlists.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "A music streaming app stores artists, songs, listeners and playlists. An artist records many songs, and a song can be recorded by several artists. Each listener creates many playlists, and each playlist belongs to one listener. A playlist contains many songs, and a song can appear in many playlists. Use a link entity called **Recording** for artists and songs, and a link entity called **PlaylistSong** for playlists and songs.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
-        "mark_scheme": "Entities: Artist, Song, Listener, Playlist (1 item each)\nRelationships: Artist M:M Song; Listener 1:M Playlist; Playlist M:M Song (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
-        "model_answer": "Artist M —— M Song; Listener 1 —— M Playlist; Playlist M —— M Song",
+        "mark_scheme": "Entities: Artist, Song, Listener, Playlist, Recording, PlaylistSong (1 item each)\nRelationships: Artist 1:M Recording; Song 1:M Recording; Listener 1:M Playlist; Playlist 1:M PlaylistSong; Song 1:M PlaylistSong (1 item each, with the correct degree)\nNo many-to-many relationship may be left: each one is replaced by its link entity.\n11 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Artist 1 —— M Recording M —— 1 Song; Listener 1 —— M Playlist 1 —— M PlaylistSong M —— 1 Song",
         "accepted": {
           "erd": {
             "entities": [
@@ -2850,13 +2861,33 @@
               },
               {
                 "name": "Playlist"
+              },
+              {
+                "name": "Recording",
+                "aliases": [
+                  "Recordings"
+                ]
+              },
+              {
+                "name": "PlaylistSong",
+                "aliases": [
+                  "PlaylistSongs",
+                  "PlaylistEntry",
+                  "PlaylistItem",
+                  "PlaylistTrack"
+                ]
               }
             ],
             "relationships": [
               {
                 "a": "Artist",
-                "b": "Song",
-                "degree": "M:M"
+                "b": "Recording",
+                "degree": "1:M"
+              },
+              {
+                "a": "Song",
+                "b": "Recording",
+                "degree": "1:M"
               },
               {
                 "a": "Listener",
@@ -2865,8 +2896,13 @@
               },
               {
                 "a": "Playlist",
-                "b": "Song",
-                "degree": "M:M"
+                "b": "PlaylistSong",
+                "degree": "1:M"
+              },
+              {
+                "a": "Song",
+                "b": "PlaylistSong",
+                "degree": "1:M"
               }
             ]
           }
@@ -2885,7 +2921,7 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "A government database stores countries, capital cities, citizens and passports. Each country has one capital city, and each capital city is in one country. A country has many citizens, and each citizen is a citizen of one country. Each citizen has one passport, and each passport belongs to one citizen.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "A government database stores countries, capital cities, citizens and passports. Each country has one capital city, and each capital city is in one country. A country has many citizens, and each citizen is a citizen of one country. Each citizen has one passport, and each passport belongs to one citizen.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
         "mark_scheme": "Entities: Country, CapitalCity, Citizen, Passport (1 item each)\nRelationships: Country 1:1 CapitalCity; Country 1:M Citizen; Citizen 1:1 Passport (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
@@ -2947,11 +2983,11 @@
         "11.4.1.7"
       ],
       "practice": true,
-      "text": "Pupils can join after-school clubs. A pupil can join many clubs, and a club has many pupils. Each club is run by one teacher, and a teacher can run several clubs. For each pupil the school stores a name and a class; for each club, its name and meeting day.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "text": "Pupils can join after-school clubs. A pupil can join many clubs, and a club has many pupils. Each club is run by one teacher, and a teacher can run several clubs. For each pupil the school stores a name and a class; for each club, its name and meeting day. Use a link entity called **Membership** for pupils and clubs.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. A many-to-many relationship cannot be stored in a database, so do **not** leave one in the diagram — replace it with the link entity named in the scenario. Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
       "content": {},
       "scheme": {
-        "mark_scheme": "Entities: Pupil, Club, Teacher (1 item each)\nRelationships: Pupil M:M Club; Teacher 1:M Club (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
-        "model_answer": "Pupil M —— M Club; Teacher 1 —— M Club (name, class and meeting day are attributes)",
+        "mark_scheme": "Entities: Pupil, Club, Teacher, Membership (1 item each)\nRelationships: Teacher 1:M Club; Pupil 1:M Membership; Club 1:M Membership (1 item each, with the correct degree)\nNo many-to-many relationship may be left: each one is replaced by its link entity.\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Teacher 1 —— M Club 1 —— M Membership M —— 1 Pupil (name, class and meeting day are attributes)",
         "accepted": {
           "erd": {
             "entities": [
@@ -2975,17 +3011,30 @@
                   "Tutor",
                   "Supervisor"
                 ]
+              },
+              {
+                "name": "Membership",
+                "aliases": [
+                  "Memberships",
+                  "ClubMember",
+                  "ClubMembership"
+                ]
               }
             ],
             "relationships": [
               {
-                "a": "Pupil",
-                "b": "Club",
-                "degree": "M:M"
-              },
-              {
                 "a": "Teacher",
                 "b": "Club",
+                "degree": "1:M"
+              },
+              {
+                "a": "Pupil",
+                "b": "Membership",
+                "degree": "1:M"
+              },
+              {
+                "a": "Club",
+                "b": "Membership",
                 "degree": "1:M"
               }
             ]
