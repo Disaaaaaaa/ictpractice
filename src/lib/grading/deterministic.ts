@@ -1,5 +1,5 @@
 import type { AcceptedAnswers, AnswerData, QuestionType } from "../questions/types";
-import { compileCircuit, equivalentTo, expressionFunction, treeLevelOrder } from "../diagrams";
+import { compileCircuit, equivalentTo, expressionFunction, markErd, treeLevelOrder } from "../diagrams";
 
 export type MarkingPointResult = { criterion: string; awarded: boolean; comment?: string };
 
@@ -343,6 +343,38 @@ export function gradeDeterministic(
         fullyCorrect: ok,
         points: [{ criterion: "All nodes in the correct positions", awarded: ok }],
         feedback: `${placed} of ${positions.length} nodes in the correct position${extra ? "; extra nodes were added" : ""}.`,
+      };
+    }
+
+    case "erd": {
+      if (!key.erd) return undecided("missing answer key");
+      if (!a.diagram || a.diagram.nodes.length === 0) return undecided("no diagram drawn");
+      const m = markErd(a.diagram, key.erd);
+      // one item per entity, per identifier asked for and per relationship (with the right degree);
+      // every extra entity or link costs an item
+      const total = m.entities.total + m.keys.total + m.relationships.total;
+      const got = m.entities.found + m.keys.found + m.relationships.correct;
+      const ok = got === total && m.extra === 0;
+      const points = [
+        { criterion: "All entities", awarded: m.entities.found === m.entities.total },
+        ...(m.keys.total ? [{ criterion: "Identifier (primary key) of each entity", awarded: m.keys.found === m.keys.total }] : []),
+        { criterion: "Entities linked correctly", awarded: m.relationships.linked === m.relationships.total },
+        { criterion: "Degree of every relationship", awarded: m.relationships.correct === m.relationships.total },
+      ];
+      const parts = [
+        `${m.entities.found} of ${m.entities.total} entities`,
+        ...(m.keys.total ? [`${m.keys.found} of ${m.keys.total} identifiers`] : []),
+        `${m.relationships.linked} of ${m.relationships.total} relationships drawn, ${m.relationships.correct} with the right degree`,
+      ];
+      return {
+        decided: true,
+        awarded: ok ? marks : scale(Math.max(0, got - m.extra), total, marks, key.scoring),
+        max: marks,
+        fullyCorrect: ok,
+        points,
+        feedback: ok
+          ? "Correct — every entity and relationship is right."
+          : `${parts.join("; ")}${m.extra ? `; ${m.extra} extra box${m.extra === 1 ? "" : "es"} or line${m.extra === 1 ? "" : "s"} the scenario does not need` : ""}. Select a line to set its degree (1:1, 1:M, M:1 or M:M).`,
       };
     }
 

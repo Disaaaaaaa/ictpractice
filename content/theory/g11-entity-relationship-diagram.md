@@ -130,7 +130,7 @@ Both words are used for "how many records on each side": **one-to-one**, **one-t
 Read the sentence "one **Class** has many **Pupils**": the crow's foot is drawn at the **Pupil** end — the side that has many records for one record on the other side.
 :::
 
-# Lesson 1 — exam practice
+# Exam practice: entities and relationships
 @lo 11.4.1.7
 
 :::example Exam-style answers
@@ -144,7 +144,7 @@ One-to-many (1): one team has many players, but each player plays for only one t
 A thing (person, object, place or event) about which data is stored.
 :::
 
-:::warning Common mistakes in Lesson 1
+:::warning Common mistakes with entities and relationships
 - Naming a **value** (*11A*, *Abai Zholy*) as an entity.
 - Saying "one-to-many" without saying **which** entity is on the "many" side.
 - Checking the relationship in **one** direction only.

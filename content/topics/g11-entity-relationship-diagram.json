@@ -2590,6 +2590,1017 @@
           "source": "nis_style"
         }
       ]
+    },
+    {
+      "key": "erd-build-school",
+      "title": "Build an ERD: a school",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "A school keeps data about its classes. Each class has many pupils, and each pupil belongs to one class. Every class has one form tutor (a teacher), and each teacher is the form tutor of only one class.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Class, Pupil, Teacher (1 item each)\nRelationships: Class 1:M Pupil; Teacher 1:1 Class (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Class 1 —— M Pupil; Teacher 1 —— 1 Class",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Class",
+                "aliases": [
+                  "Classes",
+                  "Form"
+                ]
+              },
+              {
+                "name": "Pupil",
+                "aliases": [
+                  "Pupils",
+                  "Student",
+                  "Students"
+                ]
+              },
+              {
+                "name": "Teacher",
+                "aliases": [
+                  "Teachers",
+                  "FormTutor",
+                  "Tutor"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Class",
+                "b": "Pupil",
+                "degree": "1:M"
+              },
+              {
+                "a": "Teacher",
+                "b": "Class",
+                "degree": "1:1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-hospital-l1",
+      "title": "Build an ERD: hospital wards",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "A hospital has many wards. Each ward has many patients, and each patient stays in one ward. A patient is treated by several doctors, and each doctor treats many patients.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Ward, Patient, Doctor (1 item each)\nRelationships: Ward 1:M Patient; Doctor M:M Patient (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Ward 1 —— M Patient; Doctor M —— M Patient",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Ward"
+              },
+              {
+                "name": "Patient"
+              },
+              {
+                "name": "Doctor"
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Ward",
+                "b": "Patient",
+                "degree": "1:M"
+              },
+              {
+                "a": "Doctor",
+                "b": "Patient",
+                "degree": "M:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-delivery",
+      "title": "Build an ERD: deliveries",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "An online shop stores data about customers, orders and couriers. A customer places many orders, and each order is placed by one customer. Each order is delivered by one courier, and a courier delivers many orders.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Customer, Order, Courier (1 item each)\nRelationships: Customer 1:M Order; Courier 1:M Order (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Customer 1 —— M Order M —— 1 Courier",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Customer",
+                "aliases": [
+                  "Client"
+                ]
+              },
+              {
+                "name": "Order"
+              },
+              {
+                "name": "Courier",
+                "aliases": [
+                  "Driver"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Customer",
+                "b": "Order",
+                "degree": "1:M"
+              },
+              {
+                "a": "Courier",
+                "b": "Order",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-league",
+      "title": "Build an ERD: a football league",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "A football association stores data about its league. The league is made up of many teams, and each team plays in one league. A team has many players, and each player plays for one team. Each team has one home stadium, and each stadium is the home of only one team.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: League, Team, Player, Stadium (1 item each)\nRelationships: League 1:M Team; Team 1:M Player; Team 1:1 Stadium (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "League 1 —— M Team; Team 1 —— M Player; Team 1 —— 1 Stadium",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "League"
+              },
+              {
+                "name": "Team",
+                "aliases": [
+                  "Club"
+                ]
+              },
+              {
+                "name": "Player"
+              },
+              {
+                "name": "Stadium",
+                "aliases": [
+                  "Ground"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "League",
+                "b": "Team",
+                "degree": "1:M"
+              },
+              {
+                "a": "Team",
+                "b": "Player",
+                "degree": "1:M"
+              },
+              {
+                "a": "Team",
+                "b": "Stadium",
+                "degree": "1:1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-music",
+      "title": "Build an ERD: a music app",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "A music streaming app stores artists, songs, listeners and playlists. An artist records many songs, and a song can be recorded by several artists. Each listener creates many playlists, and each playlist belongs to one listener. A playlist contains many songs, and a song can appear in many playlists.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Artist, Song, Listener, Playlist (1 item each)\nRelationships: Artist M:M Song; Listener 1:M Playlist; Playlist M:M Song (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Artist M —— M Song; Listener 1 —— M Playlist; Playlist M —— M Song",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Artist",
+                "aliases": [
+                  "Singer",
+                  "Band"
+                ]
+              },
+              {
+                "name": "Song",
+                "aliases": [
+                  "Track"
+                ]
+              },
+              {
+                "name": "Listener",
+                "aliases": [
+                  "User"
+                ]
+              },
+              {
+                "name": "Playlist"
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Artist",
+                "b": "Song",
+                "degree": "M:M"
+              },
+              {
+                "a": "Listener",
+                "b": "Playlist",
+                "degree": "1:M"
+              },
+              {
+                "a": "Playlist",
+                "b": "Song",
+                "degree": "M:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-countries",
+      "title": "Build an ERD: countries and passports",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "A government database stores countries, capital cities, citizens and passports. Each country has one capital city, and each capital city is in one country. A country has many citizens, and each citizen is a citizen of one country. Each citizen has one passport, and each passport belongs to one citizen.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Country, CapitalCity, Citizen, Passport (1 item each)\nRelationships: Country 1:1 CapitalCity; Country 1:M Citizen; Citizen 1:1 Passport (1 item each, with the correct degree)\n7 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Country 1 —— 1 CapitalCity; Country 1 —— M Citizen; Citizen 1 —— 1 Passport",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Country"
+              },
+              {
+                "name": "CapitalCity",
+                "aliases": [
+                  "Capital",
+                  "City"
+                ]
+              },
+              {
+                "name": "Citizen",
+                "aliases": [
+                  "Person",
+                  "People"
+                ]
+              },
+              {
+                "name": "Passport"
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Country",
+                "b": "CapitalCity",
+                "degree": "1:1"
+              },
+              {
+                "a": "Country",
+                "b": "Citizen",
+                "degree": "1:M"
+              },
+              {
+                "a": "Citizen",
+                "b": "Passport",
+                "degree": "1:1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-clubs",
+      "title": "Build an ERD: school clubs",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.7"
+      ],
+      "practice": true,
+      "text": "Pupils can join after-school clubs. A pupil can join many clubs, and a club has many pupils. Each club is run by one teacher, and a teacher can run several clubs. For each pupil the school stores a name and a class; for each club, its name and meeting day.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and set its degree (1:1, 1:M, M:1 or M:M). Draw only the entities the scenario needs — details such as names or dates are attributes, not entities.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Pupil, Club, Teacher (1 item each)\nRelationships: Pupil M:M Club; Teacher 1:M Club (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Pupil M —— M Club; Teacher 1 —— M Club (name, class and meeting day are attributes)",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Pupil",
+                "aliases": [
+                  "Pupils",
+                  "Student",
+                  "Students",
+                  "Member"
+                ]
+              },
+              {
+                "name": "Club"
+              },
+              {
+                "name": "Teacher",
+                "aliases": [
+                  "Teachers",
+                  "FormTutor",
+                  "Tutor",
+                  "Supervisor"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Pupil",
+                "b": "Club",
+                "degree": "M:M"
+              },
+              {
+                "a": "Teacher",
+                "b": "Club",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-gym",
+      "title": "Build an ERD: a gym (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A gym has many members. Each member has a **member number**, a name and a phone number. Members book fitness classes: a member books many classes, and a class is booked by many members. Each class has a **class code**, a day and a time. Each class is led by one trainer; a trainer has a **staff number** and leads many classes. Use a link entity called **Booking** for members and classes.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Member, Class, Trainer, Booking (1 item each)\nIdentifiers: Member – MemberNumber / MemberNo / MemberID; Class – ClassCode / ClassID; Trainer – StaffNumber / StaffNo / TrainerID / StaffID (1 item each)\nRelationships: Trainer 1:M Class; Member 1:M Booking; Class 1:M Booking (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Trainer (StaffNumber) 1 —— M Class (ClassCode) 1 —— M Booking M —— 1 Member (MemberNumber)",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Member",
+                "key": [
+                  "MemberNumber",
+                  "MemberNo",
+                  "MemberID"
+                ]
+              },
+              {
+                "name": "Class",
+                "aliases": [
+                  "FitnessClass"
+                ],
+                "key": [
+                  "ClassCode",
+                  "ClassID"
+                ]
+              },
+              {
+                "name": "Trainer",
+                "key": [
+                  "StaffNumber",
+                  "StaffNo",
+                  "TrainerID",
+                  "StaffID"
+                ]
+              },
+              {
+                "name": "Booking",
+                "aliases": [
+                  "Bookings"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Trainer",
+                "b": "Class",
+                "degree": "1:M"
+              },
+              {
+                "a": "Member",
+                "b": "Booking",
+                "degree": "1:M"
+              },
+              {
+                "a": "Class",
+                "b": "Booking",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-college",
+      "title": "Build an ERD: college courses (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A college stores students, courses and teachers. Each student has a **student ID** and each course a **course code**. A student takes many courses, and a course is taken by many students. Each course is taught by one teacher (identified by a **teacher ID**); a teacher teaches many courses. Use a link entity called **Enrolment** for students and courses.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Student, Course, Teacher, Enrolment (1 item each)\nIdentifiers: Student – StudentID; Course – CourseCode / CourseID; Teacher – TeacherID (1 item each)\nRelationships: Teacher 1:M Course; Student 1:M Enrolment; Course 1:M Enrolment (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Teacher 1 —— M Course 1 —— M Enrolment M —— 1 Student",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Student",
+                "aliases": [
+                  "Pupil"
+                ],
+                "key": [
+                  "StudentID"
+                ]
+              },
+              {
+                "name": "Course",
+                "key": [
+                  "CourseCode",
+                  "CourseID"
+                ]
+              },
+              {
+                "name": "Teacher",
+                "key": [
+                  "TeacherID"
+                ]
+              },
+              {
+                "name": "Enrolment",
+                "aliases": [
+                  "Enrolments",
+                  "Enrollment"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Teacher",
+                "b": "Course",
+                "degree": "1:M"
+              },
+              {
+                "a": "Student",
+                "b": "Enrolment",
+                "degree": "1:M"
+              },
+              {
+                "a": "Course",
+                "b": "Enrolment",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-library",
+      "title": "Build an ERD: a library (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A library lends books to members. Each member has a **member ID**; each book has a **book ID**. Over time a member borrows many books, and a book is borrowed by many members. Each book is published by one publisher (identified by a **publisher ID**); a publisher publishes many books. Use a link entity called **Loan** for members and books.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Member, Book, Publisher, Loan (1 item each)\nIdentifiers: Member – MemberID; Book – BookID / ISBN; Publisher – PublisherID (1 item each)\nRelationships: Member 1:M Loan; Book 1:M Loan; Publisher 1:M Book (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Member 1 —— M Loan M —— 1 Book M —— 1 Publisher",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Member",
+                "aliases": [
+                  "Reader",
+                  "Borrower"
+                ],
+                "key": [
+                  "MemberID"
+                ]
+              },
+              {
+                "name": "Book",
+                "key": [
+                  "BookID",
+                  "ISBN"
+                ]
+              },
+              {
+                "name": "Publisher",
+                "key": [
+                  "PublisherID"
+                ]
+              },
+              {
+                "name": "Loan",
+                "aliases": [
+                  "Loans"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Member",
+                "b": "Loan",
+                "degree": "1:M"
+              },
+              {
+                "a": "Book",
+                "b": "Loan",
+                "degree": "1:M"
+              },
+              {
+                "a": "Publisher",
+                "b": "Book",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-shop",
+      "title": "Build an ERD: orders and products (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "An online shop stores customers, orders and products. A customer (**customer ID**) places many orders; each order (**order ID**) is placed by one customer. An order contains many products, and a product (**product ID**) appears in many orders. Use a link entity called **OrderLine** for orders and products.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Customer, Order, Product, OrderLine (1 item each)\nIdentifiers: Customer – CustomerID; Order – OrderID; Product – ProductID (1 item each)\nRelationships: Customer 1:M Order; Order 1:M OrderLine; Product 1:M OrderLine (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Customer 1 —— M Order 1 —— M OrderLine M —— 1 Product",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Customer",
+                "aliases": [
+                  "Client"
+                ],
+                "key": [
+                  "CustomerID"
+                ]
+              },
+              {
+                "name": "Order",
+                "key": [
+                  "OrderID"
+                ]
+              },
+              {
+                "name": "Product",
+                "aliases": [
+                  "Item"
+                ],
+                "key": [
+                  "ProductID"
+                ]
+              },
+              {
+                "name": "OrderLine",
+                "aliases": [
+                  "OrderLines",
+                  "OrderItem",
+                  "OrderProduct"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Customer",
+                "b": "Order",
+                "degree": "1:M"
+              },
+              {
+                "a": "Order",
+                "b": "OrderLine",
+                "degree": "1:M"
+              },
+              {
+                "a": "Product",
+                "b": "OrderLine",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-clinic",
+      "title": "Build an ERD: a clinic (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A clinic stores departments, doctors and patients. Each department (**department ID**) has many doctors, and each doctor (**doctor ID**) works in one department. A doctor sees many patients, and a patient (**patient ID**) sees many doctors. Use a link entity called **Appointment** for doctors and patients.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Department, Doctor, Patient, Appointment (1 item each)\nIdentifiers: Department – DepartmentID / DeptID; Doctor – DoctorID; Patient – PatientID (1 item each)\nRelationships: Department 1:M Doctor; Doctor 1:M Appointment; Patient 1:M Appointment (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Department 1 —— M Doctor 1 —— M Appointment M —— 1 Patient",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Department",
+                "key": [
+                  "DepartmentID",
+                  "DeptID"
+                ]
+              },
+              {
+                "name": "Doctor",
+                "key": [
+                  "DoctorID"
+                ]
+              },
+              {
+                "name": "Patient",
+                "key": [
+                  "PatientID"
+                ]
+              },
+              {
+                "name": "Appointment",
+                "aliases": [
+                  "Appointments",
+                  "Visit"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Department",
+                "b": "Doctor",
+                "degree": "1:M"
+              },
+              {
+                "a": "Doctor",
+                "b": "Appointment",
+                "degree": "1:M"
+              },
+              {
+                "a": "Patient",
+                "b": "Appointment",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-exams",
+      "title": "Build an ERD: exam entries (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "An exam board stores schools, candidates and exams. Each school (**school ID**) has many candidates, and each candidate (**candidate number**) belongs to one school. A candidate sits many exams, and each exam (**exam code**) is sat by many candidates. Use a link entity called **Entry** for candidates and exams.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: School, Candidate, Exam, Entry (1 item each)\nIdentifiers: School – SchoolID; Candidate – CandidateNumber / CandidateNo / CandidateID; Exam – ExamCode / ExamID (1 item each)\nRelationships: School 1:M Candidate; Candidate 1:M Entry; Exam 1:M Entry (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "School 1 —— M Candidate 1 —— M Entry M —— 1 Exam",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "School",
+                "key": [
+                  "SchoolID"
+                ]
+              },
+              {
+                "name": "Candidate",
+                "aliases": [
+                  "Student"
+                ],
+                "key": [
+                  "CandidateNumber",
+                  "CandidateNo",
+                  "CandidateID"
+                ]
+              },
+              {
+                "name": "Exam",
+                "aliases": [
+                  "Paper"
+                ],
+                "key": [
+                  "ExamCode",
+                  "ExamID"
+                ]
+              },
+              {
+                "name": "Entry",
+                "aliases": [
+                  "Entries"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "School",
+                "b": "Candidate",
+                "degree": "1:M"
+              },
+              {
+                "a": "Candidate",
+                "b": "Entry",
+                "degree": "1:M"
+              },
+              {
+                "a": "Exam",
+                "b": "Entry",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-carhire",
+      "title": "Build an ERD: car hire (final form)",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A car hire company has several branches. Each branch (**branch ID**) has many cars, and each car (**registration number**) belongs to one branch. Over time a customer (**customer ID**) hires many cars, and a car is hired by many customers. For each hire the company stores the start date and the return date. Use a link entity called **Hire** for customers and cars.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Branch, Car, Customer, Hire (1 item each)\nIdentifiers: Branch – BranchID; Car – RegistrationNumber / RegNumber / RegNo / Registration / CarID; Customer – CustomerID (1 item each)\nRelationships: Branch 1:M Car; Customer 1:M Hire; Car 1:M Hire (1 item each, with the correct degree)\n10 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Branch 1 —— M Car 1 —— M Hire M —— 1 Customer (start and return dates are attributes of Hire)",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Branch",
+                "aliases": [
+                  "Office"
+                ],
+                "key": [
+                  "BranchID"
+                ]
+              },
+              {
+                "name": "Car",
+                "aliases": [
+                  "Vehicle"
+                ],
+                "key": [
+                  "RegistrationNumber",
+                  "RegNumber",
+                  "RegNo",
+                  "Registration",
+                  "CarID"
+                ]
+              },
+              {
+                "name": "Customer",
+                "aliases": [
+                  "Client"
+                ],
+                "key": [
+                  "CustomerID"
+                ]
+              },
+              {
+                "name": "Hire",
+                "aliases": [
+                  "Hires",
+                  "Rental",
+                  "Booking"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Branch",
+                "b": "Car",
+                "degree": "1:M"
+              },
+              {
+                "a": "Customer",
+                "b": "Hire",
+                "degree": "1:M"
+              },
+              {
+                "a": "Car",
+                "b": "Hire",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "erd-build-cinema",
+      "title": "Build an ERD: a cinema (final form)",
+      "type": "erd",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.8"
+      ],
+      "practice": true,
+      "text": "A cinema shows films on its screens. Each film (**film ID**) is shown at many screenings, and each screening (**screening ID**) shows one film. Each screen (**screen number**) holds many screenings; a screening takes place on one screen. A customer (**customer ID**) books tickets for many screenings, and a screening has many customers. Use a link entity called **Ticket** for customers and screenings.\n\nDraw the ERD in its **final form**: one box per entity with its name on the first line and its **identifier (primary key)** on the next line. A many-to-many relationship cannot be stored, so replace it with the link entity named in the scenario. Select each line and set its degree (1:1, 1:M, M:1 or M:M).",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Film, Screening, Screen, Customer, Ticket (1 item each)\nIdentifiers: Film – FilmID / MovieID; Screening – ScreeningID / ShowID; Screen – ScreenNumber / ScreenNo / ScreenID; Customer – CustomerID (1 item each)\nRelationships: Film 1:M Screening; Screen 1:M Screening; Screening 1:M Ticket; Customer 1:M Ticket (1 item each, with the correct degree)\n13 items in all; the 5 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Film 1 —— M Screening M —— 1 Screen; Screening 1 —— M Ticket M —— 1 Customer",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Film",
+                "aliases": [
+                  "Movie"
+                ],
+                "key": [
+                  "FilmID",
+                  "MovieID"
+                ]
+              },
+              {
+                "name": "Screening",
+                "aliases": [
+                  "Show",
+                  "Showing",
+                  "Session"
+                ],
+                "key": [
+                  "ScreeningID",
+                  "ShowID"
+                ]
+              },
+              {
+                "name": "Screen",
+                "aliases": [
+                  "Hall",
+                  "Auditorium"
+                ],
+                "key": [
+                  "ScreenNumber",
+                  "ScreenNo",
+                  "ScreenID"
+                ]
+              },
+              {
+                "name": "Customer",
+                "key": [
+                  "CustomerID"
+                ]
+              },
+              {
+                "name": "Ticket",
+                "aliases": [
+                  "Tickets",
+                  "Booking"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Film",
+                "b": "Screening",
+                "degree": "1:M"
+              },
+              {
+                "a": "Screen",
+                "b": "Screening",
+                "degree": "1:M"
+              },
+              {
+                "a": "Screening",
+                "b": "Ticket",
+                "degree": "1:M"
+              },
+              {
+                "a": "Customer",
+                "b": "Ticket",
+                "degree": "1:M"
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "summary": "Entities, attributes and relationships; one-to-one, one-to-many and many-to-many relationships; how relationships are created with primary and foreign keys and link tables; and how to read and draw entity-relationship diagrams (ERDs).",
@@ -2828,7 +3839,7 @@
       ]
     },
     {
-      "title": "Lesson 1 — exam practice",
+      "title": "Exam practice: entities and relationships",
       "objectives": [
         "11.4.1.7"
       ],
@@ -3029,11 +4040,14 @@
   },
   "lessons": [
     {
-      "title": "Entities, attributes and types of relationship",
+      "title": "Entities, relationships, keys and drawing an ERD",
       "sections": [
         "Entities, attributes and relationships",
         "Types of relationship",
-        "Lesson 1 — exam practice"
+        "Exam practice: entities and relationships",
+        "Defining relationships with keys",
+        "Creating an ERD",
+        "Exam practice and summary"
       ],
       "questions": [
         "erd-terms-match",
@@ -3050,25 +4064,14 @@
         "erd-verb-mcq",
         "erd-dob-tf",
         "erd-when-mcq",
-        "erd-mm-mr"
-      ],
-      "exam": {
-        "duration": 20,
-        "title": "Entity-relationship diagram — Lesson 1 test",
-        "questions": [
-          "erd-lesson1-test",
-          "erd-l1-test-b"
-        ]
-      }
-    },
-    {
-      "title": "Relationships with keys; creating an ERD",
-      "sections": [
-        "Defining relationships with keys",
-        "Creating an ERD",
-        "Exam practice and summary"
-      ],
-      "questions": [
+        "erd-mm-mr",
+        "erd-build-school",
+        "erd-build-hospital-l1",
+        "erd-build-delivery",
+        "erd-build-league",
+        "erd-build-music",
+        "erd-build-countries",
+        "erd-build-clubs",
         "erd-fk-side-mcq",
         "erd-mm-tf",
         "erd-fk-table",
@@ -3083,13 +4086,21 @@
         "erd-list-field-tf",
         "erd-direction",
         "erd-enrol-key",
-        "erd-check-tick"
+        "erd-check-tick",
+        "erd-build-gym",
+        "erd-build-college",
+        "erd-build-library",
+        "erd-build-shop",
+        "erd-build-clinic",
+        "erd-build-exams",
+        "erd-build-carhire",
+        "erd-build-cinema"
       ],
       "exam": {
-        "duration": 20,
-        "title": "Entity-relationship diagram — Lesson 2 test",
+        "duration": 25,
+        "title": "Entity-relationship diagram — Lesson test",
         "questions": [
-          "erd-exam-1",
+          "erd-l1-test-b",
           "erd-exam-3"
         ]
       }

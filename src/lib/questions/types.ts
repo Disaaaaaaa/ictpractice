@@ -73,6 +73,7 @@ export const DETERMINISTIC_TYPES: readonly QuestionType[] = [
   "boolean_expression",
   "logic_circuit",
   "binary_tree",
+  "erd",
 ];
 
 /** Answered in the diagram builder. */
@@ -209,6 +210,13 @@ export type AnswerData = {
   diagram?: DiagramData;
 };
 
+/** ERD answer key: entity names (with accepted alternatives) and relationships. */
+export type ErdKey = {
+  entities: { name: string; aliases?: string[]; /** identifier attribute(s) the entity must list, e.g. ["MemberID"] */ key?: string[] }[];
+  /** degree read from a to b: "1:M" = one a has many b */
+  relationships: { a: string; b: string; degree: "1:1" | "1:M" | "M:M" }[];
+};
+
 /** Answer key stored in mark_schemes.accepted_answers (staff/server only). */
 export type AcceptedAnswers = {
   /** mcq: "B"; multiple_response: ["A","C"]; true_false: true */
@@ -231,6 +239,8 @@ export type AcceptedAnswers = {
   expression?: string;
   /** binary_tree: expected tree in level order (null = empty position) */
   tree?: (string | null)[];
+  /** erd: the entities and relationships the diagram must show */
+  erd?: ErdKey;
   /** "item": marks scale with correct items (default); "all": all-or-nothing */
   scoring?: "item" | "all";
 };

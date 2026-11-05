@@ -1,5 +1,5 @@
 import { evaluateBoolean, parseBoolean, variablesOf } from "./boolean";
-import type { DiagramData, DiagramKind } from "./questions/types";
+import type { DiagramData, DiagramKind, ErdKey } from "./questions/types";
 
 // Pure helpers for diagram answers: evaluate logic circuits, read binary trees,
 // and describe any diagram as text for the AI examiner.
@@ -214,4 +214,86 @@ export function diagramToText(kind: DiagramKind, d: DiagramData): string {
   }
   if (d.edges.length === 0) lines.push("- (none)");
   return lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// ERD marking: entities, the pairs they link and the degree of each link
+// ---------------------------------------------------------------------------
+const word = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/\b(pk|fk|primary key|foreign key)\b/g, "")
+    .replace(/[^a-z0-9]/g, "");
+/** "Members", "MEMBER", "member" → "member"; "Classes" → "class"; "Categories" → "category" */
+const singular = (w: string) => (w.endsWith("ies") ? `${w.slice(0, -3)}y` : w.endsWith("sses") || w.endsWith("ches") || w.endsWith("shes") ? w.slice(0, -2) : w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
+const same = (a: string, b: string) => singular(word(a)) === singular(word(b));
+
+/** "1:M", "1:N", "one-to-many", "1-M" … → "1:M" | "M:1" | "1:1" | "M:M" (null when it says nothing). */
+export function erdDegree(label: string | undefined): "1:1" | "1:M" | "M:1" | "M:M" | null {
+  const t = (label ?? "").toLowerCase().replace(/\s+/g, "").replace(/[-–]/g, ":").replace(/to/g, ":");
+  const side = (x: string) => (/^(1|one)$/.test(x) ? "1" : /^(m|n|many|\*|∞)$/.test(x) ? "M" : null);
+  const m = /^([a-z0-9*∞]+):+([a-z0-9*∞]+)$/.exec(t);
+  if (!m) return null;
+  const a = side(m[1]);
+  const b = side(m[2]);
+  return a && b ? (`${a}:${b}` as "1:1" | "1:M" | "M:1" | "M:M") : null;
+}
+
+export type ErdMarking = {
+  entities: { found: number; total: number };
+  keys: { found: number; total: number };
+  relationships: { correct: number; linked: number; total: number };
+  /** entities and links drawn that the scenario does not need */
+  extra: number;
+};
+
+/** Compares a drawn ERD with the answer key. Names are matched ignoring case, plurals and spaces. */
+export function markErd(d: DiagramData, key: ErdKey): ErdMarking {
+  const boxes = d.nodes
+    .filter((n) => n.type === "er_entity")
+    .map((n) => {
+      // "MEMBER" then attributes on new lines, or "Member (MemberID, Name)", or "Member: MemberID, Name"
+      const [first = "", ...rest] = n.label.split(/\n/).map((x) => x.trim()).filter(Boolean);
+      const m = /^([^(:]*)[(:]?(.*?)\)?$/.exec(first);
+      const name = (m?.[1] ?? first).trim();
+      const attrs = [m?.[2] ?? "", ...rest].flatMap((x) => x.split(/[,;]/)).map((x) => x.trim()).filter(Boolean);
+      return { id: n.id, name, attrs };
+    });
+  const which = new Map<string, number>(); // node id → key entity index
+  key.entities.forEach((e, i) => {
+    const box = boxes.find((b) => !which.has(b.id) && [e.name, ...(e.aliases ?? [])].some((x) => same(x, b.name)));
+    if (box) which.set(box.id, i);
+  });
+  const found = new Set(which.values());
+  const keysTotal = key.entities.filter((e) => e.key?.length).length;
+  let keysFound = 0;
+  key.entities.forEach((e, i) => {
+    if (!e.key?.length) return;
+    const box = boxes.find((b) => which.get(b.id) === i);
+    if (box && box.attrs.some((at) => e.key!.some((k) => same(k, at)))) keysFound++;
+  });
+
+  const index = (name: string) => key.entities.findIndex((e) => e.name === name);
+  let correct = 0;
+  let linked = 0;
+  const used = new Set<string>();
+  for (const r of key.relationships) {
+    const ia = index(r.a);
+    const ib = index(r.b);
+    const edge = d.edges.find((x) => !used.has(x.id) && ((which.get(x.source) === ia && which.get(x.target) === ib) || (which.get(x.source) === ib && which.get(x.target) === ia)));
+    if (!edge) continue;
+    used.add(edge.id);
+    linked++;
+    const forward = which.get(edge.source) === ia;
+    const drawn = erdDegree(typeof edge.label === "string" ? edge.label : undefined);
+    const want = forward ? r.degree : r.degree === "1:M" ? "M:1" : r.degree;
+    if (drawn === want) correct++;
+  }
+  const extra = boxes.filter((b) => !which.has(b.id)).length + d.edges.filter((x) => !used.has(x.id)).length;
+  return {
+    entities: { found: found.size, total: key.entities.length },
+    keys: { found: keysFound, total: keysTotal },
+    relationships: { correct, linked, total: key.relationships.length },
+    extra,
+  };
 }

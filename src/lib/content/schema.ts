@@ -76,6 +76,13 @@ export const acceptedAnswersSchema = z
     fields: z.record(z.string(), z.array(z.string())).optional(),
     expression: z.string().max(500).optional(),
     tree: z.array(z.string().nullable()).max(127).optional(),
+    erd: z
+      .object({
+        entities: z.array(z.object({ name: z.string().min(1).max(60), aliases: z.array(z.string().min(1).max(60)).optional(), key: z.array(z.string().min(1).max(60)).optional() }).strict()).min(1).max(12),
+        relationships: z.array(z.object({ a: z.string(), b: z.string(), degree: z.enum(["1:1", "1:M", "M:M"]) }).strict()).max(20),
+      })
+      .strict()
+      .optional(),
     scoring: z.enum(["item", "all"]).optional(),
   })
   .strict();
@@ -139,7 +146,8 @@ function checkQuestion(q: QuestionDraft, ctx: z.RefinementCtx) {
       accepted.rows !== undefined ||
       accepted.fields !== undefined ||
       accepted.expression !== undefined ||
-      accepted.tree !== undefined;
+      accepted.tree !== undefined ||
+      accepted.erd !== undefined;
     if (!hasKey) ctx.addIssue({ code: "custom", message: `${q.key}: ${q.grading} needs scheme.accepted` });
   }
   if (needsOptions && q.options) {
@@ -187,7 +195,17 @@ function checkQuestion(q: QuestionDraft, ctx: z.RefinementCtx) {
   if (q.type === "binary_tree" && q.grading !== "AI" && q.grading !== "MANUAL" && !accepted.tree?.length) {
     ctx.addIssue({ code: "custom", message: `${q.key}: binary_tree needs scheme.accepted.tree (level order)` });
   }
-  if (DIAGRAM_TYPES.includes(q.type) && q.type !== "logic_circuit" && q.type !== "binary_tree" && q.grading === "AUTO") {
+  if (q.type === "erd" && q.grading !== "AI" && q.grading !== "MANUAL") {
+    const erd = accepted.erd;
+    if (!erd) ctx.addIssue({ code: "custom", message: `${q.key}: erd needs scheme.accepted.erd` });
+    else {
+      const names = new Set(erd.entities.map((e) => e.name));
+      for (const r of erd.relationships) {
+        if (!names.has(r.a) || !names.has(r.b)) ctx.addIssue({ code: "custom", message: `${q.key}: accepted.erd relationship ${r.a}–${r.b} names an unknown entity` });
+      }
+    }
+  }
+  if (DIAGRAM_TYPES.includes(q.type) && !["logic_circuit", "binary_tree", "erd"].includes(q.type) && q.grading === "AUTO") {
     ctx.addIssue({ code: "custom", message: `${q.key}: ${q.type} diagrams are marked by AI or the teacher` });
   }
 }
