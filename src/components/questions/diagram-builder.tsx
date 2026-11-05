@@ -23,6 +23,7 @@ import "@xyflow/react/dist/style.css";
 import { cn } from "@/lib/cn";
 import { useTheme } from "@/lib/use-theme";
 import type { DiagramData, DiagramKind, QuestionContent } from "@/lib/questions/types";
+import { erdDegree } from "@/lib/diagrams";
 
 // Diagram answers: students place shapes and connect them. The answer is saved
 // as plain nodes/edges (DiagramData); src/lib/diagrams.ts evaluates circuits
@@ -63,7 +64,7 @@ const HELP: Record<DiagramKind, string> = {
   logic_circuit: "Add gates, then drag from a gate's output (right) to another gate's input (left). Select a component to rename it.",
   flowchart: "Add shapes and drag between the dots to connect them. Select an arrow to label it (e.g. Yes / No).",
   dfd: "Add entities, processes and data stores, then connect them. Select a flow to name the data it carries.",
-  erd: "Add entities (name on the first line, attributes below), then connect them. Select a relationship to set its cardinality.",
+  erd: "Add entities (name on the first line, attributes below), then connect them. Select a line and choose its degree: a bar (one) or a crow's foot (many) appears at each end.",
   binary_tree: "Add nodes and type their values. Drag from a node's left or right dot to its child.",
 };
 
@@ -254,6 +255,36 @@ const NODE_TYPES = Object.fromEntries(
 /* Conversion                                                            */
 /* ------------------------------------------------------------------ */
 
+/**
+ * ERD lines show their degree at the ends — a bar for "one", a crow's foot for
+ * "many" — so it is clear which entity is on which side. The stored label
+ * ("1:M") is read from the line's source to its target.
+ */
+function erdLook(label: unknown): Partial<Edge> {
+  const d = erdDegree(typeof label === "string" ? label : undefined);
+  if (!d) return { markerStart: undefined, markerEnd: undefined, labelStyle: undefined, labelShowBg: true };
+  const end = (x: string) => (x === "1" ? "erd-one" : "erd-many");
+  const [a, b] = d.split(":");
+  return { markerStart: end(a), markerEnd: end(b), labelStyle: { display: "none" }, labelShowBg: false };
+}
+
+/** Bar ("one") and crow's foot ("many") drawn at the end of an ERD line. */
+function ErdMarkers() {
+  const line = { stroke: "var(--foreground)", strokeWidth: 1.6, fill: "none" };
+  return (
+    <svg aria-hidden className="absolute h-0 w-0">
+      <defs>
+        <marker id="erd-one" viewBox="0 0 20 20" refX="20" refY="10" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+          <path d="M8 2 V18" style={line} />
+        </marker>
+        <marker id="erd-many" viewBox="0 0 20 20" refX="20" refY="10" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+          <path d="M4 10 L20 2 M4 10 L20 10 M4 10 L20 18" style={line} />
+        </marker>
+      </defs>
+    </svg>
+  );
+}
+
 function edgeStyle(kind: DiagramKind): Partial<Edge> {
   const style = { stroke, strokeWidth: 1.6 };
   if (kind === "logic_circuit") return { type: "smoothstep", style };
@@ -278,6 +309,7 @@ function toFlow(kind: DiagramKind, d: DiagramData, fixedIds: Set<string>): { nod
       sourceHandle: e.sourceHandle ?? undefined,
       targetHandle: e.targetHandle ?? undefined,
       label: e.label || undefined,
+      ...(kind === "erd" ? erdLook(e.label) : {}),
     })),
   };
 }
@@ -440,7 +472,7 @@ function Builder({
 
   function setLabel(id: string, label: string, isEdge: boolean) {
     if (isEdge) {
-      const next = edges.map((e) => (e.id === id ? { ...e, label: label || undefined } : e));
+      const next = edges.map((e) => (e.id === id ? { ...e, label: label || undefined, ...(kind === "erd" ? erdLook(label) : {}) } : e));
       setEdges(next);
       emit(nodes, next);
     } else {
@@ -505,17 +537,22 @@ function Builder({
         <div className="flex min-h-9 flex-wrap items-center gap-2 text-xs">
           {selectedEdge && kind === "erd" ? (
             <>
-              <span className="font-medium">Cardinality</span>
-              {CARDINALITIES.map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setLabel(selectedEdge.id, selectedEdge.label === c ? "" : c, true)}
-                  className={cn("rounded border px-2 py-1 font-mono", selectedEdge.label === c ? "border-primary bg-primary-soft" : "border-border")}
-                >
-                  {c}
-                </button>
-              ))}
+              <span className="font-medium">Degree</span>
+              {CARDINALITIES.map((c) => {
+                const [a, b] = c.split(":");
+                const name = (id: string) => (nodes.find((n) => n.id === id)?.data.label ?? "").split("\n")[0].trim() || "?";
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    title={`${a === "1" ? "One" : "Many"} ${name(selectedEdge.source)} — ${b === "1" ? "one" : "many"} ${name(selectedEdge.target)}`}
+                    onClick={() => setLabel(selectedEdge.id, selectedEdge.label === c ? "" : c, true)}
+                    className={cn("rounded border px-2 py-1", selectedEdge.label === c ? "border-primary bg-primary-soft" : "border-border")}
+                  >
+                    {name(selectedEdge.source)} <span className="font-mono font-semibold">{a}</span> — <span className="font-mono font-semibold">{b}</span> {name(selectedEdge.target)}
+                  </button>
+                );
+              })}
               <input
                 className="h-8 w-48 rounded border border-border bg-surface px-2"
                 placeholder="or describe the relationship"
@@ -562,7 +599,8 @@ function Builder({
           )}
         </div>
       )}
-      <div className="h-[440px] overflow-hidden rounded-lg border border-border bg-surface">
+      <div className="relative h-[440px] overflow-hidden rounded-lg border border-border bg-surface">
+        {kind === "erd" && <ErdMarkers />}
         <ReactFlow<FlowNode, Edge>
           nodes={nodes}
           edges={edges}
