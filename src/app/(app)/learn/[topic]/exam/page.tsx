@@ -41,6 +41,9 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
       const n = Number((sp.lesson as string | undefined) ?? NaN);
       return !all.some((x) => x.lesson_no === n) || e.lesson_no === n;
     });
+  // a topic taught in lessons with no lesson tests has one Exam Mode for the whole topic
+  const { count: lessonCount } = await supabase.from("topic_lessons").select("topic_id", { count: "exact", head: true }).eq("topic_id", topic.id);
+  const oneExam = (lessonCount ?? 0) > 0 && !(exams ?? []).some((e) => e.lesson_no != null);
   const { data: attempts } = await supabase
     .from("attempts")
     .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")
@@ -67,7 +70,11 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
             <CardBody>
               <p className="mb-3 text-sm text-muted">
                 Exam Mode is a timed assessment: no hints or feedback until you submit. Leaving the exam window is recorded.
-                {e.lesson_no ? " Your first attempt counts towards your SAU points (2 points for the lesson)." : ""}
+                {e.lesson_no
+                  ? " Your first attempt counts towards your SAU points (2 points for the lesson)."
+                  : oneExam
+                    ? " This is the topic's only Exam Mode: your first attempt counts towards your SAU points (2 points for the topic)."
+                    : ""}
               </p>
               {mine.length > 0 && (
                 <ul className="divide-y divide-border rounded-lg border border-border">

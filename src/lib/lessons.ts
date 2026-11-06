@@ -59,7 +59,22 @@ export type LessonScore = {
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
+/** lesson_no 0: the topic's single Exam Mode (topics without lesson tests). */
+export const TOPIC_EXAM_LESSON = 0;
+
 export function scoreLesson(r: LessonRow): LessonScore {
+  if (r.lesson_no === TOPIC_EXAM_LESSON) {
+    const exam = r.exam_pct != null ? (LESSON_POINTS.exam * r.exam_pct) / 100 : 0;
+    return {
+      practice: 0,
+      notes: 0,
+      exam: round1(exam),
+      total: round1(exam),
+      max: r.exam_id ? LESSON_POINTS.exam : 0,
+      examPending: r.exam_pending,
+      raw: { practiceAwarded: 0, practiceMax: 0, notesPct: null, examPct: r.exam_pct, hasExam: Boolean(r.exam_id) },
+    };
+  }
   const practice = r.practice_max > 0 ? (LESSON_POINTS.practice * r.practice_awarded) / r.practice_max : 0;
   const notes =
     r.notes_pct == null ? 0 : r.notes_pct >= NOTES_FULL_AT ? LESSON_POINTS.notes : (LESSON_POINTS.notes * r.notes_pct) / 100;
@@ -122,7 +137,8 @@ export async function getMyTopicPoints(supabase: Supa, profile: { id: string; gr
 // ---------------------------------------------------------------------------
 // A unit's board: every lesson of the unit, every student, and the SAU
 // ---------------------------------------------------------------------------
-export type BoardLesson = { key: string; topicId: string; slug: string; topicTitle: string; number: number; title: string; deadline: string | null };
+/** A lesson of the unit, or (number 0) the single Exam Mode of a topic taught without lesson tests. */
+export type BoardLesson = { key: string; topicId: string; slug: string; topicTitle: string; number: number; title: string; deadline: string | null; isExam: boolean };
 export type BoardStudent = {
   id: string;
   name: string;
@@ -152,7 +168,13 @@ export async function getUnitBoard(
     ((lessonRows ?? []) as { topic_id: string; number: number; title: string }[])
       .filter((l) => l.topic_id === t.id)
       .sort((a, b) => a.number - b.number)
-      .map((l) => ({ key: lessonKey(t.id, l.number), topicId: t.id, slug: t.slug, topicTitle: t.title, number: l.number, title: l.title, deadline: deadlineOf(t.id, l.number) })),
+      .map((l) => ({ key: lessonKey(t.id, l.number), topicId: t.id, slug: t.slug, topicTitle: t.title, number: l.number, title: l.title, deadline: deadlineOf(t.id, l.number), isExam: false }))
+      // the topic's single Exam Mode after its lessons
+      .concat(
+        rows.some((r) => r.topic_id === t.id && r.lesson_no === TOPIC_EXAM_LESSON)
+          ? [{ key: lessonKey(t.id, TOPIC_EXAM_LESSON), topicId: t.id, slug: t.slug, topicTitle: t.title, number: TOPIC_EXAM_LESSON, title: "Exam Mode", deadline: deadlineOf(t.id, TOPIC_EXAM_LESSON), isExam: true }]
+          : [],
+      ),
   );
   const sauExamIds = (exams ?? []).map((e) => e.id as string);
   const studentIds = [...new Set(rows.map((r) => r.student_id))];

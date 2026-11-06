@@ -23,7 +23,7 @@ export default async function StudentPointsPage() {
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Every lesson gives up to ${LESSON_POINTS.practice + LESSON_POINTS.notes + LESSON_POINTS.exam} points: practice ${LESSON_POINTS.practice} (your best answer to each question), notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}) and the lesson test ${LESSON_POINTS.exam} (your first attempt). Only work done before the lesson's deadline counts. The SAU at the end of the unit is worth as many points as all its lessons.`}
+      description={`Every lesson gives practice ${LESSON_POINTS.practice} points (your best answer to each question) and notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}). Each topic's Exam Mode gives ${LESSON_POINTS.exam} more (your first attempt; earlier topics had a short test in every lesson instead). Only work done before the deadline counts. The SAU at the end of the unit is worth as many points as all its lessons.`}
     />
   );
   const classId = await getStudentClass(supabase, profile.id, profile.grade);
@@ -64,14 +64,16 @@ export default async function StudentPointsPage() {
                     const x = me?.lessons.get(l.key);
                     return (
                       <li key={l.key} className="flex flex-wrap items-center gap-3 py-2 text-sm">
-                        <Link href={`/learn/${l.slug}`} className="min-w-0 flex-1 hover:underline">
+                        <Link href={l.isExam ? `/learn/${l.slug}/exam` : `/learn/${l.slug}`} className="min-w-0 flex-1 hover:underline">
                           <span className="font-medium">{l.topicTitle}</span>
-                          <span className="text-muted"> · Lesson {l.number}: {l.title}</span>
+                          <span className="text-muted">{l.isExam ? " · Exam Mode (whole topic)" : ` · Lesson ${l.number}: ${l.title}`}</span>
                         </Link>
                         {l.deadline && <span className="text-xs text-muted">due {formatDate(l.deadline)}</span>}
                         {x && (
                           <span className="text-xs tabular-nums text-muted">
-                            P {fmt(x.practice)} · N {fmt(x.notes)} · T {x.examPending ? "…" : fmt(x.exam)}
+                            {l.isExam
+                              ? `Exam ${x.examPending ? "…" : fmt(x.exam)}`
+                              : `P ${fmt(x.practice)} · N ${fmt(x.notes)}${x.raw.hasExam ? ` · T ${x.examPending ? "…" : fmt(x.exam)}` : ""}`}
                           </span>
                         )}
                         <Badge tone={x && x.total >= x.max * 0.8 ? "success" : x && x.total > 0 ? "info" : "neutral"}>
