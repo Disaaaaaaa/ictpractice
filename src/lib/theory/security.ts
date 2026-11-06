@@ -116,3 +116,23 @@ export const TOY_RSA = { n: 3233, e: 17, d: 2753 } as const;
 export function rsaApply(values: number[], exp: number, n: number = TOY_RSA.n): number[] {
   return values.map((v) => modPow(v, exp, n));
 }
+
+// ---------------------------------------------------------------------------
+// Biometrics: the match threshold trades false acceptance for false rejection
+// ---------------------------------------------------------------------------
+/** Standard normal cumulative distribution (Abramowitz–Stegun 7.1.26, error < 1.5e-7). */
+export function normalCdf(x: number, mean = 0, sd = 1): number {
+  const z = (x - mean) / (sd * Math.SQRT2);
+  const t = 1 / (1 + 0.3275911 * Math.abs(z));
+  const y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+  return 0.5 * (1 + (z >= 0 ? y : -y));
+}
+
+/** Match scores (0–100) of the right person and of other people, as a typical fingerprint reader gives them. */
+export const BIOMETRIC_SCORES = { genuine: { mean: 72, sd: 9 }, impostor: { mean: 38, sd: 10 } } as const;
+
+/** False acceptance and false rejection rates (0–1) when a score of `threshold` or more is accepted. */
+export function biometricRates(threshold: number): { far: number; frr: number } {
+  const { genuine, impostor } = BIOMETRIC_SCORES;
+  return { far: 1 - normalCdf(threshold, impostor.mean, impostor.sd), frr: normalCdf(threshold, genuine.mean, genuine.sd) };
+}

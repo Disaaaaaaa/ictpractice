@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
-import { SCHOOL_RULES, TOY_RSA, WEEK, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, log10Combinations, rsaApply, vigenere } from "@/lib/theory/security";
+import { BIOMETRIC_SCORES, SCHOOL_RULES, TOY_RSA, WEEK, backupsNeeded, biometricRates, caesar, charsetSize, crackTime, firstMatch, log10Combinations, rsaApply, vigenere } from "@/lib/theory/security";
 
 const box = "rounded-lg border border-border bg-surface p-4";
 const inputCls = "h-10 w-full rounded-lg border border-border bg-surface px-3 font-mono text-sm focus:border-primary focus:outline-none";
@@ -324,6 +324,57 @@ function HashDemo() {
         <p className="font-mono text-xs font-semibold break-all">{hash || "—"}</p>
       </div>
       <p className="text-xs text-muted">Websites store the hash of your password, not the password. At login they hash what you type and compare the two hashes. Nothing typed here leaves the page.</p>
+    </div>
+  );
+}
+
+/** Moving the match threshold of a fingerprint reader: false acceptances fall as false rejections rise. */
+export function BiometricThreshold() {
+  const [t, setT] = useState(55);
+  const { far, frr } = biometricRates(t);
+  const W = 560;
+  const H = 150;
+  const x = (score: number) => (score / 100) * W;
+  const pdf = (v: number, m: number, sd: number) => Math.exp(-((v - m) ** 2) / (2 * sd * sd)) / (sd * Math.sqrt(2 * Math.PI));
+  const peak = pdf(BIOMETRIC_SCORES.genuine.mean, BIOMETRIC_SCORES.genuine.mean, BIOMETRIC_SCORES.genuine.sd) * 1.15;
+  const y = (d: number) => H - (d / peak) * (H - 10);
+  const curve = (m: number, sd: number, from = 0, to = 100) => {
+    const pts: string[] = [];
+    for (let v = from; v <= to; v += 0.5) pts.push(`${x(v).toFixed(1)},${y(pdf(v, m, sd)).toFixed(1)}`);
+    return pts;
+  };
+  const { genuine: g, impostor: im } = BIOMETRIC_SCORES;
+  const area = (m: number, sd: number, from: number, to: number) => `M${x(from)},${H} L${curve(m, sd, from, to).join(" L")} L${x(to)},${H} Z`;
+  const pct = (v: number) => (v < 0.001 ? "< 0.1%" : `${(v * 100).toFixed(v < 0.1 ? 1 : 0)}%`);
+  const verdict = t >= 70 ? "Very strict — almost no strangers get in, but genuine users are often refused (e.g. a bank vault)." : t <= 45 ? "Very relaxed — users are rarely refused, but strangers are often let in. Not secure." : "A balance between security and convenience (e.g. a phone).";
+  return (
+    <div className={box}>
+      <svg viewBox={`0 0 ${W} ${H + 22}`} className="w-full" role="img" aria-label="Match scores of genuine users and impostors with the threshold">
+        <path d={area(im.mean, im.sd, t, 100)} className="fill-danger/30" />
+        <path d={area(g.mean, g.sd, 0, t)} className="fill-warning/40" />
+        <polyline points={curve(im.mean, im.sd).join(" ")} className="fill-none stroke-danger" strokeWidth={2} />
+        <polyline points={curve(g.mean, g.sd).join(" ")} className="fill-none stroke-success" strokeWidth={2} />
+        <line x1={x(t)} x2={x(t)} y1={4} y2={H} className="stroke-fg" strokeWidth={2} strokeDasharray="4 3" />
+        <line x1={0} x2={W} y1={H} y2={H} className="stroke-border" />
+        <text x={x(im.mean)} y={H + 16} textAnchor="middle" className="fill-danger text-[11px]">other people</text>
+        <text x={x(g.mean)} y={H + 16} textAnchor="middle" className="fill-success text-[11px]">the right person</text>
+      </svg>
+      <label className="mt-2 block space-y-1 text-sm">
+        <span className="font-medium">Match threshold: a score of {t} or more is accepted</span>
+        <input type="range" min={30} max={95} value={t} onChange={(e) => setT(Number(e.target.value))} className="w-full" />
+      </label>
+      <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <div className="rounded-md bg-danger-soft px-3 py-2">
+          <dt className="text-xs text-muted">False acceptance — a stranger is let in</dt>
+          <dd className="font-mono text-lg font-semibold">{pct(far)}</dd>
+        </div>
+        <div className="rounded-md bg-warning-soft px-3 py-2">
+          <dt className="text-xs text-muted">False rejection — the right person is refused</dt>
+          <dd className="font-mono text-lg font-semibold">{pct(frr)}</dd>
+        </div>
+      </dl>
+      <p className="mt-2 text-sm">{verdict}</p>
+      <p className="mt-1 text-xs text-muted">Each scan gives a similarity score. The green curve shows the scores of the right person, the red one the scores of other people. They overlap, so no threshold removes both errors.</p>
     </div>
   );
 }

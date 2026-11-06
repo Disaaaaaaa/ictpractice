@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import type { InteractiveWidget } from "@/lib/theory/blocks";
 import { evaluateBoolean, parseBoolean, variablesOf } from "@/lib/boolean";
 import { BinarySearchVisualizer, SortVisualizer } from "./algorithms";
-import { BackupRestore, CaesarCipher, EncryptionKeys, FirewallTester, PasswordStrength } from "./security";
+import { BackupRestore, BiometricThreshold, CaesarCipher, EncryptionKeys, FirewallTester, PasswordStrength } from "./security";
 
 const box = "rounded-lg border border-border bg-surface p-4";
 const inputCls =
@@ -340,6 +340,8 @@ export function InteractiveBlock({ widget, title, config }: { widget: Interactiv
         return <BackupRestore />;
       case "encryption_keys":
         return <EncryptionKeys />;
+      case "biometric_threshold":
+        return <BiometricThreshold />;
     }
   })();
   return (

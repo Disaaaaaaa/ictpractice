@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SCHOOL_RULES, TOY_RSA, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, modPow, rsaApply, vigenere } from "@/lib/theory/security";
+import { SCHOOL_RULES, TOY_RSA, biometricRates, normalCdf, backupsNeeded, caesar, charsetSize, crackTime, firstMatch, modPow, rsaApply, vigenere } from "@/lib/theory/security";
 
 describe("caesar", () => {
   it("shifts letters and wraps around", () => {
@@ -49,5 +49,21 @@ describe("symmetric and asymmetric toy ciphers", () => {
     const cipher = rsaApply(codes, TOY_RSA.e);
     expect(rsaApply(cipher, TOY_RSA.d)).toEqual(codes);
     expect(rsaApply(cipher, TOY_RSA.e)).not.toEqual(codes);
+  });
+});
+
+describe("biometric threshold", () => {
+  it("normal distribution", () => {
+    expect(normalCdf(0)).toBeCloseTo(0.5, 6);
+    expect(normalCdf(1.96)).toBeCloseTo(0.975, 3);
+    expect(normalCdf(-1.96)).toBeCloseTo(0.025, 3);
+  });
+  it("a stricter threshold lets fewer impostors in but rejects more genuine users", () => {
+    const low = biometricRates(45);
+    const high = biometricRates(75);
+    expect(high.far).toBeLessThan(low.far);
+    expect(high.frr).toBeGreaterThan(low.frr);
+    expect(biometricRates(0).far).toBeGreaterThan(0.99);
+    expect(biometricRates(100).frr).toBeGreaterThan(0.99);
   });
 });

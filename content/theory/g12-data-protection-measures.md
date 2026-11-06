@@ -472,11 +472,22 @@ Locked door with key cards / biometric lock (1); CCTV / alarms (1); security gua
 Authentication using **unique physical or behavioural characteristics** of a person, which are compared with a stored **template**. Examples: **fingerprint**, **face recognition**, **iris / retina scan**, **voice recognition**, **hand geometry**, **signature dynamics**.
 :::
 
+:::cards
+### Physical biometrics
+Based on **what your body is like**: fingerprint, face, iris, retina, palm vein pattern, hand geometry. They change very little over a lifetime and are hard to copy.
+### Behavioural biometrics
+Based on **how you do something**: voice, signature dynamics (speed and pressure of signing), typing rhythm (keystroke dynamics), the way you walk (gait). They are easier to collect but change with mood, illness or age, so errors are more common.
+:::
+
 :::steps How biometric authentication works
 - **Enrolment:** the user's fingerprint (face, iris…) is scanned several times; the important features are turned into a **template** and stored — the image itself is usually not kept.
 - **Log-in:** a new scan is made and turned into features in the same way.
 - **Matching:** the new features are **compared** with the template and a **similarity score** is calculated.
 - **Decision:** if the score is above a **threshold**, access is allowed; otherwise it is refused.
+:::
+
+:::definition Template
+A set of numbers describing the key features of a biometric sample (e.g. the positions of ridge endings and splits in a fingerprint). Two scans of the same finger are never identical, so the system looks for a **close enough** match, not an exact one.
 :::
 
 :::compare False rejection and false acceptance
@@ -488,13 +499,39 @@ Authentication using **unique physical or behavioural characteristics** of a per
 | If the threshold is made **stricter** | Happens **more** often | Happens **less** often |
 :::
 
+## The threshold: security or convenience
+
+The threshold decides how similar a new scan must be to the template. A **strict** (high) threshold lets almost no strangers in, but refuses the right person more often. A **relaxed** (low) threshold is convenient but less secure. A bank vault uses a strict threshold; a phone uses a more relaxed one and adds a PIN as a backup.
+
+:::widget biometric_threshold Move the threshold of a fingerprint reader
+:::
+
+:::warning Fake fingers and photos
+A criminal may try to fool a reader with a **copy** of a biometric — a fingerprint made of gelatine or a photo of a face. Good systems use **liveness detection**: they check for blood flow, warmth, blinking or 3D depth, so only a live person is accepted.
+:::
+
 :::compare Biometric methods
 | Method | How it works | Notes |
 |---|---|---|
 | Fingerprint | Sensor reads the ridges of a finger | Cheap, fast; dirty or cut fingers can fail |
 | Face recognition | Camera compares facial features | Contactless; lighting, glasses or masks can affect it |
 | Iris / retina scan | Camera scans the pattern of the eye | Very accurate; expensive; some users dislike it |
+| Palm vein | Infrared light shows the pattern of veins under the skin | Very hard to copy because the veins are inside the hand |
 | Voice recognition | Microphone analyses the voice | A cold or background noise can cause rejection |
+| Signature / keystroke dynamics | Measures how a person signs or types | No extra hardware for typing; less accurate |
+:::
+
+:::cards
+### Where biometrics are used
+- **Phones and laptops** — fingerprint or face unlock.
+- **Airports** — e-passports contain a photo template; e-gates compare it with the traveller's face.
+- **Banks** — confirming payments in a banking app.
+- **Schools and offices** — entry to buildings, attendance, paying in the canteen.
+### Keeping biometric data safe
+- Only the **template** is stored, not the image.
+- On phones it stays **encrypted on the device** in a secure chip and is never sent to the company.
+- A central database of fingerprints is a big target: if it is stolen, people **cannot change** their fingerprints like a password.
+- Biometric data is **personal data**, so laws require consent and protection.
 :::
 
 :::cards
@@ -511,7 +548,7 @@ Authentication using **unique physical or behavioural characteristics** of a per
 :::
 
 :::callout info Two-factor authentication (2FA)
-Combining **two different types** of evidence — something you **know** (password), something you **have** (phone, card) and something you **are** (biometric) — makes unauthorised access much harder. Example: a password plus a code sent to your phone.
+Combining **two different types** of evidence — something you **know** (password), something you **have** (phone, card) and something you **are** (biometric) — makes unauthorised access much harder. Example: a password plus a code sent to your phone. Using two or more factors is called **multi-factor authentication (MFA)**.
 :::
 
 :::compare The three authentication factors
@@ -522,6 +559,13 @@ Combining **two different types** of evidence — something you **know** (passwo
 | Something you **are** | Fingerprint, face, iris, voice | False acceptance / rejection; cannot be changed if leaked |
 :::
 
+:::example Two-factor authentication in everyday life
+- **Bank card at a cash machine:** the card (*have*) + the PIN (*know*).
+- **Online banking:** the password (*know*) + a code sent by SMS or shown in an app (*have*).
+- **Phone payment:** the phone (*have*) + a fingerprint or face (*are*).
+- **School server room:** a key card (*have*) + a fingerprint (*are*).
+:::
+
 :::warning Two passwords are not two factors
 A password **and** a PIN are both "something you know" — this is **not** two-factor authentication. 2FA needs factors of **different types**.
 :::
@@ -530,6 +574,28 @@ A password **and** a PIN are both "something you know" — this is **not** two-f
 @lo 12.1.2.1
 
 Biometrics prove **who** a user is, but most systems still rely on **passwords** — and on giving each user only the access they need.
+
+:::compare Authentication and authorisation
+| | Authentication | Authorisation |
+|---|---|---|
+| Question | **Who are you?** | **What are you allowed to do?** |
+| How | Password, card, biometric, 2FA | Access rights (permissions) set by the administrator |
+| When | At log-in | Every time a file, folder or table is opened |
+| Example | A teacher logs in with a password and a code | The teacher may change the marks of their own classes only |
+:::
+
+## How passwords are attacked
+
+:::compare Common attacks on passwords and how to defend against them
+| Attack | What the attacker does | Defence |
+|---|---|---|
+| **Brute force** | Tries every possible combination | Long passwords; **account lockout** after a few wrong attempts |
+| **Dictionary attack** | Tries common words and passwords (`password`, `qwerty`, names) | No dictionary words; passphrases with unusual words |
+| **Credential stuffing** | Uses passwords leaked from another website | A **different password** for every account; 2FA |
+| **Phishing** | Tricks the user into typing the password on a fake page | User training; 2FA; check the address of the site |
+| **Shoulder surfing** | Watches the user type the password | Cover the keyboard; screen privacy filters |
+| **Keylogger** | Malware records every key pressed | Anti-virus software; 2FA; on-screen PIN pads |
+:::
 
 :::cards
 ### A strong password
@@ -546,7 +612,18 @@ Biometrics prove **who** a user is, but most systems still rely on **passwords**
 - **Two-factor authentication** for important accounts (e-mail, banking, administrators).
 :::
 
+:::example A passphrase
+Four or more unrelated words are long and easy to remember: `Kite-Trombone-47-river!` is about 23 characters long. It is much harder to crack than `P@ssw0rd1`, which looks complex but is in every attacker's dictionary.
+:::
+
 :::widget password_strength How long would a brute-force attack take?
+:::
+
+:::cards
+### Password managers
+A program that **generates** a strong, different password for each account and **stores them encrypted**, unlocked by one master password (and often a fingerprint). ✔ The user remembers only one password. ✘ The master password must be very strong — if it is lost, all the passwords are lost.
+### How a system stores passwords
+The password is never stored as typed. A random value — the **salt** — is added and the result is **hashed**. At log-in the typed password is salted and hashed in the same way and the two hashes are compared. If the database is stolen, the attacker gets only hashes, and the salt stops them from looking the hashes up in a ready-made table.
 :::
 
 :::definition Access rights (permissions)
@@ -563,12 +640,22 @@ Rules set by the administrator that decide **what each user may do** with each f
 :::
 
 :::cards
+### User groups (roles)
+Rights are given to **groups** — *Pupils*, *Teachers*, *Accountants* — not to each person separately. A new teacher is simply added to the *Teachers* group and gets the right access at once; fewer mistakes are made.
 ### Principle of least privilege
 Every user gets **only the access needed for their job** — no more. If an account is stolen or a user makes a mistake, the damage is limited to that small area.
 ### Audit trail (log)
 The system **records who did what and when** (logged in, opened, changed, deleted). Logs help to find the cause of a problem and discourage misuse.
 ### Smart cards and tokens
 A **smart card** or USB **security key** contains a chip that proves the user has it ("something you have"). A **one-time password (OTP)** from an app or SMS changes every 30–60 seconds, so a stolen code is soon useless.
+:::
+
+:::steps Good account management
+- Every person has their **own account** — no shared logins, so the audit trail shows who did what.
+- Administrators use a **normal account** for everyday work and the administrator account only when needed.
+- Accounts of people who **leave** are **disabled at once**.
+- The screen **locks automatically** after a few minutes without activity.
+- Rights are **reviewed** regularly and removed when a job changes.
 :::
 
 # Computer virus countermeasures
@@ -585,7 +672,23 @@ A utility program that **scans** files, e-mails, downloads and memory to **detec
 | **Worm** | Copies itself across a network by itself | Network security holes — no user action needed |
 | **Trojan** | Pretends to be useful software but harms the computer | The user downloads and installs it |
 | **Spyware** | Secretly records keystrokes, passwords, activity | Bundled with free software, Trojans |
+| **Keylogger** | A kind of spyware that records every key pressed | Trojans, infected downloads |
 | **Ransomware** | Encrypts files and demands payment | Phishing e-mails, security holes |
+| **Adware** | Shows unwanted adverts, may track browsing | Bundled with free programs |
+:::
+
+:::cards
+### Signs that a computer may be infected
+- It becomes **slow** or crashes often.
+- **Pop-ups** and adverts appear; the browser home page changes.
+- Files are **missing, changed or encrypted** with a ransom message.
+- Unknown programs start; anti-virus software is switched off.
+- Friends receive strange e-mails "from you"; network traffic is unusually high.
+### Why malware is dangerous
+- **Data loss** — files are deleted, corrupted or encrypted.
+- **Data theft** — passwords, bank details and personal data are stolen.
+- **Downtime** — computers or the whole network stop working.
+- **Spreading** — one infected computer infects others in the network.
 :::
 
 :::steps How anti-virus software works
@@ -593,6 +696,22 @@ A utility program that **scans** files, e-mails, downloads and memory to **detec
 - **Heuristic / behaviour analysis** — detects **suspicious behaviour** (e.g. a program trying to change many system files), so it can catch new malware.
 - **Real-time (on-access) scanning** checks files as they are opened or downloaded.
 - Infected files are **quarantined** (isolated) or **deleted**; the user is warned.
+:::
+
+:::compare Signature-based vs heuristic detection
+| | Signature-based | Heuristic / behaviour-based |
+|---|---|---|
+| How | Compares files with a database of **known** malware signatures | Looks for **suspicious code or behaviour** |
+| Detects new malware? | **No** — only malware already in the database | **Yes** — can catch new ("zero-day") malware |
+| False alarms | Very few | More — a normal program may look suspicious |
+| Needs | **Regular updates** of the signature database | Good rules; more processing |
+:::
+
+:::cards
+### Quarantine
+A suspicious file is moved to a **protected, isolated folder** where it cannot run. If it was a false alarm, it can be restored; if not, it is deleted.
+### Sandbox
+An unknown program is run in a **closed test area** cut off from the real files and network. The anti-virus watches what it does; if it behaves like malware, it is blocked before it can do damage.
 :::
 
 :::compare Other virus countermeasures
@@ -607,14 +726,8 @@ A utility program that **scans** files, e-mails, downloads and memory to **detec
 | **User training** | People recognise phishing and suspicious files |
 :::
 
-
-:::compare Signature-based vs heuristic detection
-| | Signature-based | Heuristic / behaviour-based |
-|---|---|---|
-| How | Compares files with a database of **known** malware signatures | Looks for **suspicious code or behaviour** |
-| Detects new malware? | **No** — only malware already in the database | **Yes** — can catch new ("zero-day") malware |
-| False alarms | Very few | More — a normal program may look suspicious |
-| Needs | **Regular updates** of the signature database | Good rules; more processing |
+:::example Ransomware at a small company
+An employee opens an attachment called `Invoice.pdf.exe`. Ransomware encrypts every file on the shared server and demands payment. Paying does not guarantee the files will be returned. The company recovers because it keeps a **backup that is not connected** to the network: it cleans the server, restores yesterday's backup and loses only one day of work. **Disk mirroring would not have helped** — it copies the encrypted files to the second disk at once.
 :::
 
 :::steps What to do if a computer is infected
@@ -623,6 +736,45 @@ A utility program that **scans** files, e-mails, downloads and memory to **detec
 - **Change passwords** that may have been stolen (from a clean computer).
 - **Restore** damaged files from a clean **backup**.
 - Find out **how** it got in (attachment, USB, missing update) and fix the cause.
+:::
+
+# Phishing and social engineering
+@lo 12.1.2.1
+
+Many attacks do not break the technology — they trick the **people** who use it. Firewalls and anti-virus software cannot stop a user who types their password into a fake website.
+
+:::definition Phishing
+Sending **fake e-mails or messages** that look as if they come from a trusted organisation (a bank, the school, a delivery company) to trick people into **revealing passwords or bank details**, opening an infected attachment or clicking a link to a fake website.
+:::
+
+:::cards
+### How to recognise a phishing e-mail
+- **Urgency or threats:** "Your account will be closed in 24 hours!"
+- A **generic greeting** ("Dear customer") instead of your name.
+- The **sender's address** does not match the organisation (`support@citybank-security.xyz`).
+- A **link** whose real address (seen by hovering over it) is different from the text.
+- A request for a **password, PIN or card number** — real banks never ask for these by e-mail.
+- Spelling mistakes; an unexpected attachment.
+### What to do
+- Do **not** click the link or open the attachment.
+- Go to the website by **typing its address** yourself, or phone the organisation.
+- **Report** the e-mail to the IT department and delete it.
+- If you already typed a password, **change it at once** and tell IT.
+:::
+
+:::compare Other social-engineering attacks
+| Attack | What happens | Defence |
+|---|---|---|
+| **Spear phishing** | A phishing message written for one person, using their name and job | Training; check requests through another channel |
+| **Smishing / vishing** | Phishing by **SMS** or by **phone call** ("This is your bank…") | Never give codes or passwords; call back on the official number |
+| **Pharming** | Malicious code or a changed DNS setting sends the user to a fake website even when they type the correct address | Anti-virus software; check the padlock and certificate; keep software updated |
+| **Pretexting** | The attacker invents a story ("I'm from IT support, I need your password to fix your account") | A rule that staff **never** share passwords, even with IT |
+| **Shoulder surfing** | Watching someone type a PIN or password | Cover the keypad; privacy screens |
+| **Baiting** | An infected USB stick is left where someone will find it and plug it in | Never use unknown USB drives; disable autorun |
+:::
+
+:::tip
+In an exam answer about phishing, say what the user is **tricked** into doing (typing a password on a fake site, opening an attachment) and give a **measure that targets people**: user training, 2FA, checking the sender and the link.
 :::
 
 # Exam practice: biometrics and malware
@@ -637,6 +789,24 @@ The user must give **two different types** of evidence, e.g. a password **and** 
 
 **Q: Explain how anti-virus software can detect a new virus that is not in its signature database. [2]**
 **Heuristic / behaviour analysis** (1): it watches for suspicious actions, such as a program changing many system files, and blocks it (1).
+
+**Q: A bank makes its fingerprint readers stricter. Explain the effect on false acceptance and false rejection. [2]**
+Fewer **false acceptances** — strangers are let in less often, so it is more secure (1); more **false rejections** — genuine customers are refused more often, which is inconvenient (1).
+
+**Q: Explain the difference between authentication and authorisation. [2]**
+**Authentication** checks **who** the user is, e.g. with a password or fingerprint (1); **authorisation** decides **what** that user is allowed to do, using access rights (1).
+
+**Q: Explain why passwords are stored as salted hashes. [2]**
+A hash cannot be turned back into the password, so a stolen database does not reveal the passwords (1); the **salt** makes every hash different, so attackers cannot look them up in a table of common passwords' hashes (1).
+
+**Q: Describe two features of a phishing e-mail. [2]**
+Any two: urgent or threatening message; generic greeting; sender's address does not match the organisation; link to a fake website; asks for a password or bank details; unexpected attachment.
+
+**Q: Explain why anti-virus software must be updated regularly. [2]**
+New malware appears every day (1); signature-based detection only finds malware whose **signature is in the database**, so without updates new viruses are not detected (1).
+
+**Q: State the difference between a virus and a worm. [2]**
+A **virus** attaches itself to a file and spreads when the file is opened / needs a user action (1); a **worm** copies itself across a network **by itself**, through security holes (1).
 :::
 
 # Data backup

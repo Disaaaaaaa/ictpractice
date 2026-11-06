@@ -17,6 +17,7 @@ export const INTERACTIVE_WIDGETS = [
   "password_strength",
   "backup_restore",
   "encryption_keys",
+  "biometric_threshold",
 ] as const;
 export type InteractiveWidget = (typeof INTERACTIVE_WIDGETS)[number];
 
@@ -33,6 +34,7 @@ export const INTERACTIVE_WIDGET_LABELS: Record<InteractiveWidget, string> = {
   password_strength: "Password strength",
   backup_restore: "Restoring from backups",
   encryption_keys: "Symmetric, asymmetric and hashing",
+  biometric_threshold: "Biometric match threshold",
 };
 
 const text = z.string().max(20000);
