@@ -50,7 +50,9 @@ export async function pushQuestions(opts: {
     : opts.questions;
   const examTitle = opts.exam?.title ?? `${opts.title} — Topic Exam`;
   const examInstructions = opts.exam?.instructions ?? "Answer all questions. Your answers are saved automatically.";
-  if (opts.status === "published" && examQuestions.length >= 3) {
+  // at least three things to answer (the parts of a structured question count)
+  const items = examQuestions.reduce((n, q) => n + (q.type === "structured" ? Math.max(1, q.parts?.length ?? 0) : 1), 0);
+  if (opts.status === "published" && items >= 3) {
     const examId = contentId("exam", "topic", opts.slug);
     const marks = examQuestions.reduce((s, q) => s + marksOf(q), 0);
     const { data: exam } = await db.from("exams").select("id").eq("id", examId).maybeSingle();
