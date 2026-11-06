@@ -118,3 +118,17 @@ export async function getExamStartInfo(
     unavailableReason: reason,
   };
 }
+
+/** A lesson of a topic with one Exam Mode: what the student has done (see exam_requirements). */
+export type ExamRequirement = { lesson_no: number; title: string; practice_done: number; practice_total: number; notes_ok: boolean };
+
+/**
+ * The lessons a student must finish before the Exam Mode of a topic taught
+ * with one exam opens: every practice question answered and notes handed in.
+ * Empty when the exam has no such requirement.
+ */
+export async function getExamRequirements(supabase: Supa, examId: string): Promise<{ rows: ExamRequirement[]; locked: boolean }> {
+  const { data } = await supabase.rpc("exam_requirements", { p_exam_id: examId });
+  const rows = ((data ?? []) as ExamRequirement[]).map((r) => ({ ...r, practice_done: Number(r.practice_done), practice_total: Number(r.practice_total) }));
+  return { rows, locked: rows.some((r) => r.practice_done < r.practice_total || !r.notes_ok) };
+}

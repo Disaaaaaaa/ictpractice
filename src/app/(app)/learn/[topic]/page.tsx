@@ -16,6 +16,7 @@ import { LoCode } from "@/components/lo-code";
 import { Alert } from "@/components/ui/alert";
 import { TopicLessons } from "@/components/topic-lessons";
 import { getMyTopicPoints, getTopicLessons, lessonParam } from "@/lib/lessons";
+import { getExamRequirements } from "@/lib/exams";
 
 export async function generateMetadata({ params }: PageProps<"/learn/[topic]">): Promise<Metadata> {
   const topic = await getTopicBySlug((await params).topic);
@@ -51,6 +52,8 @@ export default async function TopicOverview({ params, searchParams }: PageProps<
       ])
     : [{ data: [] }, new Map()];
   const lessonExamIds = new Map(((lessonExams ?? []) as { id: string; lesson_no: number }[]).map((e) => [e.lesson_no, e.id]));
+  // a topic with one Exam Mode: what the student still has to do before it opens
+  const examLock = isStudent && lessons.length && lessonExamIds.size === 0 && exam ? await getExamRequirements(supabase, exam.id) : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
@@ -76,7 +79,7 @@ export default async function TopicOverview({ params, searchParams }: PageProps<
           </CardBody>
         </Card>
 
-        <TopicLessons slug={topic.slug} lessons={openLesson ? lessons.filter((l) => l.number === openLesson) : lessons} total={lessons.length} examIds={lessonExamIds} points={lessonPoints} isStudent={isStudent} />
+        <TopicLessons slug={topic.slug} lessons={openLesson ? lessons.filter((l) => l.number === openLesson) : lessons} total={lessons.length} examIds={lessonExamIds} points={lessonPoints} isStudent={isStudent} examLock={examLock} />
 
         <div className="grid gap-4 sm:grid-cols-3">
           <Link href={`${base}/theory`} className="rounded-xl border border-border bg-surface p-4 hover:bg-surface-2">

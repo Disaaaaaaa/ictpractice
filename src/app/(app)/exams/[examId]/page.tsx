@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { AlertTriangle, Clock, FileText, Maximize, Save, ShieldAlert } from "lucide-react";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getExamStartInfo, INTEGRITY_LABEL } from "@/lib/exams";
+import { getExamRequirements, getExamStartInfo, INTEGRITY_LABEL } from "@/lib/exams";
+import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { formatDate } from "@/lib/format";
 import { Markdown } from "@/components/markdown";
 import { PageHeader } from "@/components/ui/page-header";
@@ -28,6 +29,8 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
   const { exam, version } = info;
 
   const isStaff = profile.role === "teacher" || profile.role === "admin";
+  // a topic taught with one Exam Mode opens after its practice and notes
+  const req = profile.role === "student" && exam.kind === "topic" ? await getExamRequirements(supabase, examId) : { rows: [], locked: false };
   const { data: res } = isStaff ? await supabase.from("exams").select("teacher_resources").eq("id", examId).maybeSingle() : { data: null };
 
   const kindLabel =
@@ -100,6 +103,11 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
 
           {info.openAttemptId ? (
             <StartExamButton examId={exam.id} assignmentId={assignmentId} requireFullscreen={exam.require_fullscreen} label="Resume exam" />
+          ) : info.availableNow && req.locked && !assignmentId ? (
+            <Alert tone="info" title="Finish the lessons first">
+              <p className="mb-2">Exam Mode opens after you have answered every practice question and handed in your notes for every lesson of this topic.</p>
+              <ExamRequirements slug={exam.topics?.slug ?? ""} rows={req.rows} />
+            </Alert>
           ) : info.availableNow ? (
             <StartExamButton examId={exam.id} assignmentId={assignmentId} requireFullscreen={exam.require_fullscreen} />
           ) : (

@@ -5,6 +5,8 @@ import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getTopicBySlug } from "@/lib/curriculum";
 import { attemptLink } from "@/lib/student-data";
+import { getExamRequirements } from "@/lib/exams";
+import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { formatDate, formatPercent } from "@/lib/format";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { ButtonLink } from "@/components/ui/button";
@@ -44,6 +46,9 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
   // a topic taught in lessons with no lesson tests has one Exam Mode for the whole topic
   const { count: lessonCount } = await supabase.from("topic_lessons").select("topic_id", { count: "exact", head: true }).eq("topic_id", topic.id);
   const oneExam = (lessonCount ?? 0) > 0 && !(exams ?? []).some((e) => e.lesson_no != null);
+  // the single Exam Mode opens after the lessons' practice and notes
+  const topicExam = oneExam && profile.role === "student" ? list.find((e) => e.lesson_no == null) : undefined;
+  const req = topicExam ? await getExamRequirements(supabase, topicExam.id) : { rows: [], locked: false };
   const { data: attempts } = await supabase
     .from("attempts")
     .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")
@@ -65,7 +70,13 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
             <CardHeader
               title={e.title}
               description={`${v?.question_count ?? "?"} questions · ${v?.total_marks ?? "?"} marks · ${e.duration_minutes} minutes`}
-              action={<ButtonLink href={`/exams/${e.id}`}>Go to exam</ButtonLink>}
+              action={
+                e.id === topicExam?.id && req.locked ? (
+                  <span className="rounded-lg border border-dashed border-border px-3 py-1.5 text-sm text-muted">Locked</span>
+                ) : (
+                  <ButtonLink href={`/exams/${e.id}`}>Go to exam</ButtonLink>
+                )
+              }
             />
             <CardBody>
               <p className="mb-3 text-sm text-muted">
@@ -76,6 +87,12 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
                     ? " This is the topic's only Exam Mode: your first attempt counts towards your SAU points (2 points for the topic)."
                     : ""}
               </p>
+              {e.id === topicExam?.id && req.locked && (
+                <div className="mb-3 rounded-lg border border-border bg-surface-2 p-3">
+                  <p className="mb-2 text-sm font-medium">Exam Mode opens after you have answered every practice question and handed in your notes for every lesson:</p>
+                  <ExamRequirements slug={topic.slug} rows={req.rows} />
+                </div>
+              )}
               {mine.length > 0 && (
                 <ul className="divide-y divide-border rounded-lg border border-border">
                   {mine.map((a) => (

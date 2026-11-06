@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/format";
 import { LESSON_POINTS, type LessonScore, type TopicLesson } from "@/lib/lessons";
+import type { ExamRequirement } from "@/lib/exams";
+import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -14,6 +16,7 @@ export function TopicLessons({
   examIds,
   points,
   isStudent,
+  examLock = null,
 }: {
   slug: string;
   lessons: TopicLesson[];
@@ -23,6 +26,8 @@ export function TopicLessons({
   examIds: Map<number, string>;
   points: Map<number, LessonScore & { deadline: string | null }>;
   isStudent: boolean;
+  /** a student's progress towards opening the topic's single Exam Mode */
+  examLock?: { rows: ExamRequirement[]; locked: boolean } | null;
 }) {
   if (!lessons.length) return null;
   const base = `/learn/${slug}`;
@@ -92,8 +97,18 @@ export function TopicLessons({
                   {topicExam.examPending ? "being marked" : `${fmt(topicExam.total)} / ${topicExam.max}`}
                 </Badge>
               )}
-              <Link href={`${base}/exam`} className="rounded-md border border-border px-2.5 py-1 text-xs font-medium hover:bg-surface-2">Exam Mode</Link>
+              {examLock?.locked ? (
+                <span className="rounded-md border border-dashed border-border px-2.5 py-1 text-xs text-muted">Locked</span>
+              ) : (
+                <Link href={`${base}/exam`} className="rounded-md border border-border px-2.5 py-1 text-xs font-medium hover:bg-surface-2">Exam Mode</Link>
+              )}
             </div>
+            {examLock?.locked && (
+              <div className="w-full border-t border-border pt-2">
+                <p className="mb-1.5 text-xs text-muted">Opens after you answer every practice question and hand in your notes for every lesson:</p>
+                <ExamRequirements slug={slug} rows={examLock.rows} />
+              </div>
+            )}
           </div>
         )}
       </CardBody>
