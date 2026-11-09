@@ -1,0 +1,357 @@
+{
+  "topic": "g12-data-protection-measures",
+  "lesson": 3,
+  "grade": 12,
+  "unit": "12.2A Data protection",
+  "title": "Data backup, disk mirroring and disaster recovery",
+  "teacher": "Assylbek Dias",
+  "date": "",
+  "class": "",
+  "minutes": 80,
+  "learning_objectives": [
+    { "code": "12.1.2.2", "text": "use means to protect data including back up and disk mirroring" }
+  ],
+  "lesson_objectives": {
+    "all": "describe full, incremental and differential backups and identify the backups needed to restore data",
+    "most": "explain how disk mirroring works and why it does not replace backups",
+    "some": "design and justify a backup and disaster recovery plan for a given organisation"
+  },
+  "assessment_criteria": [
+    {
+      "criterion": "Compare full, incremental and differential backups",
+      "descriptors": [
+        "describes what each type of backup copies",
+        "identifies which backups are needed, in order, to restore the data",
+        "explains the 3-2-1 rule"
+      ]
+    },
+    {
+      "criterion": "Explain disk mirroring and how it differs from a backup",
+      "descriptors": [
+        "describes how RAID 1 writes data to two disks",
+        "states what mirroring protects against and what it does not",
+        "explains why an organisation needs both mirroring and backups"
+      ]
+    },
+    {
+      "criterion": "Recommend a backup and disaster recovery plan for an organisation",
+      "descriptors": [
+        "chooses how often to back up and which type of backup to use",
+        "chooses suitable media, including an off-site and an offline copy",
+        "lists at least three things the disaster recovery plan must contain",
+        "justifies each choice for the organisation's needs"
+      ]
+    }
+  ],
+  "language_objectives": {
+    "learners_can": [
+      "compare types of backup using comparative language (whereas, while, faster than)",
+      "explain cause and effect (because, so, therefore) when describing mirroring and ransomware",
+      "recommend a solution and justify it in two or three sentences"
+    ],
+    "vocabulary": [
+      "backup", "restore", "full / incremental / differential backup", "storage medium (media)", "off-site", "offline",
+      "cloud storage", "disk mirroring", "RAID 1", "redundancy", "downtime", "hot-swap", "disaster recovery plan", "archive"
+    ],
+    "phrases": [
+      "An incremental backup copies only …, whereas a differential backup copies …",
+      "Disk mirroring protects against … but not against …",
+      "We recommend … because …",
+      "If the server fails, the first step is … and then …"
+    ]
+  },
+  "values": [
+    {
+      "value": "Patriotism and responsibility",
+      "action": "Learners discuss who is responsible for the personal data that schools, clinics and shops keep about Kazakhstani citizens, and name a responsible person for each step of their disaster recovery plan."
+    },
+    {
+      "value": "Diligence and creativity",
+      "action": "Groups work as consultants and design a realistic, carefully justified backup plan for a client instead of copying a ready answer."
+    },
+    {
+      "value": "Openness",
+      "action": "Learners give and receive open peer feedback (two stars and a wish) on other groups' plans and listen to different solutions."
+    }
+  ],
+  "cross_curricular": [
+    "Mathematics: calculating how much storage a week of full, incremental and differential backups needs.",
+    "Economics: comparing the cost of protection with the cost of downtime and lost data.",
+    "English: presenting and justifying a recommendation to a client."
+  ],
+  "ict": [
+    "ICT Practice Platform, Lessons section: theory presented as slides, live tasks opened step by step, polls and live results.",
+    "Backup restore simulation (theory widget).",
+    "Laptops: individual tasks on each laptop; pair and group tasks on one shared laptop."
+  ],
+  "previous_learning": "Lesson 1: threats, the CIA triad (availability), physical risks, UPS and encryption. Lesson 2: malware and ransomware, what to do when a computer is infected. Learners know storage devices from earlier units.",
+  "safety": [
+    "Move to the group's laptop calmly; keep bags and cables off the floor.",
+    "Laptops stay on the desk; short screen break between the two halves of the lesson.",
+    "Do not plug in unknown USB drives (link to lesson 2)."
+  ],
+  "differentiation": {
+    "support": [
+      "Vocabulary list with key terms on the first slide; sentence frames for explanations.",
+      "Worked example of the restore order (Sunday full + incrementals) shown on the slide before the pair task.",
+      "The group task has a scaffold: four labelled boxes (backup schedule, media and 3-2-1, mirroring, disaster recovery plan).",
+      "Random mixed-ability groups with roles: leader, writer, presenter, checker."
+    ],
+    "stretch": [
+      "Calculate the storage needed for a week of incremental and of differential backups (50 GB full backup, about 2 GB of changes per day).",
+      "Decide whether RAID 5 would suit the client better than RAID 1 and justify the trade-off between cost and downtime.",
+      "Explain how the 3-2-1 rule protects against ransomware."
+    ]
+  },
+  "assessment": [
+    "Live results of every task on the teacher's screen: misconceptions are discussed at once.",
+    "Polls during the slides show whether the class has understood before the next step is opened.",
+    "Peer assessment of group plans against the success criteria (two stars and a wish).",
+    "Exit ticket (marked automatically) checks the three lesson objectives.",
+    "Practice results count towards SAU points; the Lesson 3 test in Exam Mode follows the lesson."
+  ],
+  "stages": [
+    {
+      "stage": "Beginning",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "b1",
+          "minutes": 3,
+          "title": "Greeting, objectives and hook",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Greets the class, shows the lesson objectives and success criteria on the first slide, then opens the warm-up poll.",
+          "learners": "Answer the poll on their laptops and say what they would lose.",
+          "poll": {
+            "question": "Your laptop is stolen tonight. How much of your school work could you get back tomorrow?",
+            "options": ["All of it", "Most of it", "Some of it", "None of it"]
+          },
+          "resources": ["Slide: objectives and success criteria", "Live poll"]
+        },
+        {
+          "id": "b2",
+          "minutes": 7,
+          "title": "Starter: recall lessons 1 and 2",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens three quick questions on lessons 1 and 2, watches the live results and corrects the most common wrong answer.",
+          "learners": "Answer three multiple-choice questions individually.",
+          "tasks": ["dp-l3-live-starter-1", "dp-l3-live-starter-2", "dp-l3-live-starter-3"],
+          "resources": ["Live tasks: starter"]
+        }
+      ]
+    },
+    {
+      "stage": "Middle",
+      "minutes": 60,
+      "blocks": [
+        {
+          "id": "m1",
+          "minutes": 12,
+          "title": "Slides: data backup",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Presents backup, the three types of backup and the 3-2-1 rule. Together task: shows the restore simulation and asks the class which backups are needed if the disk fails on Thursday; learners vote, then discuss.",
+          "learners": "Follow the slides, vote in the together task and explain their choice.",
+          "slides": ["Data backup"],
+          "together": ["dp-l3-live-together-1"],
+          "resources": ["Theory: Data backup (slides)", "Widget: Restoring from backups", "Live poll"]
+        },
+        {
+          "id": "m2",
+          "minutes": 10,
+          "title": "Pair work: types of backup",
+          "mode": "pair",
+          "kind": "task",
+          "teacher": "Opens the pair task: the platform pairs learners at random and shows each pair whose laptop to use. Monitors live results and helps pairs that are stuck.",
+          "learners": "Work in random pairs on one laptop: complete five practice questions on backups.",
+          "tasks": ["dp-backup-fill", "dp-backup-types", "dp-restore-incremental", "dp-restore-differential", "dp-321"],
+          "resources": ["Practice: lesson 3, set A"]
+        },
+        {
+          "id": "m3",
+          "minutes": 10,
+          "title": "Slides: disk mirroring",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Presents RAID 1, backup vs mirroring and other RAID levels. Together task: a firm with RAID 1 is hit by ransomware — what happens? Class votes, then discusses why mirroring is not a backup.",
+          "learners": "Vote and explain, using \"Disk mirroring protects against … but not against …\".",
+          "slides": ["Disk mirroring (RAID 1)"],
+          "together": ["dp-l3-live-together-2"],
+          "resources": ["Theory: Disk mirroring (slides)", "Live poll"]
+        },
+        {
+          "id": "m4",
+          "minutes": 5,
+          "title": "Individual practice: mirroring",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens four questions on mirroring; checks the live results.",
+          "learners": "Answer individually.",
+          "tasks": ["dp-mirroring-fill", "dp-mirror-vs-backup", "dp-ransom-mirror-mcq", "dp-raid0-mcq"],
+          "resources": ["Practice: lesson 3, set B"]
+        },
+        {
+          "id": "m5",
+          "minutes": 5,
+          "title": "Slides: disaster recovery and archiving",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Presents the disaster recovery plan and backup vs archive. Together task: what must be done first after a ransomware attack?",
+          "learners": "Vote and justify the order of recovery steps.",
+          "slides": ["Disaster recovery and archiving"],
+          "together": ["dp-l3-live-together-3"],
+          "resources": ["Theory: Disaster recovery and archiving (slides)", "Live poll"]
+        },
+        {
+          "id": "m6",
+          "minutes": 18,
+          "title": "Group work: disaster recovery consultants",
+          "mode": "group",
+          "group_size": 4,
+          "kind": "task",
+          "teacher": "Opens the group task: the platform forms random groups of four, gives each group a client and shows whose laptop to use. After 12 minutes two groups present their plan (1 minute each); the others give feedback against the success criteria.",
+          "learners": "In groups, design a backup and disaster recovery plan for their client, present it and give peer feedback (two stars and a wish).",
+          "tasks": ["dp-l3-live-group"],
+          "scenarios": "dp-l3-scenarios",
+          "resources": ["Live task: group plan with client cards", "Success criteria for peer feedback"]
+        }
+      ]
+    },
+    {
+      "stage": "End",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "e1",
+          "minutes": 5,
+          "title": "Exit ticket",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens the exit ticket and looks at the results to plan the next lesson.",
+          "learners": "Answer three questions individually.",
+          "tasks": ["dp-l3-live-exit-1", "dp-l3-live-exit-2", "dp-l3-live-exit-3"],
+          "resources": ["Live tasks: exit ticket"]
+        },
+        {
+          "id": "e2",
+          "minutes": 5,
+          "title": "Reflection and homework",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Learners rate each lesson objective (traffic light). Homework: finish the remaining lesson 3 practice, hand in handwritten notes for lesson 3, sit the Lesson 3 test in Exam Mode.",
+          "learners": "Rate their confidence in each objective and note the homework.",
+          "poll": {
+            "question": "How confident are you with today's objectives?",
+            "options": ["Green: I can explain all three", "Amber: I can explain backups and mirroring", "Red: I need more help"]
+          },
+          "homework": ["dp-offsite-mcq", "dp-school-plan-match", "dp-cloud-tick", "dp-mirror-ransom-tf", "dp-shop-plan-mcq", "dp-dr-contents-mr", "dp-backup-or-archive", "dp-dr-test-tf"],
+          "resources": ["Traffic-light poll", "Practice: remaining lesson 3 questions", "Exam Mode: Lesson 3 test"]
+        }
+      ]
+    }
+  ],
+  "scenarios": {
+    "dp-l3-scenarios": [
+      { "client": "An online shop", "details": "Sells clothes 24 hours a day; about 500 orders a day; losing even one hour of orders costs a lot; small budget for hardware." },
+      { "client": "A private clinic", "details": "Stores patients' records and test results; doctors need the system all day; the law says records must be kept for 10 years." },
+      { "client": "A school", "details": "Stores pupils' marks and personal data on one server; teachers work from home in the evening; the IT budget is small." },
+      { "client": "An accounting firm", "details": "Five accountants; clients' financial files change every day; last year a laptop with client data was stolen." },
+      { "client": "A cinema chain", "details": "Three cinemas share one booking server; online ticket sales peak in the evening and at weekends." }
+    ]
+  },
+  "live_tasks": [
+    {
+      "key": "dp-l3-live-starter-1", "title": "Ransomware and the CIA triad", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.1"], "practice": false,
+      "text": "Ransomware encrypts a school's files so nobody can open them. Which security goal is broken first?",
+      "options": [{ "key": "A", "content": "Confidentiality" }, { "key": "B", "content": "Integrity" }, { "key": "C", "content": "Availability" }, { "key": "D", "content": "Authentication" }],
+      "scheme": { "mark_scheme": "C", "accepted": { "correct": "C" }, "explanation": "The data can no longer be used when it is needed, so availability is broken." }
+    },
+    {
+      "key": "dp-l3-live-starter-2", "title": "A stolen laptop", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.1"], "practice": false,
+      "text": "Which measure stops a thief from reading the files on a stolen laptop?",
+      "options": [{ "key": "A", "content": "A firewall" }, { "key": "B", "content": "Full-disk encryption" }, { "key": "C", "content": "Anti-virus software" }, { "key": "D", "content": "A UPS" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    },
+    {
+      "key": "dp-l3-live-starter-3", "title": "An infected computer", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.1"], "practice": false,
+      "text": "A computer in the school network is infected with ransomware. What should the technician do first?",
+      "options": [{ "key": "A", "content": "Pay the ransom" }, { "key": "B", "content": "Disconnect it from the network" }, { "key": "C", "content": "Restore the files from a backup" }, { "key": "D", "content": "Restart the computer" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "Disconnecting first stops the malware spreading to other computers and to the backups." }
+    },
+    {
+      "key": "dp-l3-live-together-1", "title": "Restoring on Thursday", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "A full backup is made on Sunday night and a **differential** backup every other night. The disk fails on Thursday morning. Which backups are needed to restore the data?",
+      "options": [{ "key": "A", "content": "Wednesday's differential only" }, { "key": "B", "content": "Sunday's full backup and Wednesday's differential" }, { "key": "C", "content": "Sunday's full backup and the Monday, Tuesday and Wednesday differentials" }, { "key": "D", "content": "Sunday's full backup only" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "A differential backup holds every change since the last full backup, so the full backup and the latest differential are enough." }
+    },
+    {
+      "key": "dp-l3-live-together-2", "title": "RAID 1 and ransomware", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "A firm's server mirrors its data on two disks (RAID 1). Ransomware encrypts the files. What happens to the second disk?",
+      "options": [{ "key": "A", "content": "It keeps the unencrypted files, so the firm can carry on" }, { "key": "B", "content": "The encrypted files are copied to it straight away" }, { "key": "C", "content": "It switches itself off to protect the data" }, { "key": "D", "content": "It is wiped by the RAID controller" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "Mirroring copies every change at once, including the encryption, so it does not replace a backup." }
+    },
+    {
+      "key": "dp-l3-live-together-3", "title": "The first step of recovery", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "Ransomware has encrypted a college's file server. According to the disaster recovery plan, what is done first?",
+      "options": [{ "key": "A", "content": "Restore last night's backup onto the server" }, { "key": "B", "content": "Disconnect the infected computers and the server from the network" }, { "key": "C", "content": "Tell the students that lessons are cancelled" }, { "key": "D", "content": "Buy new disks" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "Isolate first, so the ransomware cannot reach other machines or the backups; then wipe, reinstall and restore." }
+    },
+    {
+      "key": "dp-l3-live-group", "title": "Disaster recovery consultants", "type": "labelled_answers", "marks": 8, "difficulty": "hard", "command_word": "suggest",
+      "grading": "AI", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "Your group is a team of IT consultants. Design a backup and disaster recovery plan for your client (shown on your card). Justify every choice for this client.",
+      "content": { "fields": [
+        { "key": "schedule", "label": "Backups: how often, and which type (full / incremental / differential)?", "lines": 3 },
+        { "key": "media", "label": "Media and where the copies are kept (use the 3-2-1 rule; include an offline copy)", "lines": 3 },
+        { "key": "mirroring", "label": "Disk mirroring: yes or no, and why?", "lines": 2 },
+        { "key": "plan", "label": "Disaster recovery plan: three things it must contain, with who is responsible", "lines": 4 }
+      ] },
+      "scheme": {
+        "mark_scheme": "Schedule: frequency and type suited to how often the client's data changes (1); justified (1)\nMedia: at least two media / three copies with one off-site (1); an offline copy against ransomware (1)\nMirroring: decision linked to how much downtime the client can accept (1); states that mirroring does not replace backups (1)\nPlan: three valid contents, e.g. critical systems in order, where backups are and how to restore, who is responsible, acceptable downtime / data loss, alternative arrangements, testing (2)",
+        "points": [
+          { "criterion": "Suitable backup schedule and type", "marks": 1 },
+          { "criterion": "Schedule justified for the client", "marks": 1 },
+          { "criterion": "3-2-1: several copies, one off-site", "marks": 1 },
+          { "criterion": "An offline copy", "marks": 1 },
+          { "criterion": "Mirroring decision linked to downtime", "marks": 1 },
+          { "criterion": "Mirroring is not a backup", "marks": 1 },
+          { "criterion": "Three valid contents of the disaster recovery plan", "marks": 2 }
+        ],
+        "model_answer": "Online shop: incremental backup every hour and a full backup every night, because orders change all the time and losing an hour of orders is expensive. Copies on the server, on a NAS in the office and in the cloud; one weekly copy on a disk kept offline. Mirroring yes, because the shop must not stop selling when a disk fails, but it does not protect against ransomware, so backups are still needed. Plan: the order system is restored first; the backups are on the NAS and in the cloud with step-by-step restore instructions; the IT manager is responsible and the owner is informed; the plan is tested every month."
+      }
+    },
+    {
+      "key": "dp-l3-live-exit-1", "title": "Restoring on Friday", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "A full backup is made on Sunday night and an **incremental** backup every other night. The disk fails on Friday morning. Which backups are needed?",
+      "options": [{ "key": "A", "content": "Sunday's full backup and Thursday's incremental" }, { "key": "B", "content": "Thursday's incremental only" }, { "key": "C", "content": "Sunday's full backup and the Monday, Tuesday, Wednesday and Thursday incrementals" }, { "key": "D", "content": "Sunday's full backup only" }],
+      "scheme": { "mark_scheme": "C", "accepted": { "correct": "C" } }
+    },
+    {
+      "key": "dp-l3-live-exit-2", "title": "A file deleted last week", "type": "true_false", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "Disk mirroring lets a company get back a file that was deleted by mistake last week.",
+      "scheme": { "mark_scheme": "False.", "accepted": { "correct": false }, "explanation": "The deletion was copied to both disks at once; only a backup keeps older copies." }
+    },
+    {
+      "key": "dp-l3-live-exit-3", "title": "Backup or archive", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["12.1.2.2"], "practice": false,
+      "text": "A school moves the records of pupils who left five years ago off its main server and keeps them for the long term. This is an example of …",
+      "options": [{ "key": "A", "content": "a full backup" }, { "key": "B", "content": "an archive" }, { "key": "C", "content": "disk mirroring" }, { "key": "D", "content": "an incremental backup" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    }
+  ],
+  "reflection": [
+    "Were the lesson objectives / learning objectives achieved? What did learners learn today?",
+    "What was the learning atmosphere like? Did differentiation work well?",
+    "Did I keep to the timings? What changes did I make to the plan and why?"
+  ]
+}
