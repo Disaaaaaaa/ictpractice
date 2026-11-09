@@ -2,13 +2,70 @@
   "topic": "g11-data-dictionary",
   "lesson": 1,
   "points": [
-    { "title": "What a data dictionary is", "must": "A document or table that describes the structure of a database — data about the data (metadata); for every table it lists every field.", "weight": 3 },
-    { "title": "When it is written", "must": "During the design stage, before the database is built, and kept up to date while the system is used.", "weight": 1 },
-    { "title": "What it records for each field", "must": "At least five of: field name, data type, field size, format, key (PK/FK), validation rule, required / null, description, example.", "weight": 3 },
-    { "title": "An example entry", "must": "A field described in full, e.g. DateOfBirth — Date — 10 — DD/MM/YYYY — validation range — example 14/03/2009.", "weight": 1 },
-    { "title": "Purpose: one agreed definition", "must": "Everyone uses the same field names, types and sizes, so the data is consistent and keys match between tables.", "weight": 2 },
-    { "title": "Purpose: building and testing", "must": "Helps programmers create the tables and write SQL / forms correctly; records the validation rules; testers choose test data from them.", "weight": 2 },
-    { "title": "Who uses it", "must": "Designers / analysts, programmers, testers and database administrators.", "weight": 1 },
-    { "title": "System catalogue", "must": "A DBMS keeps its own internal data dictionary, updated automatically: tables, fields, keys, indexes and user permissions.", "weight": 1 }
+    {
+      "title": "What a data dictionary is",
+      "must": "A document or table that describes the structure of a database — data about the data (metadata); for every table it lists every field.",
+      "weight": 3
+    },
+    {
+      "title": "Data and metadata",
+      "must": "Metadata is data that describes other data, with an example: 14/03/2009 is data; 'DateOfBirth, Date, DD/MM/YYYY, required' is metadata.",
+      "weight": 1
+    },
+    {
+      "title": "What it records for each field",
+      "must": "At least five of: field name, data type, size, format, key (PK/FK), validation rule, required / null, description, example.",
+      "weight": 3
+    },
+    {
+      "title": "An example entry",
+      "must": "One field described in full, e.g. DateOfBirth — Date — 10 — DD/MM/YYYY — PK/none — validation range — example value.",
+      "weight": 1
+    },
+    {
+      "title": "Data types",
+      "must": "Text / VARCHAR(n), CHAR(n), Integer, Real / Decimal, Date / Time, Boolean, each with an example field or value.",
+      "weight": 2
+    },
+    {
+      "title": "Phone numbers as text",
+      "must": "A phone number is stored as Text: it can start with + or 0, has spaces and no arithmetic is done with it.",
+      "weight": 1
+    },
+    {
+      "title": "Naming fields",
+      "must": "No spaces, meaningful names, one style, the same name for the same data in every table (e.g. StudentID in Students and Loans).",
+      "weight": 1
+    },
+    {
+      "title": "When it is written",
+      "must": "During the design stage of the system life cycle, after the ERD and before the database is built; kept up to date while the system is used.",
+      "weight": 1
+    },
+    {
+      "title": "Purpose: one agreed definition and consistency",
+      "must": "Everyone uses the same names and types; the same field has the same type and size in every table, so primary and foreign keys match.",
+      "weight": 3
+    },
+    {
+      "title": "Other purposes and users",
+      "must": "Helps programmers build the database and write SQL; records validation rules (data integrity); helps testers and maintenance / new developers.",
+      "weight": 2
+    },
+    {
+      "title": "What goes wrong without it",
+      "must": "An example of problems: a key is Text in one table and Integer in another so tables cannot be joined; dates in different formats; invalid data accepted.",
+      "weight": 1
+    },
+    {
+      "title": "Active and passive data dictionaries",
+      "must": "Active: kept by the DBMS, updated automatically (system catalogue, e.g. information_schema); passive: a document kept by people, updated by hand, may become out of date.",
+      "weight": 2
+    },
+    {
+      "title": "ERD, data dictionary and database",
+      "must": "ERD shows entities and relationships; the data dictionary describes every field; the database holds the real records.",
+      "weight": 1
+    }
   ]
 }
