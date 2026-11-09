@@ -18,13 +18,13 @@ const MODE = { class: "Whole class", individual: "Individual", pair: "Pairs (ran
 function theorySlides(blockId: string, section: string, blocks: TheoryBlock[]): Slide[] {
   const out: Slide[] = [];
   let sub = section;
-  for (const b of blocks) {
+  blocks.forEach((b, k) => {
     if (b.type === "heading") {
       sub = b.text;
-      continue;
+      return;
     }
-    out.push({ kind: "theory", blockId, heading: section, sub, body: <TheoryBlockView block={b} /> });
-  }
+    out.push({ kind: "theory", blockId, heading: section, sub, body: <TheoryBlockView key={`${blockId}-${section}-${k}`} block={b} /> });
+  });
   return out;
 }
 
@@ -137,7 +137,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
             kind: "question",
             blockId: b.id,
             together,
-            question: { id: q.id, question_type: q.question_type, content: q.content, options: q.options, title: q.title, text: <Markdown>{q.question_text}</Markdown>, marks: q.marks },
+            question: { id: q.id, question_type: q.question_type, content: q.content, options: q.options, title: q.title, text: <Markdown key={`${b.id}-${pq.id}`}>{q.question_text}</Markdown>, marks: q.marks },
             correct,
             revealed: revealed.has(pq.id),
             stats: { answered: rows.length, expected: b.groupSize > 1 ? groups.length : Math.max(present.length, 1), pct, toCheck: rows.filter((a) => a.needs_review).length },

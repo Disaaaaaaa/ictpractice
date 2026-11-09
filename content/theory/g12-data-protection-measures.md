@@ -1030,9 +1030,10 @@ Data is written to **two (or more) disks at the same time**, so that every disk 
   <g transform="translate(110,200)">
     <rect width="180" height="96" rx="14" style="fill:var(--danger-soft);stroke:var(--danger);stroke-width:2"/>
     <ellipse cx="90" cy="22" rx="62" ry="10" style="fill:none;stroke:var(--danger);stroke-width:1.5"/>
+    <path d="M20,10 L160,86 M160,10 L20,86" style="stroke:var(--danger);stroke-width:4;stroke-linecap:round;opacity:.3"/>
+    <rect x="45" y="38" width="90" height="48" rx="6" style="fill:var(--danger-soft)"/>
     <text class="t" x="90" y="56" text-anchor="middle">Disk 1</text>
     <text class="s" x="90" y="78" text-anchor="middle">marks.xlsx</text>
-    <path d="M20,10 L160,86 M160,10 L20,86" style="stroke:var(--danger);stroke-width:5;stroke-linecap:round;opacity:.85"/>
   </g>
   <g transform="translate(470,200)">
     <rect width="180" height="96" rx="14" style="fill:var(--success-soft);stroke:var(--success);stroke-width:2"/>

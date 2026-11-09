@@ -141,7 +141,9 @@ export function LessonStage({ sessionId, children }: { sessionId: string; childr
   const box = useRef<HTMLDivElement>(null);
   const [joined, setJoined] = useState(false);
   const [full, setFull] = useState(false);
-  const supported = typeof document !== "undefined" && Boolean(document.fullscreenEnabled);
+  // the browser has no full screen for pages, or refused it: the lesson fills the window instead
+  const [refused, setRefused] = useState(false);
+  const supported = typeof document !== "undefined" && Boolean(document.fullscreenEnabled) && !refused;
 
   useEffect(() => {
     const onChange = () => {
@@ -155,7 +157,13 @@ export function LessonStage({ sessionId, children }: { sessionId: string; childr
 
   const enter = async () => {
     setJoined(true);
-    if (supported && box.current) await box.current.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+    if (!supported || !box.current) return;
+    try {
+      await box.current.requestFullscreen({ navigationUI: "hide" });
+    } catch {
+      setRefused(true);
+      void reportFullscreen(sessionId, false);
+    }
   };
   const covered = !joined || (supported && !full);
 
