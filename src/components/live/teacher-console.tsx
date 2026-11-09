@@ -34,6 +34,7 @@ export function TeacherConsole({
   state,
   startedAt,
   ended,
+  endedAt = null,
   names,
   present,
   classSize,
@@ -45,6 +46,7 @@ export function TeacherConsole({
   state: LiveState;
   startedAt: string;
   ended: boolean;
+  endedAt?: string | null;
   names: Record<string, string>;
   /** students seen in the last minutes */
   present: string[];
@@ -63,7 +65,7 @@ export function TeacherConsole({
     });
   const open = new Set(state.open ?? []);
   const revealed = new Set(state.revealed ?? []);
-  const elapsed = now - new Date(startedAt).getTime();
+  const elapsed = (endedAt ? new Date(endedAt).getTime() : now) - new Date(startedAt).getTime();
   // minute at which each block starts
   const startOf = new Map<string, number>();
   blocksOf(plan).reduce((t, b) => (startOf.set(b.id, t), t + b.minutes), 0);
@@ -107,8 +109,8 @@ export function TeacherConsole({
                         <span className="font-mono text-xs text-muted">{from}–{from + b.minutes} min</span>
                         {b.title}
                         <Badge tone={b.mode === "class" ? "neutral" : "info"}>{MODE[b.mode]}{b.groupSize > 1 ? ` of ${b.groupSize}` : ""}</Badge>
-                        {isOpen ? <Badge tone="success">open</Badge> : openedAt ? <Badge>closed</Badge> : null}
-                        {isOpen && left != null && <span className={cn("font-mono text-xs", left < 0 ? "text-danger" : "text-muted")}>{left < 0 ? `+${clock(-left)}` : clock(left)} left</span>}
+                        {ended ? null : isOpen ? <Badge tone="success">open</Badge> : openedAt ? <Badge>closed</Badge> : null}
+                        {!ended && isOpen && left != null && <span className={cn("font-mono text-xs", left < 0 ? "text-danger" : "text-muted")}>{left < 0 ? `+${clock(-left)}` : clock(left)} left</span>}
                       </span>
                     }
                     description={b.teacher}
@@ -134,7 +136,7 @@ export function TeacherConsole({
                       {groups.length > 0 && (
                         <div>
                           <div className="mb-2 flex items-center gap-2 text-sm font-medium">
-                            <Users className="h-4 w-4" /> {groups.length} {b.mode === "pair" ? "pairs" : "groups"} — each works on the laptop marked <Crown className="inline h-3.5 w-3.5 text-warning" />
+                            <Users className="h-4 w-4" /> {groups.length} {b.mode === "pair" ? (groups.length === 1 ? "pair" : "pairs") : groups.length === 1 ? "group" : "groups"} — each works on the laptop marked <Crown className="inline h-3.5 w-3.5 text-warning" />
                             {!ended && (
                               <Button size="sm" variant="ghost" disabled={pending} onClick={() => run(() => regroup(sessionId, b.id))}><Shuffle className="h-4 w-4" /> New groups</Button>
                             )}

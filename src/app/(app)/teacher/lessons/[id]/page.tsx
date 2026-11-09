@@ -71,6 +71,7 @@ export default async function LessonConsolePage({ params }: PageProps<"/teacher/
         state={session.state}
         startedAt={session.started_at}
         ended={Boolean(session.ended_at)}
+        endedAt={session.ended_at}
         names={names}
         present={present}
         classSize={Object.keys(names).length}
