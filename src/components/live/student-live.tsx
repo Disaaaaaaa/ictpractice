@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Crown, Laptop, Loader2, Presentation, XCircle } from "lucide-react";
+import { CheckCircle2, Crown, Laptop, Loader2, Maximize, Presentation, XCircle } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { AnswerData } from "@/lib/questions/types";
 import { AnswerInput, type AnswerableQuestion } from "@/components/questions/answer-input";
 import { Markdown } from "@/components/markdown";
 import { Button } from "@/components/ui/button";
-import { heartbeat, submitLive, vote, type LiveSubmit } from "@/app/(app)/live/actions";
+import { heartbeat, reportFullscreen, submitLive, vote, type LiveSubmit } from "@/app/(app)/live/actions";
 
 /** Tells the server the student is in the lesson (every 30 s). */
 export function Heartbeat({ sessionId }: { sessionId: string }) {
@@ -128,5 +128,54 @@ export function HostBadge({ members }: { members: string[] }) {
     <p className="flex items-center gap-2 rounded-md bg-warning-soft px-3 py-2 text-sm">
       <Crown className="h-4 w-4 text-warning" /> Your group works on <b>your</b> laptop: {members.join(", ")}
     </p>
+  );
+}
+
+/**
+ * Keeps the lesson full screen. The student joins with one click (browsers
+ * only allow full screen after a click); if they leave it, the lesson is covered
+ * until they return, and the teacher sees it. Where the browser has no full
+ * screen for pages (some phones), the lesson fills the window instead.
+ */
+export function LessonStage({ sessionId, children }: { sessionId: string; children: React.ReactNode }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [joined, setJoined] = useState(false);
+  const [full, setFull] = useState(false);
+  const supported = typeof document !== "undefined" && Boolean(document.fullscreenEnabled);
+
+  useEffect(() => {
+    const onChange = () => {
+      const on = document.fullscreenElement === box.current;
+      setFull(on);
+      void reportFullscreen(sessionId, on);
+    };
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, [sessionId]);
+
+  const enter = async () => {
+    setJoined(true);
+    if (supported && box.current) await box.current.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+  };
+  const covered = !joined || (supported && !full);
+
+  return (
+    <div ref={box} className={cn("relative", (full || (joined && !supported)) && "fixed inset-0 z-50 overflow-auto bg-background p-4 sm:p-8")}>
+      {children}
+      {covered && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/95 p-6 backdrop-blur">
+          <div className="max-w-md space-y-4 text-center">
+            <Maximize className="mx-auto h-12 w-12 text-primary" />
+            <h2 className="text-2xl font-semibold">{joined ? "Return to the lesson" : "Your lesson has started"}</h2>
+            <p className="text-muted">
+              {joined
+                ? "The lesson works in full screen. Leaving it is shown to your teacher."
+                : "The lesson opens in full screen. Stay in it until your teacher ends the lesson."}
+            </p>
+            <Button size="lg" onClick={() => void enter()}>{joined ? "Back to full screen" : "Join the lesson"}</Button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

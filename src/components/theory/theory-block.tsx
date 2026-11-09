@@ -29,6 +29,15 @@ function Callout({
   );
 }
 
+/** Inline SVG from the theory files, without scripts, event handlers or external links. */
+function safeSvg(svg: string): string {
+  return svg
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi, "")
+    .replace(/\son[a-z]+\s*=\s*("[^"]*"|'[^']*')/gi, "")
+    .replace(/(href|xlink:href)\s*=\s*("javascript:[^"]*"|'javascript:[^']*')/gi, "");
+}
+
 export function TheoryBlockView({ block }: { block: TheoryBlock }) {
   switch (block.type) {
     case "heading":
@@ -69,6 +78,9 @@ export function TheoryBlockView({ block }: { block: TheoryBlock }) {
         <figure className="space-y-2 rounded-lg border border-border bg-surface p-4">
           {block.format === "mermaid" ? (
             <MermaidDiagram source={block.content} />
+          ) : block.format === "svg" ? (
+            // authored in content/theory (trusted); scripts and event handlers are stripped anyway
+            <div className="theory-svg mx-auto max-w-3xl [&_svg]:h-auto [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: safeSvg(block.content) }} />
           ) : (
             <pre className="overflow-x-auto font-mono text-sm leading-snug">{block.content}</pre>
           )}

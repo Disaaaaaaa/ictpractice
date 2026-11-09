@@ -5,7 +5,9 @@
  *
  *   npm run kmzh:apply -- <topic-slug>
  */
-import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, readFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { authoredTopicSchema } from "../src/lib/content/schema";
 import { getTopicInfo } from "./lib/topic-block";
@@ -44,13 +46,28 @@ async function main() {
   if (topic.lessons) console.log(`  lessons: ${await pushLessons(db, slug, topic, info.title, grade)}`);
   const { data: version } = await db.from("curriculum_versions").select("id").eq("code", PROGRAMME_VERSION).single();
   const { data: row } = await db.from("topics").select("id").eq("curriculum_version_id", version!.id).eq("slug", slug).single();
+  const dir = mkdtempSync(join(tmpdir(), "kmzh-"));
   for (const k of plans) {
+    // the ҚМЖ as a Word file, for the "Lesson plan" button
+    let docx: string | null = null;
+    try {
+      const file = join(dir, `${slug}-L${k.lesson}.docx`);
+      execFileSync("python3", [join(__dirname, "kmzh_docx.py"), join(__dirname, "..", "content", "kmzh", `${slug}-L${k.lesson}.json`), "-o", file], { stdio: "pipe" });
+      const path = `${slug}-L${k.lesson}.docx`;
+      const { error: upErr } = await db.storage
+        .from("lesson-plans")
+        .upload(path, readFileSync(file), { upsert: true, contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+      if (upErr) console.warn(`  lesson ${k.lesson}: the .docx was not uploaded (${upErr.message})`);
+      else docx = path;
+    } catch (e) {
+      console.warn(`  lesson ${k.lesson}: the .docx could not be built (${(e as Error).message.split("\n")[0]})`);
+    }
     const { error } = await db
       .from("lesson_plans")
-      .upsert({ topic_id: row!.id, lesson_no: k.lesson, plan: sitePlan(k), updated_at: new Date().toISOString() }, { onConflict: "topic_id,lesson_no" });
+      .upsert({ topic_id: row!.id, lesson_no: k.lesson, plan: sitePlan(k, docx), updated_at: new Date().toISOString() }, { onConflict: "topic_id,lesson_no" });
     if (error) throw new Error(`lesson ${k.lesson} plan: ${error.message}`);
     const blocks = k.stages.reduce((n, s) => n + s.blocks.length, 0);
-    console.log(`  lesson ${k.lesson} plan: ${blocks} blocks, ${k.minutes} min`);
+    console.log(`  lesson ${k.lesson} plan: ${blocks} blocks, ${k.minutes} min${docx ? ", ҚМЖ .docx uploaded" : ""}`);
   }
 }
 

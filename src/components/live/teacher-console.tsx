@@ -77,9 +77,9 @@ export function TeacherConsole({
           <span className="rounded-lg bg-surface-2 px-3 py-1.5 font-mono text-lg tabular-nums" title="Time since the lesson started">
             {clock(elapsed)} <span className="text-sm text-muted">/ {plan.minutes}:00</span>
           </span>
-          {!ended && state.current && blocksOf(plan).find((b) => b.id === state.current)?.slides.length ? (
-            <Link href={`/teacher/lessons/${sessionId}/present?block=${state.current}`} target="_blank" className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-4 text-sm font-medium hover:bg-surface-2">
-              <MonitorPlay className="h-4 w-4" /> Present current slides
+          {!ended && state.current ? (
+            <Link href={`/teacher/lessons/${sessionId}?block=${state.current}`} className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-4 text-sm font-medium hover:bg-surface-2">
+              <MonitorPlay className="h-4 w-4" /> Back to the presentation
             </Link>
           ) : null}
           {error && <span className="text-sm text-danger">{error}</span>}
@@ -118,7 +118,7 @@ export function TeacherConsole({
                       ended ? null : (
                         <div className="flex flex-wrap gap-2">
                           {b.slides.length > 0 && (
-                            <Link href={`/teacher/lessons/${sessionId}/present?block=${b.id}`} target="_blank" className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border px-3 text-sm hover:bg-surface-2">
+                            <Link href={`/teacher/lessons/${sessionId}?block=${b.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border px-3 text-sm hover:bg-surface-2">
                               <MonitorPlay className="h-4 w-4" /> Present
                             </Link>
                           )}

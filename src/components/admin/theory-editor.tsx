@@ -101,8 +101,8 @@ function BlockEditor({ block, onChange }: { block: TheoryBlock; onChange: (b: Th
         return (
           <>
             <Field label="Format" htmlFor="fmt">
-              <Select value={block.format} onChange={(e) => set({ format: e.target.value as "mermaid" | "ascii" })}>
-                <option value="mermaid">Mermaid</option><option value="ascii">Plain text / ASCII</option>
+              <Select value={block.format} onChange={(e) => set({ format: e.target.value as "mermaid" | "ascii" | "svg" })}>
+                <option value="mermaid">Mermaid</option><option value="ascii">Plain text / ASCII</option><option value="svg">SVG drawing</option>
               </Select>
             </Field>
             {text("content", "Diagram source", 6, true)}

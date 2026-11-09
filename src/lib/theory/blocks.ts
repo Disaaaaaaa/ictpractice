@@ -48,7 +48,7 @@ export const theoryBlockSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("warning"), content: text }),
   z.object({
     type: z.literal("diagram"),
-    format: z.enum(["mermaid", "ascii"]),
+    format: z.enum(["mermaid", "ascii", "svg"]),
     content: text,
     caption: z.string().max(300).optional(),
   }),

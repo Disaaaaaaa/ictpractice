@@ -7718,6 +7718,24 @@
           "content": "A **copy of data** stored on a **separate medium**, preferably in a **different location**, so that the original can be **restored** if it is lost, damaged, deleted, stolen or encrypted by ransomware."
         },
         {
+          "type": "cards",
+          "items": [
+            {
+              "title": "What a backup protects against",
+              "content": "- **Hardware failure** — a hard disk or SSD stops working.\n- **Human error** — a file is deleted or overwritten by mistake.\n- **Malware** — ransomware encrypts files; a virus corrupts them.\n- **Theft and disasters** — a laptop is stolen; fire or flood destroys the server room (only if a copy is kept **off-site**)."
+            },
+            {
+              "title": "Restoring",
+              "content": "**Restoring** means copying the data from the backup back onto the working system. A backup is only useful if it can really be restored — so restores are **tested** regularly."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Full, incremental and differential backups",
+          "level": 2
+        },
+        {
           "type": "comparison",
           "title": "Types of backup",
           "columns": [
@@ -7748,6 +7766,12 @@
           ]
         },
         {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dp\" viewBox=\"0 0 760 330\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Incremental and differential backups from Sunday to Wednesday\">\n  <style>\n    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dp .full{fill:var(--primary)} svg.dp .inc{fill:var(--success)} svg.dp .dif{fill:var(--warning)}\n    svg.dp .lane{fill:var(--surface-2)}\n    svg.dp .lbl{font:600 12px system-ui,sans-serif;fill:#fff}\n  </style>\n  <text class=\"t\" x=\"20\" y=\"28\">Incremental: only the changes since the previous night</text>\n  <rect class=\"lane\" x=\"20\" y=\"40\" width=\"720\" height=\"90\" rx=\"10\"/>\n  <g transform=\"translate(40,55)\">\n    <rect class=\"full\" width=\"150\" height=\"60\" rx=\"8\"/><text class=\"lbl\" x=\"75\" y=\"27\" text-anchor=\"middle\">Sunday</text><text class=\"lbl\" x=\"75\" y=\"45\" text-anchor=\"middle\">FULL · 50 GB</text>\n    <rect class=\"inc\" x=\"175\" y=\"18\" width=\"70\" height=\"42\" rx=\"8\"/><text class=\"lbl\" x=\"210\" y=\"44\" text-anchor=\"middle\">Mon 2 GB</text>\n    <rect class=\"inc\" x=\"270\" y=\"18\" width=\"70\" height=\"42\" rx=\"8\"/><text class=\"lbl\" x=\"305\" y=\"44\" text-anchor=\"middle\">Tue 2 GB</text>\n    <rect class=\"inc\" x=\"365\" y=\"18\" width=\"70\" height=\"42\" rx=\"8\"/><text class=\"lbl\" x=\"400\" y=\"44\" text-anchor=\"middle\">Wed 2 GB</text>\n    <text class=\"s\" x=\"460\" y=\"30\">Restore on Thursday:</text>\n    <text class=\"t\" x=\"460\" y=\"52\">Sun + Mon + Tue + Wed</text>\n  </g>\n  <text class=\"t\" x=\"20\" y=\"178\">Differential: all the changes since Sunday's full backup</text>\n  <rect class=\"lane\" x=\"20\" y=\"190\" width=\"720\" height=\"110\" rx=\"10\"/>\n  <g transform=\"translate(40,205)\">\n    <rect class=\"full\" width=\"150\" height=\"80\" rx=\"8\"/><text class=\"lbl\" x=\"75\" y=\"37\" text-anchor=\"middle\">Sunday</text><text class=\"lbl\" x=\"75\" y=\"55\" text-anchor=\"middle\">FULL · 50 GB</text>\n    <rect class=\"dif\" x=\"175\" y=\"56\" width=\"70\" height=\"24\" rx=\"6\"/><text class=\"lbl\" x=\"210\" y=\"73\" text-anchor=\"middle\">Mon 2</text>\n    <rect class=\"dif\" x=\"270\" y=\"38\" width=\"70\" height=\"42\" rx=\"6\"/><text class=\"lbl\" x=\"305\" y=\"64\" text-anchor=\"middle\">Tue 4</text>\n    <rect class=\"dif\" x=\"365\" y=\"20\" width=\"70\" height=\"60\" rx=\"6\"/><text class=\"lbl\" x=\"400\" y=\"55\" text-anchor=\"middle\">Wed 6</text>\n    <text class=\"s\" x=\"460\" y=\"40\">Restore on Thursday:</text>\n    <text class=\"t\" x=\"460\" y=\"62\">Sun + Wed only</text>\n  </g>\n</svg>",
+          "caption": "What each night's backup copies (full backup on Sunday)"
+        },
+        {
           "type": "example",
           "title": "Restoring after a failure on Thursday morning",
           "content": "A full backup is made on **Sunday** night; from Monday to Wednesday a backup is made every night. The disk fails on **Thursday** morning.\n\n| Method used Mon–Wed | Backups needed to restore |\n|---|---|\n| **Incremental** | Sunday full **+ Monday + Tuesday + Wednesday** incrementals (all of them, in order) |\n| **Differential** | Sunday full **+ Wednesday** differential only |\n\nWork done on Thursday before the failure is **lost** in both cases — it was never backed up."
@@ -7758,17 +7782,110 @@
           "title": "Choose the method and the day of the failure"
         },
         {
+          "type": "example",
+          "title": "Calculating the storage needed",
+          "content": "The full backup is **50 GB** and about **2 GB** of data changes each day (always different files).\n\n- **Incremental**, Monday–Saturday: 6 × 2 GB = **12 GB** in a week, plus the 50 GB full backup = **62 GB**.\n- **Differential**: Monday 2 + Tuesday 4 + Wednesday 6 + Thursday 8 + Friday 10 + Saturday 12 = **42 GB**, plus 50 GB = **92 GB**.\n- **Full every night**: 7 × 50 GB = **350 GB**.\n\nIncremental saves the most space, but a restore needs **every** backup in the chain — if one of them is damaged, the later ones are useless."
+        },
+        {
+          "type": "heading",
+          "text": "How often, and how much may be lost",
+          "level": 2
+        },
+        {
           "type": "cards",
           "items": [
             {
-              "title": "A good backup strategy",
-              "content": "- Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.\n- **3-2-1 rule:** keep **3** copies of the data, on **2** different types of media, with **1** copy **off-site** (or in the cloud).\n- Keep at least one copy **offline**, so ransomware cannot encrypt it.\n- **Encrypt** backups and keep them physically secure.\n- **Test** restoring from the backup regularly."
+              "title": "Recovery point objective (RPO)",
+              "content": "The **largest amount of recent data** the organisation can afford to lose, measured in time. A nightly backup gives an RPO of up to **24 hours**; an online shop that cannot lose orders may back up **every 15 minutes**."
             },
             {
-              "title": "Backup media",
-              "content": "- External hard disks / SSDs.\n- Magnetic **tape** (cheap for very large amounts, used by companies).\n- **Cloud storage** — off-site automatically; needs an Internet connection.\n- Network-attached storage (NAS)."
+              "title": "Recovery time objective (RTO)",
+              "content": "The **longest time** the system may be unavailable while it is restored. A school may accept a day; a hospital or a bank only minutes — so they also need mirroring or a spare server."
             }
           ]
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dp\" viewBox=\"0 0 760 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Timeline showing RPO before an incident and RTO after it\">\n  <style>\n    svg.dp .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dp .line{stroke:var(--border);stroke-width:4}\n  </style>\n  <line class=\"line\" x1=\"30\" y1=\"90\" x2=\"730\" y2=\"90\"/>\n  <rect x=\"200\" y=\"74\" width=\"230\" height=\"32\" style=\"fill:var(--danger-soft)\"/>\n  <rect x=\"430\" y=\"74\" width=\"230\" height=\"32\" style=\"fill:var(--warning-soft)\"/>\n  <circle cx=\"200\" cy=\"90\" r=\"9\" style=\"fill:var(--success)\"/>\n  <circle cx=\"430\" cy=\"90\" r=\"11\" style=\"fill:var(--danger)\"/>\n  <circle cx=\"660\" cy=\"90\" r=\"9\" style=\"fill:var(--primary)\"/>\n  <text class=\"t\" x=\"200\" y=\"50\" text-anchor=\"middle\">Last backup</text>\n  <text class=\"t\" x=\"430\" y=\"50\" text-anchor=\"middle\">Incident (e.g. ransomware)</text>\n  <text class=\"t\" x=\"660\" y=\"50\" text-anchor=\"middle\">Work resumes</text>\n  <text class=\"t\" x=\"315\" y=\"140\" text-anchor=\"middle\" style=\"fill:var(--danger)\">RPO — data that may be lost</text>\n  <text class=\"t\" x=\"545\" y=\"140\" text-anchor=\"middle\" style=\"fill:var(--warning)\">RTO — time to restore</text>\n  <text class=\"s\" x=\"30\" y=\"160\">time →</text>\n</svg>",
+          "caption": "RPO looks back to the last backup; RTO looks forward to the moment work resumes"
+        },
+        {
+          "type": "heading",
+          "text": "A good backup strategy",
+          "level": 2
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dp\" viewBox=\"0 0 760 220\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Three copies on two media types with one copy off-site\">\n  <style>\n    svg.dp .n{font:800 46px system-ui,sans-serif}\n    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dp .card{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n  </style>\n  <rect class=\"card\" x=\"20\" y=\"20\" width=\"230\" height=\"180\" rx=\"14\"/>\n  <rect class=\"card\" x=\"265\" y=\"20\" width=\"230\" height=\"180\" rx=\"14\"/>\n  <rect class=\"card\" x=\"510\" y=\"20\" width=\"230\" height=\"180\" rx=\"14\"/>\n  <text class=\"n\" x=\"135\" y=\"82\" text-anchor=\"middle\" style=\"fill:var(--primary)\">3</text>\n  <text class=\"n\" x=\"380\" y=\"82\" text-anchor=\"middle\" style=\"fill:var(--success)\">2</text>\n  <text class=\"n\" x=\"625\" y=\"82\" text-anchor=\"middle\" style=\"fill:var(--warning)\">1</text>\n  <text class=\"t\" x=\"135\" y=\"112\" text-anchor=\"middle\">copies of the data</text>\n  <text class=\"t\" x=\"380\" y=\"112\" text-anchor=\"middle\">different types of media</text>\n  <text class=\"t\" x=\"625\" y=\"112\" text-anchor=\"middle\">copy off-site</text>\n  <text class=\"s\" x=\"135\" y=\"140\" text-anchor=\"middle\">the original + 2 backups</text>\n  <text class=\"s\" x=\"380\" y=\"140\" text-anchor=\"middle\">e.g. a NAS disk and the cloud</text>\n  <text class=\"s\" x=\"625\" y=\"140\" text-anchor=\"middle\">another building or the cloud</text>\n  <text class=\"s\" x=\"135\" y=\"165\" text-anchor=\"middle\">one failure never loses all</text>\n  <text class=\"s\" x=\"380\" y=\"165\" text-anchor=\"middle\">one fault cannot hit both</text>\n  <text class=\"s\" x=\"625\" y=\"165\" text-anchor=\"middle\">survives fire, flood, theft</text>\n</svg>",
+          "caption": "The 3-2-1 rule"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Rules for backups",
+              "content": "- Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.\n- Follow the **3-2-1 rule**; keep at least one copy **offline** (not connected), so ransomware cannot encrypt it.\n- **Encrypt** backups and keep them physically secure — a stolen backup is a data leak.\n- **Label** and **log** every backup; keep several generations, not just the latest.\n- **Test** restoring from the backup regularly."
+            },
+            {
+              "title": "Versions and snapshots",
+              "content": "Many systems keep **versions** of files (e.g. the cloud keeps the last 30 days) or take **snapshots** — a read-only picture of a disk at one moment. A file deleted or encrypted today can be brought back from yesterday's version."
+            }
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Backup media compared",
+          "columns": [
+            "Medium",
+            "Capacity",
+            "Speed",
+            "Cost per GB",
+            "Notes"
+          ],
+          "rows": [
+            [
+              "**External hard disk**",
+              "Large (1–20 TB)",
+              "Fast",
+              "Low",
+              "Easy to carry off-site; can be dropped or fail"
+            ],
+            [
+              "**External SSD / USB flash drive**",
+              "Small to medium",
+              "Very fast",
+              "Higher",
+              "Robust, small; easily lost"
+            ],
+            [
+              "**Magnetic tape**",
+              "Very large",
+              "Slow to restore (sequential access)",
+              "Lowest",
+              "Used by companies for long-term and offline copies"
+            ],
+            [
+              "**NAS** (network-attached storage)",
+              "Large",
+              "Fast on the local network",
+              "Medium",
+              "Automatic backups for all computers; often uses RAID; must be protected from ransomware"
+            ],
+            [
+              "**Cloud storage**",
+              "Practically unlimited",
+              "Depends on the Internet",
+              "Monthly fee",
+              "Automatically off-site; keeps versions"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Grandfather–father–son rotation",
+          "content": "A school keeps three generations of backups so that it can go back weeks or months:\n- **Son** — a backup every **day** (Monday–Thursday), each kept for a week.\n- **Father** — a **weekly** full backup on Friday, kept for a month.\n- **Grandfather** — a **monthly** full backup, kept for a year and stored off-site.\n\nIf a mistake is noticed three weeks later, the father backup from before the mistake can still be restored."
         },
         {
           "type": "comparison",
@@ -7799,7 +7916,7 @@
         {
           "type": "example",
           "title": "A backup plan for a small shop",
-          "content": "- **Every night at 23:00**: incremental backup of the sales database to a NAS in the office.\n- **Every Sunday**: full backup to the NAS **and** to cloud storage (the off-site copy).\n- **Once a month**: test that a file can really be restored.\n- The NAS is not shared with ordinary users, so ransomware on a till computer cannot reach it."
+          "content": "- **Every night at 23:00**: incremental backup of the sales database to a NAS in the office.\n- **Every Sunday**: full backup to the NAS **and** to cloud storage (the off-site copy).\n- **Once a month**: a full backup to an external disk that is then **disconnected** and taken home (offline copy).\n- **Once a month**: test that a file can really be restored.\n- The NAS is not shared with ordinary users, so ransomware on a till computer cannot reach it."
         }
       ]
     },
@@ -7815,10 +7932,26 @@
           "content": "Data is written to **two (or more) disks at the same time**, so that every disk holds an **identical copy**. If one disk **fails**, the system **continues working** from the other disk **without losing data or stopping**."
         },
         {
+          "type": "definition",
+          "term": "RAID",
+          "content": "**Redundant Array of Independent Disks** — several physical disks used together by a **RAID controller** (hardware or software) so that the computer sees them as **one drive**. Depending on the level, RAID gives speed, protection against a disk failure, or both."
+        },
+        {
           "type": "diagram",
-          "format": "ascii",
-          "content": "               write \"file.docx\"\n                      |\n              +-------+-------+\n              |               |\n        +-----------+   +-----------+\n        |  Disk 1   |   |  Disk 2   |\n        | file.docx |   | file.docx |     identical copies\n        +-----------+   +-----------+\n   Disk 1 fails  ->  the server keeps running from Disk 2",
+          "format": "svg",
+          "content": "<svg class=\"dp\" viewBox=\"0 0 760 330\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"A write goes through the RAID controller to two identical disks; when disk 1 fails the server keeps running from disk 2\">\n  <defs>\n    <marker id=\"arr\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" style=\"fill:var(--muted)\"/></marker>\n  </defs>\n  <style>\n    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dp .box{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dp .ln{stroke:var(--muted);stroke-width:2;fill:none}\n  </style>\n  <rect class=\"box\" x=\"290\" y=\"14\" width=\"180\" height=\"46\" rx=\"10\"/>\n  <text class=\"t\" x=\"380\" y=\"43\" text-anchor=\"middle\">Save \"marks.xlsx\"</text>\n  <path class=\"ln\" d=\"M380,60 V88\" marker-end=\"url(#arr)\"/>\n  <rect x=\"280\" y=\"92\" width=\"200\" height=\"46\" rx=\"10\" style=\"fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5\"/>\n  <text class=\"t\" x=\"380\" y=\"121\" text-anchor=\"middle\" style=\"fill:var(--primary)\">RAID controller</text>\n  <path class=\"ln\" d=\"M330,138 C330,170 200,165 200,196\" marker-end=\"url(#arr)\"/>\n  <path class=\"ln\" d=\"M430,138 C430,170 560,165 560,196\" marker-end=\"url(#arr)\"/>\n  <g transform=\"translate(110,200)\">\n    <rect width=\"180\" height=\"96\" rx=\"14\" style=\"fill:var(--danger-soft);stroke:var(--danger);stroke-width:2\"/>\n    <ellipse cx=\"90\" cy=\"22\" rx=\"62\" ry=\"10\" style=\"fill:none;stroke:var(--danger);stroke-width:1.5\"/>\n    <text class=\"t\" x=\"90\" y=\"56\" text-anchor=\"middle\">Disk 1</text>\n    <text class=\"s\" x=\"90\" y=\"78\" text-anchor=\"middle\">marks.xlsx</text>\n    <path d=\"M20,10 L160,86 M160,10 L20,86\" style=\"stroke:var(--danger);stroke-width:5;stroke-linecap:round;opacity:.85\"/>\n  </g>\n  <g transform=\"translate(470,200)\">\n    <rect width=\"180\" height=\"96\" rx=\"14\" style=\"fill:var(--success-soft);stroke:var(--success);stroke-width:2\"/>\n    <ellipse cx=\"90\" cy=\"22\" rx=\"62\" ry=\"10\" style=\"fill:none;stroke:var(--success);stroke-width:1.5\"/>\n    <text class=\"t\" x=\"90\" y=\"56\" text-anchor=\"middle\">Disk 2</text>\n    <text class=\"s\" x=\"90\" y=\"78\" text-anchor=\"middle\">marks.xlsx (identical)</text>\n  </g>\n  <text class=\"t\" x=\"200\" y=\"318\" text-anchor=\"middle\" style=\"fill:var(--danger)\">fails</text>\n  <text class=\"t\" x=\"560\" y=\"318\" text-anchor=\"middle\" style=\"fill:var(--success)\">server keeps running — no data lost</text>\n</svg>",
           "caption": "Disk mirroring: every write goes to both disks"
+        },
+        {
+          "type": "steps",
+          "title": "What happens when a mirrored disk fails",
+          "items": [
+            "Both disks hold the same data; every change is written to **both** at once.",
+            "Disk 1 fails — the controller **notices** and carries on using **Disk 2** alone; users do not notice anything.",
+            "The administrator is **warned** (e-mail, red light on the server).",
+            "The failed disk is **replaced**, often while the server keeps running (**hot-swap**).",
+            "The controller **rebuilds** the mirror by copying everything from Disk 2 onto the new disk."
+          ]
         },
         {
           "type": "comparison",
@@ -7863,7 +7996,7 @@
         },
         {
           "type": "warning",
-          "content": "If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. Organisations therefore use **both**: mirroring for **availability** and backups for **recovery**."
+          "content": "If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. A fire or a theft also takes **both** disks. Organisations therefore use **both**: mirroring for **availability** (no downtime) and backups for **recovery** (old, undamaged copies)."
         },
         {
           "type": "heading",
@@ -7871,36 +8004,57 @@
           "level": 2
         },
         {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dp\" viewBox=\"0 0 760 300\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"How RAID 0 stripes, RAID 1 mirrors and RAID 5 stripes with parity\">\n  <style>\n    svg.dp .t{font:700 16px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dp .d{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dp .b{fill:var(--primary)} svg.dp .p{fill:var(--warning)}\n    svg.dp .w{font:700 13px system-ui,sans-serif;fill:#fff}\n  </style>\n  <text class=\"t\" x=\"20\" y=\"30\">RAID 0 — striping</text>\n  <text class=\"s\" x=\"20\" y=\"50\">fast, no protection</text>\n  <g transform=\"translate(20,64)\">\n    <rect class=\"d\" width=\"90\" height=\"150\" rx=\"10\"/><rect class=\"d\" x=\"110\" width=\"90\" height=\"150\" rx=\"10\"/>\n    <rect class=\"b\" x=\"15\" y=\"20\" width=\"60\" height=\"30\" rx=\"5\"/><text class=\"w\" x=\"45\" y=\"40\" text-anchor=\"middle\">A</text>\n    <rect class=\"b\" x=\"15\" y=\"62\" width=\"60\" height=\"30\" rx=\"5\"/><text class=\"w\" x=\"45\" y=\"82\" text-anchor=\"middle\">C</text>\n    <rect class=\"b\" x=\"125\" y=\"20\" width=\"60\" height=\"30\" rx=\"5\"/><text class=\"w\" x=\"155\" y=\"40\" text-anchor=\"middle\">B</text>\n    <rect class=\"b\" x=\"125\" y=\"62\" width=\"60\" height=\"30\" rx=\"5\"/><text class=\"w\" x=\"155\" y=\"82\" text-anchor=\"middle\">D</text>\n  </g>\n  <text class=\"s\" x=\"20\" y=\"240\">One disk fails →</text>\n  <text class=\"t\" x=\"20\" y=\"262\" style=\"fill:var(--danger)\">all data lost</text>\n\n  <text class=\"t\" x=\"270\" y=\"30\">RAID 1 — mirroring</text>\n  <text class=\"s\" x=\"270\" y=\"50\">safe, half the space</text>\n  <g transform=\"translate(270,64)\">\n    <rect class=\"d\" width=\"90\" height=\"150\" rx=\"10\"/><rect class=\"d\" x=\"110\" width=\"90\" height=\"150\" rx=\"10\"/>\n    <g><rect class=\"b\" x=\"15\" y=\"20\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"36\" text-anchor=\"middle\">A</text>\n    <rect class=\"b\" x=\"15\" y=\"48\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"64\" text-anchor=\"middle\">B</text>\n    <rect class=\"b\" x=\"15\" y=\"76\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"92\" text-anchor=\"middle\">C</text>\n    <rect class=\"b\" x=\"15\" y=\"104\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"120\" text-anchor=\"middle\">D</text></g>\n    <g transform=\"translate(110,0)\"><rect class=\"b\" x=\"15\" y=\"20\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"36\" text-anchor=\"middle\">A</text>\n    <rect class=\"b\" x=\"15\" y=\"48\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"64\" text-anchor=\"middle\">B</text>\n    <rect class=\"b\" x=\"15\" y=\"76\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"92\" text-anchor=\"middle\">C</text>\n    <rect class=\"b\" x=\"15\" y=\"104\" width=\"60\" height=\"22\" rx=\"4\"/><text class=\"w\" x=\"45\" y=\"120\" text-anchor=\"middle\">D</text></g>\n  </g>\n  <text class=\"s\" x=\"270\" y=\"240\">One disk fails →</text>\n  <text class=\"t\" x=\"270\" y=\"262\" style=\"fill:var(--success)\">works from the other</text>\n\n  <text class=\"t\" x=\"520\" y=\"30\">RAID 5 — striping + parity</text>\n  <text class=\"s\" x=\"520\" y=\"50\">3+ disks, one may fail</text>\n  <g transform=\"translate(520,64)\">\n    <rect class=\"d\" width=\"68\" height=\"150\" rx=\"10\"/><rect class=\"d\" x=\"78\" width=\"68\" height=\"150\" rx=\"10\"/><rect class=\"d\" x=\"156\" width=\"68\" height=\"150\" rx=\"10\"/>\n    <rect class=\"b\" x=\"9\" y=\"20\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"34\" y=\"39\" text-anchor=\"middle\">A</text>\n    <rect class=\"b\" x=\"87\" y=\"20\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"112\" y=\"39\" text-anchor=\"middle\">B</text>\n    <rect class=\"p\" x=\"165\" y=\"20\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"190\" y=\"39\" text-anchor=\"middle\">P</text>\n    <rect class=\"b\" x=\"9\" y=\"60\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"34\" y=\"79\" text-anchor=\"middle\">C</text>\n    <rect class=\"p\" x=\"87\" y=\"60\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"112\" y=\"79\" text-anchor=\"middle\">P</text>\n    <rect class=\"b\" x=\"165\" y=\"60\" width=\"50\" height=\"28\" rx=\"4\"/><text class=\"w\" x=\"190\" y=\"79\" text-anchor=\"middle\">D</text>\n  </g>\n  <text class=\"s\" x=\"520\" y=\"240\">One disk fails → its blocks are</text>\n  <text class=\"t\" x=\"520\" y=\"262\" style=\"fill:var(--success)\">rebuilt from parity (P)</text>\n</svg>",
+          "caption": "RAID 0, RAID 1 and RAID 5 with the same file (blocks A, B, C, D)"
+        },
+        {
           "type": "comparison",
           "title": "RAID levels you may meet",
           "columns": [
             "Level",
             "How it works",
-            "If one disk fails"
+            "If one disk fails",
+            "Usable space"
           ],
           "rows": [
             [
               "**RAID 0** (striping)",
               "Data is split across disks for **speed**",
-              "**All data is lost** — no protection"
+              "**All data is lost** — no protection",
+              "All disks"
             ],
             [
               "**RAID 1** (mirroring)",
               "Every disk holds an identical copy",
-              "Work continues from the other disk"
+              "Work continues from the other disk",
+              "Half"
             ],
             [
               "**RAID 5** (striping with parity)",
               "Data and **parity** information are spread over 3 or more disks",
-              "The lost disk's data is **rebuilt** from the others"
+              "The lost disk's data is **rebuilt** from the others",
+              "All but one disk"
+            ],
+            [
+              "**RAID 10** (mirroring + striping)",
+              "Pairs of mirrored disks, striped together",
+              "Survives a failure in each pair; fast",
+              "Half"
             ]
           ]
         },
         {
           "type": "callout",
           "tone": "info",
-          "title": "Hot-swapping",
-          "content": "In servers the failed disk can often be **replaced while the system keeps running** (hot-swap); the RAID controller then copies the data onto the new disk."
+          "title": "Hot-swapping and hot spares",
+          "content": "In servers the failed disk can often be **replaced while the system keeps running** (hot-swap). Some servers also keep a **hot spare** — an extra disk that the controller uses automatically the moment another disk fails."
+        },
+        {
+          "type": "example",
+          "title": "Choosing for a clinic",
+          "content": "A clinic's patient system must keep running all day (short RTO), and losing even an hour of records is unacceptable (small RPO). The server uses **RAID 1** so a failed disk does not stop the clinic, **plus** an hourly backup to a NAS and a nightly encrypted copy to the cloud — because mirroring alone would copy a deletion or ransomware to both disks."
         }
       ]
     },
@@ -7913,19 +8067,57 @@
         {
           "type": "definition",
           "term": "Disaster recovery plan",
-          "content": "A written plan of **how an organisation will restore its systems and data and continue working** after a serious incident — fire, flood, ransomware, a failed server or a long power cut."
+          "content": "A written plan of **how an organisation will restore its systems and data and continue working** after a serious incident — fire, flood, ransomware, a failed server or a long power cut. It is part of the wider **business continuity** plan: how the organisation keeps working at all."
         },
         {
           "type": "cards",
           "items": [
             {
               "title": "What the plan contains",
-              "content": "- A list of the **critical systems and data**, in order of importance.\n- **Where the backups are** and **how to restore** them, step by step.\n- **Who is responsible** for each task, with contact details.\n- **How long** each system may be unavailable, and **how much recent data** may be lost (e.g. \"at most one day of sales\").\n- **Alternative arrangements**: spare equipment, a second site, working on paper.\n- How and when the plan is **tested**."
+              "content": "- A list of the **critical systems and data**, in order of importance.\n- **Where the backups are** and **how to restore** them, step by step.\n- **Who is responsible** for each task, with contact details.\n- The **RTO** (how long each system may be unavailable) and the **RPO** (how much recent data may be lost, e.g. \"at most one day of sales\").\n- **Alternative arrangements**: spare equipment, a second site, working on paper.\n- How and when the plan is **tested** and **updated**."
             },
             {
               "title": "Why it matters",
-              "content": "- Decisions are made **in advance**, calmly, not during the crisis.\n- Systems come back **faster**, so less money and trust are lost.\n- Staff know **exactly what to do**.\n- A plan that is **never tested** may fail when it is needed."
+              "content": "- Decisions are made **in advance**, calmly, not during the crisis.\n- Systems come back **faster**, so less money and trust are lost.\n- Staff know **exactly what to do** and who to call.\n- A plan that is **never tested** may fail when it is needed."
             }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Recovering from an incident",
+          "items": [
+            "**Detect and report** — staff notice the problem and tell the responsible person.",
+            "**Contain** — disconnect infected or damaged systems so the problem cannot spread.",
+            "**Assess** — find out what is affected and decide what must be restored first.",
+            "**Restore** — rebuild or replace the systems and restore data from clean backups.",
+            "**Check and resume** — test that the systems and data are correct, then let users back in.",
+            "**Review** — find the cause, fix it and improve the plan."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Testing a disaster recovery plan",
+          "columns": [
+            "Test",
+            "What happens",
+            "Disruption"
+          ],
+          "rows": [
+            [
+              "**Walk-through**",
+              "The team reads the plan together and checks each step",
+              "None"
+            ],
+            [
+              "**Simulation**",
+              "A pretend incident (\"the server room is flooded\") is acted out",
+              "Little"
+            ],
+            [
+              "**Full test**",
+              "Systems are really switched over to backups or a second site",
+              "Most — but proves the plan works"
+            ]
           ]
         },
         {
@@ -7960,9 +8152,22 @@
           ]
         },
         {
+          "type": "cards",
+          "items": [
+            {
+              "title": "Why archive",
+              "content": "- The working system stays **smaller and faster**; backups take less time.\n- Laws often require records to be kept for years (financial, medical, school records).\n- Archives can go on **cheap, slow media** (tape, cold cloud storage), because they are rarely needed."
+            },
+            {
+              "title": "Looking after an archive",
+              "content": "- Store it securely and **off-site**; protect it from being changed (**read-only / write-once** media).\n- **Index** it so a record can be found again.\n- Move it to new media or formats over time, so it can still be **read** in ten years.\n- **Delete** personal data when the law no longer allows it to be kept."
+            }
+          ]
+        },
+        {
           "type": "example",
           "title": "Ransomware at a college — recovery in practice",
-          "content": "1. Staff see that files will not open and a ransom note appears.\n2. The IT team **disconnects** the infected computers and the server from the network.\n3. They follow the **disaster recovery plan**: the server is wiped and the system reinstalled.\n4. Data is restored from the **offline backup** made the night before; mirroring did not help, because the encrypted files were copied to both disks.\n5. Lessons continue the next day; only half a day of work is lost. **No ransom is paid.**"
+          "content": "1. Staff see that files will not open and a ransom note appears.\n2. The IT team **disconnects** the infected computers and the server from the network.\n3. They follow the **disaster recovery plan**: the server is wiped and the system reinstalled.\n4. Data is restored from the **offline backup** made the night before; mirroring did not help, because the encrypted files were copied to both disks.\n5. Lessons continue the next day; only half a day of work is lost. **No ransom is paid.**\n6. The cause (a phishing e-mail) is found; staff get training and the plan is updated."
         }
       ]
     },
@@ -7976,7 +8181,7 @@
         {
           "type": "example",
           "title": "Exam-style answers",
-          "content": "**Q: List three security measures to prevent hacking. [3]**\nFirewall (1); strong passwords / two-factor authentication (1); biometrics / access control / anti-virus / encryption (1).\n\n**Q: Describe how a firewall protects a school network. [2]**\nIt checks every **data packet** entering and leaving the network against **security rules** (1) and **blocks** packets from unauthorised sources / to unused ports (1).\n\n**Q: Explain why a company should use both disk mirroring and backup. [2]**\nMirroring keeps the system **running without data loss if a disk fails** (1), but a deletion or virus is copied to both disks, so a **backup** is needed to **restore earlier, undamaged copies** (1).\n\n**Q: Give one advantage and one disadvantage of using fingerprints to log in. [2]**\nAdvantage: fingerprints are **unique** and **cannot be forgotten or shared** (1). Disadvantage: **false rejections** if the finger is dirty or cut / biometric data cannot be changed if stolen (1)."
+          "content": "**Q: List three security measures to prevent hacking. [3]**\nFirewall (1); strong passwords / two-factor authentication (1); biometrics / access control / anti-virus / encryption (1).\n\n**Q: Describe how a firewall protects a school network. [2]**\nIt checks every **data packet** entering and leaving the network against **security rules** (1) and **blocks** packets from unauthorised sources / to unused ports (1).\n\n**Q: Explain why a company should use both disk mirroring and backup. [2]**\nMirroring keeps the system **running without data loss if a disk fails** (1), but a deletion or virus is copied to both disks, so a **backup** is needed to **restore earlier, undamaged copies** (1).\n\n**Q: A full backup is made on Sunday and incremental backups on the other nights. The disk fails on Friday morning. State the backups needed to restore the data. [2]**\nSunday's full backup (1) and the Monday, Tuesday, Wednesday and Thursday incremental backups, in order (1).\n\n**Q: Explain the difference between RPO and RTO. [2]**\nRPO is how much recent data (measured in time) may be lost, back to the last backup (1); RTO is how long the system may be unavailable while it is restored (1).\n\n**Q: Explain why a backup should be kept offline. [2]**\nRansomware can encrypt any storage that is connected to the network (1), so a disconnected copy stays undamaged and can be restored (1).\n\n**Q: Give one advantage and one disadvantage of using fingerprints to log in. [2]**\nAdvantage: fingerprints are **unique** and **cannot be forgotten or shared** (1). Disadvantage: **false rejections** if the finger is dirty or cut / biometric data cannot be changed if stolen (1)."
         },
         {
           "type": "warning",

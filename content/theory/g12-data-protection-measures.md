@@ -816,12 +816,56 @@ A **virus** attaches itself to a file and spreads when the file is opened / need
 A **copy of data** stored on a **separate medium**, preferably in a **different location**, so that the original can be **restored** if it is lost, damaged, deleted, stolen or encrypted by ransomware.
 :::
 
+:::cards
+### What a backup protects against
+- **Hardware failure** — a hard disk or SSD stops working.
+- **Human error** — a file is deleted or overwritten by mistake.
+- **Malware** — ransomware encrypts files; a virus corrupts them.
+- **Theft and disasters** — a laptop is stolen; fire or flood destroys the server room (only if a copy is kept **off-site**).
+### Restoring
+**Restoring** means copying the data from the backup back onto the working system. A backup is only useful if it can really be restored — so restores are **tested** regularly.
+:::
+
+## Full, incremental and differential backups
+
 :::compare Types of backup
 | Type | What is copied | Backup time / space | Restoring |
 |---|---|---|---|
 | **Full** | **All** data every time | Slowest, most space | Easiest — one backup needed |
 | **Incremental** | Only data changed **since the last backup of any type** | Fastest, least space | Slowest — the full backup **plus every** incremental one |
 | **Differential** | Data changed **since the last full** backup | Medium | Full backup **plus the latest** differential |
+:::
+
+:::svg What each night's backup copies (full backup on Sunday)
+<svg class="dp" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Incremental and differential backups from Sunday to Wednesday">
+  <style>
+    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dp .full{fill:var(--primary)} svg.dp .inc{fill:var(--success)} svg.dp .dif{fill:var(--warning)}
+    svg.dp .lane{fill:var(--surface-2)}
+    svg.dp .lbl{font:600 12px system-ui,sans-serif;fill:#fff}
+  </style>
+  <text class="t" x="20" y="28">Incremental: only the changes since the previous night</text>
+  <rect class="lane" x="20" y="40" width="720" height="90" rx="10"/>
+  <g transform="translate(40,55)">
+    <rect class="full" width="150" height="60" rx="8"/><text class="lbl" x="75" y="27" text-anchor="middle">Sunday</text><text class="lbl" x="75" y="45" text-anchor="middle">FULL · 50 GB</text>
+    <rect class="inc" x="175" y="18" width="70" height="42" rx="8"/><text class="lbl" x="210" y="44" text-anchor="middle">Mon 2 GB</text>
+    <rect class="inc" x="270" y="18" width="70" height="42" rx="8"/><text class="lbl" x="305" y="44" text-anchor="middle">Tue 2 GB</text>
+    <rect class="inc" x="365" y="18" width="70" height="42" rx="8"/><text class="lbl" x="400" y="44" text-anchor="middle">Wed 2 GB</text>
+    <text class="s" x="460" y="30">Restore on Thursday:</text>
+    <text class="t" x="460" y="52">Sun + Mon + Tue + Wed</text>
+  </g>
+  <text class="t" x="20" y="178">Differential: all the changes since Sunday's full backup</text>
+  <rect class="lane" x="20" y="190" width="720" height="110" rx="10"/>
+  <g transform="translate(40,205)">
+    <rect class="full" width="150" height="80" rx="8"/><text class="lbl" x="75" y="37" text-anchor="middle">Sunday</text><text class="lbl" x="75" y="55" text-anchor="middle">FULL · 50 GB</text>
+    <rect class="dif" x="175" y="56" width="70" height="24" rx="6"/><text class="lbl" x="210" y="73" text-anchor="middle">Mon 2</text>
+    <rect class="dif" x="270" y="38" width="70" height="42" rx="6"/><text class="lbl" x="305" y="64" text-anchor="middle">Tue 4</text>
+    <rect class="dif" x="365" y="20" width="70" height="60" rx="6"/><text class="lbl" x="400" y="55" text-anchor="middle">Wed 6</text>
+    <text class="s" x="460" y="40">Restore on Thursday:</text>
+    <text class="t" x="460" y="62">Sun + Wed only</text>
+  </g>
+</svg>
 :::
 
 :::example Restoring after a failure on Thursday morning
@@ -838,18 +882,103 @@ Work done on Thursday before the failure is **lost** in both cases — it was ne
 :::widget backup_restore Choose the method and the day of the failure
 :::
 
+:::example Calculating the storage needed
+The full backup is **50 GB** and about **2 GB** of data changes each day (always different files).
+
+- **Incremental**, Monday–Saturday: 6 × 2 GB = **12 GB** in a week, plus the 50 GB full backup = **62 GB**.
+- **Differential**: Monday 2 + Tuesday 4 + Wednesday 6 + Thursday 8 + Friday 10 + Saturday 12 = **42 GB**, plus 50 GB = **92 GB**.
+- **Full every night**: 7 × 50 GB = **350 GB**.
+
+Incremental saves the most space, but a restore needs **every** backup in the chain — if one of them is damaged, the later ones are useless.
+:::
+
+## How often, and how much may be lost
+
 :::cards
-### A good backup strategy
+### Recovery point objective (RPO)
+The **largest amount of recent data** the organisation can afford to lose, measured in time. A nightly backup gives an RPO of up to **24 hours**; an online shop that cannot lose orders may back up **every 15 minutes**.
+### Recovery time objective (RTO)
+The **longest time** the system may be unavailable while it is restored. A school may accept a day; a hospital or a bank only minutes — so they also need mirroring or a spare server.
+:::
+
+:::svg RPO looks back to the last backup; RTO looks forward to the moment work resumes
+<svg class="dp" viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline showing RPO before an incident and RTO after it">
+  <style>
+    svg.dp .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dp .line{stroke:var(--border);stroke-width:4}
+  </style>
+  <line class="line" x1="30" y1="90" x2="730" y2="90"/>
+  <rect x="200" y="74" width="230" height="32" style="fill:var(--danger-soft)"/>
+  <rect x="430" y="74" width="230" height="32" style="fill:var(--warning-soft)"/>
+  <circle cx="200" cy="90" r="9" style="fill:var(--success)"/>
+  <circle cx="430" cy="90" r="11" style="fill:var(--danger)"/>
+  <circle cx="660" cy="90" r="9" style="fill:var(--primary)"/>
+  <text class="t" x="200" y="50" text-anchor="middle">Last backup</text>
+  <text class="t" x="430" y="50" text-anchor="middle">Incident (e.g. ransomware)</text>
+  <text class="t" x="660" y="50" text-anchor="middle">Work resumes</text>
+  <text class="t" x="315" y="140" text-anchor="middle" style="fill:var(--danger)">RPO — data that may be lost</text>
+  <text class="t" x="545" y="140" text-anchor="middle" style="fill:var(--warning)">RTO — time to restore</text>
+  <text class="s" x="30" y="160">time →</text>
+</svg>
+:::
+
+## A good backup strategy
+
+:::svg The 3-2-1 rule
+<svg class="dp" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three copies on two media types with one copy off-site">
+  <style>
+    svg.dp .n{font:800 46px system-ui,sans-serif}
+    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dp .card{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+  </style>
+  <rect class="card" x="20" y="20" width="230" height="180" rx="14"/>
+  <rect class="card" x="265" y="20" width="230" height="180" rx="14"/>
+  <rect class="card" x="510" y="20" width="230" height="180" rx="14"/>
+  <text class="n" x="135" y="82" text-anchor="middle" style="fill:var(--primary)">3</text>
+  <text class="n" x="380" y="82" text-anchor="middle" style="fill:var(--success)">2</text>
+  <text class="n" x="625" y="82" text-anchor="middle" style="fill:var(--warning)">1</text>
+  <text class="t" x="135" y="112" text-anchor="middle">copies of the data</text>
+  <text class="t" x="380" y="112" text-anchor="middle">different types of media</text>
+  <text class="t" x="625" y="112" text-anchor="middle">copy off-site</text>
+  <text class="s" x="135" y="140" text-anchor="middle">the original + 2 backups</text>
+  <text class="s" x="380" y="140" text-anchor="middle">e.g. a NAS disk and the cloud</text>
+  <text class="s" x="625" y="140" text-anchor="middle">another building or the cloud</text>
+  <text class="s" x="135" y="165" text-anchor="middle">one failure never loses all</text>
+  <text class="s" x="380" y="165" text-anchor="middle">one fault cannot hit both</text>
+  <text class="s" x="625" y="165" text-anchor="middle">survives fire, flood, theft</text>
+</svg>
+:::
+
+:::cards
+### Rules for backups
 - Back up **regularly** and **automatically** (e.g. every night), at a time when the system is not busy.
-- **3-2-1 rule:** keep **3** copies of the data, on **2** different types of media, with **1** copy **off-site** (or in the cloud).
-- Keep at least one copy **offline**, so ransomware cannot encrypt it.
-- **Encrypt** backups and keep them physically secure.
+- Follow the **3-2-1 rule**; keep at least one copy **offline** (not connected), so ransomware cannot encrypt it.
+- **Encrypt** backups and keep them physically secure — a stolen backup is a data leak.
+- **Label** and **log** every backup; keep several generations, not just the latest.
 - **Test** restoring from the backup regularly.
-### Backup media
-- External hard disks / SSDs.
-- Magnetic **tape** (cheap for very large amounts, used by companies).
-- **Cloud storage** — off-site automatically; needs an Internet connection.
-- Network-attached storage (NAS).
+### Versions and snapshots
+Many systems keep **versions** of files (e.g. the cloud keeps the last 30 days) or take **snapshots** — a read-only picture of a disk at one moment. A file deleted or encrypted today can be brought back from yesterday's version.
+:::
+
+:::compare Backup media compared
+| Medium | Capacity | Speed | Cost per GB | Notes |
+|---|---|---|---|---|
+| **External hard disk** | Large (1–20 TB) | Fast | Low | Easy to carry off-site; can be dropped or fail |
+| **External SSD / USB flash drive** | Small to medium | Very fast | Higher | Robust, small; easily lost |
+| **Magnetic tape** | Very large | Slow to restore (sequential access) | Lowest | Used by companies for long-term and offline copies |
+| **NAS** (network-attached storage) | Large | Fast on the local network | Medium | Automatic backups for all computers; often uses RAID; must be protected from ransomware |
+| **Cloud storage** | Practically unlimited | Depends on the Internet | Monthly fee | Automatically off-site; keeps versions |
+:::
+
+:::example Grandfather–father–son rotation
+A school keeps three generations of backups so that it can go back weeks or months:
+- **Son** — a backup every **day** (Monday–Thursday), each kept for a week.
+- **Father** — a **weekly** full backup on Friday, kept for a month.
+- **Grandfather** — a **monthly** full backup, kept for a year and stored off-site.
+
+If a mistake is noticed three weeks later, the father backup from before the mistake can still be restored.
 :::
 
 :::compare Cloud backup
@@ -864,6 +993,7 @@ Work done on Thursday before the failure is **lost** in both cases — it was ne
 :::example A backup plan for a small shop
 - **Every night at 23:00**: incremental backup of the sales database to a NAS in the office.
 - **Every Sunday**: full backup to the NAS **and** to cloud storage (the off-site copy).
+- **Once a month**: a full backup to an external disk that is then **disconnected** and taken home (offline copy).
 - **Once a month**: test that a file can really be restored.
 - The NAS is not shared with ordinary users, so ransomware on a till computer cannot reach it.
 :::
@@ -875,16 +1005,52 @@ Work done on Thursday before the failure is **lost** in both cases — it was ne
 Data is written to **two (or more) disks at the same time**, so that every disk holds an **identical copy**. If one disk **fails**, the system **continues working** from the other disk **without losing data or stopping**.
 :::
 
-:::ascii Disk mirroring: every write goes to both disks
-               write "file.docx"
-                      |
-              +-------+-------+
-              |               |
-        +-----------+   +-----------+
-        |  Disk 1   |   |  Disk 2   |
-        | file.docx |   | file.docx |     identical copies
-        +-----------+   +-----------+
-   Disk 1 fails  ->  the server keeps running from Disk 2
+:::definition RAID
+**Redundant Array of Independent Disks** — several physical disks used together by a **RAID controller** (hardware or software) so that the computer sees them as **one drive**. Depending on the level, RAID gives speed, protection against a disk failure, or both.
+:::
+
+:::svg Disk mirroring: every write goes to both disks
+<svg class="dp" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A write goes through the RAID controller to two identical disks; when disk 1 fails the server keeps running from disk 2">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker>
+  </defs>
+  <style>
+    svg.dp .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dp .box{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.dp .ln{stroke:var(--muted);stroke-width:2;fill:none}
+  </style>
+  <rect class="box" x="290" y="14" width="180" height="46" rx="10"/>
+  <text class="t" x="380" y="43" text-anchor="middle">Save "marks.xlsx"</text>
+  <path class="ln" d="M380,60 V88" marker-end="url(#arr)"/>
+  <rect x="280" y="92" width="200" height="46" rx="10" style="fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5"/>
+  <text class="t" x="380" y="121" text-anchor="middle" style="fill:var(--primary)">RAID controller</text>
+  <path class="ln" d="M330,138 C330,170 200,165 200,196" marker-end="url(#arr)"/>
+  <path class="ln" d="M430,138 C430,170 560,165 560,196" marker-end="url(#arr)"/>
+  <g transform="translate(110,200)">
+    <rect width="180" height="96" rx="14" style="fill:var(--danger-soft);stroke:var(--danger);stroke-width:2"/>
+    <ellipse cx="90" cy="22" rx="62" ry="10" style="fill:none;stroke:var(--danger);stroke-width:1.5"/>
+    <text class="t" x="90" y="56" text-anchor="middle">Disk 1</text>
+    <text class="s" x="90" y="78" text-anchor="middle">marks.xlsx</text>
+    <path d="M20,10 L160,86 M160,10 L20,86" style="stroke:var(--danger);stroke-width:5;stroke-linecap:round;opacity:.85"/>
+  </g>
+  <g transform="translate(470,200)">
+    <rect width="180" height="96" rx="14" style="fill:var(--success-soft);stroke:var(--success);stroke-width:2"/>
+    <ellipse cx="90" cy="22" rx="62" ry="10" style="fill:none;stroke:var(--success);stroke-width:1.5"/>
+    <text class="t" x="90" y="56" text-anchor="middle">Disk 2</text>
+    <text class="s" x="90" y="78" text-anchor="middle">marks.xlsx (identical)</text>
+  </g>
+  <text class="t" x="200" y="318" text-anchor="middle" style="fill:var(--danger)">fails</text>
+  <text class="t" x="560" y="318" text-anchor="middle" style="fill:var(--success)">server keeps running — no data lost</text>
+</svg>
+:::
+
+:::steps What happens when a mirrored disk fails
+- Both disks hold the same data; every change is written to **both** at once.
+- Disk 1 fails — the controller **notices** and carries on using **Disk 2** alone; users do not notice anything.
+- The administrator is **warned** (e-mail, red light on the server).
+- The failed disk is **replaced**, often while the server keeps running (**hot-swap**).
+- The controller **rebuilds** the mirror by copying everything from Disk 2 onto the new disk.
 :::
 
 :::compare Backup vs disk mirroring
@@ -899,28 +1065,86 @@ Data is written to **two (or more) disks at the same time**, so that every disk 
 :::
 
 :::warning Mirroring is not a backup
-If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. Organisations therefore use **both**: mirroring for **availability** and backups for **recovery**.
+If a file is **deleted**, **corrupted** or **encrypted by ransomware**, the change is mirrored to **both** disks at once. A fire or a theft also takes **both** disks. Organisations therefore use **both**: mirroring for **availability** (no downtime) and backups for **recovery** (old, undamaged copies).
 :::
 
 ## Other RAID levels
 
-:::compare RAID levels you may meet
-| Level | How it works | If one disk fails |
-|---|---|---|
-| **RAID 0** (striping) | Data is split across disks for **speed** | **All data is lost** — no protection |
-| **RAID 1** (mirroring) | Every disk holds an identical copy | Work continues from the other disk |
-| **RAID 5** (striping with parity) | Data and **parity** information are spread over 3 or more disks | The lost disk's data is **rebuilt** from the others |
+:::svg RAID 0, RAID 1 and RAID 5 with the same file (blocks A, B, C, D)
+<svg class="dp" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How RAID 0 stripes, RAID 1 mirrors and RAID 5 stripes with parity">
+  <style>
+    svg.dp .t{font:700 16px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dp .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dp .d{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.dp .b{fill:var(--primary)} svg.dp .p{fill:var(--warning)}
+    svg.dp .w{font:700 13px system-ui,sans-serif;fill:#fff}
+  </style>
+  <text class="t" x="20" y="30">RAID 0 — striping</text>
+  <text class="s" x="20" y="50">fast, no protection</text>
+  <g transform="translate(20,64)">
+    <rect class="d" width="90" height="150" rx="10"/><rect class="d" x="110" width="90" height="150" rx="10"/>
+    <rect class="b" x="15" y="20" width="60" height="30" rx="5"/><text class="w" x="45" y="40" text-anchor="middle">A</text>
+    <rect class="b" x="15" y="62" width="60" height="30" rx="5"/><text class="w" x="45" y="82" text-anchor="middle">C</text>
+    <rect class="b" x="125" y="20" width="60" height="30" rx="5"/><text class="w" x="155" y="40" text-anchor="middle">B</text>
+    <rect class="b" x="125" y="62" width="60" height="30" rx="5"/><text class="w" x="155" y="82" text-anchor="middle">D</text>
+  </g>
+  <text class="s" x="20" y="240">One disk fails →</text>
+  <text class="t" x="20" y="262" style="fill:var(--danger)">all data lost</text>
+
+  <text class="t" x="270" y="30">RAID 1 — mirroring</text>
+  <text class="s" x="270" y="50">safe, half the space</text>
+  <g transform="translate(270,64)">
+    <rect class="d" width="90" height="150" rx="10"/><rect class="d" x="110" width="90" height="150" rx="10"/>
+    <g><rect class="b" x="15" y="20" width="60" height="22" rx="4"/><text class="w" x="45" y="36" text-anchor="middle">A</text>
+    <rect class="b" x="15" y="48" width="60" height="22" rx="4"/><text class="w" x="45" y="64" text-anchor="middle">B</text>
+    <rect class="b" x="15" y="76" width="60" height="22" rx="4"/><text class="w" x="45" y="92" text-anchor="middle">C</text>
+    <rect class="b" x="15" y="104" width="60" height="22" rx="4"/><text class="w" x="45" y="120" text-anchor="middle">D</text></g>
+    <g transform="translate(110,0)"><rect class="b" x="15" y="20" width="60" height="22" rx="4"/><text class="w" x="45" y="36" text-anchor="middle">A</text>
+    <rect class="b" x="15" y="48" width="60" height="22" rx="4"/><text class="w" x="45" y="64" text-anchor="middle">B</text>
+    <rect class="b" x="15" y="76" width="60" height="22" rx="4"/><text class="w" x="45" y="92" text-anchor="middle">C</text>
+    <rect class="b" x="15" y="104" width="60" height="22" rx="4"/><text class="w" x="45" y="120" text-anchor="middle">D</text></g>
+  </g>
+  <text class="s" x="270" y="240">One disk fails →</text>
+  <text class="t" x="270" y="262" style="fill:var(--success)">works from the other</text>
+
+  <text class="t" x="520" y="30">RAID 5 — striping + parity</text>
+  <text class="s" x="520" y="50">3+ disks, one may fail</text>
+  <g transform="translate(520,64)">
+    <rect class="d" width="68" height="150" rx="10"/><rect class="d" x="78" width="68" height="150" rx="10"/><rect class="d" x="156" width="68" height="150" rx="10"/>
+    <rect class="b" x="9" y="20" width="50" height="28" rx="4"/><text class="w" x="34" y="39" text-anchor="middle">A</text>
+    <rect class="b" x="87" y="20" width="50" height="28" rx="4"/><text class="w" x="112" y="39" text-anchor="middle">B</text>
+    <rect class="p" x="165" y="20" width="50" height="28" rx="4"/><text class="w" x="190" y="39" text-anchor="middle">P</text>
+    <rect class="b" x="9" y="60" width="50" height="28" rx="4"/><text class="w" x="34" y="79" text-anchor="middle">C</text>
+    <rect class="p" x="87" y="60" width="50" height="28" rx="4"/><text class="w" x="112" y="79" text-anchor="middle">P</text>
+    <rect class="b" x="165" y="60" width="50" height="28" rx="4"/><text class="w" x="190" y="79" text-anchor="middle">D</text>
+  </g>
+  <text class="s" x="520" y="240">One disk fails → its blocks are</text>
+  <text class="t" x="520" y="262" style="fill:var(--success)">rebuilt from parity (P)</text>
+</svg>
 :::
 
-:::callout info Hot-swapping
-In servers the failed disk can often be **replaced while the system keeps running** (hot-swap); the RAID controller then copies the data onto the new disk.
+:::compare RAID levels you may meet
+| Level | How it works | If one disk fails | Usable space |
+|---|---|---|---|
+| **RAID 0** (striping) | Data is split across disks for **speed** | **All data is lost** — no protection | All disks |
+| **RAID 1** (mirroring) | Every disk holds an identical copy | Work continues from the other disk | Half |
+| **RAID 5** (striping with parity) | Data and **parity** information are spread over 3 or more disks | The lost disk's data is **rebuilt** from the others | All but one disk |
+| **RAID 10** (mirroring + striping) | Pairs of mirrored disks, striped together | Survives a failure in each pair; fast | Half |
+:::
+
+:::callout info Hot-swapping and hot spares
+In servers the failed disk can often be **replaced while the system keeps running** (hot-swap). Some servers also keep a **hot spare** — an extra disk that the controller uses automatically the moment another disk fails.
+:::
+
+:::example Choosing for a clinic
+A clinic's patient system must keep running all day (short RTO), and losing even an hour of records is unacceptable (small RPO). The server uses **RAID 1** so a failed disk does not stop the clinic, **plus** an hourly backup to a NAS and a nightly encrypted copy to the cloud — because mirroring alone would copy a deletion or ransomware to both disks.
 :::
 
 # Disaster recovery and archiving
 @lo 12.1.2.2
 
 :::definition Disaster recovery plan
-A written plan of **how an organisation will restore its systems and data and continue working** after a serious incident — fire, flood, ransomware, a failed server or a long power cut.
+A written plan of **how an organisation will restore its systems and data and continue working** after a serious incident — fire, flood, ransomware, a failed server or a long power cut. It is part of the wider **business continuity** plan: how the organisation keeps working at all.
 :::
 
 :::cards
@@ -928,14 +1152,31 @@ A written plan of **how an organisation will restore its systems and data and co
 - A list of the **critical systems and data**, in order of importance.
 - **Where the backups are** and **how to restore** them, step by step.
 - **Who is responsible** for each task, with contact details.
-- **How long** each system may be unavailable, and **how much recent data** may be lost (e.g. "at most one day of sales").
+- The **RTO** (how long each system may be unavailable) and the **RPO** (how much recent data may be lost, e.g. "at most one day of sales").
 - **Alternative arrangements**: spare equipment, a second site, working on paper.
-- How and when the plan is **tested**.
+- How and when the plan is **tested** and **updated**.
 ### Why it matters
 - Decisions are made **in advance**, calmly, not during the crisis.
 - Systems come back **faster**, so less money and trust are lost.
-- Staff know **exactly what to do**.
+- Staff know **exactly what to do** and who to call.
 - A plan that is **never tested** may fail when it is needed.
+:::
+
+:::steps Recovering from an incident
+- **Detect and report** — staff notice the problem and tell the responsible person.
+- **Contain** — disconnect infected or damaged systems so the problem cannot spread.
+- **Assess** — find out what is affected and decide what must be restored first.
+- **Restore** — rebuild or replace the systems and restore data from clean backups.
+- **Check and resume** — test that the systems and data are correct, then let users back in.
+- **Review** — find the cause, fix it and improve the plan.
+:::
+
+:::compare Testing a disaster recovery plan
+| Test | What happens | Disruption |
+|---|---|---|
+| **Walk-through** | The team reads the plan together and checks each step | None |
+| **Simulation** | A pretend incident ("the server room is flooded") is acted out | Little |
+| **Full test** | Systems are really switched over to backups or a second site | Most — but proves the plan works |
 :::
 
 :::compare Backup vs archive
@@ -947,12 +1188,25 @@ A written plan of **how an organisation will restore its systems and data and co
 | Example | Last night's copy of the school database | Records of pupils who left school five years ago |
 :::
 
+:::cards
+### Why archive
+- The working system stays **smaller and faster**; backups take less time.
+- Laws often require records to be kept for years (financial, medical, school records).
+- Archives can go on **cheap, slow media** (tape, cold cloud storage), because they are rarely needed.
+### Looking after an archive
+- Store it securely and **off-site**; protect it from being changed (**read-only / write-once** media).
+- **Index** it so a record can be found again.
+- Move it to new media or formats over time, so it can still be **read** in ten years.
+- **Delete** personal data when the law no longer allows it to be kept.
+:::
+
 :::example Ransomware at a college — recovery in practice
 1. Staff see that files will not open and a ransom note appears.
 2. The IT team **disconnects** the infected computers and the server from the network.
 3. They follow the **disaster recovery plan**: the server is wiped and the system reinstalled.
 4. Data is restored from the **offline backup** made the night before; mirroring did not help, because the encrypted files were copied to both disks.
 5. Lessons continue the next day; only half a day of work is lost. **No ransom is paid.**
+6. The cause (a phishing e-mail) is found; staff get training and the plan is updated.
 :::
 
 # Exam practice and summary
@@ -967,6 +1221,15 @@ It checks every **data packet** entering and leaving the network against **secur
 
 **Q: Explain why a company should use both disk mirroring and backup. [2]**
 Mirroring keeps the system **running without data loss if a disk fails** (1), but a deletion or virus is copied to both disks, so a **backup** is needed to **restore earlier, undamaged copies** (1).
+
+**Q: A full backup is made on Sunday and incremental backups on the other nights. The disk fails on Friday morning. State the backups needed to restore the data. [2]**
+Sunday's full backup (1) and the Monday, Tuesday, Wednesday and Thursday incremental backups, in order (1).
+
+**Q: Explain the difference between RPO and RTO. [2]**
+RPO is how much recent data (measured in time) may be lost, back to the last backup (1); RTO is how long the system may be unavailable while it is restored (1).
+
+**Q: Explain why a backup should be kept offline. [2]**
+Ransomware can encrypt any storage that is connected to the network (1), so a disconnected copy stays undamaged and can be restored (1).
 
 **Q: Give one advantage and one disadvantage of using fingerprints to log in. [2]**
 Advantage: fingerprints are **unique** and **cannot be forgotten or shared** (1). Disadvantage: **false rejections** if the finger is dirty or cut / biometric data cannot be changed if stolen (1).

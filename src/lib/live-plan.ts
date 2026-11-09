@@ -30,6 +30,13 @@ export type LiveBlock = {
 export type LivePlan = {
   title: string;
   minutes: number;
+  /** from the ҚМЖ, for the title slide */
+  objectives?: { all: string; most: string; some: string };
+  learningObjectives?: { code: string; text: string }[];
+  values?: string[];
+  vocabulary?: string[];
+  /** path of the ҚМЖ .docx in the lesson-plans bucket */
+  docx?: string | null;
   stages: { stage: "Beginning" | "Middle" | "End"; minutes: number; blocks: LiveBlock[] }[];
 };
 

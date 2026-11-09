@@ -113,3 +113,19 @@ export async function submitLive(sessionId: string, blockId: string, questionId:
     feedback: outcome.needsReview ? "Handed in — your teacher will check it." : outcome.feedback,
   };
 }
+
+/**
+ * Records whether the student's lesson page is full screen. Leaving full
+ * screen is counted and shown to the teacher (a browser always lets users leave).
+ */
+export async function reportFullscreen(sessionId: string, on: boolean): Promise<{ ok: boolean }> {
+  const profile = await requireProfile(["student"]);
+  const found = await sessionFor(profile.id, sessionId);
+  if (!found) return { ok: false };
+  const { data: p } = await found.admin.from("live_participants").select("fullscreen, fullscreen_exits").eq("session_id", sessionId).eq("student_id", profile.id).maybeSingle();
+  const exits = (p?.fullscreen_exits ?? 0) + (p?.fullscreen && !on ? 1 : 0);
+  await found.admin
+    .from("live_participants")
+    .upsert({ session_id: sessionId, student_id: profile.id, fullscreen: on, fullscreen_exits: exits, last_seen: new Date().toISOString() }, { onConflict: "session_id,student_id" });
+  return { ok: true };
+}

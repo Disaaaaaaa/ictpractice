@@ -10,7 +10,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { LiveRefresh } from "@/components/live/live-refresh";
-import { AutoRefresh, BoardCard, GoToLaptop, Heartbeat, HostBadge, LiveQuestion, PollCard } from "@/components/live/student-live";
+import { AutoRefresh, BoardCard, GoToLaptop, Heartbeat, HostBadge, LessonStage, LiveQuestion, PollCard } from "@/components/live/student-live";
 
 export const metadata: Metadata = { title: "Lesson" };
 
@@ -59,7 +59,7 @@ export default async function LivePage() {
   );
 
   return (
-    <>
+    <LessonStage sessionId={session.id}>
       <Heartbeat sessionId={session.id} />
       <PageHeader
         title={<span className="flex items-center gap-2">{topic?.title} · Lesson {session.lesson_no} <LiveRefresh sessionId={session.id} watch={["session", "answers"]} /></span>}
@@ -125,6 +125,6 @@ export default async function LivePage() {
           })}
         </div>
       )}
-    </>
+    </LessonStage>
   );
 }

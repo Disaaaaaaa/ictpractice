@@ -98,7 +98,7 @@ export async function toggleReveal(sessionId: string, questionId: string): Promi
 export async function endLesson(sessionId: string) {
   const { admin } = await load(sessionId);
   await admin.from("live_sessions").update({ ended_at: new Date().toISOString() }).eq("id", sessionId);
-  redirect(`/teacher/lessons/${sessionId}`);
+  redirect(`/teacher/lessons/${sessionId}/console`);
 }
 
 /** Students who joined (seen in the last 10 minutes); everyone in the class if nobody joined yet. */

@@ -34,6 +34,9 @@ export const kmzhSchema = z
     title: z.string(),
     minutes: z.number().int(),
     values: z.array(z.object({ value: z.string(), action: z.string() })).max(3, "at most three NIS values in a lesson"),
+    lesson_objectives: z.object({ all: z.string(), most: z.string(), some: z.string() }),
+    learning_objectives: z.array(z.object({ code: z.string(), text: z.string() })),
+    language_objectives: z.object({ vocabulary: z.array(z.string()) }).passthrough(),
     stages: z.array(z.object({ stage: z.enum(["Beginning", "Middle", "End"]), minutes: z.number().int(), blocks: z.array(block).min(1) })).length(3),
     scenarios: z.record(z.string(), z.array(z.object({ client: z.string(), details: z.string() }))).default({}),
     live_tasks: z.array(authoredQuestionSchema).default([]),
@@ -78,11 +81,16 @@ export function loadKmzh(slug: string, topic: AuthoredTopic): Kmzh[] {
 export const liveTasksOf = (plans: Kmzh[]): AuthoredQuestion[] => plans.flatMap((k) => k.live_tasks);
 
 /** The plan stored for the site: blocks with question ids instead of keys. */
-export function sitePlan(k: Kmzh): LivePlan {
+export function sitePlan(k: Kmzh, docx: string | null = null): LivePlan {
   const q = (keys?: string[]) => (keys ?? []).map((key) => ({ key, id: contentId("question", key) }));
   return {
     title: k.title,
     minutes: k.minutes,
+    objectives: k.lesson_objectives,
+    learningObjectives: k.learning_objectives,
+    values: k.values.map((v) => v.value),
+    vocabulary: k.language_objectives.vocabulary,
+    docx,
     stages: k.stages.map((st) => ({
       stage: st.stage,
       minutes: st.minutes,

@@ -25,7 +25,7 @@
  *   :::steps Title            (one "- " item per step)
  *   :::cards                  (### Card title, then its text)
  *   :::compare Title          (Markdown table; the first row gives the columns)
- *   :::mermaid Caption        :::ascii Caption
+ *   :::mermaid Caption        :::ascii Caption       :::svg Caption (inline SVG; colours: currentColor / var(--…))
  *   :::html Title | 220       (HTML, then a line "---css---", then CSS)
  *   :::widget base_converter Title
  *   :::                       closes a ::: block
@@ -164,6 +164,7 @@ function parseFile(src: string, file: string): { summary?: string; sections: Sec
         }
         case "mermaid":
         case "ascii":
+        case "svg":
           push({ type: "diagram", format: kind, content: inner.join("\n"), ...(arg ? { caption: arg } : {}) });
           break;
         case "html": {
