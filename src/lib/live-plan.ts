@@ -47,6 +47,8 @@ export type LiveState = {
   open?: string[];
   /** block the teacher is on */
   current?: string | null;
+  /** slide on the teacher's screen; students see the same one (see slideKey) */
+  slide?: string | null;
   /** when each block was opened (ISO) */
   openedAt?: Record<string, string>;
   /** questions whose correct answer is shown to the class */
@@ -80,4 +82,32 @@ export function makeGroups(studentIds: string[], size: number, scenarios: number
     rest.forEach((id, i) => groups[groups.length - 1 - (i % groups.length)].push(id));
   }
   return groups.map((members, i) => ({ host: members[0], members, scenario: scenarios ? i % scenarios : null }));
+}
+
+/**
+ * Keys of the lesson's slides, shared by the teacher's presentation and the
+ * student page: "title", "step:<block>", "th:<block>:<n>:<section>" (block n of
+ * a theory section), "q:<block>:<question>".
+ */
+export type SlideRef =
+  | { kind: "title" }
+  | { kind: "step"; blockId: string }
+  | { kind: "theory"; blockId: string; index: number; section: string }
+  | { kind: "question"; blockId: string; questionId: string };
+
+export const slideKey = {
+  title: () => "title",
+  step: (blockId: string) => `step:${blockId}`,
+  theory: (blockId: string, index: number, section: string) => `th:${blockId}:${index}:${section}`,
+  question: (blockId: string, questionId: string) => `q:${blockId}:${questionId}`,
+};
+
+export function parseSlide(key: string | null | undefined): SlideRef | null {
+  if (!key) return null;
+  if (key === "title") return { kind: "title" };
+  const [kind, blockId, ...rest] = key.split(":");
+  if (kind === "step" && blockId) return { kind: "step", blockId };
+  if (kind === "q" && blockId && rest.length) return { kind: "question", blockId, questionId: rest.join(":") };
+  if (kind === "th" && blockId && rest.length > 1) return { kind: "theory", blockId, index: Number(rest[0]), section: rest.slice(1).join(":") };
+  return null;
 }

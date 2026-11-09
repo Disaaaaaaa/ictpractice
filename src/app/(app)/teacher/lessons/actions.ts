@@ -67,6 +67,31 @@ export async function openBlock(sessionId: string, blockId: string): Promise<Res
   return { ok: true };
 }
 
+/**
+ * The slide on the teacher's screen, shown to the students too. With
+ * `openBlockId` the slide's step is also opened to the class (first visit).
+ */
+export async function showSlide(sessionId: string, key: string, openBlockId: string | null): Promise<Result> {
+  const { admin, s } = await load(sessionId);
+  if (s.ended_at) return { ok: false, error: "The lesson has ended." };
+  const state: LiveState = { ...s.state, slide: key };
+  const block = openBlockId ? blocksOf(s.plan).find((b) => b.id === openBlockId) : null;
+  if (block) {
+    state.open = [...new Set([...(state.open ?? []), block.id])];
+    state.current = block.id;
+    state.openedAt = { ...(state.openedAt ?? {}), [block.id]: state.openedAt?.[block.id] ?? new Date().toISOString() };
+    if (block.groupSize > 1 && !state.groups?.[block.id]?.length) {
+      const ids = await present(admin, s);
+      state.groups = { ...(state.groups ?? {}), [block.id]: makeGroups(ids, block.groupSize, block.scenarios.length) };
+    }
+  } else {
+    const ref = key.split(":")[1];
+    if (ref && (state.open ?? []).includes(ref)) state.current = ref;
+  }
+  await save(sessionId, state);
+  return { ok: true };
+}
+
 export async function closeBlock(sessionId: string, blockId: string): Promise<Result> {
   const { s } = await load(sessionId);
   const state: LiveState = { ...s.state, open: (s.state.open ?? []).filter((x) => x !== blockId) };

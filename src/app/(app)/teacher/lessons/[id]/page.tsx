@@ -4,6 +4,7 @@ import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getPlanQuestions, getSession, minutesAgo, type LiveAnswer } from "@/lib/live";
+import { slideKey } from "@/lib/live-plan";
 import { theoryBlocksSchema, type TheoryBlock } from "@/lib/theory/blocks";
 import { TheoryBlockView } from "@/components/theory/theory-block";
 import { Markdown } from "@/components/markdown";
@@ -23,7 +24,7 @@ function theorySlides(blockId: string, section: string, blocks: TheoryBlock[]): 
       sub = b.text;
       return;
     }
-    out.push({ kind: "theory", blockId, heading: section, sub, body: <TheoryBlockView key={`${blockId}-${section}-${k}`} block={b} /> });
+    out.push({ kind: "theory", key: slideKey.theory(blockId, k, section), blockId, heading: section, sub, body: <TheoryBlockView key={`${blockId}-${section}-${k}`} block={b} /> });
   });
   return out;
 }
@@ -79,6 +80,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
   const slides: Slide[] = [
     {
       kind: "title",
+      key: slideKey.title(),
       blockId: null,
       title: plan.title,
       topic: `${topic?.title ?? ""} · Lesson ${session.lesson_no}`,
@@ -96,6 +98,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
       const pollVotes = answers.filter((a) => a.block_id === b.id && a.item === "poll");
       slides.push({
         kind: "step",
+        key: slideKey.step(b.id),
         blockId: b.id,
         stage: st.stage,
         from: t,
@@ -135,6 +138,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
                 .filter((x) => x.lines.length);
           slides.push({
             kind: "question",
+            key: slideKey.question(b.id, pq.id),
             blockId: b.id,
             together,
             question: { id: q.id, question_type: q.question_type, content: q.content, options: q.options, title: q.title, text: <Markdown key={`${b.id}-${pq.id}`}>{q.question_text}</Markdown>, marks: q.marks },
@@ -166,6 +170,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
       slides={slides}
       open={state.open ?? []}
       startBlock={block}
+      startSlide={typeof sp.block === "string" ? null : (state.slide ?? null)}
       planHref={plan.docx ? `/teacher/lessons/plan?topic=${session.topic_id}&lesson=${session.lesson_no}` : null}
       joined={present.length}
       classSize={names.size}

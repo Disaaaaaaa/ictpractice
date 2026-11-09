@@ -5,12 +5,13 @@ import { ChevronLeft, ChevronRight, Crown, Download, Eye, EyeOff, LayoutList, Ma
 import { cn } from "@/lib/cn";
 import type { AnswerData } from "@/lib/questions/types";
 import { AnswerInput, type AnswerableQuestion } from "@/components/questions/answer-input";
-import { endLesson, openBlock, toggleReveal } from "@/app/(app)/teacher/lessons/actions";
+import { endLesson, showSlide, toggleReveal } from "@/app/(app)/teacher/lessons/actions";
 
 export type SlideStats = { answered: number; expected: number; pct: number | null; toCheck: number };
 export type SlideText = { who: string; lines: string[] };
 
-export type Slide =
+export type Slide = { key: string } & SlideBody;
+type SlideBody =
   | { kind: "title"; blockId: null; title: string; topic: string; className: string; objectives: { all: string; most: string; some: string } | null; codes: string[]; values: string[]; vocabulary: string[] }
   | { kind: "step"; blockId: string; stage: string; from: number; to: number; title: string; mode: string; learners: string; teacher: string; poll: { question: string; labels: string[]; counts: number[] } | null; groups: { label: string; client: string | null; members: { name: string; host: boolean }[] }[] }
   | { kind: "theory"; blockId: string; heading: string; sub: string; body: ReactNode }
@@ -42,6 +43,7 @@ export function LessonPresenter({
   slides,
   open,
   startBlock,
+  startSlide,
   planHref,
   joined,
   classSize,
@@ -56,6 +58,8 @@ export function LessonPresenter({
   slides: Slide[];
   open: string[];
   startBlock: string | null;
+  /** the slide students see now (state.slide) */
+  startSlide: string | null;
   planHref: string | null;
   joined: number;
   classSize: number;
@@ -63,12 +67,12 @@ export function LessonPresenter({
   outOfFullscreen: string[];
   live: ReactNode;
 }) {
-  const first = Math.max(0, startBlock ? slides.findIndex((s) => s.blockId === startBlock) : 0);
+  const bySlide = startSlide ? slides.findIndex((x) => x.key === startSlide) : -1;
+  const first = bySlide >= 0 ? bySlide : Math.max(0, startBlock ? slides.findIndex((x) => x.blockId === startBlock) : 0);
   const [i, setI] = useState(first);
   const [auto, setAuto] = useState(true);
   const [rail, setRail] = useState(false);
   const [now, setNow] = useState(() => Date.now());
-  const [pending, start] = useTransition();
   const box = useRef<HTMLDivElement>(null);
   const opened = useRef(new Set(open));
   useEffect(() => {
@@ -82,13 +86,21 @@ export function LessonPresenter({
 
   const go = useCallback((n: number) => setI(Math.min(slides.length - 1, Math.max(0, n))), [slides.length]);
 
-  // reaching a step opens it to the class
+  // the students follow the teacher's slide; reaching a step opens it to the class
   const s = slides[i];
+  const sent = useRef<string | null>(startSlide);
+  const queue = useRef<Promise<unknown>>(Promise.resolve());
   useEffect(() => {
-    if (ended || !auto || !s?.blockId || opened.current.has(s.blockId)) return;
-    opened.current.add(s.blockId);
-    start(async () => void (await openBlock(sessionId, s.blockId!)));
-  }, [i, s, auto, ended, sessionId]);
+    if (ended || !s || sent.current === s.key) return;
+    const t = setTimeout(() => {
+      sent.current = s.key;
+      const openId = auto && s.blockId && !opened.current.has(s.blockId) ? s.blockId : null;
+      if (openId) opened.current.add(openId);
+      queue.current = queue.current.then(() => showSlide(sessionId, s.key, openId)).catch(() => undefined);
+    }, 250);
+    return () => clearTimeout(t);
+  }, [s, auto, ended, sessionId]);
+  const [revealing, start] = useTransition();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -152,7 +164,7 @@ export function LessonPresenter({
           </nav>
         )}
         <div className="min-w-0 flex-1 overflow-y-auto px-8 py-6 text-lg [&_table]:text-base">
-          {s && <SlideView s={s} sessionId={sessionId} pending={pending} start={start} planHref={planHref} ended={ended} />}
+          {s && <SlideView s={s} sessionId={sessionId} pending={revealing} start={start} planHref={planHref} ended={ended} />}
         </div>
       </div>
 

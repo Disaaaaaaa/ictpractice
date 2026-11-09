@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { getBrowserClient } from "@/lib/supabase/client";
+import { getRealtimeClient } from "@/lib/supabase/client";
 
 /**
  * For students: opens the Lesson page as soon as their teacher starts a lesson
@@ -12,12 +12,20 @@ export function LessonWatcher() {
   const path = usePathname();
   useEffect(() => {
     if (path.startsWith("/live") || path.startsWith("/attempt/")) return;
-    const supabase = getBrowserClient();
-    const ch = supabase
-      .channel("lesson-watcher")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "live_sessions" }, () => router.push("/live"))
-      .subscribe();
-    return () => void supabase.removeChannel(ch);
+    let stop = false;
+    let cleanup = () => {};
+    void getRealtimeClient().then((supabase) => {
+      if (stop) return;
+      const ch = supabase
+        .channel("lesson-watcher")
+        .on("postgres_changes", { event: "INSERT", schema: "public", table: "live_sessions" }, () => router.push("/live"))
+        .subscribe();
+      cleanup = () => void supabase.removeChannel(ch);
+    });
+    return () => {
+      stop = true;
+      cleanup();
+    };
   }, [path, router]);
   return null;
 }

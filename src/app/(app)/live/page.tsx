@@ -4,7 +4,9 @@ import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getActiveSessionForStudent, getPlanQuestions, type LiveAnswer } from "@/lib/live";
-import { blocksOf, groupOf } from "@/lib/live-plan";
+import { blocksOf, groupOf, parseSlide, type LiveBlock } from "@/lib/live-plan";
+import { theoryBlocksSchema, type TheoryBlock } from "@/lib/theory/blocks";
+import { TheoryBlockView } from "@/components/theory/theory-block";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -33,7 +35,11 @@ export default async function LivePage() {
   const state = session.state;
   const open = new Set(state.open ?? []);
   const all = blocksOf(session.plan);
-  const blocks = all.filter((b) => open.has(b.id)).sort((a, b) => (a.id === state.current ? -1 : b.id === state.current ? 1 : all.indexOf(a) - all.indexOf(b)));
+  const slide = parseSlide(state.slide);
+  // the block on the teacher's screen is shown on top; the other open blocks below it
+  const onBoard = slide && slide.kind !== "title" ? slide.blockId : null;
+  const blocks = all.filter((b) => open.has(b.id) && b.id !== onBoard).sort((a, b) => all.indexOf(b) - all.indexOf(a));
+  const boardBlock = onBoard ? (all.find((b) => b.id === onBoard) ?? null) : null;
 
   const admin = createAdminClient();
   const [{ data: topic }, questions, { data: mine }] = await Promise.all([
@@ -43,12 +49,25 @@ export default async function LivePage() {
   ]);
   const answers = (mine ?? []) as LiveAnswer[];
   // names of the members of the student's groups
-  const memberIds = [...new Set(blocks.flatMap((b) => groupOf(state, b.id, profile.id)?.members ?? []))];
+  const memberIds = [...new Set([...blocks, ...(boardBlock ? [boardBlock] : [])].flatMap((b) => groupOf(state, b.id, profile.id)?.members ?? []))];
   const { data: people } = memberIds.length ? await admin.from("profiles").select("id, first_name, last_name, username").in("id", memberIds) : { data: [] };
   const name = (id: string) => {
     const p = (people ?? []).find((x) => x.id === id);
     return id === profile.id ? "you" : p ? displayName(p) : "a classmate";
   };
+  // the theory slide on the board
+  let theory: { section: string; sub: string; block: TheoryBlock } | null = null;
+  if (slide?.kind === "theory") {
+    const { data: pack } = await supabase.from("theory_packs").select("id").eq("topic_id", session.topic_id).maybeSingle();
+    const { data: sec } = pack ? await supabase.from("theory_sections").select("blocks").eq("theory_pack_id", pack.id).eq("title", slide.section).maybeSingle() : { data: null };
+    const parsed = theoryBlocksSchema.safeParse(sec?.blocks);
+    const list = parsed.success ? parsed.data : [];
+    const block = list[slide.index];
+    if (block) {
+      const head = list.slice(0, slide.index).filter((b) => b.type === "heading").pop();
+      theory = { section: slide.section, sub: head && head.type === "heading" ? head.text : slide.section, block };
+    }
+  }
   const revealed = (state.revealed ?? []).filter((id) => questions.has(id));
   const { data: schemes } = revealed.length ? await admin.from("mark_schemes").select("question_id, accepted_answers").in("question_id", revealed).eq("is_current", true) : { data: [] };
   const correctOf = new Map(
@@ -58,30 +77,19 @@ export default async function LivePage() {
     }),
   );
 
-  return (
-    <LessonStage sessionId={session.id}>
-      <Heartbeat sessionId={session.id} />
-      <PageHeader
-        title={<span className="flex items-center gap-2">{topic?.title} · Lesson {session.lesson_no} <LiveRefresh sessionId={session.id} watch={["session", "answers"]} /></span>}
-        description={`${session.plan.title}. Tasks open here as your teacher goes through the lesson.`}
-      />
-      {blocks.length === 0 ? (
-        <EmptyState title="Waiting for your teacher">Look at the board — the first task will appear here.</EmptyState>
-      ) : (
-        <div className="space-y-6">
-          {blocks.map((b) => {
+  const renderBlock = (b: LiveBlock, board = false, only: string | null = null) => {
             const g = b.groupSize > 1 ? groupOf(state, b.id, profile.id) : null;
             const isHost = !g || g.host === profile.id;
             const scenario = g?.scenario != null ? b.scenarios[g.scenario] : null;
             const list = [...b.together, ...b.tasks].map((pq) => questions.get(pq.id)).filter((q): q is NonNullable<typeof q> => Boolean(q));
             return (
-              <Card key={b.id} className={b.id === state.current ? "border-primary ring-1 ring-primary" : undefined}>
+              <Card key={b.id} className={board ? "border-primary ring-1 ring-primary" : undefined}>
                 <CardHeader
-                  title={<span className="flex flex-wrap items-center gap-2">{b.title} <Badge tone={b.mode === "class" ? "neutral" : "info"}>{MODE[b.mode]}</Badge>{b.id === state.current && <Badge tone="primary">now</Badge>}</span>}
+                  title={<span className="flex flex-wrap items-center gap-2">{b.title} <Badge tone={b.mode === "class" ? "neutral" : "info"}>{MODE[b.mode]}</Badge>{board && <Badge tone="primary">on the board</Badge>}</span>}
                   description={b.learners}
                 />
                 <CardBody className="space-y-4 pt-0">
-                  {b.kind === "slides" && <BoardCard text="Look at the board and follow your teacher." />}
+                  {b.kind === "slides" && !only && <BoardCard text="Look at the board and follow your teacher." />}
                   {b.poll && (
                     <PollCard
                       sessionId={session.id}
@@ -105,7 +113,7 @@ export default async function LivePage() {
                     </div>
                   )}
                   {isHost &&
-                    list.map((q) => {
+                    list.filter((q) => !only || q.id === only).map((q) => {
                       const prev = answers.find((a) => a.block_id === b.id && a.item === q.id);
                       return (
                         <LiveQuestion
@@ -122,7 +130,51 @@ export default async function LivePage() {
                 </CardBody>
               </Card>
             );
-          })}
+  };
+
+  // what the teacher is showing now
+  let now: React.ReactNode = null;
+  if (slide?.kind === "title") {
+    const o = session.plan.objectives;
+    now = (
+      <Card className="border-primary ring-1 ring-primary">
+        <CardHeader title={session.plan.title} description="On the board now" />
+        {o && (
+          <CardBody className="space-y-1 pt-0 text-sm">
+            <p><b>All</b> will be able to {o.all}.</p>
+            <p><b>Most</b> will be able to {o.most}.</p>
+            <p><b>Some</b> will be able to {o.some}.</p>
+          </CardBody>
+        )}
+      </Card>
+    );
+  } else if (slide?.kind === "theory" && theory) {
+    now = (
+      <Card className="border-primary ring-1 ring-primary">
+        <CardHeader title={theory.sub} description={`${theory.section} · on the board now`} />
+        <CardBody className="space-y-4 pt-0 text-lg"><TheoryBlockView block={theory.block} /></CardBody>
+      </Card>
+    );
+  } else if (boardBlock && open.has(boardBlock.id)) {
+    // a question done together: only that question; a task question: the whole task
+    const together = slide?.kind === "question" && boardBlock.together.some((q) => q.id === slide.questionId) ? slide.questionId : null;
+    now = renderBlock(boardBlock, true, together);
+  }
+
+  return (
+    <LessonStage sessionId={session.id}>
+      <Heartbeat sessionId={session.id} />
+      <PageHeader
+        title={<span className="flex items-center gap-2">{topic?.title} · Lesson {session.lesson_no} <LiveRefresh sessionId={session.id} watch={["session", "answers"]} /></span>}
+        description={`${session.plan.title}. This page follows your teacher's slides.`}
+      />
+      {now && <div className="mb-6">{now}</div>}
+      {now && blocks.length > 0 && <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">Earlier tasks</h2>}
+      {!now && blocks.length === 0 ? (
+        <EmptyState title="Waiting for your teacher">Look at the board — the first task will appear here.</EmptyState>
+      ) : (
+        <div className="space-y-6">
+          {blocks.map((b) => renderBlock(b))}
         </div>
       )}
     </LessonStage>
