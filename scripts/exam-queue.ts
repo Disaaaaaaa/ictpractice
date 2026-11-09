@@ -61,6 +61,39 @@ async function main() {
         answer: r.answer_id ? (answerBy.get(r.answer_id) ?? null) : null,
       };
     });
+  // written answers given in lessons taught live (Teacher → Lessons)
+  const { data: live } = await db
+    .from("live_answers")
+    .select("id, block_id, question_id, members, answer, max_mark, updated_at, live_sessions!inner(lesson_no, plan, topics(slug, title))")
+    .eq("needs_review", true)
+    .not("question_id", "is", null);
+  type L = { id: string; block_id: string; question_id: string; members: string[]; answer: unknown; max_mark: number; updated_at: string; live_sessions: { lesson_no: number; plan: { stages: { blocks: { id: string; title: string }[] }[] }; topics: { slug: string; title: string } | null } };
+  let lrows = (live ?? []) as unknown as L[];
+  if (values.topic) lrows = lrows.filter((r) => r.live_sessions.topics?.slug === values.topic);
+  if (lrows.length) {
+    const qids = [...new Set(lrows.map((r) => r.question_id))];
+    const [{ data: qs }, { data: ms }, { data: ppl }] = await Promise.all([
+      db.from("questions").select("id, title, question_text, question_type, content").in("id", qids),
+      db.from("mark_schemes").select("question_id, mark_scheme, marking_points, model_answer, accepted_answers").in("question_id", qids).eq("is_current", true),
+      db.from("profiles").select("id, first_name, last_name, username").in("id", [...new Set(lrows.flatMap((r) => r.members))]),
+    ]);
+    const nm = (id: string) => { const p = (ppl ?? []).find((x) => x.id === id); return p ? `${p.last_name} ${p.first_name}`.trim() || p.username : id; };
+    for (const r of lrows) {
+      const q = (qs ?? []).find((x) => x.id === r.question_id);
+      const m = (ms ?? []).find((x) => x.question_id === r.question_id);
+      const block = r.live_sessions.plan.stages.flatMap((st) => st.blocks).find((b) => b.id === r.block_id);
+      manifest.push({
+        result_id: r.id,
+        exam: `Lesson: ${r.live_sessions.topics?.title ?? ""} · Lesson ${r.live_sessions.lesson_no} · ${block?.title ?? r.block_id}`,
+        student: r.members.map(nm).join(", "),
+        submitted: r.updated_at,
+        question: q ? { part: null, group: q.title, stem: null, text: q.question_text, type: q.question_type, content: q.content ?? null } : null,
+        max_mark: Number(r.max_mark),
+        mark_scheme: { mark_scheme: m?.mark_scheme ?? null, points: m?.marking_points ?? null, model_answer: m?.model_answer ?? null, accepted: m?.accepted_answers ?? null },
+        answer: r.answer,
+      });
+    }
+  }
   mkdirSync(values.out, { recursive: true });
   writeFileSync(join(values.out, "manifest.json"), JSON.stringify(manifest, null, 2));
   const per = new Map<string, number>();

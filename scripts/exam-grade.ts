@@ -23,8 +23,24 @@ async function main() {
   const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
   const attempts = new Set<string>();
   for (const m of marks) {
-    const { data: r } = await db.from("grading_results").select("id, attempt_id, max_mark, original_ai_mark, final_mark, teacher_override_mark").eq("id", m.result_id).single();
-    if (!r) throw new Error(`${m.result_id}: not found`);
+    const { data: r } = await db.from("grading_results").select("id, attempt_id, max_mark, original_ai_mark, final_mark, teacher_override_mark").eq("id", m.result_id).maybeSingle();
+    if (!r) {
+      // a written answer from a lesson taught live: the mark goes on the answer, the feedback to every member
+      const { data: l } = await db.from("live_answers").select("id, members, max_mark, live_sessions(lesson_no, topics(title))").eq("id", m.result_id).maybeSingle();
+      if (!l) throw new Error(`${m.result_id}: not found`);
+      if (m.mark > Number(l.max_mark)) throw new Error(`${m.result_id}: ${m.mark} is more than ${l.max_mark}`);
+      console.log(`${m.result_id}: ${m.mark}/${l.max_mark} (lesson task, ${l.members.length} student${l.members.length === 1 ? "" : "s"})`);
+      if (values["dry-run"]) continue;
+      await db.from("live_answers").update({ awarded: m.mark, needs_review: false }).eq("id", m.result_id);
+      const s = l.live_sessions as unknown as { lesson_no: number; topics: { title: string } | null } | null;
+      await db.from("notifications").insert(
+        (l.members as string[]).map((id) => ({
+          user_id: id, type: "feedback", title: `${s?.topics?.title ?? "Lesson"} · Lesson ${s?.lesson_no ?? ""}: ${m.mark}/${Number(l.max_mark)}`,
+          body: m.feedback || "Your lesson task has been checked.", link: "/live",
+        })),
+      );
+      continue;
+    }
     if (m.mark > Number(r.max_mark)) throw new Error(`${m.result_id}: ${m.mark} is more than ${r.max_mark}`);
     console.log(`${m.result_id}: ${m.mark}/${r.max_mark}${r.teacher_override_mark != null ? " (replaces an earlier teacher mark)" : ""}`);
     if (values["dry-run"]) continue;
