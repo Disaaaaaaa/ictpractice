@@ -4,7 +4,7 @@ import type { Dict } from "@/lib/i18n";
 export type IconName =
   | "dashboard" | "learn" | "papers" | "mocks" | "summative" | "progress" | "profile" | "classes" | "students"
   | "assignments" | "visibility" | "sessions" | "questions" | "results" | "analytics" | "users" | "curriculum"
-  | "settings" | "audit" | "points";
+  | "settings" | "audit" | "points" | "lessons";
 
 export type NavItem = { href: string; label: string; icon: IconName };
 export type NavGroup = { label?: string; items: NavItem[] };
@@ -13,6 +13,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
   const student: NavGroup = {
     items: [
       { href: "/student/dashboard", label: t.nav.dashboard, icon: "dashboard" },
+      { href: "/live", label: t.nav.lesson, icon: "lessons" },
       { href: "/learn", label: t.nav.learn, icon: "learn" },
       { href: "/assignments", label: t.nav.assignments, icon: "assignments" },
       { href: "/papers", label: t.nav.papers, icon: "papers" },
@@ -27,6 +28,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
     label: t.nav.teaching,
     items: [
       { href: "/teacher/dashboard", label: t.nav.dashboard, icon: "dashboard" },
+      { href: "/teacher/lessons", label: t.nav.lessons, icon: "lessons" },
       { href: "/teacher/classes", label: t.nav.classes, icon: "classes" },
       { href: "/teacher/students", label: t.nav.students, icon: "students" },
       { href: "/teacher/assignments", label: t.nav.assignments, icon: "assignments" },

@@ -11,6 +11,7 @@ import { authoredTopicSchema } from "../src/lib/content/schema";
 import { getTopicInfo } from "./lib/topic-block";
 import { pushQuestions } from "./lib/push-questions";
 import { pushLessons, serviceClient } from "./lib/push-lessons";
+import { liveTasksOf, loadKmzh } from "./lib/kmzh";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { draft: { type: "boolean", default: false } } });
 const slug = positionals[0];
@@ -23,15 +24,17 @@ async function main() {
   const topic = authoredTopicSchema.parse(JSON.parse(readFileSync(join(__dirname, "..", "content/topics", `${slug}.json`), "utf8")));
   if (!topic.questions.length) throw new Error(`${slug}.json has no questions`);
   const info = getTopicInfo(slug);
-  for (const q of topic.questions) for (const r of q.objectives) if (!info.refs.includes(r)) throw new Error(`${q.key}: objective ${r} is not in this topic`);
+  // the tasks written for lessons (content/kmzh) are kept with the topic's questions
+  const live = liveTasksOf(loadKmzh(slug, topic));
+  for (const q of [...topic.questions, ...live]) for (const r of q.objectives) if (!info.refs.includes(r)) throw new Error(`${q.key}: objective ${r} is not in this topic`);
   const r = await pushQuestions({
     slug,
     title: info.title,
     grade: Math.min(...info.refs.map((x) => Number(x.slice(0, 2)))),
-    questions: topic.questions,
+    questions: [...topic.questions, ...live],
     status: values.draft ? "draft" : "published",
     examMinutes: topic.topic_exam?.duration,
-    exam: { keys: topic.topic_exam?.questions, title: topic.topic_exam?.title, instructions: topic.topic_exam?.instructions },
+    exam: { keys: topic.topic_exam?.questions ?? topic.questions.map((q) => q.key), title: topic.topic_exam?.title, instructions: topic.topic_exam?.instructions },
     source: `${slug}.json`,
   });
   console.log(`✓ ${topic.questions.length} questions uploaded (${values.draft ? "draft" : "published"}); ${r.examNote}`);
