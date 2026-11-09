@@ -113,7 +113,7 @@ export default async function LivePage() {
                           sessionId={session.id}
                           blockId={b.id}
                           question={{ id: q.id, title: q.title, question_text: q.question_text, question_type: q.question_type, content: q.content, options: q.options, marks: q.marks }}
-                          previous={prev ? { answer: prev.answer, awarded: prev.awarded == null ? null : Number(prev.awarded), max: prev.max_mark == null ? null : Number(prev.max_mark), needsReview: prev.needs_review } : null}
+                          previous={prev ? { answer: prev.answer, awarded: prev.awarded == null ? null : Number(prev.awarded), max: prev.max_mark == null ? null : Number(prev.max_mark), needsReview: prev.needs_review, feedback: (prev.answer as { teacher_feedback?: string | null }).teacher_feedback ?? null } : null}
                           correctKeys={correctOf.get(q.id)}
                           canAnswer
                         />

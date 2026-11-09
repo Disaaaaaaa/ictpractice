@@ -66,7 +66,7 @@ export function LiveQuestion({
   sessionId: string;
   blockId: string;
   question: StudentQuestion;
-  previous: { answer: AnswerData; awarded: number | null; max: number | null; needsReview: boolean } | null;
+  previous: { answer: AnswerData; awarded: number | null; max: number | null; needsReview: boolean; feedback?: string | null } | null;
   /** shown once the teacher reveals the answer */
   correctKeys?: string[];
   canAnswer: boolean;
@@ -101,6 +101,12 @@ export function LiveQuestion({
         </div>
       )}
       {result?.ok && result.feedback && !result.fullMarks && !result.needsReview && <p className="text-sm text-muted">{result.feedback}</p>}
+      {!result && previous?.feedback && (
+        <div className="rounded-md border border-info bg-info-soft px-3 py-2 text-sm">
+          <p className="font-semibold text-info">Teacher&apos;s feedback · {previous.awarded}/{previous.max}</p>
+          <p>{previous.feedback}</p>
+        </div>
+      )}
     </div>
   );
 }
