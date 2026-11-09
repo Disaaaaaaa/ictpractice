@@ -1,0 +1,335 @@
+{
+  "topic": "g11-data-dictionary",
+  "lesson": 1,
+  "grade": 11,
+  "unit": "11.2A Information systems",
+  "title": "What a data dictionary is and why it is used",
+  "teacher": "Assylbek Dias",
+  "date": "",
+  "class": "",
+  "minutes": 80,
+  "learning_objectives": [
+    { "code": "11.4.1.5", "text": "explain the purpose of a data dictionary" }
+  ],
+  "lesson_objectives": {
+    "all": "define a data dictionary and list the items it records for each field",
+    "most": "explain how a data dictionary keeps a database consistent and who uses it",
+    "some": "describe the metadata of real fields and explain which problems a data dictionary prevents for a given organisation"
+  },
+  "assessment_criteria": [
+    {
+      "criterion": "Define a data dictionary",
+      "descriptors": [
+        "states that a data dictionary describes the structure of a database (metadata)",
+        "distinguishes data from metadata"
+      ]
+    },
+    {
+      "criterion": "Identify the items recorded for each field",
+      "descriptors": [
+        "names at least five items: field name, data type, size, format, key, validation, description, example",
+        "chooses a suitable data type for a field and justifies it"
+      ]
+    },
+    {
+      "criterion": "Explain the purpose of a data dictionary",
+      "descriptors": [
+        "explains how it keeps field names and types consistent so tables can be linked",
+        "explains how recorded validation rules protect data integrity",
+        "names who uses it and for what"
+      ]
+    }
+  ],
+  "language_objectives": {
+    "learners_can": [
+      "define a term precisely (A data dictionary is a … that …)",
+      "explain a purpose with cause and effect (so that, which means, therefore)",
+      "describe a field using subject vocabulary"
+    ],
+    "vocabulary": [
+      "data dictionary", "metadata", "field", "record", "data type", "field size", "format", "primary key", "foreign key",
+      "validation", "consistency", "data integrity", "system catalogue"
+    ],
+    "phrases": [
+      "A data dictionary is a document that …",
+      "The field … has the data type … because …",
+      "Without a data dictionary, …, which means …",
+      "The tester / programmer uses it to …"
+    ]
+  },
+  "values": [
+    {
+      "value": "Diligence and creativity",
+      "action": "Groups carefully describe every field of their client's table and check each other's work for accuracy, as real database designers do."
+    },
+    {
+      "value": "Openness",
+      "action": "Groups present their data dictionary entries and give and accept peer feedback (two stars and a wish)."
+    },
+    {
+      "value": "Patriotism and responsibility",
+      "action": "Learners discuss their responsibility for describing citizens' personal data correctly in school, clinic and government databases of Kazakhstan."
+    }
+  ],
+  "cross_curricular": [
+    "English: precise definitions and technical descriptions.",
+    "Mathematics: choosing between integer and real numbers, ranges for validation.",
+    "Business studies: documentation in real projects and the cost of errors."
+  ],
+  "ict": [
+    "ICT Practice Platform, Lessons section: theory as slides, live polls and tasks, pair and group work on shared laptops.",
+    "Practice questions with automatic feedback; results visible to the teacher live.",
+    "Example of a real system catalogue (information_schema) shown on the board."
+  ],
+  "previous_learning": "Basic concepts of a database: tables, records, fields, data types, primary and foreign keys. Entity-relationship diagram: entities, attributes and relationships drawn at the design stage.",
+  "safety": [
+    "Move to the group's laptop calmly; keep bags and cables off the floor.",
+    "Laptops stay on the desk; short screen break between the two halves of the lesson."
+  ],
+  "differentiation": {
+    "support": [
+      "Key words with definitions on the title slide; sentence frames for explanations.",
+      "Worked example: the Students table and its data dictionary on the slides before the pair task.",
+      "The group task has labelled boxes for each item of the data dictionary.",
+      "Random mixed-ability groups with roles: leader, writer, presenter, checker."
+    ],
+    "stretch": [
+      "Explain the difference between an active and a passive data dictionary with an example.",
+      "Suggest a validation rule for every field of the client's table and justify it.",
+      "Explain why CHAR(3) is better than VARCHAR(30) for a class code."
+    ]
+  },
+  "assessment": [
+    "Live results of every task on the teacher's slide: misconceptions are discussed at once.",
+    "Polls and together tasks check understanding before the next step opens.",
+    "Peer assessment of the group's data dictionary entries against the success criteria.",
+    "Exit ticket (marked automatically) checks the three lesson objectives.",
+    "Practice results count towards SAU points; the group task is checked by the teacher with feedback in the lesson."
+  ],
+  "stages": [
+    {
+      "stage": "Beginning",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "b1",
+          "minutes": 4,
+          "title": "Hook: what does DOB mean?",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Shows the objectives, then asks: a new programmer finds a field called DOB with no documentation. Which value should be stored? Learners vote; the different answers show why a database needs a data dictionary.",
+          "learners": "Vote on their laptops and explain their choice.",
+          "poll": {
+            "question": "A field is called DOB and nobody has documented it. Which value should it store?",
+            "options": ["14/03/2009", "2009-03-14", "March 14, 2009", "Any of them — we cannot know"]
+          },
+          "resources": ["Title slide: objectives and key words", "Live poll"]
+        },
+        {
+          "id": "b2",
+          "minutes": 6,
+          "title": "Starter: recall tables, keys and ERDs",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens three quick questions on previous topics and corrects the most common mistake.",
+          "learners": "Answer three multiple-choice questions individually.",
+          "tasks": ["dd-l1-live-starter-1", "dd-l1-live-starter-2", "dd-l1-live-starter-3"],
+          "resources": ["Live tasks: starter"]
+        }
+      ]
+    },
+    {
+      "stage": "Middle",
+      "minutes": 60,
+      "blocks": [
+        {
+          "id": "m1",
+          "minutes": 14,
+          "title": "Slides: what a data dictionary is",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Presents data and metadata, the items of a data dictionary, data types, naming rules and the design stage. Together task: which item of the data dictionary is DD/MM/YYYY? Class votes and discusses.",
+          "learners": "Follow the slides, vote in the together task and give examples of metadata.",
+          "slides": ["What a data dictionary is"],
+          "together": ["dd-l1-live-together-1"],
+          "resources": ["Theory: What a data dictionary is (slides)", "Live poll"]
+        },
+        {
+          "id": "m2",
+          "minutes": 10,
+          "title": "Pair work: items and data types",
+          "mode": "pair",
+          "kind": "task",
+          "teacher": "Opens the pair task: random pairs, one laptop each. Monitors live results and helps pairs that are stuck.",
+          "learners": "Work in random pairs on one laptop: five practice questions on metadata, items and data types.",
+          "tasks": ["dd-define-mcq", "dd-data-or-meta", "dd-item-match", "dd-type-tick", "dd-phone-mcq"],
+          "resources": ["Practice: lesson 1, set A"]
+        },
+        {
+          "id": "m3",
+          "minutes": 10,
+          "title": "Slides: the purpose of a data dictionary",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Presents why a data dictionary is used, who uses it, the mismatched-key example, active and passive dictionaries and how it differs from an ERD. Together task: what goes wrong when StudentID is Text in one table and Integer in another?",
+          "learners": "Vote and explain using \"Without a data dictionary, …, which means …\".",
+          "slides": ["The purpose of a data dictionary"],
+          "together": ["dd-l1-live-together-2"],
+          "resources": ["Theory: The purpose of a data dictionary (slides)", "Live poll"]
+        },
+        {
+          "id": "m4",
+          "minutes": 8,
+          "title": "Individual practice: purpose and users",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens four questions on the purpose; checks the live results.",
+          "learners": "Answer individually.",
+          "tasks": ["dd-purpose-mr", "dd-users-match", "dd-problem-fill", "dd-erd-dd-db"],
+          "resources": ["Practice: lesson 1, set B"]
+        },
+        {
+          "id": "m5",
+          "minutes": 18,
+          "title": "Group work: database designers",
+          "mode": "group",
+          "group_size": 4,
+          "kind": "task",
+          "teacher": "Opens the group task: random groups of four, each with a client table and the host's laptop. After 12 minutes two groups present (1 minute each); the others give feedback against the success criteria. Teacher can ask for the answers to be checked during the lesson.",
+          "learners": "In groups, write the data dictionary entries for three fields of the client's table and explain two problems the dictionary prevents for this client.",
+          "tasks": ["dd-l1-live-group"],
+          "scenarios": "dd-l1-scenarios",
+          "resources": ["Live task: group data dictionary with client cards", "Success criteria for peer feedback"]
+        }
+      ]
+    },
+    {
+      "stage": "End",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "e1",
+          "minutes": 5,
+          "title": "Exit ticket",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Opens the exit ticket and uses the results to plan lesson 2.",
+          "learners": "Answer three questions individually.",
+          "tasks": ["dd-l1-live-exit-1", "dd-l1-live-exit-2", "dd-l1-live-exit-3"],
+          "resources": ["Live tasks: exit ticket"]
+        },
+        {
+          "id": "e2",
+          "minutes": 5,
+          "title": "Reflection and homework",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Learners rate their confidence (traffic light). Homework: finish the remaining lesson 1 practice and hand in handwritten notes for lesson 1.",
+          "learners": "Rate their confidence and note the homework.",
+          "poll": {
+            "question": "How confident are you with today's objectives?",
+            "options": ["Green: I can define it, list the items and explain its purpose", "Amber: I can define it and list the items", "Red: I need more help"]
+          },
+          "homework": ["dd-items-mr", "dd-metadata-tf", "dd-naming-mr", "dd-sdlc-mcq", "dd-active-passive", "dd-catalogue-tf"],
+          "resources": ["Traffic-light poll", "Practice: remaining lesson 1 questions", "Notes check: lesson 1"]
+        }
+      ]
+    }
+  ],
+  "scenarios": {
+    "dd-l1-scenarios": [
+      { "client": "A school canteen", "details": "Table Orders: OrderID, StudentID, MealName, Price, OrderDate, Paid. About 300 orders a day; parents pay online." },
+      { "client": "A cinema", "details": "Table Tickets: TicketID, FilmTitle, ShowDate, SeatNumber, Price, IsChild. Tickets are sold online and at the desk." },
+      { "client": "A sports centre", "details": "Table Members: MemberID, Surname, DateOfBirth, Phone, JoinDate, IsStudent. Members can join from age 10." },
+      { "client": "A clinic", "details": "Table Appointments: AppointmentID, PatientID, DoctorID, AppointmentDate, Time, Confirmed. Patients book by phone." },
+      { "client": "A library", "details": "Table Books: ISBN, Title, Author, YearPublished, Copies, OnLoan. The library has 8 000 books." }
+    ]
+  },
+  "live_tasks": [
+    {
+      "key": "dd-l1-live-starter-1", "title": "A record", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "In a table of students, what is one **record**?",
+      "options": [{ "key": "A", "content": "One column, e.g. Surname" }, { "key": "B", "content": "All the data about one student (one row)" }, { "key": "C", "content": "The whole table" }, { "key": "D", "content": "The primary key" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    },
+    {
+      "key": "dd-l1-live-starter-2", "title": "A foreign key", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "`Loans` contains the field `StudentID`, which is the primary key of `Students`. In `Loans`, `StudentID` is …",
+      "options": [{ "key": "A", "content": "a foreign key" }, { "key": "B", "content": "a composite key" }, { "key": "C", "content": "an index" }, { "key": "D", "content": "a data type" }],
+      "scheme": { "mark_scheme": "A", "accepted": { "correct": "A" } }
+    },
+    {
+      "key": "dd-l1-live-starter-3", "title": "Design stage", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "An ERD shows …",
+      "options": [{ "key": "A", "content": "the records stored in each table" }, { "key": "B", "content": "the entities and the relationships between them" }, { "key": "C", "content": "the passwords of the users" }, { "key": "D", "content": "the SQL code of the queries" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    },
+    {
+      "key": "dd-l1-live-together-1", "title": "DD/MM/YYYY", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "In a data dictionary, `DD/MM/YYYY` is written for the field `DateOfBirth`. Which item is it?",
+      "options": [{ "key": "A", "content": "Data type" }, { "key": "B", "content": "Format" }, { "key": "C", "content": "Validation rule" }, { "key": "D", "content": "Example value" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "The format says how the data is entered and shown; the data type is Date." }
+    },
+    {
+      "key": "dd-l1-live-together-2", "title": "Two different keys", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "`StudentID` is Text in `Students` but Integer in `Loans`. What is the result?",
+      "options": [{ "key": "A", "content": "Nothing — the DBMS converts it" }, { "key": "B", "content": "The tables cannot be linked correctly, so reports miss students' names" }, { "key": "C", "content": "The database becomes faster" }, { "key": "D", "content": "All the loans are deleted" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" }, "explanation": "A primary key and its foreign key must have the same data type and size — the data dictionary makes sure they do." }
+    },
+    {
+      "key": "dd-l1-live-group", "title": "Database designers", "type": "labelled_answers", "marks": 8, "difficulty": "hard", "command_word": "describe",
+      "grading": "AI", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "Your group designs the database for your client (see your card). Write the data dictionary entries for **three** fields of the client's table, then explain **two** problems the data dictionary prevents for this client.",
+      "content": { "fields": [
+        { "key": "f1", "label": "Field 1: name · data type · size · format · key · validation · example", "lines": 2 },
+        { "key": "f2", "label": "Field 2: name · data type · size · format · key · validation · example", "lines": 2 },
+        { "key": "f3", "label": "Field 3: name · data type · size · format · key · validation · example", "lines": 2 },
+        { "key": "why", "label": "Two problems the data dictionary prevents for this client", "lines": 4 }
+      ] },
+      "scheme": {
+        "mark_scheme": "Each field (max 2 each, 6 in all): a suitable data type and size (1); a suitable format / key / validation and an example consistent with the type (1)\nProblems prevented (2): e.g. the same field gets different types in different tables so the tables cannot be linked; invalid data such as a negative price or a wrong date is accepted; programmers / new staff misunderstand a field; dates in different formats",
+        "points": [
+          { "criterion": "Field 1: suitable type and size", "marks": 1 },
+          { "criterion": "Field 1: suitable format / key / validation and example", "marks": 1 },
+          { "criterion": "Field 2: suitable type and size", "marks": 1 },
+          { "criterion": "Field 2: suitable format / key / validation and example", "marks": 1 },
+          { "criterion": "Field 3: suitable type and size", "marks": 1 },
+          { "criterion": "Field 3: suitable format / key / validation and example", "marks": 1 },
+          { "criterion": "Two problems prevented, linked to the client", "marks": 2 }
+        ],
+        "model_answer": "School canteen. OrderID · Integer · — · — · PK · presence, unique · 10452. Price · Real / Decimal(6,2) · — · 0.00 · — · range 0–5000 · 850.00. OrderDate · Date · 10 · DD/MM/YYYY · — · not in the future · 05/11/2026. Problems: StudentID would have the same type in Orders and Students, so each order is linked to the right pupil; the range check on Price stops a typing error such as 85000 from charging parents too much."
+      }
+    },
+    {
+      "key": "dd-l1-live-exit-1", "title": "Metadata", "type": "mcq", "marks": 1, "difficulty": "easy", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "Which of these is **metadata**?",
+      "options": [{ "key": "A", "content": "Bekova" }, { "key": "B", "content": "The field Surname is Text with a maximum of 30 characters" }, { "key": "C", "content": "14/03/2009" }, { "key": "D", "content": "S0412" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    },
+    {
+      "key": "dd-l1-live-exit-2", "title": "Data integrity", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "How does a data dictionary help to keep data **accurate**?",
+      "options": [{ "key": "A", "content": "It encrypts the data" }, { "key": "B", "content": "It records validation rules, so invalid values are rejected" }, { "key": "C", "content": "It makes a backup every night" }, { "key": "D", "content": "It deletes old records" }],
+      "scheme": { "mark_scheme": "B", "accepted": { "correct": "B" } }
+    },
+    {
+      "key": "dd-l1-live-exit-3", "title": "Not in a data dictionary", "type": "mcq", "marks": 1, "difficulty": "medium", "command_word": "identify",
+      "grading": "AUTO", "objectives": ["11.4.1.5"], "practice": false,
+      "text": "Which of these is **not** normally recorded in a data dictionary for a field?",
+      "options": [{ "key": "A", "content": "Data type" }, { "key": "B", "content": "Validation rule" }, { "key": "C", "content": "The value stored in every record" }, { "key": "D", "content": "Field size" }],
+      "scheme": { "mark_scheme": "C", "accepted": { "correct": "C" }, "explanation": "The values are the data itself; the dictionary only describes the fields." }
+    }
+  ],
+  "reflection": [
+    "Were the lesson objectives / learning objectives achieved? What did learners learn today?",
+    "What was the learning atmosphere like? Did differentiation work well?",
+    "Did I keep to the timings? What changes did I make to the plan and why?"
+  ]
+}
