@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Crown, FileText, Laptop, Loader2, Maximize, Presentation, XCircle } from "lucide-react";
+import { CheckCircle2, Crown, FileText, Laptop, Users, Loader2, Maximize, Presentation, XCircle } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { AnswerData } from "@/lib/questions/types";
 import { AnswerInput, type AnswerableQuestion } from "@/components/questions/answer-input";
@@ -147,6 +147,14 @@ export function PaperCard() {
       <p className="mt-2 text-xl font-semibold">Work on your printed worksheet</p>
       <p className="mt-1 text-sm text-muted">Write your answers on paper. Your teacher will open the next step here.</p>
     </div>
+  );
+}
+
+export function PartnerCard({ members }: { members: string[] }) {
+  return (
+    <p className="flex items-center gap-2 rounded-md bg-primary-soft px-3 py-2 text-sm">
+      <Users className="h-4 w-4 text-primary" /> You work with <b>{members.join(", ")}</b> — sit together.
+    </p>
   );
 }
 

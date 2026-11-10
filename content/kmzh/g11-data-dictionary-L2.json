@@ -85,7 +85,7 @@
   },
   {
    "value": "Cooperation",
-   "action": "Random pairs and groups share one laptop, agree on every entry of the data dictionary and give each other feedback."
+   "action": "Partners compare their own ERDs, agree on the best one, build the data dictionary together and defend it in front of the class."
   }
  ],
  "cross_curricular": [
@@ -95,7 +95,7 @@
  ],
  "ict": [
   "Printed review worksheet (written answers).",
-  "ICT Practice Platform, Lessons section: theory as slides, live votes and tasks, pair and group work on shared laptops.",
+  "ICT Practice Platform, Lessons section: theory as slides, live votes and tasks, random pairs and client cards on the learners' screens.",
   "Interactive validation checker in the theory: learners test a record against the rules.",
   "Practice questions with automatic feedback; results visible to the teacher live."
  ],
@@ -108,11 +108,11 @@
   "support": [
    "The worksheet goes from recall to explanation; key words are given in the questions.",
    "Worked example on the slides: the sports centre table and its data dictionary.",
-   "The group task has labelled boxes for each item; client cards name the fields.",
-   "Random mixed-ability groups with roles: leader, writer, checker, presenter."
+   "Client cards on the screens describe the entities; the sports centre worked example on the slides shows a complete data dictionary.",
+   "Random mixed-ability pairs; each learner draws an ERD first, so both take part before choosing one."
   ],
   "stretch": [
-   "Write the SQL CHECK and NOT NULL constraints for the group's rules.",
+   "Write the SQL CREATE TABLE statements with CHECK and NOT NULL for the pair's tables.",
    "Explain why a lookup check is unsuitable for 8 000 book titles.",
    "Find a value that passes every check but is still wrong, and suggest how verification would catch it."
   ]
@@ -120,7 +120,7 @@
  "assessment": [
   "Written review worksheet (30 marks) marked by the teacher with the mark scheme; common gaps are discussed in the next lesson.",
   "Live results of every task on the teacher's slide; misconceptions are discussed at once.",
-  "The group's data dictionary is checked by the teacher with feedback during the lesson.",
+  "Pair project on paper (ERD, data dictionary with validation rules) assessed during the defence against the criteria; peers ask questions.",
   "Exit ticket (marked automatically) checks the lesson objectives.",
   "Practice results count towards SAU points."
  ],
@@ -168,11 +168,11 @@
   },
   {
    "stage": "Middle",
-   "minutes": 40,
+   "minutes": 38,
    "blocks": [
     {
      "id": "m1",
-     "minutes": 8,
+     "minutes": 7,
      "title": "Slides: validation checks",
      "mode": "class",
      "kind": "slides",
@@ -192,7 +192,7 @@
     },
     {
      "id": "m2",
-     "minutes": 8,
+     "minutes": 6,
      "title": "Pair work: checks, verification and test data",
      "mode": "pair",
      "kind": "task",
@@ -203,7 +203,6 @@
       "dd-check-tick",
       "dd-accept-mr",
       "dd-check-email-mcq",
-      "dd-vv-tick",
       "dd-testdata-tick"
      ],
      "resources": [
@@ -212,7 +211,7 @@
     },
     {
      "id": "m3",
-     "minutes": 6,
+     "minutes": 5,
      "title": "Slides: creating a data dictionary",
      "mode": "class",
      "kind": "slides",
@@ -231,92 +230,69 @@
     },
     {
      "id": "m4",
-     "minutes": 5,
-     "title": "Individual practice: types and keys",
-     "mode": "individual",
-     "kind": "task",
-     "teacher": "Opens three questions; checks the live results before the group work.",
-     "learners": "Answer individually.",
-     "tasks": [
-      "dd-leading-zero-mcq",
-      "dd-fk-type-mcq",
-      "dd-entry-table"
-     ],
+     "minutes": 20,
+     "title": "Pair project: ERD → choose one → data dictionary",
+     "mode": "pair",
+     "kind": "paper",
+     "teacher": "Forms random pairs; each pair gets a client card on the learners' screens. Step 1 (4 min): each learner draws the ERD alone on paper. Step 2 (3 min): partners compare the two ERDs — entities, degrees, link table for M:M — and choose the better one or merge them. Step 3 (13 min): together they write the data dictionary for every table of the chosen ERD on paper: field name, data type, size, key (PK / FK), validation rule, example. Checks that every field has a validation rule, foreign keys match their primary keys and every example passes its own rule.",
+     "learners": "Draw the ERD on your own, compare with your partner and choose one, then write the data dictionary for all its tables with a validation rule for every field.",
+     "scenarios": "dd-l2-pairs",
      "resources": [
-      "Practice: lesson 2, set B"
-     ]
-    },
-    {
-     "id": "m5",
-     "minutes": 13,
-     "title": "Group work: the full data dictionary",
-     "mode": "group",
-     "group_size": 4,
-     "kind": "task",
-     "teacher": "Opens the group task: random groups of four, a client card each, the host's laptop. After 10 minutes one group presents; the class checks that every example passes its own rule. Teacher can ask for the answers to be checked during the lesson.",
-     "learners": "In groups, create the data dictionary for four fields of the client's table and give test data for one rule.",
-     "tasks": [
-      "dd-l2-live-group"
-     ],
-     "scenarios": "dd-l2-scenarios",
-     "resources": [
-      "Live task: group data dictionary with client cards",
-      "Success criteria"
+      "Client cards on the learners' screens",
+      "A4 paper",
+      "Theory slide: a complete data dictionary (sports centre example)"
      ]
     }
    ]
   },
   {
    "stage": "End",
-   "minutes": 8,
+   "minutes": 10,
    "blocks": [
     {
      "id": "e1",
-     "minutes": 4,
-     "title": "Exit ticket",
+     "minutes": 7,
+     "title": "Defence: pairs present to the class",
+     "mode": "class",
+     "kind": "paper",
+     "teacher": "Pairs present their ERD and data dictionary in turn (about 1 minute each, under the document camera or held up). The class asks one question to each pair (Why VARCHAR? Which check rejects …? Is the M:M resolved?). Teacher assesses with the criteria: ERD correct with M:M resolved; suitable types and sizes; keys match; a validation rule for every field; examples pass their rules; clear defence.",
+     "learners": "Present and defend the pair's ERD and data dictionary; ask other pairs questions.",
+     "resources": [
+      "Document camera or board",
+      "Assessment criteria for the defence"
+     ]
+    },
+    {
+     "id": "e2",
+     "minutes": 3,
+     "title": "Exit ticket and homework",
      "mode": "individual",
      "kind": "task",
-     "teacher": "Opens the exit ticket and uses the results to plan the next lesson.",
-     "learners": "Answer three questions individually.",
+     "teacher": "Opens the exit ticket. Homework: finish the remaining lesson 2 practice and hand in handwritten notes for lesson 2.",
+     "learners": "Answer three questions and note the homework.",
      "tasks": [
       "dd-l2-live-exit-1",
       "dd-l2-live-exit-2",
       "dd-l2-live-exit-3"
      ],
-     "resources": [
-      "Live tasks: exit ticket"
-     ]
-    },
-    {
-     "id": "e2",
-     "minutes": 4,
-     "title": "Reflection and homework",
-     "mode": "class",
-     "kind": "poll",
-     "teacher": "Traffic-light reflection. Homework: finish the remaining lesson 2 practice and hand in handwritten notes for lesson 2.",
-     "learners": "Rate their confidence and note the homework.",
-     "poll": {
-      "question": "How confident are you with today's objectives?",
-      "options": [
-       "Green: I can create a full data dictionary with validation rules",
-       "Amber: I can choose types and checks for single fields",
-       "Red: I need more help"
-      ]
-     },
      "homework": [
       "dd-validation-match",
       "dd-format-fill",
+      "dd-vv-tick",
       "dd-vv-tf",
       "dd-boundary-fill",
       "dd-sql-match",
       "dd-notnull-short",
       "dd-data-types",
+      "dd-leading-zero-mcq",
+      "dd-fk-type-mcq",
+      "dd-entry-table",
       "dd-size-fill",
       "dd-example-mcq",
       "dd-entry-errors-mr"
      ],
      "resources": [
-      "Traffic-light poll",
+      "Live tasks: exit ticket",
       "Practice: remaining lesson 2 questions",
       "Notes check: lesson 2"
      ]
@@ -325,26 +301,26 @@
   }
  ],
  "scenarios": {
-  "dd-l2-scenarios": [
+  "dd-l2-pairs": [
    {
-    "client": "An online shop",
-    "details": "Table Products: ProductID (e.g. P00125), Name, Price in tenge, InStock (how many), CategoryID, OnSale (yes/no)."
+    "client": "A clinic",
+    "details": "Patients and doctors. A patient can book many appointments; each appointment is with one doctor and one patient on a date and time. A doctor has many appointments. Store the patient's IIN (12 digits), name, date of birth and phone; the doctor's name and speciality."
    },
    {
-    "client": "A school",
-    "details": "Table Results: ResultID, StudentID (e.g. S0421), Subject, Mark (0–100), Term (1–4), ExamDate."
+    "client": "A school library",
+    "details": "Students and books. A student can borrow many books and a book can be borrowed by many students over time. Store each loan's date and return date; the student's ID (S + 4 digits), name and grade (11 or 12); the book's ISBN, title and number of copies."
+   },
+   {
+    "client": "An online shop",
+    "details": "Customers, orders and products. A customer places many orders; an order contains many products and a product is in many orders, each with a quantity. Store prices in tenge, order dates and the customer's e-mail."
+   },
+   {
+    "client": "A sports centre",
+    "details": "Members and classes. A member attends many classes and a class has many members; each class has one trainer. Store the member's number (M + 4 digits), date of birth (at least 10 years old), the class name, day and maximum size (5–30)."
    },
    {
     "client": "A taxi company",
-    "details": "Table Trips: TripID, DriverID (e.g. D017), StartTime, Distance in km (e.g. 12.4), Fare in tenge, PaidByCard (yes/no)."
-   },
-   {
-    "client": "A hotel",
-    "details": "Table Bookings: BookingID, GuestPhone, RoomNumber (101–520), CheckIn, Nights (1–30), Breakfast (yes/no)."
-   },
-   {
-    "client": "A clinic",
-    "details": "Table Patients: PatientID (IIN, 12 digits), Surname, DateOfBirth, BloodGroup (O, A, B, AB), Phone, Insured (yes/no)."
+    "details": "Drivers, cars and trips. A driver makes many trips; each trip uses one car; a car is used for many trips. Store the car's number plate, the trip's distance in km (e.g. 12.4), fare in tenge and start time, and whether it was paid by card."
    }
   ]
  },
@@ -464,95 +440,6 @@
      "correct": "C"
     },
     "explanation": "Codes that are not used in calculations — and may have leading zeros — are stored as text."
-   }
-  },
-  {
-   "key": "dd-l2-live-group",
-   "title": "Database designers: the full data dictionary",
-   "type": "labelled_answers",
-   "marks": 10,
-   "difficulty": "hard",
-   "command_word": "describe",
-   "grading": "AI",
-   "objectives": [
-    "11.4.1.6"
-   ],
-   "practice": false,
-   "text": "Your group creates the data dictionary for your client's table (see your card). For **four** fields write: name · data type · size · key · validation rule · example. Then give **test data** for one of your validation rules.",
-   "content": {
-    "fields": [
-     {
-      "key": "f1",
-      "label": "Field 1 (the primary key): name · type · size · key · validation · example",
-      "lines": 2
-     },
-     {
-      "key": "f2",
-      "label": "Field 2: name · type · size · key · validation · example",
-      "lines": 2
-     },
-     {
-      "key": "f3",
-      "label": "Field 3: name · type · size · key · validation · example",
-      "lines": 2
-     },
-     {
-      "key": "f4",
-      "label": "Field 4: name · type · size · key · validation · example",
-      "lines": 2
-     },
-     {
-      "key": "test",
-      "label": "Test data for one rule: a normal, a boundary and an erroneous value, with the expected result",
-      "lines": 3
-     }
-    ]
-   },
-   "scheme": {
-    "mark_scheme": "Each field (max 2 each, 8 in all): a suitable data type and size, with the key marked correctly (1); a suitable validation rule and an example that fits the type and passes the rule (1)\nTest data (2): normal and boundary values that are accepted (1); an erroneous value that is rejected, with the expected results (1)",
-    "points": [
-     {
-      "criterion": "Field 1: type, size and key",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 1: validation and example",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 2: type, size and key",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 2: validation and example",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 3: type, size and key",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 3: validation and example",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 4: type, size and key",
-      "marks": 1
-     },
-     {
-      "criterion": "Field 4: validation and example",
-      "marks": 1
-     },
-     {
-      "criterion": "Normal and boundary test data",
-      "marks": 1
-     },
-     {
-      "criterion": "Erroneous test data with expected result",
-      "marks": 1
-     }
-    ],
-    "model_answer": "Online shop, Products. ProductID · VARCHAR · 6 · PK · presence; format P + 5 digits; unique · P00125. Name · VARCHAR · 40 · — · presence; length ≤ 40 · Wireless mouse. Price · DECIMAL · 8,2 · — · range > 0 and ≤ 500000 · 4990.00. InStock · INTEGER · — · — · type whole number; range ≥ 0 · 37. Test data for Price: normal 4990.00 accepted; boundary 0.01 accepted; erroneous −5 rejected (\"Price must be more than 0\")."
    }
   },
   {

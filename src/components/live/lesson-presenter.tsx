@@ -13,7 +13,7 @@ export type SlideText = { who: string; lines: string[] };
 export type Slide = { key: string } & SlideBody;
 type SlideBody =
   | { kind: "title"; blockId: null; title: string; topic: string; className: string; objectives: { all: string; most: string; some: string } | null; codes: string[]; values: string[]; vocabulary: string[] }
-  | { kind: "step"; blockId: string; stage: string; from: number; to: number; title: string; mode: string; learners: string; teacher: string; poll: { question: string; labels: string[]; counts: number[] } | null; groups: { label: string; client: string | null; members: { name: string; host: boolean }[] }[] }
+  | { kind: "step"; blockId: string; stage: string; from: number; to: number; title: string; mode: string; learners: string; teacher: string; poll: { question: string; labels: string[]; counts: number[] } | null; paper?: boolean; groups: { label: string; client: string | null; members: { name: string; host: boolean }[] }[] }
   | { kind: "theory"; blockId: string; heading: string; sub: string; body: ReactNode }
   | {
       kind: "question";
@@ -253,13 +253,17 @@ function SlideView({ s, sessionId, pending, start, planHref, ended }: { s: Slide
         )}
         {s.groups.length > 0 && (
           <div>
-            <p className="mb-3 flex items-center gap-2 text-base font-medium"><Crown className="h-5 w-5 text-warning" /> Each group works on this person&apos;s laptop</p>
+            {s.paper ? (
+              <p className="mb-3 text-base font-medium">{s.mode === "Pairs (random)" ? "Pairs" : "Groups"} — work on paper; the client card is on each learner&apos;s screen</p>
+            ) : (
+              <p className="mb-3 flex items-center gap-2 text-base font-medium"><Crown className="h-5 w-5 text-warning" /> Each group works on this person&apos;s laptop</p>
+            )}
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {s.groups.map((g) => (
                 <li key={g.label} className="rounded-xl border border-border p-3">
                   <p className="text-sm font-semibold text-muted">{g.label}{g.client ? ` · ${g.client}` : ""}</p>
                   {g.members.map((m) => (
-                    <p key={m.name} className={cn("text-lg", m.host && "font-bold")}>{m.host && <Crown className="mr-1 inline h-4 w-4 text-warning" />}{m.name}</p>
+                    <p key={m.name} className={cn("text-lg", m.host && !s.paper && "font-bold")}>{m.host && !s.paper && <Crown className="mr-1 inline h-4 w-4 text-warning" />}{m.name}</p>
                   ))}
                 </li>
               ))}

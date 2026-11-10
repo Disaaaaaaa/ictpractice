@@ -107,6 +107,7 @@ export default async function LessonPage({ params, searchParams }: PageProps<"/t
         mode: MODE[b.mode],
         learners: b.learners,
         teacher: b.teacher,
+        paper: b.kind === "paper",
         poll: b.poll ? { question: b.poll.question, labels: b.poll.options, counts: b.poll.options.map((_, k) => pollVotes.filter((v) => String(v.answer?.selected) === String(k)).length) } : null,
         groups: groups.map((g, k) => ({
           label: `${b.mode === "pair" ? "Pair" : "Group"} ${k + 1}`,

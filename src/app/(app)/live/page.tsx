@@ -12,7 +12,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { LiveRefresh } from "@/components/live/live-refresh";
-import { AutoRefresh, BoardCard, PaperCard, GoToLaptop, Heartbeat, HostBadge, LessonStage, LiveQuestion, PollCard } from "@/components/live/student-live";
+import { AutoRefresh, BoardCard, PaperCard, PartnerCard, GoToLaptop, Heartbeat, HostBadge, LessonStage, LiveQuestion, PollCard } from "@/components/live/student-live";
 
 export const metadata: Metadata = { title: "Lesson" };
 
@@ -104,8 +104,9 @@ export default async function LivePage() {
                     />
                   )}
                   {b.groupSize > 1 && !g && <p className="text-sm text-muted">Your teacher is forming the groups…</p>}
-                  {g && !isHost && <GoToLaptop host={name(g.host)} members={g.members.map(name)} />}
-                  {g && isHost && <HostBadge members={g.members.map(name)} />}
+                  {g && b.kind === "paper" && <PartnerCard members={g.members.filter((m) => m !== profile.id).map(name)} />}
+                  {g && b.kind !== "paper" && !isHost && <GoToLaptop host={name(g.host)} members={g.members.map(name)} />}
+                  {g && b.kind !== "paper" && isHost && <HostBadge members={g.members.map(name)} />}
                   {scenario && (
                     <div className="rounded-lg border border-border bg-surface-2 p-4">
                       <p className="text-xs font-semibold uppercase tracking-wide text-muted">Your client</p>
