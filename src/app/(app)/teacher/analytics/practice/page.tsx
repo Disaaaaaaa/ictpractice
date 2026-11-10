@@ -94,7 +94,7 @@ export default async function PracticeMonitorPage({ searchParams }: PageProps<"/
         description={topic
           ? `How far each student is in the practice set of "${topic.title}": their last question in this topic and the share of its practice questions they have completed.`
           : "Which practice question each student is working on right now, and how much of that topic's practice set they have completed."}
-        actions={<AutoRefresh seconds={15} />}
+        actions={<AutoRefresh seconds={30} />}
       />
       <AnalyticsTabs />
 
