@@ -1,0 +1,76 @@
+{
+  "topic": "g11-normalization",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "What normalisation is",
+      "must": "Organising data into well-structured related tables following the normal forms so each fact is stored once, redundancy is reduced and anomalies are avoided.",
+      "weight": 3
+    },
+    {
+      "title": "Data redundancy",
+      "must": "The same data stored more than once; it wastes storage and can become inconsistent.",
+      "weight": 2
+    },
+    {
+      "title": "Update anomaly",
+      "must": "Repeated data must be changed in many rows; missing one makes the data inconsistent — with an example (address in every order).",
+      "weight": 3
+    },
+    {
+      "title": "Insertion anomaly",
+      "must": "Data cannot be added without other unrelated data — e.g. a new customer cannot be stored before an order.",
+      "weight": 3
+    },
+    {
+      "title": "Deletion anomaly",
+      "must": "Deleting one record also deletes other needed data — e.g. deleting a customer’s only order loses the customer.",
+      "weight": 3
+    },
+    {
+      "title": "Benefits of normalisation",
+      "must": "At least two: less redundancy / storage, consistent data (change in one place), no anomalies, easier to maintain.",
+      "weight": 2
+    },
+    {
+      "title": "Drawbacks",
+      "must": "More tables so queries need joins (can be slower / more complex); some systems denormalise for speed.",
+      "weight": 1
+    },
+    {
+      "title": "Order of the normal forms",
+      "must": "UNF → 1NF → 2NF → 3NF; each form includes the rules of the one before (staircase diagram).",
+      "weight": 2
+    },
+    {
+      "title": "Rule of 1NF",
+      "must": "Atomic values (one value per cell), no repeating groups, a primary key so each record is unique.",
+      "weight": 3
+    },
+    {
+      "title": "Rule of 2NF",
+      "must": "In 1NF and every non-key field depends on the whole primary key — no partial dependencies.",
+      "weight": 3
+    },
+    {
+      "title": "Rule of 3NF",
+      "must": "In 2NF and no non-key field depends on another non-key field — no transitive dependencies; “the key, the whole key and nothing but the key”.",
+      "weight": 3
+    },
+    {
+      "title": "Key terms",
+      "must": "Atomic value, repeating group, composite key, functional dependency (A → B) — each with an example.",
+      "weight": 2
+    },
+    {
+      "title": "Full, partial and transitive dependency",
+      "must": "One example of each, e.g. (StudentID, SubjectID) → Mark; StudentID → StudentName; Class → ClassTeacher; which form each breaks.",
+      "weight": 2
+    },
+    {
+      "title": "Single-field key",
+      "must": "A 1NF table with a single-field primary key is automatically in 2NF because a partial dependency needs a composite key.",
+      "weight": 1
+    }
+  ]
+}

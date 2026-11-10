@@ -1,0 +1,66 @@
+{
+  "topic": "g11-normalization",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "What breaks 1NF",
+      "must": "A field with several values in one cell or repeating columns (Phone1, Phone2…), with an example such as Country = “Kazakhstan, France”.",
+      "weight": 3
+    },
+    {
+      "title": "Converting to 1NF",
+      "must": "Make values atomic (one row per value / split fields), remove repeating groups, choose a primary key — often composite.",
+      "weight": 3
+    },
+    {
+      "title": "1NF example",
+      "must": "Movies table rewritten with one row per film–country pair and key (MovieID, Country).",
+      "weight": 2
+    },
+    {
+      "title": "Checking for 2NF",
+      "must": "If the key is a single field the table is already 2NF; if composite, check whether each field depends on the whole key.",
+      "weight": 2
+    },
+    {
+      "title": "Converting to 2NF",
+      "must": "Move fields that depend on part of the key into a new table with that part as its primary key; keep it in the original table as a foreign key.",
+      "weight": 3
+    },
+    {
+      "title": "2NF example",
+      "must": "Movies(MovieID, Title, Year) and MovieCountries(MovieID*, Country), or OrderLines / Products.",
+      "weight": 2
+    },
+    {
+      "title": "Transitive dependency",
+      "must": "A non-key field depends on another non-key field, with an example (CourseID → TeacherName → TeacherDateOfBirth).",
+      "weight": 3
+    },
+    {
+      "title": "Converting to 3NF",
+      "must": "Move the dependent fields to a new table; the field they depend on becomes its primary key and stays as a foreign key in the original table.",
+      "weight": 3
+    },
+    {
+      "title": "3NF example",
+      "must": "Teachers(TeacherID, TeacherName, DateOfBirth) and Courses(CourseID, CourseName, TeacherID*), linked 1:M.",
+      "weight": 2
+    },
+    {
+      "title": "Notation",
+      "must": "Primary keys underlined, foreign keys marked with *; table written as TableName(Field1, Field2, …).",
+      "weight": 2
+    },
+    {
+      "title": "What each step removes",
+      "must": "Table or list: 1NF lists/repeating groups, 2NF partial dependencies, 3NF transitive dependencies, and the key of each new table.",
+      "weight": 1
+    },
+    {
+      "title": "Common mistakes",
+      "must": "Forgetting the foreign key, losing a field, using a name as a key, confusing partial and transitive dependencies.",
+      "weight": 1
+    }
+  ]
+}
