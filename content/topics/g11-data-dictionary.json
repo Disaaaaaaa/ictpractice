@@ -284,7 +284,7 @@
       "marks": 5,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.6"
       ],
@@ -354,7 +354,7 @@
             [
               null,
               null,
-              "varchar||text||string||char"
+              "varchar||text||string||char||varchar(5)"
             ],
             [
               null,
@@ -364,7 +364,7 @@
             [
               null,
               null,
-              "decimal||real||float||currency||numeric"
+              "decimal||real||float||currency||numeric||decimal(8,2)||decimal(7,2)"
             ],
             [
               null,
@@ -378,166 +378,6 @@
             ]
           ]
         }
-      }
-    },
-    {
-      "key": "dd-validation-table",
-      "title": "Write validation rules",
-      "type": "table_completion",
-      "marks": 4,
-      "difficulty": "medium",
-      "command_word": "complete",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "Complete the data dictionary with a suitable **validation rule** for each field.",
-      "content": {
-        "columns": [
-          "Field name",
-          "Data type",
-          "Validation rule"
-        ],
-        "rows": 4,
-        "prefill": [
-          [
-            "Age",
-            "INTEGER",
-            null
-          ],
-          [
-            "Email",
-            "VARCHAR(50)",
-            null
-          ],
-          [
-            "Password",
-            "VARCHAR(16)",
-            null
-          ],
-          [
-            "Size",
-            "VARCHAR(2)",
-            null
-          ]
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "Age (1): range check, e.g. 6–100 / > 0\nEmail (1): format check — contains @ and a dot / presence / uniqueness\nPassword (1): length check, e.g. 8–16 characters / presence\nSize (1): lookup check — S, M, L, XL",
-        "points": [
-          {
-            "criterion": "Age",
-            "marks": 1
-          },
-          {
-            "criterion": "Email",
-            "marks": 1
-          },
-          {
-            "criterion": "Password",
-            "marks": 1
-          },
-          {
-            "criterion": "Size",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Age: range check 6–100. Email: format check — must contain @. Password: length check 8–16 characters. Size: lookup check — S, M, L or XL.",
-        "ai_instructions": "Each rule must be sensible for that field; name of the check is not required if the rule is clear."
-      }
-    },
-    {
-      "key": "dd-phone-type",
-      "title": "Data type for a phone number",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "A designer gives the field `Phone` the data type INTEGER. Explain why this is not suitable and state a better data type.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- A phone number may start with + or 0 / contain spaces; no calculations are done; may be too long for an integer (1)\n- VARCHAR / text (1)",
-        "points": [
-          {
-            "criterion": "Reason",
-            "marks": 1
-          },
-          {
-            "criterion": "VARCHAR / text",
-            "marks": 1
-          }
-        ],
-        "model_answer": "A phone number such as +77011234567 contains a + sign and is never used in calculations, so it should be stored as VARCHAR."
-      }
-    },
-    {
-      "key": "dd-fk-same-type",
-      "title": "Foreign key type",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "In a data dictionary, `StudentID` is VARCHAR(5) in the `Students` table. Explain why `StudentID` in the `Loans` table must also be VARCHAR(5).",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- It is a foreign key that refers to the primary key in Students (1)\n- the values must match exactly for the tables to be linked / joined / referential integrity (1)",
-        "points": [
-          {
-            "criterion": "Foreign key referring to the PK",
-            "marks": 1
-          },
-          {
-            "criterion": "Values must match to link",
-            "marks": 1
-          }
-        ],
-        "model_answer": "StudentID in Loans is a foreign key referring to the primary key of Students, so its values must be of the same type and size to match and link the two tables."
-      }
-    },
-    {
-      "key": "dd-validation-verification",
-      "title": "Validation limits",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "A range check allows dates of birth between 2005 and 2012. Explain why a pupil's date of birth could still be stored incorrectly.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- Validation only checks that data is sensible / within the rules (1)\n- a wrong date inside the range (e.g. a typing mistake) would still be accepted; verification is needed (1)",
-        "points": [
-          {
-            "criterion": "Validation checks reasonableness only",
-            "marks": 1
-          },
-          {
-            "criterion": "Wrong value in range accepted",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Validation only checks that the date is in the allowed range; if 15/04/2009 is typed instead of 14/04/2009, it is still accepted even though it is wrong."
       }
     },
     {
@@ -570,272 +410,6 @@
             ]
           ]
         }
-      }
-    },
-    {
-      "key": "dd-create-entry",
-      "title": "Create an entry",
-      "type": "table_completion",
-      "marks": 4,
-      "difficulty": "hard",
-      "command_word": "complete",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "Complete the data dictionary entry for the field `Price` in a `Products` table.",
-      "content": {
-        "columns": [
-          "Field name",
-          "Data type",
-          "Key",
-          "Validation",
-          "Example"
-        ],
-        "rows": 1,
-        "prefill": [
-          [
-            "Price",
-            null,
-            null,
-            null,
-            null
-          ]
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "Data type: DECIMAL / REAL / CURRENCY (1)\nKey: none (1)\nValidation: range check > 0 / presence (1)\nExample: e.g. 450.00 (1)",
-        "points": [
-          {
-            "criterion": "Data type",
-            "marks": 1
-          },
-          {
-            "criterion": "Key none",
-            "marks": 1
-          },
-          {
-            "criterion": "Validation",
-            "marks": 1
-          },
-          {
-            "criterion": "Example",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Price | DECIMAL | — | Range check: greater than 0 | 450.00"
-      }
-    },
-    {
-      "key": "dd-structured-library",
-      "title": "A library data dictionary",
-      "type": "structured",
-      "marks": 6,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
-      "practice": true,
-      "text": "```text\nBooks ( BookID, Title, Author, YearPublished, Available )\n```",
-      "scheme": {
-        "mark_scheme": ""
-      },
-      "parts": [
-        {
-          "key": "dd-lib-a",
-          "part_label": "(a)",
-          "title": "Data types",
-          "type": "table_completion",
-          "marks": 3,
-          "difficulty": "exam",
-          "command_word": "complete",
-          "grading": "HYBRID",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "practice": true,
-          "text": "Complete the data type for each field.",
-          "content": {
-            "columns": [
-              "Field",
-              "Data type"
-            ],
-            "rows": 3,
-            "prefill": [
-              [
-                "Title",
-                null
-              ],
-              [
-                "YearPublished",
-                null
-              ],
-              [
-                "Available",
-                null
-              ]
-            ]
-          },
-          "scheme": {
-            "mark_scheme": "Title VARCHAR (1); YearPublished INTEGER (1); Available BOOLEAN (1)",
-            "points": [
-              {
-                "criterion": "VARCHAR",
-                "marks": 1
-              },
-              {
-                "criterion": "INTEGER",
-                "marks": 1
-              },
-              {
-                "criterion": "BOOLEAN",
-                "marks": 1
-              }
-            ],
-            "accepted": {
-              "rows": [
-                [
-                  null,
-                  "varchar||text||string"
-                ],
-                [
-                  null,
-                  "integer||int||number"
-                ],
-                [
-                  null,
-                  "boolean||bool||yes/no"
-                ]
-              ]
-            }
-          }
-        },
-        {
-          "key": "dd-lib-b",
-          "part_label": "(b)",
-          "title": "Validation",
-          "type": "labelled_answers",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "state",
-          "grading": "AI",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "practice": true,
-          "text": "State a suitable validation rule for `BookID` and for `YearPublished`.",
-          "content": {
-            "fields": [
-              {
-                "key": "1",
-                "label": "BookID",
-                "lines": 1
-              },
-              {
-                "key": "2",
-                "label": "YearPublished",
-                "lines": 1
-              }
-            ]
-          },
-          "scheme": {
-            "mark_scheme": "BookID (1): presence / uniqueness / format, e.g. B + 5 digits\nYearPublished (1): range, e.g. 1450 to the current year",
-            "points": [
-              {
-                "criterion": "BookID rule",
-                "marks": 1
-              },
-              {
-                "criterion": "YearPublished rule",
-                "marks": 1
-              }
-            ],
-            "model_answer": "BookID: format check — B followed by 5 digits. YearPublished: range check 1450 to 2026."
-          }
-        },
-        {
-          "key": "dd-lib-c",
-          "part_label": "(c)",
-          "title": "Primary key",
-          "type": "short_answer",
-          "marks": 1,
-          "difficulty": "exam",
-          "command_word": "identify",
-          "grading": "HYBRID",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "practice": true,
-          "text": "Identify the field that should be marked as the primary key.",
-          "content": {
-            "answer_lines": 1
-          },
-          "scheme": {
-            "mark_scheme": "BookID (1)",
-            "points": [
-              {
-                "criterion": "BookID",
-                "marks": 1
-              }
-            ],
-            "model_answer": "BookID",
-            "accepted": {
-              "values": [
-                "bookid",
-                "book id",
-                "book_id"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "dd-extended-create",
-      "title": "Create a data dictionary",
-      "type": "extended",
-      "marks": 6,
-      "difficulty": "exam",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.1.6"
-      ],
-      "practice": true,
-      "text": "A cinema stores tickets in the table:\n\n```text\nTickets ( TicketID, FilmID, SeatNumber, ShowDate, Price, IsChild )\n```\n\nCreate a data dictionary for this table. For each field give the data type, key (if any) and a validation rule.",
-      "content": {
-        "answer_lines": 14
-      },
-      "scheme": {
-        "mark_scheme": "One mark per field correctly described (data type + sensible key / validation) (max 6):\n- TicketID: INTEGER / VARCHAR, PK, unique / presence\n- FilmID: same type as Films PK, FK, must exist in Films\n- SeatNumber: VARCHAR (e.g. A12), format letter + digits\n- ShowDate: DATE, not in the past / presence\n- Price: DECIMAL, range > 0\n- IsChild: BOOLEAN, true / false",
-        "points": [
-          {
-            "criterion": "TicketID",
-            "marks": 1
-          },
-          {
-            "criterion": "FilmID",
-            "marks": 1
-          },
-          {
-            "criterion": "SeatNumber",
-            "marks": 1
-          },
-          {
-            "criterion": "ShowDate",
-            "marks": 1
-          },
-          {
-            "criterion": "Price",
-            "marks": 1
-          },
-          {
-            "criterion": "IsChild",
-            "marks": 1
-          }
-        ],
-        "model_answer": "TicketID | INTEGER | PK | unique, presence\nFilmID | VARCHAR(6) | FK → Films | must exist in Films\nSeatNumber | VARCHAR(3) | — | format: letter + 1–2 digits (A12)\nShowDate | DATE | — | presence; not before today\nPrice | DECIMAL | — | range > 0\nIsChild | BOOLEAN | — | True / False"
       }
     },
     {
@@ -2051,6 +1625,994 @@
           "correct": true
         }
       }
+    },
+    {
+      "key": "dd-val-define-mcq",
+      "title": "What validation is",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "What is **validation**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Checking that data entered is the same as the original document"
+        },
+        {
+          "key": "B",
+          "content": "An automatic check that data is sensible and follows the rules before it is stored"
+        },
+        {
+          "key": "C",
+          "content": "Making a copy of the data in case it is lost"
+        },
+        {
+          "key": "D",
+          "content": "Encrypting the data so nobody can read it"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Validation checks data against rules (presence, range, format…). Comparing with the original is verification."
+      }
+    },
+    {
+      "key": "dd-check-tick",
+      "title": "Name the check",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the type of validation check.",
+      "content": {
+        "columns": [
+          "Validation rule",
+          "Presence",
+          "Range",
+          "Length",
+          "Format",
+          "Lookup"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Surname must not be left empty",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Mark must be from 0 to 100",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Password must have 8–16 characters",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "BookID must be the letter B followed by 5 digits",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "T-shirt size must be S, M, L or XL",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Date of birth must be after 01/01/2005",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Surname must not be left empty – Presence (1); Mark must be from 0 to 100 – Range (1); Password must have 8–16 characters – Length (1); BookID must be the letter B followed by 5 digits – Format (1); T-shirt size must be S, M, L or XL – Lookup (1); Date of birth must be after 01/01/2005 – Range (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-accept-mr",
+      "title": "Accepted or rejected",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The rule for the field `Age` is: **whole number from 10 to 18**. Which values are **accepted**? Select **three**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "10"
+        },
+        {
+          "key": "B",
+          "content": "18"
+        },
+        {
+          "key": "C",
+          "content": "9"
+        },
+        {
+          "key": "D",
+          "content": "17.5"
+        },
+        {
+          "key": "E",
+          "content": "15"
+        },
+        {
+          "key": "F",
+          "content": "fifteen"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B and E. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "E"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-check-email-mcq",
+      "title": "A check for e-mail",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Which validation check is the most suitable to make sure that an e-mail address contains `@` and a dot?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Range check"
+        },
+        {
+          "key": "B",
+          "content": "Lookup check"
+        },
+        {
+          "key": "C",
+          "content": "Format check"
+        },
+        {
+          "key": "D",
+          "content": "Presence check"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A format (picture) check tests that the data matches a pattern."
+      }
+    },
+    {
+      "key": "dd-leading-zero-mcq",
+      "title": "Postcodes as numbers",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A designer stores the postcode `010000` in a field of type INTEGER. What is stored?",
+      "options": [
+        {
+          "key": "A",
+          "content": "010000"
+        },
+        {
+          "key": "B",
+          "content": "10000"
+        },
+        {
+          "key": "C",
+          "content": "An error message"
+        },
+        {
+          "key": "D",
+          "content": "0"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Integers lose leading zeros, so codes are stored as VARCHAR."
+      }
+    },
+    {
+      "key": "dd-fk-type-mcq",
+      "title": "The type of a foreign key",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "In `Students`, `StudentID` is VARCHAR(5) and the primary key. What must `StudentID` be in `Loans`, where it is a foreign key?",
+      "options": [
+        {
+          "key": "A",
+          "content": "INTEGER"
+        },
+        {
+          "key": "B",
+          "content": "VARCHAR(10)"
+        },
+        {
+          "key": "C",
+          "content": "VARCHAR(5)"
+        },
+        {
+          "key": "D",
+          "content": "Any type, as long as the name is the same"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A foreign key has exactly the same data type and size as the primary key it refers to, so the values match."
+      }
+    },
+    {
+      "key": "dd-entry-table",
+      "title": "Data types and keys for Loans",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A library stores loans in `Loans ( LoanID, StudentID, LoanDate, Returned, Fine )`. `LoanID` is an auto-increment number; `StudentID` (e.g. S0421) is the primary key of `Students`; `Fine` is in tenge, e.g. 250.50.\n\nComplete the **data type** of each field. In the **Key** column write **PK** or **FK**, or leave it empty if the field is not a key.",
+      "content": {
+        "columns": [
+          "Field",
+          "Data type",
+          "Key"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "LoanID",
+            null,
+            null
+          ],
+          [
+            "StudentID",
+            null,
+            null
+          ],
+          [
+            "LoanDate",
+            null,
+            null
+          ],
+          [
+            "Returned",
+            null,
+            null
+          ],
+          [
+            "Fine",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "LoanID INTEGER, PK (1); StudentID VARCHAR(5), FK (1); LoanDate DATE (1); Returned BOOLEAN (1); Fine DECIMAL / REAL (1). Each row needs both cells correct.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "integer||int||autonumber||auto-increment",
+              "pk||primary key||primary"
+            ],
+            [
+              null,
+              "varchar||text||string||varchar(5)||varchar(6)||varchar(10)||varchar(12)||varchar(13)||varchar(20)||char",
+              "fk||foreign key||foreign"
+            ],
+            [
+              null,
+              "date||datetime",
+              ""
+            ],
+            [
+              null,
+              "boolean||bool||yes/no",
+              ""
+            ],
+            [
+              null,
+              "decimal||real||float||currency||numeric||decimal(6,2)||decimal(5,2)||decimal(8,2)",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-vv-tick",
+      "title": "Validation or verification",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each statement describes **validation** or **verification**.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Validation",
+          "Verification"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "The data is typed in twice and the computer compares the two copies",
+            null,
+            null
+          ],
+          [
+            "A mark is checked to be between 0 and 100",
+            null,
+            null
+          ],
+          [
+            "A person compares the screen with the paper form",
+            null,
+            null
+          ],
+          [
+            "It checks that data is sensible and follows the rules",
+            null,
+            null
+          ],
+          [
+            "It checks that data was copied correctly from the source",
+            null,
+            null
+          ],
+          [
+            "A pupil ID is checked to match the pattern S + 4 digits",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The data is typed in twice and the computer compares the two copies – Verification (1); A mark is checked to be between 0 and 100 – Validation (1); A person compares the screen with the paper form – Verification (1); It checks that data is sensible and follows the rules – Validation (1); It checks that data was copied correctly from the source – Verification (1); A pupil ID is checked to match the pattern S + 4 digits – Validation (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-vv-tf",
+      "title": "Can validation prove data is correct?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "If data passes all its validation checks, it must be correct.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Validation only checks that data is sensible: 78 typed instead of 87 still passes a 0–100 range check."
+      }
+    },
+    {
+      "key": "dd-testdata-tick",
+      "title": "Test data",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The rule for `Mark` is **whole number from 0 to 100**. Tick (✓) the type of each item of test data.",
+      "content": {
+        "columns": [
+          "Value",
+          "Normal",
+          "Boundary",
+          "Erroneous"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "57",
+            null,
+            null,
+            null
+          ],
+          [
+            "0",
+            null,
+            null,
+            null
+          ],
+          [
+            "100",
+            null,
+            null,
+            null
+          ],
+          [
+            "101",
+            null,
+            null,
+            null
+          ],
+          [
+            "abc",
+            null,
+            null,
+            null
+          ],
+          [
+            "83",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "57 – Normal (1); 0 – Boundary (1); 100 – Boundary (1); 101 – Erroneous (1); abc – Erroneous (1); 83 – Normal (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-size-fill",
+      "title": "Field sizes",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nA field of type DECIMAL(6,2) can store numbers up to [[1]]. A date written as DD/MM/YYYY has [[2]] characters.",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 9999.99 (2) 10",
+        "accepted": {
+          "blanks": [
+            [
+              "9999.99",
+              "9 999.99"
+            ],
+            [
+              "10",
+              "ten"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-sql-match",
+      "title": "Rules in SQL",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each rule from the data dictionary to the SQL that enforces it.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Presence: must be entered"
+          },
+          {
+            "key": "L2",
+            "text": "Uniqueness: no two records the same"
+          },
+          {
+            "key": "L3",
+            "text": "Range: Mark from 0 to 100"
+          },
+          {
+            "key": "L4",
+            "text": "Lookup: Grade is 11 or 12"
+          },
+          {
+            "key": "L5",
+            "text": "Must exist in the Students table"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "NOT NULL"
+          },
+          {
+            "key": "R2",
+            "text": "UNIQUE"
+          },
+          {
+            "key": "R3",
+            "text": "CHECK (Mark BETWEEN 0 AND 100)"
+          },
+          {
+            "key": "R4",
+            "text": "CHECK (Grade IN (11, 12))"
+          },
+          {
+            "key": "R5",
+            "text": "FOREIGN KEY … REFERENCES Students(StudentID)"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Presence: must be entered – NOT NULL; Uniqueness: no two records the same – UNIQUE; Range: Mark from 0 to 100 – CHECK (Mark BETWEEN 0 AND 100); Lookup: Grade is 11 or 12 – CHECK (Grade IN (11, 12)); Must exist in the Students table – FOREIGN KEY … REFERENCES Students(StudentID).",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "dd-entry-errors-mr",
+      "title": "Find the mistakes",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A pupil wrote this data dictionary entry:\n\n| Field | Data type | Key | Validation | Example |\n|---|---|---|---|---|\n| Phone | INTEGER | PK | Range 0–100 | +77011234567 |\n\nWhich statements about the entry are **correct**? Select **three**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "INTEGER is unsuitable — a phone number starts with + and is not used in calculations"
+        },
+        {
+          "key": "B",
+          "content": "Phone should not be the primary key of a pupils table"
+        },
+        {
+          "key": "C",
+          "content": "A range check 0–100 does not suit a phone number"
+        },
+        {
+          "key": "D",
+          "content": "The example is consistent with the data type"
+        },
+        {
+          "key": "E",
+          "content": "Phone should be BOOLEAN"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-example-mcq",
+      "title": "A consistent example",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The validation rule for `DateOfBirth` is **range 01/01/2005 – 31/12/2012**. Which example value should be written in the data dictionary?",
+      "options": [
+        {
+          "key": "A",
+          "content": "11/09/2004"
+        },
+        {
+          "key": "B",
+          "content": "14/03/2009"
+        },
+        {
+          "key": "C",
+          "content": "01/01/2005 – 31/12/2012"
+        },
+        {
+          "key": "D",
+          "content": "2009"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The example is one typical value that passes the field's own rule."
+      }
+    },
+    {
+      "key": "dd-notnull-short",
+      "title": "Required in SQL",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Write the SQL words used in `CREATE TABLE` to make a field **required** (presence check).",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "NOT NULL",
+        "accepted": {
+          "values": [
+            "NOT NULL",
+            "not null",
+            "notnull"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dd-boundary-fill",
+      "title": "Boundary data",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The rule for `Age` is **whole number from 10 to 18**. The lowest boundary value is [[1]] and the highest boundary value is [[2]]. A value just outside the range, such as [[3]], should be rejected.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 10 (2) 18 (3) 9",
+        "accepted": {
+          "blanks": [
+            [
+              "10"
+            ],
+            [
+              "18"
+            ],
+            [
+              "9",
+              "19",
+              "8",
+              "20"
+            ]
+          ]
+        }
+      }
     }
   ],
   "summary": "What a data dictionary is and why it is used, what it records about each field (name, data type, size, format, key, validation, description, example), and how to create a data dictionary for the tables of a database.",
@@ -2342,54 +2904,269 @@
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "Validation",
+          "content": "An **automatic check made by the computer when data is entered**, to make sure the data is **sensible, reasonable and follows the rules** before it is stored. Data that breaks a rule is **rejected** and the user sees an **error message**."
+        },
+        {
+          "type": "definition",
+          "term": "Validation rule",
+          "content": "The rule a field's data must satisfy, written in the **data dictionary** for every field, e.g. \"Mark: whole number from 0 to 100\". The DBMS (or the program) then applies it to every value that is entered."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dd\" viewBox=\"0 0 760 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Data entry goes through the validation rules from the data dictionary; valid data is saved, invalid data is rejected with an error message\">\n  <style>\n    svg.dd .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dd .rl{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.dd .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.dd .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}\n    svg.dd .tt{font:600 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dd .ss{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.dd .mo{font:12px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dd .ar{fill:none;stroke:var(--muted);stroke-width:1.8}\n    svg.dd .ah{fill:var(--muted)}\n  </style>\n  <rect class=\"bx\" x=\"10\" y=\"70\" width=\"150\" height=\"70\" rx=\"10\"/>\n  <text class=\"tt\" x=\"85\" y=\"98\" text-anchor=\"middle\">Data entered</text>\n  <text class=\"mo\" x=\"85\" y=\"120\" text-anchor=\"middle\">Mark = 870</text>\n  <path class=\"ar\" d=\"M162,105 H232\"/><path class=\"ah\" d=\"M232,99 l12,6 l-12,6 z\"/>\n  <rect class=\"rl\" x=\"246\" y=\"40\" width=\"230\" height=\"130\" rx=\"12\"/>\n  <text class=\"tt\" x=\"361\" y=\"66\" text-anchor=\"middle\" style=\"fill:var(--primary)\">Validation rules</text>\n  <text class=\"ss\" x=\"361\" y=\"84\" text-anchor=\"middle\">from the data dictionary</text>\n  <text class=\"mo\" x=\"262\" y=\"110\">Type:  whole number</text>\n  <text class=\"mo\" x=\"262\" y=\"130\">Range: 0 to 100</text>\n  <text class=\"mo\" x=\"262\" y=\"150\">Presence: required</text>\n  <path class=\"ar\" d=\"M478,80 C520,80 520,50 560,50\"/><path class=\"ah\" d=\"M560,44 l12,6 l-12,6 z\"/>\n  <path class=\"ar\" d=\"M478,130 C520,130 520,160 560,160\"/><path class=\"ah\" d=\"M560,154 l12,6 l-12,6 z\"/>\n  <rect class=\"ok\" x=\"574\" y=\"22\" width=\"176\" height=\"56\" rx=\"10\"/>\n  <text class=\"tt\" x=\"662\" y=\"46\" text-anchor=\"middle\" style=\"fill:var(--success)\">Valid → saved</text>\n  <text class=\"ss\" x=\"662\" y=\"65\" text-anchor=\"middle\">e.g. Mark = 87</text>\n  <rect class=\"no\" x=\"574\" y=\"132\" width=\"176\" height=\"56\" rx=\"10\"/>\n  <text class=\"tt\" x=\"662\" y=\"156\" text-anchor=\"middle\" style=\"fill:var(--danger)\">Invalid → rejected</text>\n  <text class=\"ss\" x=\"662\" y=\"175\" text-anchor=\"middle\">\"Mark must be 0–100\"</text>\n</svg>",
+          "caption": "Every value is checked against the rules in the data dictionary before it is saved"
+        },
+        {
           "type": "comparison",
           "title": "Validation checks",
           "columns": [
             "Check",
             "What it checks",
-            "Example"
+            "Example rule",
+            "Accepted",
+            "Rejected"
           ],
           "rows": [
             [
               "**Presence check**",
-              "The field is **not empty**",
-              "Surname must be entered"
+              "The field is **not left empty**",
+              "Surname must be entered",
+              "Bekova",
+              "*(empty)*"
             ],
             [
               "**Range check**",
-              "The value is **between limits**",
-              "Mark 0–100; Age 11–18"
+              "The value is **between a lower and an upper limit**",
+              "Mark 0–100",
+              "0, 57, 100",
+              "−1, 101"
             ],
             [
               "**Type check**",
-              "The data is the **correct data type**",
-              "Quantity must be an integer"
+              "The data is of the **correct data type**",
+              "Quantity is a whole number",
+              "12",
+              "twelve, 7.5"
             ],
             [
               "**Length check**",
-              "The number of **characters** is correct",
-              "Phone has 11 digits; password 8–16 characters"
+              "The number of **characters** is allowed",
+              "Password 8–16 characters",
+              "Kz2026!pass",
+              "abc"
             ],
             [
               "**Format (picture) check**",
               "The data matches a **pattern**",
-              "Pupil ID `S` followed by 4 digits, e.g. S0421"
+              "StudentID = `S` + 4 digits",
+              "S0421",
+              "0421S, S42"
             ],
             [
               "**Lookup (list) check**",
               "The value is in a **list of allowed values**",
-              "Grade is 11 or 12; Gender is M or F"
+              "Grade is 11 or 12",
+              "11",
+              "10"
             ],
             [
               "**Uniqueness check**",
-              "No two records have the same value",
-              "Primary key, e-mail address"
+              "No other record has the **same value**",
+              "StudentID, e-mail",
+              "S0603",
+              "S0421 (already used)"
+            ]
+          ]
+        },
+        {
+          "type": "interactive",
+          "widget": "validation_checker",
+          "title": "Test the validation rules of a Students table"
+        },
+        {
+          "type": "heading",
+          "text": "Choosing the right check",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "Which checks suit which field",
+          "columns": [
+            "Field",
+            "Data type",
+            "Suitable checks",
+            "Why"
+          ],
+          "rows": [
+            [
+              "StudentID",
+              "VARCHAR(5)",
+              "Presence, format, uniqueness",
+              "It is the primary key: it must exist, follow the pattern and never repeat"
+            ],
+            [
+              "Surname",
+              "VARCHAR(30)",
+              "Presence, length (≤ 30)",
+              "Every pupil has a surname; it must fit the field"
+            ],
+            [
+              "Mark",
+              "INTEGER",
+              "Type, range 0–100",
+              "A mark is a whole number within known limits"
+            ],
+            [
+              "DateOfBirth",
+              "DATE",
+              "Format DD/MM/YYYY, range",
+              "Pupils in grades 11–12 were born in a known period"
+            ],
+            [
+              "Grade",
+              "INTEGER",
+              "Lookup: 11 or 12",
+              "Only a few allowed values"
+            ],
+            [
+              "Email",
+              "VARCHAR(50)",
+              "Format (contains @ and a dot), uniqueness",
+              "An address has a pattern; two pupils cannot share it"
+            ],
+            [
+              "Phone",
+              "VARCHAR(12)",
+              "Length 12, format `+7` + 10 digits",
+              "A phone number has a fixed pattern"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Combining several checks on one field",
+          "content": "The rule for `StudentID` in the data dictionary is **\"Presence; format `S` + 4 digits; unique\"** — three checks together:\n- empty → rejected by the **presence check**;\n- `S42` → rejected by the **format check**;\n- `S0421` when another pupil already has it → rejected by the **uniqueness check**;\n- `S0603` → passes all three and is saved."
+        },
+        {
+          "type": "exam_tip",
+          "content": "A good error message says **what is wrong and how to correct it**: \"Mark must be a whole number from 0 to 100\" — not \"Error 23\" or \"Invalid input\". The data dictionary records the rule, so the programmer knows exactly what to write."
+        },
+        {
+          "type": "warning",
+          "content": "- A **range check** works on numbers and dates — not on a surname.\n- A **lookup check** is for a short list of allowed values — not for 8 000 book titles.\n- A **length check** on a phone number does not stop letters — add a **format check**."
+        },
+        {
+          "type": "heading",
+          "text": "Validation and verification",
+          "level": 2
+        },
+        {
+          "type": "definition",
+          "term": "Verification",
+          "content": "Checking that the data entered is **the same as the original** (the source document), so that **copying mistakes** are found. Methods: **double entry** (the data is typed twice and the computer compares the two) and **visual check** (proofreading the screen against the paper form)."
+        },
+        {
+          "type": "comparison",
+          "title": "Validation and verification",
+          "columns": [
+            "",
+            "Validation",
+            "Verification"
+          ],
+          "rows": [
+            [
+              "Question it answers",
+              "Is the data **sensible / allowed**?",
+              "Was the data **copied correctly**?"
+            ],
+            [
+              "Who / what checks",
+              "The computer, using the rules",
+              "The computer compares two entries, or a person compares with the source"
+            ],
+            [
+              "Methods",
+              "Presence, range, type, length, format, lookup, uniqueness",
+              "Double entry, visual check (proofreading)"
+            ],
+            [
+              "Example it catches",
+              "Mark 870 (out of range)",
+              "Mark 78 typed instead of 87"
+            ],
+            [
+              "Example it misses",
+              "Mark 78 typed instead of 87",
+              "A wrong value on the original form"
             ]
           ]
         },
         {
           "type": "warning",
-          "content": "**Validation** checks that data is **sensible / reasonable** (it follows the rules). It cannot check that the data is **correct** — \"15/04/2009\" passes a date check even if the pupil was born on 14/04/2009."
+          "content": "**Validation** checks that data is **sensible / reasonable** (it follows the rules). It cannot check that the data is **correct** — \"15/04/2009\" passes a date check even if the pupil was born on 14/04/2009. To find such mistakes, data is also **verified**."
+        },
+        {
+          "type": "heading",
+          "text": "Testing a validation rule",
+          "level": 2
+        },
+        {
+          "type": "definition",
+          "term": "Test data",
+          "content": "Values chosen to check that a validation rule works: **normal** data (valid, should be accepted), **boundary** (extreme) data (on the edge of the range, should be accepted) and **erroneous** (invalid) data (should be rejected). Testers take the rules from the data dictionary."
+        },
+        {
+          "type": "example",
+          "title": "Test data for the rule \"Mark: whole number from 0 to 100\"",
+          "content": "| Type of test data | Values | Expected result |\n|---|---|---|\n| Normal | 45, 87 | Accepted |\n| Boundary (extreme) | 0, 100 | Accepted |\n| Just outside the boundary | −1, 101 | Rejected — \"Mark must be 0–100\" |\n| Erroneous | abc, 7.5, *(empty)* | Rejected |"
+        },
+        {
+          "type": "heading",
+          "text": "Validation rules in SQL",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "How rules from the data dictionary are written in SQL",
+          "columns": [
+            "Rule in the data dictionary",
+            "SQL"
+          ],
+          "rows": [
+            [
+              "Presence (required)",
+              "`NOT NULL`"
+            ],
+            [
+              "Uniqueness",
+              "`UNIQUE` (a `PRIMARY KEY` is unique and not null)"
+            ],
+            [
+              "Range",
+              "`CHECK (Mark BETWEEN 0 AND 100)`"
+            ],
+            [
+              "Lookup",
+              "`CHECK (Grade IN (11, 12))`"
+            ],
+            [
+              "Type and length",
+              "the data type, e.g. `INTEGER`, `VARCHAR(30)`"
+            ],
+            [
+              "Must exist in another table",
+              "`FOREIGN KEY (StudentID) REFERENCES Students(StudentID)`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE TABLE Results (\n    ResultID   INTEGER     PRIMARY KEY,\n    StudentID  VARCHAR(5)  NOT NULL,\n    Subject    VARCHAR(20) NOT NULL,\n    Mark       INTEGER     CHECK (Mark BETWEEN 0 AND 100),\n    Term       INTEGER     CHECK (Term IN (1, 2, 3, 4)),\n    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)\n);",
+          "caption": "Validation rules from the data dictionary in a CREATE TABLE statement"
         }
       ]
     },
@@ -2400,25 +3177,118 @@
       ],
       "blocks": [
         {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dd\" viewBox=\"0 0 760 150\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Description, then ERD, then data dictionary, then SQL tables\">\n  <style>\n    svg.dd .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dd .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.dd .tt{font:600 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dd .ss{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.dd .ah{fill:var(--muted)}\n  </style>\n  <rect class=\"bx\" x=\"10\" y=\"25\" width=\"160\" height=\"70\" rx=\"10\"/><text class=\"tt\" x=\"90\" y=\"55\" text-anchor=\"middle\">Description</text><text class=\"ss\" x=\"90\" y=\"75\" text-anchor=\"middle\">what the client needs</text>\n  <path class=\"ah\" d=\"M178,54 l12,6 l-12,6 z\"/>\n  <rect class=\"bx\" x=\"198\" y=\"25\" width=\"160\" height=\"70\" rx=\"10\"/><text class=\"tt\" x=\"278\" y=\"55\" text-anchor=\"middle\">ERD</text><text class=\"ss\" x=\"278\" y=\"75\" text-anchor=\"middle\">tables and links</text>\n  <path class=\"ah\" d=\"M366,54 l12,6 l-12,6 z\"/>\n  <rect class=\"on\" x=\"386\" y=\"25\" width=\"180\" height=\"70\" rx=\"10\"/><text class=\"tt\" x=\"476\" y=\"55\" text-anchor=\"middle\" style=\"fill:var(--primary)\">Data dictionary</text><text class=\"ss\" x=\"476\" y=\"75\" text-anchor=\"middle\">every field described</text>\n  <path class=\"ah\" d=\"M574,54 l12,6 l-12,6 z\"/>\n  <rect class=\"bx\" x=\"594\" y=\"25\" width=\"156\" height=\"70\" rx=\"10\"/><text class=\"tt\" x=\"672\" y=\"55\" text-anchor=\"middle\">SQL tables</text><text class=\"ss\" x=\"672\" y=\"75\" text-anchor=\"middle\">CREATE TABLE …</text>\n  <text class=\"ss\" x=\"380\" y=\"128\" text-anchor=\"middle\">Design stage: the data dictionary is written after the ERD and before the tables are built</text>\n</svg>",
+          "caption": "From the description of the system to the tables of the database"
+        },
+        {
           "type": "steps",
           "title": "How to create a data dictionary",
           "items": [
-            "List the **tables** of the database (from the ERD).",
-            "For each table, list every **field** with a clear name (no spaces).",
+            "List the **tables** of the database (from the ERD); link tables for M:M relationships are tables too.",
+            "For each table, list every **field** with a clear name (no spaces, one style, the same name in every table).",
             "Choose the most suitable **data type** and **size** for each field.",
             "Mark the **primary key** and any **foreign keys** (a foreign key must have the **same type and size** as the primary key it refers to).",
-            "Add a **validation rule**, a **format** where needed, a short **description** and an **example**."
+            "Add a **validation rule** for each field, a **format** where needed (dates, codes), a short **description** and an **example** that fits the type and the rule.",
+            "**Check** the entries: does every example pass its own validation rule? Do the keys match?"
           ]
+        },
+        {
+          "type": "heading",
+          "text": "Choosing data types and sizes",
+          "level": 2
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing a data type",
+          "columns": [
+            "The value is …",
+            "Data type",
+            "Example field"
+          ],
+          "rows": [
+            [
+              "A whole number used in calculations",
+              "INTEGER",
+              "Quantity, Copies, Age"
+            ],
+            [
+              "A number with a fractional part (money, measurements)",
+              "DECIMAL(p,s) / REAL",
+              "Price DECIMAL(8,2), Height"
+            ],
+            [
+              "A code or number not used in calculations",
+              "VARCHAR(n)",
+              "Phone, PostCode, ISBN, StudentID S0421"
+            ],
+            [
+              "Text of a fixed length",
+              "CHAR(n)",
+              "ClassCode CHAR(3) = 11A, Gender CHAR(1)"
+            ],
+            [
+              "Text of different lengths",
+              "VARCHAR(n)",
+              "Surname, Title, Email"
+            ],
+            [
+              "A date or time",
+              "DATE / TIME",
+              "DateOfBirth, LoanDate, StartTime"
+            ],
+            [
+              "Only two values (yes / no)",
+              "BOOLEAN",
+              "Paid, Returned, IsActive"
+            ]
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "title": "VARCHAR(n)",
+              "content": "- n is the **maximum** number of characters.\n- Choose it from the **longest real value** with a little spare room: Surname → 30, Email → 50."
+            },
+            {
+              "title": "CHAR(n)",
+              "content": "- Always **exactly n** characters.\n- Use it only when every value has the same length: ClassCode CHAR(3), Gender CHAR(1)."
+            },
+            {
+              "title": "DECIMAL(p,s)",
+              "content": "- **p** digits in total, **s** of them after the point.\n- DECIMAL(6,2) stores up to **9999.99**; money usually has 2 decimal places."
+            },
+            {
+              "title": "INTEGER, DATE, BOOLEAN",
+              "content": "- The size is fixed by the DBMS.\n- The data dictionary leaves the size empty or writes \"—\"."
+            }
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "A foreign key is a copy of a primary key, so it has **exactly the same data type and size**: if `StudentID` is VARCHAR(5) in `Students`, it is VARCHAR(5) in `Loans` too. An **auto-increment** (AutoNumber) primary key is INTEGER, so the foreign key that refers to it is INTEGER as well."
+        },
+        {
+          "type": "heading",
+          "text": "A worked example",
+          "level": 2
+        },
+        {
+          "type": "example",
+          "title": "From a description to a data dictionary — a sports centre",
+          "content": "**Description:** \"Each member has a member number such as M0042, a surname, a date of birth (members must be at least 10), a phone number and the date they joined. We record whether the member is a student, because students pay less. The monthly fee is in tenge, e.g. 8500.50.\"\n\n**Thinking:** member number has a letter → VARCHAR, format check, primary key; the fee has kopecks → DECIMAL; \"whether\" → BOOLEAN; \"at least 10\" → range check on the date of birth.\n\n| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| MemberID | VARCHAR | 5 | PK | Presence; format `M` + 4 digits; unique | Member number | M0042 |\n| Surname | VARCHAR | 30 | | Presence; length ≤ 30 | Member's family name | Seitkali |\n| DateOfBirth | DATE | — | | Format DD/MM/YYYY; age at least 10 | Date of birth | 21/06/2011 |\n| Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77051112233 |\n| JoinDate | DATE | — | | Presence; not in the future | Date the member joined | 01/09/2026 |\n| IsStudent | BOOLEAN | — | | True / False | Pays the student fee? | True |\n| MonthlyFee | DECIMAL | 8,2 | | Range > 0 | Fee per month in tenge | 8500.50 |"
         },
         {
           "type": "example",
           "title": "Data dictionary for a school library — table `Students`",
-          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Unique student number | S0421 |\n| FirstName | VARCHAR | 30 | | Presence | Student's first name | Aruzhan |\n| Surname | VARCHAR | 30 | | Presence | Student's family name | Bekova |\n| Grade | INTEGER | 2 | | Lookup: 11 or 12 | School grade | 11 |\n| DateOfBirth | DATE | — | | Range 01/01/2005 – 31/12/2012 | Date of birth, DD/MM/YYYY | 14/03/2009 |\n| Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77011234567 |"
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Unique student number | S0421 |\n| FirstName | VARCHAR | 30 | | Presence | Student's first name | Aruzhan |\n| Surname | VARCHAR | 30 | | Presence | Student's family name | Bekova |\n| Grade | INTEGER | — | | Lookup: 11 or 12 | School grade | 11 |\n| DateOfBirth | DATE | — | | Range 01/01/2005 – 31/12/2012 | Date of birth, DD/MM/YYYY | 14/03/2009 |\n| Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77011234567 |"
         },
         {
           "type": "example",
           "title": "Data dictionary — table `Loans`",
-          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| LoanID | INTEGER | — | PK | Unique; auto-increment | Loan number | 1057 |\n| StudentID | VARCHAR | 5 | FK → Students | Must exist in Students | Who borrowed the book | S0421 |\n| BookID | VARCHAR | 6 | FK → Books | Must exist in Books | Which book | B00312 |\n| LoanDate | DATE | — | | Presence; not in the future | Date borrowed | 02/10/2026 |\n| ReturnDate | DATE | — | | Must be on or after LoanDate (may be empty) | Date returned | 16/10/2026 |\n| Returned | BOOLEAN | — | | True / False | Has the book been returned? | False |"
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| LoanID | INTEGER | — | PK | Unique; auto-increment | Loan number | 1057 |\n| StudentID | VARCHAR | 5 | FK → Students | Must exist in Students | Who borrowed the book | S0421 |\n| BookID | VARCHAR | 6 | FK → Books | Must exist in Books | Which book | B00312 |\n| LoanDate | DATE | — | | Presence; not in the future | Date borrowed | 02/10/2026 |\n| ReturnDate | DATE | — | | On or after LoanDate (may be empty) | Date returned | 16/10/2026 |\n| Returned | BOOLEAN | — | | True / False | Has the book been returned? | False |"
         },
         {
           "type": "code",
@@ -2429,6 +3299,10 @@
         {
           "type": "exam_tip",
           "content": "- Numbers you **calculate with** → INTEGER or REAL/DECIMAL (price → DECIMAL).\n- **Codes and numbers you do not calculate with** (phone, ID, postcode) → VARCHAR / TEXT.\n- **Yes/No** values → BOOLEAN.\n- Dates → DATE (so they can be sorted and compared correctly)."
+        },
+        {
+          "type": "warning",
+          "content": "- INTEGER for a phone number or an ID with letters or leading zeros (0421 becomes 421).\n- A size that does not fit the data: CHAR(8) for a date written DD/MM/YYYY (10 characters) — use DATE.\n- A validation rule that contradicts the type: \"only digits\" for a VARCHAR surname, \"only integer\" for a text ID.\n- An example that breaks its own rule: range 2005–2012 with example 11/09/2004.\n- Marking an ordinary field (DateOfBirth, FilmTitle) as a **foreign key** — a foreign key always refers to the primary key of another table.\n- A range as the example (\"16/11/2026–31/12/2026\"): the example is **one typical value**."
         }
       ]
     },
@@ -2442,11 +3316,11 @@
         {
           "type": "example",
           "title": "Exam-style answers",
-          "content": "**Q: Explain the purpose of a data dictionary. [2]**\nIt **describes every field** of the database — name, data type, size, validation (1) — so that programmers **build the database consistently and correctly** and it is easier to **maintain** later (1).\n\n**Q: Complete the data dictionary entry for the field `Price`. [3]**\nData type: **Decimal / Real** (1); validation: **range check > 0** (1); example: **450.00** (1).\n\n**Q: State why a foreign key must have the same data type and size as the primary key it refers to. [1]**\nSo that the values **match** and the tables can be **linked** (joined) correctly."
+          "content": "**Q: Explain the purpose of a data dictionary. [2]**\nIt **describes every field** of the database — name, data type, size, validation (1) — so that programmers **build the database consistently and correctly** and it is easier to **maintain** later (1).\n\n**Q: Identify a suitable validation check for the field `Grade`, which can only be 11 or 12. [1]**\n**Lookup (list) check** — the value must be in the list 11, 12.\n\n**Q: Complete the data dictionary entry for the field `Price`. [3]**\nData type: **Decimal / Real** (1); validation: **range check > 0** (1); example: **450.00** (1).\n\n**Q: The field `Mark` has the rule \"0 to 100\". Give one item of boundary data and one item of erroneous data. [2]**\nBoundary: **0** or **100** (1). Erroneous: **101 / −5 / abc** (1).\n\n**Q: Explain why a validated mark can still be wrong. [2]**\nValidation only checks that the mark is **sensible / within the rules** (1); a typing mistake inside the range, e.g. **78 instead of 87**, is accepted — **verification** (double entry / visual check) is needed (1).\n\n**Q: State why a foreign key must have the same data type and size as the primary key it refers to. [1]**\nSo that the values **match** and the tables can be **linked** (joined) correctly."
         },
         {
           "type": "warning",
-          "content": "- Using INTEGER for phone numbers or IDs with letters or leading zeros.\n- Writing validation that does not match the data (a range check on a name).\n- Giving a description that just repeats the field name (\"Surname — the surname\").\n- Forgetting to mark **primary** and **foreign** keys.\n- Confusing a data dictionary with a **user guide** — it is **technical** documentation."
+          "content": "- Using INTEGER for phone numbers or IDs with letters or leading zeros.\n- Writing validation that does not match the data (a range check on a name).\n- Confusing **validation** (sensible?) with **verification** (copied correctly?).\n- Giving a description that just repeats the field name (\"Surname — the surname\").\n- Forgetting to mark **primary** and **foreign** keys.\n- Confusing a data dictionary with a **user guide** — it is **technical** documentation."
         },
         {
           "type": "steps",
@@ -2455,7 +3329,9 @@
             "What is a data dictionary and when is it created?",
             "List eight items recorded for each field.",
             "Give three reasons for using a data dictionary.",
-            "Name six validation checks with an example of each.",
+            "Name seven validation checks with an example of each.",
+            "Explain the difference between validation and verification; name two verification methods.",
+            "Give normal, boundary and erroneous test data for \"Age 10–18\".",
             "Create a data dictionary for `Products(ProductID, Name, Price, InStock, CategoryID)`."
           ]
         }
@@ -2506,16 +3382,25 @@
         "Exam practice and summary"
       ],
       "questions": [
+        "dd-val-define-mcq",
         "dd-validation-match",
-        "dd-data-types",
-        "dd-validation-table",
-        "dd-phone-type",
-        "dd-fk-same-type",
-        "dd-validation-verification",
+        "dd-check-tick",
+        "dd-accept-mr",
+        "dd-check-email-mcq",
         "dd-format-fill",
-        "dd-create-entry",
-        "dd-structured-library",
-        "dd-extended-create"
+        "dd-vv-tick",
+        "dd-vv-tf",
+        "dd-testdata-tick",
+        "dd-boundary-fill",
+        "dd-sql-match",
+        "dd-notnull-short",
+        "dd-data-types",
+        "dd-leading-zero-mcq",
+        "dd-fk-type-mcq",
+        "dd-size-fill",
+        "dd-entry-table",
+        "dd-example-mcq",
+        "dd-entry-errors-mr"
       ]
     }
   ]

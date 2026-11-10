@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Crown, Laptop, Loader2, Maximize, Presentation, XCircle } from "lucide-react";
+import { CheckCircle2, Crown, FileText, Laptop, Loader2, Maximize, Presentation, XCircle } from "lucide-react";
 import { cn } from "@/lib/cn";
 import type { AnswerData } from "@/lib/questions/types";
 import { AnswerInput, type AnswerableQuestion } from "@/components/questions/answer-input";
@@ -137,6 +137,16 @@ export function BoardCard({ text }: { text: string }) {
     <p className="flex items-center gap-2 text-muted">
       <Presentation className="h-5 w-5" /> {text}
     </p>
+  );
+}
+
+export function PaperCard() {
+  return (
+    <div className="rounded-lg border-2 border-dashed border-border bg-surface-2 p-5 text-center">
+      <FileText className="mx-auto h-10 w-10 text-primary" />
+      <p className="mt-2 text-xl font-semibold">Work on your printed worksheet</p>
+      <p className="mt-1 text-sm text-muted">Write your answers on paper. Your teacher will open the next step here.</p>
+    </div>
   );
 }
 

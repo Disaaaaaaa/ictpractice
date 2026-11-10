@@ -23,6 +23,12 @@ export function Markdown({ children, className, inline = false }: { children: st
               </a>
             );
           },
+          // wide tables scroll on their own instead of widening the page
+          table: ({ children }) => (
+            <div className="max-w-full overflow-x-auto">
+              <table>{children}</table>
+            </div>
+          ),
           img: ({ src, alt }) =>
             typeof src === "string" && /^(https:|\/)/.test(src) ? (
               // eslint-disable-next-line @next/next/no-img-element

@@ -4,6 +4,7 @@ import type { InteractiveWidget } from "@/lib/theory/blocks";
 import { evaluateBoolean, parseBoolean, variablesOf } from "@/lib/boolean";
 import { BinarySearchVisualizer, SortVisualizer } from "./algorithms";
 import { BackupRestore, BiometricThreshold, CaesarCipher, EncryptionKeys, FirewallTester, PasswordStrength } from "./security";
+import { ValidationChecker } from "./validation";
 
 const box = "rounded-lg border border-border bg-surface p-4";
 const inputCls =
@@ -342,6 +343,8 @@ export function InteractiveBlock({ widget, title, config }: { widget: Interactiv
         return <EncryptionKeys />;
       case "biometric_threshold":
         return <BiometricThreshold />;
+      case "validation_checker":
+        return <ValidationChecker />;
     }
   })();
   return (

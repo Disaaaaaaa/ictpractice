@@ -18,6 +18,7 @@ export const INTERACTIVE_WIDGETS = [
   "backup_restore",
   "encryption_keys",
   "biometric_threshold",
+  "validation_checker",
 ] as const;
 export type InteractiveWidget = (typeof INTERACTIVE_WIDGETS)[number];
 
@@ -35,6 +36,7 @@ export const INTERACTIVE_WIDGET_LABELS: Record<InteractiveWidget, string> = {
   backup_restore: "Restoring from backups",
   encryption_keys: "Symmetric, asymmetric and hashing",
   biometric_threshold: "Biometric match threshold",
+  validation_checker: "Validation checks on a record",
 };
 
 const text = z.string().max(20000);

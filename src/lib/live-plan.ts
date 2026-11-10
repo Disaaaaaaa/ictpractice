@@ -2,7 +2,8 @@
 // built from the lesson's ҚМЖ by scripts/apply-kmzh.ts.
 
 export type LiveMode = "class" | "individual" | "pair" | "group";
-export type LiveBlockKind = "slides" | "task" | "poll";
+/** paper: the class works on a printed worksheet */
+export type LiveBlockKind = "slides" | "task" | "poll" | "paper";
 export type PlanQuestion = { key: string; id: string };
 
 export type LiveBlock = {

@@ -215,31 +215,235 @@ It may begin with `0` or `+` and contain spaces, which a number field would lose
 # Validation in a data dictionary
 @lo 11.4.1.6
 
+:::definition Validation
+An **automatic check made by the computer when data is entered**, to make sure the data is **sensible, reasonable and follows the rules** before it is stored. Data that breaks a rule is **rejected** and the user sees an **error message**.
+:::
+
+:::definition Validation rule
+The rule a field's data must satisfy, written in the **data dictionary** for every field, e.g. "Mark: whole number from 0 to 100". The DBMS (or the program) then applies it to every value that is entered.
+:::
+
+:::svg Every value is checked against the rules in the data dictionary before it is saved
+<svg class="dd" viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data entry goes through the validation rules from the data dictionary; valid data is saved, invalid data is rejected with an error message">
+  <style>
+    svg.dd .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.dd .rl{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dd .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dd .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}
+    svg.dd .tt{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dd .ss{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.dd .mo{font:12px ui-monospace,monospace;fill:var(--foreground)}
+    svg.dd .ar{fill:none;stroke:var(--muted);stroke-width:1.8}
+    svg.dd .ah{fill:var(--muted)}
+  </style>
+  <rect class="bx" x="10" y="70" width="150" height="70" rx="10"/>
+  <text class="tt" x="85" y="98" text-anchor="middle">Data entered</text>
+  <text class="mo" x="85" y="120" text-anchor="middle">Mark = 870</text>
+  <path class="ar" d="M162,105 H232"/><path class="ah" d="M232,99 l12,6 l-12,6 z"/>
+  <rect class="rl" x="246" y="40" width="230" height="130" rx="12"/>
+  <text class="tt" x="361" y="66" text-anchor="middle" style="fill:var(--primary)">Validation rules</text>
+  <text class="ss" x="361" y="84" text-anchor="middle">from the data dictionary</text>
+  <text class="mo" x="262" y="110">Type:  whole number</text>
+  <text class="mo" x="262" y="130">Range: 0 to 100</text>
+  <text class="mo" x="262" y="150">Presence: required</text>
+  <path class="ar" d="M478,80 C520,80 520,50 560,50"/><path class="ah" d="M560,44 l12,6 l-12,6 z"/>
+  <path class="ar" d="M478,130 C520,130 520,160 560,160"/><path class="ah" d="M560,154 l12,6 l-12,6 z"/>
+  <rect class="ok" x="574" y="22" width="176" height="56" rx="10"/>
+  <text class="tt" x="662" y="46" text-anchor="middle" style="fill:var(--success)">Valid → saved</text>
+  <text class="ss" x="662" y="65" text-anchor="middle">e.g. Mark = 87</text>
+  <rect class="no" x="574" y="132" width="176" height="56" rx="10"/>
+  <text class="tt" x="662" y="156" text-anchor="middle" style="fill:var(--danger)">Invalid → rejected</text>
+  <text class="ss" x="662" y="175" text-anchor="middle">"Mark must be 0–100"</text>
+</svg>
+:::
+
 :::compare Validation checks
-| Check | What it checks | Example |
+| Check | What it checks | Example rule | Accepted | Rejected |
+|---|---|---|---|---|
+| **Presence check** | The field is **not left empty** | Surname must be entered | Bekova | *(empty)* |
+| **Range check** | The value is **between a lower and an upper limit** | Mark 0–100 | 0, 57, 100 | −1, 101 |
+| **Type check** | The data is of the **correct data type** | Quantity is a whole number | 12 | twelve, 7.5 |
+| **Length check** | The number of **characters** is allowed | Password 8–16 characters | Kz2026!pass | abc |
+| **Format (picture) check** | The data matches a **pattern** | StudentID = `S` + 4 digits | S0421 | 0421S, S42 |
+| **Lookup (list) check** | The value is in a **list of allowed values** | Grade is 11 or 12 | 11 | 10 |
+| **Uniqueness check** | No other record has the **same value** | StudentID, e-mail | S0603 | S0421 (already used) |
+:::
+
+:::widget validation_checker Test the validation rules of a Students table
+:::
+
+## Choosing the right check
+
+:::compare Which checks suit which field
+| Field | Data type | Suitable checks | Why |
+|---|---|---|---|
+| StudentID | VARCHAR(5) | Presence, format, uniqueness | It is the primary key: it must exist, follow the pattern and never repeat |
+| Surname | VARCHAR(30) | Presence, length (≤ 30) | Every pupil has a surname; it must fit the field |
+| Mark | INTEGER | Type, range 0–100 | A mark is a whole number within known limits |
+| DateOfBirth | DATE | Format DD/MM/YYYY, range | Pupils in grades 11–12 were born in a known period |
+| Grade | INTEGER | Lookup: 11 or 12 | Only a few allowed values |
+| Email | VARCHAR(50) | Format (contains @ and a dot), uniqueness | An address has a pattern; two pupils cannot share it |
+| Phone | VARCHAR(12) | Length 12, format `+7` + 10 digits | A phone number has a fixed pattern |
+:::
+
+:::example Combining several checks on one field
+The rule for `StudentID` in the data dictionary is **"Presence; format `S` + 4 digits; unique"** — three checks together:
+- empty → rejected by the **presence check**;
+- `S42` → rejected by the **format check**;
+- `S0421` when another pupil already has it → rejected by the **uniqueness check**;
+- `S0603` → passes all three and is saved.
+:::
+
+:::tip Good error messages
+A good error message says **what is wrong and how to correct it**: "Mark must be a whole number from 0 to 100" — not "Error 23" or "Invalid input". The data dictionary records the rule, so the programmer knows exactly what to write.
+:::
+
+:::warning Choose a check that matches the data
+- A **range check** works on numbers and dates — not on a surname.
+- A **lookup check** is for a short list of allowed values — not for 8 000 book titles.
+- A **length check** on a phone number does not stop letters — add a **format check**.
+:::
+
+## Validation and verification
+
+:::definition Verification
+Checking that the data entered is **the same as the original** (the source document), so that **copying mistakes** are found. Methods: **double entry** (the data is typed twice and the computer compares the two) and **visual check** (proofreading the screen against the paper form).
+:::
+
+:::compare Validation and verification
+| | Validation | Verification |
 |---|---|---|
-| **Presence check** | The field is **not empty** | Surname must be entered |
-| **Range check** | The value is **between limits** | Mark 0–100; Age 11–18 |
-| **Type check** | The data is the **correct data type** | Quantity must be an integer |
-| **Length check** | The number of **characters** is correct | Phone has 11 digits; password 8–16 characters |
-| **Format (picture) check** | The data matches a **pattern** | Pupil ID `S` followed by 4 digits, e.g. S0421 |
-| **Lookup (list) check** | The value is in a **list of allowed values** | Grade is 11 or 12; Gender is M or F |
-| **Uniqueness check** | No two records have the same value | Primary key, e-mail address |
+| Question it answers | Is the data **sensible / allowed**? | Was the data **copied correctly**? |
+| Who / what checks | The computer, using the rules | The computer compares two entries, or a person compares with the source |
+| Methods | Presence, range, type, length, format, lookup, uniqueness | Double entry, visual check (proofreading) |
+| Example it catches | Mark 870 (out of range) | Mark 78 typed instead of 87 |
+| Example it misses | Mark 78 typed instead of 87 | A wrong value on the original form |
 :::
 
 :::warning Validation is not verification
-**Validation** checks that data is **sensible / reasonable** (it follows the rules). It cannot check that the data is **correct** — "15/04/2009" passes a date check even if the pupil was born on 14/04/2009.
+**Validation** checks that data is **sensible / reasonable** (it follows the rules). It cannot check that the data is **correct** — "15/04/2009" passes a date check even if the pupil was born on 14/04/2009. To find such mistakes, data is also **verified**.
 :::
+
+## Testing a validation rule
+
+:::definition Test data
+Values chosen to check that a validation rule works: **normal** data (valid, should be accepted), **boundary** (extreme) data (on the edge of the range, should be accepted) and **erroneous** (invalid) data (should be rejected). Testers take the rules from the data dictionary.
+:::
+
+:::example Test data for the rule "Mark: whole number from 0 to 100"
+| Type of test data | Values | Expected result |
+|---|---|---|
+| Normal | 45, 87 | Accepted |
+| Boundary (extreme) | 0, 100 | Accepted |
+| Just outside the boundary | −1, 101 | Rejected — "Mark must be 0–100" |
+| Erroneous | abc, 7.5, *(empty)* | Rejected |
+:::
+
+## Validation rules in SQL
+
+:::compare How rules from the data dictionary are written in SQL
+| Rule in the data dictionary | SQL |
+|---|---|
+| Presence (required) | `NOT NULL` |
+| Uniqueness | `UNIQUE` (a `PRIMARY KEY` is unique and not null) |
+| Range | `CHECK (Mark BETWEEN 0 AND 100)` |
+| Lookup | `CHECK (Grade IN (11, 12))` |
+| Type and length | the data type, e.g. `INTEGER`, `VARCHAR(30)` |
+| Must exist in another table | `FOREIGN KEY (StudentID) REFERENCES Students(StudentID)` |
+:::
+
+```sql | Validation rules from the data dictionary in a CREATE TABLE statement
+CREATE TABLE Results (
+    ResultID   INTEGER     PRIMARY KEY,
+    StudentID  VARCHAR(5)  NOT NULL,
+    Subject    VARCHAR(20) NOT NULL,
+    Mark       INTEGER     CHECK (Mark BETWEEN 0 AND 100),
+    Term       INTEGER     CHECK (Term IN (1, 2, 3, 4)),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+);
+```
 
 # Creating a data dictionary
 @lo 11.4.1.6
 
+:::svg From the description of the system to the tables of the database
+<svg class="dd" viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Description, then ERD, then data dictionary, then SQL tables">
+  <style>
+    svg.dd .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.dd .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dd .tt{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dd .ss{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.dd .ah{fill:var(--muted)}
+  </style>
+  <rect class="bx" x="10" y="25" width="160" height="70" rx="10"/><text class="tt" x="90" y="55" text-anchor="middle">Description</text><text class="ss" x="90" y="75" text-anchor="middle">what the client needs</text>
+  <path class="ah" d="M178,54 l12,6 l-12,6 z"/>
+  <rect class="bx" x="198" y="25" width="160" height="70" rx="10"/><text class="tt" x="278" y="55" text-anchor="middle">ERD</text><text class="ss" x="278" y="75" text-anchor="middle">tables and links</text>
+  <path class="ah" d="M366,54 l12,6 l-12,6 z"/>
+  <rect class="on" x="386" y="25" width="180" height="70" rx="10"/><text class="tt" x="476" y="55" text-anchor="middle" style="fill:var(--primary)">Data dictionary</text><text class="ss" x="476" y="75" text-anchor="middle">every field described</text>
+  <path class="ah" d="M574,54 l12,6 l-12,6 z"/>
+  <rect class="bx" x="594" y="25" width="156" height="70" rx="10"/><text class="tt" x="672" y="55" text-anchor="middle">SQL tables</text><text class="ss" x="672" y="75" text-anchor="middle">CREATE TABLE …</text>
+  <text class="ss" x="380" y="128" text-anchor="middle">Design stage: the data dictionary is written after the ERD and before the tables are built</text>
+</svg>
+:::
+
 :::steps How to create a data dictionary
-- List the **tables** of the database (from the ERD).
-- For each table, list every **field** with a clear name (no spaces).
+- List the **tables** of the database (from the ERD); link tables for M:M relationships are tables too.
+- For each table, list every **field** with a clear name (no spaces, one style, the same name in every table).
 - Choose the most suitable **data type** and **size** for each field.
 - Mark the **primary key** and any **foreign keys** (a foreign key must have the **same type and size** as the primary key it refers to).
-- Add a **validation rule**, a **format** where needed, a short **description** and an **example**.
+- Add a **validation rule** for each field, a **format** where needed (dates, codes), a short **description** and an **example** that fits the type and the rule.
+- **Check** the entries: does every example pass its own validation rule? Do the keys match?
+:::
+
+## Choosing data types and sizes
+
+:::compare Choosing a data type
+| The value is … | Data type | Example field |
+|---|---|---|
+| A whole number used in calculations | INTEGER | Quantity, Copies, Age |
+| A number with a fractional part (money, measurements) | DECIMAL(p,s) / REAL | Price DECIMAL(8,2), Height |
+| A code or number not used in calculations | VARCHAR(n) | Phone, PostCode, ISBN, StudentID S0421 |
+| Text of a fixed length | CHAR(n) | ClassCode CHAR(3) = 11A, Gender CHAR(1) |
+| Text of different lengths | VARCHAR(n) | Surname, Title, Email |
+| A date or time | DATE / TIME | DateOfBirth, LoanDate, StartTime |
+| Only two values (yes / no) | BOOLEAN | Paid, Returned, IsActive |
+:::
+
+:::cards
+### VARCHAR(n)
+- n is the **maximum** number of characters.
+- Choose it from the **longest real value** with a little spare room: Surname → 30, Email → 50.
+### CHAR(n)
+- Always **exactly n** characters.
+- Use it only when every value has the same length: ClassCode CHAR(3), Gender CHAR(1).
+### DECIMAL(p,s)
+- **p** digits in total, **s** of them after the point.
+- DECIMAL(6,2) stores up to **9999.99**; money usually has 2 decimal places.
+### INTEGER, DATE, BOOLEAN
+- The size is fixed by the DBMS.
+- The data dictionary leaves the size empty or writes "—".
+:::
+
+:::warning Keys must match
+A foreign key is a copy of a primary key, so it has **exactly the same data type and size**: if `StudentID` is VARCHAR(5) in `Students`, it is VARCHAR(5) in `Loans` too. An **auto-increment** (AutoNumber) primary key is INTEGER, so the foreign key that refers to it is INTEGER as well.
+:::
+
+## A worked example
+
+:::example From a description to a data dictionary — a sports centre
+**Description:** "Each member has a member number such as M0042, a surname, a date of birth (members must be at least 10), a phone number and the date they joined. We record whether the member is a student, because students pay less. The monthly fee is in tenge, e.g. 8500.50."
+
+**Thinking:** member number has a letter → VARCHAR, format check, primary key; the fee has kopecks → DECIMAL; "whether" → BOOLEAN; "at least 10" → range check on the date of birth.
+
+| Field name | Data type | Size | Key | Validation | Description | Example |
+|---|---|---|---|---|---|---|
+| MemberID | VARCHAR | 5 | PK | Presence; format `M` + 4 digits; unique | Member number | M0042 |
+| Surname | VARCHAR | 30 | | Presence; length ≤ 30 | Member's family name | Seitkali |
+| DateOfBirth | DATE | — | | Format DD/MM/YYYY; age at least 10 | Date of birth | 21/06/2011 |
+| Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77051112233 |
+| JoinDate | DATE | — | | Presence; not in the future | Date the member joined | 01/09/2026 |
+| IsStudent | BOOLEAN | — | | True / False | Pays the student fee? | True |
+| MonthlyFee | DECIMAL | 8,2 | | Range > 0 | Fee per month in tenge | 8500.50 |
 :::
 
 :::example Data dictionary for a school library — table `Students`
@@ -248,7 +452,7 @@ It may begin with `0` or `+` and contain spaces, which a number field would lose
 | StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Unique student number | S0421 |
 | FirstName | VARCHAR | 30 | | Presence | Student's first name | Aruzhan |
 | Surname | VARCHAR | 30 | | Presence | Student's family name | Bekova |
-| Grade | INTEGER | 2 | | Lookup: 11 or 12 | School grade | 11 |
+| Grade | INTEGER | — | | Lookup: 11 or 12 | School grade | 11 |
 | DateOfBirth | DATE | — | | Range 01/01/2005 – 31/12/2012 | Date of birth, DD/MM/YYYY | 14/03/2009 |
 | Phone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Contact phone | +77011234567 |
 :::
@@ -260,7 +464,7 @@ It may begin with `0` or `+` and contain spaces, which a number field would lose
 | StudentID | VARCHAR | 5 | FK → Students | Must exist in Students | Who borrowed the book | S0421 |
 | BookID | VARCHAR | 6 | FK → Books | Must exist in Books | Which book | B00312 |
 | LoanDate | DATE | — | | Presence; not in the future | Date borrowed | 02/10/2026 |
-| ReturnDate | DATE | — | | Must be on or after LoanDate (may be empty) | Date returned | 16/10/2026 |
+| ReturnDate | DATE | — | | On or after LoanDate (may be empty) | Date returned | 16/10/2026 |
 | Returned | BOOLEAN | — | | True / False | Has the book been returned? | False |
 :::
 
@@ -282,6 +486,15 @@ CREATE TABLE Students (
 - Dates → DATE (so they can be sorted and compared correctly).
 :::
 
+:::warning Common mistakes when creating a data dictionary
+- INTEGER for a phone number or an ID with letters or leading zeros (0421 becomes 421).
+- A size that does not fit the data: CHAR(8) for a date written DD/MM/YYYY (10 characters) — use DATE.
+- A validation rule that contradicts the type: "only digits" for a VARCHAR surname, "only integer" for a text ID.
+- An example that breaks its own rule: range 2005–2012 with example 11/09/2004.
+- Marking an ordinary field (DateOfBirth, FilmTitle) as a **foreign key** — a foreign key always refers to the primary key of another table.
+- A range as the example ("16/11/2026–31/12/2026"): the example is **one typical value**.
+:::
+
 # Exam practice and summary
 @lo 11.4.1.5 11.4.1.6
 
@@ -289,8 +502,17 @@ CREATE TABLE Students (
 **Q: Explain the purpose of a data dictionary. [2]**
 It **describes every field** of the database — name, data type, size, validation (1) — so that programmers **build the database consistently and correctly** and it is easier to **maintain** later (1).
 
+**Q: Identify a suitable validation check for the field `Grade`, which can only be 11 or 12. [1]**
+**Lookup (list) check** — the value must be in the list 11, 12.
+
 **Q: Complete the data dictionary entry for the field `Price`. [3]**
 Data type: **Decimal / Real** (1); validation: **range check > 0** (1); example: **450.00** (1).
+
+**Q: The field `Mark` has the rule "0 to 100". Give one item of boundary data and one item of erroneous data. [2]**
+Boundary: **0** or **100** (1). Erroneous: **101 / −5 / abc** (1).
+
+**Q: Explain why a validated mark can still be wrong. [2]**
+Validation only checks that the mark is **sensible / within the rules** (1); a typing mistake inside the range, e.g. **78 instead of 87**, is accepted — **verification** (double entry / visual check) is needed (1).
 
 **Q: State why a foreign key must have the same data type and size as the primary key it refers to. [1]**
 So that the values **match** and the tables can be **linked** (joined) correctly.
@@ -299,6 +521,7 @@ So that the values **match** and the tables can be **linked** (joined) correctly
 :::warning Common mistakes
 - Using INTEGER for phone numbers or IDs with letters or leading zeros.
 - Writing validation that does not match the data (a range check on a name).
+- Confusing **validation** (sensible?) with **verification** (copied correctly?).
 - Giving a description that just repeats the field name ("Surname — the surname").
 - Forgetting to mark **primary** and **foreign** keys.
 - Confusing a data dictionary with a **user guide** — it is **technical** documentation.
@@ -308,6 +531,8 @@ So that the values **match** and the tables can be **linked** (joined) correctly
 - What is a data dictionary and when is it created?
 - List eight items recorded for each field.
 - Give three reasons for using a data dictionary.
-- Name six validation checks with an example of each.
+- Name seven validation checks with an example of each.
+- Explain the difference between validation and verification; name two verification methods.
+- Give normal, boundary and erroneous test data for "Age 10–18".
 - Create a data dictionary for `Products(ProductID, Name, Price, InStock, CategoryID)`.
 :::

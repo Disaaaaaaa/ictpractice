@@ -16,7 +16,8 @@ const block = z.object({
   title: z.string().min(1),
   mode: z.enum(["class", "individual", "pair", "group"]),
   group_size: z.number().int().min(2).max(6).optional(),
-  kind: z.enum(["slides", "task", "poll"]),
+  /** paper: work on a printed worksheet, away from the laptops */
+  kind: z.enum(["slides", "task", "poll", "paper"]),
   teacher: z.string(),
   learners: z.string(),
   poll: z.object({ question: z.string(), options: z.array(z.string()).min(2).max(6) }).optional(),

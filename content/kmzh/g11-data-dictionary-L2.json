@@ -1,0 +1,680 @@
+{
+ "topic": "g11-data-dictionary",
+ "lesson": 2,
+ "grade": 11,
+ "unit": "11.2A Information systems",
+ "title": "Validation rules; creating a data dictionary",
+ "teacher": "Assylbek Dias",
+ "date": "",
+ "class": "",
+ "minutes": 80,
+ "learning_objectives": [
+  {
+   "code": "11.4.1.6",
+   "text": "create a data dictionary for database tables"
+  }
+ ],
+ "lesson_objectives": {
+  "all": "name the validation checks and choose a suitable data type for a field",
+  "most": "write a complete data dictionary entry with a validation rule that fits the data and explain the difference between validation and verification",
+  "some": "create a data dictionary for a whole table and choose normal, boundary and erroneous test data for its rules"
+ },
+ "assessment_criteria": [
+  {
+   "criterion": "Identify and apply validation checks",
+   "descriptors": [
+    "names presence, range, type, length, format, lookup and uniqueness checks",
+    "chooses a check that matches the data of a field",
+    "decides whether a value is accepted or rejected by a rule"
+   ]
+  },
+  {
+   "criterion": "Distinguish validation from verification",
+   "descriptors": [
+    "explains that validation checks data is sensible, verification that it was copied correctly",
+    "names double entry and visual check"
+   ]
+  },
+  {
+   "criterion": "Create a data dictionary",
+   "descriptors": [
+    "chooses data types and sizes for every field",
+    "marks primary and foreign keys; a foreign key has the same type as its primary key",
+    "writes a validation rule, a description and an example consistent with the rule"
+   ]
+  }
+ ],
+ "language_objectives": {
+  "learners_can": [
+   "state a rule precisely (The value must be …)",
+   "explain a choice with because / so that",
+   "compare two processes (Validation checks …, whereas verification …)"
+  ],
+  "vocabulary": [
+   "validation",
+   "validation rule",
+   "presence check",
+   "range check",
+   "type check",
+   "length check",
+   "format check",
+   "lookup check",
+   "uniqueness check",
+   "verification",
+   "double entry",
+   "visual check",
+   "test data",
+   "boundary",
+   "erroneous"
+  ],
+  "phrases": [
+   "The rule for … is … , so the value … is rejected.",
+   "… is stored as VARCHAR because …",
+   "Validation checks …, whereas verification checks …",
+   "Boundary data for this rule is …"
+  ]
+ },
+ "values": [
+  {
+   "value": "Lifelong learning",
+   "action": "Learners review the topics of the term on their own in the written worksheet, find their gaps and plan what to revise."
+  },
+  {
+   "value": "Diligence and creativity",
+   "action": "Learners write validation rules carefully and check that every example passes its own rule, as accurate database designers do."
+  },
+  {
+   "value": "Cooperation",
+   "action": "Random pairs and groups share one laptop, agree on every entry of the data dictionary and give each other feedback."
+  }
+ ],
+ "cross_curricular": [
+  "English: writing precise rules and comparing two processes.",
+  "Mathematics: ranges, inequalities and boundary values; decimal places.",
+  "Biology / medicine and business: why data in clinics and shops must be validated."
+ ],
+ "ict": [
+  "Printed review worksheet (written answers).",
+  "ICT Practice Platform, Lessons section: theory as slides, live votes and tasks, pair and group work on shared laptops.",
+  "Interactive validation checker in the theory: learners test a record against the rules.",
+  "Practice questions with automatic feedback; results visible to the teacher live."
+ ],
+ "previous_learning": "Basic concepts of a database (tables, records, fields, data types, keys); entity-relationship diagrams; lesson 1 of this topic: what a data dictionary is, the items it records and its purpose.",
+ "safety": [
+  "During the worksheet laptops stay closed.",
+  "Move to the group's laptop calmly; keep bags and cables off the floor."
+ ],
+ "differentiation": {
+  "support": [
+   "The worksheet goes from recall to explanation; key words are given in the questions.",
+   "Worked example on the slides: the sports centre table and its data dictionary.",
+   "The group task has labelled boxes for each item; client cards name the fields.",
+   "Random mixed-ability groups with roles: leader, writer, checker, presenter."
+  ],
+  "stretch": [
+   "Write the SQL CHECK and NOT NULL constraints for the group's rules.",
+   "Explain why a lookup check is unsuitable for 8 000 book titles.",
+   "Find a value that passes every check but is still wrong, and suggest how verification would catch it."
+  ]
+ },
+ "assessment": [
+  "Written review worksheet (30 marks) marked by the teacher with the mark scheme; common gaps are discussed in the next lesson.",
+  "Live results of every task on the teacher's slide; misconceptions are discussed at once.",
+  "The group's data dictionary is checked by the teacher with feedback during the lesson.",
+  "Exit ticket (marked automatically) checks the lesson objectives.",
+  "Practice results count towards SAU points."
+ ],
+ "stages": [
+  {
+   "stage": "Beginning",
+   "minutes": 32,
+   "blocks": [
+    {
+     "id": "b1",
+     "minutes": 30,
+     "title": "Written review worksheet: term 2 so far",
+     "mode": "individual",
+     "kind": "paper",
+     "teacher": "Greets the class, gives out the printed worksheet (databases, keys, ERD, data dictionary) and states the time: 30 minutes, written answers, no laptops. Walks round and notes common gaps. Collects the worksheets for marking with the mark scheme.",
+     "learners": "Answer the worksheet questions in writing on their own.",
+     "resources": [
+      "Printed worksheet: Term 2 review (30 marks)",
+      "Mark scheme for the teacher"
+     ]
+    },
+    {
+     "id": "b2",
+     "minutes": 2,
+     "title": "Hook: Age = 150",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Shows the objectives. Asks: a form saved a pupil with Age = 150. What should have stopped it? Learners vote; leads to validation rules.",
+     "learners": "Vote on their laptops.",
+     "poll": {
+      "question": "A school form saved a pupil with Age = 150. What should have stopped it?",
+      "options": [
+       "A presence check",
+       "A range check",
+       "A lookup check",
+       "Nothing — it is fine"
+      ]
+     },
+     "resources": [
+      "Title slide: objectives and key words",
+      "Live poll"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "Middle",
+   "minutes": 40,
+   "blocks": [
+    {
+     "id": "m1",
+     "minutes": 8,
+     "title": "Slides: validation checks",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents validation, the seven checks with accepted and rejected values, the validation checker, choosing a check, validation and verification, test data. Together tasks: which check is \"size S, M, L or XL\"? What happens to 78 typed instead of 87?",
+     "learners": "Follow the slides, vote in the together tasks and suggest values that are accepted or rejected.",
+     "slides": [
+      "Validation in a data dictionary"
+     ],
+     "together": [
+      "dd-l2-live-together-1",
+      "dd-l2-live-together-2"
+     ],
+     "resources": [
+      "Theory: Validation in a data dictionary (slides, interactive checker)",
+      "Live votes"
+     ]
+    },
+    {
+     "id": "m2",
+     "minutes": 8,
+     "title": "Pair work: checks, verification and test data",
+     "mode": "pair",
+     "kind": "task",
+     "teacher": "Opens the pair task: random pairs, one laptop each. Monitors live results and helps pairs that are stuck.",
+     "learners": "In random pairs on one laptop: six practice questions on validation checks, verification and test data.",
+     "tasks": [
+      "dd-val-define-mcq",
+      "dd-check-tick",
+      "dd-accept-mr",
+      "dd-check-email-mcq",
+      "dd-vv-tick",
+      "dd-testdata-tick"
+     ],
+     "resources": [
+      "Practice: lesson 2, set A"
+     ]
+    },
+    {
+     "id": "m3",
+     "minutes": 6,
+     "title": "Slides: creating a data dictionary",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents the steps, choosing data types and sizes, matching keys and the sports centre worked example. Together task: which type for an ISBN?",
+     "learners": "Follow the worked example and vote.",
+     "slides": [
+      "Creating a data dictionary"
+     ],
+     "together": [
+      "dd-l2-live-together-3"
+     ],
+     "resources": [
+      "Theory: Creating a data dictionary (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m4",
+     "minutes": 5,
+     "title": "Individual practice: types and keys",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens three questions; checks the live results before the group work.",
+     "learners": "Answer individually.",
+     "tasks": [
+      "dd-leading-zero-mcq",
+      "dd-fk-type-mcq",
+      "dd-entry-table"
+     ],
+     "resources": [
+      "Practice: lesson 2, set B"
+     ]
+    },
+    {
+     "id": "m5",
+     "minutes": 13,
+     "title": "Group work: the full data dictionary",
+     "mode": "group",
+     "group_size": 4,
+     "kind": "task",
+     "teacher": "Opens the group task: random groups of four, a client card each, the host's laptop. After 10 minutes one group presents; the class checks that every example passes its own rule. Teacher can ask for the answers to be checked during the lesson.",
+     "learners": "In groups, create the data dictionary for four fields of the client's table and give test data for one rule.",
+     "tasks": [
+      "dd-l2-live-group"
+     ],
+     "scenarios": "dd-l2-scenarios",
+     "resources": [
+      "Live task: group data dictionary with client cards",
+      "Success criteria"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "End",
+   "minutes": 8,
+   "blocks": [
+    {
+     "id": "e1",
+     "minutes": 4,
+     "title": "Exit ticket",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens the exit ticket and uses the results to plan the next lesson.",
+     "learners": "Answer three questions individually.",
+     "tasks": [
+      "dd-l2-live-exit-1",
+      "dd-l2-live-exit-2",
+      "dd-l2-live-exit-3"
+     ],
+     "resources": [
+      "Live tasks: exit ticket"
+     ]
+    },
+    {
+     "id": "e2",
+     "minutes": 4,
+     "title": "Reflection and homework",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Traffic-light reflection. Homework: finish the remaining lesson 2 practice and hand in handwritten notes for lesson 2.",
+     "learners": "Rate their confidence and note the homework.",
+     "poll": {
+      "question": "How confident are you with today's objectives?",
+      "options": [
+       "Green: I can create a full data dictionary with validation rules",
+       "Amber: I can choose types and checks for single fields",
+       "Red: I need more help"
+      ]
+     },
+     "homework": [
+      "dd-validation-match",
+      "dd-format-fill",
+      "dd-vv-tf",
+      "dd-boundary-fill",
+      "dd-sql-match",
+      "dd-notnull-short",
+      "dd-data-types",
+      "dd-size-fill",
+      "dd-example-mcq",
+      "dd-entry-errors-mr"
+     ],
+     "resources": [
+      "Traffic-light poll",
+      "Practice: remaining lesson 2 questions",
+      "Notes check: lesson 2"
+     ]
+    }
+   ]
+  }
+ ],
+ "scenarios": {
+  "dd-l2-scenarios": [
+   {
+    "client": "An online shop",
+    "details": "Table Products: ProductID (e.g. P00125), Name, Price in tenge, InStock (how many), CategoryID, OnSale (yes/no)."
+   },
+   {
+    "client": "A school",
+    "details": "Table Results: ResultID, StudentID (e.g. S0421), Subject, Mark (0–100), Term (1–4), ExamDate."
+   },
+   {
+    "client": "A taxi company",
+    "details": "Table Trips: TripID, DriverID (e.g. D017), StartTime, Distance in km (e.g. 12.4), Fare in tenge, PaidByCard (yes/no)."
+   },
+   {
+    "client": "A hotel",
+    "details": "Table Bookings: BookingID, GuestPhone, RoomNumber (101–520), CheckIn, Nights (1–30), Breakfast (yes/no)."
+   },
+   {
+    "client": "A clinic",
+    "details": "Table Patients: PatientID (IIN, 12 digits), Surname, DateOfBirth, BloodGroup (O, A, B, AB), Phone, Insured (yes/no)."
+   }
+  ]
+ },
+ "live_tasks": [
+  {
+   "key": "dd-l2-live-together-1",
+   "title": "Which check?",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "The rule is: **T-shirt size must be S, M, L or XL**. Which validation check is it?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Range check"
+    },
+    {
+     "key": "B",
+     "content": "Lookup (list) check"
+    },
+    {
+     "key": "C",
+     "content": "Length check"
+    },
+    {
+     "key": "D",
+     "content": "Presence check"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "The value must be in a short list of allowed values."
+   }
+  },
+  {
+   "key": "dd-l2-live-together-2",
+   "title": "Sensible but wrong",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "A teacher types the mark **78** instead of **87**. The rule is 0–100. What happens?",
+   "options": [
+    {
+     "key": "A",
+     "content": "The range check rejects it"
+    },
+    {
+     "key": "B",
+     "content": "It is accepted — validation cannot tell it is wrong; verification is needed"
+    },
+    {
+     "key": "C",
+     "content": "The DBMS corrects it to 87"
+    },
+    {
+     "key": "D",
+     "content": "The record is deleted"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "Validation checks that data is sensible, not that it is correct."
+   }
+  },
+  {
+   "key": "dd-l2-live-together-3",
+   "title": "Type for ISBN",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "An ISBN looks like `9786010000017` (13 digits, may start with 0, never used in calculations). Which data type should the data dictionary give it?",
+   "options": [
+    {
+     "key": "A",
+     "content": "INTEGER"
+    },
+    {
+     "key": "B",
+     "content": "DECIMAL"
+    },
+    {
+     "key": "C",
+     "content": "VARCHAR(13)"
+    },
+    {
+     "key": "D",
+     "content": "BOOLEAN"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    },
+    "explanation": "Codes that are not used in calculations — and may have leading zeros — are stored as text."
+   }
+  },
+  {
+   "key": "dd-l2-live-group",
+   "title": "Database designers: the full data dictionary",
+   "type": "labelled_answers",
+   "marks": 10,
+   "difficulty": "hard",
+   "command_word": "describe",
+   "grading": "AI",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "Your group creates the data dictionary for your client's table (see your card). For **four** fields write: name · data type · size · key · validation rule · example. Then give **test data** for one of your validation rules.",
+   "content": {
+    "fields": [
+     {
+      "key": "f1",
+      "label": "Field 1 (the primary key): name · type · size · key · validation · example",
+      "lines": 2
+     },
+     {
+      "key": "f2",
+      "label": "Field 2: name · type · size · key · validation · example",
+      "lines": 2
+     },
+     {
+      "key": "f3",
+      "label": "Field 3: name · type · size · key · validation · example",
+      "lines": 2
+     },
+     {
+      "key": "f4",
+      "label": "Field 4: name · type · size · key · validation · example",
+      "lines": 2
+     },
+     {
+      "key": "test",
+      "label": "Test data for one rule: a normal, a boundary and an erroneous value, with the expected result",
+      "lines": 3
+     }
+    ]
+   },
+   "scheme": {
+    "mark_scheme": "Each field (max 2 each, 8 in all): a suitable data type and size, with the key marked correctly (1); a suitable validation rule and an example that fits the type and passes the rule (1)\nTest data (2): normal and boundary values that are accepted (1); an erroneous value that is rejected, with the expected results (1)",
+    "points": [
+     {
+      "criterion": "Field 1: type, size and key",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 1: validation and example",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 2: type, size and key",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 2: validation and example",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 3: type, size and key",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 3: validation and example",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 4: type, size and key",
+      "marks": 1
+     },
+     {
+      "criterion": "Field 4: validation and example",
+      "marks": 1
+     },
+     {
+      "criterion": "Normal and boundary test data",
+      "marks": 1
+     },
+     {
+      "criterion": "Erroneous test data with expected result",
+      "marks": 1
+     }
+    ],
+    "model_answer": "Online shop, Products. ProductID · VARCHAR · 6 · PK · presence; format P + 5 digits; unique · P00125. Name · VARCHAR · 40 · — · presence; length ≤ 40 · Wireless mouse. Price · DECIMAL · 8,2 · — · range > 0 and ≤ 500000 · 4990.00. InStock · INTEGER · — · — · type whole number; range ≥ 0 · 37. Test data for Price: normal 4990.00 accepted; boundary 0.01 accepted; erroneous −5 rejected (\"Price must be more than 0\")."
+   }
+  },
+  {
+   "key": "dd-l2-live-exit-1",
+   "title": "Format check",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "Which rule is a **format** check?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Quantity must be at least 1"
+    },
+    {
+     "key": "B",
+     "content": "Pupil ID must be S followed by 4 digits"
+    },
+    {
+     "key": "C",
+     "content": "Surname must not be empty"
+    },
+    {
+     "key": "D",
+     "content": "Grade must be 11 or 12"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "dd-l2-live-exit-2",
+   "title": "Double entry",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "Typing a password twice when you create an account is an example of …",
+   "options": [
+    {
+     "key": "A",
+     "content": "a range check"
+    },
+    {
+     "key": "B",
+     "content": "a lookup check"
+    },
+    {
+     "key": "C",
+     "content": "verification"
+    },
+    {
+     "key": "D",
+     "content": "a presence check"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    },
+    "explanation": "The two entries are compared, so it checks that the data was entered correctly."
+   }
+  },
+  {
+   "key": "dd-l2-live-exit-3",
+   "title": "Price",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.6"
+   ],
+   "practice": false,
+   "text": "Which data dictionary entry is correct for `Price` (in tenge, e.g. 4990.50)?",
+   "options": [
+    {
+     "key": "A",
+     "content": "INTEGER · range 0–100"
+    },
+    {
+     "key": "B",
+     "content": "DECIMAL(8,2) · range > 0"
+    },
+    {
+     "key": "C",
+     "content": "VARCHAR(8) · lookup"
+    },
+    {
+     "key": "D",
+     "content": "BOOLEAN · presence"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "Money has a fractional part, so DECIMAL; a price must be more than 0."
+   }
+  }
+ ],
+ "reflection": [
+  "Were the lesson objectives / learning objectives achieved? What did learners learn today?",
+  "What did the review worksheet show about the term so far? Which topics need revision?",
+  "Did I keep to the timings? What changes did I make to the plan and why?"
+ ]
+}

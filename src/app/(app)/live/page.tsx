@@ -12,7 +12,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { LiveRefresh } from "@/components/live/live-refresh";
-import { AutoRefresh, BoardCard, GoToLaptop, Heartbeat, HostBadge, LessonStage, LiveQuestion, PollCard } from "@/components/live/student-live";
+import { AutoRefresh, BoardCard, PaperCard, GoToLaptop, Heartbeat, HostBadge, LessonStage, LiveQuestion, PollCard } from "@/components/live/student-live";
 
 export const metadata: Metadata = { title: "Lesson" };
 
@@ -90,6 +90,7 @@ export default async function LivePage() {
                 />
                 <CardBody className="space-y-4 pt-0">
                   {b.kind === "slides" && !only && <BoardCard text="Look at the board and follow your teacher." />}
+                  {b.kind === "paper" && <PaperCard />}
                   {b.poll && (
                     <PollCard
                       sessionId={session.id}
