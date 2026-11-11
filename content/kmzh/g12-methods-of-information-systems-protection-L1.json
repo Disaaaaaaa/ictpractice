@@ -1,0 +1,812 @@
+{
+ "topic": "g12-methods-of-information-systems-protection",
+ "lesson": 1,
+ "grade": 12,
+ "unit": "12.2A Information security",
+ "title": "Cracking: methods, ethics and protection",
+ "teacher": "Assylbek Dias",
+ "date": "",
+ "class": "",
+ "minutes": 80,
+ "learning_objectives": [
+  {
+   "code": "12.1.3.1",
+   "text": "analyse ethical problems arising due to computer system cracking"
+  },
+  {
+   "code": "12.1.2.3",
+   "text": "protect data from unauthorised access"
+  }
+ ],
+ "lesson_objectives": {
+  "all": "name cracking methods and the types of hacker, and state measures that protect data from unauthorised access",
+  "most": "explain the ethical and legal problems caused by cracking and match each attack to the measure that stops it",
+  "some": "analyse a real cracking case: who is harmed, why it is wrong even with a 'good reason', which laws apply and how it could have been prevented"
+ },
+ "assessment_criteria": [
+  {
+   "criterion": "Describe computer system cracking",
+   "descriptors": [
+    "defines cracking and a vulnerability",
+    "names cracking methods: brute force, dictionary attack, phishing, SQL injection, keylogger, social engineering",
+    "distinguishes black-hat, white-hat and grey-hat hackers"
+   ]
+  },
+  {
+   "criterion": "Analyse ethical problems of cracking",
+   "descriptors": [
+    "identifies who is harmed and how",
+    "separates ethical problems from legal problems",
+    "explains why intentions do not make unauthorised access acceptable"
+   ]
+  },
+  {
+   "criterion": "Protect data from unauthorised access",
+   "descriptors": [
+    "explains authentication and authorisation, strong passwords, lockout and 2FA",
+    "explains least privilege, encryption and hashing",
+    "links each measure to the attack it stops"
+   ]
+  }
+ ],
+ "language_objectives": {
+  "learners_can": [
+   "analyse a case using cause and effect (because, as a result, therefore)",
+   "distinguish ethical from legal arguments (It is wrong because …; It is illegal because …)",
+   "recommend measures with justification"
+  ],
+  "vocabulary": [
+   "cracking",
+   "hacker",
+   "vulnerability",
+   "exploit",
+   "brute-force attack",
+   "dictionary attack",
+   "phishing",
+   "SQL injection",
+   "keylogger",
+   "social engineering",
+   "authentication",
+   "authorisation",
+   "two-factor authentication",
+   "least privilege",
+   "hashing",
+   "encryption"
+  ],
+  "phrases": [
+   "The cracker exploited … by …",
+   "This is unethical because …, and it is illegal because …",
+   "… was harmed because …",
+   "To prevent this, the organisation should …, which stops …"
+  ]
+ },
+ "values": [
+  {
+   "value": "Patriotism and civil responsibility",
+   "action": "Learners discuss why protecting the information systems of Kazakhstan (e-government, banks, clinics) is every citizen's responsibility and what the Criminal Code and the Law on Personal Data require."
+  },
+  {
+   "value": "Respect",
+   "action": "Learners consider the people behind stolen data — patients, pupils, customers — and respect their privacy in the case analysis."
+  },
+  {
+   "value": "Cooperation",
+   "action": "Random pairs and groups share one laptop, agree on an analysis and present it to the class."
+  }
+ ],
+ "cross_curricular": [
+  "Law / civics: the Criminal Code and the Law on Personal Data and its Protection of the Republic of Kazakhstan.",
+  "English: argumentation, cause and effect.",
+  "Mathematics: why longer passwords take exponentially longer to crack."
+ ],
+ "ict": [
+  "ICT Practice Platform, Lessons section: theory as slides, live votes and tasks, random pairs and groups on shared laptops.",
+  "Practice questions with automatic feedback; results visible to the teacher live.",
+  "Case cards on the learners' screens for the group analysis."
+ ],
+ "previous_learning": "Data protection measures: threats, firewalls, encryption, biometrics, passwords and access rights, malware, backups.",
+ "safety": [
+  "Discuss attack methods only to understand defences — never try them on real systems; doing so is a crime.",
+  "Move to the group's laptop calmly; keep bags and cables off the floor."
+ ],
+ "differentiation": {
+  "support": [
+   "Key words with definitions on the title slide; sentence frames for ethical and legal arguments.",
+   "The attack → defence table on the slides is used during the group task.",
+   "The group task has labelled boxes; case cards name the system and what happened.",
+   "Random mixed-ability groups with roles: leader, writer, presenter, checker."
+  ],
+  "stretch": [
+   "Argue whether white-hat bug bounties should be allowed by law.",
+   "Explain why hashing with a salt defeats a dictionary attack on a stolen password database.",
+   "Compare the ethics of paying a ransom to recover patients' data."
+  ]
+ },
+ "assessment": [
+  "Live results of every task on the teacher's slide; misconceptions are discussed at once.",
+  "Together votes check understanding before the next step opens.",
+  "The group's case analysis is checked by the teacher with feedback during the lesson; peers ask one question each.",
+  "Exit ticket (marked automatically) checks the lesson objectives.",
+  "Practice results count towards SAU points."
+ ],
+ "stages": [
+  {
+   "stage": "Beginning",
+   "minutes": 10,
+   "blocks": [
+    {
+     "id": "b1",
+     "minutes": 4,
+     "title": "Hook: just looking?",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Shows the objectives. Asks: a student finds the teacher's password on a sticky note and logs into the electronic gradebook — only to look, without changing anything. Learners vote; the split leads into ethics and law.",
+     "learners": "Vote on their laptops and justify their choice.",
+     "poll": {
+      "question": "A student logs into the teacher's gradebook with a password found on a sticky note, only to look. Is that acceptable?",
+      "options": [
+       "Yes — nothing was changed",
+       "It is wrong, but not a crime",
+       "It is wrong and it is a crime",
+       "It depends on why they did it"
+      ]
+     },
+     "resources": [
+      "Title slide: objectives and key words",
+      "Live poll"
+     ]
+    },
+    {
+     "id": "b2",
+     "minutes": 6,
+     "title": "Starter: recall data protection measures",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens three quick questions on the previous topic and corrects the most common mistake.",
+     "learners": "Answer three multiple-choice questions individually.",
+     "tasks": [
+      "isp-l1-live-starter-1",
+      "isp-l1-live-starter-2",
+      "isp-l1-live-starter-3"
+     ],
+     "resources": [
+      "Live tasks: starter"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "Middle",
+   "minutes": 62,
+   "blocks": [
+    {
+     "id": "m1",
+     "minutes": 13,
+     "title": "Slides: computer system cracking",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents cracking, vulnerabilities, the types of hacker and the main methods with the layer that stops each attack. Together task: which method tries aaaa, aaab, aaac …?",
+     "learners": "Follow the slides, vote and give real-life examples of each method.",
+     "slides": [
+      "Computer system cracking"
+     ],
+     "together": [
+      "isp-l1-live-together-1"
+     ],
+     "resources": [
+      "Theory: Computer system cracking (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m2",
+     "minutes": 8,
+     "title": "Pair work: methods and hackers",
+     "mode": "pair",
+     "kind": "task",
+     "teacher": "Opens the pair task: random pairs, one laptop each. Monitors live results and helps pairs that are stuck.",
+     "learners": "In random pairs on one laptop: five practice questions on cracking, hackers and methods.",
+     "tasks": [
+      "isp-cracking-mcq",
+      "isp-vuln-tf",
+      "isp-hat-match",
+      "isp-methods-match",
+      "isp-sqlinj-mcq"
+     ],
+     "resources": [
+      "Practice: lesson 1, set A"
+     ]
+    },
+    {
+     "id": "m3",
+     "minutes": 8,
+     "title": "Slides: ethical and legal problems",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents who is harmed by cracking, ethical vs legal problems, the Criminal Code and the Law on Personal Data. Together task: is a grey-hat break-in legal?",
+     "learners": "Vote and explain using \"It is wrong because …; it is illegal because …\".",
+     "slides": [
+      "Ethical and legal problems of cracking"
+     ],
+     "together": [
+      "isp-l1-live-together-2"
+     ],
+     "resources": [
+      "Theory: Ethical and legal problems of cracking (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m4",
+     "minutes": 18,
+     "title": "Group work: ethics committee",
+     "mode": "group",
+     "group_size": 4,
+     "kind": "task",
+     "teacher": "Opens the group task: random groups of four, a case card each, the host's laptop. After 12 minutes two groups present (1 minute each); the class asks one question. Teacher can ask for the answers to be checked during the lesson.",
+     "learners": "In groups, analyse the case: method, who was harmed, ethical and legal problems, two preventive measures.",
+     "tasks": [
+      "isp-l1-live-group"
+     ],
+     "scenarios": "isp-l1-cases",
+     "resources": [
+      "Live task: case analysis with case cards",
+      "Success criteria"
+     ]
+    },
+    {
+     "id": "m5",
+     "minutes": 8,
+     "title": "Slides: protecting data from unauthorised access",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents authentication and authorisation, strong passwords and lockout, 2FA, least privilege, encryption and hashing. Together task: why does 2FA help when a password is stolen?",
+     "learners": "Follow the slides and vote.",
+     "slides": [
+      "Protecting data from unauthorised access"
+     ],
+     "together": [
+      "isp-l1-live-together-3"
+     ],
+     "resources": [
+      "Theory: Protecting data from unauthorised access (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m6",
+     "minutes": 7,
+     "title": "Individual practice: protection measures",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens five questions; checks the live results.",
+     "learners": "Answer individually.",
+     "tasks": [
+      "isp-strong-password-mcq",
+      "isp-lockout-short",
+      "isp-auth-tick",
+      "isp-2fa-mcq",
+      "isp-defend-match"
+     ],
+     "resources": [
+      "Practice: lesson 1, set B"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "End",
+   "minutes": 8,
+   "blocks": [
+    {
+     "id": "e1",
+     "minutes": 4,
+     "title": "Exit ticket",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens the exit ticket and uses the results to plan lesson 2.",
+     "learners": "Answer three questions individually.",
+     "tasks": [
+      "isp-l1-live-exit-1",
+      "isp-l1-live-exit-2",
+      "isp-l1-live-exit-3"
+     ],
+     "resources": [
+      "Live tasks: exit ticket"
+     ]
+    },
+    {
+     "id": "e2",
+     "minutes": 4,
+     "title": "Reflection and homework",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Traffic-light reflection. Homework: finish the remaining lesson 1 practice and hand in handwritten notes for lesson 1.",
+     "learners": "Rate their confidence and note the homework.",
+     "poll": {
+      "question": "How confident are you with today's objectives?",
+      "options": [
+       "Green: I can analyse a cracking case and recommend protection",
+       "Amber: I can name methods and measures",
+       "Red: I need more help"
+      ]
+     },
+     "homework": [
+      "isp-illegal-tf",
+      "isp-whitehat-mcq",
+      "isp-ethical-legal-tick",
+      "isp-org-problems-mr",
+      "isp-auth-fill",
+      "isp-least-priv-mcq",
+      "isp-hash-tf",
+      "isp-measures-mr",
+      "isp-enc-hash-tick"
+     ],
+     "resources": [
+      "Traffic-light poll",
+      "Practice: remaining lesson 1 questions",
+      "Notes check: lesson 1"
+     ]
+    }
+   ]
+  }
+ ],
+ "scenarios": {
+  "isp-l1-cases": [
+   {
+    "client": "A clinic",
+    "details": "A nurse who was dismissed last month logged in with her old password, which was never disabled, and read the medical records of her former colleagues' patients, then posted one diagnosis on social media."
+   },
+   {
+    "client": "A school",
+    "details": "A grade 12 student watched a teacher type the gradebook password (shoulder surfing), logged in at home and raised his own marks in three subjects."
+   },
+   {
+    "client": "An online shop",
+    "details": "Criminals typed SQL code into the shop's search box and downloaded 40 000 customers' names, phones and card numbers, then sold them online."
+   },
+   {
+    "client": "A bank",
+    "details": "Customers received an e-mail 'from the bank' asking them to confirm their login on a fake website. 300 accounts were emptied within two days."
+   },
+   {
+    "client": "E-government portal",
+    "details": "A grey-hat hacker found a weakness that showed other citizens' IIN and addresses, downloaded 1 000 records 'as proof' and published them to force the government to fix it."
+   }
+  ]
+ },
+ "live_tasks": [
+  {
+   "key": "isp-l1-live-starter-1",
+   "title": "Firewall",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "What does a firewall check?",
+   "options": [
+    {
+     "key": "A",
+     "content": "The spelling of e-mails"
+    },
+    {
+     "key": "B",
+     "content": "Each data packet against security rules (IP address, port)"
+    },
+    {
+     "key": "C",
+     "content": "Whether the backup is complete"
+    },
+    {
+     "key": "D",
+     "content": "The strength of passwords"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "isp-l1-live-starter-2",
+   "title": "Encryption",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "Encrypted data is stolen. What is the result?",
+   "options": [
+    {
+     "key": "A",
+     "content": "The thief can read it at once"
+    },
+    {
+     "key": "B",
+     "content": "The data is deleted"
+    },
+    {
+     "key": "C",
+     "content": "The thief cannot read it without the key"
+    },
+    {
+     "key": "D",
+     "content": "The data is automatically restored"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    }
+   }
+  },
+  {
+   "key": "isp-l1-live-starter-3",
+   "title": "Biometrics",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "Which is an example of biometric authentication?",
+   "options": [
+    {
+     "key": "A",
+     "content": "A password"
+    },
+    {
+     "key": "B",
+     "content": "A smart card"
+    },
+    {
+     "key": "C",
+     "content": "A fingerprint scan"
+    },
+    {
+     "key": "D",
+     "content": "A security question"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    }
+   }
+  },
+  {
+   "key": "isp-l1-live-together-1",
+   "title": "Name the attack",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.3.1"
+   ],
+   "practice": false,
+   "text": "A program tries **aaaa, aaab, aaac …** until the password is found. Which method is it?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Phishing"
+    },
+    {
+     "key": "B",
+     "content": "Brute-force attack"
+    },
+    {
+     "key": "C",
+     "content": "SQL injection"
+    },
+    {
+     "key": "D",
+     "content": "Shoulder surfing"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "Every possible combination is tried; lockout after a few failed attempts stops it."
+   }
+  },
+  {
+   "key": "isp-l1-live-together-2",
+   "title": "Grey hat",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.3.1"
+   ],
+   "practice": false,
+   "text": "A student breaks into the school website without permission, changes nothing and e-mails the IT department about the weakness. Which statement is true?",
+   "options": [
+    {
+     "key": "A",
+     "content": "It is legal because nothing was damaged"
+    },
+    {
+     "key": "B",
+     "content": "It is ethical and legal because it helped"
+    },
+    {
+     "key": "C",
+     "content": "It is still illegal — access was without permission"
+    },
+    {
+     "key": "D",
+     "content": "It is white-hat hacking"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    },
+    "explanation": "Good intentions do not make unauthorised access legal; white-hat testers work with the owner's permission."
+   }
+  },
+  {
+   "key": "isp-l1-live-together-3",
+   "title": "A stolen password",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "Why does two-factor authentication protect an account even if the password is stolen?",
+   "options": [
+    {
+     "key": "A",
+     "content": "The password is encrypted"
+    },
+    {
+     "key": "B",
+     "content": "The attacker also needs a second, different factor such as a code on the owner's phone"
+    },
+    {
+     "key": "C",
+     "content": "The account is locked forever"
+    },
+    {
+     "key": "D",
+     "content": "The firewall blocks the attacker"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "Two different types of evidence are needed (know + have / are)."
+   }
+  },
+  {
+   "key": "isp-l1-live-group",
+   "title": "Ethics committee: analyse a cracking case",
+   "type": "labelled_answers",
+   "marks": 8,
+   "difficulty": "hard",
+   "command_word": "analyse",
+   "grading": "AI",
+   "objectives": [
+    "12.1.3.1",
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "Your group is the ethics committee for the case on your card. Analyse it.",
+   "content": {
+    "fields": [
+     {
+      "key": "method",
+      "label": "How the system was cracked (name the method and the weakness that was exploited)",
+      "lines": 2
+     },
+     {
+      "key": "harm",
+      "label": "Who was harmed and how (at least two different people or organisations)",
+      "lines": 3
+     },
+     {
+      "key": "ethics",
+      "label": "Ethical problems: why was it wrong, even if the cracker had a 'reason'?",
+      "lines": 3
+     },
+     {
+      "key": "legal",
+      "label": "Legal problems: which law was broken and what can happen to the cracker / the organisation",
+      "lines": 2
+     },
+     {
+      "key": "protect",
+      "label": "Two measures that would have prevented it, each linked to the method",
+      "lines": 3
+     }
+    ]
+   },
+   "scheme": {
+    "mark_scheme": "Method and weakness named correctly (1)\nTwo different groups harmed, each with the harm (2)\nEthical problem explained — privacy / trust / consent / intent does not justify it (1)\nLegal problem — unauthorised access is a crime (Criminal Code of the RK); organisation may be fined under the Law on Personal Data (1)\nTwo measures, each linked to the method (e.g. lockout + 2FA against brute force; input validation / prepared statements against SQL injection; training against phishing) (2)\nClear, well-argued analysis (1)",
+    "points": [
+     {
+      "criterion": "Method and weakness",
+      "marks": 1
+     },
+     {
+      "criterion": "First group harmed",
+      "marks": 1
+     },
+     {
+      "criterion": "Second group harmed",
+      "marks": 1
+     },
+     {
+      "criterion": "Ethical problem explained",
+      "marks": 1
+     },
+     {
+      "criterion": "Legal problem",
+      "marks": 1
+     },
+     {
+      "criterion": "First measure linked to the method",
+      "marks": 1
+     },
+     {
+      "criterion": "Second measure linked to the method",
+      "marks": 1
+     },
+     {
+      "criterion": "Well-argued analysis",
+      "marks": 1
+     }
+    ],
+    "model_answer": "Clinic: a former employee used his old password (account never disabled) to read patients' records. Harmed: patients (private diagnoses exposed, stress, discrimination) and the clinic (loss of trust, fine). Ethics: patients did not consent; revenge does not justify invading privacy. Legal: unauthorised access is a crime under the Criminal Code of the RK; the clinic can be fined under the Law on Personal Data. Prevention: disable accounts on the day staff leave; least privilege and an audit trail."
+   }
+  },
+  {
+   "key": "isp-l1-live-exit-1",
+   "title": "Ethical vs legal",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.3.1"
+   ],
+   "practice": false,
+   "text": "Which is a **legal** (not only ethical) problem of cracking?",
+   "options": [
+    {
+     "key": "A",
+     "content": "The cracker feels proud"
+    },
+    {
+     "key": "B",
+     "content": "Unauthorised access is a crime that can lead to fines or prison"
+    },
+    {
+     "key": "C",
+     "content": "People trust online banking less"
+    },
+    {
+     "key": "D",
+     "content": "The cracker wastes time"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "isp-l1-live-exit-2",
+   "title": "Hashing",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "Why are passwords stored as hashes?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Hashes are shorter"
+    },
+    {
+     "key": "B",
+     "content": "If the database is stolen, the real passwords are not revealed"
+    },
+    {
+     "key": "C",
+     "content": "Hashes can be decrypted by the user"
+    },
+    {
+     "key": "D",
+     "content": "Hashing makes log-in faster"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "isp-l1-live-exit-3",
+   "title": "Least privilege",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "12.1.2.3"
+   ],
+   "practice": false,
+   "text": "A receptionist can see appointments but not medical records. This is …",
+   "options": [
+    {
+     "key": "A",
+     "content": "two-factor authentication"
+    },
+    {
+     "key": "B",
+     "content": "encryption"
+    },
+    {
+     "key": "C",
+     "content": "the principle of least privilege"
+    },
+    {
+     "key": "D",
+     "content": "a firewall rule"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    }
+   }
+  }
+ ],
+ "reflection": [
+  "Were the lesson objectives / learning objectives achieved? What did learners learn today?",
+  "Did the case analysis show that learners can separate ethical and legal problems?",
+  "Did I keep to the timings? What changes did I make to the plan and why?"
+ ]
+}
