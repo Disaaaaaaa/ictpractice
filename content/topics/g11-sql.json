@@ -2,13 +2,53 @@
   "topic": "g11-sql",
   "questions": [
     {
+      "key": "sql-what-is-sql-mcq",
+      "title": "What SQL is",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.1"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "What is **SQL**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A programming language used to build web pages"
+        },
+        {
+          "key": "B",
+          "content": "The standard language used to create, manage and query relational databases"
+        },
+        {
+          "key": "C",
+          "content": "A type of database management system made by Microsoft"
+        },
+        {
+          "key": "D",
+          "content": "A file format for storing spreadsheets"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "SQL (Structured Query Language) is the language used by DBMSs such as MySQL to define and work with relational databases."
+      }
+    },
+    {
       "key": "sql-ddl-dml-tick",
       "title": "DDL or DML",
       "type": "table_completion",
-      "marks": 4,
+      "marks": 6,
       "difficulty": "easy",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.1"
       ],
@@ -56,22 +96,30 @@
         ]
       },
       "scheme": {
-        "mark_scheme": "CREATE DDL; SELECT DML; ALTER DDL; UPDATE DML; DROP DDL; INSERT DML\n\nSix correct (4); five (3); three or four (2); one or two (1)",
+        "mark_scheme": "CREATE DDL (1); SELECT DML (1); ALTER DDL (1); UPDATE DML (1); DROP DDL (1); INSERT DML (1)",
         "points": [
           {
-            "criterion": "One or two rows",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Three rows",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "Five rows",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "All six rows",
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
             "marks": 1
           }
         ],
@@ -114,77 +162,221 @@
     },
     {
       "key": "sql-dml-explain",
-      "title": "Explain DML",
-      "type": "short_answer",
-      "marks": 2,
+      "title": "The term DML",
+      "type": "fill_blank",
+      "marks": 3,
       "difficulty": "easy",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.1"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Explain the term **DML** in a MySQL database.",
+      "text": "Complete the sentences.\n\nDML stands for Data [[1]] Language. It works with the [[2]] stored in the tables, for example new records are added with the command [[3]].",
       "content": {
-        "answer_lines": 3
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "Data Manipulation Language (1)\nResponsible for performing all types of data modification in a database / adding, retrieving, changing and deleting records (1)\nExamples: SELECT, UPDATE, INSERT, DELETE",
-        "points": [
-          {
-            "criterion": "Data Manipulation Language",
-            "marks": 1
-          },
-          {
-            "criterion": "Purpose",
-            "marks": 1
-          }
-        ],
-        "model_answer": "DML means Data Manipulation Language; its commands, such as SELECT, INSERT, UPDATE and DELETE, are used to add, read, change and delete the data in tables."
+        "mark_scheme": "(1) manipulation (2) data (3) insert",
+        "accepted": {
+          "blanks": [
+            [
+              "manipulation"
+            ],
+            [
+              "data",
+              "records",
+              "rows",
+              "records / data",
+              "data / records"
+            ],
+            [
+              "insert",
+              "insert into"
+            ]
+          ]
+        }
       }
     },
     {
       "key": "sql-ddl-dml-compare",
-      "title": "Compare DDL and DML",
-      "type": "short_answer",
-      "marks": 2,
+      "title": "Comparing DDL and DML",
+      "type": "multiple_response",
+      "marks": 3,
       "difficulty": "medium",
-      "command_word": "compare",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.1"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Compare DDL and DML.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Select **three** true statements about DDL and DML.",
+      "options": [
+        {
+          "key": "A",
+          "content": "DDL defines or changes the structure of the tables"
+        },
+        {
+          "key": "B",
+          "content": "DROP is a DML command"
+        },
+        {
+          "key": "C",
+          "content": "SELECT, UPDATE and DELETE are DML commands"
+        },
+        {
+          "key": "D",
+          "content": "DDL commands are used to add records to a table"
+        },
+        {
+          "key": "E",
+          "content": "DML works with the records stored in the tables"
+        },
+        {
+          "key": "F",
+          "content": "SELECT changes the structure of a table"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- DDL defines / changes the structure of the database (tables, fields), whereas DML works with the data / records in the tables (1)\n- DDL commands CREATE, ALTER, DROP vs DML commands SELECT, INSERT, UPDATE, DELETE (1)",
-        "points": [
+        "mark_scheme": "A and C and E. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ]
+        },
+        "explanation": "DDL = structure (CREATE, ALTER, DROP); DML = data (SELECT, INSERT, UPDATE, DELETE)."
+      }
+    },
+    {
+      "key": "sql-ddl-dml-purpose-match",
+      "title": "What each command does",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.1",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Match each SQL command to what it does.",
+      "content": {
+        "left": [
           {
-            "criterion": "Structure vs data",
-            "marks": 1
+            "key": "L1",
+            "text": "CREATE"
           },
           {
-            "criterion": "Commands of each",
-            "marks": 1
+            "key": "L2",
+            "text": "ALTER"
+          },
+          {
+            "key": "L3",
+            "text": "DROP"
+          },
+          {
+            "key": "L4",
+            "text": "INSERT"
+          },
+          {
+            "key": "L5",
+            "text": "UPDATE"
           }
         ],
-        "model_answer": "DDL defines the structure of the database, for example with CREATE, ALTER and DROP, whereas DML works with the records inside the tables, using SELECT, INSERT, UPDATE and DELETE."
+        "right": [
+          {
+            "key": "R1",
+            "text": "Adds new records"
+          },
+          {
+            "key": "R2",
+            "text": "Changes values in existing records"
+          },
+          {
+            "key": "R3",
+            "text": "Makes a new database or table"
+          },
+          {
+            "key": "R4",
+            "text": "Changes the structure of an existing table"
+          },
+          {
+            "key": "R5",
+            "text": "Deletes a whole table or database"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "CREATE – Makes a new database or table; ALTER – Changes the structure of an existing table; DROP – Deletes a whole table or database; INSERT – Adds new records; UPDATE – Changes values in existing records.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R4",
+            "L3": "R5",
+            "L4": "R1",
+            "L5": "R2"
+          }
+        }
+      }
+    },
+    {
+      "key": "sql-schema-mcq",
+      "title": "DDL affects",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.1"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Which part of a database is changed by **DDL** statements?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The records stored in the tables"
+        },
+        {
+          "key": "B",
+          "content": "The schema — tables, fields, data types and keys"
+        },
+        {
+          "key": "C",
+          "content": "The user's screen layout"
+        },
+        {
+          "key": "D",
+          "content": "Only the primary key values"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "DDL works on the schema (the design of the tables); DML works on the records."
       }
     },
     {
       "key": "sql-data-types",
-      "title": "SQL data types",
+      "title": "Data types for Products",
       "type": "table_completion",
       "marks": 4,
-      "difficulty": "easy",
-      "command_word": "complete",
-      "grading": "HYBRID",
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.4"
       ],
+      "source": "original",
       "practice": true,
       "text": "Identify the most suitable SQL data type for each field of the table `Products`. Use **INT**, **DECIMAL**, **VARCHAR**, **DATE** or **BOOLEAN**.",
       "content": {
@@ -221,19 +413,19 @@
         "mark_scheme": "Product_code VARCHAR (1); Amount INT (1); Price DECIMAL (1); DeliveryDate DATE (1)",
         "points": [
           {
-            "criterion": "VARCHAR",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "INT",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "DECIMAL",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "DATE",
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
@@ -258,6 +450,164 @@
               null,
               null,
               "date||datetime"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-type-tick",
+      "title": "Choosing SQL data types",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "A clinic stores data about its patients. Tick (✓) the most suitable SQL data type for each field.",
+      "content": {
+        "columns": [
+          "Field",
+          "INT",
+          "DECIMAL",
+          "VARCHAR",
+          "DATE",
+          "BOOLEAN"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "FullName, e.g. Serikova Aigerim",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Number of visits this year",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Height in cm, e.g. 172.5",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Date of the next appointment",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Has insurance? (yes / no)",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Phone, e.g. +7 701 234 56 78",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "FullName, e.g. Serikova Aigerim – VARCHAR (1); Number of visits this year – INT (1); Height in cm, e.g. 172.5 – DECIMAL (1); Date of the next appointment – DATE (1); Has insurance? (yes / no) – BOOLEAN (1); Phone, e.g. +7 701 234 56 78 – VARCHAR (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              "",
+              ""
             ]
           ]
         }
@@ -303,34 +653,1103 @@
       }
     },
     {
-      "key": "sql-validation-verification",
-      "title": "Validation vs verification",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "key": "sql-iin-type-mcq",
+      "title": "Type for an IIN",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
-        "11.5.4.2"
+        "11.4.1.4"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Explain the difference between **data validation** and **data verification**.",
+      "text": "Every citizen of Kazakhstan has a 12-digit IIN, which can start with 0 (e.g. `050314650123`). Which data type is most suitable for the field `IIN`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`INT`"
+        },
+        {
+          "key": "B",
+          "content": "`CHAR(12)`"
+        },
+        {
+          "key": "C",
+          "content": "`DECIMAL(12,0)`"
+        },
+        {
+          "key": "D",
+          "content": "`BOOLEAN`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "It always has exactly 12 characters, can start with 0 and no arithmetic is done with it, so fixed-length text CHAR(12) is best."
+      }
+    },
+    {
+      "key": "sql-decimal-fill",
+      "title": "DECIMAL size",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The field `Price` is declared as `DECIMAL(6,2)`. It stores numbers with [[1]] digits in total, of which [[2]] are after the decimal point, so the largest price it can store is [[3]].",
       "content": {
-        "answer_lines": 3
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "- Validation: automatic check by the computer that data is reasonable / follows rules (range, type, presence…) (1)\n- Verification: checks the data entered matches the original / was copied accurately (double entry, visual check) (1)",
+        "mark_scheme": "(1) 6 (2) 2 (3) 9999.99",
+        "accepted": {
+          "blanks": [
+            [
+              "6",
+              "six"
+            ],
+            [
+              "2",
+              "two"
+            ],
+            [
+              "9999.99"
+            ]
+          ]
+        },
+        "explanation": "DECIMAL(p,s): p digits in total, s of them after the point → 4 before + 2 after."
+      }
+    },
+    {
+      "key": "sql-create-db",
+      "title": "Create a database",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write the SQL statement to create a database called **CinemaStar**.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "CREATE DATABASE CinemaStar; (no spaces in the name)",
+        "accepted": {
+          "values": [
+            "CREATE DATABASE CinemaStar",
+            "CREATE SCHEMA CinemaStar"
+          ]
+        },
+        "explanation": "CREATE DATABASE followed by the name — with no spaces."
+      }
+    },
+    {
+      "key": "sql-create-table",
+      "title": "Create the Movies table",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Complete the statement that creates the table **Movies**: `MovieID` is a whole number numbered automatically and is the primary key; `Title` is text up to 255 characters.\n\n```sql\n[[1]] Movies (\n    MovieID  INT [[2]],\n    Title    [[3]](255) NOT NULL,\n    Year     INT,\n    Duration INT,\n    [[4]] (MovieID)\n);\n```",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) create table (2) auto_increment (3) varchar (4) primary key",
+        "accepted": {
+          "blanks": [
+            [
+              "create table"
+            ],
+            [
+              "auto_increment",
+              "autoincrement",
+              "auto increment"
+            ],
+            [
+              "varchar"
+            ],
+            [
+              "primary key"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-alter-add",
+      "title": "Add a Budget column",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Complete the query that adds a **Budget** column to the **Movies** table to store the cost of each movie in dollars (e.g. 1500000.50).\n\n```sql\n[[1]] Movies\n[[2]] Budget [[3]];\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) alter table (2) add (3) float",
+        "accepted": {
+          "blanks": [
+            [
+              "alter table"
+            ],
+            [
+              "add",
+              "add column"
+            ],
+            [
+              "float",
+              "decimal",
+              "double",
+              "real",
+              "decimal(12,2)",
+              "decimal(15,2)",
+              "decimal(10,2)",
+              "numeric"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-describe-drop-col",
+      "title": "ALTER … DROP COLUMN",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "What does this statement do?\n\n```sql\nALTER TABLE Movies DROP COLUMN Country;\n```",
+      "options": [
+        {
+          "key": "A",
+          "content": "Deletes the whole table Movies"
+        },
+        {
+          "key": "B",
+          "content": "Deletes every movie whose country is empty"
+        },
+        {
+          "key": "C",
+          "content": "Changes the structure of Movies by deleting the field Country and its value in every record"
+        },
+        {
+          "key": "D",
+          "content": "Renames the field Country"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "ALTER TABLE changes the structure; DROP COLUMN removes one field (and its data) from every record."
+      }
+    },
+    {
+      "key": "sql-create-error-mcq",
+      "title": "Find the error",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Why does this statement fail?\n\n```sql\nCREATE TABLE Members (\n    MemberID INT PRIMARY KEY,\n    FullName VARCHAR(40) NOT NULL\n    JoinDate DATE,\n);\n```",
+      "options": [
+        {
+          "key": "A",
+          "content": "INT cannot be a primary key"
+        },
+        {
+          "key": "B",
+          "content": "A comma is missing after NOT NULL, and there is a comma after the last field"
+        },
+        {
+          "key": "C",
+          "content": "DATE is not an SQL data type"
+        },
+        {
+          "key": "D",
+          "content": "NOT NULL must be written before the data type"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Field lines are separated by commas; there must be no comma before the closing bracket."
+      }
+    },
+    {
+      "key": "sql-drop-undo-tf",
+      "title": "Undoing DROP",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "After `DROP TABLE Members;` the table is deleted but its records are kept so they can be restored.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "DROP TABLE deletes the structure and all the data; only a backup can bring it back."
+      }
+    },
+    {
+      "key": "sql-insert-mcq",
+      "title": "Command to add a record",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Which command adds a **new record** to a table?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`ADD RECORD`"
+        },
+        {
+          "key": "B",
+          "content": "`INSERT INTO`"
+        },
+        {
+          "key": "C",
+          "content": "`UPDATE`"
+        },
+        {
+          "key": "D",
+          "content": "`ALTER TABLE`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "INSERT INTO … VALUES (…) adds a row; ALTER TABLE changes the structure."
+      }
+    },
+    {
+      "key": "sql-insert",
+      "title": "Insert a publisher",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The table `Publishers ( pub_ID, pub_name, city )` exists. Complete the statement that adds the publisher **104, Kitap, Shymkent**.\n\n```sql\n[[1]] Publishers (pub_ID, pub_name, city)\n[[2]] (104, [[3]], 'Shymkent');\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) insert into (2) values (3) 'Kitap'",
+        "accepted": {
+          "blanks": [
+            [
+              "insert into"
+            ],
+            [
+              "values"
+            ],
+            [
+              "'Kitap'",
+              "\"Kitap\""
+            ]
+          ]
+        },
+        "explanation": "Text values are written in quotes."
+      }
+    },
+    {
+      "key": "sql-select-grade",
+      "title": "Students in grade 10",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The table `student_tbl ( StudentID, FirstName, SecondName, Grade, DateOfBirth )` is given. Write an SQL statement to select **all fields** of all students in grade 10.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "SELECT * (1) FROM student_tbl WHERE Grade = 10",
+        "accepted": {
+          "values": [
+            "SELECT * FROM student_tbl WHERE Grade = 10",
+            "SELECT * FROM student_tbl WHERE Grade=10",
+            "SELECT * FROM student_tbl WHERE student_tbl.Grade = 10",
+            "SELECT * FROM student_tbl WHERE Grade = '10'"
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-select-and",
+      "title": "Cheap books of one publisher",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Using `Titles ( title_ID, title, price, pub_ID, year )`, complete the statement that selects the titles and prices of all books of publisher **101** that cost **less than 2000** tenge.\n\n```sql\nSELECT [[1]]\nFROM Titles\n[[2]] price [[3]] 2000 [[4]] pub_ID = 101;\n```",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) title, price (2) where (3) < (4) and",
+        "accepted": {
+          "blanks": [
+            [
+              "title, price",
+              "title,price",
+              "price, title"
+            ],
+            [
+              "where"
+            ],
+            [
+              "<"
+            ],
+            [
+              "and"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-where-tick",
+      "title": "Which rows are returned?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "`Titles ( title_ID, title, price, pub_ID, year )`\n\n| title_ID | title | price | pub_ID | year |\n|---|---|---|---|---|\n| 1 | Informatika 11 | 1800 | 101 | 2021 |\n| 2 | Algebra 11 | 2500 | 102 | 2022 |\n| 3 | Physics 11 | 1950 | 101 | 2023 |\n| 4 | History of Kazakhstan | 3200 | 103 | 2020 |\n| 5 | Chemistry 11 | 2100 | 102 | 2023 |\n\nTick (✓) whether each book **is returned** by:\n\n```sql\nSELECT title FROM Titles WHERE year >= 2022 OR price < 1900;\n```",
+      "content": {
+        "columns": [
+          "Book",
+          "Returned",
+          "Not returned"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Informatika 11",
+            null,
+            null
+          ],
+          [
+            "Algebra 11",
+            null,
+            null
+          ],
+          [
+            "Physics 11",
+            null,
+            null
+          ],
+          [
+            "History of Kazakhstan",
+            null,
+            null
+          ],
+          [
+            "Chemistry 11",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Informatika 11 – Returned (1); Algebra 11 – Returned (1); Physics 11 – Returned (1); History of Kazakhstan – Not returned (1); Chemistry 11 – Returned (1)",
         "points": [
           {
-            "criterion": "Validation",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Verification",
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
             "marks": 1
           }
         ],
-        "model_answer": "Validation is an automatic check that the data is sensible and follows rules, for example a range check; verification checks that the data entered is the same as the original, for example by double entry."
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-operator-match",
+      "title": "WHERE operators",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Match each condition to its meaning.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`year BETWEEN 2021 AND 2023`"
+          },
+          {
+            "key": "L2",
+            "text": "`pub_ID IN (101, 103)`"
+          },
+          {
+            "key": "L3",
+            "text": "`title LIKE 'A%'`"
+          },
+          {
+            "key": "L4",
+            "text": "`city IS NULL`"
+          },
+          {
+            "key": "L5",
+            "text": "`price <> 2000`"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "no city has been entered"
+          },
+          {
+            "key": "R2",
+            "text": "price is not 2000"
+          },
+          {
+            "key": "R3",
+            "text": "year is 2021, 2022 or 2023"
+          },
+          {
+            "key": "R4",
+            "text": "publisher is 101 or 103"
+          },
+          {
+            "key": "R5",
+            "text": "title starts with A"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "`year BETWEEN 2021 AND 2023` – year is 2021, 2022 or 2023; `pub_ID IN (101, 103)` – publisher is 101 or 103; `title LIKE 'A%'` – title starts with A; `city IS NULL` – no city has been entered; `price <> 2000` – price is not 2000.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R4",
+            "L3": "R5",
+            "L4": "R1",
+            "L5": "R2"
+          }
+        }
+      }
+    },
+    {
+      "key": "sql-like-mcq",
+      "title": "Pattern matching",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Which condition selects all titles that **end with** `11`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`WHERE title = '%11'`"
+        },
+        {
+          "key": "B",
+          "content": "`WHERE title LIKE '11%'`"
+        },
+        {
+          "key": "C",
+          "content": "`WHERE title LIKE '%11'`"
+        },
+        {
+          "key": "D",
+          "content": "`WHERE title LIKE '_11'`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "% stands for any number of characters, so '%11' means 'anything, then 11'. = does not use patterns; '_11' would match exactly three characters."
+      }
+    },
+    {
+      "key": "sql-or-in-mcq",
+      "title": "AND or OR?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "A user wants the books published by **both** Mektep (101) and Atamura (103) — i.e. all books of either publisher. Which condition is correct?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`WHERE pub_ID = 101 AND pub_ID = 103`"
+        },
+        {
+          "key": "B",
+          "content": "`WHERE pub_ID = 101 OR pub_ID = 103`"
+        },
+        {
+          "key": "C",
+          "content": "`WHERE pub_ID = (101, 103)`"
+        },
+        {
+          "key": "D",
+          "content": "`WHERE pub_ID BETWEEN 101 AND 103`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "One field cannot equal two values at once, so AND returns no rows. BETWEEN would also include 102."
+      }
+    },
+    {
+      "key": "sql-update-name",
+      "title": "Change a second name",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "In `student_tbl ( StudentID, FirstName, SecondName, Grade )` the student with `StudentID = 3` is Aiman. Complete the statement that changes her second name to **Armankyzy**.\n\n```sql\n[[1]] student_tbl\n[[2]] SecondName = 'Armankyzy'\n[[3]] StudentID = 3;\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) update (2) set (3) where",
+        "accepted": {
+          "blanks": [
+            [
+              "update"
+            ],
+            [
+              "set"
+            ],
+            [
+              "where"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-update-percent",
+      "title": "Prices up by 10 %",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Prices of **all** products in the table `Products ( ProductID, Name, Price_tg )` went up by 10 %. Write the SQL statement that changes the field `Price_tg`.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "UPDATE Products (1) SET Price_tg = Price_tg * 1.1 (no WHERE: every product)",
+        "accepted": {
+          "values": [
+            "UPDATE Products SET Price_tg = Price_tg * 1.1",
+            "UPDATE Products SET Price_tg = 1.1 * Price_tg",
+            "UPDATE Products SET Price_tg = Price_tg * 1.10",
+            "UPDATE Products SET Price_tg = Price_tg + Price_tg * 0.1",
+            "UPDATE Products SET Price_tg = Price_tg*1.1",
+            "UPDATE Products SET Price_tg=Price_tg*1.1",
+            "UPDATE Products SET Price_tg = Price_tg + 0.1 * Price_tg"
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-update-result",
+      "title": "Result of an UPDATE",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The table `Stock ( Item, Qty )` holds: Pen 40, Ruler 15, Eraser 8.\n\nComplete the table to show **Qty** after this statement runs:\n\n```sql\nUPDATE Stock SET Qty = Qty - 5 WHERE Qty < 20;\n```",
+      "content": {
+        "columns": [
+          "Item",
+          "Qty"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Pen",
+            null
+          ],
+          [
+            "Ruler",
+            null
+          ],
+          [
+            "Eraser",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Pen 40 (unchanged, 40 is not < 20) (1); Ruler 10 (1); Eraser 3 (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "40"
+            ],
+            [
+              null,
+              "10"
+            ],
+            [
+              null,
+              "3"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-delete-where",
+      "title": "Delete old books",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Complete the statement that deletes all books published before 2021.\n\n```sql\n[[1]] Titles\nWHERE year [[2]] 2021;\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) delete from (2) <",
+        "accepted": {
+          "blanks": [
+            [
+              "delete from"
+            ],
+            [
+              "<"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-no-where-tf",
+      "title": "UPDATE without WHERE",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "practice": true,
+      "text": "`UPDATE Titles SET price = 1000;` changes the price of every book in the table.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Without a WHERE clause the update applies to every record."
+      }
+    },
+    {
+      "key": "sql-delete-drop",
+      "title": "DELETE or DROP?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2",
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Tick (✓) the statement that matches each description.",
+      "content": {
+        "columns": [
+          "Description",
+          "DELETE FROM Movies;",
+          "DROP TABLE Movies;"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Removes all the records but the table stays",
+            null,
+            null
+          ],
+          [
+            "Removes the structure and all the data",
+            null,
+            null
+          ],
+          [
+            "Is a DML command",
+            null,
+            null
+          ],
+          [
+            "Is a DDL command",
+            null,
+            null
+          ],
+          [
+            "After it, INSERT INTO Movies … still works",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Removes all the records but the table stays – DELETE FROM Movies; (1); Removes the structure and all the data – DROP TABLE Movies; (1); Is a DML command – DELETE FROM Movies; (1); Is a DDL command – DROP TABLE Movies; (1); After it, INSERT INTO Movies … still works – DELETE FROM Movies; (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-update-key-mcq",
+      "title": "Changing one record",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Two books in `Titles` have the title *Physics 11*. A user wants to change the price of only the book with `title_ID = 3`. Which statement is best?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`UPDATE Titles SET price = 2000;`"
+        },
+        {
+          "key": "B",
+          "content": "`UPDATE Titles SET price = 2000 WHERE title = 'Physics 11';`"
+        },
+        {
+          "key": "C",
+          "content": "`UPDATE Titles SET price = 2000 WHERE title_ID = 3;`"
+        },
+        {
+          "key": "D",
+          "content": "`UPDATE Titles WHERE title_ID = 3 SET price = 2000;`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Use the primary key in WHERE to change exactly one record; SET must come before WHERE."
+      }
+    },
+    {
+      "key": "sql-validation-define-mcq",
+      "title": "What validation is",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Which statement describes **validation**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A person compares the data on screen with the original document"
+        },
+        {
+          "key": "B",
+          "content": "An automatic check by the computer that data is sensible and follows the rules"
+        },
+        {
+          "key": "C",
+          "content": "Making a backup copy of the data"
+        },
+        {
+          "key": "D",
+          "content": "Typing the data twice"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Validation is automatic and rule-based; comparing with the original is verification."
+      }
+    },
+    {
+      "key": "sql-validation-verification",
+      "title": "Validation and verification",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Complete the sentences.\n\n[[1]] is an automatic check that the data is reasonable and follows rules. [[2]] checks that the data entered matches the [[3]] source. Typing a password twice is called [[4]] entry.",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) validation (2) verification (3) original (4) double",
+        "accepted": {
+          "blanks": [
+            [
+              "validation"
+            ],
+            [
+              "verification"
+            ],
+            [
+              "original"
+            ],
+            [
+              "double"
+            ]
+          ]
+        }
       }
     },
     {
@@ -340,7 +1759,7 @@
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.2"
       ],
@@ -445,292 +1864,266 @@
       }
     },
     {
-      "key": "sql-create-db",
-      "title": "Create a database",
-      "type": "sql",
+      "key": "sql-check-match",
+      "title": "Validation checks in SQL",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Match each SQL constraint to the validation check it performs.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`Name VARCHAR(40) NOT NULL`"
+          },
+          {
+            "key": "L2",
+            "text": "`CHECK (Mark BETWEEN 0 AND 100)`"
+          },
+          {
+            "key": "L3",
+            "text": "`CHECK (Grade IN (11, 12))`"
+          },
+          {
+            "key": "L4",
+            "text": "`CHECK (LENGTH(IIN) = 12)`"
+          },
+          {
+            "key": "L5",
+            "text": "`CHECK (StudentID LIKE 'S____')`"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Length check"
+          },
+          {
+            "key": "R2",
+            "text": "Format check"
+          },
+          {
+            "key": "R3",
+            "text": "Presence check"
+          },
+          {
+            "key": "R4",
+            "text": "Range check"
+          },
+          {
+            "key": "R5",
+            "text": "Lookup check"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "`Name VARCHAR(40) NOT NULL` – Presence check; `CHECK (Mark BETWEEN 0 AND 100)` – Range check; `CHECK (Grade IN (11, 12))` – Lookup check; `CHECK (LENGTH(IIN) = 12)` – Length check; `CHECK (StudentID LIKE 'S____')` – Format check.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R4",
+            "L3": "R5",
+            "L4": "R1",
+            "L5": "R2"
+          }
+        }
+      }
+    },
+    {
+      "key": "sql-verify-mr",
+      "title": "Methods of verification",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Select **two** methods of **verification**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Range check"
+        },
+        {
+          "key": "B",
+          "content": "Double entry"
+        },
+        {
+          "key": "C",
+          "content": "Presence check"
+        },
+        {
+          "key": "D",
+          "content": "Visual check against the paper form"
+        },
+        {
+          "key": "E",
+          "content": "Format check"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B and D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "B",
+            "D"
+          ]
+        },
+        "explanation": "Verification compares the entry with the original: double entry or a visual check / proofreading."
+      }
+    },
+    {
+      "key": "sql-check-range-short",
+      "title": "Write a range check",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write the SQL constraint that makes sure the field `Rating` is between 1 and 5 (inclusive).",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "CHECK (Rating BETWEEN 1 AND 5)",
+        "accepted": {
+          "values": [
+            "CHECK (Rating BETWEEN 1 AND 5)",
+            "CHECK(Rating BETWEEN 1 AND 5)",
+            "CHECK (Rating >= 1 AND Rating <= 5)",
+            "CHECK(Rating >= 1 AND Rating <= 5)",
+            "CHECK (Rating>=1 AND Rating<=5)",
+            "CHECK (Rating IN (1,2,3,4,5))",
+            "CHECK (Rating IN (1, 2, 3, 4, 5))"
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-order-default-mcq",
+      "title": "Default sort order",
+      "type": "mcq",
       "marks": 1,
       "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
-        "11.4.2.2"
+        "11.4.2.5"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Complete the SQL statement to create a database called **CinemaStar**.",
-      "content": {
-        "language": "sql",
-        "starter_code": "______ ______ CinemaStar;"
-      },
+      "text": "`SELECT title FROM Titles ORDER BY price;` — in which order are the rows returned?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Most expensive first"
+        },
+        {
+          "key": "B",
+          "content": "Cheapest first"
+        },
+        {
+          "key": "C",
+          "content": "In the order they were inserted"
+        },
+        {
+          "key": "D",
+          "content": "Alphabetical order of title"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "CREATE DATABASE CinemaStar (1). Do not accept answers with spaces in the name.",
-        "points": [
-          {
-            "criterion": "CREATE DATABASE CinemaStar",
-            "marks": 1
-          }
-        ],
-        "model_answer": "CREATE DATABASE CinemaStar;"
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "ASC (ascending) is the default."
       }
     },
     {
-      "key": "sql-create-table",
-      "title": "Create a table",
-      "type": "sql",
-      "marks": 5,
+      "key": "sql-order-mcq",
+      "title": "Clause order",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
-        "11.4.2.2"
+        "11.4.2.5"
       ],
       "practice": true,
-      "text": "Write an SQL statement to create the table **Movies** with the fields:\n\n- `MovieID` — a whole number, numbered automatically, the primary key\n- `Title` — text up to 255 characters\n- `Year` — the year of release\n- `Genre` — text up to 50 characters\n- `Duration` — the length in minutes",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
+      "text": "Which query is written in the correct order?",
+      "options": [
+        {
+          "key": "A",
+          "content": "SELECT name FROM Pupils ORDER BY name WHERE grade = 11;"
+        },
+        {
+          "key": "B",
+          "content": "SELECT name FROM Pupils WHERE grade = 11 ORDER BY name;"
+        },
+        {
+          "key": "C",
+          "content": "FROM Pupils SELECT name WHERE grade = 11 ORDER BY name;"
+        },
+        {
+          "key": "D",
+          "content": "SELECT name WHERE grade = 11 FROM Pupils ORDER BY name;"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "CREATE TABLE Movies ( (1)\nMovieID int AUTO_INCREMENT, (1)\nTitle varchar(255), Genre varchar(50), (1)\nYear int, Duration int, (1)\nPRIMARY KEY (MovieID) ); (1)",
-        "points": [
-          {
-            "criterion": "CREATE TABLE Movies ( … )",
-            "marks": 1
-          },
-          {
-            "criterion": "MovieID int AUTO_INCREMENT",
-            "marks": 1
-          },
-          {
-            "criterion": "Text fields with varchar",
-            "marks": 1
-          },
-          {
-            "criterion": "Numeric fields",
-            "marks": 1
-          },
-          {
-            "criterion": "Primary key",
-            "marks": 1
-          }
-        ],
-        "model_answer": "CREATE TABLE Movies (\n  MovieID INT AUTO_INCREMENT,\n  Title VARCHAR(255),\n  Year INT,\n  Genre VARCHAR(50),\n  Duration INT,\n  PRIMARY KEY (MovieID)\n);",
-        "ai_instructions": "Accept Year as INT or DATE / YEAR. Accept PRIMARY KEY written after the field."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "SELECT … FROM … WHERE … ORDER BY … — ORDER BY is always last."
       }
     },
     {
-      "key": "sql-alter-add",
-      "title": "Add a column",
-      "type": "sql",
-      "marks": 3,
-      "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.2"
-      ],
-      "practice": true,
-      "text": "Write an SQL query to add a **Budget** column to the **Movies** table to store the cost of each movie in dollars.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "ALTER TABLE Movies (1) ADD (1) Budget float; (1)\nDo not award the last mark if Budget is written with an unsuitable data type.",
-        "points": [
-          {
-            "criterion": "ALTER TABLE Movies",
-            "marks": 1
-          },
-          {
-            "criterion": "ADD",
-            "marks": 1
-          },
-          {
-            "criterion": "Budget with numeric type",
-            "marks": 1
-          }
-        ],
-        "model_answer": "ALTER TABLE Movies ADD Budget FLOAT;",
-        "ai_instructions": "Accept FLOAT, DOUBLE, DECIMAL, INT."
-      }
-    },
-    {
-      "key": "sql-describe-drop-col",
-      "title": "Describe an ALTER statement",
-      "type": "short_answer",
+      "key": "sql-order-by",
+      "title": "Deliveries sorted by date",
+      "type": "fill_blank",
       "marks": 2,
       "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
-        "11.4.2.2"
+        "11.4.2.5"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Describe the SQL statement:\n\n```sql\nALTER TABLE Movies DROP COLUMN Country;\n```",
+      "text": "Complete the query that displays all deliveries to `Store_code` 88 from `Deliveries ( Delivery_ID, Store_code, Product_code, Delivery_date, Amount )`, **latest date first**.\n\n```sql\nSELECT *\nFROM Deliveries\nWHERE Store_code = 88\n[[1]] Delivery_date [[2]];\n```",
       "content": {
-        "answer_lines": 2
+        "blank_count": 2
       },
       "scheme": {
-        "mark_scheme": "Changes (the structure of) the table Movies (1); deletes the field / column Country — removes the Country value for every record (1)",
-        "points": [
-          {
-            "criterion": "Changes table Movies",
-            "marks": 1
-          },
-          {
-            "criterion": "Deletes field Country",
-            "marks": 1
-          }
-        ],
-        "model_answer": "It changes the structure of the Movies table by deleting the Country field, so the country of every film is removed."
-      }
-    },
-    {
-      "key": "sql-delete-drop",
-      "title": "DELETE vs DROP",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.2",
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "Explain the difference between `DELETE FROM Movies;` and `DROP TABLE Movies;`.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- DELETE removes all the records / data but the table (structure) remains (DML) (1)\n- DROP removes the whole table — structure and data (DDL) (1)",
-        "points": [
-          {
-            "criterion": "DELETE keeps the table",
-            "marks": 1
-          },
-          {
-            "criterion": "DROP removes the table",
-            "marks": 1
-          }
-        ],
-        "model_answer": "DELETE FROM Movies removes every record but the empty table remains; DROP TABLE Movies removes the table structure as well as all its data."
-      }
-    },
-    {
-      "key": "sql-insert",
-      "title": "Insert a record",
-      "type": "sql",
-      "marks": 3,
-      "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "The table `Publishers(pub_ID, pub_name, city)` exists. Write an SQL statement to add the publisher **104, Kitap, Shymkent**.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "INSERT INTO Publishers (1)\n(pub_ID, pub_name, city) optional / VALUES (1)\n(104, 'Kitap', 'Shymkent'); with quotes around text (1)",
-        "points": [
-          {
-            "criterion": "INSERT INTO Publishers",
-            "marks": 1
-          },
-          {
-            "criterion": "VALUES",
-            "marks": 1
-          },
-          {
-            "criterion": "Correct values with quotes",
-            "marks": 1
-          }
-        ],
-        "model_answer": "INSERT INTO Publishers (pub_ID, pub_name, city)\nVALUES (104, 'Kitap', 'Shymkent');"
-      }
-    },
-    {
-      "key": "sql-select-grade",
-      "title": "Select with a condition",
-      "type": "sql",
-      "marks": 3,
-      "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "The table `student_tbl(StudentID, FirstName, SecondName, Grade, DateOfBirth)` is given. Write an SQL statement to select all students in grade 10.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "SELECT * (1) FROM student_tbl (1) WHERE Grade = 10 (1)",
-        "points": [
-          {
-            "criterion": "SELECT *",
-            "marks": 1
-          },
-          {
-            "criterion": "FROM student_tbl",
-            "marks": 1
-          },
-          {
-            "criterion": "WHERE Grade = 10",
-            "marks": 1
-          }
-        ],
-        "model_answer": "SELECT * FROM student_tbl WHERE Grade = 10;"
-      }
-    },
-    {
-      "key": "sql-select-and",
-      "title": "Select with AND",
-      "type": "sql",
-      "marks": 5,
-      "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "Using `Titles(title_ID, title, price, pub_ID, year)`, write an SQL statement to select the titles and prices of all books of publisher **Mektep** (pub_ID = 101) that cost **less than 2000** tenge.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "SELECT title, price (1) FROM Titles (1) WHERE price < 2000 (1) AND (1) pub_ID = 101; (1)\nAccept other syntactically correct queries.",
-        "points": [
-          {
-            "criterion": "SELECT title, price",
-            "marks": 1
-          },
-          {
-            "criterion": "FROM Titles",
-            "marks": 1
-          },
-          {
-            "criterion": "price < 2000",
-            "marks": 1
-          },
-          {
-            "criterion": "AND",
-            "marks": 1
-          },
-          {
-            "criterion": "pub_ID = 101",
-            "marks": 1
-          }
-        ],
-        "model_answer": "SELECT title, price FROM Titles WHERE price < 2000 AND pub_ID = 101;"
+        "mark_scheme": "(1) order by (2) desc",
+        "accepted": {
+          "blanks": [
+            [
+              "order by"
+            ],
+            [
+              "desc",
+              "descending"
+            ]
+          ]
+        }
       }
     },
     {
@@ -740,7 +2133,7 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.3",
         "11.4.2.5"
@@ -789,166 +2182,183 @@
       }
     },
     {
-      "key": "sql-update-name",
-      "title": "Update a record",
-      "type": "sql",
-      "marks": 2,
-      "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "In `student_tbl`, the student with `StudentID = 3` is Aiman. Write an SQL statement to change her second name to **Armankyzy**.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "UPDATE student_tbl (1) SET SecondName = 'Armankyzy' WHERE StudentID = 3 (1)",
-        "points": [
-          {
-            "criterion": "UPDATE student_tbl",
-            "marks": 1
-          },
-          {
-            "criterion": "SET … WHERE …",
-            "marks": 1
-          }
-        ],
-        "model_answer": "UPDATE student_tbl SET SecondName = 'Armankyzy' WHERE StudentID = 3;"
-      }
-    },
-    {
-      "key": "sql-update-percent",
-      "title": "Increase all prices",
-      "type": "sql",
-      "marks": 2,
+      "key": "sql-asc-desc-match",
+      "title": "Choosing ASC or DESC",
+      "type": "matching",
+      "marks": 4,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "Prices of all products in the table `Products` went up by 10%. Create an SQL query that will change this data in the field `Price_tg`.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "UPDATE Products (1) SET Price_tg = 1.1 * Price_tg; (1)",
-        "points": [
-          {
-            "criterion": "UPDATE Products",
-            "marks": 1
-          },
-          {
-            "criterion": "SET Price_tg = 1.1 * Price_tg",
-            "marks": 1
-          }
-        ],
-        "model_answer": "UPDATE Products SET Price_tg = Price_tg * 1.1;",
-        "ai_instructions": "Accept Price_tg + Price_tg * 0.1."
-      }
-    },
-    {
-      "key": "sql-delete-where",
-      "title": "Delete records",
-      "type": "sql",
-      "marks": 2,
-      "difficulty": "easy",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "practice": true,
-      "text": "Write an SQL statement to delete all books from `Titles` published before 2021.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "DELETE FROM Titles (1) WHERE year < 2021; (1)",
-        "points": [
-          {
-            "criterion": "DELETE FROM Titles",
-            "marks": 1
-          },
-          {
-            "criterion": "WHERE year < 2021",
-            "marks": 1
-          }
-        ],
-        "model_answer": "DELETE FROM Titles WHERE year < 2021;"
-      }
-    },
-    {
-      "key": "sql-no-where-tf",
-      "title": "UPDATE without WHERE",
-      "type": "true_false",
-      "marks": 1,
-      "difficulty": "easy",
       "command_word": "identify",
       "grading": "AUTO",
       "objectives": [
-        "11.4.2.3"
+        "11.4.2.5"
       ],
+      "source": "original",
       "practice": true,
-      "text": "`UPDATE Titles SET price = 1000;` changes the price of every book in the table.",
+      "text": "Match each task to the correct ORDER BY clause.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Pupils in alphabetical order of surname"
+          },
+          {
+            "key": "L2",
+            "text": "Highest score first"
+          },
+          {
+            "key": "L3",
+            "text": "Most recent orders first"
+          },
+          {
+            "key": "L4",
+            "text": "Cheapest product first"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "`ORDER BY OrderDate DESC`"
+          },
+          {
+            "key": "R2",
+            "text": "`ORDER BY Price ASC`"
+          },
+          {
+            "key": "R3",
+            "text": "`ORDER BY Surname ASC`"
+          },
+          {
+            "key": "R4",
+            "text": "`ORDER BY Score DESC`"
+          }
+        ]
+      },
       "scheme": {
-        "mark_scheme": "True.",
+        "mark_scheme": "Pupils in alphabetical order of surname – `ORDER BY Surname ASC`; Highest score first – `ORDER BY Score DESC`; Most recent orders first – `ORDER BY OrderDate DESC`; Cheapest product first – `ORDER BY Price ASC`.",
         "accepted": {
-          "correct": true
-        },
-        "explanation": "Without a WHERE clause the update applies to every record."
+          "pairs": {
+            "L1": "R3",
+            "L2": "R4",
+            "L3": "R1",
+            "L4": "R2"
+          }
+        }
       }
     },
     {
-      "key": "sql-order-by",
-      "title": "Sorted query",
-      "type": "sql",
+      "key": "sql-two-key-sort",
+      "title": "Sorting by two fields",
+      "type": "table_completion",
       "marks": 4,
-      "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.5"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Create an SQL query to display all deliveries to `Store_code` 88 from the table `Deliveries(Delivery_ID, Store_code, Product_code, Delivery_date, Amount)`, sorted by date. Show all the lines of code.",
+      "text": "`Results ( Name, Class, Score )` holds: Dana 11A 80 · Arman 11B 95 · Bota 11A 95 · Yerlan 11B 80.\n\nComplete the result of:\n\n```sql\nSELECT Name FROM Results ORDER BY Score DESC, Name ASC;\n```",
       "content": {
-        "language": "sql",
-        "starter_code": ""
+        "columns": [
+          "Position",
+          "Name"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "SELECT * (1) FROM Deliveries (1) WHERE Store_code = 88 (1) ORDER BY Delivery_date ASC; (1)\nAccept other suitable solutions.",
+        "mark_scheme": "Arman, Bota (95, A→Z) (1)(1); Dana, Yerlan (80, A→Z) (1)(1)",
         "points": [
           {
-            "criterion": "SELECT *",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "FROM Deliveries",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "WHERE Store_code = 88",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "ORDER BY Delivery_date",
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
-        "model_answer": "SELECT * FROM Deliveries WHERE Store_code = 88 ORDER BY Delivery_date ASC;"
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "Arman"
+            ],
+            [
+              null,
+              "Bota"
+            ],
+            [
+              null,
+              "Dana"
+            ],
+            [
+              null,
+              "Yerlan"
+            ]
+          ]
+        }
       }
     },
     {
-      "key": "sql-order-mcq",
-      "title": "Clause order",
+      "key": "sql-aggregate",
+      "title": "Count expensive books",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Using `Titles ( title_ID, title, price, pub_ID, year )`, write an SQL statement that displays the **number** of books that cost more than 2000 tenge.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "SELECT COUNT(*) FROM Titles WHERE price > 2000",
+        "accepted": {
+          "values": [
+            "SELECT COUNT(*) FROM Titles WHERE price > 2000",
+            "SELECT COUNT(title_ID) FROM Titles WHERE price > 2000",
+            "SELECT COUNT(title) FROM Titles WHERE price > 2000",
+            "SELECT COUNT(*) FROM Titles WHERE price>2000",
+            "SELECT COUNT(*) AS books FROM Titles WHERE price > 2000"
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-avg-mcq",
+      "title": "AVG result",
       "type": "mcq",
       "marks": 1,
       "difficulty": "medium",
@@ -957,24 +2367,126 @@
       "objectives": [
         "11.4.2.5"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Which query is written in the correct order?",
+      "text": "Prices of publisher 101's books are 1800 and 1950. What does `SELECT AVG(price) FROM Titles WHERE pub_ID = 101;` return?",
       "options": [
         {
           "key": "A",
-          "content": "SELECT name FROM Pupils ORDER BY name WHERE grade = 11;"
+          "content": "2"
         },
         {
           "key": "B",
-          "content": "SELECT name FROM Pupils WHERE grade = 11 ORDER BY name;"
+          "content": "1800"
         },
         {
           "key": "C",
-          "content": "FROM Pupils SELECT name WHERE grade = 11 ORDER BY name;"
+          "content": "1875"
         },
         {
           "key": "D",
-          "content": "SELECT name WHERE grade = 11 FROM Pupils ORDER BY name;"
+          "content": "3750"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "(1800 + 1950) / 2 = 1875. COUNT would give 2 and SUM 3750."
+      }
+    },
+    {
+      "key": "sql-join-define-mcq",
+      "title": "What a join does",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "What does a **join** in an SQL query do?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Joins two databases into one file"
+        },
+        {
+          "key": "B",
+          "content": "Combines rows from related tables by matching the foreign key with the primary key"
+        },
+        {
+          "key": "C",
+          "content": "Adds a new column to a table"
+        },
+        {
+          "key": "D",
+          "content": "Sorts the result by two fields"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "sql-join-condition-tf",
+      "title": "Join condition",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "`SELECT * FROM Titles, Publishers;` without a WHERE or ON condition returns each book with its own publisher only.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Without a join condition every title is paired with every publisher (5 × 3 = 15 rows)."
+      }
+    },
+    {
+      "key": "sql-join-missing",
+      "title": "15 rows instead of 5",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "A student writes `SELECT title, pub_name FROM Titles, Publishers;` and gets **15** rows instead of 5. How should the query be corrected?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Add `ORDER BY title`"
+        },
+        {
+          "key": "B",
+          "content": "Add `WHERE Titles.pub_ID = Publishers.pub_ID`"
+        },
+        {
+          "key": "C",
+          "content": "Add `DISTINCT` after SELECT"
+        },
+        {
+          "key": "D",
+          "content": "Replace the comma with AND"
         }
       ],
       "scheme": {
@@ -982,215 +2494,489 @@
         "accepted": {
           "correct": "B"
         },
-        "explanation": "SELECT … FROM … WHERE … ORDER BY … — ORDER BY is always last."
+        "explanation": "The join condition links the foreign key Titles.pub_ID to the primary key Publishers.pub_ID."
       }
     },
     {
       "key": "sql-join",
-      "title": "Select from two tables",
-      "type": "sql",
-      "marks": 5,
-      "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
+      "title": "Titles with their publisher",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.4.2.4"
       ],
+      "source": "original",
       "practice": true,
-      "text": "```text\nPublishers ( pub_ID, pub_name, city )\nTitles     ( title_ID, title, price, pub_ID, year )\n```\n\nWrite an SQL statement to display the **title** of each book and the **name of its publisher**, for publishers in **Almaty** only.",
+      "text": "`Publishers ( pub_ID, pub_name, city )`\n`Titles ( title_ID, title, price, pub_ID, year )`\n\nComplete the statement that displays the **title** of each book and the **name of its publisher**, for publishers in **Almaty** only.\n\n```sql\nSELECT Titles.title, [[1]]\nFROM Titles, Publishers\nWHERE Titles.pub_ID = [[2]]\n  [[3]] Publishers.city = 'Almaty';\n```",
       "content": {
-        "language": "sql",
-        "starter_code": ""
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "SELECT Titles.title, Publishers.pub_name (1)\nFROM Titles, Publishers / FROM Titles JOIN Publishers (1)\nWHERE / ON Titles.pub_ID = Publishers.pub_ID (1)\nAND (1)\ncity = 'Almaty' (1)",
-        "points": [
-          {
-            "criterion": "Correct fields",
-            "marks": 1
-          },
-          {
-            "criterion": "Both tables",
-            "marks": 1
-          },
-          {
-            "criterion": "Join condition",
-            "marks": 1
-          },
-          {
-            "criterion": "AND / WHERE",
-            "marks": 1
-          },
-          {
-            "criterion": "city = 'Almaty'",
-            "marks": 1
-          }
-        ],
-        "model_answer": "SELECT Titles.title, Publishers.pub_name\nFROM Titles\nJOIN Publishers ON Titles.pub_ID = Publishers.pub_ID\nWHERE Publishers.city = 'Almaty';"
+        "mark_scheme": "(1) publishers.pub_name (2) publishers.pub_id (3) and",
+        "accepted": {
+          "blanks": [
+            [
+              "publishers.pub_name",
+              "pub_name"
+            ],
+            [
+              "publishers.pub_id"
+            ],
+            [
+              "and"
+            ]
+          ]
+        }
       }
     },
     {
-      "key": "sql-join-missing",
-      "title": "Missing join condition",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.4.2.4"
-      ],
-      "practice": true,
-      "text": "A student writes `SELECT title, pub_name FROM Titles, Publishers;` and gets 15 rows instead of 5. Explain why and how to correct the query.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- There is no join condition, so every title is combined with every publisher (5 × 3 = 15) (1)\n- add WHERE Titles.pub_ID = Publishers.pub_ID / use JOIN … ON (1)",
-        "points": [
-          {
-            "criterion": "Every combination explained",
-            "marks": 1
-          },
-          {
-            "criterion": "Correct join condition",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Without a join condition each of the 5 titles is paired with each of the 3 publishers. Adding WHERE Titles.pub_ID = Publishers.pub_ID keeps only the matching pairs."
-      }
-    },
-    {
-      "key": "sql-aggregate",
-      "title": "Count records",
-      "type": "sql",
+      "key": "sql-join-on-fill",
+      "title": "INNER JOIN … ON",
+      "type": "fill_blank",
       "marks": 2,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
-        "11.4.2.3"
+        "11.4.2.4"
       ],
+      "source": "original",
       "practice": true,
-      "text": "Write an SQL statement that displays the **number** of books in `Titles` that cost more than 2000 tenge.",
+      "text": "Complete the same join written with JOIN.\n\n```sql\nSELECT Titles.title, Publishers.pub_name\nFROM Titles\n[[1]] Publishers [[2]] Titles.pub_ID = Publishers.pub_ID;\n```",
       "content": {
-        "language": "sql",
-        "starter_code": ""
+        "blank_count": 2
       },
       "scheme": {
-        "mark_scheme": "SELECT COUNT(*) FROM Titles (1) WHERE price > 2000; (1)",
-        "points": [
-          {
-            "criterion": "COUNT(*)",
-            "marks": 1
-          },
-          {
-            "criterion": "WHERE price > 2000",
-            "marks": 1
-          }
-        ],
-        "model_answer": "SELECT COUNT(*) FROM Titles WHERE price > 2000;"
+        "mark_scheme": "(1) join (2) on",
+        "accepted": {
+          "blanks": [
+            [
+              "join",
+              "inner join"
+            ],
+            [
+              "on"
+            ]
+          ]
+        }
       }
     },
     {
-      "key": "sql-structured-shop",
-      "title": "A shop database",
-      "type": "structured",
-      "marks": 8,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
+      "key": "sql-join-result",
+      "title": "Result of a join",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
       "practice": true,
-      "text": "```text\nStores     ( Store_code, Title, Address, Phone_number )\nProducts   ( Product_code, Title, Amount, Price_tg )\nDeliveries ( Delivery_ID, Store_code, Product_code, Delivery_date )\n```",
-      "scheme": {
-        "mark_scheme": ""
+      "text": "| title_ID | title | price | pub_ID |\n|---|---|---|---|\n| 1 | Informatika 11 | 1800 | 101 |\n| 2 | Algebra 11 | 2500 | 102 |\n| 3 | Physics 11 | 1950 | 101 |\n\n| pub_ID | pub_name | city |\n|---|---|---|\n| 101 | Mektep | Almaty |\n| 102 | Foliant | Astana |\n\nComplete the result of:\n\n```sql\nSELECT Titles.title, Publishers.pub_name\nFROM Titles, Publishers\nWHERE Titles.pub_ID = Publishers.pub_ID\nORDER BY Titles.title;\n```",
+      "content": {
+        "columns": [
+          "title",
+          "pub_name"
+        ],
+        "rows": 3
       },
-      "parts": [
-        {
-          "key": "sql-shop-a",
-          "part_label": "(a)",
-          "title": "Create Stores",
-          "type": "sql",
-          "marks": 3,
-          "difficulty": "exam",
-          "command_word": "write",
-          "grading": "AI",
-          "objectives": [
-            "11.4.2.2"
-          ],
-          "practice": true,
-          "text": "Write an SQL statement to create the structure of the table `Stores`.",
-          "content": {
-            "language": "sql",
-            "starter_code": ""
+      "scheme": {
+        "mark_scheme": "Algebra 11 | Foliant (1); Informatika 11 | Mektep (1); Physics 11 | Mektep (1). Rows in this order.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
           },
-          "scheme": {
-            "mark_scheme": "CREATE TABLE Stores (1)\n(Store_code int, Title varchar(20), Address varchar(20), Phone_number varchar(12), (1)\nPRIMARY KEY (Store_code)); (1)",
-            "points": [
-              {
-                "criterion": "CREATE TABLE Stores",
-                "marks": 1
-              },
-              {
-                "criterion": "Fields with types",
-                "marks": 1
-              },
-              {
-                "criterion": "Primary key",
-                "marks": 1
-              }
-            ],
-            "model_answer": "CREATE TABLE Stores (\n  Store_code INT,\n  Title VARCHAR(20),\n  Address VARCHAR(50),\n  Phone_number VARCHAR(12),\n  PRIMARY KEY (Store_code)\n);"
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
           }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              "Algebra 11",
+              "Foliant"
+            ],
+            [
+              "Informatika 11",
+              "Mektep"
+            ],
+            [
+              "Physics 11",
+              "Mektep"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-ambiguous-mcq",
+      "title": "Ambiguous field name",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "`SELECT pub_ID, title, pub_name FROM Titles, Publishers WHERE Titles.pub_ID = Publishers.pub_ID;` gives the error *Column 'pub_ID' is ambiguous*. Why?",
+      "options": [
+        {
+          "key": "A",
+          "content": "pub_ID is not a primary key"
         },
         {
-          "key": "sql-shop-b",
-          "part_label": "(b)",
-          "title": "Join query",
-          "type": "sql",
-          "marks": 5,
-          "difficulty": "exam",
-          "command_word": "write",
-          "grading": "AI",
-          "objectives": [
-            "11.4.2.4",
-            "11.4.2.5"
-          ],
-          "practice": true,
-          "text": "Write an SQL query to display the title of each store and the date of each of its deliveries, sorted by date with the newest first.",
-          "content": {
-            "language": "sql",
-            "starter_code": ""
-          },
-          "scheme": {
-            "mark_scheme": "SELECT Stores.Title, Deliveries.Delivery_date (1)\nFROM Stores, Deliveries / JOIN (1)\nWHERE / ON Stores.Store_code = Deliveries.Store_code (1)\nORDER BY Delivery_date (1) DESC (1)",
-            "points": [
-              {
-                "criterion": "Fields",
-                "marks": 1
-              },
-              {
-                "criterion": "Tables",
-                "marks": 1
-              },
-              {
-                "criterion": "Join condition",
-                "marks": 1
-              },
-              {
-                "criterion": "ORDER BY date",
-                "marks": 1
-              },
-              {
-                "criterion": "DESC",
-                "marks": 1
-              }
-            ],
-            "model_answer": "SELECT Stores.Title, Deliveries.Delivery_date\nFROM Stores\nJOIN Deliveries ON Stores.Store_code = Deliveries.Store_code\nORDER BY Deliveries.Delivery_date DESC;"
-          }
+          "key": "B",
+          "content": "pub_ID exists in both tables, so the DBMS does not know which one to show"
+        },
+        {
+          "key": "C",
+          "content": "The tables are in the wrong order"
+        },
+        {
+          "key": "D",
+          "content": "ORDER BY is missing"
         }
-      ]
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Write Titles.pub_ID or Publishers.pub_ID."
+      }
+    },
+    {
+      "key": "sql-wrong-link-mcq",
+      "title": "Matching the right fields",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Which join condition is correct for `Titles ( title_ID, title, price, pub_ID, year )` and `Publishers ( pub_ID, pub_name, city )`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`Titles.title_ID = Publishers.pub_ID`"
+        },
+        {
+          "key": "B",
+          "content": "`Titles.pub_ID = Publishers.pub_ID`"
+        },
+        {
+          "key": "C",
+          "content": "`Titles.title = Publishers.pub_name`"
+        },
+        {
+          "key": "D",
+          "content": "`Titles.year = Publishers.city`"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The foreign key (Titles.pub_ID) must equal the primary key it refers to (Publishers.pub_ID)."
+      }
+    },
+    {
+      "key": "sql-three-tables-fill",
+      "title": "Three tables",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "`Students ( StudentID, FullName, Class )`, `Books ( BookID, Title, Author )`, `Loans ( LoanID, StudentID, BookID, LoanDate )`.\n\nComplete the query that shows the name of each student and the titles of the books they borrowed.\n\n```sql\nSELECT Students.FullName, Books.Title\nFROM Students, Loans, Books\nWHERE Students.StudentID = [[1]]\n  AND Books.BookID = [[2]];\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) loans.studentid (2) loans.bookid",
+        "accepted": {
+          "blanks": [
+            [
+              "loans.studentid"
+            ],
+            [
+              "loans.bookid"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-fk-define-mcq",
+      "title": "Foreign key",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "What is a **foreign key**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A key that is unique in its own table"
+        },
+        {
+          "key": "B",
+          "content": "A field in one table that refers to the primary key of another table"
+        },
+        {
+          "key": "C",
+          "content": "A password used to open the database"
+        },
+        {
+          "key": "D",
+          "content": "The first field of every table"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        }
+      }
+    },
+    {
+      "key": "sql-fk-fill",
+      "title": "Write the foreign key",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Complete the definition of `Loans` so that `StudentID` refers to the table `Students`.\n\n```sql\nCREATE TABLE Loans (\n    LoanID    INT AUTO_INCREMENT PRIMARY KEY,\n    StudentID VARCHAR(5) NOT NULL,\n    [[1]] (StudentID) [[2]] Students(StudentID)\n);\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) foreign key (2) references",
+        "accepted": {
+          "blanks": [
+            [
+              "foreign key"
+            ],
+            [
+              "references"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-create-order-mcq",
+      "title": "Which table first?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "A library database has `Students`, `Books` and `Loans`; `Loans` has foreign keys to the other two. In which order should the tables be created?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Loans, then Students and Books"
+        },
+        {
+          "key": "B",
+          "content": "Students and Books first, then Loans"
+        },
+        {
+          "key": "C",
+          "content": "The order does not matter"
+        },
+        {
+          "key": "D",
+          "content": "Books, Loans, Students"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A foreign key can only reference a table that already exists."
+      }
+    },
+    {
+      "key": "sql-pk-fk-tick",
+      "title": "Primary or foreign key?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Tick (✓) whether each statement is true of a **primary key** or a **foreign key**.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Primary key",
+          "Foreign key"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Uniquely identifies each record of its own table",
+            null,
+            null
+          ],
+          [
+            "Links a record to a record in another table",
+            null,
+            null
+          ],
+          [
+            "The same value can appear in many rows",
+            null,
+            null
+          ],
+          [
+            "Can never be NULL or duplicated",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Uniquely identifies each record of its own table – Primary key (1); Links a record to a record in another table – Foreign key (1); The same value can appear in many rows – Foreign key (1); Can never be NULL or duplicated – Primary key (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "sql-ri-mr",
+      "title": "Errors when building linked tables",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "`Students.StudentID` is `VARCHAR(5)` and the primary key; `Loans.StudentID` is a foreign key to it. Select **two** actions the DBMS will **reject**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Inserting a loan for StudentID 'S9999' that is not in Students"
+        },
+        {
+          "key": "B",
+          "content": "Inserting a student with a new StudentID"
+        },
+        {
+          "key": "C",
+          "content": "Inserting two loans for the same student"
+        },
+        {
+          "key": "D",
+          "content": "Creating Loans before the Students table exists"
+        },
+        {
+          "key": "E",
+          "content": "Selecting all loans sorted by date"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "D"
+          ]
+        },
+        "explanation": "Referential integrity: a foreign key value must exist in the referenced table, and the referenced table must exist."
+      }
     },
     {
       "key": "sql-exam-1",
@@ -1870,10 +3656,10 @@
       ]
     }
   ],
-  "summary": "SQL for relational databases — data types, validation and verification, DDL and DML, creating and changing structures with CREATE, ALTER and DROP, managing data with INSERT, SELECT, UPDATE and DELETE, sorting with ORDER BY, and querying several tables.",
+  "summary": "SQL for relational databases — data types, DDL and DML, creating and changing structures with CREATE, ALTER and DROP, managing data with INSERT, SELECT, UPDATE and DELETE, validation and verification, sorting with ORDER BY, querying several tables and building a database with multiple tables.",
   "theory": [
     {
-      "title": "SQL and the example database",
+      "title": "What SQL is: DDL and DML",
       "objectives": [
         "11.4.2.1"
       ],
@@ -1881,17 +3667,21 @@
         {
           "type": "definition",
           "term": "SQL (Structured Query Language)",
-          "content": "The standard language used to **create, manage and query relational databases**. It is used by DBMSs such as MySQL, PostgreSQL, SQLite and Microsoft SQL Server. SQL is **declarative**: a query describes **what** data is wanted, and the DBMS decides how to find it."
+          "content": "The standard language used to **create, manage and query relational databases**. It is used by DBMSs such as MySQL, PostgreSQL, SQLite and Microsoft SQL Server. SQL is **declarative**: a statement describes **what** is wanted, and the DBMS decides how to do it."
+        },
+        {
+          "type": "definition",
+          "term": "DDL — Data Definition Language",
+          "content": "The part of SQL that **defines and changes the structure (schema)** of a database: databases, tables, fields, data types, keys and constraints. Commands: `CREATE`, `ALTER`, `DROP`."
+        },
+        {
+          "type": "definition",
+          "term": "DML — Data Manipulation Language",
+          "content": "The part of SQL that **works with the data stored in the tables**: adding, retrieving, changing and deleting records. Commands: `INSERT`, `SELECT`, `UPDATE`, `DELETE`."
         },
         {
           "type": "paragraph",
-          "content": "All the examples in this pack use a small database for a publishing company."
-        },
-        {
-          "type": "code",
-          "language": "text",
-          "content": "Publishers ( pub_ID, pub_name, city )\nTitles     ( title_ID, title, price, pub_ID, year )",
-          "caption": "The Books database"
+          "content": "All the examples in this pack use a small database for a publishing company in Kazakhstan."
         },
         {
           "type": "comparison",
@@ -1968,8 +3758,55 @@
           ]
         },
         {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq1\" xml:space=\"preserve\" viewBox=\"0 0 760 290\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"The header row of the Titles table is the structure changed by DDL commands; the rows below are the records changed by DML commands\">\n  <style>\n    svg.sq1 text{white-space:pre}\n    svg.sq1 .hd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.sq1 .rw{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}\n    svg.sq1 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.sq1 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq1 .p{font:700 15px system-ui,sans-serif;fill:var(--primary)}\n    svg.sq1 .g{font:700 15px system-ui,sans-serif;fill:var(--success)}\n    svg.sq1 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.sq1 .k{font:600 13px ui-monospace,monospace}\n  </style>\n  <text class=\"h\" x=\"200\" y=\"24\">Table Titles</text>\n  <rect class=\"hd\" x=\"200\" y=\"36\" width=\"360\" height=\"34\" rx=\"4\"/>\n  <text class=\"c\" x=\"212\" y=\"58\">title_ID  title           price  pub_ID</text>\n  <rect class=\"rw\" x=\"200\" y=\"80\" width=\"360\" height=\"30\" rx=\"3\"/>\n  <text class=\"c\" x=\"212\" y=\"100\">1         Informatika 11  1800   101</text>\n  <rect class=\"rw\" x=\"200\" y=\"114\" width=\"360\" height=\"30\" rx=\"3\"/>\n  <text class=\"c\" x=\"212\" y=\"134\">2         Algebra 11      2500   102</text>\n  <rect class=\"rw\" x=\"200\" y=\"148\" width=\"360\" height=\"30\" rx=\"3\"/>\n  <text class=\"c\" x=\"212\" y=\"168\">3         Physics 11      1950   101</text>\n  <text class=\"p\" x=\"20\" y=\"50\">DDL</text>\n  <text class=\"s\" x=\"20\" y=\"68\">structure: fields,</text>\n  <text class=\"s\" x=\"20\" y=\"84\">types, keys</text>\n  <path d=\"M110,52 H190\" style=\"stroke:var(--primary);stroke-width:2\"/><path d=\"M190,46 l10,6 l-10,6 z\" style=\"fill:var(--primary)\"/>\n  <text class=\"g\" x=\"20\" y=\"134\">DML</text>\n  <text class=\"s\" x=\"20\" y=\"152\">data: the records</text>\n  <path d=\"M110,130 H190\" style=\"stroke:var(--success);stroke-width:2\"/><path d=\"M190,124 l10,6 l-10,6 z\" style=\"fill:var(--success)\"/>\n  <text class=\"k\" x=\"580\" y=\"46\" style=\"fill:var(--primary)\">CREATE TABLE</text>\n  <text class=\"k\" x=\"580\" y=\"64\" style=\"fill:var(--primary)\">ALTER TABLE</text>\n  <text class=\"k\" x=\"580\" y=\"82\" style=\"fill:var(--primary)\">DROP TABLE</text>\n  <text class=\"k\" x=\"580\" y=\"114\" style=\"fill:var(--success)\">INSERT INTO</text>\n  <text class=\"k\" x=\"580\" y=\"132\" style=\"fill:var(--success)\">SELECT … FROM</text>\n  <text class=\"k\" x=\"580\" y=\"150\" style=\"fill:var(--success)\">UPDATE … SET</text>\n  <text class=\"k\" x=\"580\" y=\"168\" style=\"fill:var(--success)\">DELETE FROM</text>\n  <rect x=\"200\" y=\"200\" width=\"360\" height=\"74\" rx=\"8\" style=\"fill:var(--surface-2);stroke:var(--border)\"/>\n  <text class=\"s\" x=\"216\" y=\"224\">ALTER TABLE Titles ADD Pages INT;  → a new column</text>\n  <text class=\"s\" x=\"216\" y=\"244\">INSERT INTO Titles VALUES (…);    → a new row</text>\n  <text class=\"s\" x=\"216\" y=\"264\">DDL changes the shape · DML changes the contents</text>\n</svg>",
+          "caption": "DDL works on the structure of a table, DML works on the records inside it"
+        },
+        {
+          "type": "comparison",
+          "title": "Data Definition Language vs Data Manipulation Language",
+          "columns": [
+            "",
+            "DDL — Data Definition Language",
+            "DML — Data Manipulation Language"
+          ],
+          "rows": [
+            [
+              "Purpose",
+              "**Defines / changes the structure** of the database: databases, tables, fields, keys",
+              "**Works with the data** inside the tables: add, read, change, delete records"
+            ],
+            [
+              "Commands",
+              "`CREATE`, `ALTER`, `DROP` (also `TRUNCATE`, `RENAME`)",
+              "`SELECT`, `INSERT`, `UPDATE`, `DELETE`"
+            ],
+            [
+              "Example",
+              "`CREATE TABLE Titles (…);`",
+              "`INSERT INTO Titles VALUES (…);`"
+            ],
+            [
+              "Affects",
+              "The **schema** (table design)",
+              "The **records** (rows)"
+            ],
+            [
+              "Used mainly by",
+              "Database designers / administrators",
+              "Users, programmers and applications"
+            ],
+            [
+              "When used",
+              "Mostly once, when the database is built or changed",
+              "Every day, while the system is in use"
+            ]
+          ]
+        },
+        {
           "type": "exam_tip",
-          "content": "SQL keywords are not case-sensitive, but they are usually written in **CAPITALS** (`SELECT`, `FROM`, `WHERE`). Text values are written in **quotes** (`'Mektep'`), numbers without quotes. A statement ends with a **semicolon** `;`."
+          "content": "SQL keywords are not case-sensitive, but they are usually written in **CAPITALS** (`SELECT`, `FROM`, `WHERE`). **Text and dates** are written in **single quotes** (`'Mektep'`, `'2026-11-05'`), **numbers without quotes**. A statement ends with a **semicolon** `;`. Names of tables and fields contain **no spaces**."
         }
       ]
     },
@@ -1980,60 +3817,81 @@
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "Data type",
+          "content": "The **kind of data a field can store** (whole numbers, decimals, text, dates, true/false). It decides which values are accepted, how much storage is used and which operations (e.g. arithmetic, sorting by date) can be done."
+        },
+        {
           "type": "comparison",
           "title": "Common SQL data types (MySQL)",
           "columns": [
             "Data type",
             "Stores",
-            "Example field"
+            "Example field",
+            "Example value"
           ],
           "rows": [
             [
               "`INT` / `INTEGER`",
               "Whole numbers",
-              "Quantity, Age, pub_ID"
+              "Quantity, Age, pub_ID",
+              "`12`"
             ],
             [
               "`FLOAT`, `DOUBLE`",
               "Real numbers (approximate)",
-              "Height, Budget"
+              "Height, Budget",
+              "`1.75`"
             ],
             [
               "`DECIMAL(p, s)`",
-              "Exact decimal numbers — `p` digits, `s` after the point",
-              "Price `DECIMAL(8,2)` → 123456.78"
+              "Exact decimal numbers — `p` digits in total, `s` after the point",
+              "Price `DECIMAL(8,2)`",
+              "`123456.78`"
             ],
             [
               "`VARCHAR(n)`",
               "Text of **up to n** characters",
-              "Name `VARCHAR(50)`, Phone `VARCHAR(12)`"
+              "Name `VARCHAR(50)`, Phone `VARCHAR(16)`",
+              "`'Bekova'`"
             ],
             [
               "`CHAR(n)`",
               "Text of **exactly n** characters",
-              "Grade letter `CHAR(1)`, country code `CHAR(2)`"
+              "Grade letter `CHAR(1)`, class code `CHAR(3)`",
+              "`'11A'`"
             ],
             [
               "`TEXT`",
               "Long text",
-              "Description, comments"
+              "Description, comments",
+              "a paragraph"
             ],
             [
               "`DATE`",
               "A date `'YYYY-MM-DD'`",
-              "DateOfBirth"
+              "DateOfBirth",
+              "`'2009-03-14'`"
             ],
             [
               "`DATETIME` / `TIME`",
-              "Date and time / time",
-              "OrderTime"
+              "Date and time / time of day",
+              "OrderTime",
+              "`'2026-11-05 14:30:00'`"
             ],
             [
               "`BOOLEAN`",
               "TRUE / FALSE (stored as 1 / 0)",
-              "IsPaid"
+              "IsPaid",
+              "`TRUE`"
             ]
           ]
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq2\" xml:space=\"preserve\" viewBox=\"0 0 760 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"The value Aru stored in VARCHAR(10) uses 3 characters; in CHAR(10) it is padded with spaces to 10 characters\">\n  <style>\n    svg.sq2 text{white-space:pre}\n    svg.sq2 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1}\n    svg.sq2 .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}\n    svg.sq2 .pd{fill:var(--warning);opacity:.25}\n    svg.sq2 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.sq2 .c{font:14px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq2 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <text class=\"h\" x=\"20\" y=\"40\">VARCHAR(10)</text>\n  <rect class=\"on\" x=\"160\" y=\"20\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"174\" y=\"43\">A</text>\n  <rect class=\"on\" x=\"200\" y=\"20\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"214\" y=\"43\">r</text>\n  <rect class=\"on\" x=\"240\" y=\"20\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"254\" y=\"43\">u</text>\n  <text class=\"s\" x=\"300\" y=\"34\">3 characters stored (+ a small length marker)</text>\n  <text class=\"s\" x=\"300\" y=\"50\">up to 10 allowed — size varies with the value</text>\n  <text class=\"h\" x=\"20\" y=\"120\">CHAR(10)</text>\n  <rect class=\"on\" x=\"160\" y=\"100\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"174\" y=\"123\">A</text>\n  <rect class=\"on\" x=\"200\" y=\"100\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"214\" y=\"123\">r</text>\n  <rect class=\"on\" x=\"240\" y=\"100\" width=\"40\" height=\"34\"/><text class=\"c\" x=\"254\" y=\"123\">u</text>\n  <rect class=\"pd\" x=\"280\" y=\"100\" width=\"280\" height=\"34\"/>\n  <rect class=\"bx\" x=\"280\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"320\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"360\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"400\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"440\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"480\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/><rect class=\"bx\" x=\"520\" y=\"100\" width=\"40\" height=\"34\" style=\"fill:none\"/>\n  <text class=\"s\" x=\"580\" y=\"114\">padded with spaces</text>\n  <text class=\"s\" x=\"580\" y=\"130\">always 10 characters</text>\n  <text class=\"s\" x=\"20\" y=\"176\">Use CHAR(n) when every value has the same length (country code KZ, class 11A); VARCHAR(n) for names, e-mails, addresses.</text>\n</svg>",
+          "caption": "VARCHAR(10) keeps only the characters typed; CHAR(10) always uses 10 places"
         },
         {
           "type": "cards",
@@ -2044,8 +3902,334 @@
             },
             {
               "title": "Choosing the type",
-              "content": "- Calculations → `INT` / `DECIMAL`; money → `DECIMAL` (no rounding errors).\n- Codes and phone numbers → `VARCHAR` (leading zeros and `+` are kept).\n- Use the **smallest suitable size** (`VARCHAR(30)`, not `VARCHAR(255)` for a name), but large enough for real data."
+              "content": "- Calculations → `INT` / `DECIMAL`; money → `DECIMAL` (no rounding errors).\n- Codes and phone numbers → `VARCHAR` (leading zeros and `+` are kept).\n- Dates → `DATE`, not `VARCHAR`, so they can be sorted and compared correctly.\n- Yes / no answers → `BOOLEAN`.\n- Use the **smallest suitable size** (`VARCHAR(30)`, not `VARCHAR(255)` for a name), but large enough for real data."
             }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Choosing data types for a clinic's Patients table",
+          "content": "A clinic in Karaganda stores `Patients ( PatientID, FullName, IIN, Phone, DateOfBirth, Height, IsInsured )`.\n- `PatientID` — `INT AUTO_INCREMENT` — a number given by the DBMS, used as the primary key.\n- `FullName` — `VARCHAR(60)` — names have different lengths.\n- `IIN` — `CHAR(12)` — the Kazakh ID number is **always 12 digits** and can start with 0; nobody calculates with it.\n- `Phone` — `VARCHAR(16)` — `+7 701 234 56 78` contains `+` and spaces.\n- `DateOfBirth` — `DATE` — so patients can be sorted by age and ages calculated.\n- `Height` — `DECIMAL(4,1)` — e.g. `172.5` cm.\n- `IsInsured` — `BOOLEAN` — only TRUE or FALSE."
+        },
+        {
+          "type": "warning",
+          "content": "- Storing a **phone number, IIN or postcode as INT** — the leading `0` and `+` are lost, and the number may be too big for `INT`.\n- Storing **dates as VARCHAR** — `'05/11/2026'` and `'12/01/2026'` then sort as text, not by date.\n- Using `FLOAT` for **money** — use `DECIMAL(p,s)`, which is exact.\n- Writing `VARCHAR` **without a size** in MySQL — `VARCHAR(50)` needs the number."
+        }
+      ]
+    },
+    {
+      "title": "Creating the structure: CREATE, ALTER, DROP",
+      "objectives": [
+        "11.4.2.2",
+        "11.4.1.11"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE DATABASE BooksDB;          -- no spaces in names\nUSE BooksDB;\n\nCREATE TABLE Publishers (\n    pub_ID   INT          PRIMARY KEY,\n    pub_name VARCHAR(50)  NOT NULL,\n    city     VARCHAR(30)\n);\n\nCREATE TABLE Titles (\n    title_ID INT          AUTO_INCREMENT,\n    title    VARCHAR(100) NOT NULL,\n    price    DECIMAL(8,2) CHECK (price > 0),\n    pub_ID   INT,\n    year     INT,\n    PRIMARY KEY (title_ID),\n    FOREIGN KEY (pub_ID) REFERENCES Publishers(pub_ID)\n);",
+          "caption": "CREATE DATABASE and CREATE TABLE"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq3\" xml:space=\"preserve\" viewBox=\"0 0 760 270\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"CREATE TABLE statement with labels: table name, field name, data type with size, constraint, primary key, foreign key and closing bracket with semicolon\">\n  <style>\n    svg.sq3 text{white-space:pre}\n    svg.sq3 .cd{font:15px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq3 .kw{font:700 15px ui-monospace,monospace;fill:var(--primary)}\n    svg.sq3 .lb{font:600 12px system-ui,sans-serif}\n    svg.sq3 .bg{fill:var(--surface-2);stroke:var(--border)}\n  </style>\n  <rect class=\"bg\" x=\"20\" y=\"14\" width=\"440\" height=\"244\" rx=\"10\"/>\n  <text class=\"cd\" x=\"36\" y=\"44\"><tspan class=\"kw\">CREATE TABLE</tspan> Loans (</text>\n  <text class=\"cd\" x=\"56\" y=\"74\">LoanID    <tspan class=\"kw\">INT</tspan> AUTO_INCREMENT,</text>\n  <text class=\"cd\" x=\"56\" y=\"104\">StudentID <tspan class=\"kw\">VARCHAR(5)</tspan> NOT NULL,</text>\n  <text class=\"cd\" x=\"56\" y=\"134\">LoanDate  <tspan class=\"kw\">DATE</tspan>,</text>\n  <text class=\"cd\" x=\"56\" y=\"164\">Returned  <tspan class=\"kw\">BOOLEAN</tspan> DEFAULT FALSE,</text>\n  <text class=\"cd\" x=\"56\" y=\"194\">PRIMARY KEY (LoanID),</text>\n  <text class=\"cd\" x=\"56\" y=\"224\">FOREIGN KEY (StudentID) REFERENCES …</text>\n  <text class=\"cd\" x=\"36\" y=\"250\">);</text>\n  <path d=\"M190,38 H480\" style=\"stroke:var(--primary);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"42\" style=\"fill:var(--primary)\">table name (no spaces), then \"(\"</text>\n  <path d=\"M100,80 C120,90 300,90 480,78\" style=\"stroke:var(--muted);fill:none;stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"82\" style=\"fill:var(--muted)\">field name · data type · constraint</text>\n  <path d=\"M340,104 H480\" style=\"stroke:var(--warning);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"108\" style=\"fill:var(--warning)\">NOT NULL = presence check</text>\n  <path d=\"M300,164 H480\" style=\"stroke:var(--muted);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"152\" style=\"fill:var(--muted)\">each field line ends with a comma</text>\n  <path d=\"M260,194 H480\" style=\"stroke:var(--success);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"198\" style=\"fill:var(--success)\">primary key: unique + not null</text>\n  <path d=\"M440,224 H480\" style=\"stroke:var(--success);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"228\" style=\"fill:var(--success)\">foreign key links to another table</text>\n  <path d=\"M60,250 H480\" style=\"stroke:var(--danger);stroke-dasharray:4 4\"/><text class=\"lb\" x=\"486\" y=\"254\" style=\"fill:var(--danger)\">no comma before \")\" · end with \";\"</text>\n</svg>",
+          "caption": "The parts of a CREATE TABLE statement"
+        },
+        {
+          "type": "steps",
+          "title": "How to write CREATE TABLE",
+          "items": [
+            "Start with `CREATE TABLE TableName (` — a name with **no spaces**.",
+            "One line per field: **field name**, **data type** (with size), optional **constraints**; lines separated by **commas**.",
+            "Mark the primary key: `PRIMARY KEY` after the field, or `PRIMARY KEY (field)` on its own line.",
+            "Add `FOREIGN KEY (field) REFERENCES OtherTable(field)` for every link to another table.",
+            "A **composite key** uses two fields: `PRIMARY KEY (StudentID, CourseID)`.",
+            "Close with `);` — no comma after the last line."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "ALTER TABLE Titles ADD Budget FLOAT;                  -- add a field\nALTER TABLE Titles ADD Pages INT NOT NULL DEFAULT 0;  -- add a field with a default\nALTER TABLE Titles MODIFY title VARCHAR(150);         -- change the data type / size\nALTER TABLE Titles DROP COLUMN year;                  -- delete a field (and all its data)\nALTER TABLE Titles RENAME COLUMN price TO price_tg;   -- rename a field",
+          "caption": "ALTER TABLE — change the structure of an existing table"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq4\" xml:space=\"preserve\" viewBox=\"0 0 760 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Before: Titles has title_ID, title, price, year. After ALTER TABLE ADD Pages and DROP COLUMN year, Titles has title_ID, title, price, Pages\">\n  <style>\n    svg.sq4 text{white-space:pre}\n    svg.sq4 .hd{fill:var(--primary-soft);stroke:var(--primary)}\n    svg.sq4 .rw{fill:var(--surface-2);stroke:var(--border)}\n    svg.sq4 .nw{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.sq4 .dl{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}\n    svg.sq4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.sq4 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <text class=\"h\" x=\"20\" y=\"24\">Before</text>\n  <rect class=\"hd\" x=\"20\" y=\"34\" width=\"250\" height=\"28\"/><text class=\"c\" x=\"28\" y=\"53\">ID  title        price</text>\n  <rect class=\"dl\" x=\"270\" y=\"34\" width=\"60\" height=\"28\"/><text class=\"c\" x=\"280\" y=\"53\">year</text>\n  <rect class=\"rw\" x=\"20\" y=\"64\" width=\"310\" height=\"26\"/><text class=\"c\" x=\"28\" y=\"82\">1   Informatika  1800   2021</text>\n  <rect class=\"rw\" x=\"20\" y=\"92\" width=\"310\" height=\"26\"/><text class=\"c\" x=\"28\" y=\"110\">2   Algebra      2500   2022</text>\n  <path d=\"M345,76 H405\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M405,70 l12,6 l-12,6 z\" style=\"fill:var(--muted)\"/>\n  <text class=\"h\" x=\"430\" y=\"24\">After</text>\n  <rect class=\"hd\" x=\"430\" y=\"34\" width=\"250\" height=\"28\"/><text class=\"c\" x=\"438\" y=\"53\">ID  title        price</text>\n  <rect class=\"nw\" x=\"680\" y=\"34\" width=\"66\" height=\"28\"/><text class=\"c\" x=\"688\" y=\"53\">Pages</text>\n  <rect class=\"rw\" x=\"430\" y=\"64\" width=\"316\" height=\"26\"/><text class=\"c\" x=\"438\" y=\"82\">1   Informatika  1800   0</text>\n  <rect class=\"rw\" x=\"430\" y=\"92\" width=\"316\" height=\"26\"/><text class=\"c\" x=\"438\" y=\"110\">2   Algebra      2500   0</text>\n  <text class=\"c\" x=\"20\" y=\"152\" style=\"fill:var(--success)\">ALTER TABLE Titles ADD Pages INT DEFAULT 0;</text>\n  <text class=\"s\" x=\"20\" y=\"170\">a new column appears in every row (filled with the default or NULL)</text>\n  <text class=\"c\" x=\"430\" y=\"152\" style=\"fill:var(--danger)\">ALTER TABLE Titles DROP COLUMN year;</text>\n  <text class=\"s\" x=\"430\" y=\"170\">the column and its values in every row are lost</text>\n  <text class=\"s\" x=\"20\" y=\"198\">The rows (records) stay — only the structure changes. This is DDL.</text>\n</svg>",
+          "caption": "ALTER TABLE changes the columns of a table that already holds data"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "DROP TABLE Titles;          -- the table, its structure and ALL its data are deleted\nDROP DATABASE BooksDB;      -- the whole database is deleted",
+          "caption": "DROP — delete a whole table or database"
+        },
+        {
+          "type": "comparison",
+          "title": "CREATE, ALTER and DROP",
+          "columns": [
+            "Command",
+            "What it does",
+            "Example",
+            "Data afterwards"
+          ],
+          "rows": [
+            [
+              "`CREATE`",
+              "Makes a **new** database or table",
+              "`CREATE TABLE Members (…);`",
+              "New, empty table"
+            ],
+            [
+              "`ALTER`",
+              "**Changes** an existing table: add, modify, drop or rename a column",
+              "`ALTER TABLE Members ADD Email VARCHAR(50);`",
+              "Records stay; columns change"
+            ],
+            [
+              "`DROP`",
+              "**Deletes** a whole table or database",
+              "`DROP TABLE Members;`",
+              "Structure and all data gone"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "`DROP TABLE` removes the **structure and all records**; `ALTER TABLE … DROP COLUMN` removes a field and its values in **every** record. There is no \"undo\" — make a **backup** first."
+        },
+        {
+          "type": "example",
+          "title": "Describe an SQL statement (exam style)",
+          "content": "`ALTER TABLE Movies DROP COLUMN Country;`\n**Changes the structure of the table** `Movies` (1) by **deleting the field** `Country` — the Country value is removed from every record (1)."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice: data types, DDL and DML",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.1",
+        "11.4.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Compare DDL and DML. [2]**\nDDL defines / changes the **structure** of the database (tables, fields, keys), e.g. `CREATE`, `ALTER`, `DROP` (1); DML **works with the data / records** in the tables, e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE` (1).\n\n**Q: Identify the most suitable data type for a field `Price` that stores 1499.50 tenge. [1]**\n`DECIMAL(8,2)` / `DECIMAL` (also accept `FLOAT` / real) (1).\n\n**Q: Write an SQL statement to create a database called SchoolLibrary. [1]**\n`CREATE DATABASE SchoolLibrary;` (1)\n\n**Q: Write an SQL statement to create the table `Members` with fields `MemberID` (whole number, primary key), `FullName` (up to 40 characters, required) and `JoinDate`. [4]**\n`CREATE TABLE Members (` (1) `MemberID INT PRIMARY KEY,` (1) `FullName VARCHAR(40) NOT NULL,` (1) `JoinDate DATE);` (1)\n\n**Q: Fill the gaps to add a `Budget` column to the `Movies` table to store the cost of each movie in dollars. [3]**\n`ALTER TABLE Movies` (1) `ADD` (1) `Budget FLOAT;` (1)\n\n**Q: Explain why a phone number is stored as VARCHAR and not INT. [2]**\nIt can start with `+` or `0` and contain spaces, which an integer would lose / not allow (1); no calculations are done with it (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Spaces in table or database names (`CREATE DATABASE School Library`).\n- Missing **commas** between fields in `CREATE TABLE`, or a comma after the last field.\n- Using `DELETE` when the question asks to remove a **column** — that is `ALTER TABLE … DROP COLUMN`.\n- Saying `SELECT` is DDL — it does not change the structure, so it is **DML**.\n- Forgetting the size: `VARCHAR` → `VARCHAR(40)`."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define DDL and DML and give two commands of each.",
+            "Name six SQL data types and give a field for each.",
+            "Explain the difference between `CHAR(3)` and `VARCHAR(3)`.",
+            "Write `CREATE TABLE` for `Students(StudentID, Name, Grade, DateOfBirth)` with a primary key.",
+            "Add a field `Email` to `Students`; then delete the field `Grade`.",
+            "State what `DROP TABLE Students;` does to the data."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Adding and selecting data: INSERT and SELECT",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Query",
+          "content": "A request to the database written in SQL, usually to **retrieve** data (`SELECT`), but also to **add, change or delete** data. The result of a `SELECT` query is itself a table (the **result set**)."
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "INSERT INTO Publishers (pub_ID, pub_name, city)\nVALUES (104, 'Kitap', 'Shymkent');\n\nINSERT INTO Titles (title, price, pub_ID, year)      -- title_ID is AUTO_INCREMENT\nVALUES ('Biology 11', 2300, 104, 2024),\n       ('Geography 11', 1900, 101, 2024);           -- several rows at once\n\nINSERT INTO Publishers VALUES (105, 'Arman', 'Aktobe');   -- all fields, in table order",
+          "caption": "INSERT — add records"
+        },
+        {
+          "type": "steps",
+          "title": "How to write INSERT",
+          "items": [
+            "`INSERT INTO TableName` — the table that gets the new record.",
+            "`(field1, field2, …)` — the fields you are filling (can be left out if you give **every** field in table order).",
+            "`VALUES (value1, value2, …)` — values **in the same order** as the fields; text and dates in quotes.",
+            "Leave out an `AUTO_INCREMENT` key — the DBMS fills it."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT * FROM Titles;                                 -- all fields, all records\nSELECT title, price FROM Titles;                      -- chosen fields only\nSELECT title, price FROM Titles WHERE price < 2000;  -- only matching records\nSELECT DISTINCT city FROM Publishers;                 -- without duplicates",
+          "caption": "SELECT — retrieve data"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq5\" xml:space=\"preserve\" viewBox=\"0 0 760 300\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"SELECT title, price picks two columns of Titles; WHERE price less than 2000 keeps only two rows; the result is a smaller table\">\n  <style>\n    svg.sq5 text{white-space:pre}\n    svg.sq5 .hd{fill:var(--surface-2);stroke:var(--border)}\n    svg.sq5 .col{fill:var(--primary-soft)}\n    svg.sq5 .row{fill:none;stroke:var(--success);stroke-width:2.5}\n    svg.sq5 .h{font:700 13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq5 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq5 .x{font:13px ui-monospace,monospace;fill:var(--muted)}\n    svg.sq5 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.sq5 .k{font:700 13px ui-monospace,monospace}\n  </style>\n  <text class=\"k\" x=\"20\" y=\"22\" style=\"fill:var(--primary)\">SELECT title, price</text><text class=\"k\" x=\"190\" y=\"22\" style=\"fill:var(--foreground)\">FROM Titles</text><text class=\"k\" x=\"300\" y=\"22\" style=\"fill:var(--success)\">WHERE price &lt; 2000;</text>\n  <rect class=\"col\" x=\"62\" y=\"40\" width=\"200\" height=\"190\"/>\n  <rect class=\"col\" x=\"262\" y=\"40\" width=\"70\" height=\"190\" style=\"opacity:.8\"/>\n  <rect class=\"hd\" x=\"20\" y=\"40\" width=\"400\" height=\"28\" style=\"fill:none\"/>\n  <text class=\"h\" x=\"28\" y=\"59\">ID</text><text class=\"h\" x=\"70\" y=\"59\">title</text><text class=\"h\" x=\"270\" y=\"59\">price</text><text class=\"h\" x=\"345\" y=\"59\">year</text>\n  <text class=\"x\" x=\"28\" y=\"92\">1</text><text class=\"c\" x=\"70\" y=\"92\">Informatika 11</text><text class=\"c\" x=\"270\" y=\"92\">1800</text><text class=\"x\" x=\"345\" y=\"92\">2021</text>\n  <text class=\"x\" x=\"28\" y=\"124\">2</text><text class=\"x\" x=\"70\" y=\"124\">Algebra 11</text><text class=\"x\" x=\"270\" y=\"124\">2500</text><text class=\"x\" x=\"345\" y=\"124\">2022</text>\n  <text class=\"x\" x=\"28\" y=\"156\">3</text><text class=\"c\" x=\"70\" y=\"156\">Physics 11</text><text class=\"c\" x=\"270\" y=\"156\">1950</text><text class=\"x\" x=\"345\" y=\"156\">2023</text>\n  <text class=\"x\" x=\"28\" y=\"188\">4</text><text class=\"x\" x=\"70\" y=\"188\">History of Kazakhstan</text><text class=\"x\" x=\"270\" y=\"188\">3200</text><text class=\"x\" x=\"345\" y=\"188\">2020</text>\n  <text class=\"x\" x=\"28\" y=\"220\">5</text><text class=\"x\" x=\"70\" y=\"220\">Chemistry 11</text><text class=\"x\" x=\"270\" y=\"220\">2100</text><text class=\"x\" x=\"345\" y=\"220\">2023</text>\n  <rect class=\"row\" x=\"18\" y=\"76\" width=\"404\" height=\"24\" rx=\"4\"/>\n  <rect class=\"row\" x=\"18\" y=\"140\" width=\"404\" height=\"24\" rx=\"4\"/>\n  <path d=\"M440,130 H500\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M500,124 l12,6 l-12,6 z\" style=\"fill:var(--muted)\"/>\n  <text class=\"h\" x=\"525\" y=\"100\">Result set</text>\n  <rect class=\"hd\" x=\"525\" y=\"110\" width=\"220\" height=\"28\"/><text class=\"h\" x=\"535\" y=\"129\">title</text><text class=\"h\" x=\"680\" y=\"129\">price</text>\n  <rect class=\"hd\" x=\"525\" y=\"138\" width=\"220\" height=\"26\" style=\"fill:var(--success-soft)\"/><text class=\"c\" x=\"535\" y=\"156\">Informatika 11</text><text class=\"c\" x=\"680\" y=\"156\">1800</text>\n  <rect class=\"hd\" x=\"525\" y=\"164\" width=\"220\" height=\"26\" style=\"fill:var(--success-soft)\"/><text class=\"c\" x=\"535\" y=\"182\">Physics 11</text><text class=\"c\" x=\"680\" y=\"182\">1950</text>\n  <text class=\"s\" x=\"20\" y=\"258\">blue = columns named after SELECT · green outline = rows where the WHERE condition is true</text>\n  <text class=\"s\" x=\"20\" y=\"278\">greyed-out values are not returned; the table itself is not changed</text>\n</svg>",
+          "caption": "SELECT chooses the columns, WHERE chooses the rows"
+        },
+        {
+          "type": "comparison",
+          "title": "Conditions in WHERE",
+          "columns": [
+            "Operator",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "`=` `<>` (or `!=`)",
+              "equal / not equal",
+              "`WHERE city = 'Almaty'`"
+            ],
+            [
+              "`<` `>` `<=` `>=`",
+              "comparison",
+              "`WHERE price >= 2000`"
+            ],
+            [
+              "`AND`, `OR`, `NOT`",
+              "combine conditions",
+              "`WHERE price < 2000 AND pub_ID = 101`"
+            ],
+            [
+              "`BETWEEN a AND b`",
+              "in a range (**inclusive**)",
+              "`WHERE year BETWEEN 2021 AND 2023`"
+            ],
+            [
+              "`IN (…)`",
+              "in a list",
+              "`WHERE pub_ID IN (101, 103)`"
+            ],
+            [
+              "`LIKE`",
+              "text pattern: `%` = any characters, `_` = exactly one character",
+              "`WHERE title LIKE '%11'` (ends with 11)"
+            ],
+            [
+              "`IS NULL` / `IS NOT NULL`",
+              "missing value",
+              "`WHERE city IS NULL`"
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example — a school canteen query",
+          "content": "The canteen table is `Meals ( MealID, MealName, Price, Category, IsVegetarian )`. The task: *display the name and price of all vegetarian meals that cost less than 900 tenge.*\n1. **Which columns?** name and price → `SELECT MealName, Price`\n2. **Which table?** → `FROM Meals`\n3. **Which rows?** vegetarian **and** under 900 → `WHERE IsVegetarian = TRUE AND Price < 900`\n4. End with `;`\n\n```sql\nSELECT MealName, Price\nFROM Meals\nWHERE IsVegetarian = TRUE AND Price < 900;\n```"
+        },
+        {
+          "type": "warning",
+          "content": "\"Books from Mektep **and** Atamura\" means books whose publisher is **either** of them: `WHERE pub_ID = 101 OR pub_ID = 103` (or `IN (101, 103)`). `WHERE pub_ID = 101 AND pub_ID = 103` returns **no rows**, because one field cannot hold two values at once."
+        }
+      ]
+    },
+    {
+      "title": "Changing and deleting data: UPDATE and DELETE",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "UPDATE Titles\nSET title = 'Computer Science 11'\nWHERE title = 'Informatika 11';\n\nUPDATE Titles SET price = price * 1.1;               -- all prices up by 10 %\nUPDATE Titles SET price = 2000, year = 2025 WHERE title_ID = 3;   -- two fields",
+          "caption": "UPDATE — change existing records"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq6\" xml:space=\"preserve\" viewBox=\"0 0 760 220\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"UPDATE Titles SET price = price * 1.1 WHERE pub_ID = 102 changes the prices of two rows from 2500 to 2750 and 2100 to 2310; other rows stay\">\n  <style>\n    svg.sq6 text{white-space:pre}\n    svg.sq6 .hd{fill:var(--primary-soft);stroke:var(--primary)}\n    svg.sq6 .rw{fill:var(--surface-2);stroke:var(--border)}\n    svg.sq6 .ch{fill:var(--warning);opacity:.3}\n    svg.sq6 .h{font:700 13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq6 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq6 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <text class=\"h\" x=\"20\" y=\"22\" style=\"fill:var(--primary)\">UPDATE Titles SET price = price * 1.1 WHERE pub_ID = 102;</text>\n  <text class=\"s\" x=\"20\" y=\"48\">Before</text>\n  <rect class=\"hd\" x=\"20\" y=\"56\" width=\"300\" height=\"26\"/><text class=\"h\" x=\"28\" y=\"74\">title        price  pub_ID</text>\n  <rect class=\"rw\" x=\"20\" y=\"84\" width=\"300\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"101\">Informatika  1800   101</text>\n  <rect class=\"ch\" x=\"20\" y=\"110\" width=\"300\" height=\"24\"/><rect class=\"rw\" x=\"20\" y=\"110\" width=\"300\" height=\"24\" style=\"fill:none\"/><text class=\"c\" x=\"28\" y=\"127\">Algebra      2500   102</text>\n  <rect class=\"rw\" x=\"20\" y=\"136\" width=\"300\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"153\">Physics      1950   101</text>\n  <rect class=\"ch\" x=\"20\" y=\"162\" width=\"300\" height=\"24\"/><rect class=\"rw\" x=\"20\" y=\"162\" width=\"300\" height=\"24\" style=\"fill:none\"/><text class=\"c\" x=\"28\" y=\"179\">Chemistry    2100   102</text>\n  <path d=\"M340,130 H400\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M400,124 l12,6 l-12,6 z\" style=\"fill:var(--muted)\"/>\n  <text class=\"s\" x=\"430\" y=\"48\">After</text>\n  <rect class=\"hd\" x=\"430\" y=\"56\" width=\"300\" height=\"26\"/><text class=\"h\" x=\"438\" y=\"74\">title        price  pub_ID</text>\n  <rect class=\"rw\" x=\"430\" y=\"84\" width=\"300\" height=\"24\"/><text class=\"c\" x=\"438\" y=\"101\">Informatika  1800   101</text>\n  <rect class=\"rw\" x=\"430\" y=\"110\" width=\"300\" height=\"24\" style=\"fill:var(--success-soft)\"/><text class=\"c\" x=\"438\" y=\"127\">Algebra      <tspan style=\"font-weight:700\">2750</tspan>   102</text>\n  <rect class=\"rw\" x=\"430\" y=\"136\" width=\"300\" height=\"24\"/><text class=\"c\" x=\"438\" y=\"153\">Physics      1950   101</text>\n  <rect class=\"rw\" x=\"430\" y=\"162\" width=\"300\" height=\"24\" style=\"fill:var(--success-soft)\"/><text class=\"c\" x=\"438\" y=\"179\">Chemistry    <tspan style=\"font-weight:700\">2310</tspan>   102</text>\n  <text class=\"s\" x=\"20\" y=\"210\">Only the rows where pub_ID = 102 change. Without WHERE all four prices would go up.</text>\n</svg>",
+          "caption": "UPDATE with WHERE changes only the matching rows"
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "DELETE FROM Titles WHERE year < 2021;                -- only old books\nDELETE FROM Titles;                                  -- ALL records (the table stays)",
+          "caption": "DELETE — remove records"
+        },
+        {
+          "type": "steps",
+          "title": "How to write UPDATE and DELETE",
+          "items": [
+            "`UPDATE TableName` → `SET field = new value` (several: `SET a = 1, b = 2`) → `WHERE condition;`",
+            "A calculation can use the old value: `SET price = price * 1.1` (up 10 %), `SET stock = stock - 1`.",
+            "`DELETE FROM TableName WHERE condition;` — whole rows are removed; no field list is written.",
+            "Before running either, run `SELECT * FROM TableName WHERE condition;` to see which rows will be affected."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "DELETE vs DROP",
+          "columns": [
+            "`DELETE FROM Titles WHERE …`",
+            "`DROP TABLE Titles`"
+          ],
+          "rows": [
+            [
+              "**DML** — removes **records**",
+              "**DDL** — removes the **whole table**"
+            ],
+            [
+              "The table structure stays",
+              "Structure and data are gone"
+            ],
+            [
+              "Can remove only some rows",
+              "Always removes everything"
+            ],
+            [
+              "`ALTER TABLE … DROP COLUMN` removes a **column**, not rows",
+              "The table can no longer be used in queries"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "`UPDATE` and `DELETE` **without WHERE** change or delete **every record** in the table. Use the **primary key** in `WHERE` when you mean one record: `WHERE title_ID = 3`, not `WHERE title = 'Physics 11'` (two books could have the same title)."
+        },
+        {
+          "type": "example",
+          "title": "Worked example — a 15 % discount",
+          "content": "The shop table is `Products ( ProductID, Name, Price_tg, Category )`. All products in the category **Stationery** are reduced by 15 %.\n```sql\nUPDATE Products\nSET Price_tg = Price_tg * 0.85\nWHERE Category = 'Stationery';\n```\nA pen that cost 400 ₸ now costs 400 × 0.85 = **340 ₸**; products of other categories are not changed."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice: managing data in one table",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Write an SQL statement to add the publisher 106, \"Daryn\", in Pavlodar to the Publishers table. [3]**\n`INSERT INTO Publishers (pub_ID, pub_name, city)` (1) `VALUES` (1) `(106, 'Daryn', 'Pavlodar');` (1)\n\n**Q: Write an SQL statement to change all titles \"Informatika 11\" to \"Computer Science 11\". [3]**\n`UPDATE Titles` (1) `SET title = 'Computer Science 11'` (1) `WHERE title = 'Informatika 11';` (1)\n\n**Q: Write an SQL statement to select the titles and prices of all books of publisher 101 that cost less than 2000 tenge. [4]**\n`SELECT title, price` (1) `FROM Titles` (1) `WHERE price < 2000` (1) `AND pub_ID = 101;` (1)\n\n**Q: Prices of all products went up by 10 %. Write an SQL query that will change this data. [2]**\n`UPDATE Products` (1) `SET Price_tg = Price_tg * 1.1;` (1)\n\n**Q: Write an SQL statement to delete all books published before 2021. [2]**\n`DELETE FROM Titles` (1) `WHERE year < 2021;` (1)\n\n**Q: State what `DELETE FROM Titles;` does. [1]**\nDeletes **all records** from Titles; the (empty) table / structure remains (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Forgetting **quotes** around text values, or putting quotes around numbers.\n- `UPDATE` / `DELETE` without `WHERE`.\n- Writing `DELETE title FROM Titles` — `DELETE` removes whole rows; no field names.\n- Writing `UPDATE Titles WHERE … SET …` — `SET` comes **before** `WHERE`.\n- Using `=` with a pattern: `WHERE title = '%11'` — patterns need `LIKE`.\n- Writing `AND` when one field must match one of two values — use `OR` / `IN`."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Insert a new student into `Students(StudentID, Name, Grade)`.",
+            "Select the names of all grade 11 students.",
+            "Select all books whose title starts with \"A\".",
+            "Change the grade of student S0412 to 12; increase every price by 5 %.",
+            "Delete the student S0412.",
+            "Explain the difference between `DELETE FROM Students;` and `DROP TABLE Students;`."
           ]
         }
       ]
@@ -2059,12 +4243,18 @@
         {
           "type": "definition",
           "term": "Validation",
-          "content": "An **automatic check by the computer** that the data entered is **sensible, reasonable and follows the rules** (type, range, length, format, presence). It cannot check that the data is **correct**."
+          "content": "An **automatic check by the computer** that the data entered is **sensible, reasonable and follows the rules** (type, range, length, format, presence, lookup). It cannot check that the data is **correct**."
         },
         {
           "type": "definition",
           "term": "Verification",
-          "content": "A check that the data has been **entered or copied accurately** — that it **matches the original source**. Methods: **double entry** (type it twice and compare), **visual check / proofreading** (compare the screen with the original document)."
+          "content": "A check that the data has been **entered or copied accurately** — that it **matches the original source**. Methods: **double entry** (the data is typed twice and the two entries are compared) and **visual check / proofreading** (the data on screen is compared with the original document)."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq7\" xml:space=\"preserve\" viewBox=\"0 0 760 240\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"A paper form value is typed in, verification compares it with the original by double entry or visual check, validation checks it against rules such as range 0 to 100, then it is stored\">\n  <style>\n    svg.sq7 text{white-space:pre}\n    svg.sq7 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.sq7 .vr{fill:var(--warning);opacity:.18}\n    svg.sq7 .vl{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.sq7 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.sq7 .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.sq7 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.sq7 .m{font:12px ui-monospace,monospace;fill:var(--foreground)}\n  </style>\n  <rect class=\"bx\" x=\"10\" y=\"60\" width=\"130\" height=\"90\" rx=\"8\"/>\n  <text class=\"t\" x=\"75\" y=\"88\" text-anchor=\"middle\">Paper form</text>\n  <text class=\"m\" x=\"75\" y=\"112\" text-anchor=\"middle\">Mark: 67</text>\n  <text class=\"s\" x=\"75\" y=\"132\" text-anchor=\"middle\">the source</text>\n  <path d=\"M142,105 H170\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M170,99 l10,6 l-10,6 z\" style=\"fill:var(--muted)\"/>\n  <rect class=\"vr\" x=\"184\" y=\"30\" width=\"190\" height=\"150\" rx=\"12\"/>\n  <rect class=\"bx\" x=\"184\" y=\"30\" width=\"190\" height=\"150\" rx=\"12\" style=\"fill:none;stroke:var(--warning);stroke-width:2\"/>\n  <text class=\"t\" x=\"279\" y=\"56\" text-anchor=\"middle\">Verification</text>\n  <text class=\"s\" x=\"279\" y=\"76\" text-anchor=\"middle\">is it the SAME as the original?</text>\n  <text class=\"m\" x=\"200\" y=\"104\">entry 1: 67</text>\n  <text class=\"m\" x=\"200\" y=\"124\">entry 2: 67  ✓ match</text>\n  <text class=\"s\" x=\"200\" y=\"150\">double entry or</text>\n  <text class=\"s\" x=\"200\" y=\"166\">visual check by a person</text>\n  <path d=\"M376,105 H404\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M404,99 l10,6 l-10,6 z\" style=\"fill:var(--muted)\"/>\n  <rect class=\"vl\" x=\"418\" y=\"30\" width=\"190\" height=\"150\" rx=\"12\"/>\n  <text class=\"t\" x=\"513\" y=\"56\" text-anchor=\"middle\" style=\"fill:var(--primary)\">Validation</text>\n  <text class=\"s\" x=\"513\" y=\"76\" text-anchor=\"middle\">is it ALLOWED / sensible?</text>\n  <text class=\"m\" x=\"432\" y=\"104\">type: whole number ✓</text>\n  <text class=\"m\" x=\"432\" y=\"124\">range: 0–100       ✓</text>\n  <text class=\"m\" x=\"432\" y=\"144\">presence: given    ✓</text>\n  <text class=\"s\" x=\"432\" y=\"166\">done by the computer</text>\n  <path d=\"M610,105 H638\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M638,99 l10,6 l-10,6 z\" style=\"fill:var(--muted)\"/>\n  <rect class=\"ok\" x=\"652\" y=\"70\" width=\"100\" height=\"70\" rx=\"10\"/>\n  <text class=\"t\" x=\"702\" y=\"100\" text-anchor=\"middle\" style=\"fill:var(--success)\">Stored</text>\n  <text class=\"s\" x=\"702\" y=\"120\" text-anchor=\"middle\">in the table</text>\n  <text class=\"s\" x=\"10\" y=\"214\">76 typed instead of 67 passes validation (it is in range) but fails verification (it does not match the form).</text>\n  <text class=\"s\" x=\"10\" y=\"232\">670 fails validation (out of range) even if it was copied \"correctly\".</text>\n</svg>",
+          "caption": "Data from a paper form is verified (is it what was written?) and validated (is it allowed?)"
         },
         {
           "type": "comparison",
@@ -2103,214 +4293,65 @@
           ]
         },
         {
+          "type": "comparison",
+          "title": "Validation checks and how SQL applies them",
+          "columns": [
+            "Check",
+            "Rule",
+            "In SQL"
+          ],
+          "rows": [
+            [
+              "**Presence**",
+              "A value must be entered",
+              "`NOT NULL`"
+            ],
+            [
+              "**Type**",
+              "Must be a whole number / date …",
+              "the data type, e.g. `INT`, `DATE`"
+            ],
+            [
+              "**Range**",
+              "Between a lower and upper limit",
+              "`CHECK (Mark BETWEEN 0 AND 100)`"
+            ],
+            [
+              "**Length**",
+              "Number of characters",
+              "`VARCHAR(40)`, `CHECK (LENGTH(IIN) = 12)`"
+            ],
+            [
+              "**Lookup**",
+              "Must be one of a list",
+              "`CHECK (Grade IN (11, 12))`"
+            ],
+            [
+              "**Format**",
+              "Must match a pattern",
+              "`CHECK (StudentID LIKE 'S____')`"
+            ],
+            [
+              "**Uniqueness**",
+              "No two rows the same",
+              "`UNIQUE`, `PRIMARY KEY`"
+            ]
+          ]
+        },
+        {
           "type": "code",
           "language": "sql",
           "content": "CREATE TABLE Pupils (\n    PupilID  VARCHAR(5)  PRIMARY KEY,\n    Name     VARCHAR(40) NOT NULL,                       -- presence check\n    Grade    INT         CHECK (Grade IN (11, 12)),      -- lookup check\n    Mark     INT         CHECK (Mark BETWEEN 0 AND 100), -- range check\n    Email    VARCHAR(50) UNIQUE\n);",
           "caption": "Validation rules built into a table"
-        }
-      ]
-    },
-    {
-      "title": "DDL and DML",
-      "objectives": [
-        "11.4.2.1"
-      ],
-      "blocks": [
-        {
-          "type": "comparison",
-          "title": "Data Definition Language vs Data Manipulation Language",
-          "columns": [
-            "",
-            "DDL — Data Definition Language",
-            "DML — Data Manipulation Language"
-          ],
-          "rows": [
-            [
-              "Purpose",
-              "**Defines / changes the structure** of the database: databases, tables, fields, keys",
-              "**Works with the data** inside the tables: add, read, change, delete records"
-            ],
-            [
-              "Commands",
-              "`CREATE`, `ALTER`, `DROP` (also `TRUNCATE`, `RENAME`)",
-              "`SELECT`, `INSERT`, `UPDATE`, `DELETE`"
-            ],
-            [
-              "Example",
-              "`CREATE TABLE Titles (…);`",
-              "`INSERT INTO Titles VALUES (…);`"
-            ],
-            [
-              "Affects",
-              "The **schema** (table design)",
-              "The **records** (rows)"
-            ],
-            [
-              "Used mainly by",
-              "Database designers / administrators",
-              "Users and applications"
-            ]
-          ]
         },
         {
           "type": "example",
-          "title": "Exam-style answer — explain the term DML",
-          "content": "**DML** stands for **Data Manipulation Language** (1). It is responsible for performing all types of **data modification** in a database — adding, retrieving, changing and deleting records (1). Examples of DML commands: `SELECT`, `UPDATE`, `INSERT`, `DELETE`."
-        }
-      ]
-    },
-    {
-      "title": "Creating the structure: CREATE, ALTER, DROP",
-      "objectives": [
-        "11.4.2.2"
-      ],
-      "blocks": [
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "CREATE DATABASE BooksDB;          -- no spaces in names\nUSE BooksDB;\n\nCREATE TABLE Publishers (\n    pub_ID   INT          PRIMARY KEY,\n    pub_name VARCHAR(50)  NOT NULL,\n    city     VARCHAR(30)\n);\n\nCREATE TABLE Titles (\n    title_ID INT          AUTO_INCREMENT,\n    title    VARCHAR(100) NOT NULL,\n    price    DECIMAL(8,2) CHECK (price > 0),\n    pub_ID   INT,\n    year     INT,\n    PRIMARY KEY (title_ID),\n    FOREIGN KEY (pub_ID) REFERENCES Publishers(pub_ID)\n);",
-          "caption": "CREATE DATABASE and CREATE TABLE"
-        },
-        {
-          "type": "steps",
-          "title": "The parts of CREATE TABLE",
-          "items": [
-            "`CREATE TABLE TableName (` … `);`",
-            "One line per field: **field name**, **data type** (with size), optional **constraints**; lines separated by **commas**.",
-            "`PRIMARY KEY (field)` — or write `PRIMARY KEY` after the field.",
-            "`FOREIGN KEY (field) REFERENCES OtherTable(field)` to create a relationship.",
-            "A **composite key**: `PRIMARY KEY (StudentID, CourseID)`."
-          ]
-        },
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "ALTER TABLE Titles ADD Budget FLOAT;                  -- add a field\nALTER TABLE Titles ADD Pages INT NOT NULL DEFAULT 0;  -- add a field with a default\nALTER TABLE Titles MODIFY title VARCHAR(150);         -- change the data type / size\nALTER TABLE Titles DROP COLUMN year;                  -- delete a field (and all its data)\nALTER TABLE Titles RENAME COLUMN price TO price_tg;   -- rename a field",
-          "caption": "ALTER TABLE — change the structure of an existing table"
-        },
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "DROP TABLE Titles;          -- the table, its structure and ALL its data are deleted\nDROP DATABASE BooksDB;      -- the whole database is deleted",
-          "caption": "DROP — delete a whole table or database"
+          "title": "Worked example — registering for an olympiad",
+          "content": "Students register on a school website for a regional olympiad.\n- The **e-mail** is typed **twice** and the two must match → **verification** (double entry): it catches a typing mistake such as `aruzhan@mial.kz`.\n- **Grade** must be 9, 10 or 11 → **validation** (lookup check): `CHECK (Grade IN (9, 10, 11))`.\n- **Date of birth** must be given → **validation** (presence check): `NOT NULL`.\n- Before the list is sent, the teacher compares the printed list with the paper forms → **verification** (visual check)."
         },
         {
           "type": "warning",
-          "content": "`DROP TABLE` removes the **structure and all records**; `ALTER TABLE … DROP COLUMN` removes a field and its values in **every** record. There is no \"undo\" — make a **backup** first."
-        },
-        {
-          "type": "example",
-          "title": "Describe an SQL statement (exam style)",
-          "content": "`ALTER TABLE Movies DROP COLUMN Country;`\n**Changes the table** `Movies` (1) by **deleting the field** `Country` — the Country value is removed for every record (1)."
-        }
-      ]
-    },
-    {
-      "title": "Managing data: INSERT, SELECT, UPDATE, DELETE",
-      "objectives": [
-        "11.4.2.3"
-      ],
-      "blocks": [
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "INSERT INTO Publishers (pub_ID, pub_name, city)\nVALUES (104, 'Kitap', 'Shymkent');\n\nINSERT INTO Titles (title, price, pub_ID, year)      -- title_ID is AUTO_INCREMENT\nVALUES ('Biology 11', 2300, 104, 2024),\n       ('Geography 11', 1900, 101, 2024);           -- several rows at once",
-          "caption": "INSERT — add records"
-        },
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "SELECT * FROM Titles;                                 -- all fields, all records\nSELECT title, price FROM Titles;                      -- chosen fields only\nSELECT title, price FROM Titles WHERE price < 2000;  -- only matching records\nSELECT DISTINCT city FROM Publishers;                 -- without duplicates",
-          "caption": "SELECT — retrieve data"
-        },
-        {
-          "type": "comparison",
-          "title": "Conditions in WHERE",
-          "columns": [
-            "Operator",
-            "Meaning",
-            "Example"
-          ],
-          "rows": [
-            [
-              "`=` `<>` (or `!=`)",
-              "equal / not equal",
-              "`WHERE city = 'Almaty'`"
-            ],
-            [
-              "`<` `>` `<=` `>=`",
-              "comparison",
-              "`WHERE price >= 2000`"
-            ],
-            [
-              "`AND`, `OR`, `NOT`",
-              "combine conditions",
-              "`WHERE price < 2000 AND pub_ID = 101`"
-            ],
-            [
-              "`BETWEEN a AND b`",
-              "in a range (inclusive)",
-              "`WHERE year BETWEEN 2021 AND 2023`"
-            ],
-            [
-              "`IN (…)`",
-              "in a list",
-              "`WHERE pub_ID IN (101, 103)`"
-            ],
-            [
-              "`LIKE`",
-              "text pattern: `%` = any characters, `_` = one character",
-              "`WHERE title LIKE '%11'` (ends with 11)"
-            ],
-            [
-              "`IS NULL` / `IS NOT NULL`",
-              "missing value",
-              "`WHERE city IS NULL`"
-            ]
-          ]
-        },
-        {
-          "type": "example",
-          "title": "Results of queries on the Titles table",
-          "content": "`SELECT title, price FROM Titles WHERE price < 2000 AND pub_ID = 101;`\n\n| title | price |\n|---|---|\n| Informatika 11 | 1800 |\n| Physics 11 | 1950 |"
-        },
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "UPDATE Titles\nSET title = 'Computer Science 11'\nWHERE title = 'Informatika 11';\n\nUPDATE Titles SET price = price * 1.1;               -- all prices up by 10 %\nUPDATE Titles SET price = 2000, year = 2025 WHERE title_ID = 3;   -- two fields",
-          "caption": "UPDATE — change existing records"
-        },
-        {
-          "type": "code",
-          "language": "sql",
-          "content": "DELETE FROM Titles WHERE year < 2021;                -- only old books\nDELETE FROM Titles;                                  -- ALL records (the table stays)",
-          "caption": "DELETE — remove records"
-        },
-        {
-          "type": "warning",
-          "content": "`UPDATE` and `DELETE` **without WHERE** change or delete **every record** in the table. Run a `SELECT` with the same `WHERE` first to see which rows will be affected."
-        },
-        {
-          "type": "comparison",
-          "title": "DELETE vs DROP",
-          "columns": [
-            "`DELETE FROM Titles WHERE …`",
-            "`DROP TABLE Titles`"
-          ],
-          "rows": [
-            [
-              "**DML** — removes **records**",
-              "**DDL** — removes the **whole table**"
-            ],
-            [
-              "The table structure stays",
-              "Structure and data are gone"
-            ],
-            [
-              "Can remove only some rows",
-              "Always removes everything"
-            ]
-          ]
+          "content": "- Saying validation checks the data is **correct** — it only checks that it is **reasonable**.\n- Calling double entry of a password \"validation\" — it is **verification**.\n- Giving a check without its rule: write \"**range check**: mark from 0 to 100\", not just \"range check\"."
         }
       ]
     },
@@ -2321,10 +4362,21 @@
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "ORDER BY",
+          "content": "The clause of a `SELECT` statement that **sorts the rows of the result** by one or more fields, **ascending** (`ASC`, the default: A→Z, 0→9, oldest date first) or **descending** (`DESC`). It is always the **last** clause of the query."
+        },
+        {
           "type": "code",
           "language": "sql",
           "content": "SELECT title, price FROM Titles ORDER BY price;          -- ascending (default, ASC)\nSELECT title, price FROM Titles ORDER BY price DESC;     -- descending\nSELECT title, year, price FROM Titles\nORDER BY year DESC, title ASC;                           -- by year, then by title\nSELECT * FROM Titles WHERE pub_ID = 102 ORDER BY title;  -- WHERE comes before ORDER BY",
           "caption": "ORDER BY — sort the result"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq8\" xml:space=\"preserve\" viewBox=\"0 0 760 230\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Unsorted titles and years become sorted by year descending; the two 2023 books are then sorted by title ascending, Chemistry before Physics\">\n  <style>\n    svg.sq8 text{white-space:pre}\n    svg.sq8 .hd{fill:var(--primary-soft);stroke:var(--primary)}\n    svg.sq8 .rw{fill:var(--surface-2);stroke:var(--border)}\n    svg.sq8 .tie{fill:var(--warning);opacity:.25}\n    svg.sq8 .h{font:700 13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq8 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq8 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <text class=\"s\" x=\"20\" y=\"22\">Titles (no order)</text>\n  <rect class=\"hd\" x=\"20\" y=\"30\" width=\"280\" height=\"26\"/><text class=\"h\" x=\"28\" y=\"48\">title                  year</text>\n  <rect class=\"rw\" x=\"20\" y=\"58\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"75\">Informatika 11         2021</text>\n  <rect class=\"rw\" x=\"20\" y=\"84\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"101\">Algebra 11             2022</text>\n  <rect class=\"rw\" x=\"20\" y=\"110\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"127\">Physics 11             2023</text>\n  <rect class=\"rw\" x=\"20\" y=\"136\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"153\">History of Kazakhstan  2020</text>\n  <rect class=\"rw\" x=\"20\" y=\"162\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"179\">Chemistry 11           2023</text>\n  <path d=\"M320,110 H390\" style=\"stroke:var(--muted);stroke-width:2\"/><path d=\"M390,104 l12,6 l-12,6 z\" style=\"fill:var(--muted)\"/>\n  <text class=\"s\" x=\"420\" y=\"22\">ORDER BY year DESC, title ASC</text>\n  <rect class=\"hd\" x=\"420\" y=\"30\" width=\"280\" height=\"26\"/><text class=\"h\" x=\"428\" y=\"48\">title                  year ↓</text>\n  <rect class=\"tie\" x=\"420\" y=\"58\" width=\"280\" height=\"50\"/>\n  <rect class=\"rw\" x=\"420\" y=\"58\" width=\"280\" height=\"24\" style=\"fill:none\"/><text class=\"c\" x=\"428\" y=\"75\">Chemistry 11           2023</text>\n  <rect class=\"rw\" x=\"420\" y=\"84\" width=\"280\" height=\"24\" style=\"fill:none\"/><text class=\"c\" x=\"428\" y=\"101\">Physics 11             2023</text>\n  <rect class=\"rw\" x=\"420\" y=\"110\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"428\" y=\"127\">Algebra 11             2022</text>\n  <rect class=\"rw\" x=\"420\" y=\"136\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"428\" y=\"153\">Informatika 11         2021</text>\n  <rect class=\"rw\" x=\"420\" y=\"162\" width=\"280\" height=\"24\"/><text class=\"c\" x=\"428\" y=\"179\">History of Kazakhstan  2020</text>\n  <text class=\"s\" x=\"710\" y=\"88\">tie →</text>\n  <text class=\"s\" x=\"420\" y=\"210\">newest year first; two books from 2023 are then put in A→Z order</text>\n</svg>",
+          "caption": "ORDER BY year DESC, title ASC — the second field only decides ties"
         },
         {
           "type": "comparison",
@@ -2363,23 +4415,99 @@
           ]
         },
         {
+          "type": "comparison",
+          "title": "ASC and DESC",
+          "columns": [
+            "",
+            "`ASC` (default)",
+            "`DESC`"
+          ],
+          "rows": [
+            [
+              "Numbers",
+              "smallest → largest (cheapest first)",
+              "largest → smallest (most expensive first)"
+            ],
+            [
+              "Text",
+              "A → Z",
+              "Z → A"
+            ],
+            [
+              "Dates",
+              "oldest / earliest first",
+              "newest / latest first"
+            ],
+            [
+              "Typical task",
+              "\"in alphabetical order\", \"cheapest first\"",
+              "\"highest score first\", \"most recent first\""
+            ]
+          ]
+        },
+        {
           "type": "code",
           "language": "sql",
-          "content": "SELECT COUNT(*) FROM Titles;                         -- number of books: 5\nSELECT AVG(price) FROM Titles WHERE pub_ID = 101;    -- average price of Mektep's books\nSELECT MAX(price), MIN(price) FROM Titles;           -- most and least expensive\nSELECT pub_ID, COUNT(*) AS books FROM Titles\nGROUP BY pub_ID ORDER BY books DESC;                 -- number of books per publisher",
-          "caption": "Aggregate functions"
+          "content": "SELECT COUNT(*) FROM Titles;                         -- number of books: 5\nSELECT AVG(price) FROM Titles WHERE pub_ID = 101;    -- average price of Mektep's books: 1875\nSELECT MAX(price), MIN(price) FROM Titles;           -- most and least expensive: 3200, 1800\nSELECT SUM(price) FROM Titles WHERE year = 2023;     -- total: 4050\nSELECT pub_ID, COUNT(*) AS books FROM Titles\nGROUP BY pub_ID ORDER BY books DESC;                 -- number of books per publisher",
+          "caption": "Aggregate functions (summarising data)"
+        },
+        {
+          "type": "example",
+          "title": "Worked example — a leaderboard",
+          "content": "A school quiz stores `Results ( StudentName, Class, Score, FinishTime )`. The task: *show the name and score of class 11B students, highest score first; students with the same score in the order they finished.*\n```sql\nSELECT StudentName, Score\nFROM Results\nWHERE Class = '11B'\nORDER BY Score DESC, FinishTime ASC;\n```"
+        }
+      ]
+    },
+    {
+      "title": "Exam practice: validation, verification and ORDER BY",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.5"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Explain the difference between validation and verification. [2]**\nValidation is an **automatic check that data is reasonable / follows rules** (e.g. range check) (1); verification checks that data **matches the original source** (e.g. double entry, visual check) (1).\n\n**Q: Describe double entry. [2]**\nThe data is typed in **twice** (1) and the computer **compares the two entries**; if they differ the user must re-enter it (1).\n\n**Q: Write the constraint that makes sure `Rating` is between 1 and 5. [1]**\n`CHECK (Rating BETWEEN 1 AND 5)` (or `CHECK (Rating >= 1 AND Rating <= 5)`) (1)\n\n**Q: Display all deliveries to Store_code 88, sorted by date. [4]**\n`SELECT *` (1) `FROM Deliveries` (1) `WHERE Store_code = 88` (1) `ORDER BY Delivery_date ASC;` (1)\n\n**Q: Write a query to show the titles of all books, most expensive first. [3]**\n`SELECT title` (1) `FROM Titles` (1) `ORDER BY price DESC;` (1)"
+        },
+        {
+          "type": "warning",
+          "content": "- Writing `ORDER BY` **before** `WHERE`.\n- Writing `SORT BY` or `ORDER price` — the clause is `ORDER BY`.\n- Forgetting `DESC` when the question says \"highest first\" (ASC is the default).\n- Saying verification \"checks that data is correct\" without saying **against the original**."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define validation and verification and give two methods of each.",
+            "Give an error that validation cannot detect but verification can.",
+            "Write `CHECK` constraints for a range check and a lookup check.",
+            "Select the names of grade 11 students sorted alphabetically.",
+            "Sort books by year (newest first) and then by title.",
+            "Count the books of publisher 102."
+          ]
         }
       ]
     },
     {
       "title": "Selecting data from multiple tables",
       "objectives": [
-        "11.4.2.4",
-        "11.4.1.11"
+        "11.4.2.4"
       ],
       "blocks": [
         {
+          "type": "definition",
+          "term": "Join",
+          "content": "A query that **combines rows from two or more related tables**, matching the **foreign key** in one table with the **primary key** in the other, so that data stored in different tables can be shown together."
+        },
+        {
           "type": "paragraph",
           "content": "To combine data from related tables, the query must state **how the tables are linked** — the **foreign key** in one table must equal the **primary key** in the other."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq9\" xml:space=\"preserve\" viewBox=\"0 0 760 300\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Rows of Titles are linked to rows of Publishers where pub_ID values are equal; the joined result shows each title with its publisher name\">\n  <style>\n    svg.sq9 text{white-space:pre}\n    svg.sq9 .hd{fill:var(--primary-soft);stroke:var(--primary)}\n    svg.sq9 .rw{fill:var(--surface-2);stroke:var(--border)}\n    svg.sq9 .k{fill:var(--warning);opacity:.3}\n    svg.sq9 .h{font:700 13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq9 .c{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq9 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.sq9 .ln{stroke:var(--warning);stroke-width:2;fill:none}\n  </style>\n  <text class=\"s\" x=\"20\" y=\"20\">Titles</text>\n  <rect class=\"hd\" x=\"20\" y=\"28\" width=\"260\" height=\"26\"/><text class=\"h\" x=\"28\" y=\"46\">title           pub_ID (FK)</text>\n  <rect class=\"rw\" x=\"20\" y=\"56\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"73\">Informatika 11  101</text>\n  <rect class=\"rw\" x=\"20\" y=\"82\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"99\">Algebra 11      102</text>\n  <rect class=\"rw\" x=\"20\" y=\"108\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"125\">Physics 11      101</text>\n  <rect class=\"rw\" x=\"20\" y=\"134\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"28\" y=\"151\">History of KZ   103</text>\n  <text class=\"s\" x=\"480\" y=\"20\">Publishers</text>\n  <rect class=\"hd\" x=\"480\" y=\"28\" width=\"260\" height=\"26\"/><text class=\"h\" x=\"488\" y=\"46\">pub_ID (PK) pub_name</text>\n  <rect class=\"rw\" x=\"480\" y=\"56\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"488\" y=\"73\">101         Mektep</text>\n  <rect class=\"rw\" x=\"480\" y=\"82\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"488\" y=\"99\">102         Foliant</text>\n  <rect class=\"rw\" x=\"480\" y=\"108\" width=\"260\" height=\"24\"/><text class=\"c\" x=\"488\" y=\"125\">103         Atamura</text>\n  <path class=\"ln\" d=\"M190,68 C340,68 340,68 480,68\"/>\n  <path class=\"ln\" d=\"M190,94 C340,94 340,94 480,94\"/>\n  <path class=\"ln\" d=\"M190,120 C340,120 340,70 480,70\" style=\"stroke-dasharray:5 4\"/>\n  <path class=\"ln\" d=\"M190,146 C340,146 340,120 480,120\"/>\n  <text class=\"s\" x=\"300\" y=\"176\">ON Titles.pub_ID = Publishers.pub_ID</text>\n  <text class=\"s\" x=\"20\" y=\"200\">Result of the join</text>\n  <rect class=\"hd\" x=\"20\" y=\"208\" width=\"400\" height=\"24\" style=\"fill:var(--success-soft);stroke:var(--success)\"/><text class=\"h\" x=\"28\" y=\"225\">title           price  pub_name</text>\n  <text class=\"c\" x=\"28\" y=\"248\">Informatika 11  1800   Mektep</text>\n  <text class=\"c\" x=\"28\" y=\"268\">Algebra 11      2500   Foliant</text>\n  <text class=\"c\" x=\"28\" y=\"288\">Physics 11      1950   Mektep   …</text>\n  <text class=\"s\" x=\"450\" y=\"248\">each title gets the name of</text>\n  <text class=\"s\" x=\"450\" y=\"266\">the publisher whose pub_ID matches</text>\n</svg>",
+          "caption": "Titles.pub_ID (foreign key) is matched with Publishers.pub_ID (primary key)"
         },
         {
           "type": "code",
@@ -2388,9 +4516,26 @@
           "caption": "Joining two tables (two equivalent ways)"
         },
         {
+          "type": "steps",
+          "title": "How to write a query on two tables",
+          "items": [
+            "List the fields you need, each as `Table.field` → `SELECT Titles.title, Publishers.pub_name`",
+            "Name **both** tables → `FROM Titles, Publishers` (or `FROM Titles JOIN Publishers`)",
+            "Write the **join condition**: foreign key = primary key → `WHERE Titles.pub_ID = Publishers.pub_ID` (or `ON …`)",
+            "Add any other conditions with `AND` → `AND Publishers.city = 'Almaty'`",
+            "Sort last → `ORDER BY Titles.price;`"
+          ]
+        },
+        {
           "type": "example",
           "title": "Books published in Almaty, cheapest first",
-          "content": "```sql\nSELECT Titles.title, Titles.price, Publishers.pub_name\nFROM Titles\nJOIN Publishers ON Titles.pub_ID = Publishers.pub_ID\nWHERE Publishers.city = 'Almaty'\nORDER BY Titles.price ASC;\n```\n| title | price | pub_name |\n|---|---|---|\n| Informatika 11 | 1800 | Mektep |\n| Physics 11 | 1950 | Mektep |\n| History of Kazakhstan | 3200 | Atamura |"
+          "content": "```sql\nSELECT Titles.title, Titles.price, Publishers.pub_name\nFROM Titles, Publishers\nWHERE Titles.pub_ID = Publishers.pub_ID\n  AND Publishers.city = 'Almaty'\nORDER BY Titles.price ASC;\n```\n| title | price | pub_name |\n|---|---|---|\n| Informatika 11 | 1800 | Mektep |\n| Physics 11 | 1950 | Mektep |\n| History of Kazakhstan | 3200 | Atamura |"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq10\" xml:space=\"preserve\" viewBox=\"0 0 760 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Five titles times three publishers gives fifteen rows when no join condition is written; with the condition only five correct rows remain\">\n  <style>\n    svg.sq10 text{white-space:pre}\n    svg.sq10 .bad{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}\n    svg.sq10 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.sq10 .t{font:700 14px system-ui,sans-serif}\n    svg.sq10 .m{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq10 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <rect class=\"bad\" x=\"20\" y=\"20\" width=\"350\" height=\"160\" rx=\"12\"/>\n  <text class=\"t\" x=\"40\" y=\"46\" style=\"fill:var(--danger)\">No join condition</text>\n  <text class=\"m\" x=\"40\" y=\"72\">SELECT * FROM Titles, Publishers;</text>\n  <text class=\"m\" x=\"40\" y=\"104\">5 titles × 3 publishers = 15 rows</text>\n  <text class=\"s\" x=\"40\" y=\"130\">\"Algebra 11 — Mektep\", \"Algebra 11 — Atamura\" …</text>\n  <text class=\"s\" x=\"40\" y=\"150\">most rows pair a book with the WRONG publisher</text>\n  <rect class=\"ok\" x=\"390\" y=\"20\" width=\"350\" height=\"160\" rx=\"12\"/>\n  <text class=\"t\" x=\"410\" y=\"46\" style=\"fill:var(--success)\">With the join condition</text>\n  <text class=\"m\" x=\"410\" y=\"72\">… WHERE Titles.pub_ID</text>\n  <text class=\"m\" x=\"410\" y=\"90\">        = Publishers.pub_ID;</text>\n  <text class=\"m\" x=\"410\" y=\"122\">5 rows — one per title</text>\n  <text class=\"s\" x=\"410\" y=\"150\">each book with its own publisher</text>\n</svg>",
+          "caption": "Without a join condition every row is paired with every row"
         },
         {
           "type": "warning",
@@ -2403,6 +4548,85 @@
       ]
     },
     {
+      "title": "Creating a database with multiple tables",
+      "objectives": [
+        "11.4.1.11",
+        "11.4.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Relational database with multiple tables",
+          "content": "A database in which data about **different entities** is stored in **separate tables** that are **linked by keys**: the primary key of one table appears as a **foreign key** in another. Each fact is stored once, so there is less redundancy and fewer errors."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"sq11\" xml:space=\"preserve\" viewBox=\"0 0 760 250\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"ERD of Students, Loans and Books: one student has many loans, one book has many loans. Create order: Students and Books first, then Loans with two foreign keys\">\n  <style>\n    svg.sq11 text{white-space:pre}\n    svg.sq11 .en{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.sq11 .lk{fill:var(--warning);opacity:.2}\n    svg.sq11 .t{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.sq11 .m{font:12px ui-monospace,monospace;fill:var(--foreground)}\n    svg.sq11 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.sq11 .n{font:700 13px system-ui,sans-serif;fill:#fff}\n  </style>\n  <rect class=\"en\" x=\"20\" y=\"30\" width=\"200\" height=\"96\" rx=\"8\"/>\n  <text class=\"t\" x=\"120\" y=\"52\" text-anchor=\"middle\">Students</text>\n  <text class=\"m\" x=\"34\" y=\"76\">StudentID  PK</text><text class=\"m\" x=\"34\" y=\"96\">FullName</text><text class=\"m\" x=\"34\" y=\"114\">Class</text>\n  <rect class=\"lk\" x=\"280\" y=\"30\" width=\"200\" height=\"96\" rx=\"8\"/><rect x=\"280\" y=\"30\" width=\"200\" height=\"96\" rx=\"8\" style=\"fill:none;stroke:var(--warning);stroke-width:2\"/>\n  <text class=\"t\" x=\"380\" y=\"52\" text-anchor=\"middle\">Loans</text>\n  <text class=\"m\" x=\"294\" y=\"76\">LoanID     PK</text><text class=\"m\" x=\"294\" y=\"96\">StudentID  FK</text><text class=\"m\" x=\"294\" y=\"114\">BookID     FK</text>\n  <rect class=\"en\" x=\"540\" y=\"30\" width=\"200\" height=\"96\" rx=\"8\"/>\n  <text class=\"t\" x=\"640\" y=\"52\" text-anchor=\"middle\">Books</text>\n  <text class=\"m\" x=\"554\" y=\"76\">BookID     PK</text><text class=\"m\" x=\"554\" y=\"96\">Title</text><text class=\"m\" x=\"554\" y=\"114\">Author</text>\n  <path d=\"M220,78 H280\" style=\"stroke:var(--foreground);stroke-width:2\"/>\n  <path d=\"M268,66 L280,78 L268,90\" style=\"stroke:var(--foreground);stroke-width:2;fill:none\"/>\n  <text class=\"s\" x=\"226\" y=\"70\">1</text><text class=\"s\" x=\"258\" y=\"104\">M</text>\n  <path d=\"M540,78 H480\" style=\"stroke:var(--foreground);stroke-width:2\"/>\n  <path d=\"M492,66 L480,78 L492,90\" style=\"stroke:var(--foreground);stroke-width:2;fill:none\"/>\n  <text class=\"s\" x=\"528\" y=\"70\">1</text><text class=\"s\" x=\"490\" y=\"104\">M</text>\n  <circle cx=\"40\" cy=\"170\" r=\"13\" style=\"fill:var(--primary)\"/><text class=\"n\" x=\"40\" y=\"175\" text-anchor=\"middle\">1</text>\n  <text class=\"s\" x=\"62\" y=\"168\">CREATE TABLE Students</text><text class=\"s\" x=\"62\" y=\"184\">and Books (no foreign keys)</text>\n  <circle cx=\"300\" cy=\"170\" r=\"13\" style=\"fill:var(--warning)\"/><text class=\"n\" x=\"300\" y=\"175\" text-anchor=\"middle\">2</text>\n  <text class=\"s\" x=\"322\" y=\"168\">CREATE TABLE Loans with</text><text class=\"s\" x=\"322\" y=\"184\">FOREIGN KEY … REFERENCES both</text>\n  <circle cx=\"560\" cy=\"170\" r=\"13\" style=\"fill:var(--success)\"/><text class=\"n\" x=\"560\" y=\"175\" text-anchor=\"middle\">3</text>\n  <text class=\"s\" x=\"582\" y=\"168\">INSERT students and books</text><text class=\"s\" x=\"582\" y=\"184\">first, then loans</text>\n  <text class=\"s\" x=\"20\" y=\"228\">A foreign key can only refer to a table that already exists and to a value that is already stored there.</text>\n</svg>",
+          "caption": "From the design (ERD) to the tables: parent tables are created first"
+        },
+        {
+          "type": "steps",
+          "title": "How to create a database with multiple tables",
+          "items": [
+            "From the ERD, list the **tables**, their **fields** and the **primary key** of each.",
+            "For every **one-to-many** relationship, put the primary key of the \"one\" table into the \"many\" table as a **foreign key**.",
+            "Choose the **data type** of each field (a foreign key has the **same type and size** as the primary key it refers to).",
+            "`CREATE DATABASE` and then `CREATE TABLE` for the tables **without** foreign keys first.",
+            "Create the tables **with** foreign keys, adding `FOREIGN KEY (…) REFERENCES Table(…)`.",
+            "Insert data: rows of the parent tables first, then the rows that refer to them."
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "CREATE DATABASE SchoolLibrary;\nUSE SchoolLibrary;\n\nCREATE TABLE Students (\n    StudentID VARCHAR(5)  PRIMARY KEY,\n    FullName  VARCHAR(60) NOT NULL,\n    Class     CHAR(3)\n);\n\nCREATE TABLE Books (\n    BookID INT          PRIMARY KEY,\n    Title  VARCHAR(100) NOT NULL,\n    Author VARCHAR(60)\n);\n\nCREATE TABLE Loans (\n    LoanID    INT AUTO_INCREMENT PRIMARY KEY,\n    StudentID VARCHAR(5) NOT NULL,\n    BookID    INT        NOT NULL,\n    LoanDate  DATE,\n    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),\n    FOREIGN KEY (BookID)    REFERENCES Books(BookID)\n);",
+          "caption": "A school library database with three tables"
+        },
+        {
+          "type": "comparison",
+          "title": "Primary key and foreign key",
+          "columns": [
+            "",
+            "Primary key",
+            "Foreign key"
+          ],
+          "rows": [
+            [
+              "Purpose",
+              "**Uniquely identifies** each record of its own table",
+              "**Links** a record to a record in **another** table"
+            ],
+            [
+              "Unique?",
+              "Yes — no duplicates, never NULL",
+              "No — the same value can appear many times (one student, many loans)"
+            ],
+            [
+              "How many per table",
+              "One (may be composite)",
+              "Zero, one or several"
+            ],
+            [
+              "In SQL",
+              "`PRIMARY KEY (StudentID)`",
+              "`FOREIGN KEY (StudentID) REFERENCES Students(StudentID)`"
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "content": "SELECT Students.FullName, Books.Title, Loans.LoanDate\nFROM Students, Loans, Books\nWHERE Students.StudentID = Loans.StudentID\n  AND Books.BookID = Loans.BookID\nORDER BY Loans.LoanDate DESC;",
+          "caption": "Querying three tables: who has borrowed which book?"
+        },
+        {
+          "type": "warning",
+          "content": "- Creating `Loans` **before** `Students` — the foreign key refers to a table that does not exist yet.\n- A foreign key with a **different type** from the primary key (`StudentID INT` in Loans, `VARCHAR(5)` in Students).\n- Inserting a loan for a student who is **not** in `Students` — the DBMS rejects it (referential integrity).\n- With three tables, writing only **one** join condition — you need **two** (number of tables − 1)."
+        }
+      ]
+    },
+    {
       "title": "Exam practice and summary",
       "objectives": [
         "11.4.1.4",
@@ -2411,30 +4635,28 @@
         "11.4.2.2",
         "11.4.2.3",
         "11.4.2.4",
-        "11.4.2.5"
+        "11.4.2.5",
+        "11.4.1.11"
       ],
       "blocks": [
         {
           "type": "example",
           "title": "Exam-style answers",
-          "content": "**Q: Write an SQL statement to change all titles \"Informatika 11\" to \"Computer Science 11\". [3]**\n`UPDATE Titles` (1) `SET title = 'Computer Science 11'` (1) `WHERE title = 'Informatika 11';` (1)\n\n**Q: Write an SQL statement to select the titles and prices of all books of publisher \"Mektep\" that cost less than 2000 tenge. [5]**\n`SELECT title, price` (1) `FROM Titles` (1) `WHERE price < 2000` (1) `AND` (1) `pub_ID = 101;` (1)\n\n**Q: Fill the gaps to add a Budget column to the Movies table to store the cost of each movie in dollars. [3]**\n`ALTER TABLE Movies` (1) `ADD` (1) `Budget FLOAT;` (1)\n\n**Q: Prices of all products went up by 10%. Create an SQL query that will change this data. [2]**\n`UPDATE Products` (1) `SET Price_tg = 1.1 * Price_tg;` (1)\n\n**Q: Display all deliveries to Store_code 88, sorted by date. [4]**\n`SELECT *` (1) `FROM Deliveries` (1) `WHERE Store_code = 88` (1) `ORDER BY Delivery_date ASC;` (1)\n\n**Q: Explain the difference between validation and verification. [2]**\nValidation is an **automatic check that data is reasonable / follows rules** (e.g. range check) (1); verification checks that data **matches the original source** (e.g. double entry, visual check) (1)."
+          "content": "**Q: Write an SQL statement to display the title of each book and the name of its publisher. [4]**\n`SELECT Titles.title, Publishers.pub_name` (1) `FROM Titles, Publishers` (1) `WHERE Titles.pub_ID` (1) `= Publishers.pub_ID;` (1)\n\n**Q: Write an SQL statement to display the titles of books published in Astana, in alphabetical order. [5]**\n`SELECT Titles.title` (1) `FROM Titles, Publishers` (1) `WHERE Titles.pub_ID = Publishers.pub_ID` (1) `AND Publishers.city = 'Astana'` (1) `ORDER BY Titles.title;` (1)\n\n**Q: Explain why the query `SELECT * FROM Titles, Publishers;` gives a wrong result. [2]**\nThere is no **join condition** linking the foreign key to the primary key (1), so every title is combined with every publisher / 15 rows instead of 5 (1).\n\n**Q: Write the SQL line that makes `StudentID` in `Loans` a foreign key. [2]**\n`FOREIGN KEY (StudentID)` (1) `REFERENCES Students(StudentID)` (1)\n\n**Q: Explain why the table `Students` must be created before `Loans`. [2]**\n`Loans` contains a **foreign key that refers to** `Students` (1); a foreign key can only reference a table / primary key that **already exists** (1)."
         },
         {
           "type": "warning",
-          "content": "- Spaces in table or database names (`CREATE DATABASE Cinema Star`).\n- Forgetting **quotes** around text values or putting quotes around numbers.\n- Missing **commas** between fields in `CREATE TABLE`, or a comma after the last field.\n- `UPDATE` / `DELETE` without `WHERE`.\n- Writing `ORDER BY` before `WHERE`.\n- Using `DELETE` when the question asks to remove a **column** (that is `ALTER TABLE … DROP COLUMN`).\n- Joining tables without a **join condition**."
+          "content": "- Joining tables **without a join condition**.\n- Writing a field name that exists in both tables **without** the table name (`pub_ID` → `Titles.pub_ID`).\n- Matching the wrong fields: `Titles.title_ID = Publishers.pub_ID`.\n- Putting `ORDER BY` before the join condition."
         },
         {
           "type": "steps",
           "title": "Check yourself",
           "items": [
-            "Name six SQL data types and a field for each.",
-            "Compare DDL and DML and list their commands.",
-            "Write `CREATE TABLE` for `Students(StudentID, Name, Grade, DateOfBirth)` with a primary key.",
-            "Add a field `Email` to Students; then delete the field `Grade`.",
-            "Insert a new student; change his grade; delete him.",
-            "Select the names of grade 11 students sorted alphabetically.",
+            "Explain what a join is and why the join condition is needed.",
             "Select each title with its publisher's name for books published after 2021.",
-            "Give an example of an error that validation cannot detect but verification can."
+            "Write `CREATE TABLE` statements for two linked tables with a primary and a foreign key.",
+            "Say in which order the tables of a library database must be created and filled.",
+            "Query three tables: student name, book title and loan date."
           ]
         }
       ]
@@ -2455,65 +4677,103 @@
     {
       "title": "SQL, data types, DDL and DML; CREATE, ALTER, DROP",
       "sections": [
-        "SQL and the example database",
+        "What SQL is: DDL and DML",
         "Data types in SQL",
-        "DDL and DML",
-        "Creating the structure: CREATE, ALTER, DROP"
+        "Creating the structure: CREATE, ALTER, DROP",
+        "Exam practice: data types, DDL and DML"
       ],
       "questions": [
+        "sql-what-is-sql-mcq",
         "sql-ddl-dml-tick",
         "sql-dml-explain",
         "sql-ddl-dml-compare",
+        "sql-ddl-dml-purpose-match",
+        "sql-schema-mcq",
         "sql-data-types",
+        "sql-type-tick",
         "sql-varchar-char-mcq",
+        "sql-iin-type-mcq",
+        "sql-decimal-fill",
         "sql-create-db",
         "sql-create-table",
         "sql-alter-add",
-        "sql-describe-drop-col"
+        "sql-describe-drop-col",
+        "sql-create-error-mcq",
+        "sql-drop-undo-tf"
       ]
     },
     {
       "title": "Managing data: INSERT, SELECT, UPDATE, DELETE",
       "sections": [
-        "Managing data: INSERT, SELECT, UPDATE, DELETE"
+        "Adding and selecting data: INSERT and SELECT",
+        "Changing and deleting data: UPDATE and DELETE",
+        "Exam practice: managing data in one table"
       ],
       "questions": [
-        "sql-delete-drop",
+        "sql-insert-mcq",
         "sql-insert",
         "sql-select-grade",
         "sql-select-and",
-        "sql-query-result",
+        "sql-where-tick",
+        "sql-operator-match",
+        "sql-like-mcq",
+        "sql-or-in-mcq",
         "sql-update-name",
         "sql-update-percent",
+        "sql-update-result",
         "sql-delete-where",
         "sql-no-where-tf",
-        "sql-aggregate"
+        "sql-delete-drop",
+        "sql-update-key-mcq"
       ]
     },
     {
       "title": "Validation and verification; sorting with ORDER BY",
       "sections": [
         "Validation and verification",
-        "Sorting with ORDER BY and summarising data"
+        "Sorting with ORDER BY and summarising data",
+        "Exam practice: validation, verification and ORDER BY"
       ],
       "questions": [
+        "sql-validation-define-mcq",
         "sql-validation-verification",
         "sql-val-ver-tick",
         "sql-validation-limit-tf",
+        "sql-check-match",
+        "sql-verify-mr",
+        "sql-check-range-short",
+        "sql-order-default-mcq",
+        "sql-order-mcq",
         "sql-order-by",
-        "sql-order-mcq"
+        "sql-query-result",
+        "sql-asc-desc-match",
+        "sql-two-key-sort",
+        "sql-aggregate",
+        "sql-avg-mcq"
       ]
     },
     {
-      "title": "Selecting data from multiple tables",
+      "title": "Selecting data from multiple tables; a database with several tables",
       "sections": [
         "Selecting data from multiple tables",
+        "Creating a database with multiple tables",
         "Exam practice and summary"
       ],
       "questions": [
-        "sql-join",
+        "sql-join-define-mcq",
+        "sql-join-condition-tf",
         "sql-join-missing",
-        "sql-structured-shop"
+        "sql-join",
+        "sql-join-on-fill",
+        "sql-join-result",
+        "sql-ambiguous-mcq",
+        "sql-wrong-link-mcq",
+        "sql-three-tables-fill",
+        "sql-fk-define-mcq",
+        "sql-fk-fill",
+        "sql-create-order-mcq",
+        "sql-pk-fk-tick",
+        "sql-ri-mr"
       ]
     }
   ]
