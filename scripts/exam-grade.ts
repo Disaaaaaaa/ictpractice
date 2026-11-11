@@ -4,6 +4,10 @@
  *   npx tsx --env-file=.env.local scripts/exam-grade.ts <marks.json> [--dry-run]
  *
  * marks.json: [ { "result_id": "...", "mark": 2, "feedback": "What was good and what was missing" }, ... ]
+ *   or { "marks": [ … ], "insights": [ … ] } — insights are what the teacher noticed
+ *   about a student (see scripts/lib/insights.ts and src/lib/insights.ts):
+ *   { "result_id": "<an answer of the student>", "kind": "habit", "tag": "no-scenario-link",
+ *     "text": "Answers are not linked to the scenario." }   ("resolve": true closes one)
  *
  * Each mark is stored as the teacher's mark (as in the Results page), the
  * attempt's score is recomputed, and the student is notified once all of
@@ -13,13 +17,15 @@ import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import { insightInput, writeInsights } from "./lib/insights";
 
-const schema = z.array(z.object({ result_id: z.string().uuid(), mark: z.number().min(0), feedback: z.string().max(2000).default("") }));
+const mark = z.object({ result_id: z.string().uuid(), mark: z.number().min(0), feedback: z.string().max(2000).default("") });
+const schema = z.union([z.array(mark).transform((marks) => ({ marks, insights: [] })), z.object({ marks: z.array(mark).default([]), insights: z.array(insightInput).default([]) })]);
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { "dry-run": { type: "boolean", default: false } } });
 
 async function main() {
   if (!positionals[0]) throw new Error("Usage: scripts/exam-grade.ts <marks.json> [--dry-run]");
-  const marks = schema.parse(JSON.parse(readFileSync(positionals[0], "utf8")));
+  const { marks, insights } = schema.parse(JSON.parse(readFileSync(positionals[0], "utf8")));
   const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
   const attempts = new Set<string>();
   for (const m of marks) {
@@ -69,7 +75,8 @@ async function main() {
     }
     console.log(`attempt ${id}: ${a.status} ${a.percentage != null ? `${Math.round(Number(a.percentage))}%` : ""}`);
   }
-  if (!values["dry-run"]) await db.from("audit_logs").insert({ action: "exam.teacher_check", entity_type: "grading_result", details: { marked: marks.length, attempts: attempts.size } });
+  if (insights.length) for (const line of await writeInsights(db, insights, values["dry-run"])) console.log(`insight ${line}`);
+  if (!values["dry-run"]) await db.from("audit_logs").insert({ action: "exam.teacher_check", entity_type: "grading_result", details: { marked: marks.length, attempts: attempts.size, insights: insights.length } });
 }
 
 main().catch((e) => {

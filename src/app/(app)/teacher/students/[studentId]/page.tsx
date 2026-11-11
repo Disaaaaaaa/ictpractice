@@ -22,6 +22,8 @@ import { AttemptStatusBadge } from "@/components/attempt-status";
 import { INTEGRITY_EVENT_LABEL } from "@/components/integrity-labels";
 import { LoCode } from "@/components/lo-code";
 import { resetStudentPassword } from "../../actions";
+import { getInsights, getSkillStats } from "@/lib/insights";
+import { InsightsCard } from "@/components/insights/insights-card";
 
 export const metadata: Metadata = { title: "Student" };
 
@@ -32,12 +34,14 @@ export default async function StudentProfilePage({ params }: PageProps<"/teacher
   const { data: student } = await supabase.from("profiles").select("*").eq("id", studentId).eq("role", "student").maybeSingle();
   if (!student) notFound();
   const s = student as Profile;
-  const [ctx, mastery, attempts, classes, { data: events }] = await Promise.all([
+  const [ctx, mastery, attempts, classes, { data: events }, insights, skills] = await Promise.all([
     getProgressContext(),
     getMasteryMap(supabase, s.id),
     getAttempts(supabase, { studentIds: [s.id], limit: 200 }),
     getStudentClasses(supabase, s.id),
     supabase.from("integrity_events").select("*, exams(title)").eq("student_id", s.id).order("started_at", { ascending: false }).limit(100),
+    getInsights(supabase, [s.id]),
+    getSkillStats(supabase, s.id),
   ]);
   const classIds = classes.map((c) => c.id);
   const { data: targets } = await supabase
@@ -76,6 +80,16 @@ export default async function StudentProfilePage({ params }: PageProps<"/teacher
         <Stat label="Exam average" value={formatPercent(avg)} sub={`${graded.length} graded attempts`} />
         <Stat label="Topics secure+" value={`${topics.filter((t) => t.status === "Secure" || t.status === "Mastered").length} / ${topics.length}`} />
         <Stat label="Integrity events" value={(events ?? []).filter((e) => e.counted).length} sub="Counted violations" />
+      </div>
+
+      <div className="mt-6">
+        <InsightsCard
+          title="Exam feedback: strengths and gaps"
+          description="Noted while checking this student's Exam Mode answers (the student sees the same), and marks by command word and learning objective."
+          insights={insights}
+          stats={skills}
+          empty="No notes on this student's Exam Mode answers yet."
+        />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">

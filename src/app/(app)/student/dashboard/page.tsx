@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AttemptStatusBadge } from "@/components/attempt-status";
+import { getInsights, getSkillStats } from "@/lib/insights";
+import { InsightsCard } from "@/components/insights/insights-card";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -24,7 +26,7 @@ export default async function StudentDashboard() {
   const supabase = await createClient();
   const grade = profile.grade ?? 12;
 
-  const [ctx, mastery, classes, attempts, assignments, { data: mocks }, { data: lastTheory }] = await Promise.all([
+  const [ctx, mastery, classes, attempts, assignments, { data: mocks }, { data: lastTheory }, insights, skills] = await Promise.all([
     getProgressContext(),
     getMasteryMap(supabase, profile.id),
     getStudentClasses(supabase, profile.id),
@@ -44,6 +46,8 @@ export default async function StudentDashboard() {
       .order("viewed_at", { ascending: false })
       .limit(1)
       .maybeSingle(),
+    getInsights(supabase, [profile.id]),
+    getSkillStats(supabase, profile.id),
   ]);
   await supabase.rpc("bump_activity");
 
@@ -102,6 +106,14 @@ export default async function StudentDashboard() {
               </div>
             </Card>
           )}
+
+          <InsightsCard
+            title="Exam feedback: strengths and gaps"
+            description="What your teacher noticed in your Exam Mode answers, and your marks by command word and learning objective."
+            insights={insights}
+            stats={skills}
+            empty="Your teacher's notes on your Exam Mode answers will appear here."
+          />
 
           <Card>
             <CardHeader title="Final exam readiness" description="Based on the learning objectives assessed in each paper." />

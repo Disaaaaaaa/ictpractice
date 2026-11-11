@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ClipboardList, Layers, Radio, Users } from "lucide-react";
-import { requireProfile, shortName } from "@/lib/auth";
+import { requireProfile, shortName, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAttempts, getTeacherClasses, getVisibleStudents } from "@/lib/teacher-data";
 import { formatDate, formatPercent, relativeTime, nowMs } from "@/lib/format";
@@ -14,6 +14,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { AttemptStatusBadge } from "@/components/attempt-status";
 import { ConfirmButton } from "@/components/action-form";
 import { retryGrading } from "../actions";
+import { getInsights } from "@/lib/insights";
+import { ClassInsightsCard } from "@/components/insights/class-insights";
 
 export const metadata: Metadata = { title: "Teacher dashboard" };
 
@@ -26,7 +28,13 @@ export default async function TeacherDashboard() {
     supabase.from("assignments").select("id, title, deadline, exam_id").eq("teacher_id", profile.id).is("archived_at", null).order("deadline", { ascending: true, nullsFirst: false }).limit(50),
   ]);
   const studentIds = students.map((s) => s.id);
-  const attempts = await getAttempts(supabase, { studentIds, limit: 300 });
+  const [attempts, insights, { data: members }] = await Promise.all([
+    getAttempts(supabase, { studentIds, limit: 300 }),
+    getInsights(supabase, studentIds),
+    classes.length ? supabase.from("class_members").select("class_id, student_id").in("class_id", classes.map((c) => c.id)).eq("status", "active") : Promise.resolve({ data: [] }),
+  ]);
+  const insightClasses = classes.map((c) => ({ id: c.id, name: c.name, students: (members ?? []).filter((m) => m.class_id === c.id).map((m) => m.student_id as string) }));
+  const studentNames = new Map(students.map((s) => [s.id, displayName(s)]));
   const live = attempts.filter((a) => a.status === "IN_PROGRESS" && new Date(a.deadline_at).getTime() > nowMs());
   const review = attempts.filter((a) => a.status === "REVIEW_REQUIRED");
   const pendingGrading = attempts.filter((a) => a.status === "SUBMITTED");
@@ -54,6 +62,7 @@ export default async function TeacherDashboard() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
+          <ClassInsightsCard classes={insightClasses} insights={insights} names={studentNames} />
           {liveByExam.size > 0 && (
             <Card className="border-info/40">
               <CardHeader title="Exams in progress now" />
