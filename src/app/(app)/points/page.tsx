@@ -11,6 +11,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress";
+import { Table, Td, Th } from "@/components/ui/table";
 
 export const metadata: Metadata = { title: "SAU points" };
 
@@ -23,7 +24,7 @@ export default async function StudentPointsPage() {
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Every lesson gives practice ${LESSON_POINTS.practice} points (your best answer to each question) and notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}). Each topic's Exam Mode gives ${LESSON_POINTS.exam} more (your first attempt; earlier topics had a short test in every lesson instead). Only work done before the deadline counts. The SAU at the end of the unit is worth as many points as all its lessons.`}
+      description={`Every lesson gives practice ${LESSON_POINTS.practice} points (your best answer to each question) and notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}). Each topic's Exam Mode gives ${LESSON_POINTS.exam} more (your first attempt; earlier topics had a short test in every lesson instead). The SAU at the end of the unit is worth as many points as all its lessons.`}
     />
   );
   const classId = await getStudentClass(supabase, profile.id, profile.grade);
@@ -57,8 +58,54 @@ export default async function StudentPointsPage() {
                   </div>
                 }
               />
-              <CardBody className="space-y-2">
+              <CardBody className="space-y-4">
                 <ProgressBar value={board.max ? ((me?.accumulated ?? 0) / board.max) * 100 : 0} label={`${unit.code} lesson points`} />
+                {(() => {
+                  // the student's own row of the class table: L1, L2 … Exam, then the totals
+                  let n = 0;
+                  const cols = board.lessons.map((l) => ({ l, label: l.isExam ? "Exam" : `L${++n}`, x: me?.lessons.get(l.key) }));
+                  const row = (name: string, pick: (x: NonNullable<(typeof cols)[number]["x"]>, isExam: boolean) => number | null, totals?: boolean) => (
+                    <tr className={totals ? "font-semibold" : undefined}>
+                      <Td className="whitespace-nowrap">{name}</Td>
+                      {cols.map(({ l, x }) => {
+                        const v = x ? pick(x, l.isExam) : null;
+                        return <Td key={l.key} className="text-center tabular-nums">{v == null ? "—" : fmt(v)}</Td>;
+                      })}
+                      {totals ? (
+                        <>
+                          <Td className="whitespace-nowrap text-center tabular-nums">{fmt(me?.accumulated ?? 0)} / {board.max}</Td>
+                          <Td className="whitespace-nowrap text-center tabular-nums">{fmt(me?.sau ?? null)} / {board.max}</Td>
+                          <Td className="whitespace-nowrap text-center tabular-nums">{fmt(me?.total ?? 0)} / {board.max * 2}</Td>
+                        </>
+                      ) : (
+                        <><Td /><Td /><Td /></>
+                      )}
+                    </tr>
+                  );
+                  return (
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <thead>
+                          <tr>
+                            <Th>Points</Th>
+                            {cols.map(({ l, label }) => (
+                              <Th key={l.key} className="text-center" title={l.isExam ? `${l.topicTitle} · Exam Mode` : `${l.topicTitle} · Lesson ${l.number}: ${l.title}`}>{label}</Th>
+                            ))}
+                            <Th className="text-center">Lessons</Th>
+                            <Th className="text-center">SAU</Th>
+                            <Th className="text-center">Total</Th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {row(`Practice (${LESSON_POINTS.practice})`, (x, isExam) => (isExam ? null : x.practice))}
+                          {row(`Notes (${LESSON_POINTS.notes})`, (x, isExam) => (isExam ? null : x.notes))}
+                          {row(`Test / Exam Mode (${LESSON_POINTS.exam})`, (x, isExam) => (isExam || x.raw.hasExam ? (x.examPending ? null : x.exam) : null))}
+                          {row("Total", (x) => x.total, true)}
+                        </tbody>
+                      </Table>
+                    </div>
+                  );
+                })()}
                 <ul className="divide-y divide-border">
                   {board.lessons.map((l) => {
                     const x = me?.lessons.get(l.key);
