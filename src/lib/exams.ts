@@ -132,3 +132,20 @@ export async function getExamRequirements(supabase: Supa, examId: string): Promi
   const rows = ((data ?? []) as ExamRequirement[]).map((r) => ({ ...r, practice_done: Number(r.practice_done), practice_total: Number(r.practice_total) }));
   return { rows, locked: rows.some((r) => r.practice_done < r.practice_total || !r.notes_ok) };
 }
+
+/**
+ * A student's own (not class) assignment for an exam that is still open — the
+ * teacher's way to open a locked Exam Mode for one student.
+ */
+export async function getPersonalExamAssignment(supabase: Supa, examId: string, studentId: string): Promise<string | null> {
+  const { data } = await supabase
+    .from("assignment_targets")
+    .select("assignment_id, assignments!inner(id, exam_id, archived_at, deadline)")
+    .eq("student_id", studentId)
+    .eq("assignments.exam_id", examId)
+    .is("assignments.archived_at", null);
+  const row = ((data ?? []) as unknown as { assignment_id: string; assignments: { deadline: string | null } }[]).find(
+    (r) => !r.assignments.deadline || new Date(r.assignments.deadline).getTime() > Date.now(),
+  );
+  return row?.assignment_id ?? null;
+}

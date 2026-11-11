@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { AlertTriangle, Clock, FileText, Maximize, Save, ShieldAlert } from "lucide-react";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { getExamRequirements, getExamStartInfo, INTEGRITY_LABEL } from "@/lib/exams";
+import { getExamRequirements, getExamStartInfo, getPersonalExamAssignment, INTEGRITY_LABEL } from "@/lib/exams";
 import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { formatDate } from "@/lib/format";
 import { Markdown } from "@/components/markdown";
@@ -31,6 +31,11 @@ export default async function ExamStartPage({ params, searchParams }: PageProps<
   const isStaff = profile.role === "teacher" || profile.role === "admin";
   // a topic taught with one Exam Mode opens after its practice and notes
   const req = profile.role === "student" && exam.kind === "topic" ? await getExamRequirements(supabase, examId) : { rows: [], locked: false };
+  // the teacher opened this Exam Mode for the student with a personal assignment
+  if (req.locked && !assignmentId) {
+    const personal = await getPersonalExamAssignment(supabase, examId, profile.id);
+    if (personal) redirect(`/exams/${examId}?assignment=${personal}`);
+  }
   const { data: res } = isStaff ? await supabase.from("exams").select("teacher_resources").eq("id", examId).maybeSingle() : { data: null };
 
   const kindLabel =

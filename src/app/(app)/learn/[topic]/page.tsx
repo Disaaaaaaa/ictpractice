@@ -16,7 +16,7 @@ import { LoCode } from "@/components/lo-code";
 import { Alert } from "@/components/ui/alert";
 import { TopicLessons } from "@/components/topic-lessons";
 import { getMyTopicPoints, getTopicLessons, lessonParam } from "@/lib/lessons";
-import { getExamRequirements } from "@/lib/exams";
+import { getExamRequirements, getPersonalExamAssignment } from "@/lib/exams";
 
 export async function generateMetadata({ params }: PageProps<"/learn/[topic]">): Promise<Metadata> {
   const topic = await getTopicBySlug((await params).topic);
@@ -53,7 +53,9 @@ export default async function TopicOverview({ params, searchParams }: PageProps<
     : [{ data: [] }, new Map()];
   const lessonExamIds = new Map(((lessonExams ?? []) as { id: string; lesson_no: number }[]).map((e) => [e.lesson_no, e.id]));
   // a topic with one Exam Mode: what the student still has to do before it opens
-  const examLock = isStudent && lessons.length && lessonExamIds.size === 0 && exam ? await getExamRequirements(supabase, exam.id) : null;
+  const lock0 = isStudent && lessons.length && lessonExamIds.size === 0 && exam ? await getExamRequirements(supabase, exam.id) : null;
+  // opened for this student by the teacher (a personal assignment)
+  const examLock = lock0?.locked && exam && (await getPersonalExamAssignment(supabase, exam.id, profile.id)) ? { ...lock0, locked: false } : lock0;
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">

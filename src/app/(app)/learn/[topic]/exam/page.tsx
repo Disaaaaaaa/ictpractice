@@ -5,7 +5,7 @@ import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getTopicBySlug } from "@/lib/curriculum";
 import { attemptLink } from "@/lib/student-data";
-import { getExamRequirements } from "@/lib/exams";
+import { getExamRequirements, getPersonalExamAssignment } from "@/lib/exams";
 import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { formatDate, formatPercent } from "@/lib/format";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
@@ -48,7 +48,10 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
   const oneExam = (lessonCount ?? 0) > 0 && !(exams ?? []).some((e) => e.lesson_no != null);
   // the single Exam Mode opens after the lessons' practice and notes
   const topicExam = oneExam && profile.role === "student" ? list.find((e) => e.lesson_no == null) : undefined;
-  const req = topicExam ? await getExamRequirements(supabase, topicExam.id) : { rows: [], locked: false };
+  const req0 = topicExam ? await getExamRequirements(supabase, topicExam.id) : { rows: [], locked: false };
+  // opened for this student by the teacher (a personal assignment)
+  const personal = topicExam && req0.locked ? await getPersonalExamAssignment(supabase, topicExam.id, profile.id) : null;
+  const req = personal ? { ...req0, locked: false } : req0;
   const { data: attempts } = await supabase
     .from("attempts")
     .select("id, exam_id, status, percentage, show_results, submitted_at, started_at")
@@ -74,7 +77,7 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
                 e.id === topicExam?.id && req.locked ? (
                   <span className="rounded-lg border border-dashed border-border px-3 py-1.5 text-sm text-muted">Locked</span>
                 ) : (
-                  <ButtonLink href={`/exams/${e.id}`}>Go to exam</ButtonLink>
+                  <ButtonLink href={e.id === topicExam?.id && personal ? `/exams/${e.id}?assignment=${personal}` : `/exams/${e.id}`}>Go to exam</ButtonLink>
                 )
               }
             />
