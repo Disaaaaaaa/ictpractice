@@ -8,53 +8,18 @@
       "weight": 3
     },
     {
-      "title": "Data redundancy",
-      "must": "The same data stored more than once; it wastes storage and can become inconsistent.",
+      "title": "Redundancy and anomalies",
+      "must": "Data redundancy explained, and the update, insertion and deletion anomalies, each with an example.",
+      "weight": 3
+    },
+    {
+      "title": "Benefits and drawbacks",
+      "must": "At least two: less redundancy / storage, consistent data (change in one place), no anomalies, easier to maintain. Drawback: More tables so queries need joins (can be slower / more complex); some systems denormalise for speed.",
       "weight": 2
     },
     {
-      "title": "Update anomaly",
-      "must": "Repeated data must be changed in many rows; missing one makes the data inconsistent — with an example (address in every order).",
-      "weight": 3
-    },
-    {
-      "title": "Insertion anomaly",
-      "must": "Data cannot be added without other unrelated data — e.g. a new customer cannot be stored before an order.",
-      "weight": 3
-    },
-    {
-      "title": "Deletion anomaly",
-      "must": "Deleting one record also deletes other needed data — e.g. deleting a customer’s only order loses the customer.",
-      "weight": 3
-    },
-    {
-      "title": "Benefits of normalisation",
-      "must": "At least two: less redundancy / storage, consistent data (change in one place), no anomalies, easier to maintain.",
-      "weight": 2
-    },
-    {
-      "title": "Drawbacks",
-      "must": "More tables so queries need joins (can be slower / more complex); some systems denormalise for speed.",
-      "weight": 1
-    },
-    {
-      "title": "Order of the normal forms",
-      "must": "UNF → 1NF → 2NF → 3NF; each form includes the rules of the one before (staircase diagram).",
-      "weight": 2
-    },
-    {
-      "title": "Rule of 1NF",
-      "must": "Atomic values (one value per cell), no repeating groups, a primary key so each record is unique.",
-      "weight": 3
-    },
-    {
-      "title": "Rule of 2NF",
-      "must": "In 1NF and every non-key field depends on the whole primary key — no partial dependencies.",
-      "weight": 3
-    },
-    {
-      "title": "Rule of 3NF",
-      "must": "In 2NF and no non-key field depends on another non-key field — no transitive dependencies; “the key, the whole key and nothing but the key”.",
+      "title": "Rules of 1NF, 2NF and 3NF",
+      "must": "The rule of each normal form in order: 1NF atomic values and no repeating groups with a primary key; 2NF no partial dependency on part of a composite key; 3NF no transitive dependency on a non-key field.",
       "weight": 3
     },
     {
@@ -68,9 +33,49 @@
       "weight": 2
     },
     {
-      "title": "Single-field key",
-      "must": "A 1NF table with a single-field primary key is automatically in 2NF because a partial dependency needs a composite key.",
-      "weight": 1
+      "title": "Converting to 1NF",
+      "must": "Make values atomic (one row per value / split fields), remove repeating groups, choose a primary key — often composite.",
+      "weight": 3
+    },
+    {
+      "title": "Converting to 2NF",
+      "must": "Move fields that depend on part of the key into a new table with that part as its primary key; keep it in the original table as a foreign key.",
+      "weight": 3
+    },
+    {
+      "title": "Converting to 3NF",
+      "must": "Move the dependent fields to a new table; the field they depend on becomes its primary key and stays as a foreign key in the original table.",
+      "weight": 3
+    },
+    {
+      "title": "Notation",
+      "must": "Primary keys underlined, foreign keys marked with *; table written as TableName(Field1, Field2, …).",
+      "weight": 2
+    },
+    {
+      "title": "A full worked example",
+      "must": "An unnormalised table (e.g. the club register) taken step by step to 1NF, 2NF and 3NF with the final tables and keys.",
+      "weight": 3
+    },
+    {
+      "title": "Link (junction) table",
+      "must": "Resolves a many-to-many relationship; its primary key is the composite of the two foreign keys, e.g. Memberships(PupilID*, ClubID*).",
+      "weight": 3
+    },
+    {
+      "title": "Steps to create the database",
+      "must": "Create tables with data types, set primary keys, create foreign keys, create the “one” tables first, enter test data, test with join queries.",
+      "weight": 3
+    },
+    {
+      "title": "Referential integrity",
+      "must": "Every foreign key value must match an existing primary key value; an insert with a non-existent class is rejected.",
+      "weight": 3
+    },
+    {
+      "title": "CREATE TABLE with keys",
+      "must": "SQL with PRIMARY KEY, REFERENCES Table(Field), NOT NULL, and a composite PRIMARY KEY (a, b).",
+      "weight": 3
     }
   ]
 }
