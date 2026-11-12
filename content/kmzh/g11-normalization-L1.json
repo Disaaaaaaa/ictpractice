@@ -1,0 +1,848 @@
+{
+ "topic": "g11-normalization",
+ "lesson": 1,
+ "grade": 11,
+ "unit": "11.2A Information systems",
+ "title": "Normalisation: why, 1NF to 3NF, creating the tables",
+ "teacher": "Assylbek Dias",
+ "date": "",
+ "class": "",
+ "minutes": 80,
+ "learning_objectives": [
+  {
+   "code": "11.4.1.9",
+   "text": "list the normalisation rules for the first, second and third normal forms"
+  },
+  {
+   "code": "11.4.1.10",
+   "text": "normalize a database to the 3rd normal form"
+  },
+  {
+   "code": "11.4.1.11",
+   "text": "create a database with multiple tables for a new system"
+  }
+ ],
+ "lesson_objectives": {
+  "all": "explain why databases are normalised and state the rules of 1NF, 2NF and 3NF",
+  "most": "normalise a given table to 3NF and identify primary and foreign keys",
+  "some": "normalise a new scenario to 3NF, justify each step by its dependencies and write CREATE TABLE statements with keys"
+ },
+ "assessment_criteria": [
+  {
+   "criterion": "Explain the purpose of normalisation",
+   "descriptors": [
+    "describes data redundancy",
+    "names and explains update, insertion and deletion anomalies with examples"
+   ]
+  },
+  {
+   "criterion": "List the rules of the normal forms",
+   "descriptors": [
+    "states the rules of 1NF, 2NF and 3NF in order",
+    "identifies partial and transitive dependencies"
+   ]
+  },
+  {
+   "criterion": "Normalise a database to 3NF",
+   "descriptors": [
+    "removes repeating groups and chooses a key (1NF)",
+    "moves partial dependencies to new tables (2NF)",
+    "moves transitive dependencies to new tables and links them with foreign keys (3NF)"
+   ]
+  },
+  {
+   "criterion": "Create a database with multiple tables",
+   "descriptors": [
+    "creates tables in the right order",
+    "writes CREATE TABLE with PRIMARY KEY and FOREIGN KEY"
+   ]
+  }
+ ],
+ "language_objectives": {
+  "learners_can": [
+   "explain cause and effect (because the data is repeated, …)",
+   "describe a process in steps (first, then, finally)",
+   "justify a design decision with subject terms"
+  ],
+  "vocabulary": [
+   "normalisation",
+   "redundancy",
+   "update anomaly",
+   "insertion anomaly",
+   "deletion anomaly",
+   "atomic",
+   "repeating group",
+   "primary key",
+   "composite key",
+   "foreign key",
+   "functional dependency",
+   "partial dependency",
+   "transitive dependency",
+   "1NF",
+   "2NF",
+   "3NF",
+   "link table",
+   "referential integrity"
+  ],
+  "phrases": [
+   "This table is not in 1NF because …",
+   "… depends only on part of the key, so …",
+   "… depends on …, which is not a key, so …",
+   "The final tables are …, linked by …"
+  ]
+ },
+ "values": [
+  {
+   "value": "Diligence and creativity",
+   "action": "Groups normalise a messy real-life table step by step and check that every fact is stored only once."
+  },
+  {
+   "value": "Cooperation",
+   "action": "Random pairs and groups share one laptop, agree on dependencies and design the tables together."
+  },
+  {
+   "value": "Lifelong learning",
+   "action": "Learners connect normalisation with their earlier ERDs and data dictionaries and see how the design stage builds a real database."
+  }
+ ],
+ "cross_curricular": [
+  "Mathematics: dependencies and sets; splitting data without losing it.",
+  "English: describing a process and justifying decisions.",
+  "Business: why shops, clinics and schools need consistent data."
+ ],
+ "ict": [
+  "ICT Practice Platform, Lessons section: theory as slides, live votes and tasks, random pairs and groups on shared laptops.",
+  "Practice questions with automatic feedback; results visible to the teacher live.",
+  "Client cards with unnormalised tables on the learners' screens for the group task."
+ ],
+ "previous_learning": "Basic concepts of a database (tables, keys, data types), ERDs (entities, relationships, link tables) and the data dictionary.",
+ "safety": [
+  "Move to the group's laptop calmly; keep bags and cables off the floor.",
+  "Short screen break between the two halves of the lesson."
+ ],
+ "differentiation": {
+  "support": [
+   "Key words with definitions on the title slide; sentence frames for each step.",
+   "The club register worked example on the slides before the group task.",
+   "The group task has labelled boxes for 1NF, 2NF, 3NF and SQL.",
+   "Random mixed-ability groups with roles: leader, writer, checker, presenter."
+  ],
+  "stretch": [
+   "Explain why a table with a single-field key is automatically in 2NF.",
+   "Explain one drawback of normalisation (more joins).",
+   "Write a SELECT with a JOIN that rebuilds the original report from the 3NF tables."
+  ]
+ },
+ "assessment": [
+  "Live results of every task on the teacher's slide; misconceptions are discussed at once.",
+  "Together votes check understanding before the next step opens.",
+  "The group's normalisation is checked by the teacher with feedback during the lesson.",
+  "Exit ticket (marked automatically) checks the lesson objectives.",
+  "Practice results count towards SAU points."
+ ],
+ "stages": [
+  {
+   "stage": "Beginning",
+   "minutes": 8,
+   "blocks": [
+    {
+     "id": "b1",
+     "minutes": 3,
+     "title": "Hook: one phone number, 40 rows",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Shows the objectives and a flat school register where a teacher's phone is repeated in 40 rows. Asks what happens when it changes. Learners vote; leads into redundancy and anomalies.",
+     "learners": "Vote on their laptops and explain.",
+     "poll": {
+      "question": "A teacher's phone number is stored in 40 rows. It changes. What is the risk?",
+      "options": [
+       "None — the DBMS updates all rows",
+       "Some rows keep the old number",
+       "The table is deleted",
+       "The number becomes encrypted"
+      ]
+     },
+     "resources": [
+      "Title slide: objectives and key words",
+      "Live poll"
+     ]
+    },
+    {
+     "id": "b2",
+     "minutes": 5,
+     "title": "Starter: keys and relationships",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens three quick questions on keys and link tables.",
+     "learners": "Answer three questions individually.",
+     "tasks": [
+      "nf-l1-live-starter-1",
+      "nf-l1-live-starter-2",
+      "nf-l1-live-starter-3"
+     ],
+     "resources": [
+      "Live tasks: starter"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "Middle",
+   "minutes": 64,
+   "blocks": [
+    {
+     "id": "m1",
+     "minutes": 10,
+     "title": "Slides: why normalise; the rules",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Presents redundancy, the three anomalies, benefits and drawbacks, and the rules of 1NF, 2NF and 3NF with the dependency terms. Together task: which anomaly is it?",
+     "learners": "Follow the slides and vote.",
+     "slides": [
+      "Why normalise a database?",
+      "The rules of the normal forms"
+     ],
+     "together": [
+      "nf-l1-live-together-1"
+     ],
+     "resources": [
+      "Theory: Why normalise; the rules (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m2",
+     "minutes": 8,
+     "title": "Pair work: anomalies, rules and dependencies",
+     "mode": "pair",
+     "kind": "task",
+     "teacher": "Opens the pair task: random pairs, one laptop each. Monitors live results.",
+     "learners": "In random pairs: six practice questions on anomalies, rules and dependencies.",
+     "tasks": [
+      "nf-define-mcq",
+      "nf-anomaly-match",
+      "nf-rules-match",
+      "nf-terms-match",
+      "nf-3nf-slogan",
+      "nf-dep-type-tick"
+     ],
+     "resources": [
+      "Practice: set A"
+     ]
+    },
+    {
+     "id": "m3",
+     "minutes": 12,
+     "title": "Slides: 1NF, 2NF and 3NF step by step",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Normalises a table step by step: atomic values and key, removing partial dependencies, removing transitive dependencies. Together task: which form does OrderLines break?",
+     "learners": "Follow the steps and vote.",
+     "slides": [
+      "First normal form (1NF)",
+      "Second normal form (2NF)",
+      "Third normal form (3NF)"
+     ],
+     "together": [
+      "nf-l1-live-together-2"
+     ],
+     "resources": [
+      "Theory: 1NF, 2NF, 3NF (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m4",
+     "minutes": 6,
+     "title": "Individual practice: normalising",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens four questions; checks the live results before the group work.",
+     "learners": "Answer individually.",
+     "tasks": [
+      "nf-1nf-field-mcq",
+      "nf-transitive-mcq",
+      "nf-partial-mr",
+      "nf-split-table"
+     ],
+     "resources": [
+      "Practice: set B"
+     ]
+    },
+    {
+     "id": "m5",
+     "minutes": 8,
+     "title": "Slides: a full example; creating the tables",
+     "mode": "class",
+     "kind": "slides",
+     "teacher": "Shows the club register normalised to 3NF, the link table, the order of CREATE TABLE and referential integrity. Together task: which table is created last?",
+     "learners": "Follow the worked example and vote.",
+     "slides": [
+      "A full normalisation example",
+      "Creating a database with multiple tables"
+     ],
+     "together": [
+      "nf-l1-live-together-3"
+     ],
+     "resources": [
+      "Theory: full example and creating tables (slides)",
+      "Live vote"
+     ]
+    },
+    {
+     "id": "m6",
+     "minutes": 20,
+     "title": "Group work: database designers",
+     "mode": "group",
+     "group_size": 4,
+     "kind": "task",
+     "teacher": "Opens the group task: random groups of four, an unnormalised table on each card, the host's laptop. After 14 minutes two groups present their 3NF design (1 minute each). Teacher can ask for the answers to be checked during the lesson.",
+     "learners": "In groups, normalise the client's table to 3NF, explain one anomaly it removes and write CREATE TABLE for one table with a foreign key.",
+     "tasks": [
+      "nf-l1-live-group"
+     ],
+     "scenarios": "nf-l1-tables",
+     "resources": [
+      "Live task: group normalisation with client cards",
+      "Success criteria"
+     ]
+    }
+   ]
+  },
+  {
+   "stage": "End",
+   "minutes": 8,
+   "blocks": [
+    {
+     "id": "e1",
+     "minutes": 4,
+     "title": "Exit ticket",
+     "mode": "individual",
+     "kind": "task",
+     "teacher": "Opens the exit ticket and uses the results to plan revision.",
+     "learners": "Answer three questions individually.",
+     "tasks": [
+      "nf-l1-live-exit-1",
+      "nf-l1-live-exit-2",
+      "nf-l1-live-exit-3"
+     ],
+     "resources": [
+      "Live tasks: exit ticket"
+     ]
+    },
+    {
+     "id": "e2",
+     "minutes": 4,
+     "title": "Reflection and homework",
+     "mode": "class",
+     "kind": "poll",
+     "teacher": "Traffic-light reflection. Homework: the remaining practice questions and handwritten notes; Exam Mode opens after both.",
+     "learners": "Rate their confidence and note the homework.",
+     "poll": {
+      "question": "How confident are you with today's objectives?",
+      "options": [
+       "Green: I can normalise a table to 3NF and create the tables",
+       "Amber: I know the rules but need practice",
+       "Red: I need more help"
+      ]
+     },
+     "homework": [
+      "nf-redundancy-tf",
+      "nf-fd-tf",
+      "nf-order-mcq",
+      "nf-anomaly-update-short",
+      "nf-anomaly-scenario",
+      "nf-benefits-mr",
+      "nf-drawback-mcq",
+      "nf-single-key-tf",
+      "nf-composite-mcq",
+      "nf-which-form",
+      "nf-atomic-tf",
+      "nf-1nf-break-mr",
+      "nf-1nf-key-short",
+      "nf-2nf-already-tf",
+      "nf-3nf-tf",
+      "nf-steps-fill",
+      "nf-fill-key",
+      "nf-2nf-result-mcq",
+      "nf-highest-form-mcq",
+      "nf-hospital-tick",
+      "nf-club-count",
+      "nf-link-table-tf",
+      "nf-relationship-mcq",
+      "nf-club-1nf-key",
+      "nf-club-3nf-mcq",
+      "nf-create-order-mcq",
+      "nf-sql-keys-fill",
+      "nf-composite-sql-mcq",
+      "nf-fk-type-tf",
+      "nf-dtypes-table",
+      "nf-join-fill",
+      "nf-ref-integrity-mcq",
+      "nf-library-tick",
+      "nf-test-mr"
+     ],
+     "resources": [
+      "Traffic-light poll",
+      "Practice: remaining questions",
+      "Notes check"
+     ]
+    }
+   ]
+  }
+ ],
+ "scenarios": {
+  "nf-l1-tables": [
+   {
+    "client": "A sports club",
+    "details": "Bookings(MemberID, MemberName, Phone, ClassID, ClassName, Day, TrainerID, TrainerName). A member books many classes; each class has one trainer."
+   },
+   {
+    "client": "A school library",
+    "details": "Loans(StudentID, StudentName, Grade, BookID, Title, Author, LoanDate). A student borrows many books; each book has one author."
+   },
+   {
+    "client": "An online shop",
+    "details": "Orders(OrderID, OrderDate, CustomerID, CustomerName, Email, ProductID, ProductName, Price, Quantity). An order has many products."
+   },
+   {
+    "client": "A clinic",
+    "details": "Appointments(AppointmentID, Date, PatientID, PatientName, Phone, DoctorID, DoctorName, Speciality). A doctor has many appointments."
+   },
+   {
+    "client": "A school timetable",
+    "details": "Lessons(TeacherID, TeacherName, Subject, ClassCode, ClassTeacher, Room, Day). A teacher teaches many classes; each class has one class teacher."
+   }
+  ]
+ },
+ "live_tasks": [
+  {
+   "key": "nf-l1-live-starter-1",
+   "title": "Primary key",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.11"
+   ],
+   "practice": false,
+   "text": "What does a primary key do?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Links to another table"
+    },
+    {
+     "key": "B",
+     "content": "Uniquely identifies each record"
+    },
+    {
+     "key": "C",
+     "content": "Sorts the table"
+    },
+    {
+     "key": "D",
+     "content": "Stores the validation rule"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "nf-l1-live-starter-2",
+   "title": "Foreign key",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.11"
+   ],
+   "practice": false,
+   "text": "`ClassID` in `Students` is the primary key of `Classes`. In `Students` it is …",
+   "options": [
+    {
+     "key": "A",
+     "content": "a composite key"
+    },
+    {
+     "key": "B",
+     "content": "a foreign key"
+    },
+    {
+     "key": "C",
+     "content": "an index only"
+    },
+    {
+     "key": "D",
+     "content": "a data type"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "nf-l1-live-starter-3",
+   "title": "Many-to-many",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.11"
+   ],
+   "practice": false,
+   "text": "How is a many-to-many relationship stored in a database?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Directly, with one foreign key"
+    },
+    {
+     "key": "B",
+     "content": "With a link table holding both primary keys"
+    },
+    {
+     "key": "C",
+     "content": "It cannot be stored"
+    },
+    {
+     "key": "D",
+     "content": "With a data dictionary"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  },
+  {
+   "key": "nf-l1-live-together-1",
+   "title": "Spot the anomaly",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.9"
+   ],
+   "practice": false,
+   "text": "A teacher's phone number is stored in 40 rows of a flat table. It changes, and only 39 rows are updated. Which problem is this?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Insertion anomaly"
+    },
+    {
+     "key": "B",
+     "content": "Update anomaly"
+    },
+    {
+     "key": "C",
+     "content": "Deletion anomaly"
+    },
+    {
+     "key": "D",
+     "content": "Referential integrity"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "The same fact is stored many times, so a change must be made everywhere — normalisation stores it once."
+   }
+  },
+  {
+   "key": "nf-l1-live-together-2",
+   "title": "Which normal form is broken?",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.10"
+   ],
+   "practice": false,
+   "text": "`OrderLines(OrderID, ProductID, ProductName, Quantity)`, key (OrderID, ProductID). ProductName depends only on ProductID. Which form is broken?",
+   "options": [
+    {
+     "key": "A",
+     "content": "1NF"
+    },
+    {
+     "key": "B",
+     "content": "2NF"
+    },
+    {
+     "key": "C",
+     "content": "3NF"
+    },
+    {
+     "key": "D",
+     "content": "None"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    },
+    "explanation": "A non-key field depends on only part of the composite key: a partial dependency breaks 2NF."
+   }
+  },
+  {
+   "key": "nf-l1-live-together-3",
+   "title": "Create order",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.11"
+   ],
+   "practice": false,
+   "text": "Tables `Members`, `Classes` and the link table `Bookings` (with foreign keys to both). Which must be created last?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Members"
+    },
+    {
+     "key": "B",
+     "content": "Classes"
+    },
+    {
+     "key": "C",
+     "content": "Bookings"
+    },
+    {
+     "key": "D",
+     "content": "Any order"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    },
+    "explanation": "A foreign key can only refer to a table that already exists."
+   }
+  },
+  {
+   "key": "nf-l1-live-group",
+   "title": "Database designers: normalise a client's table",
+   "type": "labelled_answers",
+   "marks": 10,
+   "difficulty": "hard",
+   "command_word": "describe",
+   "grading": "AI",
+   "objectives": [
+    "11.4.1.10",
+    "11.4.1.11"
+   ],
+   "practice": false,
+   "text": "Your group gets an unnormalised table (see your card). Normalise it to 3NF and plan the database.",
+   "content": {
+    "fields": [
+     {
+      "key": "nf1",
+      "label": "1NF: the table(s) with atomic values and the primary key (underline it or write PK)",
+      "lines": 3
+     },
+     {
+      "key": "nf2",
+      "label": "2NF: the tables after removing partial dependencies (or explain why it is already in 2NF)",
+      "lines": 3
+     },
+     {
+      "key": "nf3",
+      "label": "3NF: the final tables with primary keys and foreign keys",
+      "lines": 4
+     },
+     {
+      "key": "why",
+      "label": "Name one anomaly the original table had and explain how your design removes it",
+      "lines": 2
+     },
+     {
+      "key": "sql",
+      "label": "CREATE TABLE for the table with a foreign key (fields, types, PRIMARY KEY, FOREIGN KEY)",
+      "lines": 4
+     }
+    ]
+   },
+   "scheme": {
+    "mark_scheme": "1NF: repeating groups removed, atomic values, suitable (composite) key (2)\n2NF: partial dependencies removed into their own tables, or correct reason it is already in 2NF (2)\n3NF: transitive dependency removed; every table has a PK; foreign keys link the tables (2)\nAnomaly named and linked to the client's data, with how the design removes it (2)\nCREATE TABLE with suitable types, PRIMARY KEY and FOREIGN KEY … REFERENCES (2)",
+    "points": [
+     {
+      "criterion": "1NF atomic values and repeating groups removed",
+      "marks": 1
+     },
+     {
+      "criterion": "1NF key",
+      "marks": 1
+     },
+     {
+      "criterion": "2NF partial dependencies",
+      "marks": 2
+     },
+     {
+      "criterion": "3NF transitive dependency removed",
+      "marks": 1
+     },
+     {
+      "criterion": "3NF keys and foreign keys",
+      "marks": 1
+     },
+     {
+      "criterion": "Anomaly explained for the client",
+      "marks": 2
+     },
+     {
+      "criterion": "CREATE TABLE with keys",
+      "marks": 2
+     }
+    ],
+    "model_answer": "Sports club. 1NF: Bookings(MemberID, ClassID, MemberName, Phone, ClassName, TrainerID, TrainerName, Day), key (MemberID, ClassID). 2NF: Members(MemberID, MemberName, Phone); Classes(ClassID, ClassName, TrainerID, TrainerName, Day); Bookings(MemberID, ClassID). 3NF: Trainers(TrainerID, TrainerName); Classes(ClassID, ClassName, Day, TrainerID FK). Anomaly: a trainer's name was stored on every booking — renaming meant changing many rows (update anomaly); now it is stored once in Trainers. SQL: CREATE TABLE Classes (ClassID INTEGER PRIMARY KEY, ClassName VARCHAR(30) NOT NULL, Day VARCHAR(10), TrainerID INTEGER, FOREIGN KEY (TrainerID) REFERENCES Trainers(TrainerID));"
+   }
+  },
+  {
+   "key": "nf-l1-live-exit-1",
+   "title": "Rule of 1NF",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "easy",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.9"
+   ],
+   "practice": false,
+   "text": "Which rule belongs to 1NF?",
+   "options": [
+    {
+     "key": "A",
+     "content": "No transitive dependencies"
+    },
+    {
+     "key": "B",
+     "content": "No partial dependencies"
+    },
+    {
+     "key": "C",
+     "content": "Atomic values, no repeating groups, a primary key"
+    },
+    {
+     "key": "D",
+     "content": "Every table has a foreign key"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    }
+   }
+  },
+  {
+   "key": "nf-l1-live-exit-2",
+   "title": "Transitive dependency",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.10"
+   ],
+   "practice": false,
+   "text": "`Students(StudentID, Name, ClassID, ClassTeacher)`. ClassTeacher depends on ClassID. This breaks …",
+   "options": [
+    {
+     "key": "A",
+     "content": "1NF"
+    },
+    {
+     "key": "B",
+     "content": "2NF"
+    },
+    {
+     "key": "C",
+     "content": "3NF"
+    },
+    {
+     "key": "D",
+     "content": "nothing"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "C",
+    "accepted": {
+     "correct": "C"
+    }
+   }
+  },
+  {
+   "key": "nf-l1-live-exit-3",
+   "title": "Benefit",
+   "type": "mcq",
+   "marks": 1,
+   "difficulty": "medium",
+   "command_word": "identify",
+   "grading": "AUTO",
+   "objectives": [
+    "11.4.1.9"
+   ],
+   "practice": false,
+   "text": "What is the main benefit of normalising a database?",
+   "options": [
+    {
+     "key": "A",
+     "content": "Queries need fewer tables"
+    },
+    {
+     "key": "B",
+     "content": "Each fact is stored once, so redundancy and anomalies are removed"
+    },
+    {
+     "key": "C",
+     "content": "Data is encrypted"
+    },
+    {
+     "key": "D",
+     "content": "The database needs no keys"
+    }
+   ],
+   "scheme": {
+    "mark_scheme": "B",
+    "accepted": {
+     "correct": "B"
+    }
+   }
+  }
+ ],
+ "reflection": [
+  "Were the lesson objectives / learning objectives achieved? What did learners learn today?",
+  "Could learners justify each step by its dependencies?",
+  "Did I keep to the timings? What changes did I make to the plan and why?"
+ ]
+}
