@@ -1,77 +1,52 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getRealtimeClient } from "@/lib/supabase/client";
-
-type Participant = { student_id?: string; fullscreen?: boolean | null };
 
 /**
- * Reloads the page's server data when a live lesson changes: the session row,
- * its answers or its participants (Supabase Realtime). To save server time:
- * - changes arriving close together cause one reload (at most one per `wait` ms);
- * - a student's "still here" heartbeat does not reload the page — only a new
- *   student or a change of full screen does;
- * - the slow poll runs only while Realtime is disconnected and the tab is visible.
- * Shows a small dot: green = live, grey = reconnecting.
+ * Keeps a live lesson page up to date without Realtime: every `every` seconds
+ * (while the tab is visible) it asks /api/live/<id>/version for a small
+ * fingerprint and reloads the page's data only when it changed.
+ * Shows a small dot: green = in sync, grey = no answer from the server.
  */
 export function LiveRefresh({
   sessionId,
   watch = ["session", "answers", "participants"],
-  every = 30,
-  wait = 1500,
+  every = 4,
 }: {
   sessionId: string;
   watch?: ("session" | "answers" | "participants")[];
   every?: number;
+  /** kept for older callers; not used */
   wait?: number;
 }) {
   const router = useRouter();
-  const [live, setLive] = useState(false);
-  const liveRef = useRef(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [ok, setOk] = useState(true);
+  const last = useRef<string | null>(null);
   const key = watch.join(",");
   useEffect(() => {
-    const refresh = () => {
-      if (timer.current) return; // one reload for a burst of changes
-      timer.current = setTimeout(() => {
-        timer.current = null;
-        router.refresh();
-      }, wait);
-    };
-    // full-screen state of each student seen so far
-    const seen = new Map<string, boolean | null | undefined>();
-    const onParticipant = (p: { eventType: string; new: Participant }) => {
-      const id = p.new?.student_id;
-      if (!id) return;
-      const fs = p.new.fullscreen;
-      const known = seen.has(id);
-      seen.set(id, fs);
-      if (p.eventType === "INSERT" || (known && seen.get(id) !== fs) || (!known && fs === false)) refresh();
-    };
     let stop = false;
-    let cleanup = () => {};
-    void getRealtimeClient().then((supabase) => {
-      if (stop) return;
-      let ch = supabase.channel(`live-${sessionId}-${key}`);
-      if (key.includes("session")) ch = ch.on("postgres_changes", { event: "*", schema: "public", table: "live_sessions", filter: `id=eq.${sessionId}` }, refresh);
-      if (key.includes("answers")) ch = ch.on("postgres_changes", { event: "*", schema: "public", table: "live_answers", filter: `session_id=eq.${sessionId}` }, refresh);
-      if (key.includes("participants")) ch = ch.on("postgres_changes", { event: "*", schema: "public", table: "live_participants", filter: `session_id=eq.${sessionId}` }, onParticipant);
-      ch.subscribe((status: string) => {
-        liveRef.current = status === "SUBSCRIBED";
-        setLive(liveRef.current);
-      });
-      cleanup = () => void supabase.removeChannel(ch);
-    });
-    const poll = setInterval(() => {
-      if (!liveRef.current && document.visibilityState === "visible") router.refresh();
-    }, every * 1000);
-    return () => {
-      clearInterval(poll);
-      if (timer.current) clearTimeout(timer.current);
-      timer.current = null;
-      stop = true;
-      cleanup();
+    const tick = async () => {
+      if (stop || document.visibilityState !== "visible") return;
+      try {
+        const res = await fetch(`/api/live/${sessionId}/version?parts=${key}`, { cache: "no-store" });
+        if (!res.ok) throw new Error(String(res.status));
+        const { v } = (await res.json()) as { v: string };
+        if (last.current !== null && v !== last.current) router.refresh();
+        last.current = v;
+        setOk(true);
+      } catch {
+        setOk(false);
+      }
     };
-  }, [sessionId, key, every, wait, router]);
-  return <span title={live ? "Live" : "Reconnecting…"} className={`inline-block h-2 w-2 rounded-full ${live ? "bg-success" : "bg-muted"}`} />;
+    void tick();
+    const t = setInterval(() => void tick(), every * 1000);
+    const onVisible = () => void tick();
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      stop = true;
+      clearInterval(t);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [sessionId, key, every, router]);
+  return <span title={ok ? "In sync" : "Reconnecting…"} className={`inline-block h-2 w-2 rounded-full ${ok ? "bg-success" : "bg-muted"}`} />;
 }

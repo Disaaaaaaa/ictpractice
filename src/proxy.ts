@@ -88,11 +88,7 @@ export async function proxy(request: NextRequest) {
       .limit(1)
       .maybeSingle();
     if (open) return redirectTo(request, `/attempt/${open.id}`, response);
-    // During a lesson taught live the student stays on the Lesson page (RLS: own classes only).
-    if (!path.startsWith("/live")) {
-      const { data: lesson } = await supabase.from("live_sessions").select("id").is("ended_at", null).limit(1).maybeSingle();
-      if (lesson) return redirectTo(request, "/live", response);
-    }
+    // A lesson taught live is joined from the Lesson page (no redirect, no Realtime).
   }
 
   return response;

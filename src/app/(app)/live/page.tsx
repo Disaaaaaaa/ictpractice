@@ -167,7 +167,7 @@ export default async function LivePage() {
     <LessonStage sessionId={session.id}>
       <Heartbeat sessionId={session.id} />
       <PageHeader
-        title={<span className="flex items-center gap-2">{topic?.title} · Lesson {session.lesson_no} <LiveRefresh sessionId={session.id} watch={["session", "answers"]} wait={400} /></span>}
+        title={<span className="flex items-center gap-2">{topic?.title} · Lesson {session.lesson_no} <LiveRefresh sessionId={session.id} watch={["session", "answers"]} every={5} /></span>}
         description={`${session.plan.title}. This page follows your teacher's slides.`}
       />
       {now && <div className="mb-6">{now}</div>}
