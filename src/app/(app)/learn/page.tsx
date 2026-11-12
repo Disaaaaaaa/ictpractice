@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ProgressBar } from "@/components/ui/progress";
 import { CurriculumViewToggle } from "@/components/view-toggle";
 import { TopicRow } from "@/components/topic-card";
-import { getLessonRows, getStudentClass, lessonKey, scoreLesson, type LessonScore } from "@/lib/lessons";
+import { lessonKey, type LessonScore } from "@/lib/lessons";
 import { masteryStatus } from "@/lib/mastery";
 import { formatPercent } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -53,14 +53,8 @@ export default async function LearnPage({ searchParams }: PageProps<"/learn">) {
   const hoursOf = (t: { id: string; hours: number | null }) => (lessonsOf.get(t.id)?.length ? lessonsOf.get(t.id)!.length * 2 : t.hours);
   // a student's points for each lesson, in their class
   const lessonPoints = new Map<string, LessonScore>();
-  if (isStudent && lessonsOf.size) {
-    const classId = await getStudentClass(supabase, profile.id, profile.grade);
-    const units = (current?.terms ?? []).flatMap((t) => t.units).filter((u) => u.topics.some((x) => lessonsOf.has(x.id)));
-    if (classId) {
-      const rows = (await Promise.all(units.map((u) => getLessonRows(supabase, classId, u.id)))).flat();
-      for (const r of rows) if (r.student_id === profile.id) lessonPoints.set(lessonKey(r.topic_id, r.lesson_no), scoreLesson(r));
-    }
-  }
+  // (points per lesson are shown on the SAU points page only — computing them here was too heavy for the database)
+
 
   return (
     <>

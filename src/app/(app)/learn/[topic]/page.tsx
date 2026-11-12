@@ -15,7 +15,7 @@ import { ProgressBar } from "@/components/ui/progress";
 import { LoCode } from "@/components/lo-code";
 import { Alert } from "@/components/ui/alert";
 import { TopicLessons } from "@/components/topic-lessons";
-import { getMyTopicPoints, getTopicLessons, lessonParam } from "@/lib/lessons";
+import { getTopicLessons, lessonParam } from "@/lib/lessons";
 import { getExamRequirements, getPersonalExamAssignment } from "@/lib/exams";
 
 export async function generateMetadata({ params }: PageProps<"/learn/[topic]">): Promise<Metadata> {
@@ -48,7 +48,7 @@ export default async function TopicOverview({ params, searchParams }: PageProps<
   const [{ data: lessonExams }, lessonPoints] = lessons.length
     ? await Promise.all([
         supabase.from("exams").select("id, lesson_no").eq("topic_id", topic.id).not("lesson_no", "is", null).eq("status", "published").is("archived_at", null),
-        isStudent ? getMyTopicPoints(supabase, profile, topic.id) : Promise.resolve(new Map()),
+        Promise.resolve(new Map()) /* points: SAU points page only (database load) */,
       ])
     : [{ data: [] }, new Map()];
   const lessonExamIds = new Map(((lessonExams ?? []) as { id: string; lesson_no: number }[]).map((e) => [e.lesson_no, e.id]));
