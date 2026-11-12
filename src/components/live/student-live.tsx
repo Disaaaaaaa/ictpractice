@@ -7,7 +7,6 @@ import type { AnswerData } from "@/lib/questions/types";
 import { AnswerInput, type AnswerableQuestion } from "@/components/questions/answer-input";
 import { Markdown } from "@/components/markdown";
 import { Button } from "@/components/ui/button";
-import { getRealtimeClient } from "@/lib/supabase/client";
 import { heartbeat, reportFullscreen, submitLive, vote, type LiveSubmit } from "@/app/(app)/live/actions";
 
 /** Tells the server the student is in the lesson (every 60 s). */
@@ -21,31 +20,17 @@ export function Heartbeat({ sessionId }: { sessionId: string }) {
 }
 
 /**
- * While no lesson is running: reloads the page as soon as the teacher starts
- * one (Realtime insert, RLS sends only the student's own class), with a slow
- * poll while the tab is visible as a fallback.
+ * While no lesson is running: reloads the page every `seconds` while the tab is
+ * visible (no Realtime subscription — the database is small and Realtime per
+ * student was too heavy for it).
  */
-export function AutoRefresh({ seconds = 60 }: { seconds?: number }) {
+export function AutoRefresh({ seconds = 30 }: { seconds?: number }) {
   const router = useRouter();
   useEffect(() => {
-    let stop = false;
-    let cleanup = () => {};
-    void getRealtimeClient().then((supabase) => {
-      if (stop) return;
-      const ch = supabase
-        .channel("live-wait")
-        .on("postgres_changes", { event: "INSERT", schema: "public", table: "live_sessions" }, () => router.refresh())
-        .subscribe();
-      cleanup = () => void supabase.removeChannel(ch);
-    });
     const t = setInterval(() => {
       if (document.visibilityState === "visible") router.refresh();
     }, seconds * 1000);
-    return () => {
-      stop = true;
-      cleanup();
-      clearInterval(t);
-    };
+    return () => clearInterval(t);
   }, [router, seconds]);
   return null;
 }

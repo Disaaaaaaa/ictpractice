@@ -28,7 +28,7 @@ export default async function LivePage() {
       <>
         <PageHeader title="Lesson" description="When your teacher starts a lesson, its tasks appear here." />
         <EmptyState title="No lesson right now">This page updates by itself when the lesson starts.</EmptyState>
-        <AutoRefresh seconds={60} />
+        <AutoRefresh seconds={30} />
       </>
     );
   }
