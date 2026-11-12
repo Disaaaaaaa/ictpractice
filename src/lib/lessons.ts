@@ -1,6 +1,8 @@
 import "server-only";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { createClient } from "./supabase/server";
+import { createAdminClient } from "./supabase/admin";
 import { compareNames } from "./auth";
 
 // Lessons of a topic and their points towards the unit's SAU. See
@@ -91,15 +93,42 @@ export function scoreLesson(r: LessonRow): LessonScore {
   };
 }
 
+// The points of a class in a unit, computed once and kept for two minutes
+// (lesson_points is the heaviest query of the site; every student of a class
+// opening SAU points used to compute the whole class again).
+const classPointsCached = unstable_cache(
+  async (classId: string, unitId: string) => {
+    const { data, error } = await createAdminClient().rpc("lesson_points", { p_class_id: classId, p_unit_id: unitId });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as LessonRow[];
+  },
+  ["lesson-points"],
+  { revalidate: 120 },
+);
+
+/**
+ * Points rows of a class in a unit, limited to what the viewer may see: a
+ * student gets only their own rows, a teacher only classes they teach.
+ */
 export async function getLessonRows(supabase: Supa, classId: string, unitId: string): Promise<LessonRow[]> {
-  const { data } = await supabase.rpc("lesson_points", { p_class_id: classId, p_unit_id: unitId });
-  return ((data ?? []) as LessonRow[]).map((r) => ({
-    ...r,
-    practice_awarded: Number(r.practice_awarded),
-    practice_max: Number(r.practice_max),
-    notes_pct: r.notes_pct == null ? null : Number(r.notes_pct),
-    exam_pct: r.exam_pct == null ? null : Number(r.exam_pct),
-  }));
+  const { data: auth } = await supabase.auth.getClaims();
+  const claims = auth?.claims as { sub?: string; app_metadata?: { role?: string } } | undefined;
+  if (!claims?.sub) return [];
+  const role = claims.app_metadata?.role ?? "student";
+  if (role === "teacher") {
+    const { data: allowed } = await supabase.rpc("teaches_class", { p_class: classId });
+    if (!allowed) return [];
+  } else if (role !== "admin" && role !== "student") return [];
+  const rows = await classPointsCached(classId, unitId);
+  return rows
+    .filter((r) => role !== "student" || r.student_id === claims.sub)
+    .map((r) => ({
+      ...r,
+      practice_awarded: Number(r.practice_awarded),
+      practice_max: Number(r.practice_max),
+      notes_pct: r.notes_pct == null ? null : Number(r.notes_pct),
+      exam_pct: r.exam_pct == null ? null : Number(r.exam_pct),
+    }));
 }
 
 /** The class a student earns points in: their active class of their own grade. */

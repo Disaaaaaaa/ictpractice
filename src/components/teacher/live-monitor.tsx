@@ -2,7 +2,6 @@
 import { useActionState, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getBrowserClient } from "@/lib/supabase/client";
 import { formatClock, formatPercent } from "@/lib/format";
 import type { AttemptStatus } from "@/lib/db-types";
 import { Badge } from "@/components/ui/badge";
@@ -105,30 +104,20 @@ export function LiveMonitor({
     return merged;
   }, [initial, updates]);
   const [now, setNow] = useState(() => new Date(initial[0]?.started_at ?? 0).getTime());
-  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
 
+  // Polls every 15 s while the tab is visible (Realtime on attempts was too heavy
+  // for the database: every heartbeat of every student was sent to it).
   useEffect(() => {
-    const supabase = getBrowserClient();
-    const channel = supabase
-      .channel(`exam-monitor-${examId}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "attempts", filter: `exam_id=eq.${examId}` }, (payload: { new: unknown }) => {
-        const row = payload.new as MonitorAttempt;
-        if (!row?.id) return;
-        if (assignmentId && row.assignment_id !== assignmentId) return;
-        setUpdates((prev) => ({ ...prev, [row.id]: row }));
-      })
-      .subscribe((status: string) => setConnected(status === "SUBSCRIBED"));
-    const poll = setInterval(() => router.refresh(), 20_000);
-    return () => {
-      void supabase.removeChannel(channel);
-      clearInterval(poll);
-    };
-  }, [assignmentId, examId, router]);
+    const poll = setInterval(() => {
+      if (document.visibilityState === "visible") router.refresh();
+    }, 15_000);
+    return () => clearInterval(poll);
+  }, [router]);
 
   const latestByStudent = useMemo(() => {
     const m = new Map<string, MonitorAttempt>();
@@ -151,7 +140,7 @@ export function LiveMonitor({
         <span className="text-lg font-semibold">
           {active.length} / {students.length} students active
         </span>
-        <Badge tone={connected ? "success" : "warning"}>{connected ? "Live" : "Refreshing every 20 s"}</Badge>
+        <Badge tone="success">Refreshing every 15 s</Badge>
       </div>
       <Table>
         <thead>

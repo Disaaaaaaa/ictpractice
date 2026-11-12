@@ -1,6 +1,11 @@
 import "server-only";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { createClient } from "./supabase/server";
+import { createAdminClient } from "./supabase/admin";
+
+/** Tag of the cached curriculum (revalidateTag(CURRICULUM_TAG) after content uploads). */
+export const CURRICULUM_TAG = "curriculum";
 
 type Supa = Awaited<ReturnType<typeof createClient>>;
 
@@ -38,32 +43,54 @@ export type PaperTree = {
   }[];
 }[];
 
-export const getActiveVersion = cache(async () => {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("curriculum_versions")
-    .select("id, code, title, academic_year")
-    .eq("kind", "school_programme")
-    .eq("is_active", true)
-    .maybeSingle();
-  return data as { id: string; code: string; title: string; academic_year: string } | null;
-});
+// The curriculum changes only when content is uploaded, so it is cached across
+// requests for 10 minutes (it was ~1 500 database queries an hour).
+const activeVersionCached = unstable_cache(
+  async () => {
+    const { data } = await createAdminClient()
+      .from("curriculum_versions")
+      .select("id, code, title, academic_year")
+      .eq("kind", "school_programme")
+      .eq("is_active", true)
+      .maybeSingle();
+    return data as { id: string; code: string; title: string; academic_year: string } | null;
+  },
+  ["active-curriculum-version"],
+  { revalidate: 600, tags: [CURRICULUM_TAG] },
+);
+
+export const getActiveVersion = cache(async () => activeVersionCached());
+
 
 const byOrder = <T extends { sort_order?: number | null }>(a: T, b: T) => (a.sort_order ?? 0) - (b.sort_order ?? 0);
+
+const schoolRowsCached = unstable_cache(
+  async (versionId: string) => {
+    const { data } = await createAdminClient()
+      .from("grades")
+      .select(
+        "number, title, sort_order, for_student_grade, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, hours, period, sort_order, topics(id, slug, title, status, recommended_minutes, archived_at))))",
+      )
+      .eq("curriculum_version_id", versionId)
+      .order("number")
+      // the grade's own plan before a cohort plan of the same grade
+      .order("for_student_grade", { ascending: true, nullsFirst: true });
+    return data ?? [];
+  },
+  ["school-tree"],
+  { revalidate: 600, tags: [CURRICULUM_TAG] },
+);
 
 export const getSchoolTree = cache(async (): Promise<SchoolTree> => {
   const version = await getActiveVersion();
   if (!version) return [];
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("grades")
-    .select(
-      "number, title, sort_order, for_student_grade, terms(id, number, title, hours, units(id, code, title, sort_order, school_placements(lessons, hours, period, sort_order, topics(id, slug, title, status, recommended_minutes))))",
-    )
-    .eq("curriculum_version_id", version.id)
-    .order("number")
-    // the grade's own plan before a cohort plan of the same grade
-    .order("for_student_grade", { ascending: true, nullsFirst: true });
+  // the whole plan comes from the cache; the topics this viewer may see from one light query (RLS)
+  const [cached, { data: visibleRows }] = await Promise.all([schoolRowsCached(version.id), supabase.from("topics").select("id")]);
+  const data = structuredClone(cached); // never change the cached copy
+  const visible = new Set(((visibleRows ?? []) as { id: string }[]).map((t) => t.id));
+  for (const g of data as unknown as { terms: { units: { school_placements: { topics: { id: string } | null }[] }[] }[] }[])
+    for (const t of g.terms) for (const u of t.units) for (const p of u.school_placements) if (p.topics && !visible.has(p.topics.id)) p.topics = null;
   type Row = {
     number: number;
     title: string;

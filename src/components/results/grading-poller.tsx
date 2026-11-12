@@ -11,8 +11,8 @@ export function GradingPoller({ attemptId, kick }: { attemptId: string; kick: bo
     const id = setInterval(() => {
       n++;
       router.refresh();
-      if (n > 40) clearInterval(id);
-    }, 4000);
+      if (n > 30) clearInterval(id);
+    }, 10000);
     return () => clearInterval(id);
   }, [attemptId, kick, router]);
   return null;

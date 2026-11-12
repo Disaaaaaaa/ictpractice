@@ -44,7 +44,8 @@ export async function proxy(request: NextRequest) {
   });
 
   const { data } = await supabase.auth.getClaims();
-  const uid = data?.claims?.sub;
+  const claims = data?.claims as { sub?: string; app_metadata?: { role?: string } } | undefined;
+  const uid = claims?.sub;
   const isPublic = PUBLIC.some((p) => path === p || path.startsWith(`${p}/`));
 
   if (!uid) {
@@ -54,31 +55,22 @@ export async function proxy(request: NextRequest) {
     return redirectTo(request, `/login${next}`, response);
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, force_password_change, is_active")
-    .eq("id", uid)
-    .maybeSingle();
+  // The role is in the signed token (app_metadata), so routing needs no database
+  // query. Disabled accounts and forced password changes are enforced by every
+  // page (requireProfile), next to the data.
+  const role = claims?.app_metadata?.role ?? "student";
+  const home = HOME[role] ?? "/login";
+  if (path === "/" || path === "/login") return redirectTo(request, home, response);
+  if (path.startsWith("/admin") && role !== "admin") return redirectTo(request, home, response);
+  if (path.startsWith("/teacher") && role === "student") return redirectTo(request, home, response);
+  if (path.startsWith("/student") && role !== "student") return redirectTo(request, home, response);
 
-  if (!profile || !profile.is_active) {
-    if (path === "/auth/signout") return response;
-    return redirectTo(request, "/auth/signout?error=disabled", response);
-  }
-
-  if (profile.force_password_change) {
-    if (path === "/change-password" || path === "/auth/signout") return response;
-    if (isApi) return NextResponse.json({ error: "Password change required" }, { status: 403 });
-    return redirectTo(request, "/change-password", response);
-  }
-
-  const home = HOME[profile.role] ?? "/login";
-  if (path === "/" || path === "/login" || path === "/change-password") return redirectTo(request, home, response);
-  if (path.startsWith("/admin") && profile.role !== "admin") return redirectTo(request, home, response);
-  if (path.startsWith("/teacher") && profile.role === "student") return redirectTo(request, home, response);
-  if (path.startsWith("/student") && profile.role !== "student") return redirectTo(request, home, response);
-
-  // Navigation is restricted while an exam is running.
-  if (profile.role === "student" && !isApi && !path.startsWith("/attempt/") && path !== "/auth/signout") {
+  // A student with an exam in progress is kept on the exam page — checked only
+  // when a page is opened in the browser (not for prefetches and client
+  // navigations, which were most of the database load).
+  const isPrefetch = request.headers.get("next-router-prefetch") === "1" || /prefetch/i.test(request.headers.get("sec-purpose") ?? request.headers.get("purpose") ?? "");
+  const isRsc = request.headers.get("rsc") === "1";
+  if (role === "student" && !isApi && !isPrefetch && !isRsc && !path.startsWith("/attempt/") && path !== "/auth/signout" && path !== "/change-password") {
     const { data: open } = await supabase
       .from("attempts")
       .select("id")
@@ -88,7 +80,6 @@ export async function proxy(request: NextRequest) {
       .limit(1)
       .maybeSingle();
     if (open) return redirectTo(request, `/attempt/${open.id}`, response);
-    // A lesson taught live is joined from the Lesson page (no redirect, no Realtime).
   }
 
   return response;
