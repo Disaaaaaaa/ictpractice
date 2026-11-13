@@ -130,6 +130,22 @@ export function PracticeSession({
   };
 
   const done = Object.entries(state).filter(([, v]) => v.result?.ok).length;
+
+  // Moving between questions: bring the question card into view (on phones the
+  // question list sits above it), and offer the next question not yet checked.
+  const cardRef = useRef<HTMLDivElement>(null);
+  const goTo = (i: number) => {
+    setIndex(Math.max(0, Math.min(list.length - 1, i)));
+    requestAnimationFrame(() => {
+      const top = cardRef.current?.getBoundingClientRect().top;
+      if (top !== undefined && (top < 0 || top > window.innerHeight * 0.5)) cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+  const cur = Math.min(index, list.length - 1);
+  const after = list.findIndex((item, i) => i > cur && !state[item.id]?.result?.ok);
+  const before = list.findIndex((item, i) => i < cur && !state[item.id]?.result?.ok);
+  const nextOpen = after !== -1 ? after : before;
+  const isLast = cur >= list.length - 1;
   const result = s.result?.ok ? s.result : null;
 
   return (
@@ -174,7 +190,7 @@ export function PracticeSession({
                 <li key={item.id}>
                   <button
                     type="button"
-                    onClick={() => setIndex(i)}
+                    onClick={() => goTo(i)}
                     aria-current={item.id === q?.id ? "step" : undefined}
                     className={cn(
                       "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm",
@@ -196,7 +212,18 @@ export function PracticeSession({
       {!q ? (
         <p className="text-sm text-muted">No questions at this difficulty.</p>
       ) : (
-        <div className="min-w-0 space-y-4">
+        <div ref={cardRef} className="min-w-0 scroll-mt-20 space-y-4">
+          <div className="flex items-center gap-2 text-sm text-muted">
+            <span className="mr-auto">
+              Question {cur + 1} of {list.length}
+            </span>
+            <Button variant="ghost" size="sm" onClick={() => goTo(cur - 1)} disabled={cur === 0} aria-label="Previous question">
+              <ChevronLeft className="h-4 w-4" /> Previous
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => goTo(cur + 1)} disabled={isLast} aria-label="Next question">
+              Next <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
           <article className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-7">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <h2 className="mr-auto text-lg font-semibold">
@@ -282,6 +309,20 @@ export function PracticeSession({
               {result.needsReview && result.awarded !== null && (
                 <p className="mt-2 text-xs text-muted">The AI examiner was not fully confident about this mark.</p>
               )}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {nextOpen !== -1 ? (
+                  <Button onClick={() => goTo(nextOpen)}>
+                    Next question <ChevronRight className="h-4 w-4" />
+                  </Button>
+                ) : (
+                  <p className="text-sm font-medium text-success">All questions in this list are checked.</p>
+                )}
+                {nextOpen !== -1 && nextOpen !== cur + 1 && !isLast && (
+                  <Button variant="ghost" onClick={() => goTo(cur + 1)}>
+                    Question {cur + 2}
+                  </Button>
+                )}
+              </div>
             </div>
           )}
 
@@ -334,13 +375,13 @@ export function PracticeSession({
               Retry Question
             </Button>
             <div className="ml-auto flex gap-2">
-              <Button variant="secondary" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0} aria-label="Previous question">
+              <Button variant="secondary" onClick={() => goTo(cur - 1)} disabled={cur === 0} aria-label="Previous question">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
               <Button
                 variant="secondary"
-                onClick={() => setIndex((i) => Math.min(list.length - 1, i + 1))}
-                disabled={index >= list.length - 1}
+                onClick={() => goTo(cur + 1)}
+                disabled={isLast}
                 aria-label="Next question"
               >
                 <ChevronRight className="h-4 w-4" />
