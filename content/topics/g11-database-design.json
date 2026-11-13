@@ -2,46 +2,81 @@
   "topic": "g11-database-design",
   "questions": [
     {
-      "key": "dbd-documents",
-      "title": "Design documents",
-      "type": "labelled_answers",
-      "marks": 2,
+      "key": "dbd-entity-define-mcq",
+      "title": "Entity",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "easy",
-      "command_word": "describe",
-      "grading": "AI",
+      "command_word": "define",
+      "grading": "AUTO",
       "objectives": [
-        "11.2.2.2",
-        "11.4.1.6"
+        "11.2.2.2"
       ],
       "practice": true,
-      "text": "Describe what each of these design documents shows.",
-      "content": {
-        "fields": [
-          {
-            "key": "1",
-            "label": "ERD",
-            "lines": 2
-          },
-          {
-            "key": "2",
-            "label": "Data dictionary",
-            "lines": 2
-          }
-        ]
-      },
+      "text": "Which statement best defines an **entity**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A single property such as a surname"
+        },
+        {
+          "key": "B",
+          "content": "A thing, person or event about which data is stored"
+        },
+        {
+          "key": "C",
+          "content": "A field that uniquely identifies a record"
+        },
+        {
+          "key": "D",
+          "content": "A link between two tables"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "ERD: the entities / tables and the relationships (and their degree) between them (1)\nData dictionary: details of every field — name, data type, size, key, validation, description (1)",
-        "points": [
-          {
-            "criterion": "ERD",
-            "marks": 1
-          },
-          {
-            "criterion": "Data dictionary",
-            "marks": 1
-          }
-        ],
-        "model_answer": "ERD: the tables of the database and how they are related. Data dictionary: the name, data type, size, key and validation of every field."
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "An entity has its own data and many instances; it becomes a table. A single property is an attribute."
+      }
+    },
+    {
+      "key": "dbd-attribute-mcq",
+      "title": "Attribute",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "*A cinema stores films, screenings and customers.* Which item is an **attribute**, not an entity?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Film"
+        },
+        {
+          "key": "B",
+          "content": "Screening"
+        },
+        {
+          "key": "C",
+          "content": "Customer"
+        },
+        {
+          "key": "D",
+          "content": "Running time"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "D.",
+        "accepted": {
+          "correct": "D"
+        },
+        "explanation": "Running time is one value that describes a film, so it is a field of the Film table."
       }
     },
     {
@@ -86,9 +121,9 @@
       "title": "Entity or attribute",
       "type": "table_completion",
       "marks": 4,
-      "difficulty": "medium",
-      "command_word": "complete",
-      "grading": "HYBRID",
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.2.2.2"
       ],
@@ -168,191 +203,666 @@
               "✓"
             ]
           ]
-        }
+        },
+        "model_answer": "Customer — entity; Daily price — attribute; Rental — entity; Model — attribute.",
+        "explanation": "Customer and Rental have their own data and many instances; daily price and model are single values describing a car."
       }
     },
     {
-      "key": "dbd-relationships",
-      "title": "Relationships in a scenario",
-      "type": "labelled_answers",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "state",
-      "grading": "AI",
+      "key": "dbd-docs-match",
+      "title": "Design documents",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
-        "11.2.2.2"
+        "11.2.2.2",
+        "11.4.1.6"
       ],
       "practice": true,
-      "text": "*In the car-rental company, a customer can rent many cars over time and a car is rented by many customers. Each rental is made by one customer for one car.*\n\nState the degree of each relationship.",
+      "text": "Match each document or statement to what it contains.",
       "content": {
-        "fields": [
+        "left": [
           {
-            "key": "1",
-            "label": "Customer — Rental",
-            "lines": 1
+            "key": "L1",
+            "text": "Requirements specification"
           },
           {
-            "key": "2",
-            "label": "Car — Rental",
-            "lines": 1
+            "key": "L2",
+            "text": "Entity-relationship diagram"
           },
           {
-            "key": "3",
-            "label": "Customer — Car",
-            "lines": 1
+            "key": "L3",
+            "text": "Data dictionary"
+          },
+          {
+            "key": "L4",
+            "text": "CREATE TABLE statements"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The design built in the DBMS"
+          },
+          {
+            "key": "R2",
+            "text": "The name, type, size, key and validation of every field"
+          },
+          {
+            "key": "R3",
+            "text": "The tables and how they are related (1:1, 1:M)"
+          },
+          {
+            "key": "R4",
+            "text": "What the client needs the system to store and report"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "Customer — Rental 1:M (1); Car — Rental 1:M (1); Customer — Car M:M (resolved by Rental) (1)",
-        "points": [
-          {
-            "criterion": "1:M",
-            "marks": 1
-          },
-          {
-            "criterion": "1:M",
-            "marks": 1
-          },
-          {
-            "criterion": "M:M",
-            "marks": 1
+        "mark_scheme": "L1–R4, L2–R3, L3–R2, L4–R1. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R3",
+            "L3": "R2",
+            "L4": "R1"
           }
-        ],
-        "model_answer": "Customer — Rental: one-to-many. Car — Rental: one-to-many. Customer — Car: many-to-many, resolved by Rental."
+        }
       }
     },
     {
-      "key": "dbd-draw-rental",
-      "title": "Draw the rental ERD",
-      "type": "erd",
+      "key": "dbd-pk-mcq",
+      "title": "Choosing a primary key",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A music school stores `StudentID`, `FirstName`, `Surname`, `DateOfBirth` and `ParentPhone` for each student. Which field is the most suitable **primary key**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Surname"
+        },
+        {
+          "key": "B",
+          "content": "DateOfBirth"
+        },
+        {
+          "key": "C",
+          "content": "StudentID"
+        },
+        {
+          "key": "D",
+          "content": "ParentPhone"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A primary key must be unique, never empty and should not change. Surnames and birthdays repeat; a parent's phone can change or be shared by siblings."
+      }
+    },
+    {
+      "key": "dbd-degree-match",
+      "title": "Degree of a relationship",
+      "type": "matching",
       "marks": 3,
       "difficulty": "medium",
-      "command_word": "draw",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.2.2.2"
       ],
       "practice": true,
-      "text": "Draw the ERD for the car-rental company with the entities Customer, Car and Rental.",
+      "text": "Match each pair of entities to the degree of the relationship between them.",
       "content": {
-        "starter": {
-          "nodes": [
-            {
-              "id": "customer",
-              "type": "er_entity",
-              "label": "Customer\nCustomerID, Name, Phone",
-              "x": 0,
-              "y": 0
-            },
-            {
-              "id": "rental",
-              "type": "er_entity",
-              "label": "Rental\nRentalID, CustomerID, RegNo, StartDate, Days",
-              "x": 1,
-              "y": 0
-            },
-            {
-              "id": "car",
-              "type": "er_entity",
-              "label": "Car\nRegNo, Model, DailyPrice",
-              "x": 2,
-              "y": 0
-            }
-          ],
-          "edges": []
-        }
-      },
-      "scheme": {
-        "mark_scheme": "Correct connections (1); Customer 1 — M Rental (1); Car 1 — M Rental (1)",
-        "points": [
+        "left": [
           {
-            "criterion": "Connections",
-            "marks": 1
+            "key": "L1",
+            "text": "Country — Capital city (each country has one capital)"
           },
           {
-            "criterion": "Customer–Rental",
-            "marks": 1
+            "key": "L2",
+            "text": "Class — Pupil (a pupil is in one class)"
           },
           {
-            "criterion": "Car–Rental",
-            "marks": 1
+            "key": "L3",
+            "text": "Student — Elective course (students take several electives)"
           }
         ],
-        "model_answer": "Customer 1 —— M Rental M —— 1 Car"
+        "right": [
+          {
+            "key": "R1",
+            "text": "1:1 one-to-one"
+          },
+          {
+            "key": "R2",
+            "text": "M:M many-to-many"
+          },
+          {
+            "key": "R3",
+            "text": "1:M one-to-many"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R1, L2–R3, L3–R2. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R3",
+            "L3": "R2"
+          }
+        },
+        "explanation": "Ask the question in both directions: a class has many pupils, but a pupil is in one class → 1:M."
       }
     },
     {
-      "key": "dbd-mm-resolve",
-      "title": "Resolving M:M",
-      "type": "short_answer",
-      "marks": 2,
+      "key": "dbd-fk-side-mcq",
+      "title": "Where the foreign key goes",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.2.2.2"
       ],
       "practice": true,
-      "text": "Explain why the Customer — Car relationship needs the Rental table in the database design.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "One teacher teaches many lessons; each lesson has one teacher. Where is the foreign key `TeacherID` placed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "In the Teacher table"
+        },
+        {
+          "key": "B",
+          "content": "In the Lesson table"
+        },
+        {
+          "key": "C",
+          "content": "In both tables, as a primary key"
+        },
+        {
+          "key": "D",
+          "content": "In a new link table"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Customer — Car is many-to-many, which cannot be implemented directly (1)\n- Rental is a link table with both foreign keys, giving two 1:M relationships and storing rental details (1)",
-        "points": [
-          {
-            "criterion": "M:M cannot be direct",
-            "marks": 1
-          },
-          {
-            "criterion": "Link table",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Customers and cars have a many-to-many relationship, which a relational database cannot store directly, so Rental links them with CustomerID and RegNo as foreign keys and also records the dates."
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The foreign key goes in the table on the \"many\" side of a 1:M relationship."
       }
     },
     {
-      "key": "dbd-dd-elements",
-      "title": "Data dictionary elements",
-      "type": "labelled_answers",
+      "key": "dbd-mm-tf",
+      "title": "Storing M:M",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A many-to-many relationship can be implemented directly by adding one foreign key to either of the two tables.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A field holds only one value, so one foreign key cannot list many partners. An M:M relationship is replaced by a link entity with two foreign keys."
+      }
+    },
+    {
+      "key": "dbd-link-entity-short",
+      "title": "Name the link entity",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A school library: each member borrows many books, and each book is borrowed by many members over a year. State a suitable name for the **link entity** that resolves this many-to-many relationship.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Loan",
+        "accepted": {
+          "values": [
+            "Loan",
+            "Loans",
+            "Borrowing",
+            "Borrowings",
+            "Borrow",
+            "Lending",
+            "Issue",
+            "BookLoan",
+            "Book loan"
+          ]
+        },
+        "explanation": "One record per borrowing — the Loan — holds MemberID and BookID as foreign keys, plus the dates."
+      }
+    },
+    {
+      "key": "dbd-gym-degree-tick",
+      "title": "Degrees in a gym",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "*A gym: each training session is for one member with one trainer; members have many sessions; trainers run many sessions; a member may train with several trainers.*\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Relationship",
+          "1:1",
+          "1:M",
+          "M:M"
+        ],
+        "rows": 3,
+        "tick": true,
+        "prefill": [
+          [
+            "Member — Session",
+            null,
+            null,
+            null
+          ],
+          [
+            "Trainer — Session",
+            null,
+            null,
+            null
+          ],
+          [
+            "Member — Trainer",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 1:M (1); 2 1:M (1); 3 M:M (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "model_answer": "Member — Session — 1:M; Trainer — Session — 1:M; Member — Trainer — M:M.",
+        "explanation": "Session is the link entity that resolves Member M:M Trainer into two 1:M relationships."
+      }
+    },
+    {
+      "key": "dbd-crowfoot-mcq",
+      "title": "Crow's foot",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "In crow's foot notation, what does the crow's foot (three short lines) at one end of a relationship line show?",
+      "options": [
+        {
+          "key": "A",
+          "content": "That entity is on the \"one\" side"
+        },
+        {
+          "key": "B",
+          "content": "That entity is on the \"many\" side"
+        },
+        {
+          "key": "C",
+          "content": "That entity has no primary key"
+        },
+        {
+          "key": "D",
+          "content": "The relationship is optional"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The crow's foot touches the entity that has many records for one record of the other entity."
+      }
+    },
+    {
+      "key": "dbd-link-keys-mr",
+      "title": "Fields of a link entity",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "The link entity **Loan** resolves Member M:M Book. Select the **three** fields that Loan should contain.",
+      "options": [
+        {
+          "key": "A",
+          "content": "LoanID (primary key)"
+        },
+        {
+          "key": "B",
+          "content": "MemberID (foreign key)"
+        },
+        {
+          "key": "C",
+          "content": "MemberName"
+        },
+        {
+          "key": "D",
+          "content": "BookID (foreign key)"
+        },
+        {
+          "key": "E",
+          "content": "BookTitle"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B and D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "D"
+          ]
+        },
+        "explanation": "Names and titles are already stored in Member and Book; repeating them in Loan would be redundant."
+      }
+    },
+    {
+      "key": "dbd-design-benefit-mr",
+      "title": "Why design first",
+      "type": "multiple_response",
       "marks": 2,
       "difficulty": "easy",
-      "command_word": "name",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Select **two** reasons why the database is designed (ERD and data dictionary) **before** the tables are built.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Errors are found on paper before data is entered"
+        },
+        {
+          "key": "B",
+          "content": "The tables no longer need primary keys"
+        },
+        {
+          "key": "C",
+          "content": "Programmers build tables whose keys and types fit together"
+        },
+        {
+          "key": "D",
+          "content": "Validation is no longer needed"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dbd-erd-errors-mr",
+      "title": "Errors in an ERD",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A student drew this ERD for a hospital: *Doctor M——M Patient* (no other entities); `DoctorID` is stored as a foreign key in the Doctor table. Select the **two** errors.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The M:M relationship has not been resolved with a link entity such as Appointment"
+        },
+        {
+          "key": "B",
+          "content": "Doctor and Patient should not be entities"
+        },
+        {
+          "key": "C",
+          "content": "A foreign key is placed in the table where it is the primary key"
+        },
+        {
+          "key": "D",
+          "content": "Crow's foot notation cannot show M:M"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        }
+      }
+    },
+    {
+      "key": "dbd-erd-build-gym",
+      "title": "Build an ERD: a gym",
+      "type": "erd",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A gym keeps data about its **members**, **trainers** and training **sessions**. Each session is for one member with one trainer. A member has many sessions, and a trainer runs many sessions.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. Do **not** leave a many-to-many relationship in the diagram. Draw only the entities the scenario needs.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Member, Trainer, Session (1 item each)\nRelationships: Member 1:M Session; Trainer 1:M Session (1 item each, with the correct degree)\n5 items in all; the 3 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Member 1 —— M Session M —— 1 Trainer",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Member",
+                "aliases": [
+                  "Members",
+                  "Client",
+                  "Clients",
+                  "Customer"
+                ]
+              },
+              {
+                "name": "Trainer",
+                "aliases": [
+                  "Trainers",
+                  "Coach",
+                  "Coaches",
+                  "Instructor"
+                ]
+              },
+              {
+                "name": "Session",
+                "aliases": [
+                  "Sessions",
+                  "TrainingSession",
+                  "Training",
+                  "Booking",
+                  "Workout"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Member",
+                "b": "Session",
+                "degree": "1:M"
+              },
+              {
+                "a": "Trainer",
+                "b": "Session",
+                "degree": "1:M"
+              }
+            ]
+          }
+        },
+        "explanation": "Member and Trainer are M:M; the Session entity resolves it into two 1:M relationships with the crow's feet at Session."
+      }
+    },
+    {
+      "key": "dbd-dd-define-mcq",
+      "title": "Data dictionary",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.6"
       ],
       "practice": true,
-      "text": "During the design phase of system development, a data dictionary is created. Name **two** elements that should be described in a data dictionary.",
-      "content": {
-        "fields": [
-          {
-            "key": "1",
-            "label": "1",
-            "lines": 1
-          },
-          {
-            "key": "2",
-            "label": "2",
-            "lines": 1
-          }
-        ]
-      },
+      "text": "Which statement best describes a **data dictionary**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The records stored in the database"
+        },
+        {
+          "key": "B",
+          "content": "A diagram of the entities and relationships"
+        },
+        {
+          "key": "C",
+          "content": "A description of every field of every table: name, type, size, key and validation"
+        },
+        {
+          "key": "D",
+          "content": "A list of the users of the system"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "Any two (1 each): the names of the fields / variables; their data types or formats; descriptions; validations; size of field; key field",
-        "points": [
-          {
-            "criterion": "First",
-            "marks": 1
-          },
-          {
-            "criterion": "Second",
-            "marks": 1
-          }
-        ],
-        "model_answer": "1 Field names. 2 Data types."
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A data dictionary holds metadata — data about the data — not the records themselves."
+      }
+    },
+    {
+      "key": "dbd-dd-items-mr",
+      "title": "Items in a data dictionary",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Select **three** items recorded in a data dictionary for each field.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Data type"
+        },
+        {
+          "key": "B",
+          "content": "The value typed by the last user"
+        },
+        {
+          "key": "C",
+          "content": "Validation rule"
+        },
+        {
+          "key": "D",
+          "content": "Field size"
+        },
+        {
+          "key": "E",
+          "content": "The number of records"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C and D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        }
       }
     },
     {
@@ -360,9 +870,9 @@
       "title": "Data types for Rental",
       "type": "table_completion",
       "marks": 4,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.6"
       ],
@@ -441,60 +951,87 @@
               "decimal||float||real||double||numeric"
             ]
           ]
-        }
+        },
+        "model_answer": "RegNo VARCHAR; StartDate DATE; Days INT; Deposit DECIMAL.",
+        "explanation": "A registration number contains letters; money needs two decimal places."
       }
     },
     {
-      "key": "dbd-dd-validation",
-      "title": "Validation rules",
-      "type": "table_completion",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "complete",
-      "grading": "AI",
+      "key": "dbd-phone-type-mcq",
+      "title": "Phone number type",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.6"
       ],
       "practice": true,
-      "text": "Suggest a suitable validation rule for each field of the `Rental` table.",
-      "content": {
-        "columns": [
-          "Field name",
-          "Validation rule"
-        ],
-        "rows": 3,
-        "prefill": [
-          [
-            "Days",
-            null
-          ],
-          [
-            "CustomerID",
-            null
-          ],
-          [
-            "StartDate",
-            null
-          ]
-        ]
-      },
+      "text": "Which is the most suitable data type and size for `ParentPhone` with values such as `+77015554433`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "INT"
+        },
+        {
+          "key": "B",
+          "content": "DECIMAL(12,0)"
+        },
+        {
+          "key": "C",
+          "content": "VARCHAR(12)"
+        },
+        {
+          "key": "D",
+          "content": "DATE"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "Days (1): range, e.g. 1–30 / > 0\nCustomerID (1): presence / must exist in Customer (lookup) / format\nStartDate (1): presence / not in the past",
-        "points": [
-          {
-            "criterion": "Days",
-            "marks": 1
-          },
-          {
-            "criterion": "CustomerID",
-            "marks": 1
-          },
-          {
-            "criterion": "StartDate",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Days: range check 1–30. CustomerID: must exist in the Customer table. StartDate: presence check, not before today."
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A phone number begins with + or 0 and is never used in arithmetic, so it is text; 12 characters fit +7 and 10 digits."
+      }
+    },
+    {
+      "key": "dbd-price-type-mcq",
+      "title": "Money data type",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A lesson fee is stored as values such as `12500.00`. Which data type is most suitable?",
+      "options": [
+        {
+          "key": "A",
+          "content": "INT"
+        },
+        {
+          "key": "B",
+          "content": "DECIMAL(8,2)"
+        },
+        {
+          "key": "C",
+          "content": "VARCHAR(8)"
+        },
+        {
+          "key": "D",
+          "content": "BOOLEAN"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Money has two decimal places and is used in calculations, so DECIMAL (or REAL) is suitable; VARCHAR would stop totals being calculated."
       }
     },
     {
@@ -519,231 +1056,497 @@
       }
     },
     {
-      "key": "dbd-sql-create",
-      "title": "Implement the design",
-      "type": "sql",
-      "marks": 4,
-      "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
+      "key": "dbd-ref-integrity-mcq",
+      "title": "Referential integrity",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "define",
+      "grading": "AUTO",
       "objectives": [
         "11.4.1.6"
       ],
       "practice": true,
-      "text": "Write an SQL statement to create the table `Rental(RentalID, CustomerID, RegNo, StartDate, Days)` according to the design, with its primary key and two foreign keys.",
-      "content": {
-        "language": "sql",
-        "starter_code": ""
-      },
+      "text": "Which statement describes **referential integrity**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Every field must have a validation rule"
+        },
+        {
+          "key": "B",
+          "content": "Every foreign-key value must match an existing primary-key value in the linked table"
+        },
+        {
+          "key": "C",
+          "content": "Every table must be in 3NF"
+        },
+        {
+          "key": "D",
+          "content": "Two tables may not have fields with the same name"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "CREATE TABLE Rental ( … ) (1)\nfields with suitable types (1)\nPRIMARY KEY (RentalID) (1)\nFOREIGN KEY (CustomerID) REFERENCES Customer…, FOREIGN KEY (RegNo) REFERENCES Car… (1)",
-        "points": [
-          {
-            "criterion": "CREATE TABLE",
-            "marks": 1
-          },
-          {
-            "criterion": "Field types",
-            "marks": 1
-          },
-          {
-            "criterion": "Primary key",
-            "marks": 1
-          },
-          {
-            "criterion": "Foreign keys",
-            "marks": 1
-          }
-        ],
-        "model_answer": "CREATE TABLE Rental (\n  RentalID INT AUTO_INCREMENT PRIMARY KEY,\n  CustomerID VARCHAR(6),\n  RegNo VARCHAR(8),\n  StartDate DATE,\n  Days INT CHECK (Days > 0),\n  FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),\n  FOREIGN KEY (RegNo) REFERENCES Car(RegNo)\n);"
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "E.g. a Lesson cannot refer to a student S9999 who does not exist in Student."
       }
     },
     {
-      "key": "dbd-check-design",
-      "title": "Checking a design",
-      "type": "labelled_answers",
+      "key": "dbd-size-fill",
+      "title": "Field sizes",
+      "type": "fill_blank",
       "marks": 2,
       "difficulty": "medium",
-      "command_word": "state",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the data dictionary.\n\n`StudentID` has values such as `S0107`, so its size is [[1]] characters. `ParentPhone` has values such as `+77015554433`, so its size is [[2]] characters.",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 5 (2) 12",
+        "accepted": {
+          "blanks": [
+            [
+              "5",
+              "five"
+            ],
+            [
+              "12",
+              "twelve"
+            ]
+          ]
+        },
+        "explanation": "Count every character, including the letter S and the + sign."
+      }
+    },
+    {
+      "key": "dbd-check-tick",
+      "title": "Choose the check",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the **most suitable** validation check for each field.",
+      "content": {
+        "columns": [
+          "Field",
+          "Presence",
+          "Range",
+          "Lookup",
+          "Format"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Surname (must be filled in)",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Capacity (1 to 40 seats)",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Instrument (piano, dombra, violin, guitar)",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "StudentID (S followed by 4 digits)",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Presence (1); 2 Range (1); 3 Lookup (1); 4 Format (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "model_answer": "Surname (must be filled in) — Presence; Capacity (1 to 40 seats) — Range; Instrument (piano, dombra, violin, guitar) — Lookup; StudentID (S followed by 4 digits) — Format.",
+        "explanation": "A range check needs limits; a lookup check needs a short list of allowed values; a format check needs a pattern."
+      }
+    },
+    {
+      "key": "dbd-sql-match",
+      "title": "From the dictionary to SQL",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.2.2.2",
         "11.4.1.6"
       ],
       "practice": true,
-      "text": "State **two** checks the designer should make before the tables are created.",
+      "text": "Match each data dictionary entry to the SQL that implements it.",
       "content": {
-        "fields": [
+        "left": [
           {
-            "key": "1",
-            "label": "1",
-            "lines": 1
+            "key": "L1",
+            "text": "Presence check"
           },
           {
-            "key": "2",
-            "label": "2",
-            "lines": 1
+            "key": "L2",
+            "text": "Uniqueness check"
+          },
+          {
+            "key": "L3",
+            "text": "Range 1–40"
+          },
+          {
+            "key": "L4",
+            "text": "FK → Student"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "REFERENCES Student(StudentID)"
+          },
+          {
+            "key": "R2",
+            "text": "CHECK (Capacity BETWEEN 1 AND 40)"
+          },
+          {
+            "key": "R3",
+            "text": "UNIQUE"
+          },
+          {
+            "key": "R4",
+            "text": "NOT NULL"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "Any two (1 each): all requirements / reports can be produced; tables normalised (3NF); every table has a primary key; relationships have foreign keys / M:M resolved; data types and validation suitable; sample data can be entered and joined",
-        "points": [
-          {
-            "criterion": "First",
-            "marks": 1
-          },
-          {
-            "criterion": "Second",
-            "marks": 1
+        "mark_scheme": "L1–R4, L2–R3, L3–R2, L4–R1. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R3",
+            "L3": "R2",
+            "L4": "R1"
           }
-        ],
-        "model_answer": "1 Every table has a primary key. 2 The tables are normalised to 3NF."
+        }
       }
     },
     {
-      "key": "dbd-structured-school",
-      "title": "A music school",
-      "type": "structured",
-      "marks": 7,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
+      "key": "dbd-notnull-short",
+      "title": "Presence check in SQL",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
       "practice": true,
-      "text": "*A music school records students, teachers and lessons. Each lesson is for one student with one teacher in one room. A student has lessons with several teachers, and a teacher teaches many students.*",
-      "scheme": {
-        "mark_scheme": ""
+      "text": "State the SQL keyword(s) written after a field definition so that the field **cannot be left empty**.",
+      "content": {
+        "answer_lines": 1
       },
-      "parts": [
-        {
-          "key": "dbd-music-a",
-          "part_label": "(a)",
-          "title": "ERD",
-          "type": "erd",
-          "marks": 4,
-          "difficulty": "exam",
-          "command_word": "draw",
-          "grading": "AI",
-          "objectives": [
-            "11.2.2.2"
-          ],
-          "practice": true,
-          "text": "Draw the ERD for Student, Teacher, Room and Lesson.",
-          "content": {
-            "starter": {
-              "nodes": [
-                {
-                  "id": "student",
-                  "type": "er_entity",
-                  "label": "Student\nStudentID, Name",
-                  "x": 0,
-                  "y": 0
-                },
-                {
-                  "id": "teacher",
-                  "type": "er_entity",
-                  "label": "Teacher\nTeacherID, Name, Instrument",
-                  "x": 2,
-                  "y": 0
-                },
-                {
-                  "id": "room",
-                  "type": "er_entity",
-                  "label": "Room\nRoomNo, Capacity",
-                  "x": 1,
-                  "y": 1
-                }
-              ],
-              "edges": []
-            }
-          },
-          "scheme": {
-            "mark_scheme": "Lesson entity added (1); Student 1 — M Lesson (1); Teacher 1 — M Lesson (1); Room 1 — M Lesson (1)",
-            "points": [
-              {
-                "criterion": "Lesson entity",
-                "marks": 1
-              },
-              {
-                "criterion": "Student–Lesson",
-                "marks": 1
-              },
-              {
-                "criterion": "Teacher–Lesson",
-                "marks": 1
-              },
-              {
-                "criterion": "Room–Lesson",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Student 1—M Lesson; Teacher 1—M Lesson; Room 1—M Lesson"
-          }
+      "scheme": {
+        "mark_scheme": "NOT NULL",
+        "accepted": {
+          "values": [
+            "NOT NULL",
+            "not null",
+            "Not Null",
+            "NOTNULL"
+          ]
         },
-        {
-          "key": "dbd-music-b",
-          "part_label": "(b)",
-          "title": "Data dictionary",
-          "type": "table_completion",
-          "marks": 3,
-          "difficulty": "exam",
-          "command_word": "complete",
-          "grading": "AI",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "practice": true,
-          "text": "Complete the data dictionary entry for each field of `Lesson`.",
-          "content": {
-            "columns": [
-              "Field name",
-              "Data type",
-              "Key"
-            ],
-            "rows": 3,
-            "prefill": [
-              [
-                "LessonID",
-                null,
-                null
-              ],
-              [
-                "StudentID",
-                null,
-                null
-              ],
-              [
-                "LessonDate",
-                null,
-                null
-              ]
-            ]
-          },
-          "scheme": {
-            "mark_scheme": "LessonID INT, PK (1); StudentID VARCHAR (same as Student), FK (1); LessonDate DATE, none (1)",
-            "points": [
-              {
-                "criterion": "LessonID",
-                "marks": 1
-              },
-              {
-                "criterion": "StudentID",
-                "marks": 1
-              },
-              {
-                "criterion": "LessonDate",
-                "marks": 1
-              }
-            ],
-            "model_answer": "LessonID | INT | PK; StudentID | VARCHAR(5) | FK → Student; LessonDate | DATE | —"
-          }
-        }
-      ]
+        "explanation": "NOT NULL implements a presence check."
+      }
     },
     {
-      "key": "dbd-exam-1",
-      "title": "A sports club — ERD",
+      "key": "dbd-create-order-mcq",
+      "title": "Order of creating tables",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Student, Teacher and Room are each related 1:M to Lesson, which holds three foreign keys. Which table must be created **last**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Student"
+        },
+        {
+          "key": "B",
+          "content": "Teacher"
+        },
+        {
+          "key": "C",
+          "content": "Room"
+        },
+        {
+          "key": "D",
+          "content": "Lesson"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "D.",
+        "accepted": {
+          "correct": "D"
+        },
+        "explanation": "A foreign key can only reference a table that already exists, so the link table on the \"many\" side is created last."
+      }
+    },
+    {
+      "key": "dbd-sql-fill",
+      "title": "Complete CREATE TABLE",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the SQL.\n\n```sql\nCREATE TABLE Room (\n  RoomNo   INT [[1]] KEY,\n  Capacity INT [[2]] (Capacity BETWEEN 1 AND 40)\n);\n-- in Lesson:\nFOREIGN KEY (RoomNo) [[3]] Room(RoomNo)\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) primary (2) check (3) references",
+        "accepted": {
+          "blanks": [
+            [
+              "primary"
+            ],
+            [
+              "check"
+            ],
+            [
+              "references"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dbd-dd-errors-mr",
+      "title": "Errors in a data dictionary",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A data dictionary contains these rows. Select the **two** rows that contain an error.",
+      "options": [
+        {
+          "key": "A",
+          "content": "`StudentID` — VARCHAR(5) — PK — presence, unique — S0107"
+        },
+        {
+          "key": "B",
+          "content": "`ParentPhone` — INT — — — length 12 — +77015554433"
+        },
+        {
+          "key": "C",
+          "content": "`DateOfBirth` — DATE — — — range 01/01/2008–31/12/2020 — 21/05/2014"
+        },
+        {
+          "key": "D",
+          "content": "`Surname` — VARCHAR(30) — — — range 1 to 100 — Seitova"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B and D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "B",
+            "D"
+          ]
+        },
+        "explanation": "B: a phone number with + must be VARCHAR. D: a range check does not suit a surname — use presence / length."
+      }
+    },
+    {
+      "key": "dbd-pk-every-tf",
+      "title": "Every table has a primary key",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "In a well-designed database every table, including a link table such as Lesson, has a primary key.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Every table needs a field (or combination of fields) that uniquely identifies each record."
+      }
+    },
+    {
+      "key": "dbd-key-table",
+      "title": "Keys in the Lesson table",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the *Key* column of the data dictionary for the table `Lesson`. Write **PK**, **FK** or **none**.",
+      "content": {
+        "columns": [
+          "Field",
+          "Description",
+          "Key"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "LessonID",
+            "Lesson number, auto-increment",
+            null
+          ],
+          [
+            "TeacherID",
+            "Teacher who gives the lesson",
+            null
+          ],
+          [
+            "LessonDate",
+            "Date of the lesson",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "LessonID Key: PK (1); TeacherID Key: FK (1); LessonDate Key: none (1)",
+        "points": [
+          {
+            "criterion": "LessonID: Key",
+            "marks": 1
+          },
+          {
+            "criterion": "TeacherID: Key",
+            "marks": 1
+          },
+          {
+            "criterion": "LessonDate: Key",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "PK||primary key||primary"
+            ],
+            [
+              null,
+              null,
+              "FK||foreign key||foreign"
+            ],
+            [
+              null,
+              null,
+              "none||-||—||no||n/a||no key"
+            ]
+          ]
+        },
+        "model_answer": "LessonID Key: PK; TeacherID Key: FK; LessonDate Key: none",
+        "explanation": "TeacherID is the primary key of Teacher, copied into Lesson to link the tables."
+      }
+    },
+    {
+      "key": "dbd-tx-1",
+      "title": "Designing the Sapa sports centre database",
       "type": "structured",
       "marks": 10,
       "difficulty": "exam",
@@ -752,15 +1555,152 @@
       "objectives": [],
       "source": "nis_style",
       "practice": false,
-      "text": "*A sports club wants a database. Each **member** has a member number, name, phone and date of joining. Each **coach** has an ID, name and sport. Coaches run **training sessions**; each session has a date, time and maximum number of places and is run by one coach. Members **book** places on sessions; a member can book many sessions and a session has many members.*",
+      "text": "The **Sapa** sports centre in Shymkent is designing a database for bookings.\n\n*Each **member** has a member number, name, phone and date of joining. Each **coach** has a coach number, name and speciality. The centre runs fitness **classes**; each class has a class code, a title, a day, a start time and a maximum size, and is led by one coach. A member can book places on many classes, and each class is booked by many members. For every **booking** the centre records the date the booking was made and whether the member attended.*",
       "scheme": {
         "mark_scheme": ""
       },
       "parts": [
         {
-          "key": "dbd-exam-1a",
+          "key": "dbd-tx-1a",
           "part_label": "(a)",
-          "title": "Entities",
+          "title": "Attribute",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "define",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Define the term **attribute**.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "- a single property / item of data about an entity / a field (column) of a table (1)",
+            "points": [
+              {
+                "criterion": "Definition",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An attribute is one property of an entity, e.g. a member's phone number; it becomes a field of the table."
+          }
+        },
+        {
+          "key": "dbd-tx-1b",
+          "part_label": "(b)",
+          "title": "The Member–Class relationship",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the degree of the relationship between **Member** and **Class**, and explain how it must be implemented in the database.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- many-to-many / M:M (1)\n- a field can hold only one value / a single FK cannot store many classes or many members, so it cannot be implemented directly (1)\n- a link entity / table (Booking) is added with two foreign keys, giving two 1:M relationships (1)",
+            "points": [
+              {
+                "criterion": "M:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Why it cannot be implemented directly",
+                "marks": 1
+              },
+              {
+                "criterion": "Link entity with two FKs / two 1:M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is M:M: a member books many classes and a class has many members. One foreign key can hold only one value, so neither table can store the link; a link table Booking with MemberNo and ClassCode as foreign keys turns it into Member 1:M Booking and Class 1:M Booking."
+          }
+        },
+        {
+          "key": "dbd-tx-1c",
+          "part_label": "(c)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the ERD for the sports centre with the entities **Member**, **Coach**, **Class** and **Booking**. Connect the related entities and give every relationship its degree. Do not leave a many-to-many relationship.",
+          "content": {},
+          "scheme": {
+            "mark_scheme": "Entities: Member, Coach, Class, Booking (1 item each)\nRelationships: Coach 1:M Class; Member 1:M Booking; Class 1:M Booking (1 item each, with the correct degree)\n7 items; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+            "model_answer": "Coach 1 —— M Class; Member 1 —— M Booking; Class 1 —— M Booking",
+            "accepted": {
+              "erd": {
+                "entities": [
+                  {
+                    "name": "Member",
+                    "aliases": [
+                      "Members"
+                    ]
+                  },
+                  {
+                    "name": "Coach",
+                    "aliases": [
+                      "Coaches",
+                      "Trainer"
+                    ]
+                  },
+                  {
+                    "name": "Class",
+                    "aliases": [
+                      "Classes",
+                      "FitnessClass",
+                      "Fitness class"
+                    ]
+                  },
+                  {
+                    "name": "Booking",
+                    "aliases": [
+                      "Bookings"
+                    ]
+                  }
+                ],
+                "relationships": [
+                  {
+                    "a": "Coach",
+                    "b": "Class",
+                    "degree": "1:M"
+                  },
+                  {
+                    "a": "Member",
+                    "b": "Booking",
+                    "degree": "1:M"
+                  },
+                  {
+                    "a": "Class",
+                    "b": "Booking",
+                    "degree": "1:M"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "dbd-tx-1d",
+          "part_label": "(d)",
+          "title": "Keys of Booking",
           "type": "labelled_answers",
           "marks": 2,
           "difficulty": "exam",
@@ -771,142 +1711,41 @@
           ],
           "source": "nis_style",
           "practice": false,
-          "text": "Identify **two** entities and **two** attributes of one of them.",
+          "text": "Identify a suitable **primary key** and the **foreign keys** of the table **Booking**.",
           "content": {
             "fields": [
               {
                 "key": "1",
-                "label": "Entities",
+                "label": "Primary key",
                 "lines": 1
               },
               {
                 "key": "2",
-                "label": "Attributes",
+                "label": "Foreign key(s)",
                 "lines": 1
               }
             ]
           },
           "scheme": {
-            "mark_scheme": "Entities: any two of Member, Coach, Session, Booking (1)\nAttributes: two correct for one entity (1)",
+            "mark_scheme": "- primary key: BookingID / BookingNo (or the composite MemberNo + ClassCode) (1)\n- foreign keys: MemberNo **and** ClassCode (both needed) (1)",
             "points": [
               {
-                "criterion": "Entities",
+                "criterion": "Primary key",
                 "marks": 1
               },
               {
-                "criterion": "Attributes",
+                "criterion": "Both foreign keys",
                 "marks": 1
               }
             ],
-            "model_answer": "Entities: Member, Coach. Attributes of Member: name, phone."
-          }
-        },
-        {
-          "key": "dbd-exam-1b",
-          "part_label": "(b)",
-          "title": "Degrees",
-          "type": "labelled_answers",
-          "marks": 3,
-          "difficulty": "exam",
-          "command_word": "state",
-          "grading": "AI",
-          "objectives": [
-            "11.2.2.2"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "State the degree of each relationship.",
-          "content": {
-            "fields": [
-              {
-                "key": "1",
-                "label": "Coach — Session",
-                "lines": 1
-              },
-              {
-                "key": "2",
-                "label": "Member — Session",
-                "lines": 1
-              },
-              {
-                "key": "3",
-                "label": "How Member — Session is implemented",
-                "lines": 2
-              }
-            ]
-          },
-          "scheme": {
-            "mark_scheme": "Coach — Session 1:M (1); Member — Session M:M (1); link entity Booking with MemberNo and SessionID (1)",
-            "points": [
-              {
-                "criterion": "1:M",
-                "marks": 1
-              },
-              {
-                "criterion": "M:M",
-                "marks": 1
-              },
-              {
-                "criterion": "Booking link",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Coach — Session: one-to-many. Member — Session: many-to-many, implemented with a Booking table containing MemberNo and SessionID."
-          }
-        },
-        {
-          "key": "dbd-exam-1c",
-          "part_label": "(c)",
-          "title": "Draw the ERD",
-          "type": "erd",
-          "marks": 5,
-          "difficulty": "exam",
-          "command_word": "draw",
-          "grading": "AI",
-          "objectives": [
-            "11.2.2.2"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "Draw the entity-relationship diagram for the sports club database.",
-          "content": {
-            "starter": {
-              "nodes": [],
-              "edges": []
-            }
-          },
-          "scheme": {
-            "mark_scheme": "Entities Member, Coach, Session (1)\nBooking link entity (1)\nCoach 1 — M Session (1)\nMember 1 — M Booking (1)\nSession 1 — M Booking (1)\nAccept answers with attributes / different relationship symbols.",
-            "points": [
-              {
-                "criterion": "Main entities",
-                "marks": 1
-              },
-              {
-                "criterion": "Booking entity",
-                "marks": 1
-              },
-              {
-                "criterion": "Coach–Session",
-                "marks": 1
-              },
-              {
-                "criterion": "Member–Booking",
-                "marks": 1
-              },
-              {
-                "criterion": "Session–Booking",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Coach 1 —— M Session 1 —— M Booking M —— 1 Member"
+            "model_answer": "Primary key: BookingID. Foreign keys: MemberNo (→ Member) and ClassCode (→ Class)."
           }
         }
       ]
     },
     {
-      "key": "dbd-exam-2",
-      "title": "A sports club — data dictionary",
+      "key": "dbd-tx-2",
+      "title": "The data dictionary for Member",
       "type": "structured",
       "marks": 10,
       "difficulty": "exam",
@@ -915,122 +1754,17 @@
       "objectives": [],
       "source": "nis_style",
       "practice": false,
-      "text": "The designer writes the data dictionary for the tables:\n\n```text\nMember  ( MemberNo, Name, Phone, JoinDate )\nBooking ( BookingID, MemberNo, SessionID, Paid )\n```\n\n`MemberNo` looks like `M0251`.",
+      "text": "The analyst at Sapa now writes the **data dictionary**. Example data for one member: member number `M0457`, name `Aliya Sarsenova`, phone `+77071234567`, date of joining `03/09/2026`.",
       "scheme": {
         "mark_scheme": ""
       },
       "parts": [
         {
-          "key": "dbd-exam-2a",
+          "key": "dbd-tx-2a",
           "part_label": "(a)",
-          "title": "Data types",
+          "title": "Data types and sizes",
           "type": "table_completion",
-          "marks": 5,
-          "difficulty": "exam",
-          "command_word": "complete",
-          "grading": "HYBRID",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "Complete the data type for each field. Use **INT**, **VARCHAR**, **DATE**, **BOOLEAN**.",
-          "content": {
-            "columns": [
-              "Table",
-              "Field name",
-              "Data type"
-            ],
-            "rows": 5,
-            "prefill": [
-              [
-                "Member",
-                "MemberNo",
-                null
-              ],
-              [
-                "Member",
-                "Phone",
-                null
-              ],
-              [
-                "Member",
-                "JoinDate",
-                null
-              ],
-              [
-                "Booking",
-                "BookingID",
-                null
-              ],
-              [
-                "Booking",
-                "Paid",
-                null
-              ]
-            ]
-          },
-          "scheme": {
-            "mark_scheme": "MemberNo VARCHAR (1); Phone VARCHAR (1); JoinDate DATE (1); BookingID INT (1); Paid BOOLEAN (1)",
-            "points": [
-              {
-                "criterion": "MemberNo",
-                "marks": 1
-              },
-              {
-                "criterion": "Phone",
-                "marks": 1
-              },
-              {
-                "criterion": "JoinDate",
-                "marks": 1
-              },
-              {
-                "criterion": "BookingID",
-                "marks": 1
-              },
-              {
-                "criterion": "Paid",
-                "marks": 1
-              }
-            ],
-            "accepted": {
-              "rows": [
-                [
-                  null,
-                  null,
-                  "varchar||text||string||char"
-                ],
-                [
-                  null,
-                  null,
-                  "varchar||text||string||char"
-                ],
-                [
-                  null,
-                  null,
-                  "date||datetime"
-                ],
-                [
-                  null,
-                  null,
-                  "int||integer"
-                ],
-                [
-                  null,
-                  null,
-                  "boolean||bool||yes/no"
-                ]
-              ]
-            }
-          }
-        },
-        {
-          "key": "dbd-exam-2b",
-          "part_label": "(b)",
-          "title": "Validation",
-          "type": "table_completion",
-          "marks": 3,
+          "marks": 4,
           "difficulty": "exam",
           "command_word": "complete",
           "grading": "AI",
@@ -1039,7 +1773,80 @@
           ],
           "source": "nis_style",
           "practice": false,
-          "text": "Suggest a suitable validation rule for each field.",
+          "text": "Complete the data dictionary for the table **Member** by giving the most suitable **data type** and **size** of each field.",
+          "content": {
+            "columns": [
+              "Field name",
+              "Example",
+              "Data type",
+              "Size"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "MemberNo",
+                "M0457",
+                null,
+                null
+              ],
+              [
+                "Name",
+                "Aliya Sarsenova",
+                null,
+                null
+              ],
+              [
+                "Phone",
+                "+77071234567",
+                null,
+                null
+              ],
+              [
+                "DateJoined",
+                "03/09/2026",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "MemberNo: VARCHAR / text (5) (1)\nName: VARCHAR / text with a sensible size 30–60 (1)\nPhone: VARCHAR / text, size 12 (1)\nDateJoined: DATE (no size / 10) (1)\nThe type and the size must both be correct for the mark.",
+            "points": [
+              {
+                "criterion": "MemberNo",
+                "marks": 1
+              },
+              {
+                "criterion": "Name",
+                "marks": 1
+              },
+              {
+                "criterion": "Phone",
+                "marks": 1
+              },
+              {
+                "criterion": "DateJoined",
+                "marks": 1
+              }
+            ],
+            "model_answer": "MemberNo VARCHAR(5); Name VARCHAR(50); Phone VARCHAR(12); DateJoined DATE."
+          }
+        },
+        {
+          "key": "dbd-tx-2b",
+          "part_label": "(b)",
+          "title": "Validation rules",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "suggest",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Suggest a suitable **validation rule** for each field. Give the rule, not only the name of the check.",
           "content": {
             "columns": [
               "Field name",
@@ -1052,83 +1859,101 @@
                 null
               ],
               [
-                "Name",
+                "Phone",
                 null
               ],
               [
-                "JoinDate",
+                "DateJoined",
                 null
               ]
             ]
           },
           "scheme": {
-            "mark_scheme": "MemberNo (1): format M + 4 digits / unique / presence\nName (1): presence / length\nJoinDate (1): presence / not in the future / range",
+            "mark_scheme": "MemberNo (1): format M followed by 4 digits / presence and unique\nPhone (1): length 12 / format +7 followed by 10 digits\nDateJoined (1): range, e.g. not after today / not before the centre opened; or format DD/MM/YYYY\nOnly the name of a check with no rule = 0.",
             "points": [
               {
                 "criterion": "MemberNo",
                 "marks": 1
               },
               {
-                "criterion": "Name",
+                "criterion": "Phone",
                 "marks": 1
               },
               {
-                "criterion": "JoinDate",
+                "criterion": "DateJoined",
                 "marks": 1
               }
             ],
-            "model_answer": "MemberNo: format check — M followed by 4 digits. Name: presence check. JoinDate: not later than today."
+            "model_answer": "MemberNo: format M + 4 digits, unique. Phone: length 12, starts with +7. DateJoined: not later than today's date."
           }
         },
         {
-          "key": "dbd-exam-2c",
+          "key": "dbd-tx-2c",
           "part_label": "(c)",
-          "title": "Elements",
-          "type": "labelled_answers",
-          "marks": 2,
+          "title": "Phone as text",
+          "type": "short_answer",
+          "marks": 1,
           "difficulty": "exam",
-          "command_word": "name",
+          "command_word": "explain",
           "grading": "AI",
           "objectives": [
             "11.4.1.6"
           ],
           "source": "nis_style",
           "practice": false,
-          "text": "Name **two** other elements, apart from the data type and validation, that the data dictionary should describe.",
+          "text": "Explain why **Phone** should not be stored as an integer.",
           "content": {
-            "fields": [
-              {
-                "key": "1",
-                "label": "1",
-                "lines": 1
-              },
-              {
-                "key": "2",
-                "label": "2",
-                "lines": 1
-              }
-            ]
+            "answer_lines": 2
           },
           "scheme": {
-            "mark_scheme": "Any two (1 each): field name; size; key field; description; format; example",
+            "mark_scheme": "- it starts with + (or 0) / contains symbols, which an integer cannot hold / would lose; no arithmetic is done with it (1)",
             "points": [
               {
-                "criterion": "First",
-                "marks": 1
-              },
-              {
-                "criterion": "Second",
+                "criterion": "Reason",
                 "marks": 1
               }
             ],
-            "model_answer": "1 Field size. 2 Key field."
+            "model_answer": "It begins with + and may begin with 0, which an integer cannot store, and nobody calculates with phone numbers."
+          }
+        },
+        {
+          "key": "dbd-tx-2d",
+          "part_label": "(d)",
+          "title": "Why a data dictionary",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** reason why the data dictionary is written **before** the tables are created.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- reason, e.g. programmers build every table with the same agreed names / types / sizes (1)\n- consequence, e.g. so keys match and tables can be joined / fewer errors to fix after data is entered / validation is applied consistently (1)",
+            "points": [
+              {
+                "criterion": "Reason",
+                "marks": 1
+              },
+              {
+                "criterion": "Expansion / consequence",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It gives programmers one agreed definition of every field, so the keys in different tables have the same type and size and the tables can be joined without rebuilding them later."
           }
         }
       ]
     },
     {
-      "key": "dbd-exam-3",
-      "title": "Implementing the design",
+      "key": "dbd-tx-3",
+      "title": "Implementing the Booking table",
       "type": "structured",
       "marks": 10,
       "difficulty": "exam",
@@ -1137,127 +1962,19 @@
       "objectives": [],
       "source": "nis_style",
       "practice": false,
-      "text": "The sports club design is now implemented in a DBMS.",
+      "text": "The design of **Booking** in the data dictionary:\n\n| Field | Type | Key | Validation |\n|---|---|---|---|\n| BookingID | INT, auto-increment | PK | unique |\n| MemberNo | VARCHAR(5) | FK → Member | must exist in Member; presence |\n| ClassCode | VARCHAR(6) | FK → Class | must exist in Class; presence |\n| BookedOn | DATE | | presence |\n| Attended | BOOLEAN | | default False |",
       "scheme": {
         "mark_scheme": ""
       },
       "parts": [
         {
-          "key": "dbd-exam-3a",
+          "key": "dbd-tx-3a",
           "part_label": "(a)",
-          "title": "Matching keys",
+          "title": "Referential integrity",
           "type": "short_answer",
           "marks": 2,
           "difficulty": "exam",
           "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "Explain why `MemberNo` must have the same data type and size in `Member` and `Booking`.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "- MemberNo in Booking is a foreign key referring to the primary key in Member (1)\n- values must match to link / join the tables / referential integrity (1)",
-            "points": [
-              {
-                "criterion": "FK refers to PK",
-                "marks": 1
-              },
-              {
-                "criterion": "Values must match",
-                "marks": 1
-              }
-            ],
-            "model_answer": "In Booking, MemberNo is a foreign key that refers to the primary key of Member, so the values must be stored identically for the tables to be linked."
-          }
-        },
-        {
-          "key": "dbd-exam-3b",
-          "part_label": "(b)",
-          "title": "CREATE TABLE",
-          "type": "sql",
-          "marks": 4,
-          "difficulty": "exam",
-          "command_word": "write",
-          "grading": "AI",
-          "objectives": [
-            "11.4.1.6"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "Write an SQL statement to create the table `Booking ( BookingID, MemberNo, SessionID, Paid )` with its primary key and foreign keys.",
-          "content": {
-            "language": "sql",
-            "starter_code": ""
-          },
-          "scheme": {
-            "mark_scheme": "CREATE TABLE Booking ( … ) (1)\nfields with suitable types (1)\nPRIMARY KEY (BookingID) (1)\nFOREIGN KEY (MemberNo) REFERENCES Member, FOREIGN KEY (SessionID) REFERENCES Session (1)",
-            "points": [
-              {
-                "criterion": "CREATE TABLE",
-                "marks": 1
-              },
-              {
-                "criterion": "Types",
-                "marks": 1
-              },
-              {
-                "criterion": "PK",
-                "marks": 1
-              },
-              {
-                "criterion": "FKs",
-                "marks": 1
-              }
-            ],
-            "model_answer": "CREATE TABLE Booking (\n  BookingID INT AUTO_INCREMENT PRIMARY KEY,\n  MemberNo VARCHAR(5),\n  SessionID INT,\n  Paid BOOLEAN DEFAULT FALSE,\n  FOREIGN KEY (MemberNo) REFERENCES Member(MemberNo),\n  FOREIGN KEY (SessionID) REFERENCES Session(SessionID)\n);"
-          }
-        },
-        {
-          "key": "dbd-exam-3c",
-          "part_label": "(c)",
-          "title": "Why Booking",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "11.2.2.2"
-          ],
-          "source": "nis_style",
-          "practice": false,
-          "text": "Explain why the design needs the `Booking` table.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "- Member — Session is many-to-many, which cannot be implemented directly (1)\n- Booking is a link table giving two 1:M relationships and storing booking details (Paid) (1)",
-            "points": [
-              {
-                "criterion": "M:M",
-                "marks": 1
-              },
-              {
-                "criterion": "Link table",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Members and sessions have a many-to-many relationship, which cannot be stored directly, so Booking links them and also records whether each booking is paid."
-          }
-        },
-        {
-          "key": "dbd-exam-3d",
-          "part_label": "(d)",
-          "title": "Checks",
-          "type": "labelled_answers",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "state",
           "grading": "AI",
           "objectives": [
             "11.2.2.2",
@@ -1265,40 +1982,271 @@
           ],
           "source": "nis_style",
           "practice": false,
-          "text": "State **two** checks that should be made to confirm the design is correct.",
+          "text": "Explain the meaning of **referential integrity** using the field **MemberNo** in Booking as an example.",
           "content": {
-            "fields": [
-              {
-                "key": "1",
-                "label": "1",
-                "lines": 1
-              },
-              {
-                "key": "2",
-                "label": "2",
-                "lines": 1
-              }
-            ]
+            "answer_lines": 3
           },
           "scheme": {
-            "mark_scheme": "Any two (1 each): requirements can be met; normalised; primary keys; foreign keys / relationships; suitable types / validation; sample data test",
+            "mark_scheme": "- every foreign-key value must match an existing primary-key value in the linked table (1)\n- e.g. a booking cannot have MemberNo M9999 unless member M9999 exists in Member / a member with bookings cannot simply be deleted (1)",
             "points": [
               {
-                "criterion": "First",
+                "criterion": "Meaning",
                 "marks": 1
               },
               {
-                "criterion": "Second",
+                "criterion": "Applied to MemberNo",
                 "marks": 1
               }
             ],
-            "model_answer": "1 Every report the club needs can be produced. 2 Sample bookings can be entered and joined to members and sessions."
+            "model_answer": "Every foreign key must refer to a record that exists: a Booking can only contain a MemberNo that is already in the Member table."
+          }
+        },
+        {
+          "key": "dbd-tx-3b",
+          "part_label": "(b)",
+          "title": "Write CREATE TABLE",
+          "type": "sql",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the SQL statement to create the table **Booking** exactly as designed, including its primary key, both foreign keys, the presence checks and the default value.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- CREATE TABLE Booking ( … ); with all five fields (1)\n- suitable types matching the design, MemberNo VARCHAR(5), ClassCode VARCHAR(6), DATE, BOOLEAN (1)\n- BookingID … PRIMARY KEY (1)\n- FOREIGN KEY (MemberNo) REFERENCES Member(MemberNo) and FOREIGN KEY (ClassCode) REFERENCES Class(ClassCode) (1)\n- NOT NULL on MemberNo, ClassCode and BookedOn, and DEFAULT FALSE on Attended (1)\nIgnore minor syntax slips (capitals, commas) if the meaning is clear.",
+            "points": [
+              {
+                "criterion": "CREATE TABLE with all fields",
+                "marks": 1
+              },
+              {
+                "criterion": "Types match the design",
+                "marks": 1
+              },
+              {
+                "criterion": "Primary key",
+                "marks": 1
+              },
+              {
+                "criterion": "Both foreign keys with REFERENCES",
+                "marks": 1
+              },
+              {
+                "criterion": "NOT NULL and DEFAULT",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Booking (\n  BookingID INT AUTO_INCREMENT PRIMARY KEY,\n  MemberNo  VARCHAR(5) NOT NULL,\n  ClassCode VARCHAR(6) NOT NULL,\n  BookedOn  DATE NOT NULL,\n  Attended  BOOLEAN DEFAULT FALSE,\n  FOREIGN KEY (MemberNo)  REFERENCES Member(MemberNo),\n  FOREIGN KEY (ClassCode) REFERENCES Class(ClassCode)\n);"
+          }
+        },
+        {
+          "key": "dbd-tx-3c",
+          "part_label": "(c)",
+          "title": "Order of creation",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The tables Member, Coach, Class and Booking are created one by one. Explain why **Booking** must be created after Member and Class.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Booking contains foreign keys that reference Member and Class (1)\n- a foreign key can only reference a table (primary key) that already exists, otherwise the statement fails (1)",
+            "points": [
+              {
+                "criterion": "Booking has FKs to Member and Class",
+                "marks": 1
+              },
+              {
+                "criterion": "Referenced table must already exist",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Booking's foreign keys refer to Member and Class; a foreign key can only point to a table that already exists, so those tables are created first."
+          }
+        },
+        {
+          "key": "dbd-tx-3d",
+          "part_label": "(d)",
+          "title": "Attended",
+          "type": "short_answer",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State why **BOOLEAN** is a suitable data type for **Attended**.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "- it has only two possible values, true / false (yes / no) (1)",
+            "points": [
+              {
+                "criterion": "Two values",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Attendance is only yes or no, so a True/False field is enough."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dbd-tx-4",
+      "title": "Reviewing a clinic design",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A student designed a database for the **Densaulyq** clinic. *Each patient can have many appointments; each appointment is with one doctor; doctors have many appointments.* Part of the student's data dictionary for **Appointment**:\n\n| Field | Type | Key | Validation |\n|---|---|---|---|\n| AppointmentID | INT | PK | unique |\n| PatientID | INT | FK → Patient | must exist in Patient |\n| DoctorName | VARCHAR(40) | | presence |\n| AppDate | VARCHAR(10) | | presence |\n| AppTime | TIME | | range check on the patient's surname |\n\nIn the Patient table, `PatientID` is VARCHAR(6), e.g. `P00321`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-tx-4a",
+          "part_label": "(a)",
+          "title": "Errors in the design",
+          "type": "table_completion",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **three** errors in this extract of the data dictionary. For each error, describe how it should be corrected.",
+          "content": {
+            "columns": [
+              "",
+              "Error",
+              "Correction"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "1",
+                null,
+                null
+              ],
+              [
+                "2",
+                null,
+                null
+              ],
+              [
+                "3",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any three errors, 1 mark for the error and 1 mark for its correction:\n- PatientID is INT but the PK in Patient is VARCHAR(6) (1) → make it VARCHAR(6), the same as the PK (1)\n- DoctorName stores the doctor's name in Appointment / no FK to Doctor (1) → replace it with DoctorID as a foreign key to a Doctor table (1)\n- AppDate is VARCHAR (1) → use DATE so dates can be validated / sorted (1)\n- AppTime validation refers to a surname / is unsuitable (1) → range check on the time, e.g. 08:00–18:00 (1)\nThe correction mark is only given with its error.",
+            "points": [
+              {
+                "criterion": "Error 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Error 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Error 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction 3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 PatientID INT does not match VARCHAR(6) → VARCHAR(6). 2 DoctorName → DoctorID VARCHAR FK → Doctor. 3 AppDate VARCHAR → DATE (or AppTime validation → range 08:00–18:00)."
+          }
+        },
+        {
+          "key": "dbd-tx-4b",
+          "part_label": "(b)",
+          "title": "Checking a design",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** checks the analyst should carry out on a database design **before** it is implemented.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Two checks, 1 mark for naming the check and 1 for the description:\n- requirements: every report / screen the client needs can be produced from the tables (2)\n- normalisation: each fact stored once / tables in 3NF / no repeated data (2)\n- keys: every table has a PK and every relationship has an FK on the many side (2)\n- data types and validation: each type fits the data and each field has suitable validation (2)\n- test data: sample records can be entered and joined correctly (2)",
+            "points": [
+              {
+                "criterion": "Check 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Description 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Check 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Description 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Check the design against the requirements: every report the clinic asked for, such as a doctor's daily list, can be produced from the tables. Check normalisation: each fact, such as a doctor's name, is stored only once, so the tables are in 3NF."
           }
         }
       ]
     }
   ],
-  "summary": "Designing the database for a new system — from the requirements to entities and relationships, drawing the ERD, resolving many-to-many relationships, and producing a complete data dictionary with data types, keys and validation for every table.",
+  "summary": "Designing the database for a new system — finding entities and attributes in the requirements, deciding the degree of each relationship, drawing the ERD and resolving many-to-many relationships, then writing a complete data dictionary (data types, sizes, keys, validation) for every table and turning the design into CREATE TABLE statements.",
   "theory": [
     {
       "title": "Database design in the system life cycle",
@@ -1309,26 +2257,87 @@
       "blocks": [
         {
           "type": "paragraph",
-          "content": "During the **design** stage of a new system, the analyst turns the **requirements specification** into a precise plan for the database. The two main design documents are:"
+          "content": "During the **design** stage of a new system the analyst turns the **requirements specification** into an exact plan of the database. Nothing is built yet: the plan is checked with the client first, because a mistake found on paper costs minutes, but a mistake found after the tables are full of data costs days."
+        },
+        {
+          "type": "definition",
+          "term": "Database design",
+          "content": "The stage of system design in which the analyst decides **which tables (entities)** the database will have, **which fields (attributes)** each table holds, **how the tables are related**, and the **data type, size, key and validation** of every field. Its products are the **ERD** and the **data dictionary**."
+        },
+        {
+          "type": "definition",
+          "term": "Entity",
+          "content": "A **thing (person, object, event) about which data is stored**, with many instances — e.g. *Student*, *Teacher*, *Lesson*. Each entity becomes **one table**."
+        },
+        {
+          "type": "definition",
+          "term": "Attribute",
+          "content": "A **single property of an entity** — e.g. *Surname*, *DateOfBirth*. Each attribute becomes **one field (column)** of the table."
+        },
+        {
+          "type": "definition",
+          "term": "Relationship",
+          "content": "A **link between two entities**, e.g. *a teacher teaches many lessons*. Its **degree** is one-to-one (1:1), one-to-many (1:M) or many-to-many (M:M). In the database it is made with a **foreign key**."
+        },
+        {
+          "type": "definition",
+          "term": "Primary key and foreign key",
+          "content": "A **primary key (PK)** is a field that **uniquely identifies each record** of a table (e.g. `StudentID`). A **foreign key (FK)** is a field in one table that is the **primary key of another table**, used to **link** the two tables."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd1\" viewBox=\"0 0 760 250\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Six steps: requirements, entities and attributes, relationships, ERD, data dictionary, CREATE TABLE in the DBMS\">\n  <style>\n    svg.dbd1 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dbd1 .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.dbd1 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.dbd1 .n{font:700 13px system-ui,sans-serif;fill:var(--primary)}\n    svg.dbd1 .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd1 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.dbd1 .ah{fill:var(--muted)}\n  </style>\n  <rect class=\"bx\" x=\"10\" y=\"20\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"24\" y=\"42\">1</text><text class=\"t\" x=\"40\" y=\"42\">Requirements</text>\n  <text class=\"s\" x=\"24\" y=\"64\">what the client needs to</text><text class=\"s\" x=\"24\" y=\"82\">store and report</text>\n  <path class=\"ah\" d=\"M246,54 l12,6 l-12,6 z\"/>\n  <rect class=\"on\" x=\"265\" y=\"20\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"279\" y=\"42\">2</text><text class=\"t\" x=\"295\" y=\"42\">Entities + attributes</text>\n  <text class=\"s\" x=\"279\" y=\"64\">nouns with their own data</text><text class=\"s\" x=\"279\" y=\"82\">→ tables and fields</text>\n  <path class=\"ah\" d=\"M501,54 l12,6 l-12,6 z\"/>\n  <rect class=\"on\" x=\"520\" y=\"20\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"534\" y=\"42\">3</text><text class=\"t\" x=\"550\" y=\"42\">Relationships</text>\n  <text class=\"s\" x=\"534\" y=\"64\">ask in both directions:</text><text class=\"s\" x=\"534\" y=\"82\">1:1, 1:M or M:M?</text>\n  <path d=\"M635,104 V124 H125 V140\" style=\"fill:none;stroke:var(--muted);stroke-width:1.8\"/><path class=\"ah\" d=\"M119,138 l6,12 l6,-12 z\"/>\n  <rect class=\"on\" x=\"10\" y=\"152\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"24\" y=\"174\">4</text><text class=\"t\" x=\"40\" y=\"174\">ERD</text>\n  <text class=\"s\" x=\"24\" y=\"196\">draw it; replace each M:M</text><text class=\"s\" x=\"24\" y=\"214\">with a link entity</text>\n  <path class=\"ah\" d=\"M246,186 l12,6 l-12,6 z\"/>\n  <rect class=\"on\" x=\"265\" y=\"152\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"279\" y=\"174\">5</text><text class=\"t\" x=\"295\" y=\"174\">Data dictionary</text>\n  <text class=\"s\" x=\"279\" y=\"196\">type, size, key, validation</text><text class=\"s\" x=\"279\" y=\"214\">of every field</text>\n  <path class=\"ah\" d=\"M501,186 l12,6 l-12,6 z\"/>\n  <rect class=\"ok\" x=\"520\" y=\"152\" width=\"230\" height=\"80\" rx=\"10\"/>\n  <text class=\"n\" x=\"534\" y=\"174\" style=\"fill:var(--success)\">6</text><text class=\"t\" x=\"550\" y=\"174\">CREATE TABLE</text>\n  <text class=\"s\" x=\"534\" y=\"196\">the design is built in the</text><text class=\"s\" x=\"534\" y=\"214\">DBMS (development stage)</text>\n</svg>",
+          "caption": "The steps of database design"
+        },
+        {
+          "type": "comparison",
+          "title": "The two design documents",
+          "columns": [
+            "",
+            "Entity-relationship diagram (ERD)",
+            "Data dictionary"
+          ],
+          "rows": [
+            [
+              "What it is",
+              "A **diagram**",
+              "A **table / document**"
+            ],
+            [
+              "Shows",
+              "**Which tables** exist and **how they are related** (1:1, 1:M)",
+              "**Every field** of every table: name, type, size, key, validation, description, example"
+            ],
+            [
+              "Level of detail",
+              "Overview — the \"map\" of the database",
+              "Detail — the \"specification\" for programmers"
+            ],
+            [
+              "Made",
+              "First",
+              "Second, from the entities of the ERD"
+            ],
+            [
+              "Used by",
+              "Analyst and client to agree the structure",
+              "Programmers to build the tables; testers to choose test data"
+            ]
+          ]
         },
         {
           "type": "cards",
           "items": [
             {
-              "title": "Entity-relationship diagram (ERD)",
-              "content": "Shows **which tables (entities)** the database has and **how they are related** (1:1, 1:M, M:M). It is the \"map\" of the database."
+              "title": "Why design the database first",
+              "content": "- Errors are found **on paper**, before data is entered.\n- The client can **check** that every report they need can be produced.\n- Several programmers build tables that **fit together** (same keys and types).\n- The design becomes part of the **technical documentation** for maintenance."
             },
             {
-              "title": "Data dictionary",
-              "content": "Describes **every field of every table**: name, data type, size, key, validation, description and example. It is the \"specification\" that programmers use to build the tables."
+              "title": "What a good design achieves",
+              "content": "- Each fact is stored **once** — no data redundancy (tables in 3NF).\n- Every table has a **primary key**; every relationship has a **foreign key**.\n- Every field has a **suitable data type** and **validation**, so data integrity is high.\n- The database can be **extended** later without rebuilding it."
             }
           ]
-        },
-        {
-          "type": "diagram",
-          "format": "mermaid",
-          "content": "flowchart TB\n  R[Requirements specification] --> E[Identify entities and attributes]\n  E --> RL[Identify relationships and their degree]\n  RL --> ERD[Draw the ERD and resolve M:M relationships]\n  ERD --> N[Check the tables are normalised to 3NF]\n  N --> DD[Write the data dictionary]\n  DD --> SQL[Create the tables in the DBMS]",
-          "caption": "From requirements to a working database"
         }
       ]
     },
@@ -1339,13 +2348,64 @@
       ],
       "blocks": [
         {
-          "type": "example",
-          "title": "Case study — a music school",
-          "content": "*A music school wants a system to manage lessons. Each **student** has an ID, name, date of birth and parent's phone number. Each **teacher** has an ID, name and the instrument they teach. Every week a student has **lessons** with one or more teachers; for each lesson the school records the date, time, room and whether the student attended. Each **room** has a number and a capacity.*\n\n| Entity | Attributes |\n|---|---|\n| Student | StudentID, FirstName, Surname, DateOfBirth, ParentPhone |\n| Teacher | TeacherID, Name, Instrument |\n| Room | RoomNo, Capacity |\n| Lesson | LessonID, LessonDate, StartTime, Attended (+ links to student, teacher, room) |"
+          "type": "paragraph",
+          "content": "The analyst reads the requirements and **underlines the nouns**. A noun that has **its own data** and **many instances** is an **entity**; a noun that is just **one value** about something is an **attribute**."
         },
         {
-          "type": "exam_tip",
-          "content": "**Nouns** in the requirements that have their **own data** (several attributes) and **many instances** are entities. Single values such as \"date\" or \"instrument\" are **attributes**."
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd2\" viewBox=\"0 0 760 270\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"A requirements text with entities student, teacher, lesson and room highlighted, and their attributes listed below\">\n  <style>\n    svg.dbd2 .p{font:14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd2 .e{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.2}\n    svg.dbd2 .a{fill:var(--success-soft);stroke:var(--success);stroke-width:1.2}\n    svg.dbd2 .hd{font:700 14px system-ui,sans-serif;fill:var(--primary)}\n    svg.dbd2 .at{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dbd2 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dbd2 .te{font-weight:700;fill:var(--primary)} svg.dbd2 .ta{font-weight:700;fill:var(--success)}\n  </style>\n  <rect class=\"bx\" x=\"10\" y=\"10\" width=\"740\" height=\"104\" rx=\"10\"/>\n  <text class=\"p\" x=\"26\" y=\"40\"><tspan class=\"te\">Student</tspan> has an ID, a name, a <tspan class=\"ta\">date of birth</tspan> and a parent's <tspan class=\"ta\">phone number</tspan>.</text>\n  <text class=\"p\" x=\"26\" y=\"68\"><tspan class=\"te\">Teacher</tspan> has an ID, a name and the <tspan class=\"ta\">instrument</tspan> they teach. Every week</text>\n  <text class=\"p\" x=\"26\" y=\"96\"><tspan class=\"te\">lessons</tspan> are recorded with a <tspan class=\"ta\">date</tspan>, <tspan class=\"ta\">time</tspan>, <tspan class=\"te\">room</tspan> and whether the student <tspan class=\"ta\">attended</tspan>.</text>\n  <rect class=\"e\" x=\"10\" y=\"132\" width=\"176\" height=\"128\" rx=\"10\"/>\n  <text class=\"hd\" x=\"24\" y=\"154\">Student</text>\n  <text class=\"at\" x=\"24\" y=\"176\">StudentID</text><text class=\"at\" x=\"24\" y=\"194\">FirstName, Surname</text><text class=\"at\" x=\"24\" y=\"212\">DateOfBirth</text><text class=\"at\" x=\"24\" y=\"230\">ParentPhone</text>\n  <rect class=\"e\" x=\"198\" y=\"132\" width=\"176\" height=\"128\" rx=\"10\"/>\n  <text class=\"hd\" x=\"212\" y=\"154\">Teacher</text>\n  <text class=\"at\" x=\"212\" y=\"176\">TeacherID</text><text class=\"at\" x=\"212\" y=\"194\">Name</text><text class=\"at\" x=\"212\" y=\"212\">Instrument</text>\n  <rect class=\"e\" x=\"386\" y=\"132\" width=\"176\" height=\"128\" rx=\"10\"/>\n  <text class=\"hd\" x=\"400\" y=\"154\">Lesson</text>\n  <text class=\"at\" x=\"400\" y=\"176\">LessonID</text><text class=\"at\" x=\"400\" y=\"194\">LessonDate</text><text class=\"at\" x=\"400\" y=\"212\">StartTime</text><text class=\"at\" x=\"400\" y=\"230\">Attended</text>\n  <rect class=\"e\" x=\"574\" y=\"132\" width=\"176\" height=\"128\" rx=\"10\"/>\n  <text class=\"hd\" x=\"588\" y=\"154\">Room</text>\n  <text class=\"at\" x=\"588\" y=\"176\">RoomNo</text><text class=\"at\" x=\"588\" y=\"194\">Capacity</text>\n</svg>",
+          "caption": "Reading the requirements: entities (blue) and attributes (green)"
+        },
+        {
+          "type": "example",
+          "title": "Worked example — the Aqkuy music school",
+          "content": "*The Aqkuy music school in Almaty wants a system to manage lessons. Each **student** has an ID, first name, surname, date of birth and a parent's phone number. Each **teacher** has an ID, a name and the instrument they teach. Every week a student has individual **lessons**, possibly with several different teachers; for each lesson the school records the date, the start time, the room and whether the student attended. Each **room** has a number and a capacity.*\n\n1. **Underline the nouns:** student, ID, name, date of birth, phone, teacher, instrument, lesson, date, time, room, number, capacity.\n2. **Keep the nouns with their own data and many instances:** Student, Teacher, Lesson, Room → **entities**.\n3. **The other nouns describe an entity:** name, date of birth, instrument, capacity… → **attributes**.\n4. **Give each entity a primary key:** StudentID, TeacherID, LessonID, RoomNo.\n\n| Entity | Attributes (PK underlined in the ERD) |\n|---|---|\n| Student | **StudentID**, FirstName, Surname, DateOfBirth, ParentPhone |\n| Teacher | **TeacherID**, Name, Instrument |\n| Room | **RoomNo**, Capacity |\n| Lesson | **LessonID**, LessonDate, StartTime, Attended (+ foreign keys added in step 2) |"
+        },
+        {
+          "type": "comparison",
+          "title": "Entity or attribute?",
+          "columns": [
+            "Test",
+            "Entity",
+            "Attribute"
+          ],
+          "rows": [
+            [
+              "Does it have its **own data**?",
+              "Yes — a Teacher has an ID, a name, an instrument",
+              "No — an instrument is just one value"
+            ],
+            [
+              "Are there **many instances**?",
+              "Yes — many teachers",
+              "—"
+            ],
+            [
+              "What does it become?",
+              "A **table**",
+              "A **field** in a table"
+            ],
+            [
+              "Example (car rental)",
+              "Customer, Car, Rental",
+              "Model, DailyPrice, StartDate"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How to choose a primary key",
+          "items": [
+            "Use a field that is **unique** for every record and **never empty** — e.g. a student number.",
+            "If no natural field is unique (names repeat!), **create an ID** field, often auto-incremented.",
+            "The key should **not change** over time — not a phone number or a surname.",
+            "Keep it **short** and simple, because it is copied into other tables as a foreign key."
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "- Making a **single value** an entity — \"Date\" or \"Instrument\" are attributes, not tables.\n- Choosing **Name** as a primary key — two students can have the same name.\n- Forgetting the **event** entities: *Lesson*, *Loan*, *Rental*, *Order* are entities too, not only people and objects.\n- Putting the same attribute (e.g. the teacher's name) into **several** entities — store it once."
         }
       ]
     },
@@ -1356,51 +2416,130 @@
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "For every pair of entities that are related, ask the question **in both directions**: \"Can one A have many B?\" and \"Can one B have many A?\". The two answers give the **degree** of the relationship."
+        },
+        {
+          "type": "comparison",
+          "title": "The three degrees of relationship",
+          "columns": [
+            "Degree",
+            "Meaning",
+            "Example",
+            "How it is implemented"
+          ],
+          "rows": [
+            [
+              "**1:1** one-to-one",
+              "One A is linked to **one** B, and one B to **one** A",
+              "Teacher — Classroom they are in charge of",
+              "FK in **either** table"
+            ],
+            [
+              "**1:M** one-to-many",
+              "One A is linked to **many** B, but one B to **one** A",
+              "Teacher — Lesson",
+              "FK in the table on the **\"many\" side** (Lesson.TeacherID)"
+            ],
+            [
+              "**M:M** many-to-many",
+              "One A to **many** B **and** one B to **many** A",
+              "Student — Teacher",
+              "**Cannot be stored directly** → add a **link entity** with two FKs"
+            ]
+          ]
+        },
+        {
           "type": "comparison",
           "title": "Relationships in the music school",
           "columns": [
-            "Relationship",
+            "Pair",
             "Question in both directions",
             "Degree"
           ],
           "rows": [
             [
               "Student — Lesson",
-              "A student has many lessons? Yes. A lesson is for many students? No (individual lessons)",
+              "One student has many lessons? **Yes**. One lesson is for many students? **No** (individual)",
               "**1:M**"
             ],
             [
               "Teacher — Lesson",
-              "A teacher gives many lessons? Yes. A lesson has many teachers? No",
+              "One teacher gives many lessons? **Yes**. One lesson has many teachers? **No**",
               "**1:M**"
             ],
             [
               "Room — Lesson",
-              "A room is used for many lessons? Yes. A lesson uses many rooms? No",
+              "One room is used for many lessons? **Yes**. One lesson uses many rooms? **No**",
               "**1:M**"
             ],
             [
               "Student — Teacher",
-              "A student has many teachers? Yes. A teacher has many students? Yes",
+              "One student has many teachers? **Yes**. One teacher has many students? **Yes**",
               "**M:M** — resolved by **Lesson**"
             ]
           ]
         },
         {
           "type": "diagram",
-          "format": "mermaid",
-          "content": "erDiagram\n  STUDENT ||--o{ LESSON : attends\n  TEACHER ||--o{ LESSON : teaches\n  ROOM ||--o{ LESSON : \"is used for\"",
-          "caption": "ERD of the music school database"
+          "format": "svg",
+          "content": "<svg class=\"dbd3\" viewBox=\"0 0 760 370\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"ERD: Student one-to-many Lesson, Teacher one-to-many Lesson, Room one-to-many Lesson; Lesson holds three foreign keys\">\n  <style>\n    svg.dbd3 .en{fill:var(--surface-2);stroke:var(--primary);stroke-width:2}\n    svg.dbd3 .eh{fill:var(--primary-soft)}\n    svg.dbd3 .h{font:700 14px system-ui,sans-serif;fill:var(--primary)}\n    svg.dbd3 .f{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dbd3 .k{font:700 12px system-ui,sans-serif;fill:var(--warning)}\n    svg.dbd3 .ln{stroke:var(--foreground);stroke-width:2;fill:none}\n    svg.dbd3 .lb{font:italic 13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dbd3 .dg{font:700 13px system-ui,sans-serif;fill:var(--foreground)}\n  </style>\n  <rect class=\"en\" x=\"20\" y=\"20\" width=\"200\" height=\"134\" rx=\"8\"/><rect class=\"eh\" x=\"21\" y=\"21\" width=\"198\" height=\"28\" rx=\"7\"/>\n  <text class=\"h\" x=\"32\" y=\"41\">Student</text>\n  <text class=\"f\" x=\"32\" y=\"70\">StudentID</text><text class=\"k\" x=\"170\" y=\"70\">PK</text>\n  <text class=\"f\" x=\"32\" y=\"90\">FirstName</text><text class=\"f\" x=\"32\" y=\"108\">Surname</text><text class=\"f\" x=\"32\" y=\"126\">DateOfBirth</text><text class=\"f\" x=\"32\" y=\"144\">ParentPhone</text>\n  <rect class=\"en\" x=\"280\" y=\"20\" width=\"200\" height=\"170\" rx=\"8\"/><rect class=\"eh\" x=\"281\" y=\"21\" width=\"198\" height=\"28\" rx=\"7\"/>\n  <text class=\"h\" x=\"292\" y=\"41\">Lesson</text>\n  <text class=\"f\" x=\"292\" y=\"70\">LessonID</text><text class=\"k\" x=\"440\" y=\"70\">PK</text>\n  <text class=\"f\" x=\"292\" y=\"90\">StudentID</text><text class=\"k\" x=\"440\" y=\"90\">FK</text>\n  <text class=\"f\" x=\"292\" y=\"108\">TeacherID</text><text class=\"k\" x=\"440\" y=\"108\">FK</text>\n  <text class=\"f\" x=\"292\" y=\"126\">RoomNo</text><text class=\"k\" x=\"440\" y=\"126\">FK</text>\n  <text class=\"f\" x=\"292\" y=\"144\">LessonDate</text><text class=\"f\" x=\"292\" y=\"162\">StartTime</text><text class=\"f\" x=\"292\" y=\"180\">Attended</text>\n  <rect class=\"en\" x=\"540\" y=\"20\" width=\"200\" height=\"98\" rx=\"8\"/><rect class=\"eh\" x=\"541\" y=\"21\" width=\"198\" height=\"28\" rx=\"7\"/>\n  <text class=\"h\" x=\"552\" y=\"41\">Teacher</text>\n  <text class=\"f\" x=\"552\" y=\"70\">TeacherID</text><text class=\"k\" x=\"700\" y=\"70\">PK</text>\n  <text class=\"f\" x=\"552\" y=\"90\">Name</text><text class=\"f\" x=\"552\" y=\"108\">Instrument</text>\n  <rect class=\"en\" x=\"280\" y=\"262\" width=\"200\" height=\"80\" rx=\"8\"/><rect class=\"eh\" x=\"281\" y=\"263\" width=\"198\" height=\"28\" rx=\"7\"/>\n  <text class=\"h\" x=\"292\" y=\"283\">Room</text>\n  <text class=\"f\" x=\"292\" y=\"312\">RoomNo</text><text class=\"k\" x=\"440\" y=\"312\">PK</text><text class=\"f\" x=\"292\" y=\"330\">Capacity</text>\n  <path class=\"ln\" d=\"M220,86 H280\"/><path class=\"ln\" d=\"M228,78 V94\"/><path class=\"ln\" d=\"M266,86 L280,76 M266,86 L280,96\"/>\n  <text class=\"dg\" x=\"226\" y=\"112\">1</text><text class=\"dg\" x=\"262\" y=\"112\">M</text><text class=\"lb\" x=\"230\" y=\"70\">has</text>\n  <path class=\"ln\" d=\"M540,104 H480\"/><path class=\"ln\" d=\"M532,96 V112\"/><path class=\"ln\" d=\"M494,104 L480,94 M494,104 L480,114\"/>\n  <text class=\"dg\" x=\"530\" y=\"130\">1</text><text class=\"dg\" x=\"484\" y=\"130\">M</text><text class=\"lb\" x=\"486\" y=\"152\">teaches</text>\n  <path class=\"ln\" d=\"M380,262 V190\"/><path class=\"ln\" d=\"M372,254 H388\"/><path class=\"ln\" d=\"M380,204 L370,190 M380,204 L390,190\"/>\n  <text class=\"dg\" x=\"392\" y=\"254\">1</text><text class=\"dg\" x=\"394\" y=\"210\">M</text><text class=\"lb\" x=\"392\" y=\"234\">is used for</text>\n</svg>",
+          "caption": "ERD of the music school (crow's foot notation)"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd4\" viewBox=\"0 0 760 260\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Before: Student many-to-many Teacher, which cannot be implemented. After: Student one-to-many Lesson many-to-one Teacher\">\n  <style>\n    svg.dbd4 .en{fill:var(--surface-2);stroke:var(--primary);stroke-width:2}\n    svg.dbd4 .lk{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.dbd4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd4 .ln{stroke:var(--foreground);stroke-width:2;fill:none}\n    svg.dbd4 .bad{stroke:var(--danger);stroke-width:2;fill:none}\n    svg.dbd4 .s{font:13px system-ui,sans-serif;fill:var(--muted)}\n    svg.dbd4 .r{font:600 13px system-ui,sans-serif;fill:var(--danger)}\n    svg.dbd4 .g{font:600 13px system-ui,sans-serif;fill:var(--success)}\n    svg.dbd4 .tag{font:700 12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <text class=\"tag\" x=\"20\" y=\"26\">BEFORE — M:M</text>\n  <rect class=\"en\" x=\"120\" y=\"40\" width=\"150\" height=\"48\" rx=\"8\"/><text class=\"h\" x=\"195\" y=\"69\" text-anchor=\"middle\">Student</text>\n  <rect class=\"en\" x=\"490\" y=\"40\" width=\"150\" height=\"48\" rx=\"8\"/><text class=\"h\" x=\"565\" y=\"69\" text-anchor=\"middle\">Teacher</text>\n  <path class=\"bad\" d=\"M270,64 H490\"/><path class=\"bad\" d=\"M284,64 L270,54 M284,64 L270,74\"/><path class=\"bad\" d=\"M476,64 L490,54 M476,64 L490,74\"/>\n  <text class=\"r\" x=\"380\" y=\"56\" text-anchor=\"middle\">M : M</text>\n  <text class=\"r\" x=\"380\" y=\"108\" text-anchor=\"middle\">✕ no table can hold this link — where would the foreign key go?</text>\n  <text class=\"tag\" x=\"20\" y=\"150\">AFTER — two 1:M</text>\n  <rect class=\"en\" x=\"40\" y=\"164\" width=\"150\" height=\"48\" rx=\"8\"/><text class=\"h\" x=\"115\" y=\"193\" text-anchor=\"middle\">Student</text>\n  <rect class=\"lk\" x=\"280\" y=\"156\" width=\"200\" height=\"64\" rx=\"8\"/><text class=\"h\" x=\"380\" y=\"182\" text-anchor=\"middle\">Lesson</text><text class=\"s\" x=\"380\" y=\"204\" text-anchor=\"middle\" style=\"font-size:12px\">StudentID FK · TeacherID FK</text>\n  <rect class=\"en\" x=\"570\" y=\"164\" width=\"150\" height=\"48\" rx=\"8\"/><text class=\"h\" x=\"645\" y=\"193\" text-anchor=\"middle\">Teacher</text>\n  <path class=\"ln\" d=\"M190,188 H280\"/><path class=\"ln\" d=\"M198,180 V196\"/><path class=\"ln\" d=\"M266,188 L280,178 M266,188 L280,198\"/>\n  <path class=\"ln\" d=\"M570,188 H480\"/><path class=\"ln\" d=\"M562,180 V196\"/><path class=\"ln\" d=\"M494,188 L480,178 M494,188 L480,198\"/>\n  <text class=\"g\" x=\"380\" y=\"246\" text-anchor=\"middle\">✓ the link entity is on the \"many\" side of both relationships and holds both foreign keys</text>\n</svg>",
+          "caption": "Resolving a many-to-many relationship with a link entity"
         },
         {
           "type": "steps",
-          "title": "Rules when drawing the ERD",
+          "title": "Drawing the ERD",
           "items": [
-            "One box per **entity**; name in the singular or plural, but consistently.",
-            "Connect related entities with a line; show the **degree** at each end (1 / M or crow's foot).",
-            "The **foreign key** goes in the table on the **\"many\"** side.",
-            "Replace each **M:M** relationship with a **link entity** (here *Lesson*), giving two **1:M** relationships.",
-            "Check that each table describes **one** entity and has a **primary key** (normalised to 3NF)."
+            "Draw **one box per entity**, named in the singular (Student, not Students) — or plural everywhere, but be consistent.",
+            "Write the attributes in the box and mark the **PK**; add the **FKs** to the tables on the \"many\" side.",
+            "Join every pair of **related** entities with **one line** — not every pair is related.",
+            "Show the degree at **both ends**: `1` / single bar on the \"one\" side, `M` / crow's foot on the \"many\" side.",
+            "Label the line with a verb if it helps: *teaches*, *attends*.",
+            "Replace every **M:M** with a **link entity** that has two 1:M relationships.",
+            "Check: every table has a PK, every relationship has an FK, no fact is stored twice (3NF)."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Worked example — resolving M:M in a school library",
+          "content": "*Members borrow many books; over a year each book is borrowed by many members.*\n- Member — Book is **M:M**, so it cannot be stored directly.\n- Add the link entity **Loan** (one record per borrowing) with `LoanID` (PK), `MemberID` (FK), `BookID` (FK), `LoanDate`, `ReturnDate`.\n- Now **Member 1:M Loan** and **Book 1:M Loan**. The dates belong to the **Loan**, not to the member or the book — the link entity is also the right place for facts about the relationship."
+        },
+        {
+          "type": "warning",
+          "content": "- Leaving an **M:M** line in the final ERD — always resolve it with a link entity.\n- Putting the foreign key on the **\"one\" side** (TeacherID in Teacher is a PK; the FK belongs in Lesson).\n- Drawing a crow's foot at the wrong end — the crow's foot touches the entity that has **many** records per one record of the other.\n- Asking the question in **one direction only** — \"a student has many lessons\" alone does not tell you whether it is 1:M or M:M.\n- Linking every entity to every other one — draw a line only where the scenario describes a relationship."
+        }
+      ]
+    },
+    {
+      "title": "Exam practice: entities, relationships and the ERD",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Exam-style answers",
+          "content": "**Q: Define the term entity. [1]**\nA thing / object / person / event about which data is stored (and which becomes a table in the database) (1).\n\n**Q: A gym records members, trainers and training sessions. Each session is for one member with one trainer. Identify the entities and the degree of each relationship. [4]**\nEntities: Member, Trainer, Session (1). Member — Session **1:M** (1). Trainer — Session **1:M** (1). Member — Trainer is M:M, resolved by **Session** (the link entity) (1).\n\n**Q: Explain why a many-to-many relationship cannot be implemented directly in a relational database. [2]**\nA field can hold only **one value** (1), so neither table can hold a single foreign key for its **many** partners; a **link table** with two foreign keys is needed (1).\n\n**Q: State where the foreign key is placed in a one-to-many relationship. [1]**\nIn the table on the **\"many\"** side (1).\n\n**Q: Draw the ERD for: one customer places many orders; an order contains many products. [4]**\nEntities Customer, Order, Product + link entity OrderLine (1); Customer 1:M Order (1); Order 1:M OrderLine (1); Product 1:M OrderLine (1)."
+        },
+        {
+          "type": "warning",
+          "content": "- Writing the degree as words without saying **which entity is on the \"many\" side**.\n- Naming the link entity vaguely (\"Link\", \"Table3\") — use a meaningful name: *Lesson*, *Loan*, *OrderLine*.\n- Forgetting to give marks-worthy detail: \"because it is M:M\" is not an explanation — say **why** one field cannot store many values."
+        },
+        {
+          "type": "steps",
+          "title": "Check yourself",
+          "items": [
+            "Define entity, attribute, relationship, primary key and foreign key.",
+            "From a short scenario, underline the nouns and sort them into entities and attributes.",
+            "Ask the two questions for each pair and decide 1:1, 1:M or M:M.",
+            "Draw the ERD in crow's foot notation with PKs and FKs.",
+            "Resolve an M:M relationship with a link entity and name its keys."
           ]
         }
       ]
@@ -1412,18 +2551,151 @@
       ],
       "blocks": [
         {
-          "type": "example",
-          "title": "Data dictionary — Student",
-          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Student number | S0107 |\n| FirstName | VARCHAR | 30 | | Presence | First name | Dana |\n| Surname | VARCHAR | 30 | | Presence | Family name | Seitova |\n| DateOfBirth | DATE | — | | Range 2008-01-01 – 2020-12-31 | Date of birth | 2014-05-21 |\n| ParentPhone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Parent's phone | +77015554433 |"
+          "type": "paragraph",
+          "content": "When the ERD is agreed, every entity is described **field by field** in the **data dictionary**. This is the document programmers follow to create the tables, so it must be **complete and exact**."
+        },
+        {
+          "type": "definition",
+          "term": "Data dictionary",
+          "content": "A document / table that describes **every field of every table** in the database — its **name, data type, size, format, key, validation rule, description** and an **example** value (data about the data — metadata)."
+        },
+        {
+          "type": "definition",
+          "term": "Referential integrity",
+          "content": "The rule that **every foreign-key value must match an existing primary-key value** in the linked table — e.g. a Lesson cannot refer to a student `S9999` who does not exist."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd5\" viewBox=\"0 0 760 270\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"The Teacher entity with three attributes expands into a data dictionary with name, type, size, key, validation and example for each field\">\n  <style>\n    svg.dbd5 .en{fill:var(--surface-2);stroke:var(--primary);stroke-width:2}\n    svg.dbd5 .eh{fill:var(--primary-soft)}\n    svg.dbd5 .h{font:700 14px system-ui,sans-serif;fill:var(--primary)}\n    svg.dbd5 .f{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dbd5 .th{font:700 13px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd5 .row{fill:var(--surface-2)}\n    svg.dbd5 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n    svg.dbd5 .ar{stroke:var(--muted);stroke-width:2;fill:none}\n    svg.dbd5 .ah{fill:var(--muted)}\n  </style>\n  <rect class=\"en\" x=\"10\" y=\"60\" width=\"150\" height=\"100\" rx=\"8\"/><rect class=\"eh\" x=\"11\" y=\"61\" width=\"148\" height=\"28\" rx=\"7\"/>\n  <text class=\"h\" x=\"22\" y=\"81\">Teacher</text>\n  <text class=\"f\" x=\"22\" y=\"110\">TeacherID</text><text class=\"f\" x=\"22\" y=\"128\">Name</text><text class=\"f\" x=\"22\" y=\"146\">Instrument</text>\n  <text class=\"s\" x=\"10\" y=\"186\">entity in the ERD</text>\n  <path class=\"ar\" d=\"M164,110 H190\"/><path class=\"ah\" d=\"M190,104 l12,6 l-12,6 z\"/>\n  <rect class=\"eh\" x=\"208\" y=\"40\" width=\"542\" height=\"30\" rx=\"4\"/>\n  <text class=\"th\" x=\"216\" y=\"60\">Field</text><text class=\"th\" x=\"316\" y=\"60\">Type</text><text class=\"th\" x=\"400\" y=\"60\">Size</text><text class=\"th\" x=\"446\" y=\"60\">Key</text><text class=\"th\" x=\"490\" y=\"60\">Validation</text><text class=\"th\" x=\"668\" y=\"60\">Example</text>\n  <rect class=\"row\" x=\"208\" y=\"72\" width=\"542\" height=\"30\"/>\n  <text class=\"f\" x=\"216\" y=\"92\">TeacherID</text><text class=\"f\" x=\"316\" y=\"92\">VARCHAR</text><text class=\"f\" x=\"400\" y=\"92\">4</text><text class=\"f\" x=\"446\" y=\"92\">PK</text><text class=\"f\" x=\"490\" y=\"92\">format T + 3 digits</text><text class=\"f\" x=\"668\" y=\"92\">T012</text>\n  <rect class=\"row\" x=\"208\" y=\"104\" width=\"542\" height=\"30\"/>\n  <text class=\"f\" x=\"216\" y=\"124\">Name</text><text class=\"f\" x=\"316\" y=\"124\">VARCHAR</text><text class=\"f\" x=\"400\" y=\"124\">50</text><text class=\"f\" x=\"446\" y=\"124\">—</text><text class=\"f\" x=\"490\" y=\"124\">presence</text><text class=\"f\" x=\"668\" y=\"124\">Nurlanov</text>\n  <rect class=\"row\" x=\"208\" y=\"136\" width=\"542\" height=\"30\"/>\n  <text class=\"f\" x=\"216\" y=\"156\">Instrument</text><text class=\"f\" x=\"316\" y=\"156\">VARCHAR</text><text class=\"f\" x=\"400\" y=\"156\">20</text><text class=\"f\" x=\"446\" y=\"156\">—</text><text class=\"f\" x=\"490\" y=\"156\">lookup: piano,</text><text class=\"f\" x=\"668\" y=\"156\">dombra</text>\n  <text class=\"f\" x=\"490\" y=\"182\">dombra, violin…</text>\n  <text class=\"s\" x=\"208\" y=\"216\">one row per attribute; every column is filled in —</text>\n  <text class=\"s\" x=\"208\" y=\"234\">a programmer can build the table without asking questions</text>\n</svg>",
+          "caption": "Each entity of the ERD becomes a table in the data dictionary"
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing data types and sizes",
+          "columns": [
+            "Data",
+            "Data type",
+            "Size",
+            "Why"
+          ],
+          "rows": [
+            [
+              "ID with letters, e.g. `S0107`",
+              "VARCHAR / CHAR",
+              "5",
+              "Contains a letter; fixed pattern"
+            ],
+            [
+              "Auto-numbered ID",
+              "INT (auto-increment)",
+              "—",
+              "Whole numbers, generated by the DBMS"
+            ],
+            [
+              "Name, surname",
+              "VARCHAR",
+              "30–50",
+              "Text of varying length"
+            ],
+            [
+              "Phone `+77015554433`",
+              "VARCHAR",
+              "12",
+              "Has `+`, may start with 0, no arithmetic"
+            ],
+            [
+              "Date of birth, lesson date",
+              "DATE",
+              "—",
+              "Allows date checks and sorting by date"
+            ],
+            [
+              "Start time",
+              "TIME",
+              "—",
+              "A time of day"
+            ],
+            [
+              "Price, fee `12500.00`",
+              "DECIMAL(8,2)",
+              "—",
+              "Money has two decimal places"
+            ],
+            [
+              "Number of seats",
+              "INT",
+              "—",
+              "Whole number, used in calculations"
+            ],
+            [
+              "Attended? Paid?",
+              "BOOLEAN",
+              "—",
+              "Only True / False"
+            ]
+          ]
         },
         {
           "type": "example",
-          "title": "Data dictionary — Lesson",
-          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| LessonID | INT | — | PK | Unique; auto-increment | Lesson number | 2381 |\n| StudentID | VARCHAR | 5 | FK → Student | Must exist in Student | Who has the lesson | S0107 |\n| TeacherID | VARCHAR | 4 | FK → Teacher | Must exist in Teacher | Who teaches | T012 |\n| RoomNo | INT | — | FK → Room | Must exist in Room | Where | 14 |\n| LessonDate | DATE | — | | Presence | Date of the lesson | 2026-10-12 |\n| StartTime | TIME | — | | Range 08:00 – 20:00 | Start time | 15:30 |\n| Attended | BOOLEAN | — | | True / False; default False | Did the student attend? | True |"
+          "title": "Worked example — data dictionary for Student",
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| StudentID | VARCHAR | 5 | PK | Presence; format `S` + 4 digits; unique | Student number | S0107 |\n| FirstName | VARCHAR | 30 | | Presence | First name | Dana |\n| Surname | VARCHAR | 30 | | Presence | Family name | Seitova |\n| DateOfBirth | DATE | — | | Range 01/01/2008 – 31/12/2020 | Date of birth | 21/05/2014 |\n| ParentPhone | VARCHAR | 12 | | Length 12; format `+7` + 10 digits | Parent's phone | +77015554433 |"
+        },
+        {
+          "type": "example",
+          "title": "Worked example — data dictionary for Lesson (the link table)",
+          "content": "| Field name | Data type | Size | Key | Validation | Description | Example |\n|---|---|---|---|---|---|---|\n| LessonID | INT | — | PK | Unique; auto-increment | Lesson number | 2381 |\n| StudentID | VARCHAR | 5 | FK → Student | Must exist in Student | Who has the lesson | S0107 |\n| TeacherID | VARCHAR | 4 | FK → Teacher | Must exist in Teacher | Who teaches | T012 |\n| RoomNo | INT | — | FK → Room | Must exist in Room | Where | 14 |\n| LessonDate | DATE | — | | Presence; format DD/MM/YYYY | Date of the lesson | 12/10/2026 |\n| StartTime | TIME | — | | Range 08:00 – 20:00 | Start time | 15:30 |\n| Attended | BOOLEAN | — | | True / False; default False | Did the student attend? | True |"
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd6\" viewBox=\"0 0 760 220\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"StudentID VARCHAR(5) in Student matches StudentID VARCHAR(5) in Lesson; a version with INT does not match\">\n  <style>\n    svg.dbd6 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dbd6 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:1.8}\n    svg.dbd6 .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.8}\n    svg.dbd6 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd6 .f{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dbd6 .g{font:600 13px system-ui,sans-serif;fill:var(--success)}\n    svg.dbd6 .r{font:600 13px system-ui,sans-serif;fill:var(--danger)}\n  </style>\n  <rect class=\"bx\" x=\"20\" y=\"20\" width=\"230\" height=\"90\" rx=\"8\"/><text class=\"h\" x=\"34\" y=\"44\">Student</text>\n  <rect class=\"ok\" x=\"34\" y=\"56\" width=\"202\" height=\"28\" rx=\"5\"/><text class=\"f\" x=\"44\" y=\"75\">StudentID VARCHAR(5) PK</text>\n  <rect class=\"bx\" x=\"510\" y=\"20\" width=\"230\" height=\"90\" rx=\"8\"/><text class=\"h\" x=\"524\" y=\"44\">Lesson</text>\n  <rect class=\"ok\" x=\"524\" y=\"56\" width=\"202\" height=\"28\" rx=\"5\"/><text class=\"f\" x=\"534\" y=\"75\">StudentID VARCHAR(5) FK</text>\n  <path d=\"M236,70 H524\" style=\"stroke:var(--success);stroke-width:2.5\"/>\n  <text class=\"g\" x=\"380\" y=\"62\" text-anchor=\"middle\">✓ same name, type and size</text>\n  <rect class=\"bx\" x=\"510\" y=\"122\" width=\"230\" height=\"80\" rx=\"8\"/><text class=\"h\" x=\"524\" y=\"146\">Lesson (wrong)</text>\n  <rect class=\"no\" x=\"524\" y=\"158\" width=\"202\" height=\"28\" rx=\"5\"/><text class=\"f\" x=\"534\" y=\"177\">StudentID INT FK</text>\n  <path d=\"M236,76 C380,76 380,172 524,172\" style=\"stroke:var(--danger);stroke-width:2.5;fill:none;stroke-dasharray:6 5\"/>\n  <text class=\"r\" x=\"24\" y=\"150\">✕ 'S0107' cannot be stored in an INT —</text>\n  <text class=\"r\" x=\"24\" y=\"170\">the join and referential integrity fail</text>\n</svg>",
+          "caption": "A foreign key must match its primary key exactly"
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing validation for each field",
+          "columns": [
+            "Field",
+            "Check(s)",
+            "Example rule"
+          ],
+          "rows": [
+            [
+              "Primary key (StudentID)",
+              "Presence, format, uniqueness",
+              "`S` + 4 digits; no two the same"
+            ],
+            [
+              "Foreign key (TeacherID in Lesson)",
+              "Lookup / existence (referential integrity)",
+              "Must exist in Teacher"
+            ],
+            [
+              "Name",
+              "Presence, length",
+              "1–30 characters"
+            ],
+            [
+              "Date",
+              "Format, range",
+              "DD/MM/YYYY; not before 01/09/2026"
+            ],
+            [
+              "Number (Capacity)",
+              "Type, range",
+              "Whole number 1–40"
+            ],
+            [
+              "Short list (Instrument)",
+              "Lookup (list)",
+              "piano, dombra, violin, guitar"
+            ]
+          ]
         },
         {
           "type": "warning",
-          "content": "A **foreign key** must have **exactly the same data type and size** as the primary key it refers to — `StudentID` is VARCHAR(5) in both Student and Lesson. Otherwise the tables cannot be joined and referential integrity cannot be enforced."
+          "content": "- Writing a **data type that cannot hold the example** — INT for `S0107`, INT for `+77015554433`.\n- Giving a foreign key a **different type or size** from the primary key it refers to.\n- Leaving the **validation** column empty for keys — a PK always needs presence + uniqueness, an FK must exist in the other table.\n- A validation rule that does not suit the data — a **range** check on a surname, a **lookup** on a date of birth.\n- Describing the field in the *Description* column with just its name (\"StudentID — student ID\"): say what it stores and why."
         }
       ]
     },
@@ -1435,40 +2707,100 @@
       ],
       "blocks": [
         {
+          "type": "paragraph",
+          "content": "In the **development** stage the data dictionary is turned line by line into `CREATE TABLE` statements: each **row** of the dictionary becomes one **field definition**, the **Key** column becomes `PRIMARY KEY` / `FOREIGN KEY … REFERENCES`, and many **validation** rules become `NOT NULL`, `UNIQUE`, `CHECK` and `DEFAULT`."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"dbd7\" viewBox=\"0 0 760 230\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"The row RoomNo INT PK and Capacity INT range 1 to 40 become RoomNo INT PRIMARY KEY and Capacity INT CHECK Capacity between 1 and 40\">\n  <style>\n    svg.dbd7 .hd{fill:var(--primary-soft)} svg.dbd7 .row{fill:var(--surface-2)}\n    svg.dbd7 .th{font:700 13px system-ui,sans-serif;fill:var(--foreground)}\n    svg.dbd7 .f{font:13px ui-monospace,monospace;fill:var(--foreground)}\n    svg.dbd7 .code{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.dbd7 .kw{font:700 13px ui-monospace,monospace;fill:var(--primary)}\n    svg.dbd7 .ar{stroke:var(--muted);stroke-width:1.8;fill:none}\n    svg.dbd7 .ah{fill:var(--muted)}\n    svg.dbd7 .s{font:12px system-ui,sans-serif;fill:var(--muted)}\n  </style>\n  <rect class=\"hd\" x=\"20\" y=\"20\" width=\"400\" height=\"28\" rx=\"4\"/>\n  <text class=\"th\" x=\"28\" y=\"39\">Field</text><text class=\"th\" x=\"120\" y=\"39\">Type</text><text class=\"th\" x=\"190\" y=\"39\">Key</text><text class=\"th\" x=\"240\" y=\"39\">Validation</text>\n  <rect class=\"row\" x=\"20\" y=\"50\" width=\"400\" height=\"28\"/><text class=\"f\" x=\"28\" y=\"69\">RoomNo</text><text class=\"f\" x=\"120\" y=\"69\">INT</text><text class=\"f\" x=\"190\" y=\"69\">PK</text><text class=\"f\" x=\"240\" y=\"69\">unique, presence</text>\n  <rect class=\"row\" x=\"20\" y=\"80\" width=\"400\" height=\"28\"/><text class=\"f\" x=\"28\" y=\"99\">Capacity</text><text class=\"f\" x=\"120\" y=\"99\">INT</text><text class=\"f\" x=\"190\" y=\"99\">—</text><text class=\"f\" x=\"240\" y=\"99\">range 1–40</text>\n  <text class=\"s\" x=\"20\" y=\"130\">data dictionary (design)</text>\n  <rect class=\"code\" x=\"20\" y=\"146\" width=\"720\" height=\"74\" rx=\"8\"/>\n  <text class=\"kw\" x=\"34\" y=\"170\">CREATE TABLE</text><text class=\"f\" x=\"140\" y=\"170\">Room (</text>\n  <text class=\"f\" x=\"54\" y=\"190\">RoomNo   INT</text><text class=\"kw\" x=\"160\" y=\"190\">PRIMARY KEY</text><text class=\"f\" x=\"256\" y=\"190\">,</text>\n  <text class=\"f\" x=\"54\" y=\"210\">Capacity INT</text><text class=\"kw\" x=\"160\" y=\"210\">CHECK</text><text class=\"f\" x=\"212\" y=\"210\">(Capacity BETWEEN 1 AND 40) );</text>\n  <path class=\"ar\" d=\"M430,64 C560,64 560,184 270,186\"/><path class=\"ah\" d=\"M272,180 l-12,6 l12,6 z\"/>\n  <path class=\"ar\" d=\"M430,94 C620,94 640,206 480,206\"/><path class=\"ah\" d=\"M482,200 l-12,6 l12,6 z\"/>\n  <text class=\"s\" x=\"580\" y=\"126\">each row → one field line</text>\n</svg>",
+          "caption": "How a data-dictionary row becomes SQL"
+        },
+        {
           "type": "code",
           "language": "sql",
-          "content": "CREATE TABLE Student (\n    StudentID   VARCHAR(5)  PRIMARY KEY,\n    FirstName   VARCHAR(30) NOT NULL,\n    Surname     VARCHAR(30) NOT NULL,\n    DateOfBirth DATE,\n    ParentPhone VARCHAR(12)\n);\nCREATE TABLE Teacher (\n    TeacherID  VARCHAR(4)  PRIMARY KEY,\n    Name       VARCHAR(50) NOT NULL,\n    Instrument VARCHAR(30)\n);\nCREATE TABLE Room (\n    RoomNo   INT PRIMARY KEY,\n    Capacity INT CHECK (Capacity > 0)\n);\nCREATE TABLE Lesson (\n    LessonID   INT AUTO_INCREMENT PRIMARY KEY,\n    StudentID  VARCHAR(5) NOT NULL,\n    TeacherID  VARCHAR(4) NOT NULL,\n    RoomNo     INT,\n    LessonDate DATE NOT NULL,\n    StartTime  TIME,\n    Attended   BOOLEAN DEFAULT FALSE,\n    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),\n    FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID),\n    FOREIGN KEY (RoomNo)    REFERENCES Room(RoomNo)\n);",
-          "caption": "The design implemented as tables"
+          "content": "CREATE TABLE Student (\n    StudentID   VARCHAR(5)  PRIMARY KEY,\n    FirstName   VARCHAR(30) NOT NULL,\n    Surname     VARCHAR(30) NOT NULL,\n    DateOfBirth DATE,\n    ParentPhone VARCHAR(12)\n);\nCREATE TABLE Teacher (\n    TeacherID  VARCHAR(4)  PRIMARY KEY,\n    Name       VARCHAR(50) NOT NULL,\n    Instrument VARCHAR(20)\n);\nCREATE TABLE Room (\n    RoomNo   INT PRIMARY KEY,\n    Capacity INT CHECK (Capacity BETWEEN 1 AND 40)\n);\nCREATE TABLE Lesson (\n    LessonID   INT AUTO_INCREMENT PRIMARY KEY,\n    StudentID  VARCHAR(5) NOT NULL,\n    TeacherID  VARCHAR(4) NOT NULL,\n    RoomNo     INT,\n    LessonDate DATE NOT NULL,\n    StartTime  TIME,\n    Attended   BOOLEAN DEFAULT FALSE,\n    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),\n    FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID),\n    FOREIGN KEY (RoomNo)    REFERENCES Room(RoomNo)\n);",
+          "caption": "The music school design implemented as tables"
         },
         {
           "type": "comparison",
-          "title": "Checking the design",
+          "title": "Data dictionary item → SQL",
+          "columns": [
+            "In the data dictionary",
+            "In `CREATE TABLE`"
+          ],
+          "rows": [
+            [
+              "Field name + data type + size",
+              "`Surname VARCHAR(30)`"
+            ],
+            [
+              "Key: PK",
+              "`PRIMARY KEY`"
+            ],
+            [
+              "Key: FK → Student",
+              "`FOREIGN KEY (StudentID) REFERENCES Student(StudentID)`"
+            ],
+            [
+              "Presence check",
+              "`NOT NULL`"
+            ],
+            [
+              "Uniqueness check",
+              "`UNIQUE` (a PK is unique automatically)"
+            ],
+            [
+              "Range check",
+              "`CHECK (Capacity BETWEEN 1 AND 40)`"
+            ],
+            [
+              "Default value",
+              "`DEFAULT FALSE`"
+            ],
+            [
+              "Format / complex checks",
+              "In the form or program code (input masks, `pattern`)"
+            ]
+          ]
+        },
+        {
+          "type": "exam_tip",
+          "content": "Create the tables on the **\"one\" side first** (Student, Teacher, Room) and the link table (Lesson) **last** — a foreign key can only reference a table that already exists."
+        },
+        {
+          "type": "comparison",
+          "title": "Checking the design before it is built",
           "columns": [
             "Check",
-            "Question"
+            "Question to ask"
           ],
           "rows": [
             [
               "**Requirements**",
-              "Can every report and screen the client asked for be produced from these tables?"
+              "Can every screen and report the client asked for be produced from these tables?"
             ],
             [
               "**Normalisation**",
-              "Is each fact stored once? No repeating groups, partial or transitive dependencies?"
+              "Is each fact stored once? No repeating groups, partial or transitive dependencies (3NF)?"
             ],
             [
               "**Keys**",
-              "Does every table have a primary key? Is every relationship implemented with a foreign key?"
+              "Does every table have a PK? Is every relationship made with an FK on the \"many\" side?"
             ],
             [
               "**Data types and validation**",
-              "Is every field's type suitable? Do validation rules prevent invalid data?"
+              "Does every type fit its example? Does every field have suitable validation?"
             ],
             [
               "**Test data**",
-              "Can sample records be entered and joined correctly?"
+              "Can sample records be entered, rejected when invalid and joined correctly?"
             ]
           ]
+        },
+        {
+          "type": "warning",
+          "content": "- Creating the **link table first** — its foreign keys refer to tables that do not exist yet.\n- A `CHECK` that contradicts the data dictionary (dictionary says 1–40, SQL says `> 0`).\n- Forgetting `NOT NULL` on foreign keys that must always be filled (every lesson needs a student)."
         }
       ]
     },
@@ -1482,34 +2814,71 @@
         {
           "type": "example",
           "title": "Exam-style answers",
-          "content": "**Q: Draw the ERD for the product supply management system (Stores, Products, Deliveries). [3]**\nEntities defined (1); **Stores 1 — M Deliveries** (1); **Products 1 — M Deliveries** (1).\n\n**Q: Name two elements that should be described in a data dictionary. [2]**\nThe **names of the fields** (1); their **data types / formats** (1). *(Also: descriptions, validation, field size, key field.)*\n\n**Q: Complete the data dictionary entry for `LessonDate`. [2]**\nData type **DATE** (1); validation **presence check / not before the school year starts** (1)."
+          "content": "**Q: Name four items that should be recorded in a data dictionary for each field. [4]**\nAny four: field name (1), data type (1), field size / length (1), key (PK / FK) (1), validation rule, format, description, example value.\n\n**Q: Complete the data dictionary entry for `ParentPhone`: data type, size and one validation rule. [3]**\nVARCHAR / text (1); 12 (1); length check = 12 characters / format `+7` followed by 10 digits / presence (1).\n\n**Q: Explain why `StudentID` must have the same data type and size in Student and Lesson. [2]**\nIt is the primary key in Student and the foreign key in Lesson, used to join the tables (1); if the types differ, values cannot be matched / stored, so the join and referential integrity fail (1).\n\n**Q: Suggest a suitable validation rule for `StartTime` and justify it. [2]**\nRange check 08:00–20:00 (1) because the school is only open in those hours, so impossible times are rejected (1).\n\n**Q: Write the SQL to create the table `Room(RoomNo, Capacity)` with a primary key and a check that the capacity is from 1 to 40. [3]**\n`CREATE TABLE Room (` with both fields and suitable types (1); `RoomNo INT PRIMARY KEY` (1); `CHECK (Capacity BETWEEN 1 AND 40)` / `CHECK (Capacity >= 1 AND Capacity <= 40)` (1)."
         },
         {
           "type": "warning",
-          "content": "- Leaving an **M:M** relationship in the ERD without a link entity.\n- Choosing data types that do not fit the data (INT for phone numbers, VARCHAR for dates).\n- A foreign key with a **different type or size** from its primary key.\n- Validation that does not suit the field (a range check on a name).\n- Designing tables that are not normalised (repeated customer data in every order)."
+          "content": "- Giving only the **name** of a check (\"range check\") when the question asks for a **rule** — give the limits: \"1 to 40\".\n- Writing \"number\" as a data type — use the exact type: INT, DECIMAL, VARCHAR, DATE, BOOLEAN.\n- Forgetting that the size of a VARCHAR must fit the **longest** value (+7 and 10 digits = 12).\n- In SQL, missing `REFERENCES Table(Field)` after `FOREIGN KEY (…)`."
+        },
+        {
+          "type": "comparison",
+          "title": "Summary — database design in one table",
+          "columns": [
+            "Step",
+            "Output",
+            "Key rule"
+          ],
+          "rows": [
+            [
+              "1 Entities and attributes",
+              "List of tables and fields",
+              "Nouns with their own data and many instances → entities"
+            ],
+            [
+              "2 Relationships",
+              "Degree of each link",
+              "Ask in both directions; resolve M:M with a link entity"
+            ],
+            [
+              "ERD",
+              "The diagram",
+              "FK on the \"many\" side; crow's foot at the \"many\" end"
+            ],
+            [
+              "3 Data dictionary",
+              "Field-by-field specification",
+              "Type fits the example; FK = PK type; every field validated"
+            ],
+            [
+              "4 SQL",
+              "`CREATE TABLE` statements",
+              "\"One\" side first; validation → NOT NULL / UNIQUE / CHECK"
+            ]
+          ]
         },
         {
           "type": "steps",
           "title": "Check yourself",
           "items": [
-            "What are the two main documents of database design?",
-            "From a short scenario, list the entities and their attributes.",
-            "Decide the degree of each relationship and draw the ERD.",
-            "Write a data dictionary for one of the tables.",
-            "Turn the design into `CREATE TABLE` statements."
+            "Name the two main documents of database design and say what each shows.",
+            "Write a full data dictionary (name, type, size, key, validation, description, example) for one table.",
+            "Choose a data type for an ID, a phone number, a price, a date and a yes/no field — and justify each.",
+            "Explain referential integrity and why FK and PK types must match.",
+            "Turn a data dictionary into `CREATE TABLE` with PK, FK, NOT NULL and CHECK."
           ]
         }
       ]
     }
   ],
   "topic_exam": {
-    "duration": 30,
     "title": "Database design — Exam (Paper 2 style)",
-    "instructions": "Answer **all** questions. Draw diagrams with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 30 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Draw diagrams with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "dbd-exam-1",
-      "dbd-exam-2",
-      "dbd-exam-3"
+      "dbd-tx-1",
+      "dbd-tx-2",
+      "dbd-tx-3",
+      "dbd-tx-4"
     ]
   },
   "lessons": [
@@ -1518,15 +2887,26 @@
       "sections": [
         "Database design in the system life cycle",
         "Step 1 — Entities and attributes from the requirements",
-        "Step 2 — Relationships and the ERD"
+        "Step 2 — Relationships and the ERD",
+        "Exam practice: entities, relationships and the ERD"
       ],
       "questions": [
-        "dbd-documents",
+        "dbd-entity-define-mcq",
+        "dbd-attribute-mcq",
         "dbd-order-fill",
         "dbd-entity-attr-tick",
-        "dbd-relationships",
-        "dbd-draw-rental",
-        "dbd-mm-resolve"
+        "dbd-docs-match",
+        "dbd-pk-mcq",
+        "dbd-degree-match",
+        "dbd-fk-side-mcq",
+        "dbd-mm-tf",
+        "dbd-link-entity-short",
+        "dbd-gym-degree-tick",
+        "dbd-crowfoot-mcq",
+        "dbd-link-keys-mr",
+        "dbd-design-benefit-mr",
+        "dbd-erd-errors-mr",
+        "dbd-erd-build-gym"
       ]
     },
     {
@@ -1537,13 +2917,22 @@
         "Exam practice and summary"
       ],
       "questions": [
-        "dbd-dd-elements",
+        "dbd-dd-define-mcq",
+        "dbd-dd-items-mr",
         "dbd-dd-types",
-        "dbd-dd-validation",
+        "dbd-phone-type-mcq",
+        "dbd-price-type-mcq",
         "dbd-fk-type-tf",
-        "dbd-sql-create",
-        "dbd-check-design",
-        "dbd-structured-school"
+        "dbd-ref-integrity-mcq",
+        "dbd-size-fill",
+        "dbd-check-tick",
+        "dbd-sql-match",
+        "dbd-notnull-short",
+        "dbd-create-order-mcq",
+        "dbd-sql-fill",
+        "dbd-dd-errors-mr",
+        "dbd-pk-every-tf",
+        "dbd-key-table"
       ]
     }
   ]
