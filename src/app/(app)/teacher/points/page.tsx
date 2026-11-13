@@ -5,7 +5,7 @@ import { requireProfile, displayName } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getSchoolTree, mainPlans } from "@/lib/curriculum";
 import { getTeacherClasses } from "@/lib/teacher-data";
-import { getUnitBoard, LESSON_POINTS, NOTES_FULL_AT, type BoardLesson } from "@/lib/lessons";
+import { getUnitBoard, LESSON_POINTS, NOTES_FULL_AT, EXAM_FULL_AT, type BoardLesson } from "@/lib/lessons";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/page-header";
@@ -34,7 +34,7 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Each lesson (2 hours of the KTP) gives practice ${LESSON_POINTS.practice} and notes check ${LESSON_POINTS.notes} points (full from ${NOTES_FULL_AT}%). Earlier topics also have a lesson test (${LESSON_POINTS.exam}) in every lesson; topics taught from now on have one Exam Mode for the whole topic (${LESSON_POINTS.exam} points). The unit's points are added up and the SAU is worth as many points again.`}
+      description={`Each lesson (2 hours of the KTP) gives practice ${LESSON_POINTS.practice} and notes check ${LESSON_POINTS.notes} points (full from ${NOTES_FULL_AT}%). Earlier topics also have a lesson test (${LESSON_POINTS.exam}) in every lesson; topics taught from now on have one Exam Mode for the whole topic (${LESSON_POINTS.exam} points, full from ${EXAM_FULL_AT}%). The unit's points are added up and the SAU is worth as many points again.`}
     />
   );
   if (classes.length === 0) {
@@ -130,7 +130,7 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
                       title={fullLabel(selected)}
                       description={
                         selected.isExam
-                          ? `${selected.deadline ? `Due ${formatDate(selected.deadline)} (the topic's last deadline) — only an attempt before it counts.` : "No deadline yet."} One Exam Mode for the whole topic: the first attempt gives up to ${LESSON_POINTS.exam} points.`
+                          ? `${selected.deadline ? `Due ${formatDate(selected.deadline)} (the topic's last deadline) — only an attempt before it counts.` : "No deadline yet."} One Exam Mode for the whole topic: the first attempt gives up to ${LESSON_POINTS.exam} points (full from ${EXAM_FULL_AT}%).`
                           : `${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result (${NOTES_FULL_AT}% or more = full ${LESSON_POINTS.notes}).${any?.raw.hasExam ? " Test: first attempt." : ""}`
                       }
                       action={

@@ -13,6 +13,14 @@ type Supa = Awaited<ReturnType<typeof createClient>>;
 export const LESSON_POINTS = { practice: 2, notes: 2, exam: 2 } as const;
 /** Notes checked at this percentage or more earn the full notes points. */
 export const NOTES_FULL_AT = 70;
+/** A lesson test or Exam Mode marked at this percentage or more earns the full exam points. */
+export const EXAM_FULL_AT = 80;
+
+/** Exam points from the percentage: full from EXAM_FULL_AT, otherwise in proportion. */
+export function examPoints(pct: number | null): number {
+  if (pct == null) return 0;
+  return pct >= EXAM_FULL_AT ? LESSON_POINTS.exam : (LESSON_POINTS.exam * pct) / 100;
+}
 
 export type TopicLesson = { number: number; title: string };
 
@@ -66,7 +74,7 @@ export const TOPIC_EXAM_LESSON = 0;
 
 export function scoreLesson(r: LessonRow): LessonScore {
   if (r.lesson_no === TOPIC_EXAM_LESSON) {
-    const exam = r.exam_pct != null ? (LESSON_POINTS.exam * r.exam_pct) / 100 : 0;
+    const exam = examPoints(r.exam_pct);
     return {
       practice: 0,
       notes: 0,
@@ -80,7 +88,7 @@ export function scoreLesson(r: LessonRow): LessonScore {
   const practice = r.practice_max > 0 ? (LESSON_POINTS.practice * r.practice_awarded) / r.practice_max : 0;
   const notes =
     r.notes_pct == null ? 0 : r.notes_pct >= NOTES_FULL_AT ? LESSON_POINTS.notes : (LESSON_POINTS.notes * r.notes_pct) / 100;
-  const exam = r.exam_pct != null ? (LESSON_POINTS.exam * r.exam_pct) / 100 : 0;
+  const exam = examPoints(r.exam_pct);
   const max = (r.practice_max > 0 ? LESSON_POINTS.practice : 0) + LESSON_POINTS.notes + (r.exam_id ? LESSON_POINTS.exam : 0);
   return {
     practice: round1(practice),

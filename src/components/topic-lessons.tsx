@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/format";
-import { LESSON_POINTS, type LessonScore, type TopicLesson } from "@/lib/lessons";
+import { EXAM_FULL_AT, LESSON_POINTS, type LessonScore, type TopicLesson } from "@/lib/lessons";
 import type { ExamRequirement } from "@/lib/exams";
 import { ExamRequirements } from "@/components/exam/exam-requirements";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
@@ -41,8 +41,8 @@ export function TopicLessons({
         title={lessons.length === 1 && (total ?? 1) > 1 ? `Lesson ${lessons[0].number} of ${total}` : `Lessons (${lessons.length})`}
         description={
           oneExam
-            ? `Each lesson: theory, practice (${LESSON_POINTS.practice} points) and notes check (${LESSON_POINTS.notes}) — up to ${per} points towards the unit's SAU. The topic's Exam Mode gives ${LESSON_POINTS.exam} more. Work done before the deadline counts.`
-            : `Each lesson: theory, practice (${LESSON_POINTS.practice} points), notes check (${LESSON_POINTS.notes}) and a short test (${LESSON_POINTS.exam}) — up to ${per} points towards the unit's SAU. Work done before the lesson's deadline counts.`
+            ? `Each lesson: theory, practice (${LESSON_POINTS.practice} points) and notes check (${LESSON_POINTS.notes}) — up to ${per} points towards the unit's SAU. The topic's Exam Mode gives ${LESSON_POINTS.exam} more (full from ${EXAM_FULL_AT}%). Work done before the deadline counts.`
+            : `Each lesson: theory, practice (${LESSON_POINTS.practice} points), notes check (${LESSON_POINTS.notes}) and a short test (${LESSON_POINTS.exam}, full from ${EXAM_FULL_AT}%) — up to ${per} points towards the unit's SAU. Work done before the lesson's deadline counts.`
         }
       />
       <CardBody className="space-y-3">

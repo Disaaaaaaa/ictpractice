@@ -29,6 +29,8 @@ describe("a topic's single Exam Mode (lesson_no 0)", () => {
   const row = { student_id: "s", topic_id: "t", lesson_no: 0, deadline: null, practice_awarded: 0, practice_max: 0, notes_pct: null, exam_id: "e", exam_pct: 75, exam_pending: false };
   it("gives only exam points, up to 2", () => {
     expect(scoreLesson(row)).toMatchObject({ practice: 0, notes: 0, exam: 1.5, total: 1.5, max: 2 });
+    expect(scoreLesson({ ...row, exam_pct: 80 })).toMatchObject({ exam: 2, total: 2 });
+    expect(scoreLesson({ ...row, exam_pct: 79 })).toMatchObject({ exam: 1.6 });
     expect(scoreLesson({ ...row, exam_pct: null, exam_pending: true })).toMatchObject({ total: 0, max: 2, examPending: true });
   });
   it("a lesson without a test is worth practice + notes only", () => {
