@@ -28,6 +28,13 @@ async function languageExtension(lang: CodeLanguage | undefined): Promise<Extens
 }
 
 
+// The scrolling area fills the whole box, so the horizontal scrollbar of a long
+// line sits at the bottom of the editor instead of right under the first line.
+async function fillHeight(minHeight: string): Promise<Extension> {
+  const { EditorView } = await import("@codemirror/view");
+  return EditorView.theme({ ".cm-scroller": { minHeight } });
+}
+
 export function CodeEditor({
   value,
   onChange,
@@ -46,11 +53,11 @@ export function CodeEditor({
   const [extensions, setExtensions] = useState<Extension[]>([]);
   useEffect(() => {
     let alive = true;
-    languageExtension(language).then((ext) => alive && setExtensions(ext));
+    Promise.all([languageExtension(language), fillHeight(minHeight)]).then(([ext, fill]) => alive && setExtensions([...ext, fill]));
     return () => {
       alive = false;
     };
-  }, [language]);
+  }, [language, minHeight]);
   const { isDark: dark } = useTheme();
   return (
     <div className="overflow-hidden rounded-lg border border-border text-sm" aria-label={label}>
