@@ -59,6 +59,7 @@ export const questionContentSchema = z
           .max(100),
       })
       .optional(),
+    sql: z.object({ setup: z.string().max(20000) }).strict().optional(),
   })
   .strict();
 
@@ -84,6 +85,17 @@ export const acceptedAnswersSchema = z
       .strict()
       .optional(),
     scoring: z.enum(["item", "all"]).optional(),
+    sql: z
+      .object({
+        solution: z.string().min(1).max(4000),
+        check: z.enum(["rows", "ordered", "state"]).optional(),
+        check_query: z.string().max(2000).optional(),
+        check_label: z.string().max(200).optional(),
+        probes: z.array(z.string().max(1000)).max(12).optional(),
+        probes_label: z.string().max(200).optional(),
+      })
+      .strict()
+      .optional(),
   })
   .strict();
 
@@ -134,7 +146,13 @@ function checkQuestion(q: QuestionDraft, ctx: z.RefinementCtx) {
   if (needsOptions && (!q.options || q.options.length < 2)) {
     ctx.addIssue({ code: "custom", message: `${q.key}: ${q.type} needs at least two options` });
   }
-  if (q.grading === "AUTO" && !DETERMINISTIC_TYPES.includes(q.type)) {
+  const sqlRun = q.type === "sql" && accepted.sql !== undefined;
+  if (q.type === "sql" && accepted.sql) {
+    if (!q.content?.sql?.setup) ctx.addIssue({ code: "custom", message: `${q.key}: a run-and-compare sql question needs content.sql.setup` });
+    if (accepted.sql.check === "state" && !accepted.sql.check_query && !accepted.sql.probes?.length)
+      ctx.addIssue({ code: "custom", message: `${q.key}: check "state" needs check_query or probes` });
+  }
+  if (q.grading === "AUTO" && !DETERMINISTIC_TYPES.includes(q.type) && !sqlRun) {
     ctx.addIssue({ code: "custom", message: `${q.key}: ${q.type} cannot be AUTO-graded` });
   }
   if (q.grading === "AUTO" || q.grading === "HYBRID") {
@@ -147,7 +165,8 @@ function checkQuestion(q: QuestionDraft, ctx: z.RefinementCtx) {
       accepted.fields !== undefined ||
       accepted.expression !== undefined ||
       accepted.tree !== undefined ||
-      accepted.erd !== undefined;
+      accepted.erd !== undefined ||
+      accepted.sql !== undefined;
     if (!hasKey) ctx.addIssue({ code: "custom", message: `${q.key}: ${q.grading} needs scheme.accepted` });
   }
   if (needsOptions && q.options) {

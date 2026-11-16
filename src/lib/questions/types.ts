@@ -191,6 +191,26 @@ export type QuestionContent = {
   gates?: ("and" | "or" | "not" | "nand" | "nor" | "xor")[];
   /** diagrams: shapes/nodes given to the student */
   starter?: DiagramData;
+  /** sql: the sample database the student's code runs against (CREATE + INSERT) */
+  sql?: SqlSetup;
+};
+
+export type SqlSetup = {
+  /** SQL that builds the sample database before the student's code runs */
+  setup: string;
+};
+
+/** sql: how a written SQL answer is marked (the solution is run on the same sample database). */
+export type SqlKey = {
+  solution: string;
+  /** rows (default): last SELECT, any order; ordered: same order; state: the database afterwards */
+  check?: "rows" | "ordered" | "state";
+  /** state: a SELECT run after the code; its result must match the solution's */
+  check_query?: string;
+  check_label?: string;
+  /** state: statements tried one by one; each must succeed / fail as it does after the solution */
+  probes?: string[];
+  probes_label?: string;
 };
 
 export type QuestionOption = { key: string; content: string };
@@ -241,6 +261,8 @@ export type AcceptedAnswers = {
   tree?: (string | null)[];
   /** erd: the entities and relationships the diagram must show */
   erd?: ErdKey;
+  /** sql: run and compare with a model solution */
+  sql?: SqlKey;
   /** "item": marks scale with correct items (default); "all": all-or-nothing */
   scoring?: "item" | "all";
 };

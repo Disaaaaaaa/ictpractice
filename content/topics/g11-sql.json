@@ -3654,6 +3654,2018 @@
           }
         }
       ]
+    },
+    {
+      "key": "sqlw-create-students",
+      "title": "Create the Students table",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write an SQL statement that creates a table **Students** with these fields:\n\n| Field | Data | Rule |\n|---|---|---|\n| StudentID | whole number | primary key |\n| FirstName | text, up to 30 characters | must be filled in |\n| LastName | text, up to 30 characters | must be filled in |\n| DateOfBirth | date | |\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Students (StudentID INT PRIMARY KEY, FirstName VARCHAR(30) NOT NULL, LastName VARCHAR(30) NOT NULL, DateOfBirth DATE);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Students (StudentID INT PRIMARY KEY, FirstName VARCHAR(30) NOT NULL, LastName VARCHAR(30) NOT NULL, DateOfBirth DATE);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'students' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Students VALUES (1, 'Aru', 'Bek', '2009-05-01')",
+              "INSERT INTO Students VALUES (1, 'Aru', 'Bek', NULL), (1, 'Dana', 'Nur', NULL)",
+              "INSERT INTO Students (StudentID, LastName) VALUES (2, 'Bek')"
+            ],
+            "probes_label": "The primary key and NOT NULL rules work"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-subjects",
+      "title": "Create the Subjects table",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Subjects**: `SubjectCode` is a code of exactly **4** characters and is the primary key; `SubjectName` is text up to **40** characters and must be filled in; `Hours` is a whole number.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Subjects (SubjectCode CHAR(4) PRIMARY KEY, SubjectName VARCHAR(40) NOT NULL, Hours INT);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Subjects (SubjectCode CHAR(4) PRIMARY KEY, SubjectName VARCHAR(40) NOT NULL, Hours INT);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'subjects' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Subjects VALUES ('CS11', 'Computer Science', 3)",
+              "INSERT INTO Subjects VALUES ('CS11', 'A', 1), ('CS11', 'B', 2)",
+              "INSERT INTO Subjects (SubjectCode, Hours) VALUES ('MA11', 4)"
+            ],
+            "probes_label": "The primary key and NOT NULL rules work"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-products",
+      "title": "Create the Products table",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Products**: `ProductID` (whole number, primary key), `Name` (text up to 50 characters, required), `Price` (money: up to 6 digits with **2** after the decimal point) and `InStock` (yes / no).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "Money is DECIMAL(p, s); yes / no is BOOLEAN."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Products (ProductID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Price DECIMAL(6,2), InStock BOOLEAN);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Products (ProductID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Price DECIMAL(6,2), InStock BOOLEAN);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'products' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-autonumber",
+      "title": "A primary key numbered automatically",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Clubs** where `ClubID` is a whole number that the database numbers **automatically** and is the primary key, and `ClubName` is text up to 50 characters that must be filled in.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "In the MySQL style taught in class: INT AUTO_INCREMENT PRIMARY KEY."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Clubs (ClubID INT AUTO_INCREMENT PRIMARY KEY, ClubName VARCHAR(50) NOT NULL);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Clubs (ClubID INT AUTO_INCREMENT PRIMARY KEY, ClubName VARCHAR(50) NOT NULL);",
+            "check": "state",
+            "check_query": "INSERT INTO Clubs (ClubName) VALUES ('Chess'), ('Robotics'); SELECT ClubID, ClubName FROM Clubs ORDER BY ClubID",
+            "check_label": "New clubs get the numbers 1, 2, … automatically"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-add-genre",
+      "title": "Add a column",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The table **Books** already exists. Write an SQL statement that adds a field `Genre` (text up to 30 characters) to it.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Books ADD Genre VARCHAR(30);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Books ADD Genre VARCHAR(30);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'books' ORDER BY ordinal_position",
+            "check_label": "Books has the new field"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-drop-price",
+      "title": "Remove a column",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write an SQL statement that removes the field `Price` from the table **Books**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Books DROP COLUMN Price;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Books DROP COLUMN Price;",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'books' ORDER BY ordinal_position",
+            "check_label": "Price is no longer in Books"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-drop-members",
+      "title": "Delete a table",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The library no longer needs the table **Members**. Write an SQL statement that deletes the whole table.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nDROP TABLE Members;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "DROP TABLE Members;",
+            "check": "state",
+            "check_query": "SELECT lower(table_name) AS table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY 1",
+            "check_label": "Only the right tables are left"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-add-email",
+      "title": "Add an e-mail field",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Add a field `Email` (text up to 80 characters) to the table **Members**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Members ADD Email VARCHAR(80);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Members ADD Email VARCHAR(80);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'members' ORDER BY ordinal_position",
+            "check_label": "Members has the new field"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-rename-author",
+      "title": "Rename a column",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Rename the field `Author` in the table **Books** to `Writer`.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "ALTER TABLE … RENAME COLUMN old TO new;"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Books RENAME COLUMN Author TO Writer;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Books RENAME COLUMN Author TO Writer;",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'books' ORDER BY ordinal_position",
+            "check_label": "The field is called Writer"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-loans",
+      "title": "A table with foreign keys",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Loans**: `LoanID` (whole number, primary key), `BookID` (whole number, a foreign key to **Books**), `MemberID` (whole number, a foreign key to **Members**) and `LoanDate` (date, required).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "FOREIGN KEY (BookID) REFERENCES Books(BookID)"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Loans (LoanID INT PRIMARY KEY, BookID INT REFERENCES Books(BookID), MemberID INT REFERENCES Members(MemberID), LoanDate DATE NOT NULL);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Loans (LoanID INT PRIMARY KEY, BookID INT REFERENCES Books(BookID), MemberID INT REFERENCES Members(MemberID), LoanDate DATE NOT NULL);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'loans' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Loans VALUES (1, 2, 1, '2026-11-02')",
+              "INSERT INTO Loans VALUES (2, 99, 1, '2026-11-02')",
+              "INSERT INTO Loans VALUES (3, 1, 99, '2026-11-02')",
+              "INSERT INTO Loans VALUES (4, 1, 1, NULL)"
+            ],
+            "probes_label": "The foreign keys only accept existing books and members"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-teachers",
+      "title": "A field that must be unique",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Teachers**: `TeacherID` (whole number, primary key), `FullName` (text up to 60 characters) and `Email` (text up to 80 characters, required, and **no two teachers may have the same e-mail**).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Teachers (TeacherID INT PRIMARY KEY, FullName VARCHAR(60), Email VARCHAR(80) NOT NULL UNIQUE);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Teachers (TeacherID INT PRIMARY KEY, FullName VARCHAR(60), Email VARCHAR(80) NOT NULL UNIQUE);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'teachers' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Teachers VALUES (1, 'A', 'a@nis.edu.kz'), (2, 'B', 'b@nis.edu.kz')",
+              "INSERT INTO Teachers VALUES (1, 'A', 'a@nis.edu.kz'), (2, 'B', 'a@nis.edu.kz')",
+              "INSERT INTO Teachers VALUES (3, 'C', NULL)"
+            ],
+            "probes_label": "E-mails must be filled in and unique"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-and-fill",
+      "title": "Create a table and fill it",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.1",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Rooms** with `RoomNo` (whole number, primary key) and `Floor` (whole number), then add two rooms: room **101** on floor **1** and room **204** on floor **2**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "Two statements: CREATE TABLE (DDL), then INSERT (DML). End each with ;"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Rooms (RoomNo INT PRIMARY KEY, Floor INT); INSERT INTO Rooms VALUES (101, 1), (204, 2);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Rooms (RoomNo INT PRIMARY KEY, Floor INT); INSERT INTO Rooms VALUES (101, 1), (204, 2);",
+            "check": "state",
+            "check_query": "SELECT RoomNo, Floor FROM Rooms ORDER BY RoomNo",
+            "check_label": "Rooms holds the two rooms"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-add-default",
+      "title": "A column with a default value",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Add a field `JoinYear` (whole number) to **Members** whose value is **2026** when nothing is entered.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Members ADD JoinYear INT DEFAULT 2026;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Members ADD JoinYear INT DEFAULT 2026;",
+            "check": "state",
+            "check_query": "INSERT INTO Members (MemberID, FirstName, LastName) VALUES (9, 'Test', 'Pupil'); SELECT MemberID, JoinYear FROM Members ORDER BY MemberID",
+            "check_label": "New and existing members get 2026"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-composite-key",
+      "title": "A composite primary key",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.4",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Enrolments** that links students to subjects: `StudentID` (whole number) and `SubjectCode` (exactly 4 characters). The **pair** of fields together is the primary key.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        },
+        "hint": "PRIMARY KEY (field1, field2) at the end of the field list."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Enrolments (StudentID INT, SubjectCode CHAR(4), PRIMARY KEY (StudentID, SubjectCode));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Enrolments (StudentID INT, SubjectCode CHAR(4), PRIMARY KEY (StudentID, SubjectCode));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'enrolments' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO Enrolments VALUES (1, 'CS11'), (1, 'MA11'), (2, 'CS11')",
+              "INSERT INTO Enrolments VALUES (1, 'CS11'), (1, 'CS11')",
+              "INSERT INTO Enrolments VALUES (NULL, 'CS11')"
+            ],
+            "probes_label": "Only the pair has to be unique"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-drop-and-add",
+      "title": "Change the structure in two steps",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "In **Books**, remove the field `Year` and add a new field `PublishYear` (whole number). Use two statements.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  Author VARCHAR(60),\n  Year INT,\n  Price DECIMAL(6,2)\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4)\n);\nINSERT INTO Books VALUES\n  (1, 'The Little Prince', 'Antoine de Saint-Exupery', 1943, 2500.00),\n  (2, 'Abai Joly', 'Mukhtar Auezov', 1942, 4200.00),\n  (3, 'The Hobbit', 'J. R. R. Tolkien', 1937, 3900.00),\n  (4, 'Clean Code', 'Robert Martin', 2008, 9800.00);\nINSERT INTO Members VALUES\n  (1, 'Aliya', 'Serikova', '11A'),\n  (2, 'Daniyar', 'Omarov', '11B'),\n  (3, 'Madina', 'Akhmetova', '11A');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Books DROP COLUMN Year; ALTER TABLE Books ADD PublishYear INT;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Books DROP COLUMN Year; ALTER TABLE Books ADD PublishYear INT;",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'books' ORDER BY ordinal_position",
+            "check_label": "Books has PublishYear and no Year"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-all",
+      "title": "Show the whole table",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write an SQL query that shows **all fields** of **all students**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT * FROM Students;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT * FROM Students;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-class",
+      "title": "Students of one class",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `LastName` of the students in class **11A**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        },
+        "hint": "Text values go in single quotes: '11A'."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, LastName FROM Students WHERE Class = '11A';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, LastName FROM Students WHERE Class = '11A';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-points",
+      "title": "A condition on a number",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `Points` of students with **more than 80** points.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, Points FROM Students WHERE Points > 80;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, Points FROM Students WHERE Points > 80;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-and",
+      "title": "Two conditions with AND",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName`, `LastName` and `Class` of students who live in **Almaty** and are in class **11B**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, LastName, Class FROM Students WHERE Town = 'Almaty' AND Class = '11B';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, LastName, Class FROM Students WHERE Town = 'Almaty' AND Class = '11B';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-or",
+      "title": "Two conditions with OR",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `Town` of students who live in **Astana** or in **Shymkent**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, Town FROM Students WHERE Town = 'Astana' OR Town = 'Shymkent';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, Town FROM Students WHERE Town = 'Astana' OR Town = 'Shymkent';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-like",
+      "title": "Names that start with a letter",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `LastName` of every student whose last name **starts with A**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        },
+        "hint": "LIKE 'A%' — % stands for any characters."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT LastName FROM Students WHERE LastName LIKE 'A%';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT LastName FROM Students WHERE LastName LIKE 'A%';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-between",
+      "title": "A range of values",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `Points` of students with **60 to 80** points (both included).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, Points FROM Students WHERE Points BETWEEN 60 AND 80;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, Points FROM Students WHERE Points BETWEEN 60 AND 80;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-select-null",
+      "title": "Missing values",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `StudentID` and `FirstName` of students who have **no points recorded**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        },
+        "hint": "Use IS NULL, not = NULL."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT StudentID, FirstName FROM Students WHERE Points IS NULL;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT StudentID, FirstName FROM Students WHERE Points IS NULL;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-insert-one",
+      "title": "Add a student",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Add a new student: ID **11**, **Asel Muratova**, class **11B**, from **Taraz**, with **68** points.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Students VALUES (11, 'Asel', 'Muratova', '11B', 'Taraz', 68);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Students VALUES (11, 'Asel', 'Muratova', '11B', 'Taraz', 68);",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "The table holds the new student"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-insert-two",
+      "title": "Add two students at once",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Add two students with **one** INSERT statement: ID **12** Bauyrzhan Saparov, 11C, Almaty, 74 points; ID **13** Kamila Ermekova, 11A, Astana, 90 points.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Students VALUES (12, 'Bauyrzhan', 'Saparov', '11C', 'Almaty', 74), (13, 'Kamila', 'Ermekova', '11A', 'Astana', 90);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Students VALUES (12, 'Bauyrzhan', 'Saparov', '11C', 'Almaty', 74), (13, 'Kamila', 'Ermekova', '11A', 'Astana', 90);",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "The table holds both new students"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-insert-some",
+      "title": "Add a student with some fields only",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Add student ID **14**, **Ruslan Ali**, class **11C**. The town and points are not known yet — fill in only the known fields.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        },
+        "hint": "List the fields after the table name: INSERT INTO Students (StudentID, …) VALUES (…);"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Students (StudentID, FirstName, LastName, Class) VALUES (14, 'Ruslan', 'Ali', '11C');\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Students (StudentID, FirstName, LastName, Class) VALUES (14, 'Ruslan', 'Ali', '11C');",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "The new student has empty Town and Points"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-update-one",
+      "title": "Change one record",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Student **4** has moved. Change his town to **Aktobe**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nUPDATE Students SET Town = 'Aktobe' WHERE StudentID = 4;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "UPDATE Students SET Town = 'Aktobe' WHERE StudentID = 4;",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "Only student 4 has changed"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-update-many",
+      "title": "Change several records",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Every student in class **11A** gets **5 extra points**. Write the UPDATE statement.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nUPDATE Students SET Points = Points + 5 WHERE Class = '11A';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "UPDATE Students SET Points = Points + 5 WHERE Class = '11A';",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "Only the 11A students have 5 more points"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-delete-one",
+      "title": "Delete one record",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Student **7** has left the school. Delete the student's record.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nDELETE FROM Students WHERE StudentID = 7;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "DELETE FROM Students WHERE StudentID = 7;",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "Only student 7 is gone"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-delete-many",
+      "title": "Delete with a condition",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Delete the records of all students with **fewer than 40** points.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class VARCHAR(4),\n  Town VARCHAR(30),\n  Points INT\n);\nINSERT INTO Students VALUES\n  (1, 'Aliya', 'Serikova', '11A', 'Almaty', 92),\n  (2, 'Daniyar', 'Omarov', '11B', 'Astana', 75),\n  (3, 'Madina', 'Akhmetova', '11A', 'Shymkent', 64),\n  (4, 'Arman', 'Kassymov', '11B', 'Almaty', 88),\n  (5, 'Zhanel', 'Bekova', '11C', 'Karaganda', 39),\n  (6, 'Timur', 'Abenov', '11A', 'Astana', 81),\n  (7, 'Dana', 'Nurlanova', '11C', 'Almaty', 57),\n  (8, 'Erlan', 'Tokayev', '11B', 'Shymkent', NULL),\n  (9, 'Aigerim', 'Zhunusova', '11C', 'Aktobe', 70),\n  (10, 'Nursultan', 'Iskakov', '11A', 'Almaty', 33);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nDELETE FROM Students WHERE Points < 40;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "DELETE FROM Students WHERE Points < 40;",
+            "check": "state",
+            "check_query": "SELECT * FROM Students ORDER BY StudentID",
+            "check_label": "Exactly the right students are gone"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-order-price",
+      "title": "Cheapest first",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show all fields of all products, **cheapest first**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT * FROM Products ORDER BY Price;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT * FROM Products ORDER BY Price;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-order-desc",
+      "title": "Most expensive first",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Name` and `Price` of all products, **most expensive first**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Name, Price FROM Products ORDER BY Price DESC;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Name, Price FROM Products ORDER BY Price DESC;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-order-two",
+      "title": "Sort by two fields",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Category` and `Name` of all products, sorted by **category** A–Z and, inside each category, by **name** A–Z.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Category, Name FROM Products ORDER BY Category, Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Category, Name FROM Products ORDER BY Category, Name;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-order-where",
+      "title": "Filter, then sort",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Name` and `Stock` of the **Stationery** products, the one with the **most** stock first.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Name, Stock FROM Products WHERE Category = 'Stationery' ORDER BY Stock DESC;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Name, Stock FROM Products WHERE Category = 'Stationery' ORDER BY Stock DESC;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-order-limit",
+      "title": "The three most expensive",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Name` and `Price` of the **three** most expensive products, most expensive first.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "Sort, then keep only the first rows with LIMIT 3."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Name, Price FROM Products ORDER BY Price DESC LIMIT 3;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Name, Price FROM Products ORDER BY Price DESC LIMIT 3;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-count",
+      "title": "Count the products",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Write a query that shows **how many products** there are in the table.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "COUNT(*) counts the rows."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT COUNT(*) FROM Products;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT COUNT(*) FROM Products;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-avg",
+      "title": "Average price",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the **average price** of the **Electronics** products.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT AVG(Price) FROM Products WHERE Category = 'Electronics';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT AVG(Price) FROM Products WHERE Category = 'Electronics';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-sum",
+      "title": "Total stock",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the **total number of items in stock** (all products together).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT SUM(Stock) FROM Products;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT SUM(Stock) FROM Products;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-min-max",
+      "title": "Cheapest and dearest",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the **lowest** and the **highest** price in one query (two columns).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT MIN(Price), MAX(Price) FROM Products;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT MIN(Price), MAX(Price) FROM Products;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-group",
+      "title": "Products in each category",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each `Category` and **how many products** it has, sorted by category A–Z.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "GROUP BY Category, then ORDER BY Category."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Category, COUNT(*) FROM Products GROUP BY Category ORDER BY Category;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Category, COUNT(*) FROM Products GROUP BY Category ORDER BY Category;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-check-quantity",
+      "title": "Validation: a positive quantity",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **OrderLines** with `LineID` (whole number, primary key), `ProductID` (whole number) and `Quantity` (whole number). Add a **validation rule** so that the quantity must be **greater than 0**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "CHECK (Quantity > 0) after the data type."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE OrderLines (LineID INT PRIMARY KEY, ProductID INT, Quantity INT CHECK (Quantity > 0));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE OrderLines (LineID INT PRIMARY KEY, ProductID INT, Quantity INT CHECK (Quantity > 0));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'orderlines' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO OrderLines VALUES (1, 3, 2)",
+              "INSERT INTO OrderLines VALUES (2, 3, 0)",
+              "INSERT INTO OrderLines VALUES (3, 3, -5)"
+            ],
+            "probes_label": "The validation rule accepts and rejects the right quantities"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-check-range",
+      "title": "Validation: a range check",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Marks** with `MarkID` (whole number, primary key), `StudentID` (whole number, required) and `Mark` (whole number) that must be **from 0 to 100**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Marks (MarkID INT PRIMARY KEY, StudentID INT NOT NULL, Mark INT CHECK (Mark BETWEEN 0 AND 100));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Marks (MarkID INT PRIMARY KEY, StudentID INT NOT NULL, Mark INT CHECK (Mark BETWEEN 0 AND 100));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'marks' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO Marks VALUES (1, 5, 0), (2, 5, 100), (3, 5, 57)",
+              "INSERT INTO Marks VALUES (4, 5, 101)",
+              "INSERT INTO Marks VALUES (5, 5, -1)",
+              "INSERT INTO Marks VALUES (6, NULL, 50)"
+            ],
+            "probes_label": "Boundary, normal and wrong data are accepted / rejected correctly"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-check-lookup",
+      "title": "Validation: a lookup (list) check",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Uniforms** with `ItemID` (whole number, primary key) and `Size` (text up to 2 characters) that may only be **S**, **M**, **L** or **XL**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "CHECK (Size IN ('S', 'M', 'L', 'XL'))"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Uniforms (ItemID INT PRIMARY KEY, Size VARCHAR(2) CHECK (Size IN ('S', 'M', 'L', 'XL')));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Uniforms (ItemID INT PRIMARY KEY, Size VARCHAR(2) CHECK (Size IN ('S', 'M', 'L', 'XL')));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'uniforms' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO Uniforms VALUES (1, 'S'), (2, 'XL')",
+              "INSERT INTO Uniforms VALUES (3, 'XS')",
+              "INSERT INTO Uniforms VALUES (4, 'm')"
+            ],
+            "probes_label": "Only the four sizes are accepted"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-check-alter",
+      "title": "Add a validation rule to a table",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The table **Products** exists. Add a validation rule to it so that a price must be **greater than 0**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "ALTER TABLE Products ADD CHECK (…);"
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nALTER TABLE Products ADD CHECK (Price > 0);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "ALTER TABLE Products ADD CHECK (Price > 0);",
+            "check": "state",
+            "probes": [
+              "INSERT INTO Products VALUES (20, 'Eraser', 'Stationery', 150.00, 50)",
+              "INSERT INTO Products VALUES (21, 'Free sticker', 'Stationery', 0, 50)",
+              "UPDATE Products SET Price = -1 WHERE ProductID = 1"
+            ],
+            "probes_label": "Zero and negative prices are rejected"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-check-format",
+      "title": "Validation: a format check",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.2",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Pupils** with `PupilCode` (exactly 5 characters, primary key) and `FullName` (text up to 60 characters). A pupil code must be the letter **S** followed by **four** characters, e.g. `S1234` (use LIKE).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Products (\n  ProductID INT PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Category VARCHAR(30),\n  Price DECIMAL(8,2),\n  Stock INT\n);\nINSERT INTO Products VALUES\n  (1, 'Notebook A5', 'Stationery', 450.00, 120),\n  (2, 'Gel pen', 'Stationery', 300.00, 340),\n  (3, 'USB flash 32GB', 'Electronics', 3900.00, 25),\n  (4, 'Headphones', 'Electronics', 12500.00, 8),\n  (5, 'Backpack', 'Bags', 18900.00, 14),\n  (6, 'Pencil case', 'Bags', 2700.00, 40),\n  (7, 'Calculator', 'Electronics', 7600.00, 17),\n  (8, 'Ruler 30cm', 'Stationery', 250.00, 210),\n  (9, 'Mouse', 'Electronics', 5400.00, 30);"
+        },
+        "hint": "In LIKE, _ stands for exactly one character."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Pupils (PupilCode CHAR(5) PRIMARY KEY CHECK (PupilCode LIKE 'S____'), FullName VARCHAR(60));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Pupils (PupilCode CHAR(5) PRIMARY KEY CHECK (PupilCode LIKE 'S____'), FullName VARCHAR(60));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'pupils' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO Pupils VALUES ('S1234', 'Aru')",
+              "INSERT INTO Pupils VALUES ('T1234', 'Bek')",
+              "INSERT INTO Pupils VALUES ('S12', 'Dana')"
+            ],
+            "probes_label": "Only codes in the right format are accepted"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-author",
+      "title": "Book and author",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Title` of every book together with the `Name` of its author.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "Join on the field the two tables share: Books.AuthorID = Authors.AuthorID."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title, Authors.Name FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title, Authors.Name FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-country",
+      "title": "Books by Kazakh authors",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Title` and the author's `Name` of books whose author is from **Kazakhstan**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title, Authors.Name FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID WHERE Authors.Country = 'Kazakhstan';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title, Authors.Name FROM Books JOIN Authors ON Books.AuthorID = Authors.AuthorID WHERE Authors.Country = 'Kazakhstan';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-loans",
+      "title": "Who borrowed what",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the member's `Name` and the book's `Title` for every loan.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "Loans links Members and Books — join all three."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Members.Name, Books.Title FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Members.Name, Books.Title FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-order",
+      "title": "Loans in date order",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4",
+        "11.4.2.5"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `LoanDate`, member `Name` and book `Title` of every loan, **oldest loan first**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Loans.LoanDate, Members.Name, Books.Title FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID ORDER BY Loans.LoanDate;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Loans.LoanDate, Members.Name, Books.Title FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID ORDER BY Loans.LoanDate;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-not-returned",
+      "title": "Books not returned",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the book `Title` and the member `Name` for every loan that has **not been returned**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title, Members.Name FROM Loans JOIN Books ON Loans.BookID = Books.BookID JOIN Members ON Loans.MemberID = Members.MemberID WHERE Loans.Returned = FALSE;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title, Members.Name FROM Loans JOIN Books ON Loans.BookID = Books.BookID JOIN Members ON Loans.MemberID = Members.MemberID WHERE Loans.Returned = FALSE;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-member",
+      "title": "Aliya's books",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Title` of every book borrowed by the member **Aliya**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title FROM Loans JOIN Books ON Loans.BookID = Books.BookID JOIN Members ON Loans.MemberID = Members.MemberID WHERE Members.Name = 'Aliya';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title FROM Loans JOIN Books ON Loans.BookID = Books.BookID JOIN Members ON Loans.MemberID = Members.MemberID WHERE Members.Name = 'Aliya';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-genre",
+      "title": "Authors of fantasy",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Name` of each author who has written a **Fantasy** book. Each name should appear **once**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "SELECT DISTINCT removes repeated rows."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT DISTINCT Authors.Name FROM Authors JOIN Books ON Books.AuthorID = Authors.AuthorID WHERE Books.Genre = 'Fantasy';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT DISTINCT Authors.Name FROM Authors JOIN Books ON Books.AuthorID = Authors.AuthorID WHERE Books.Genre = 'Fantasy';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-count",
+      "title": "Books per author",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each author's `Name` and **how many books** by that author are in the library, sorted by name A–Z.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Authors.Name, COUNT(*) FROM Authors JOIN Books ON Books.AuthorID = Authors.AuthorID GROUP BY Authors.Name ORDER BY Authors.Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Authors.Name, COUNT(*) FROM Authors JOIN Books ON Books.AuthorID = Authors.AuthorID GROUP BY Authors.Name ORDER BY Authors.Name;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-three-class",
+      "title": "Three tables and a condition",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "For loans by members of class **11A**, show the member `Name`, the book `Title` and the author's `Name`.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Members.Name, Books.Title, Authors.Name FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID JOIN Authors ON Books.AuthorID = Authors.AuthorID WHERE Members.Class = '11A';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Members.Name, Books.Title, Authors.Name FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID JOIN Books ON Loans.BookID = Books.BookID JOIN Authors ON Books.AuthorID = Authors.AuthorID WHERE Members.Class = '11A';"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-never",
+      "title": "Books never borrowed",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Title` of every book that has **never** been borrowed.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "A LEFT JOIN keeps books without loans; their loan fields are NULL."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title FROM Books LEFT JOIN Loans ON Loans.BookID = Books.BookID WHERE Loans.LoanID IS NULL;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title FROM Books LEFT JOIN Loans ON Loans.BookID = Books.BookID WHERE Loans.LoanID IS NULL;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-most",
+      "title": "Most active readers",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each member's `Name` and their **number of loans**, the member with the **most** loans first (members with the same number in name order A–Z). Show only members who have borrowed something.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Members.Name, COUNT(*) FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID GROUP BY Members.Name ORDER BY COUNT(*) DESC, Members.Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Members.Name, COUNT(*) FROM Loans JOIN Members ON Loans.MemberID = Members.MemberID GROUP BY Members.Name ORDER BY COUNT(*) DESC, Members.Name;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-reviews",
+      "title": "A linked table for reviews",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create a table **Reviews**: `ReviewID` (whole number, primary key), `BookID` (foreign key to **Books**), `MemberID` (foreign key to **Members**) and `Stars` (whole number from **1 to 5**).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Reviews (ReviewID INT PRIMARY KEY, BookID INT REFERENCES Books(BookID), MemberID INT REFERENCES Members(MemberID), Stars INT CHECK (Stars BETWEEN 1 AND 5));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Reviews (ReviewID INT PRIMARY KEY, BookID INT REFERENCES Books(BookID), MemberID INT REFERENCES Members(MemberID), Stars INT CHECK (Stars BETWEEN 1 AND 5));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'reviews' ORDER BY ordinal_position",
+            "check_label": "The fields and data types are right",
+            "probes": [
+              "INSERT INTO Reviews VALUES (1, 1, 1, 5)",
+              "INSERT INTO Reviews VALUES (2, 99, 1, 4)",
+              "INSERT INTO Reviews VALUES (3, 1, 99, 4)",
+              "INSERT INTO Reviews VALUES (4, 1, 1, 6)"
+            ],
+            "probes_label": "The keys and the 1–5 rule work"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-create-two",
+      "title": "A database with two tables",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.11",
+        "11.4.2.2"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Create two linked tables for a football league: **Teams** (`TeamID` whole number primary key, `TeamName` text up to 40 characters, required) and **Players** (`PlayerID` whole number primary key, `Name` text up to 50 characters, `TeamID` a foreign key to **Teams**).\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "Create Teams first — Players refers to it."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Teams (TeamID INT PRIMARY KEY, TeamName VARCHAR(40) NOT NULL); CREATE TABLE Players (PlayerID INT PRIMARY KEY, Name VARCHAR(50), TeamID INT REFERENCES Teams(TeamID));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Teams (TeamID INT PRIMARY KEY, TeamName VARCHAR(40) NOT NULL); CREATE TABLE Players (PlayerID INT PRIMARY KEY, Name VARCHAR(50), TeamID INT REFERENCES Teams(TeamID));",
+            "check": "state",
+            "check_query": "SELECT lower(table_name), lower(column_name), data_type, character_maximum_length, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) IN ('teams', 'players') ORDER BY 1, ordinal_position",
+            "check_label": "Both tables have the right fields",
+            "probes": [
+              "INSERT INTO Teams VALUES (1, 'Kairat'); INSERT INTO Players VALUES (1, 'Arman', 1)",
+              "INSERT INTO Players VALUES (2, 'Dias', 7)",
+              "INSERT INTO Teams VALUES (2, NULL)"
+            ],
+            "probes_label": "A player can only belong to an existing team"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-insert-loan",
+      "title": "Record a new loan",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.3",
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Member **4** borrows book **7** on **2026-11-16**. Record the loan with ID **8**; it has not been returned yet.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        },
+        "hint": "Dates are written as text: '2026-11-16'."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Loans VALUES (8, 7, 4, '2026-11-16', FALSE);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Loans VALUES (8, 7, 4, '2026-11-16', FALSE);",
+            "check": "state",
+            "check_query": "SELECT * FROM Loans ORDER BY LoanID",
+            "check_label": "The loan is recorded"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-join-where-style",
+      "title": "Join with WHERE",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Title` and `Year` of books together with the author's `Country`, for books written **before 1900**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Authors (\n  AuthorID INT PRIMARY KEY,\n  Name VARCHAR(60) NOT NULL,\n  Country VARCHAR(30)\n);\nCREATE TABLE Books (\n  BookID INT PRIMARY KEY,\n  Title VARCHAR(100) NOT NULL,\n  AuthorID INT REFERENCES Authors(AuthorID),\n  Genre VARCHAR(30),\n  Year INT\n);\nCREATE TABLE Members (\n  MemberID INT PRIMARY KEY,\n  Name VARCHAR(40) NOT NULL,\n  Class VARCHAR(4)\n);\nCREATE TABLE Loans (\n  LoanID INT PRIMARY KEY,\n  BookID INT REFERENCES Books(BookID),\n  MemberID INT REFERENCES Members(MemberID),\n  LoanDate DATE NOT NULL,\n  Returned BOOLEAN\n);\nINSERT INTO Authors VALUES\n  (1, 'Mukhtar Auezov', 'Kazakhstan'), (2, 'J. K. Rowling', 'UK'), (3, 'Abai Kunanbayev', 'Kazakhstan'),\n  (4, 'Jules Verne', 'France'), (5, 'Ilyas Yessenberlin', 'Kazakhstan');\nINSERT INTO Books VALUES\n  (1, 'Abai Joly', 1, 'Novel', 1942), (2, 'Harry Potter 1', 2, 'Fantasy', 1997), (3, 'Book of Words', 3, 'Poetry', 1918),\n  (4, 'Twenty Thousand Leagues', 4, 'Adventure', 1870), (5, 'The Nomads', 5, 'Novel', 1976), (6, 'Harry Potter 2', 2, 'Fantasy', 1998),\n  (7, 'The Mysterious Island', 4, 'Adventure', 1875);\nINSERT INTO Members VALUES\n  (1, 'Aliya', '11A'), (2, 'Daniyar', '11B'), (3, 'Madina', '11A'), (4, 'Arman', '11C');\nINSERT INTO Loans VALUES\n  (1, 2, 1, '2026-10-01', TRUE), (2, 1, 2, '2026-10-03', FALSE), (3, 6, 1, '2026-10-05', FALSE),\n  (4, 4, 3, '2026-10-06', TRUE), (5, 2, 4, '2026-10-08', FALSE), (6, 5, 3, '2026-10-10', FALSE),\n  (7, 3, 1, '2026-10-12', TRUE);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Books.Title, Books.Year, Authors.Country FROM Books, Authors WHERE Books.AuthorID = Authors.AuthorID AND Books.Year < 1900;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Books.Title, Books.Year, Authors.Country FROM Books, Authors WHERE Books.AuthorID = Authors.AuthorID AND Books.Year < 1900;"
+          }
+        }
+      }
     }
   ],
   "summary": "SQL for relational databases — data types, DDL and DML, creating and changing structures with CREATE, ALTER and DROP, managing data with INSERT, SELECT, UPDATE and DELETE, validation and verification, sorting with ORDER BY, querying several tables and building a database with multiple tables.",
@@ -4699,7 +6711,22 @@
         "sql-alter-add",
         "sql-describe-drop-col",
         "sql-create-error-mcq",
-        "sql-drop-undo-tf"
+        "sql-drop-undo-tf",
+        "sqlw-create-students",
+        "sqlw-create-subjects",
+        "sqlw-create-products",
+        "sqlw-create-autonumber",
+        "sqlw-add-genre",
+        "sqlw-drop-price",
+        "sqlw-drop-members",
+        "sqlw-add-email",
+        "sqlw-rename-author",
+        "sqlw-create-loans",
+        "sqlw-create-teachers",
+        "sqlw-create-and-fill",
+        "sqlw-add-default",
+        "sqlw-composite-key",
+        "sqlw-drop-and-add"
       ]
     },
     {
@@ -4724,7 +6751,22 @@
         "sql-delete-where",
         "sql-no-where-tf",
         "sql-delete-drop",
-        "sql-update-key-mcq"
+        "sql-update-key-mcq",
+        "sqlw-select-all",
+        "sqlw-select-class",
+        "sqlw-select-points",
+        "sqlw-select-and",
+        "sqlw-select-or",
+        "sqlw-select-like",
+        "sqlw-select-between",
+        "sqlw-select-null",
+        "sqlw-insert-one",
+        "sqlw-insert-two",
+        "sqlw-insert-some",
+        "sqlw-update-one",
+        "sqlw-update-many",
+        "sqlw-delete-one",
+        "sqlw-delete-many"
       ]
     },
     {
@@ -4749,7 +6791,22 @@
         "sql-asc-desc-match",
         "sql-two-key-sort",
         "sql-aggregate",
-        "sql-avg-mcq"
+        "sql-avg-mcq",
+        "sqlw-order-price",
+        "sqlw-order-desc",
+        "sqlw-order-two",
+        "sqlw-order-where",
+        "sqlw-order-limit",
+        "sqlw-count",
+        "sqlw-avg",
+        "sqlw-sum",
+        "sqlw-min-max",
+        "sqlw-group",
+        "sqlw-check-quantity",
+        "sqlw-check-range",
+        "sqlw-check-lookup",
+        "sqlw-check-alter",
+        "sqlw-check-format"
       ]
     },
     {
@@ -4773,7 +6830,22 @@
         "sql-fk-fill",
         "sql-create-order-mcq",
         "sql-pk-fk-tick",
-        "sql-ri-mr"
+        "sql-ri-mr",
+        "sqlw-join-author",
+        "sqlw-join-country",
+        "sqlw-join-loans",
+        "sqlw-join-order",
+        "sqlw-join-not-returned",
+        "sqlw-join-member",
+        "sqlw-join-genre",
+        "sqlw-join-count",
+        "sqlw-join-three-class",
+        "sqlw-join-never",
+        "sqlw-join-most",
+        "sqlw-create-reviews",
+        "sqlw-create-two",
+        "sqlw-insert-loan",
+        "sqlw-join-where-style"
       ]
     }
   ]

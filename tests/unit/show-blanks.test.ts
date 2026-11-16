@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+vi.mock("@/lib/sql/actions", () => ({ runSqlQuestion: async () => null }));
 import { showBlanks } from "@/components/questions/answer-input";
 
 describe("showBlanks", () => {

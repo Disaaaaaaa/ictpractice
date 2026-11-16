@@ -1,5 +1,6 @@
 import "server-only";
 import { gradeDeterministic, type MarkingPointResult } from "./deterministic";
+import { gradeSql } from "../sql/grade";
 import { AiUnavailableError, PROMPT_VERSION, answerAsText, gradeWithAI } from "./ai";
 import { cacheKey, effortFor, getCachedMarking, logAiUsage, putCachedMarking } from "./ai-cache";
 import { isAnswerBlank, type AnswerData, type MarkingEntry, type QuestionContent, type QuestionType } from "../questions/types";
@@ -79,6 +80,17 @@ export async function gradeAnswer(input: GradeInput): Promise<GradeOutcome> {
 
   if (method === "MANUAL") {
     return { ...out, needsReview: true, feedback: null };
+  }
+
+  // Written SQL with a sample database: run it and compare with the model solution.
+  const sqlKey = marking.accepted_answers?.sql;
+  if (input.questionType === "sql" && sqlKey && input.content?.sql?.setup && (method === "AUTO" || method === "HYBRID")) {
+    try {
+      const g = await gradeSql(input.content.sql.setup, sqlKey, input.answer?.text ?? "", max);
+      return { ...out, awarded: g.awarded, points: g.points, feedback: g.feedback };
+    } catch (e) {
+      return { ...out, needsReview: true, error: `SQL check failed: ${(e as Error).message}`.slice(0, 500) };
+    }
   }
 
   let provisional: number | null = null;

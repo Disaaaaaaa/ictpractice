@@ -1081,6 +1081,488 @@
           }
         }
       ]
+    },
+    {
+      "key": "sqlw-shop-customer",
+      "title": "Add a customer",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "A new customer registers on the shop's website: ID **6**, **Timur Abenov** from **Karaganda**. Write the SQL statement the program sends to the database.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Customers VALUES (6, 'Timur', 'Abenov', 'Karaganda');\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Customers VALUES (6, 'Timur', 'Abenov', 'Karaganda');",
+            "check": "state",
+            "check_query": "SELECT * FROM Customers ORDER BY CustomerID",
+            "check_label": "The customer is stored"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-order",
+      "title": "Record an order",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Customer **2** orders **3** Notebooks (`CD210`) on **2026-11-16**. Record it as order **105**: first the order, then its item.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        },
+        "hint": "The order must exist before its items (foreign key)."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Orders VALUES (105, 2, '2026-11-16'); INSERT INTO OrderItems VALUES (105, 'CD210', 3);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Orders VALUES (105, 2, '2026-11-16'); INSERT INTO OrderItems VALUES (105, 'CD210', 3);",
+            "check": "state",
+            "check_query": "SELECT o.OrderID, o.CustomerID, o.OrderDate, i.ProductCode, i.Quantity FROM Orders o LEFT JOIN OrderItems i ON i.OrderID = o.OrderID ORDER BY o.OrderID, i.ProductCode",
+            "check_label": "Order 105 and its item are stored"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-stock",
+      "title": "Update the stock",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "After a sale, the stock of the Backpack (`AB102`) must go down by **3**. Write the UPDATE statement.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nUPDATE Products SET Stock = Stock - 3 WHERE ProductCode = 'AB102';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "UPDATE Products SET Stock = Stock - 3 WHERE ProductCode = 'AB102';",
+            "check": "state",
+            "check_query": "SELECT ProductCode, Stock FROM Products ORDER BY ProductCode",
+            "check_label": "Only AB102's stock went down by 3"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-full-order",
+      "title": "A complete order",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Customer **5** buys **2** Calculators (`EF300`) and **1** pair of Headphones (`GH410`) on **2026-11-16**. Record order **106** with both items **and** reduce the stock of both products.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nINSERT INTO Orders VALUES (106, 5, '2026-11-16'); INSERT INTO OrderItems VALUES (106, 'EF300', 2), (106, 'GH410', 1); UPDATE Products SET Stock = Stock - 2 WHERE ProductCode = 'EF300'; UPDATE Products SET Stock = Stock - 1 WHERE ProductCode = 'GH410';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "INSERT INTO Orders VALUES (106, 5, '2026-11-16'); INSERT INTO OrderItems VALUES (106, 'EF300', 2), (106, 'GH410', 1); UPDATE Products SET Stock = Stock - 2 WHERE ProductCode = 'EF300'; UPDATE Products SET Stock = Stock - 1 WHERE ProductCode = 'GH410';",
+            "check": "state",
+            "check_query": "SELECT 'order' AS part, OrderID::text AS a, CustomerID::text AS b, OrderDate::text AS c FROM Orders WHERE OrderID = 106 UNION ALL SELECT 'item', ProductCode, Quantity::text, OrderID::text FROM OrderItems WHERE OrderID = 106 UNION ALL SELECT 'stock', ProductCode, Stock::text, '' FROM Products ORDER BY 1, 2",
+            "check_label": "The order, its items and the stock are all right"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-city",
+      "title": "Customers from one city",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `LastName` of customers from **Almaty**, sorted by last name A–Z.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT FirstName, LastName FROM Customers WHERE City = 'Almaty' ORDER BY LastName;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT FirstName, LastName FROM Customers WHERE City = 'Almaty' ORDER BY LastName;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-orders-names",
+      "title": "Orders with customer names",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the customer's `FirstName`, `LastName` and the `OrderDate` of every order, **newest first**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Customers.FirstName, Customers.LastName, Orders.OrderDate FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID ORDER BY Orders.OrderDate DESC;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Customers.FirstName, Customers.LastName, Orders.OrderDate FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID ORDER BY Orders.OrderDate DESC;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-bought",
+      "title": "What customer 1 bought",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `Name` of every product bought by customer **1** and the `Quantity`, sorted by product name A–Z.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Products.Name, OrderItems.Quantity FROM Orders JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID JOIN Products ON Products.ProductCode = OrderItems.ProductCode WHERE Orders.CustomerID = 1 ORDER BY Products.Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Products.Name, OrderItems.Quantity FROM Orders JOIN OrderItems ON OrderItems.OrderID = Orders.OrderID JOIN Products ON Products.ProductCode = OrderItems.ProductCode WHERE Orders.CustomerID = 1 ORDER BY Products.Name;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-best",
+      "title": "Best sellers",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each product's `Name` and the **total quantity sold**, the best seller first (equal totals in name order A–Z). Only products that have been sold.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Products.Name, SUM(OrderItems.Quantity) FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode GROUP BY Products.Name ORDER BY SUM(OrderItems.Quantity) DESC, Products.Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Products.Name, SUM(OrderItems.Quantity) FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode GROUP BY Products.Name ORDER BY SUM(OrderItems.Quantity) DESC, Products.Name;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-value",
+      "title": "Value of each order",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each `OrderID` and the **total value** of the order (quantity × price, added up), sorted by OrderID.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT OrderItems.OrderID, SUM(OrderItems.Quantity * Products.Price) FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode GROUP BY OrderItems.OrderID ORDER BY OrderItems.OrderID;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT OrderItems.OrderID, SUM(OrderItems.Quantity * Products.Price) FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode GROUP BY OrderItems.OrderID ORDER BY OrderItems.OrderID;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-low-stock",
+      "title": "Running out",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `ProductCode`, `Name` and `Stock` of products with **fewer than 15** in stock, the lowest stock first.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT ProductCode, Name, Stock FROM Products WHERE Stock < 15 ORDER BY Stock;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT ProductCode, Name, Stock FROM Products WHERE Stock < 15 ORDER BY Stock;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-no-orders",
+      "title": "Customers who never ordered",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show the `FirstName` and `LastName` of customers who have **never** placed an order.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Customers.FirstName, Customers.LastName FROM Customers LEFT JOIN Orders ON Orders.CustomerID = Customers.CustomerID WHERE Orders.OrderID IS NULL;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Customers.FirstName, Customers.LastName FROM Customers LEFT JOIN Orders ON Orders.CustomerID = Customers.CustomerID WHERE Orders.OrderID IS NULL;"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-cancel",
+      "title": "Cancel an order",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Order **103** is cancelled. Delete it from the database — its items first, then the order.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        },
+        "hint": "The items refer to the order, so they go first."
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nDELETE FROM OrderItems WHERE OrderID = 103; DELETE FROM Orders WHERE OrderID = 103;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "DELETE FROM OrderItems WHERE OrderID = 103; DELETE FROM Orders WHERE OrderID = 103;",
+            "check": "state",
+            "check_query": "SELECT o.OrderID, o.CustomerID, o.OrderDate, i.ProductCode, i.Quantity FROM Orders o LEFT JOIN OrderItems i ON i.OrderID = o.OrderID ORDER BY o.OrderID, i.ProductCode",
+            "check_label": "Order 103 and its items are gone, nothing else"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-price-rise",
+      "title": "Raise some prices",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.7"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The prices of all products whose code starts with **CD** go up by **10%**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nUPDATE Products SET Price = Price * 1.1 WHERE ProductCode LIKE 'CD%';\n```",
+        "accepted": {
+          "sql": {
+            "solution": "UPDATE Products SET Price = Price * 1.1 WHERE ProductCode LIKE 'CD%';",
+            "check": "state",
+            "check_query": "SELECT ProductCode, Price FROM Products ORDER BY ProductCode",
+            "check_label": "Only the CD products cost 10% more"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-city-count",
+      "title": "Orders per city",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8",
+        "11.4.2.4"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "Show each `City` and the **number of orders** placed by customers from it, sorted by city A–Z. Only cities with orders.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Customers.City, COUNT(*) FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID GROUP BY Customers.City ORDER BY Customers.City;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Customers.City, COUNT(*) FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID GROUP BY Customers.City ORDER BY Customers.City;",
+            "check": "ordered"
+          }
+        }
+      }
+    },
+    {
+      "key": "sqlw-shop-receipt",
+      "title": "A receipt",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.8"
+      ],
+      "source": "original",
+      "practice": true,
+      "text": "The program prints a receipt for order **101**: show the product `Name`, `Quantity`, `Price` and the line total (`Quantity * Price`) for each item, sorted by product name.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Customers (\n  CustomerID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  City VARCHAR(30)\n);\nCREATE TABLE Products (\n  ProductCode CHAR(5) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Price DECIMAL(8,2) NOT NULL,\n  Stock INT NOT NULL\n);\nCREATE TABLE Orders (\n  OrderID INT PRIMARY KEY,\n  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),\n  OrderDate DATE NOT NULL\n);\nCREATE TABLE OrderItems (\n  OrderID INT REFERENCES Orders(OrderID),\n  ProductCode CHAR(5) REFERENCES Products(ProductCode),\n  Quantity INT NOT NULL,\n  PRIMARY KEY (OrderID, ProductCode)\n);\nINSERT INTO Customers VALUES\n  (1, 'Aliya', 'Serikova', 'Almaty'), (2, 'Daniyar', 'Omarov', 'Astana'), (3, 'Madina', 'Akhmetova', 'Almaty'),\n  (4, 'Arman', 'Kassymov', 'Shymkent'), (5, 'Zhanel', 'Bekova', 'Astana');\nINSERT INTO Products VALUES\n  ('AB102', 'Backpack', 18900.00, 12), ('CD210', 'Notebook', 450.00, 200), ('CD215', 'Sketchbook', 1200.00, 35),\n  ('EF300', 'Calculator', 7600.00, 6), ('GH410', 'Headphones', 12500.00, 9), ('PN100', 'Gel pen', 300.00, 500);\nINSERT INTO Orders VALUES\n  (101, 1, '2026-10-02'), (102, 2, '2026-10-05'), (103, 1, '2026-10-09'), (104, 3, '2026-10-15');\nINSERT INTO OrderItems VALUES\n  (101, 'CD210', 4), (101, 'PN100', 10), (102, 'AB102', 1), (102, 'EF300', 1),\n  (103, 'GH410', 1), (103, 'CD210', 2), (104, 'CD215', 3), (104, 'PN100', 5);"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nSELECT Products.Name, OrderItems.Quantity, Products.Price, OrderItems.Quantity * Products.Price FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode WHERE OrderItems.OrderID = 101 ORDER BY Products.Name;\n```",
+        "accepted": {
+          "sql": {
+            "solution": "SELECT Products.Name, OrderItems.Quantity, Products.Price, OrderItems.Quantity * Products.Price FROM OrderItems JOIN Products ON Products.ProductCode = OrderItems.ProductCode WHERE OrderItems.OrderID = 101 ORDER BY Products.Name;",
+            "check": "ordered"
+          }
+        }
+      }
     }
   ],
   "summary": "Implementing the SQL part of a project — the related tables of an online shop, inserting a new order and its items from program code (prepared statements, the new ID, loops, updating stock), and extracting data from several tables with joins in WHERE and INNER JOIN, aliases, three- and four-table queries, aggregate functions with GROUP BY, LEFT JOIN and displaying the results.",

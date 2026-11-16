@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Markdown } from "@/components/markdown";
 import { parseBoolean } from "@/lib/boolean";
 import { CodeEditor } from "@/components/code-editor";
+import { SqlRunner } from "./sql-runner";
 import { cn } from "@/lib/cn";
 import type { AnswerData, CodeLanguage, DiagramKind, QuestionContent, QuestionOption, QuestionType } from "@/lib/questions/types";
 import { CODE_TYPES, DIAGRAM_TYPES } from "@/lib/questions/types";
@@ -242,6 +243,9 @@ export function AnswerInput({
             onChange={(diagram) => onChange(diagram ? { diagram } : null)}
           />
         );
+      }
+      if (q.question_type === "sql" && q.content.sql?.setup) {
+        return <SqlRunner questionId={q.id} value={v.text ?? q.content.starter_code ?? ""} disabled={disabled} onChange={(text) => onChange(text.trim() ? { text } : null)} />;
       }
       if (CODE_TYPES.includes(q.question_type)) {
         return (
