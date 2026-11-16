@@ -463,6 +463,19 @@ function TraceTableInput({
 
 /** Question text, with fill-in-the-blank placeholders shown as numbered gaps. */
 export function QuestionText({ text, type }: { text: string; type: QuestionType }) {
-  const shown = type === "fill_blank" ? text.replace(/\[\[(\d+)\]\]/g, (_, n) => `**(${n})** \\_\\_\\_\\_\\_`) : text;
-  return <Markdown>{shown}</Markdown>;
+  return <Markdown>{type === "fill_blank" ? showBlanks(text) : text}</Markdown>;
+}
+
+/**
+ * [[n]] → a numbered gap. Markdown is not read inside code (``` blocks and
+ * `inline`), so there the gap is plain text — "(1)______" — instead of the
+ * bold, escaped form used in ordinary text.
+ */
+export function showBlanks(text: string): string {
+  const inCode = (n: string) => `(${n})______`;
+  const inText = (n: string) => `**(${n})** \\_\\_\\_\\_\\_`;
+  return text
+    .split(/(```[\s\S]*?```|`[^`\n]*`)/g)
+    .map((part, i) => part.replace(/\[\[(\d+)\]\]/g, (_, n: string) => (i % 2 ? inCode(n) : inText(n))))
+    .join("");
 }
