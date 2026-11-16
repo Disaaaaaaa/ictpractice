@@ -106,7 +106,7 @@ async function snapshot(d: PGlite): Promise<SqlTable[]> {
   const out: SqlTable[] = [];
   for (const [name] of names.rows) {
     const q = `"${name.replace(/"/g, '""')}"`;
-    const r = (await d.query(`select * from ${q} limit ${MAX_ROWS}`, [], { rowMode: "array" })) as unknown as Raw;
+    const r = (await d.query(`select * from ${q} order by 1 limit ${MAX_ROWS}`, [], { rowMode: "array" })) as unknown as Raw;
     const total = (await d.query<[number]>(`select count(*)::int from ${q}`, [], { rowMode: "array" })).rows[0][0];
     out.push({ name, columns: r.fields.map((f) => f.name), rows: r.rows.map((row) => row.map(cell)), total });
   }
