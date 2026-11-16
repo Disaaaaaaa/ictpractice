@@ -61,7 +61,7 @@ export async function pushLessons(db: SupabaseClient, slug: string, topic: Autho
     const fields = {
       title: examTitle,
       description: `Lesson ${n} of ${title}: ${l.title}`,
-      instructions: `Answer all questions. Total: ${marks} marks. Time: ${l.exam.duration} minutes. Your first attempt counts towards your SAU points.`,
+      instructions: `Answer all questions. Total: ${marks} marks. Time: ${l.exam.duration} minutes. Your best attempt counts towards your SAU points.`,
       duration_minutes: l.exam.duration,
       archived_at: null,
     };

@@ -85,9 +85,9 @@ export default async function TopicExamPage({ params, searchParams }: PageProps<
               <p className="mb-3 text-sm text-muted">
                 Exam Mode is a timed assessment: no hints or feedback until you submit. Leaving the exam window is recorded.
                 {e.lesson_no
-                  ? " Your first attempt counts towards your SAU points (2 points for the lesson)."
+                  ? " Your best attempt counts towards your SAU points (2 points for the lesson)."
                   : oneExam
-                    ? " This is the topic's only Exam Mode: your first attempt counts towards your SAU points (2 points for the topic)."
+                    ? " This is the topic's only Exam Mode: your best attempt counts towards your SAU points (2 points for the topic)."
                     : ""}
               </p>
               {e.id === topicExam?.id && req.locked && (

@@ -87,7 +87,7 @@ export function TopicLessons({
             <div className="min-w-0">
               <p className="font-medium">Exam Mode — the whole topic</p>
               <p className="text-xs text-muted">
-                One timed exam after the lessons: your first attempt gives up to {LESSON_POINTS.exam} points.
+                One timed exam after the lessons: your best attempt gives up to {LESSON_POINTS.exam} points.
                 {topicExam?.deadline ? ` Due ${formatDate(topicExam.deadline)}.` : ""}
               </p>
             </div>

@@ -24,7 +24,7 @@ export default async function StudentPointsPage() {
   const header = (
     <PageHeader
       title="SAU points"
-      description={`Every lesson gives practice ${LESSON_POINTS.practice} points (your best answer to each question) and notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}). Each topic's Exam Mode gives ${LESSON_POINTS.exam} more (your first attempt; ${EXAM_FULL_AT}% or more gives the full ${LESSON_POINTS.exam}; earlier topics had a short test in every lesson instead). The SAU at the end of the unit is worth as many points as all its lessons.`}
+      description={`Every lesson gives practice ${LESSON_POINTS.practice} points (your best answer to each question) and notes check ${LESSON_POINTS.notes} (your best check; ${NOTES_FULL_AT}% or more gives the full ${LESSON_POINTS.notes}). Each topic's Exam Mode gives ${LESSON_POINTS.exam} more (your best attempt; ${EXAM_FULL_AT}% or more gives the full ${LESSON_POINTS.exam}; earlier topics had a short test in every lesson instead). The SAU at the end of the unit is worth as many points as all its lessons.`}
     />
   );
   const classId = await getStudentClass(supabase, profile.id, profile.grade);

@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { createDb, type Db } from "./harness";
 
-// Points of a lesson: practice (first attempt of each lesson question), notes
-// (best check) and the lesson exam (first attempt), each before the deadline.
+// Points of a lesson: practice (best attempt of each lesson question), notes
+// (best check) and the lesson exam (best graded attempt), each before the deadline.
 
 let db: Db;
 let alice: string;
@@ -74,7 +74,7 @@ beforeAll(async () => {
 }, 60_000);
 
 describe("lesson_points", () => {
-  it("counts the best practice attempt, the best notes and the first exam attempt", async () => {
+  it("counts the best practice attempt, the best notes and the graded exam attempt", async () => {
     const [l1] = await points(teacher);
     expect(Number(l1.practice_max)).toBe(q1.marks + q2.marks);
     // q1: 0 at first, full marks on the second try → the best counts
@@ -82,6 +82,17 @@ describe("lesson_points", () => {
     expect(Number(l1.notes_pct)).toBe(80);
     expect(l1.exam_id).toBe(examId);
     expect(Number(l1.exam_pct)).toBe(50);
+  });
+
+  it("counts the best exam attempt, not the first", async () => {
+    // a copy of the graded attempt, made later and with a better result
+    await db.query(`create temp table a2 as select * from attempts where student_id = $1 and exam_id = $2 limit 1`, [alice, examId]);
+    await db.query(`update a2 set id = gen_random_uuid(), percentage = 90, created_at = now() + interval '1 minute'`);
+    const second = await db.query<{ id: string }>(`insert into attempts select * from a2 returning id`);
+    await db.query(`drop table a2`);
+    expect(Number((await points(teacher))[0].exam_pct)).toBe(90);
+    await db.query(`delete from attempts where id = $1`, [second.rows[0].id]);
+    expect(Number((await points(teacher))[0].exam_pct)).toBe(50);
   });
 
   it("ignores work done after the lesson's deadline", async () => {

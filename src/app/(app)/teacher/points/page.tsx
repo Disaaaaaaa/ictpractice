@@ -130,8 +130,8 @@ export default async function TeacherPointsPage({ searchParams }: PageProps<"/te
                       title={fullLabel(selected)}
                       description={
                         selected.isExam
-                          ? `${selected.deadline ? `Due ${formatDate(selected.deadline)} (the topic's last deadline) — only an attempt before it counts.` : "No deadline yet."} One Exam Mode for the whole topic: the first attempt gives up to ${LESSON_POINTS.exam} points (full from ${EXAM_FULL_AT}%).`
-                          : `${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result (${NOTES_FULL_AT}% or more = full ${LESSON_POINTS.notes}).${any?.raw.hasExam ? " Test: first attempt." : ""}`
+                          ? `${selected.deadline ? `Due ${formatDate(selected.deadline)} (the topic's last deadline) — only an attempt before it counts.` : "No deadline yet."} One Exam Mode for the whole topic: the best attempt gives up to ${LESSON_POINTS.exam} points (full from ${EXAM_FULL_AT}%).`
+                          : `${selected.deadline ? `Due ${formatDate(selected.deadline)} — only work done before it counts.` : "Not assigned yet — no deadline."} Practice: best attempt at each question (${any?.raw.practiceMax ?? 0} marks in all). Notes: best checked result (${NOTES_FULL_AT}% or more = full ${LESSON_POINTS.notes}).${any?.raw.hasExam ? " Test: best attempt." : ""}`
                       }
                       action={
                         <Link href={selected.isExam ? `/learn/${selected.slug}/exam` : `/learn/${selected.slug}?lesson=${selected.number}`} className="text-sm font-medium text-primary hover:underline">
