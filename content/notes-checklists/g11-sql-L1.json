@@ -23,28 +23,13 @@
       "weight": 2
     },
     {
-      "title": "SQL style rules",
-      "must": "Keywords in capitals, text and dates in single quotes, numbers without quotes, statement ends with ;, no spaces in names.",
-      "weight": 1
-    },
-    {
-      "title": "Data type definition",
-      "must": "A data type is the kind of data a field stores; it decides the values accepted, the storage and the operations possible.",
-      "weight": 2
-    },
-    {
       "title": "SQL data types",
-      "must": "INT, FLOAT/DOUBLE, DECIMAL(p,s), VARCHAR(n), CHAR(n), TEXT, DATE, DATETIME, BOOLEAN — each with an example field.",
+      "must": "A data type is the kind of data a field stores; it decides the values accepted, the storage and the operations possible; INT, FLOAT/DOUBLE, DECIMAL(p,s), VARCHAR(n), CHAR(n), TEXT, DATE, DATETIME, BOOLEAN — each with an example field.",
       "weight": 3
     },
     {
-      "title": "CHAR vs VARCHAR and DECIMAL(p,s)",
-      "must": "CHAR(n) is fixed length (padded), VARCHAR(n) up to n characters; DECIMAL(p,s) = p digits in total, s after the point.",
-      "weight": 2
-    },
-    {
-      "title": "Choosing types",
-      "must": "Phone numbers, IIN and codes as text (leading 0 / +); money as DECIMAL; dates as DATE; yes/no as BOOLEAN — with the reason.",
+      "title": "CHAR, VARCHAR, DECIMAL and choosing types",
+      "must": "CHAR(n) is fixed length (padded), VARCHAR(n) up to n characters; DECIMAL(p,s) = p digits in total, s after the point; Phone numbers, IIN and codes as text (leading 0 / +); money as DECIMAL; dates as DATE; yes/no as BOOLEAN — with the reason.",
       "weight": 2
     },
     {
@@ -63,13 +48,58 @@
       "weight": 3
     },
     {
-      "title": "DROP",
-      "must": "DROP TABLE / DROP DATABASE delete the structure and all the data; cannot be undone — back up first.",
+      "title": "DROP, and DELETE vs DROP",
+      "must": "DROP TABLE / DROP DATABASE delete the structure and all the data; cannot be undone — back up first; DELETE = DML, removes records, structure stays; DROP TABLE = DDL, removes structure and data; DROP COLUMN removes a column.",
       "weight": 2
     },
     {
+      "title": "INSERT syntax",
+      "must": "INSERT INTO Table (fields) VALUES (values); values in the same order, text in quotes, AUTO_INCREMENT key left out; several rows at once.",
+      "weight": 3
+    },
+    {
+      "title": "Queries and SELECT basics",
+      "must": "A query is a request to the database in SQL; a SELECT returns a result set (a table); SELECT * / chosen fields FROM table; DISTINCT removes duplicates — with examples.",
+      "weight": 3
+    },
+    {
+      "title": "SELECT columns, WHERE rows",
+      "must": "SELECT chooses the columns, WHERE chooses the rows; the table itself is not changed (diagram or example result).",
+      "weight": 2
+    },
+    {
+      "title": "WHERE operators, AND vs OR",
+      "must": "=, <>, <, >, <=, >=, AND, OR, NOT, BETWEEN (inclusive), IN, LIKE with % and _, IS NULL — each with an example; 'Books of A and B' means pub = A OR pub = B / IN (A, B); AND on one field returns no rows.",
+      "weight": 3
+    },
+    {
+      "title": "Worked example of SELECT",
+      "must": "A task broken into columns → table → rows → the final query (e.g. vegetarian meals under 900 tenge).",
+      "weight": 2
+    },
+    {
+      "title": "UPDATE syntax",
+      "must": "UPDATE Table SET field = value [, field2 = value2] WHERE condition; calculation from the old value (price = price * 1.1); An UPDATE with WHERE and the rows before / after, showing only matching rows change.",
+      "weight": 3
+    },
+    {
+      "title": "DELETE syntax",
+      "must": "DELETE FROM Table WHERE condition; removes whole rows, no field list; without WHERE all records go but the table stays.",
+      "weight": 3
+    },
+    {
+      "title": "WHERE warning",
+      "must": "UPDATE / DELETE without WHERE affect every record; use the primary key for one record; test with SELECT first.",
+      "weight": 2
+    },
+    {
+      "title": "SQL style rules",
+      "must": "Keywords in capitals, text and dates in single quotes, numbers without quotes, statement ends with ;, no spaces in names.",
+      "weight": 1
+    },
+    {
       "title": "Common mistakes",
-      "must": "At least two: spaces in names, missing / extra commas, DELETE instead of DROP COLUMN, SELECT called DDL, VARCHAR without size.",
+      "must": "At least two: spaces in names, missing / extra commas, DELETE instead of DROP COLUMN, SELECT called DDL, VARCHAR without size; At least two: missing quotes, SET after WHERE, DELETE field FROM, = with a pattern instead of LIKE, AND instead of OR.",
       "weight": 1
     }
   ]

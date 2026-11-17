@@ -630,15 +630,31 @@ def fill(tasks, setup):
     return tasks
 
 
+# Practice tasks left out of the lessons (each merged lesson has 20 run-and-check tasks).
+NOT_IN_PRACTICE = {f"sqlw-{k}" for k in [
+    "add-email", "drop-and-add", "rename-author", "add-default", "create-subjects",
+    "select-all", "select-or", "insert-some", "delete-one", "select-between",
+    "sum", "min-max", "order-price", "check-alter", "count",
+    "join-where-style", "insert-loan", "join-genre", "join-member", "join-not-returned",
+]}
+# Old lesson → lesson of g11-sql after lessons 1+2 and 3+4 were merged.
+NEW_LESSON = {1: 1, 2: 1, 3: 2, 4: 2}
+
+
 def merge(path, groups):
     p = ROOT / "content/topics" / path
     d = json.loads(p.read_text())
     d["questions"] = [q for q in d["questions"] if not q["key"].startswith("sqlw-")]
+    for les in d.get("lessons") or []:
+        les["questions"] = [k for k in les["questions"] if not k.startswith("sqlw-")]
     for lesson, tasks in groups:
+        for t in tasks:
+            if t["key"] in NOT_IN_PRACTICE:
+                t["practice"] = False
         d["questions"].extend(tasks)
         if lesson is not None:
-            les = d["lessons"][lesson - 1]
-            les["questions"] = [k for k in les["questions"] if not k.startswith("sqlw-")] + [t["key"] for t in tasks]
+            les = d["lessons"][NEW_LESSON[lesson] - 1]
+            les["questions"] += [t["key"] for t in tasks if t["key"] not in NOT_IN_PRACTICE]
     p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n")
 
 

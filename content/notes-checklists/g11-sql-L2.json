@@ -3,69 +3,104 @@
   "lesson": 2,
   "points": [
     {
-      "title": "Query definition",
-      "must": "A query is a request to the database in SQL; a SELECT returns a result set (a table).",
-      "weight": 2
-    },
-    {
-      "title": "INSERT syntax",
-      "must": "INSERT INTO Table (fields) VALUES (values); values in the same order, text in quotes, AUTO_INCREMENT key left out; several rows at once.",
+      "title": "Validation definition",
+      "must": "An automatic check by the computer that data is sensible / reasonable and follows the rules; cannot check data is correct.",
       "weight": 3
     },
     {
-      "title": "SELECT basics",
-      "must": "SELECT * / chosen fields FROM table; DISTINCT removes duplicates — with examples.",
+      "title": "Verification and its methods",
+      "must": "A check that data was entered / copied accurately and matches the original source; Double entry (typed twice, compared) and visual check / proofreading against the original document.",
       "weight": 3
     },
     {
-      "title": "SELECT columns, WHERE rows",
-      "must": "SELECT chooses the columns, WHERE chooses the rows; the table itself is not changed (diagram or example result).",
-      "weight": 2
-    },
-    {
-      "title": "WHERE operators",
-      "must": "=, <>, <, >, <=, >=, AND, OR, NOT, BETWEEN (inclusive), IN, LIKE with % and _, IS NULL — each with an example.",
+      "title": "Validation vs verification comparison",
+      "must": "Table: question asked, who does it, examples, and an error each one catches (150 vs 67 typed as 76).",
       "weight": 3
     },
     {
-      "title": "Worked example of SELECT",
-      "must": "A task broken into columns → table → rows → the final query (e.g. vegetarian meals under 900 tenge).",
+      "title": "Validation checks",
+      "must": "Presence, type, range, length, lookup, format, uniqueness — each with a rule example.",
       "weight": 2
     },
     {
-      "title": "AND vs OR",
-      "must": "'Books of A and B' means pub = A OR pub = B / IN (A, B); AND on one field returns no rows.",
+      "title": "Validation in SQL",
+      "must": "NOT NULL, the data type, CHECK (… BETWEEN …), CHECK (… IN (…)), CHECK (LENGTH(…) = n), LIKE pattern, UNIQUE — in a CREATE TABLE.",
+      "weight": 2
+    },
+    {
+      "title": "Worked validation example",
+      "must": "A scenario (e.g. olympiad registration) with each check named as validation or verification and why.",
       "weight": 1
     },
     {
-      "title": "UPDATE syntax",
-      "must": "UPDATE Table SET field = value [, field2 = value2] WHERE condition; calculation from the old value (price = price * 1.1).",
+      "title": "ORDER BY, ASC and DESC",
+      "must": "ORDER BY sorts the rows of the result; ASC (default) or DESC; always the last clause; Numbers small → large, text A → Z, dates oldest first for ASC; reverse for DESC; typical task wording.",
       "weight": 3
     },
     {
-      "title": "UPDATE example with result",
-      "must": "An UPDATE with WHERE and the rows before / after, showing only matching rows change.",
-      "weight": 1
-    },
-    {
-      "title": "DELETE syntax",
-      "must": "DELETE FROM Table WHERE condition; removes whole rows, no field list; without WHERE all records go but the table stays.",
+      "title": "ORDER BY examples",
+      "must": "Sorting by one field ASC and DESC, and by two fields (second field decides ties); WHERE before ORDER BY.",
       "weight": 3
     },
     {
-      "title": "WHERE warning",
-      "must": "UPDATE / DELETE without WHERE affect every record; use the primary key for one record; test with SELECT first.",
+      "title": "Order of clauses",
+      "must": "SELECT → FROM → WHERE → GROUP BY → ORDER BY.",
       "weight": 2
     },
     {
-      "title": "DELETE vs DROP",
-      "must": "DELETE = DML, removes records, structure stays; DROP TABLE = DDL, removes structure and data; DROP COLUMN removes a column.",
-      "weight": 2
-    },
-    {
-      "title": "Common mistakes",
-      "must": "At least two: missing quotes, SET after WHERE, DELETE field FROM, = with a pattern instead of LIKE, AND instead of OR.",
+      "title": "Aggregate functions",
+      "must": "COUNT(*), SUM, AVG, MAX, MIN (and GROUP BY) with an example and its result.",
       "weight": 1
+    },
+    {
+      "title": "Join definition",
+      "must": "A query that combines rows from related tables by matching the foreign key with the primary key.",
+      "weight": 3
+    },
+    {
+      "title": "Join condition",
+      "must": "WHERE Table1.FK = Table2.PK (or JOIN … ON …) — with the Titles / Publishers example.",
+      "weight": 3
+    },
+    {
+      "title": "Two ways to join",
+      "must": "FROM A, B WHERE A.x = B.x and FROM A JOIN B ON A.x = B.x give the same result.",
+      "weight": 2
+    },
+    {
+      "title": "Steps for a join query",
+      "must": "Fields as Table.field → both tables in FROM → join condition → extra conditions with AND → ORDER BY last; A query with two join conditions (tables − 1), e.g. student name, book title, loan date.",
+      "weight": 2
+    },
+    {
+      "title": "Worked join example",
+      "must": "A join with an extra condition and ORDER BY, plus its result table (e.g. books published in Almaty, cheapest first).",
+      "weight": 2
+    },
+    {
+      "title": "Missing join condition",
+      "must": "Without it every row is paired with every row (5 × 3 = 15 rows) — a meaningless result.",
+      "weight": 2
+    },
+    {
+      "title": "Table.field and aliases",
+      "must": "A field that exists in both tables must be written with the table name; aliases t, p.",
+      "weight": 1
+    },
+    {
+      "title": "Database with multiple tables",
+      "must": "Data about different entities in separate tables linked by keys; each fact stored once, less redundancy.",
+      "weight": 3
+    },
+    {
+      "title": "Primary key vs foreign key",
+      "must": "PK uniquely identifies records of its own table, never NULL; FK links to the PK of another table, can repeat.",
+      "weight": 3
+    },
+    {
+      "title": "Building the tables with FOREIGN KEY",
+      "must": "From the ERD: tables, fields, PKs; FK in the 'many' table; same type as the PK; create parent tables first, then child tables; insert parents first; A full example: FOREIGN KEY (StudentID) REFERENCES Students(StudentID) in Loans.",
+      "weight": 3
     }
   ]
 }
