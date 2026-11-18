@@ -14,6 +14,28 @@ A way of developing a system in which a prototype is **built, tested by users an
 
 A prototype usually has the full **interface** but only part of the **functionality**: buttons may not save data yet, searches may return example records, and calculations may use fixed values. Its job is to answer the question *"Is this what you need?"* while changes are still cheap.
 
+## Why prototypes are needed
+
+When a new system is planned, the **users** (the people who will work with it every day) and the **developers** (the people who build it) speak different "languages". A receptionist in a clinic knows exactly how appointments are booked, which questions patients ask and which mistakes happen at the front desk, but usually cannot describe this as a list of fields, screens and rules. A developer can build almost anything, but does not know the details of the receptionist's work. If the developer builds the system only from a written description, the result often does **what the document says but not what the users need**.
+
+A prototype closes this **communication gap**. Instead of reading a long requirements document, users **see and use** something concrete. People are much better at reacting to a real screen ("this button should be here", "we also need the patient's phone number", "this list is too long") than at imagining a screen from words. Every comment made while looking at a prototype becomes a clear, precise requirement.
+
+There is also a **cost reason**. A change to a paper sketch takes a minute; the same change after the database and code are written can take days, because the tables, the forms, the validation and the tests must all be changed together. Prototyping moves the discovery of mistakes to the **start** of the project, where mistakes are cheap.
+
+Finally, a prototype is a way of **reducing risk**. A project that builds the wrong system wastes all of its budget. A prototype is a small, early investment that checks the most uncertain parts of the system — usually the interface and the way users will work with it — before the large investment of full development is made.
+
+## The prototyping cycle step by step
+
+Prototyping is **iterative**: the same steps are repeated several times, and each repetition (each *iteration*) produces a better version.
+
+1. **Identify the basic requirements.** The analyst talks to users, observes their work and studies existing documents (paper forms, reports) to get a first list of what the system must do. It does not need to be complete — the prototype will reveal what is missing.
+2. **Build the prototype.** The developer creates the screens, forms and reports, with just enough behaviour to be tried: links between screens, example data, maybe one working calculation.
+3. **Users test the prototype.** Real users — not only managers — try typical tasks: "book an appointment for tomorrow", "find the patient Aidana Seitova". The developer watches where they hesitate or make errors.
+4. **Collect feedback.** Users say what is missing, wrong or confusing; the developer writes every comment down and agrees with the users which changes will be made.
+5. **Decide.** If the users are **satisfied**, the requirements are fixed and the final system is built (or, for an evolutionary prototype, finished). If not, the prototype is **refined** and the cycle starts again from step 3.
+
+Two or three iterations are typical. Each iteration should be short — days, not months — otherwise the main benefit, fast feedback, is lost.
+
 :::svg The prototyping cycle — build, test, get feedback, refine
 <svg class="pt" viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prototyping cycle: identify requirements, build prototype, users test it, collect feedback, decision satisfied; if no refine and test again; if yes build the final system">
   <style>
@@ -70,6 +92,23 @@ A prototype usually has the full **interface** but only part of the **functional
 - Rare cases and less important functions.
 :::
 
+The reason for leaving things out is **speed**. A prototype exists to get feedback quickly, so the developer builds only the parts users can **see and judge**. Users cannot judge a backup routine or an encryption algorithm by looking at it, but they can immediately say whether the booking form asks the right questions. Those hidden parts are designed later, in the normal way.
+
+:::definition Horizontal and vertical prototypes
+A **horizontal** prototype shows **many screens of the whole system** but with almost no working functions behind them (wide but shallow). A **vertical** prototype implements **one function completely**, from the screen down to the database (narrow but deep), to check that it can really be built.
+:::
+
+:::compare Horizontal and vertical prototypes
+| | Horizontal | Vertical |
+|---|---|---|
+| Covers | All or most screens and menus | One function or one part of the system |
+| Depth | Interface only, example data | Interface, processing and data storage |
+| Checks | Navigation, layout, which screens and fields are needed | Whether a difficult function works and is fast enough |
+| Example (clinic) | All screens of the booking app, clickable, no database | Only "find a free time slot", working with a real database of 10 000 bookings |
+:::
+
+In school exam questions "prototype" almost always means a **horizontal interface prototype**: screens, input forms and output forms that users can look at and comment on.
+
 ## Where prototyping fits in the system life cycle
 
 :::svg Prototypes are built during analysis and design, before the full system is coded
@@ -97,6 +136,10 @@ A prototype usually has the full **interface** but only part of the **functional
   <text class="ss" x="537" y="136" text-anchor="middle">coding and test plans</text>
 </svg>
 :::
+
+In the traditional (waterfall) life cycle the stages follow each other in order: **analysis → design → development → testing → implementation → evaluation**. Prototyping does not replace these stages; it is used **inside analysis and design**. During analysis it helps to **find and confirm the requirements**; during design it helps to **check the interface design** with the users before it is handed to the programmers. The approved prototype then becomes part of the **design specification** — programmers build exactly the screens that users have already accepted.
+
+Some life-cycle models are built around prototyping. In **rapid application development (RAD)** and in **agile** methods the system is delivered in short cycles, and each cycle produces a working version that users test — in effect an evolutionary prototype. That is why prototyping is often described as "user-centred" development: users are involved during the whole project, not only at the beginning and the end.
 
 :::example A prototype for a clinic appointment app
 A clinic in Shymkent wants an app for booking doctor appointments. The receptionists are not sure what they need.
@@ -150,6 +193,18 @@ A prototype that is **improved step by step**, version after version, until it *
 </svg>
 :::
 
+### How a throw-away prototype works
+
+A throw-away prototype is a **tool for asking questions**. The developer builds it as fast as possible — on paper, in slides or in a design tool such as Figma — without worrying about code quality, because none of it will be kept. Users try it, the requirements are corrected, and the prototype may be rebuilt several times in a few days. When the users agree, the developer writes down the final requirements and the approved screen designs, **puts the prototype aside** and builds the real system properly, with a database, validation, security and well-structured code.
+
+Throwing work away sounds wasteful, but it is deliberate. Code written in a hurry to show an idea is usually **badly structured**: it has no error handling, no security and shortcuts everywhere. Keeping it would make the final system unreliable and hard to maintain. Because the throw-away prototype was cheap, discarding it costs little, and the knowledge gained from it — the correct requirements — is kept.
+
+### How an evolutionary prototype works
+
+An evolutionary prototype is **the system itself in an early state**. The first version contains the most important functions, built properly. Users work with it and give feedback; the developer improves those functions and adds new ones in version 2, then version 3, and so on. There is no moment when the prototype is discarded: the last version **is** the delivered system.
+
+Because every version is kept, each one must be built with **good-quality code** from the start: a proper database structure, validation and clear program structure. This makes each iteration slower than with a throw-away prototype. In return, users get a usable system early, and the system can grow as their needs grow. Evolutionary prototyping suits systems whose requirements are **partly known** and expected to change — for example an online shop that starts with a catalogue and an order form and later adds delivery tracking, discounts and reviews.
+
 :::compare Throw-away and evolutionary prototypes
 | | Throw-away (rapid) | Evolutionary |
 |---|---|---|
@@ -174,6 +229,18 @@ A **low-fidelity** prototype is a rough model — paper sketches or simple wiref
 | Good for | Early ideas, many options compared quickly | Final approval of the design, user testing |
 | Feedback is about | **What** is on each screen | **How** it looks and feels to use |
 :::
+
+Fidelity and type are **two different questions**. *Throw-away or evolutionary* is about **what happens to the prototype** afterwards; *low or high fidelity* is about **how realistic** it is. A throw-away prototype can be a paper sketch (low fidelity) or a polished, clickable Figma design (high fidelity). An evolutionary prototype is usually high fidelity, because it is real software.
+
+Many projects use **both levels in order**. First, low-fidelity sketches are drawn in a meeting with users: several layouts are compared and the best one is chosen in an hour. Then a high-fidelity version of the chosen layout is made, so that users can check colours, wording and navigation and give final approval. Starting with paper is important: when a design already looks finished, users are reluctant to suggest big changes, and developers are reluctant to throw away work that took hours.
+
+### Choosing the right kind of prototype
+
+The choice depends on the situation:
+- If users **cannot describe** what they want and the project is new to them, a **throw-away, low-fidelity** prototype is the cheapest way to find the requirements.
+- If the requirements are **mostly known** but will grow, and the users need something working soon, an **evolutionary** prototype gives them an early version that improves over time.
+- If one function is **technically risky** (for example a fast search through a very large database), a **vertical** prototype checks it before the project depends on it.
+- If the design must be **approved by a client** before coding (for example a bank's mobile app), a **high-fidelity** prototype shows exactly what will be built.
 
 :::warning Common mistakes
 - Saying every prototype becomes the final system — only an **evolutionary** prototype does.
@@ -200,6 +267,38 @@ A **low-fidelity** prototype is a rough model — paper sketches or simple wiref
 - A prototype may **hide the real complexity** (security, speed, data storage) of the system.
 - Quick prototype code may be **poorly structured** if it is kept (evolutionary).
 :::
+
+## The advantages explained
+
+**Missing or wrong requirements are found early.** When users try a prototype, they quickly notice what is not there: "Where do I enter the patient's IIN?", "There is no way to cancel a booking". In a written specification such gaps are easy to miss, because nobody reads a document as carefully as they use a screen. Each gap found in the prototype is a requirement added **before** any code depends on it.
+
+**Quick feedback improves the design.** A prototype can be shown to users within days of the start of the project, and changed the same day. The cycle of *show → comment → change* is short, so the design improves many times before development starts. Without a prototype, users see the system only at the end, when feedback can no longer change much.
+
+**Better understanding between users and developers.** Users and developers look at the **same screen**, so words mean the same thing to both. If a manager says "a report of sales", the developer can show a draft report and ask "like this, by day, or by product?". Misunderstandings that would otherwise appear only after delivery are cleared up in minutes.
+
+**Reduced time and cost overall.** This is a consequence of the first three points. Fewer errors reach the development and testing stages, so less code has to be rewritten, fewer tests have to be repeated and the system is less likely to be rejected at implementation. The prototype itself costs money, but it usually saves more than it costs.
+
+**Higher user acceptance.** People resist systems that are forced on them. When users have helped to design the screens, they feel the system is partly **theirs**; they understand why it works the way it does and are more willing to learn it. This matters a lot in organisations such as schools and hospitals, where staff have their own established ways of working.
+
+**Help with training and documentation.** The approved prototype shows every screen of the future system, so trainers can prepare training material and writers can start the user guide before the system is finished.
+
+## The disadvantages explained
+
+**Extra cost and time at the start.** Building, testing and rebuilding prototypes takes analysts', developers' and users' time. For a small, well-understood system — for example a simple form that copies an existing paper form exactly — this extra effort may not be worth it.
+
+**Users may think the prototype is the finished system.** A high-fidelity prototype looks real. Managers may ask "Why do we need three more months? It already works!" — not realising that there is no database, security or error handling behind the screens. This creates pressure to deliver too early and unrealistic expectations.
+
+**Scope creep.** Because changes to a prototype look easy, users keep asking for more: one more report, one more field, a different colour scheme. Each request is small, but together they make the project bigger, later and more expensive than planned.
+
+**The prototype can constrain the design.** Once everyone has accepted a prototype, it becomes hard to suggest a better but different solution. Designers may keep a weak idea simply because it was in the first prototype.
+
+**The real complexity is hidden.** A prototype shows the interface but not the difficult parts: storing data safely, handling many users at once, security. A project can look almost finished when most of the work is still ahead, which makes it hard to estimate time and cost correctly.
+
+**Poor code quality if a quick prototype is kept.** If a prototype built in a hurry is turned into the final system "to save time", its shortcuts and missing checks become part of the real system and cause errors and maintenance problems for years.
+
+## Reducing the disadvantages
+
+Good project teams know these risks and manage them. They **tell users clearly** that the prototype is a model, sometimes by deliberately using a sketchy, unfinished look. They **agree in advance** how many iterations there will be and which changes are in scope, so new ideas go into a list for a later version. They decide **at the start** whether the prototype is throw-away or evolutionary, so quick code is never kept by accident. With these rules, the advantages of prototyping are usually much bigger than its disadvantages.
 
 :::svg Why early feedback saves money: the later an error is found, the more it costs to fix
 <svg class="pt" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart: relative cost of fixing an error is lowest at analysis and design, and grows through development, testing and after implementation">
@@ -299,6 +398,28 @@ The part of a system that the **user sees and interacts with** — screens, menu
 The way the user **moves between the screens** of a system — a main menu, navigation bar, buttons and links such as *Back* and *Home*.
 :::
 
+When a prototype is developed, the **interface is the main thing being tested**. Users judge a new system almost entirely by what they see: if the screens are confusing, they will say the system is bad, even if the processing behind it is perfect. That is why the learning objective asks you to develop a prototype of three things — the **interface** (screens and navigation), the **input forms** and the **output forms**. Together they are everything a user touches.
+
+## Know the users and their tasks first
+
+Interface design starts not with colours or buttons but with two questions: **who** will use the system, and **what tasks** will they do with it? A canteen pre-order system has at least two groups of users — pupils, who order one lunch a day on a phone, and the canteen manager, who looks at all orders on a computer. They need different screens. A design that is perfect for the manager (a big table of 300 orders) would be useless on a pupil's phone.
+
+For each group the designer lists the **typical tasks** — "order today's lunch", "cancel an order", "see how many portions of plov to cook" — and makes sure that each task can be done in **as few steps as possible**. The most frequent tasks should be reachable directly from the main menu; rare tasks (changing a password) can be one level deeper.
+
+## The principles explained
+
+**Consistency.** The same thing should always look the same and be in the same place: the *Save* button always bottom-right, the menu always at the top, the same colour for every warning. Once users learn one screen, they can use every screen. Inconsistency forces them to search and causes mistakes — for example pressing *Delete* because it is where *Save* was on the previous screen.
+
+**Clear navigation.** Users should always know **where they are** (a heading on every screen), **where they can go** (a menu or navigation bar) and **how to get back** (*Back* and *Home* buttons). A navigation diagram like the one below is drawn before the screens, to check that every screen is reachable and that no screen is a dead end.
+
+**Feedback.** The system should react to every action: a message "Order saved", a progress bar while a file uploads, a highlighted field when data is wrong. Without feedback users are not sure whether anything happened and press the button again — creating, for example, two identical orders.
+
+**Error prevention and clear error messages.** It is better to make errors impossible than to report them. A drop-down list of classes cannot contain a misspelt class; a date picker cannot produce 31 February. When an error message is needed, it should say **what is wrong and how to fix it** — "Phone number must have 11 digits", not "Error 402".
+
+**Simplicity.** Every screen should show only what the user needs for the current task. Extra fields, decorations and long texts make the important information harder to find. Language should be the users' language — "Collection time", not "pickup_ts".
+
+**Accessibility.** The interface must work for all its users: large, high-contrast text for people with poor eyesight, labels that screen readers can read, colour never used as the only signal (a red field should also have a message), and a choice of Kazakh, Russian or English where the users need it.
+
 :::cards
 ### Principles of a good interface
 - **Consistent** layout, colours, fonts and button positions on every screen.
@@ -364,6 +485,34 @@ A screen (or paper form) used to **enter data into the system**, with labelled f
 :::definition Output form
 A screen or printed **report** that **presents information from the system** to the user — e.g. a receipt, a list of orders, a report of overdue books.
 :::
+
+## Designing an input form
+
+An input form is where **data enters the system**, so its quality decides the quality of all the data stored afterwards. If the form allows a wrong date or a misspelt city, that error goes into the database and appears in every report — "garbage in, garbage out". The designer therefore has two goals: make the form **easy and fast to fill in**, and make it **hard to enter wrong data**.
+
+**Start from the data the system needs.** The fields of the form come from the requirements and the data dictionary: every attribute that the user must provide needs a field; attributes the system can work out itself (an order number, today's date, the total price) should **not** be typed by the user — they are generated or calculated automatically.
+
+**Order the fields logically.** Fields follow the order in which the user thinks about the data or in which it appears on the **source document** — for example the order of the paper registration form that a secretary is copying. Related fields are grouped together (all contact details in one block) and the most important fields come first.
+
+**Label every field and give hints.** Each field has a clear label next to it; a placeholder or a short hint shows the expected format ("DD.MM.YYYY", "+7 7xx xxx xx xx"). Required fields are marked, usually with an asterisk *.
+
+**Choose the right control for each field** (see the table below). The control is the first line of defence against errors: a drop-down list, radio buttons or a date picker allow **only valid choices**.
+
+**Add validation for typed data.** Validation is an automatic check that data is **sensible and in the right form** before it is accepted. The checks most often used on input forms are:
+- **presence check** — a required field is not left empty (name, phone);
+- **range check** — a number lies between limits (age 6–18, quantity 1–20);
+- **type check** — the data is of the correct type (digits only in a quantity);
+- **length check** — the right number of characters (an IIN has exactly 12 digits);
+- **format check** — the data matches a pattern (an e-mail contains @ and a dot);
+- **lookup check** — the value exists in a list (the class code is one of the school's classes).
+
+:::definition Validation
+An **automatic check** made by the system that entered data is **reasonable and follows the rules** (present, in range, correct type, length or format) **before it is accepted**. It cannot check that the data is actually correct.
+:::
+
+Validation cannot prove that data is **true** — a pupil can type a wrong but valid phone number — so some forms also use **verification**, for example typing a password twice.
+
+**Finish with clear actions.** The form needs buttons for the actions the user may want: *Save / Submit*, *Clear*, *Cancel*, and a way back to the menu. After *Save* the user gets feedback: a confirmation message or the next screen.
 
 :::svg A well-designed input form — the features examiners look for
 <svg class="pt" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wireframe of a sports club registration form with labels pointing to the title, labelled fields, required marker, drop-down list, radio buttons, check box, error message and buttons">
@@ -470,6 +619,20 @@ button.g { background: #888; }
 </svg>
 :::
 
+## Designing an output form
+
+An output form presents **information produced by the system** — on a screen, on paper or as a file. Its design starts from the question: **who reads it and what decision do they make with it?** The canteen manager reads *Today's orders* to decide how many portions to cook, so the most important part of that report is the **total per dish**, not the list of individual pupils. A class teacher reads a list of overdue library books to remind particular pupils, so that report needs names and classes, sorted by class.
+
+Once the purpose is clear, the designer chooses:
+- **Content** — only the fields the reader needs. A report that shows every column of the database is hard to read and may reveal personal data that the reader should not see.
+- **Selection** — which records appear (only today's orders; only books more than 14 days overdue).
+- **Order** — how the records are sorted (by collection time, by class, by surname).
+- **Grouping and summaries** — subtotals per group, grand totals, counts and averages; sometimes a chart, if a trend or comparison matters more than exact values.
+- **Identification** — a title, the date and time it was produced and page numbers, so a printed copy can be understood later.
+- **Medium** — on-screen output can be scrolled, sorted and filtered; printed output must fit the page; exported output (PDF, spreadsheet) can be sent or processed further.
+
+Output forms include more than reports: a **receipt** after payment, a **confirmation screen** after a booking, an **e-mail** sent by the system and a **search results list** are all outputs and should be prototyped too.
+
 :::cards
 ### Features of a good input form
 - A clear **title** and **instructions**.
@@ -513,6 +676,26 @@ button.g { background: #888; }
 - For each **output form**, choose the layout — table with headings, totals, sort order.
 - Build the prototype: paper, slides with links, Figma, HTML, or a form designer in the programming tool.
 - **Test** it with users, collect **feedback**, and **refine** it until it is approved.
+:::
+
+Developing a prototype is a small design project of its own. The steps above turn the requirements into something users can try; the most important step is the last one — **testing with users** — because a prototype nobody tests is just a drawing.
+
+## Testing a prototype with users
+
+A prototype test is usually a short session with a few **real users** (three to five people from each user group find most problems). The developer gives each user realistic **tasks** — "order a normal portion of plov for 13:15", "find out how many salads were ordered by 9B" — and asks them to think aloud while they work. The developer **watches and does not help**: every place where the user hesitates, clicks the wrong button or asks a question shows a problem in the design.
+
+After the tasks, users are asked direct questions: Is anything missing? Is anything unnecessary? What was difficult? The developer writes all comments in a **feedback log**, then sorts them with the users into *must change now*, *change later* and *not needed*. This sorting protects the project from scope creep: only the agreed changes go into the next version.
+
+The prototype is then **evaluated against the requirements**: does every requirement have a screen, field or report that meets it? Requirements that are not covered are added; screens that meet no requirement are removed. When users and developer agree that the prototype meets the requirements, it is **signed off** and becomes part of the design specification.
+
+:::compare What a prototype test checks
+| Question | How it is checked | Example finding |
+|---|---|---|
+| Is anything **missing**? | Users try complete tasks | No field for allergies on the order form |
+| Is anything **confusing**? | Watch where users hesitate or make errors | Pupils did not see the small *Place order* button on a phone |
+| Is it **fast enough to use**? | Count the clicks / time for a typical task | Ordering takes 7 screens — reduced to 3 |
+| Are outputs **useful**? | Ask the reader what decision they make with the report | Manager needs totals per dish, not only a list |
+| Does it meet the **requirements**? | Compare screens with the requirements list one by one | "Cancel an order" requirement had no screen |
 :::
 
 :::example Worked example — a prototype for a school canteen pre-order system
