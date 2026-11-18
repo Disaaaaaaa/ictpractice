@@ -1,10 +1,108 @@
 ---
 summary: Formatting project documentation professionally — sections with their own headers, footers and page numbering, different first and odd/even pages, fields; formatting, numbering and placing footnotes and endnotes; and formatting tables with header rows that repeat, merged cells, alignment, borders, captions and cross-references.
 ---
+# Page layout, page numbers, indents and line spacing
+@lo 12.2.1.4 12.2.1.5 12.2.1.6
+
+In the previous topic you **inserted** headers, footers, footnotes and tables. This lesson is about **formatting** them so that a long project document (20–100 pages, several authors, many versions) looks **consistent**, is **easy to navigate** and **updates itself** when it changes. Formatting starts with the page itself: before any header or table is styled, the document needs the right **page parameters**, a sensible **page-numbering** plan and paragraphs with consistent **indents and line spacing**.
+
+:::definition Page parameters (page set-up)
+The settings that define the **printed page** of a document or a section: **paper size** (e.g. A4, 210 × 297 mm), **orientation** (portrait or landscape), **margins** (top, bottom, left, right, gutter) and the distance of the header and footer from the edge of the page.
+:::
+
+:::definition Indent and line spacing
+An **indent** is the distance between a paragraph and the **margin** — left, right, **first-line** or **hanging**. **Line spacing** is the vertical distance between the lines **inside** a paragraph (single, 1.15, 1.5, double, exactly *n* pt); **paragraph spacing** (before / after) is the space **between** paragraphs.
+:::
+
+## Setting page parameters
+
+Page parameters are set in **Layout → Page Setup** (Microsoft Word) or **File → Page setup** (Google Docs, LibreOffice). They belong to a **section**, so a document with one section has one set of parameters, and a document with several sections can use different ones in each part. This is why the wide ERD or Gantt chart of a project report is placed in its own section: that section can be **landscape** while the rest of the report stays **portrait**, and it still keeps the same headers and continuous page numbers.
+
+**Paper size** must match the printer and the requirements: school and university documents in Kazakhstan are almost always **A4**. **Margins** are the empty borders around the text. They give the reader space, leave room for binding and keep text out of the area a printer cannot reach. Typical requirements for a project report are 2–2.5 cm top and bottom, **3 cm left** (the binding side) and 1–1.5 cm right. When a report is printed on both sides and bound like a book, **mirror margins** are used: the wider margin is always on the inside (left on odd pages, right on even ones), and a **gutter** adds extra space for the binding. The header and footer sit **inside the top and bottom margins**, so if the margins are too small the header touches the body text.
+
+Why does this matter? Because every later formatting decision depends on the page. The width of a table, the size of a diagram and the position of a footnote are all measured from the margins; if the margins are changed at the end, tables overflow, diagrams move to the next page and the layout breaks. Set the page **first**, and set it the same way for every author — ideally in a shared **template**.
+
+:::svg The parameters of a page: margins, orientation, header and footer areas, indents
+<svg class="ftd9" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A portrait A4 page with margins, header and footer areas, a paragraph with a first-line indent and a quotation with left and right indents, next to a landscape page for a wide table">
+  <style>
+    svg.ftd9 .pg{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.ftd9 .body{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.2;stroke-dasharray:5 4}
+    svg.ftd9 .hf{fill:var(--warning);opacity:.25}
+    svg.ftd9 .ln{stroke:var(--foreground);stroke-width:3;stroke-linecap:round}
+    svg.ftd9 .q{stroke:var(--success);stroke-width:3;stroke-linecap:round}
+    svg.ftd9 .t{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.ftd9 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.ftd9 .wide{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+  </style>
+  <rect class="pg" x="30" y="20" width="210" height="297"/>
+  <rect class="hf" x="60" y="26" width="165" height="14"/><text class="s" x="66" y="37">header</text>
+  <rect class="hf" x="60" y="297" width="165" height="14"/><text class="s" x="66" y="308">footer · page 7</text>
+  <rect class="body" x="60" y="45" width="165" height="245"/>
+  <line class="ln" x1="80" y1="62" x2="218" y2="62"/><line class="ln" x1="66" y1="76" x2="218" y2="76"/><line class="ln" x1="66" y1="90" x2="218" y2="90"/><line class="ln" x1="66" y1="104" x2="160" y2="104"/>
+  <line class="q" x1="90" y1="126" x2="196" y2="126"/><line class="q" x1="90" y1="140" x2="196" y2="140"/>
+  <line class="ln" x1="80" y1="162" x2="218" y2="162"/><line class="ln" x1="66" y1="182" x2="218" y2="182"/><line class="ln" x1="66" y1="202" x2="190" y2="202"/>
+  <text class="t" x="270" y="44">Portrait A4 — one section</text>
+  <text class="s" x="270" y="64">dashed box = text area inside the margins</text>
+  <text class="s" x="270" y="84">left margin 3 cm (binding), others 1.5–2.5 cm</text>
+  <text class="s" x="270" y="104">header / footer sit in the top / bottom margins</text>
+  <text class="s" x="270" y="128">first line indented 1.25 cm (black)</text>
+  <text class="s" x="270" y="148">quotation: left + right indent (green)</text>
+  <text class="s" x="270" y="172">body lines: 1.5 line spacing inside a paragraph</text>
+  <text class="s" x="270" y="192">gap before a paragraph = paragraph spacing</text>
+  <rect class="pg" x="440" y="210" width="300" height="110"/>
+  <rect class="wide" x="456" y="222" width="268" height="86"/>
+  <text class="t" x="470" y="244">Landscape section (next page)</text>
+  <text class="s" x="470" y="264">wide ERD / Gantt chart / test-plan table</text>
+    <text class="s" x="470" y="290">page numbers continue: 8</text>
+</svg>
+:::
+
+## Planning the page numbers
+
+Page numbers are not typed — they are a **PAGE field** inserted in the header or footer (**Insert → Page Number**), so they renumber themselves when pages are added or removed. Three settings in **Format Page Numbers** decide how they look: the **number format** (1, 2, 3 / i, ii, iii / A, B, C), **Start at** (restart the count at a chosen number in a new section) and, optionally, **Include chapter number** ("2–5" = page 5 of chapter 2). The **position** — top or bottom, left, centre, right or outside on facing pages — is chosen to suit the document and kept the same throughout.
+
+A typical project report follows a standard plan: the **title page** has no visible number (*Different first page*), the **front matter** (abstract, contents, list of figures) is numbered in lower-case Roman numerals **i, ii, iii**, and the **main text** restarts at **1** in Arabic numerals. This is only possible because each part is a separate **section**; a document of one section can have only one number format. "Page 7 of 38" combines the **PAGE** and **NUMPAGES** fields, which tells the reader at once whether a printed copy is complete.
+
+## Indents and line spacing
+
+Long documents are read far more easily when every paragraph follows the same rules. Instead of pressing Tab or the space bar, a **first-line indent** (often 1.25 cm) is set in the paragraph settings, so every paragraph starts the same way and the indent stays correct when text is edited. A **hanging indent** — the first line further left than the others — is used for numbered lists and for a bibliography, so the number or the author's name stands out. **Left and right indents** move the whole paragraph in from the margins; they are used for long quotations and notes. All of them are set in **Home → Paragraph** or with the markers on the **ruler**, never with spaces, which give a ragged edge that moves whenever the font changes.
+
+**Line spacing** controls how dense the text looks. Single spacing fits a lot on a page but is tiring to read and leaves no room for a teacher's comments; **1.5 lines** is the usual requirement for school and university reports; double spacing is used for drafts. Spacing **between** paragraphs is set as **spacing before / after** (e.g. 6 pt after) rather than by pressing Enter twice, so the gaps are always equal and a heading never sits alone at the bottom of a page. Different elements use different values: body text 1.5 lines, footnotes and table cells single spacing, so that notes and tables stay compact.
+
+The most efficient way to apply all of this is to put the indent and spacing into the **styles** — *Normal* for body text, *Footnote Text* for notes, a table style for tables. Then the whole report is changed by editing one style, every author's text looks the same, and the document meets the required format without checking each paragraph by hand.
+
+:::compare Formatting by hand vs proper tools for layout
+| Task | By hand (avoid) | Proper tool (use) | Why it is better |
+|---|---|---|---|
+| Start a paragraph indented | Spaces or Tab | **First-line indent** 1.25 cm in the *Normal* style | Same in every paragraph; stays correct when text changes |
+| Gap between paragraphs | Pressing Enter twice | **Spacing after** 6 pt | Equal gaps; no empty paragraphs to delete |
+| Readable text | Bigger font | **Line spacing** 1.5 | Meets requirements without changing the font |
+| Bibliography entries | Line breaks and spaces | **Hanging indent** | Author names line up and stand out |
+| Wide diagram | Shrink it until it fits | **Landscape section** | Diagram stays readable; rest stays portrait |
+| Page numbers | Typed on each page | **PAGE field**, format and *Start at* | Renumber automatically |
+:::
+
+:::example Worked example — preparing the page layout of a 12th-grade project report
+*A school asks for: A4, margins left 3 cm, right 1.5 cm, top and bottom 2 cm; Times New Roman 14 pt; 1.5 line spacing; first-line indent 1.25 cm; no number on the title page, contents numbered i, ii, chapters from 1; the Gantt chart in landscape.*
+1. **Layout → Margins → Custom Margins**: top 2, bottom 2, left 3, right 1.5 cm; paper A4; *Apply to: Whole document*.
+2. **Modify the Normal style**: Times New Roman 14 pt; *Paragraph*: first line 1.25 cm, line spacing 1.5, spacing after 0 pt. Every paragraph of every author now matches.
+3. **Section breaks (next page)** after the title page and after the contents; title page section → *Different first page*; contents → page numbers *i, ii, iii*; chapter 1 → *Start at 1*, format 1, 2, 3.
+4. **Section breaks** before and after the Gantt chart → that section only: *Orientation: Landscape*; its header stays *linked to previous* and its page numbers continue.
+5. **Check** in *Print Preview*: no page has text in the binding margin, numbering runs i, ii, 1, 2 … without gaps, the chart is readable.
+:::
+
+:::warning Common mistakes
+- Indenting with **spaces or Tab** instead of a first-line indent — the edges never line up.
+- Pressing **Enter twice** for a gap instead of *spacing after* — empty paragraphs move to the top of pages.
+- Changing the **orientation** of the whole document for one wide table — use a separate section.
+- Changing **margins at the end** of the work — tables and diagrams overflow and the layout breaks.
+- Confusing **line spacing** (inside a paragraph) with **paragraph spacing** (between paragraphs).
+:::
+
 # Headers, footers and sections
 @lo 12.2.1.4
 
-In the previous topic you **inserted** headers, footers, footnotes and tables. This lesson is about **formatting** them so that a long project document (20–100 pages, several authors, many versions) looks **consistent**, is **easy to navigate** and **updates itself** when it changes.
+With the page set up, the next job is the parts of the page that repeat. Headers and footers are controlled by **sections**, **fields** and **styles**: a section decides *where* a header changes, a field decides *what* it shows, and a style decides *how* it looks.
 
 :::definition Section break
 A mark that divides a document into **sections**. Each section can have its **own** headers and footers, page-number format, margins and orientation. Types: **Next page** (the new section starts on a new page) and **Continuous** (on the same page).
@@ -377,6 +475,12 @@ Repeat header rows (1) so the column headings appear at the top of every page (1
 
 **Q: Explain one advantage of a cross-reference over typing "see Table 3". [2]**
 A cross-reference is a field that **updates automatically** (1) when tables are added, removed or moved, so the reference is always correct (1).
+
+**Q: A report must be portrait, but one page holds a wide Gantt chart. Describe how to print that page in landscape. [3]**
+Insert a **section break (next page)** before and after the chart (1); in that section only, set **orientation to landscape** in Page Setup (1) with *Apply to: This section*, so the rest of the report stays portrait (and headers / page numbers continue) (1).
+
+**Q: Explain why line spacing and first-line indents should be set in the paragraph style rather than with Enter and spaces. [2]**
+Setting them in the style makes every paragraph identical / meets the required format consistently (1), and the layout stays correct when text is edited or the style is changed once for the whole document (1).
 :::
 
 :::warning Common mistakes in exam answers
@@ -389,12 +493,15 @@ A cross-reference is a field that **updates automatically** (1) when tables are 
 :::compare Summary — formatting tools
 | Element | Key formatting tools |
 |---|---|
+| **Page layout** | Paper size, orientation per section, margins (binding / mirror / gutter), page-number format and Start at, first-line and hanging indents, line spacing 1.5, spacing before / after, styles |
 | **Headers and footers** | Section breaks, Link to Previous, Different first page, Different odd & even, page-number format / Start at, fields (PAGE, NUMPAGES, STYLEREF, DATE), Header/Footer styles |
 | **Footnotes and endnotes** | Location, number format, custom mark, start at, restart each section/page, convert, Footnote Text style, separator |
 | **Tables** | Repeat header rows, no row breaking, merge/split, table styles, borders and shading, alignment, AutoFit, landscape section, caption, cross-reference, sort |
 :::
 
 :::steps Check yourself
+- Set paper size, margins and orientation, and put one wide page in landscape.
+- Set a first-line indent, 1.5 line spacing and spacing after in a style, and explain the difference between line and paragraph spacing.
 - Explain the difference between a page break and a section break, and when each is used.
 - Give a title page no header, number the contents pages i, ii, iii and restart chapter 1 at page 1.
 - Name four fields and what each shows.
