@@ -781,6 +781,642 @@
       }
     },
     {
+      "key": "dbd-lifecycle-fill",
+      "title": "Where design fits",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nDatabase design takes the requirements specification produced in the [[1]] stage. Its products, the ERD and the data dictionary, are used in the [[2]] stage to build the tables, and later by testers to choose test [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) analysis (2) development (3) data",
+        "accepted": {
+          "blanks": [
+            [
+              "analysis",
+              "analysis stage"
+            ],
+            [
+              "development",
+              "implementation",
+              "development stage",
+              "build"
+            ],
+            [
+              "data"
+            ]
+          ]
+        },
+        "explanation": "Design sits between analysis (what is needed) and development (building it); the data dictionary also guides testing."
+      }
+    },
+    {
+      "key": "dbd-instance-mcq",
+      "title": "Entity, instance, attribute",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "The entity *Student* has 5 attributes, and the school has 300 students. What does this become in the database?",
+      "options": [
+        {
+          "key": "A",
+          "content": "One table with 300 columns and 5 rows"
+        },
+        {
+          "key": "B",
+          "content": "One table with 5 columns and 300 rows"
+        },
+        {
+          "key": "C",
+          "content": "Five tables, one per attribute"
+        },
+        {
+          "key": "D",
+          "content": "300 tables, one per student"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Each attribute is a field (column) and each instance — one student — is a record (row)."
+      }
+    },
+    {
+      "key": "dbd-derived-tf",
+      "title": "Storing a derived attribute",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A student's *Age* should be stored as an attribute next to *DateOfBirth*, so that it does not have to be calculated.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Age is a derived attribute: it can always be calculated from DateOfBirth, and a stored age would become wrong every birthday."
+      }
+    },
+    {
+      "key": "dbd-atomic-mcq",
+      "title": "Atomic attributes",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "Why is a student's name usually stored as *FirstName* and *Surname* rather than one attribute *FullName*?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Two fields use less storage than one"
+        },
+        {
+          "key": "B",
+          "content": "Attributes should be atomic, so the school can sort by surname and use the first name on its own"
+        },
+        {
+          "key": "C",
+          "content": "A primary key must be made of two fields"
+        },
+        {
+          "key": "D",
+          "content": "The DBMS cannot store spaces in text fields"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "An atomic attribute holds one value that cannot sensibly be split; split names allow sorting by surname and letters such as “Dear Dana”."
+      }
+    },
+    {
+      "key": "dbd-anomaly-match",
+      "title": "Anomalies of a poor design",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "*A music school keeps everything in one table: each lesson row repeats the student's name and parent's phone and the teacher's name and instrument.*\n\nMatch each problem to its type of anomaly.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "A parent's new phone number has to be changed in 120 lesson rows, and one row is missed"
+          },
+          {
+            "key": "L2",
+            "text": "A newly hired teacher cannot be recorded because they have no lessons yet"
+          },
+          {
+            "key": "L3",
+            "text": "Deleting a student's only lesson also deletes the only copy of the student's details"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Insertion anomaly"
+          },
+          {
+            "key": "R2",
+            "text": "Deletion anomaly"
+          },
+          {
+            "key": "R3",
+            "text": "Update anomaly"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R3, L2–R1, L3–R2. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R1",
+            "L3": "R2"
+          }
+        },
+        "explanation": "All three are avoided by storing each fact once, in the table it describes, and linking the tables with keys."
+      }
+    },
+    {
+      "key": "dbd-key-kind-tick",
+      "title": "Natural, surrogate or composite key",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "For each primary key, decide what kind of key it is.\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Primary key",
+          "Natural key",
+          "Surrogate key",
+          "Composite key"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "ISBN of a book in a bookshop",
+            null,
+            null,
+            null
+          ],
+          [
+            "Auto-numbered LessonID",
+            null,
+            null,
+            null
+          ],
+          [
+            "StudentID + TeacherID + LessonDate + StartTime",
+            null,
+            null,
+            null
+          ],
+          [
+            "Registration number of a hire car",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "ISBN of a book in a bookshop — Natural key (1); Auto-numbered LessonID — Surrogate key (1); StudentID + TeacherID + LessonDate + StartTime — Composite key (1); Registration number of a hire car — Natural key (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        },
+        "model_answer": "ISBN of a book in a bookshop — Natural key; Auto-numbered LessonID — Surrogate key; StudentID + TeacherID + LessonDate + StartTime — Composite key; Registration number of a hire car — Natural key.",
+        "explanation": "A natural key already exists in the real data; a surrogate key is an ID added by the designer; a composite key is made of two or more fields."
+      }
+    },
+    {
+      "key": "dbd-restriction-match",
+      "title": "Restrictions shape the design",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each restriction of a new system to its effect on the database design.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "The school already has a licence for SQLite"
+          },
+          {
+            "key": "L2",
+            "text": "The Law on Personal Data must be followed"
+          },
+          {
+            "key": "L3",
+            "text": "Records will be imported from an old spreadsheet"
+          },
+          {
+            "key": "L4",
+            "text": "A national register will hold 20 million people"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Field types and sizes must be able to hold the old values, or the data is cleaned"
+          },
+          {
+            "key": "R2",
+            "text": "Only the data types that this DBMS supports can be used"
+          },
+          {
+            "key": "R3",
+            "text": "Keys must be large enough, e.g. INT rather than a two-character code"
+          },
+          {
+            "key": "R4",
+            "text": "Only necessary personal fields are stored; medical notes go in a separate, protected table"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R2, L2–R4, L3–R1, L4–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R4",
+            "L3": "R1",
+            "L4": "R3"
+          }
+        },
+        "explanation": "Each restriction must be linked to a concrete consequence — this is what a 4–6-mark “analyse” question expects."
+      }
+    },
+    {
+      "key": "dbd-repeating-group-mcq",
+      "title": "Teacher1, Teacher2, Teacher3",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "To store Student M:M Teacher, a designer adds the fields *Teacher1*, *Teacher2* and *Teacher3* to the Student table. What is this problem called?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A repeating group"
+        },
+        {
+          "key": "B",
+          "content": "A composite key"
+        },
+        {
+          "key": "C",
+          "content": "Referential integrity"
+        },
+        {
+          "key": "D",
+          "content": "A derived attribute"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A.",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "There is never the right number of columns, many stay empty, and a search must look in three fields. The fix is a link entity."
+      }
+    },
+    {
+      "key": "dbd-one-to-one-mr",
+      "title": "Keeping a 1:1 relationship",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "Each student has at most one medical record and each medical record belongs to one student. Select the **two** good reasons for keeping *StudentMedical* as a separate table instead of merging it into Student.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The medical data is sensitive and can be protected with stricter access rights"
+        },
+        {
+          "key": "B",
+          "content": "A 1:1 relationship can never be merged into one table"
+        },
+        {
+          "key": "C",
+          "content": "Many students have no medical record, so the fields would often be empty in Student"
+        },
+        {
+          "key": "D",
+          "content": "A separate table removes the need for any primary key"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "A 1:1 is kept separate when the data is sensitive or when the two entities have different lives (optional records)."
+      }
+    },
+    {
+      "key": "dbd-dose-mcq",
+      "title": "Where does the dose belong?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "*A clinic: at an appointment the doctor may prescribe several medicines; each medicine is prescribed at many appointments, each time with a dose.* The M:M is resolved with the link entity **Prescription**. In which entity is the attribute *Dose* stored?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Medicine"
+        },
+        {
+          "key": "B",
+          "content": "Appointment"
+        },
+        {
+          "key": "C",
+          "content": "Prescription"
+        },
+        {
+          "key": "D",
+          "content": "Doctor"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The dose is a fact about this medicine at this appointment — a fact about the relationship — so it belongs to the link entity."
+      }
+    },
+    {
+      "key": "dbd-optional-mcq",
+      "title": "Circle in crow's foot notation",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "At the *Lesson* end of the line Teacher — Lesson there is a small circle followed by a crow's foot. What does this show?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Exactly one lesson"
+        },
+        {
+          "key": "B",
+          "content": "One or many lessons"
+        },
+        {
+          "key": "C",
+          "content": "Zero or many lessons — a new teacher may have no lessons yet"
+        },
+        {
+          "key": "D",
+          "content": "The relationship is many-to-many"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The circle shows optionality (“zero or…”); the crow's foot shows “many”."
+      }
+    },
+    {
+      "key": "dbd-both-directions-mcq",
+      "title": "Ask in both directions",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A student knows that “one teacher gives many lessons”. Which second question decides whether Teacher — Lesson is 1:M or M:M?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Can one lesson have many teachers?"
+        },
+        {
+          "key": "B",
+          "content": "Can one teacher give no lessons?"
+        },
+        {
+          "key": "C",
+          "content": "Can one student have many lessons?"
+        },
+        {
+          "key": "D",
+          "content": "Does a lesson have a primary key?"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A.",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "The answer “no” makes it 1:M; “yes” would make it M:M. One direction alone is ambiguous."
+      }
+    },
+    {
+      "key": "dbd-erd-build-tours",
+      "title": "Build an ERD: a tour company",
+      "type": "erd",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "draw",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2"
+      ],
+      "practice": true,
+      "text": "A tour company in Almaty keeps data about **customers**, **tours** and **guides**. A customer makes many **bookings**; each booking is for one customer on one tour. Each tour has many bookings. Each tour is led by one guide, and a guide leads many tours.\n\nDraw the ERD: add one box per entity (its name on the first line), connect the entities that are related, then select each line and choose its degree. Do **not** leave a many-to-many relationship in the diagram. Draw only the entities the scenario needs.",
+      "content": {},
+      "scheme": {
+        "mark_scheme": "Entities: Customer, Booking, Tour, Guide (1 item each)\nRelationships: Customer 1:M Booking; Tour 1:M Booking; Guide 1:M Tour (1 item each, with the correct degree)\n7 items in all; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+        "model_answer": "Customer 1 —— M Booking M —— 1 Tour M —— 1 Guide",
+        "accepted": {
+          "erd": {
+            "entities": [
+              {
+                "name": "Customer",
+                "aliases": [
+                  "Customers",
+                  "Client",
+                  "Clients",
+                  "Tourist",
+                  "Tourists"
+                ]
+              },
+              {
+                "name": "Booking",
+                "aliases": [
+                  "Bookings",
+                  "Reservation",
+                  "Reservations",
+                  "Order"
+                ]
+              },
+              {
+                "name": "Tour",
+                "aliases": [
+                  "Tours",
+                  "Trip",
+                  "Trips",
+                  "Excursion"
+                ]
+              },
+              {
+                "name": "Guide",
+                "aliases": [
+                  "Guides",
+                  "TourGuide",
+                  "Tour guide"
+                ]
+              }
+            ],
+            "relationships": [
+              {
+                "a": "Customer",
+                "b": "Booking",
+                "degree": "1:M"
+              },
+              {
+                "a": "Tour",
+                "b": "Booking",
+                "degree": "1:M"
+              },
+              {
+                "a": "Guide",
+                "b": "Tour",
+                "degree": "1:M"
+              }
+            ]
+          }
+        },
+        "explanation": "Customer M:M Tour is resolved by Booking; Guide — Tour is a plain 1:M with the crow's foot at Tour."
+      }
+    },
+    {
       "key": "dbd-dd-define-mcq",
       "title": "Data dictionary",
       "type": "mcq",
@@ -1542,6 +2178,774 @@
         },
         "model_answer": "LessonID Key: PK; TeacherID Key: FK; LessonDate Key: none",
         "explanation": "TeacherID is the primary key of Teacher, copied into Lesson to link the tables."
+      }
+    },
+    {
+      "key": "dbd-metadata-mcq",
+      "title": "Data about the data",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A data dictionary is often called **metadata**. What does this mean?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It contains a backup copy of every record"
+        },
+        {
+          "key": "B",
+          "content": "It is data about the data: it describes the rules every record must follow, not the records themselves"
+        },
+        {
+          "key": "C",
+          "content": "It stores the data in a compressed form"
+        },
+        {
+          "key": "D",
+          "content": "It is the list of users who may open the database"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The dictionary describes each field (type, size, validation…); the school's actual records are in the tables."
+      }
+    },
+    {
+      "key": "dbd-test-data-tick",
+      "title": "Test data from the dictionary",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The data dictionary says: `Capacity` — INT — range 1–40. A tester plans test data. Classify each value.\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Test value",
+          "Normal",
+          "Boundary",
+          "Invalid (must be rejected)"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "20",
+            null,
+            null,
+            null
+          ],
+          [
+            "40",
+            null,
+            null,
+            null
+          ],
+          [
+            "1",
+            null,
+            null,
+            null
+          ],
+          [
+            "41",
+            null,
+            null,
+            null
+          ],
+          [
+            "ten",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "20 — Normal (1); 40 — Boundary (1); 1 — Boundary (1); 41 — Invalid (must be rejected) (1); ten — Invalid (must be rejected) (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "model_answer": "20 — Normal; 40 — Boundary; 1 — Boundary; 41 — Invalid (must be rejected); ten — Invalid (must be rejected).",
+        "explanation": "Normal data is well inside the range, boundary data is at the limits, and values outside the range or of the wrong type must be rejected."
+      }
+    },
+    {
+      "key": "dbd-text-types-match",
+      "title": "Text and number types",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each field to the most suitable data type.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Region code, always two letters, e.g. `KZ`"
+          },
+          {
+            "key": "L2",
+            "text": "Customer's surname"
+          },
+          {
+            "key": "L3",
+            "text": "Lesson fee in tenge, e.g. 12500.00"
+          },
+          {
+            "key": "L4",
+            "text": "Room temperature measured by a sensor, e.g. 21.7"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "REAL"
+          },
+          {
+            "key": "R2",
+            "text": "VARCHAR(30)"
+          },
+          {
+            "key": "R3",
+            "text": "CHAR(2)"
+          },
+          {
+            "key": "R4",
+            "text": "DECIMAL(8,2)"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R3, L2–R2, L3–R4, L4–R1. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R2",
+            "L3": "R4",
+            "L4": "R1"
+          }
+        },
+        "explanation": "CHAR suits fixed-length codes, VARCHAR text of varying length, DECIMAL exact money, REAL approximate measurements."
+      }
+    },
+    {
+      "key": "dbd-date-text-mr",
+      "title": "Dates stored as text",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A designer stores `LessonDate` as VARCHAR(10) with values such as `12/10/2026`. Select the **two** problems this causes.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The dates sort alphabetically, so 02/11/2026 comes before 12/10/2026"
+        },
+        {
+          "key": "B",
+          "content": "An impossible date such as 31/02/2026 is accepted"
+        },
+        {
+          "key": "C",
+          "content": "The DBMS cannot store the slash character"
+        },
+        {
+          "key": "D",
+          "content": "The field can no longer be part of a primary key"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "A DATE field sorts in date order, rejects impossible dates and allows calculations such as “the last 30 days”."
+      }
+    },
+    {
+      "key": "dbd-decimal-size-fill",
+      "title": "Size of a price",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A bookshop stores prices up to 99 999.99 tenge. Complete the data type: `Price DECIMAL([[1]], [[2]])`.",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 7 (2) 2",
+        "accepted": {
+          "blanks": [
+            [
+              "7"
+            ],
+            [
+              "2"
+            ]
+          ]
+        },
+        "explanation": "Five digits before the point plus two after gives 7 digits in total, 2 of them decimal places."
+      }
+    },
+    {
+      "key": "dbd-checks-match",
+      "title": "Which validation check?",
+      "type": "matching",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each validation rule to the name of the check.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`StudentID` must be `S` followed by four digits"
+          },
+          {
+            "key": "L2",
+            "text": "`Instrument` must be piano, dombra, violin or guitar"
+          },
+          {
+            "key": "L3",
+            "text": "`Capacity` must be from 1 to 40"
+          },
+          {
+            "key": "L4",
+            "text": "`LessonDate` must not be left empty"
+          },
+          {
+            "key": "L5",
+            "text": "No two students may have the same IIN"
+          },
+          {
+            "key": "L6",
+            "text": "`Surname` must have 1–30 characters"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Range check"
+          },
+          {
+            "key": "R2",
+            "text": "Uniqueness check"
+          },
+          {
+            "key": "R3",
+            "text": "Format check"
+          },
+          {
+            "key": "R4",
+            "text": "Length check"
+          },
+          {
+            "key": "R5",
+            "text": "Lookup (list) check"
+          },
+          {
+            "key": "R6",
+            "text": "Presence check"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R3, L2–R5, L3–R1, L4–R6, L5–R2, L6–R4. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R5",
+            "L3": "R1",
+            "L4": "R6",
+            "L5": "R2",
+            "L6": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dbd-val-ver-tick",
+      "title": "Validation or verification",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Decide whether each method is validation or verification.\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Method",
+          "Validation",
+          "Verification"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "The computer rejects a capacity of 45 because the range is 1–40",
+            null,
+            null
+          ],
+          [
+            "The user types a new password twice and the two are compared",
+            null,
+            null
+          ],
+          [
+            "A second person checks the typed records against the paper forms",
+            null,
+            null
+          ],
+          [
+            "The DBMS refuses an empty lesson date",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The computer rejects a capacity of 45 because the range is 1–40 — Validation (1); The user types a new password twice and the two are compared — Verification (1); A second person checks the typed records against the paper forms — Verification (1); The DBMS refuses an empty lesson date — Validation (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "model_answer": "The computer rejects a capacity of 45 because the range is 1–40 — Validation; The user types a new password twice and the two are compared — Verification; A second person checks the typed records against the paper forms — Verification; The DBMS refuses an empty lesson date — Validation.",
+        "explanation": "Validation is an automatic check that data is reasonable; verification checks it was entered exactly as in the source."
+      }
+    },
+    {
+      "key": "dbd-validation-limit-mcq",
+      "title": "What validation cannot do",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "A parent's real number is `+77015554434`, but the receptionist types `+77015554433`. The field has a length check (12) and a format check (`+7` + 10 digits). What happens?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The value is rejected by the format check"
+        },
+        {
+          "key": "B",
+          "content": "The value is accepted, because validation only checks that data is sensible, not that it is correct"
+        },
+        {
+          "key": "C",
+          "content": "The value is rejected by referential integrity"
+        },
+        {
+          "key": "D",
+          "content": "The DBMS corrects the last digit automatically"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Only verification (e.g. checking against the form) could catch this error."
+      }
+    },
+    {
+      "key": "dbd-integrity-match",
+      "title": "Three kinds of integrity",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Match each kind of data integrity to the rule that protects it.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Entity integrity"
+          },
+          {
+            "key": "L2",
+            "text": "Referential integrity"
+          },
+          {
+            "key": "L3",
+            "text": "Domain integrity"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Every value has the right data type and size and passes its validation"
+          },
+          {
+            "key": "R2",
+            "text": "Every table has a primary key that is unique and never empty"
+          },
+          {
+            "key": "R3",
+            "text": "Every foreign-key value matches an existing primary-key value"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R2, L2–R3, L3–R1. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R3",
+            "L3": "R1"
+          }
+        }
+      }
+    },
+    {
+      "key": "dbd-delete-mcq",
+      "title": "Deleting a referenced record",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Lesson has `FOREIGN KEY (StudentID) REFERENCES Student(StudentID)`. Someone tries to delete student `S0107`, who still has lessons. What does the DBMS do, and why?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Deletes the student and leaves the lessons unchanged"
+        },
+        {
+          "key": "B",
+          "content": "Refuses the delete, because the lessons would refer to a student who does not exist (referential integrity)"
+        },
+        {
+          "key": "C",
+          "content": "Deletes the student and sets every StudentID in Lesson to S0107"
+        },
+        {
+          "key": "D",
+          "content": "Refuses the delete, because StudentID is NOT NULL in Student"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Once the tables are created the DBMS enforces the rules of the design on every change, whatever program sends it."
+      }
+    },
+    {
+      "key": "dbd-validate-twice-mr",
+      "title": "Validate in the form and in the database",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Good systems validate data **both** in the input form and in the database. Select the **two** correct reasons.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The form gives the user a friendly message at once"
+        },
+        {
+          "key": "B",
+          "content": "The database rule stops bad data that arrives by another route, not through the form"
+        },
+        {
+          "key": "C",
+          "content": "Validating twice makes the data correct"
+        },
+        {
+          "key": "D",
+          "content": "A format such as `S` + 4 digits can only be checked in the database"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "Format checks are usually done in the form (input mask, pattern); the database's constraints protect against any route around the form."
+      }
+    },
+    {
+      "key": "dbd-sql-create-teacher",
+      "title": "Create the Teacher table",
+      "type": "sql",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The data dictionary of the music school contains:\n\n| Field name | Data type | Size | Key | Validation |\n|---|---|---|---|---|\n| TeacherID | VARCHAR | 4 | PK | Presence, unique |\n| Name | VARCHAR | 50 | | Presence |\n| Instrument | VARCHAR | 20 | | |\n\nWrite the SQL statement that creates the table **Teacher**.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "source": "original",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Student (\n  StudentID VARCHAR(5) PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  Surname VARCHAR(30) NOT NULL\n);\nINSERT INTO Student VALUES\n  ('S0107', 'Dana', 'Seitova'),\n  ('S0112', 'Arman', 'Bekov'),\n  ('S0120', 'Aigerim', 'Nurlanova');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Teacher (TeacherID VARCHAR(4) PRIMARY KEY, Name VARCHAR(50) NOT NULL, Instrument VARCHAR(20));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Teacher (TeacherID VARCHAR(4) PRIMARY KEY, Name VARCHAR(50) NOT NULL, Instrument VARCHAR(20));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'teacher' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Teacher VALUES ('T012', 'Gulnara Abenova', 'piano')",
+              "INSERT INTO Teacher VALUES ('T012', 'Gulnara Abenova', 'piano'), ('T012', 'Yerlan Sadykov', 'dombra')",
+              "INSERT INTO Teacher (TeacherID, Instrument) VALUES ('T020', 'violin')",
+              "INSERT INTO Teacher VALUES (NULL, 'Yerlan Sadykov', 'dombra')"
+            ],
+            "probes_label": "The primary key and NOT NULL rules work"
+          }
+        }
+      }
+    },
+    {
+      "key": "dbd-sql-create-room",
+      "title": "Create the Room table with validation",
+      "type": "sql",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "The data dictionary of the music school contains:\n\n| Field name | Data type | Key | Validation |\n|---|---|---|---|\n| RoomNo | INT | PK | Presence, unique |\n| Capacity | INT | | Presence; range 1–40 |\n| HasPiano | BOOLEAN | | Default False |\n\nWrite the SQL statement that creates the table **Room**, with the validation turned into `NOT NULL`, `CHECK` and `DEFAULT`.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "source": "original",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Student (\n  StudentID VARCHAR(5) PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  Surname VARCHAR(30) NOT NULL\n);\nINSERT INTO Student VALUES\n  ('S0107', 'Dana', 'Seitova'),\n  ('S0112', 'Arman', 'Bekov'),\n  ('S0120', 'Aigerim', 'Nurlanova');\nCREATE TABLE Teacher (\n  TeacherID VARCHAR(4) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Instrument VARCHAR(20)\n);\nINSERT INTO Teacher VALUES\n  ('T012', 'Gulnara Abenova', 'piano'),\n  ('T015', 'Yerlan Sadykov', 'dombra');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Room (RoomNo INT PRIMARY KEY, Capacity INT NOT NULL CHECK (Capacity BETWEEN 1 AND 40), HasPiano BOOLEAN DEFAULT FALSE);\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Room (RoomNo INT PRIMARY KEY, Capacity INT NOT NULL CHECK (Capacity BETWEEN 1 AND 40), HasPiano BOOLEAN DEFAULT FALSE);",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'room' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Room VALUES (14, 40, TRUE)",
+              "INSERT INTO Room VALUES (15, 1, FALSE)",
+              "INSERT INTO Room VALUES (16, 0, FALSE)",
+              "INSERT INTO Room VALUES (17, 41, FALSE)",
+              "INSERT INTO Room (RoomNo, HasPiano) VALUES (18, TRUE)",
+              "INSERT INTO Room VALUES (14, 20, TRUE), (14, 25, FALSE)",
+              "INSERT INTO Room (RoomNo, Capacity) VALUES (19, 10); SELECT 1 / (CASE WHEN HasPiano = FALSE THEN 1 ELSE 0 END) FROM Room WHERE RoomNo = 19"
+            ],
+            "probes_label": "The key, the range 1–40, NOT NULL and the default work"
+          }
+        }
+      }
+    },
+    {
+      "key": "dbd-sql-create-lesson",
+      "title": "Create the Lesson link table",
+      "type": "sql",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.2",
+        "11.4.1.6"
+      ],
+      "practice": true,
+      "text": "Student and Teacher already exist (press **Show the database**). The data dictionary of the link table contains:\n\n| Field name | Data type | Size | Key | Validation |\n|---|---|---|---|---|\n| LessonID | INT | | PK | Unique |\n| StudentID | VARCHAR | 5 | FK → Student | Presence; must exist in Student |\n| TeacherID | VARCHAR | 4 | FK → Teacher | Presence; must exist in Teacher |\n| LessonDate | DATE | | | Presence |\n\nWrite the SQL statement that creates the table **Lesson** with its primary key and both foreign keys.\n\nPress **Show the database** to see the tables, **Run SQL** to try your code, then **Check Answer**.",
+      "source": "original",
+      "content": {
+        "language": "sql",
+        "sql": {
+          "setup": "CREATE TABLE Student (\n  StudentID VARCHAR(5) PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  Surname VARCHAR(30) NOT NULL\n);\nINSERT INTO Student VALUES\n  ('S0107', 'Dana', 'Seitova'),\n  ('S0112', 'Arman', 'Bekov'),\n  ('S0120', 'Aigerim', 'Nurlanova');\nCREATE TABLE Teacher (\n  TeacherID VARCHAR(4) PRIMARY KEY,\n  Name VARCHAR(50) NOT NULL,\n  Instrument VARCHAR(20)\n);\nINSERT INTO Teacher VALUES\n  ('T012', 'Gulnara Abenova', 'piano'),\n  ('T015', 'Yerlan Sadykov', 'dombra');"
+        }
+      },
+      "scheme": {
+        "mark_scheme": "Marked by running your code on the sample database and comparing the result with a model answer.",
+        "model_answer": "```sql\nCREATE TABLE Lesson (LessonID INT PRIMARY KEY, StudentID VARCHAR(5) NOT NULL, TeacherID VARCHAR(4) NOT NULL, LessonDate DATE NOT NULL, FOREIGN KEY (StudentID) REFERENCES Student(StudentID), FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID));\n```",
+        "accepted": {
+          "sql": {
+            "solution": "CREATE TABLE Lesson (LessonID INT PRIMARY KEY, StudentID VARCHAR(5) NOT NULL, TeacherID VARCHAR(4) NOT NULL, LessonDate DATE NOT NULL, FOREIGN KEY (StudentID) REFERENCES Student(StudentID), FOREIGN KEY (TeacherID) REFERENCES Teacher(TeacherID));",
+            "check": "state",
+            "check_query": "SELECT lower(column_name) AS column_name, data_type, character_maximum_length AS size, numeric_precision, numeric_scale, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND lower(table_name) = 'lesson' ORDER BY ordinal_position",
+            "check_label": "The fields, data types and sizes are right",
+            "probes": [
+              "INSERT INTO Lesson VALUES (1, 'S0107', 'T012', '2026-10-12')",
+              "INSERT INTO Lesson VALUES (2, 'S9999', 'T012', '2026-10-12')",
+              "INSERT INTO Lesson VALUES (3, 'S0107', 'T999', '2026-10-12')",
+              "INSERT INTO Lesson VALUES (4, NULL, 'T012', '2026-10-12')",
+              "INSERT INTO Lesson VALUES (5, 'S0112', 'T015', NULL)",
+              "INSERT INTO Lesson VALUES (6, 'S0107', 'T012', '2026-10-12'), (6, 'S0112', 'T015', '2026-10-13')"
+            ],
+            "probes_label": "The keys, referential integrity and NOT NULL rules work"
+          }
+        }
       }
     },
     {
@@ -3971,17 +5375,30 @@
         "dbd-order-fill",
         "dbd-entity-attr-tick",
         "dbd-docs-match",
+        "dbd-mm-tf",
+        "dbd-crowfoot-mcq",
+        "dbd-design-benefit-mr",
+        "dbd-lifecycle-fill",
+        "dbd-instance-mcq",
+        "dbd-derived-tf",
         "dbd-pk-mcq",
         "dbd-degree-match",
         "dbd-fk-side-mcq",
-        "dbd-mm-tf",
         "dbd-link-entity-short",
         "dbd-gym-degree-tick",
-        "dbd-crowfoot-mcq",
         "dbd-link-keys-mr",
-        "dbd-design-benefit-mr",
+        "dbd-atomic-mcq",
+        "dbd-anomaly-match",
+        "dbd-key-kind-tick",
+        "dbd-restriction-match",
+        "dbd-repeating-group-mcq",
+        "dbd-optional-mcq",
+        "dbd-both-directions-mcq",
         "dbd-erd-errors-mr",
-        "dbd-erd-build-gym"
+        "dbd-erd-build-gym",
+        "dbd-one-to-one-mr",
+        "dbd-dose-mcq",
+        "dbd-erd-build-tours"
       ]
     },
     {
@@ -3997,18 +5414,32 @@
         "dbd-dd-items-mr",
         "dbd-dd-types",
         "dbd-phone-type-mcq",
+        "dbd-notnull-short",
+        "dbd-pk-every-tf",
+        "dbd-metadata-mcq",
+        "dbd-sql-create-teacher",
         "dbd-price-type-mcq",
         "dbd-fk-type-tf",
         "dbd-ref-integrity-mcq",
         "dbd-size-fill",
         "dbd-check-tick",
         "dbd-sql-match",
-        "dbd-notnull-short",
+        "dbd-key-table",
+        "dbd-test-data-tick",
+        "dbd-text-types-match",
+        "dbd-date-text-mr",
+        "dbd-checks-match",
+        "dbd-val-ver-tick",
+        "dbd-sql-create-room",
         "dbd-create-order-mcq",
         "dbd-sql-fill",
         "dbd-dd-errors-mr",
-        "dbd-pk-every-tf",
-        "dbd-key-table"
+        "dbd-decimal-size-fill",
+        "dbd-validation-limit-mcq",
+        "dbd-integrity-match",
+        "dbd-delete-mcq",
+        "dbd-validate-twice-mr",
+        "dbd-sql-create-lesson"
       ]
     }
   ]
