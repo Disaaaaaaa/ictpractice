@@ -2217,7 +2217,7 @@
       ]
     }
   ],
-  "summary": "Designing the processes of a new system with flowcharts — the standard symbols and rules, sequence and selection (nested decisions, AND / OR conditions), iteration with count-controlled, pre-condition and post-condition loops, counting and totalling, validation loops, tracing a flowchart with a trace table and converting between flowcharts and pseudocode.",
+  "summary": "Designing the processes of a new system with flowcharts — where process design fits in the life cycle, the standard symbols and rules, sequence and selection (nested decisions, AND / OR conditions, boundary testing), flowcharts of real processes in computing systems (library, vending machine, subroutines), iteration with count-controlled, pre-condition and post-condition loops, counting, totalling and finding the smallest value, validation loops, tracing a flowchart with a trace table and converting between flowcharts and pseudocode.",
   "theory": [
     {
       "title": "Flowcharts in process design",
@@ -2228,6 +2228,37 @@
         {
           "type": "paragraph",
           "content": "In the **design** stage of a new system the analyst already has a **DFD**, which shows **what** processes the system has (e.g. *Register client*, *Calculate order cost*). Before anything is coded, each process is designed in detail: **how** it works, step by step. The most common tool for this is the **flowchart** — the programmer later turns it into code."
+        },
+        {
+          "type": "heading",
+          "text": "Where process design fits in the life cycle",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "A new system is developed in stages: **analysis** (finding out what the client needs), **design** (planning how the system will meet those needs), **development** (coding), **testing**, **implementation** and **maintenance**. Design itself has several parts. **Data design** plans the tables, fields and data types of the database. **Interface design** plans the screens, forms and reports. **Process design** plans the **logic** — what the computer must do, in which order, with which decisions — for every process that appears in the DFD."
+        },
+        {
+          "type": "paragraph",
+          "content": "Think of a school canteen system. The DFD has a process *Record sale*. It tells us that the cashier sends *items chosen* into the process and that the process writes to the data store *Sales*. It does **not** tell us what happens when a student's card has too little money on it, how the total is calculated, or when a receipt is printed. Those details are exactly what process design adds. Without them, two programmers given the same DFD could write two systems that behave differently — and neither of them might behave the way the canteen manager wanted."
+        },
+        {
+          "type": "paragraph",
+          "content": "Process design therefore answers four questions for every process:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**What are the inputs?** — data typed by a user, read from a sensor, or read from a file or database.",
+            "**What processing is done?** — calculations, comparisons, assignments, searching and sorting.",
+            "**What decisions and repetitions are there?** — the conditions that choose a path and the steps that must be repeated.",
+            "**What are the outputs?** — data displayed, printed, sent to another device or saved to a data store."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "This is the **input → process → output** (IPO) model. A good flowchart makes each of these four parts visible, so the client, the programmer and the tester can all check them."
         },
         {
           "type": "definition",
@@ -2249,6 +2280,26 @@
           "format": "svg",
           "content": "<svg class=\"pd1\" viewBox=\"0 0 760 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Six flowchart symbols: terminator (rounded box) for start and end, process (rectangle) for a calculation, input/output (parallelogram), decision (diamond) with two exits, subroutine (rectangle with double sides) and flow line (arrow)\">\n  <style>\n    svg.pd1 .sh{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.pd1 .ds{fill:var(--warning);fill-opacity:.15;stroke:var(--warning);stroke-width:2}\n    svg.pd1 .in{stroke:var(--primary);stroke-width:2}\n    svg.pd1 .ln{stroke:var(--foreground);stroke-width:2.2;fill:none}\n    svg.pd1 .ah{fill:var(--foreground)}\n    svg.pd1 .c{font:13px ui-monospace,monospace;fill:var(--foreground);text-anchor:middle}\n    svg.pd1 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground);text-anchor:middle}\n    svg.pd1 .s{font:12px system-ui,sans-serif;fill:var(--muted);text-anchor:middle}\n  </style>\n  <rect class=\"sh\" x=\"20\" y=\"30\" width=\"100\" height=\"50\" rx=\"25\"/><text class=\"c\" x=\"70\" y=\"60\">START</text>\n  <text class=\"h\" x=\"70\" y=\"118\">Terminator</text><text class=\"s\" x=\"70\" y=\"138\">START / END of</text><text class=\"s\" x=\"70\" y=\"156\">the flowchart</text>\n  <rect class=\"sh\" x=\"145\" y=\"30\" width=\"100\" height=\"50\"/><text class=\"c\" x=\"195\" y=\"60\">x ← x + 1</text>\n  <text class=\"h\" x=\"195\" y=\"118\">Process</text><text class=\"s\" x=\"195\" y=\"138\">a calculation or</text><text class=\"s\" x=\"195\" y=\"156\">an assignment</text>\n  <polygon class=\"sh\" points=\"282,30 372,30 358,80 268,80\"/><text class=\"c\" x=\"320\" y=\"60\">INPUT age</text>\n  <text class=\"h\" x=\"320\" y=\"118\">Input / Output</text><text class=\"s\" x=\"320\" y=\"138\">data entered or</text><text class=\"s\" x=\"320\" y=\"156\">displayed</text>\n  <polygon class=\"ds\" points=\"445,20 502,55 445,90 388,55\"/><text class=\"c\" x=\"445\" y=\"60\">age≥18?</text>\n  <text class=\"h\" x=\"445\" y=\"118\">Decision</text><text class=\"s\" x=\"445\" y=\"138\">a Yes / No question</text><text class=\"s\" x=\"445\" y=\"156\">with two exits</text>\n  <rect class=\"sh\" x=\"520\" y=\"30\" width=\"100\" height=\"50\"/><line class=\"in\" x1=\"532\" y1=\"30\" x2=\"532\" y2=\"80\"/><line class=\"in\" x1=\"608\" y1=\"30\" x2=\"608\" y2=\"80\"/><text class=\"c\" x=\"570\" y=\"60\">Tax()</text>\n  <text class=\"h\" x=\"570\" y=\"118\">Subroutine</text><text class=\"s\" x=\"570\" y=\"138\">a predefined process</text><text class=\"s\" x=\"570\" y=\"156\">(procedure / function)</text>\n  <line class=\"ln\" x1=\"650\" y1=\"55\" x2=\"728\" y2=\"55\"/><path class=\"ah\" d=\"M740,55 l-14,-7 v14 z\"/>\n  <text class=\"h\" x=\"695\" y=\"118\">Flow line</text><text class=\"s\" x=\"695\" y=\"138\">shows the order</text><text class=\"s\" x=\"695\" y=\"156\">of the steps</text>\n</svg>",
           "caption": "The standard flowchart symbols"
+        },
+        {
+          "type": "heading",
+          "text": "The symbols, one by one",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Flowcharts are useful only because everybody draws them **the same way**. A programmer in Almaty and a tester in Shymkent must read a diamond as a decision without having to ask. That is why the shapes are **standard** and why examiners give no mark for a step drawn in the wrong shape."
+        },
+        {
+          "type": "list",
+          "items": [
+            "The **terminator** is a rounded rectangle (often called an oval). It appears at the very beginning with the word **START** and at the end with **END** (or **STOP**). A flowchart for a subroutine may start with its name, e.g. `CalculateTax`, and end with **RETURN**. There is exactly one start, so a reader always knows where to begin.",
+            "The **process** box is a plain rectangle. It holds one action that the computer carries out internally: an **assignment** (`count ← 0`), a **calculation** (`cost ← tickets × 2500`) or a change to a variable (`i ← i + 1`). Nothing is typed by the user and nothing is shown on the screen in a process box.",
+            "The **input / output** box is a parallelogram. It is used whenever data **crosses the boundary** of the computer: the user types something (`INPUT pin`), a sensor value is read (`INPUT temperature`), or something is displayed or printed (`OUTPUT \"Card blocked\"`). Write `INPUT` or `OUTPUT` in the box, so that the reader can tell which direction the data moves.",
+            "The **decision** box is a diamond. It holds a **question whose answer is Yes or No** (True or False), such as `balance >= price?`. It always has **two** exits, and both are labelled. A diamond never contains an action — it only chooses which path is followed next.",
+            "The **subroutine** (predefined process) is a rectangle with double vertical sides. It means \"carry out a process that is drawn in a separate flowchart\". Large systems use subroutines to keep each flowchart small: the checkout flowchart can simply call `CalculateDelivery` instead of drawing all of its steps again.",
+            "The **flow line** is an arrow. It shows the **order** in which the steps are carried out. Lines normally run from top to bottom; a line that goes **back up** creates a loop (lesson 2)."
+          ]
         },
         {
           "type": "comparison",
@@ -2341,6 +2392,19 @@
           ]
         },
         {
+          "type": "heading",
+          "text": "From a DFD process to a flowchart",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "A DFD and a flowchart are not competitors: they are used **one after the other**. The analyst first draws the DFD to agree with the client **which** processes the system needs and which data each process uses. Then every process circle (or rounded box) of the DFD is taken in turn and a flowchart is drawn for it. The **data flows into the process** become the **inputs** of the flowchart; the **data flows out** become its **outputs**; a **data store** the process reads or writes becomes a \"read from\" or \"save to\" step. The DFD shows the system **from above**, the flowchart shows **one process from inside**."
+        },
+        {
+          "type": "paragraph",
+          "content": "For example, the clinic DFD process *Book appointment* has the flows *patient ID* and *preferred date* coming in from the external entity *Patient*, reads the data store *Timetable* and writes to *Appointments*. Its flowchart starts with `INPUT patientID, date`, checks `doctor free on date?`, saves the appointment if the answer is Yes and outputs a confirmation, or outputs \"No free slot\" if the answer is No."
+        },
+        {
           "type": "comparison",
           "title": "Advantages and disadvantages of flowcharts",
           "columns": [
@@ -2367,6 +2431,19 @@
           ]
         },
         {
+          "type": "heading",
+          "text": "Why design processes before coding?",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "The main reason is **cost**. A mistake in the logic — for example, giving the discount to customers who should not get it — is cheap to fix while it is still a drawing: you rub out one arrow. The same mistake found after the program is written means changing code and testing again; found after the system is **installed**, it may mean wrong bills sent to hundreds of customers. The earlier an error is found, the cheaper it is to correct."
+        },
+        {
+          "type": "paragraph",
+          "content": "A second reason is **communication**. A client usually cannot read Python or PHP, but can follow a flowchart and say \"No, members of staff get the discount too\". A third reason is **testing**: every decision in the flowchart shows a path that must be tested, so the tester can plan **test data** for each Yes and No exit, including the **boundary** values. Finally, the flowcharts become part of the **technical documentation**; a programmer who has to change the system two years later can understand each process without reading every line of code."
+        },
+        {
           "type": "exam_tip",
           "content": "- **One START** and at least one **END**.\n- Flow from **top to bottom** (and left to right); every flow line has an **arrowhead**.\n- Every **decision** has exactly **two exits**, labelled **Yes / No** (or True / False).\n- **One step per box**, written clearly — e.g. `INPUT price`, not \"the user types something\".\n- Use the **correct symbol** for each step.\n- A loop returns to a point **before** the decision (or body) it repeats.\n- No flow line ends in mid-air; avoid crossing lines."
         },
@@ -2385,6 +2462,44 @@
         {
           "type": "paragraph",
           "content": "Every algorithm is built from only **three** structures: **sequence**, **selection** and **iteration** (lesson 2)."
+        },
+        {
+          "type": "heading",
+          "text": "Sequence — order matters",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "In a **sequence** the computer carries out each step **once**, in the order written. The order is not decoration: changing it changes the result. If a process first outputs `cost` and only then calculates `cost ← tickets × 2500`, the output is empty or out of date. A classic exam trap is swapping two variables: `a ← b` followed by `b ← a` leaves both variables equal to the old `b`, because the old value of `a` was overwritten. The correct sequence uses a **temporary variable**: `temp ← a`, `a ← b`, `b ← temp`. When you design a sequence, ask for each step: *does every value it uses already exist at this point?*"
+        },
+        {
+          "type": "heading",
+          "text": "Selection — one path or the other",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "**Selection** lets a process react to its data. The diamond asks a question, and the answer decides which branch runs. There are three common patterns:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**IF … THEN … ELSE** — two different actions, one for Yes and one for No (cinema: child price or adult price).",
+            "**IF … THEN** with no ELSE — an action happens only when the condition is true; the No exit goes straight to the joining point (add a 10 % discount only if the customer has a loyalty card).",
+            "**Nested IF** — a second decision placed on one exit of the first, used when there are **more than two** outcomes (grades A, B, C, Fail)."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "In every pattern the branches **join again** before the process continues, so the flowchart still has a single route to END. In pseudocode the join is the `ENDIF`."
+        },
+        {
+          "type": "paragraph",
+          "content": "Conditions are built from **comparison operators** (`=`, `<>`, `<`, `<=`, `>`, `>=`) and **logical operators** (`AND`, `OR`, `NOT`). The most frequent errors are at **boundaries**. \"Under 12\" is `age < 12` (12 is not under 12); \"12 or over\" is `age >= 12`; \"from 11 to 18 inclusive\" is `age >= 11 AND age <= 18`. Always test a decision with a value just below, exactly on, and just above each boundary — this is called **boundary testing**."
+        },
+        {
+          "type": "paragraph",
+          "content": "When two conditions must both be true, you can either write one diamond with `AND` or draw **two nested diamonds**: the second question is asked only on the Yes exit of the first, and both No exits lead to the same action. The two designs are **equivalent** — they give the same output for every input. Nested diamonds are easier to read when each condition needs its **own error message** (\"too young\", \"too old\"); one diamond with `AND` is shorter when one message is enough."
         },
         {
           "type": "definition",
@@ -2501,6 +2616,157 @@
       ]
     },
     {
+      "title": "Flowcharts of processes in computing systems",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": "The learning objective asks you to **develop flowcharts of processes in computing systems**. In the exam this means: you are given a short description of a real system — a library, a shop, a vending machine, a school portal — and you must turn **one of its processes** into a correct flowchart. This section shows how real processes are structured and how to go from the words of a scenario to a finished diagram."
+        },
+        {
+          "type": "definition",
+          "term": "Process (in a computing system)",
+          "content": "A set of steps that the system carries out to **turn inputs into outputs** for one task — e.g. *Issue book*, *Calculate bill*, *Log in*. In a DFD it is one process box; in process design it gets its own flowchart."
+        },
+        {
+          "type": "definition",
+          "term": "Subroutine (predefined process)",
+          "content": "A **named block of steps** designed and drawn **separately** and then **called** from another flowchart with the double-sided rectangle. It avoids drawing the same steps twice and keeps each flowchart small."
+        },
+        {
+          "type": "definition",
+          "term": "Data store (in a flowchart)",
+          "content": "A step in which the process **reads data from** or **saves data to** a file or database table, e.g. *Save loan in Loans*. Some books draw it as a cylinder, others as a process box with the words \"read\" / \"save\"."
+        },
+        {
+          "type": "heading",
+          "text": "What real processes have in common",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "Almost every process in an information system follows the same pattern. First it **collects input** — from a form, a barcode scanner, a card reader or a sensor. Then it **checks** that input: does the customer exist, is the value in range, is there enough money or stock? Each check is a **decision**, and each No exit usually ends with an **error message** so that the user knows what went wrong. Only when every check is passed does the process do its real work: **calculate**, **update the database** and **output** a result such as a receipt or a confirmation. Designers call this the \"guard checks first\" pattern: put the checks at the top, so the main work runs only on good data."
+        },
+        {
+          "type": "paragraph",
+          "content": "A second common feature is that processes **read and write stored data**. A cash machine reads the account balance and writes the new balance; a library reads the member's record and writes a new loan. In the flowchart these appear as clear, separate steps, so the programmer knows exactly when the database is used."
+        },
+        {
+          "type": "paragraph",
+          "content": "A third feature is that processes often **call other processes**. The checkout of an online shop calls *Calculate delivery*, *Take payment* and *Send e-mail*. Each of these is a **subroutine** with its own flowchart. This is called **top-down design** or **decomposition**: a big problem is split into smaller sub-problems that are each easy to draw, code and test, and different programmers can work on different subroutines at the same time."
+        },
+        {
+          "type": "diagram",
+          "format": "svg",
+          "content": "<svg class=\"pd7\" viewBox=\"0 0 760 730\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Library book loan flowchart: START, INPUT memberID and bookID, three decisions in a column — member found, fewer than 5 books on loan, book available. Each No exit outputs a message (Unknown member, Limit reached, Book is on loan) and goes to END. When all three are Yes: dueDate is today plus 14, the loan is saved in the Loans data store, the return date is output and the flowchart ends\">\n  <style>\n    svg.pd7 .sh{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.pd7 .tm{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.pd7 .ds{fill:var(--warning);fill-opacity:.15;stroke:var(--warning);stroke-width:2}\n    svg.pd7 .st{fill:var(--surface-2);stroke:var(--muted);stroke-width:2}\n    svg.pd7 .ln{stroke:var(--foreground);stroke-width:2;fill:none}\n    svg.pd7 .ln2{stroke:var(--muted);stroke-width:2;fill:none}\n    svg.pd7 .ah{fill:var(--foreground)}\n    svg.pd7 .c{font:13px ui-monospace,monospace;fill:var(--foreground);text-anchor:middle}\n    svg.pd7 .y{font:700 12px system-ui,sans-serif;fill:var(--primary)}\n    svg.pd7 .s{font:12px system-ui,sans-serif;fill:var(--muted);text-anchor:middle}\n  </style>\n  <rect class=\"tm\" x=\"175\" y=\"14\" width=\"110\" height=\"36\" rx=\"18\"/><text class=\"c\" x=\"230\" y=\"37\">START</text>\n  <line class=\"ln\" x1=\"230\" y1=\"50\" x2=\"230\" y2=\"78\"/><path class=\"ah\" d=\"M230,78 l-6,-10 h12 z\"/>\n  <polygon class=\"sh\" points=\"127.0,80.0 357.0,80.0 333.0,120.0 103.0,120.0\"/><text class=\"c\" x=\"230\" y=\"105\">INPUT memberID, bookID</text>\n  <line class=\"ln\" x1=\"230\" y1=\"120\" x2=\"230\" y2=\"146\"/><path class=\"ah\" d=\"M230,146 l-6,-10 h12 z\"/>\n  <polygon class=\"ds\" points=\"230,146 325,180 230,214 135,180\"/><text class=\"c\" x=\"230\" y=\"185\">member found?</text>\n  <line class=\"ln\" x1=\"325\" y1=\"180\" x2=\"388\" y2=\"180\"/><path class=\"ah\" d=\"M388,180 l-10,-6 v12 z\"/>\n  <text class=\"y\" x=\"338\" y=\"172\">No</text>\n  <polygon class=\"sh\" points=\"407.0,160.0 617.0,160.0 593.0,200.0 383.0,200.0\"/><text class=\"c\" x=\"500\" y=\"185\">OUTPUT \"Unknown member\"</text>\n  <line class=\"ln\" x1=\"617\" y1=\"180\" x2=\"700\" y2=\"180\"/>\n  <line class=\"ln\" x1=\"230\" y1=\"214\" x2=\"230\" y2=\"246\"/><path class=\"ah\" d=\"M230,246 l-6,-10 h12 z\"/>\n  <text class=\"y\" x=\"240\" y=\"232\">Yes</text>\n  <polygon class=\"ds\" points=\"230,246 325,280 230,314 135,280\"/><text class=\"c\" x=\"230\" y=\"285\">onLoan &lt; 5?</text>\n  <line class=\"ln\" x1=\"325\" y1=\"280\" x2=\"388\" y2=\"280\"/><path class=\"ah\" d=\"M388,280 l-10,-6 v12 z\"/>\n  <text class=\"y\" x=\"338\" y=\"272\">No</text>\n  <polygon class=\"sh\" points=\"407.0,260.0 617.0,260.0 593.0,300.0 383.0,300.0\"/><text class=\"c\" x=\"500\" y=\"285\">OUTPUT \"Limit reached\"</text>\n  <line class=\"ln\" x1=\"617\" y1=\"280\" x2=\"700\" y2=\"280\"/>\n  <line class=\"ln\" x1=\"230\" y1=\"314\" x2=\"230\" y2=\"346\"/><path class=\"ah\" d=\"M230,346 l-6,-10 h12 z\"/>\n  <text class=\"y\" x=\"240\" y=\"332\">Yes</text>\n  <polygon class=\"ds\" points=\"230,346 325,380 230,414 135,380\"/><text class=\"c\" x=\"230\" y=\"385\">book available?</text>\n  <line class=\"ln\" x1=\"325\" y1=\"380\" x2=\"388\" y2=\"380\"/><path class=\"ah\" d=\"M388,380 l-10,-6 v12 z\"/>\n  <text class=\"y\" x=\"338\" y=\"372\">No</text>\n  <polygon class=\"sh\" points=\"407.0,360.0 617.0,360.0 593.0,400.0 383.0,400.0\"/><text class=\"c\" x=\"500\" y=\"385\">OUTPUT \"Book is on loan\"</text>\n  <line class=\"ln\" x1=\"617\" y1=\"380\" x2=\"700\" y2=\"380\"/>\n  <line class=\"ln\" x1=\"230\" y1=\"414\" x2=\"230\" y2=\"450\"/><path class=\"ah\" d=\"M230,450 l-6,-10 h12 z\"/>\n  <text class=\"y\" x=\"240\" y=\"432\">Yes</text>\n  <rect class=\"sh\" x=\"120\" y=\"450\" width=\"220\" height=\"40\"/><text class=\"c\" x=\"230\" y=\"475\">dueDate ← today + 14</text>\n  <line class=\"ln\" x1=\"230\" y1=\"490\" x2=\"230\" y2=\"520\"/><path class=\"ah\" d=\"M230,520 l-6,-10 h12 z\"/>\n  <path class=\"st\" d=\"M120,532 a110,12 0 0,1 220,0 v34 a110,12 0 0,1 -220,0 z\"/><path class=\"ln2\" d=\"M120,532 a110,12 0 0,0 220,0\"/><text class=\"c\" x=\"230\" y=\"562\">Save loan in Loans</text>\n  <line class=\"ln\" x1=\"230\" y1=\"578\" x2=\"230\" y2=\"604\"/><path class=\"ah\" d=\"M230,604 l-6,-10 h12 z\"/>\n  <polygon class=\"sh\" points=\"102.0,606.0 382.0,606.0 358.0,646.0 78.0,646.0\"/><text class=\"c\" x=\"230\" y=\"631\">OUTPUT \"Return by \" + dueDate</text>\n  <line class=\"ln\" x1=\"230\" y1=\"646\" x2=\"230\" y2=\"676\"/><path class=\"ah\" d=\"M230,676 l-6,-10 h12 z\"/>\n  <rect class=\"tm\" x=\"175\" y=\"678\" width=\"110\" height=\"36\" rx=\"18\"/><text class=\"c\" x=\"230\" y=\"701\">END</text>\n  <line class=\"ln\" x1=\"700\" y1=\"180\" x2=\"700\" y2=\"696\"/>\n  <line class=\"ln\" x1=\"700\" y1=\"696\" x2=\"285\" y2=\"696\"/><path class=\"ah\" d=\"M285,696 l10,-6 v12 z\"/>\n  <text class=\"s\" x=\"600\" y=\"470\">every No exit</text><text class=\"s\" x=\"600\" y=\"488\">ends the process</text><text class=\"s\" x=\"600\" y=\"506\">with a message</text>\n</svg>:::\n\n:::example Worked example — issuing a book in the school library\n*The school library lends books to registered students. A student may have at most **5** books at a time. A book can be issued only if it is not already on loan. A loan lasts **14 days**. Design the process* Issue book.\n\n1. **Inputs:** the librarian scans the student card and the book → `INPUT memberID, bookID`.\n2. **Checks (decisions)**, in a sensible order: is the member in the Members table? Does the member have fewer than 5 books (`onLoan < 5?`)? Is the book available? Each No exit outputs a message that says **what** is wrong and ends the process.\n3. **Processing:** `dueDate ← today + 14`.\n4. **Data store:** the loan (memberID, bookID, dueDate) is saved in the *Loans* table.\n5. **Output:** \"Return by\" and the due date.\n6. **Test plan:** one test for every exit — an unknown card, a member with 5 books (boundary: 4 books → allowed, 5 → refused), a book already on loan, and a normal loan.\n\nThe order of the checks matters for the user: there is no point checking the book if the card is unknown.",
+          "caption": "A process from a library system — issuing a book"
+        },
+        {
+          "type": "example",
+          "title": "Worked example — a drinks vending machine",
+          "content": "*A vending machine sells a drink for **300 ₸**. The customer chooses a drink and inserts money. If the money is less than the price the machine shows \"Insert more\" and returns the money. If the chosen drink is sold out it shows \"Sold out\" and returns the money. Otherwise it gives the drink, reduces the stock by 1 and gives change.*\n\n1. Inputs: `INPUT choice`, `INPUT paid`.\n2. Decision 1: `stock[choice] > 0?` — No → OUTPUT \"Sold out\", return `paid` → END.\n3. Decision 2: `paid >= 300?` — No → OUTPUT \"Insert more\", return `paid` → END.\n4. Processing: `stock[choice] ← stock[choice] − 1`, `change ← paid − 300`.\n5. Outputs: give the drink, OUTPUT `change`, END.\n6. Test with `paid` = 299 (refused), 300 (change 0) and 500 (change 200), and with a sold-out drink.\n\nThe boundary value 300 must be **accepted** — so the condition is `>=`, not `>`."
+        },
+        {
+          "type": "comparison",
+          "title": "Processes in different computing systems",
+          "columns": [
+            "System",
+            "Process",
+            "Inputs",
+            "Decisions",
+            "Processing / data store",
+            "Outputs"
+          ],
+          "rows": [
+            [
+              "School library",
+              "Issue book",
+              "memberID, bookID",
+              "Member found? Fewer than 5 loans? Book available?",
+              "dueDate ← today + 14; save in Loans",
+              "\"Return by …\" or an error message"
+            ],
+            [
+              "Vending machine",
+              "Sell drink",
+              "choice, money",
+              "In stock? Enough money?",
+              "stock − 1; change ← paid − price",
+              "Drink, change or \"Sold out\""
+            ],
+            [
+              "Online shop",
+              "Checkout",
+              "basket total, city",
+              "Total ≥ 10 000 ₸? City in delivery list?",
+              "delivery cost; save order",
+              "Amount to pay, confirmation"
+            ],
+            [
+              "Electronic diary",
+              "Enter mark",
+              "studentID, mark",
+              "Mark from 1 to 10?",
+              "save mark; update average",
+              "\"Saved\" or \"Invalid mark\""
+            ],
+            [
+              "Cash machine",
+              "Withdraw cash",
+              "PIN, amount",
+              "PIN correct? amount ≤ balance?",
+              "balance ← balance − amount",
+              "Cash, receipt or a message"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "How to turn a scenario into a flowchart in the exam",
+          "items": [
+            "Underline the **nouns that are data** (age, price, PIN) — they are inputs, variables or outputs.",
+            "Underline the **condition words** (\"if\", \"only\", \"at most\", \"more than\", \"otherwise\") — each becomes a diamond; write the exact boundary.",
+            "Decide the **order of the checks** — the one that makes the others pointless goes first.",
+            "Write each **error message** on the No exit it belongs to.",
+            "Add the **calculation** and the **save** step after the checks.",
+            "Draw START and END, label every exit, then trace the flowchart with one test value per path."
+          ]
+        },
+        {
+          "type": "comparison",
+          "title": "Large flowchart or subroutines?",
+          "columns": [
+            "One large flowchart",
+            "Main flowchart + subroutines"
+          ],
+          "rows": [
+            [
+              "Everything visible in one place",
+              "Each flowchart is short and easy to read"
+            ],
+            [
+              "Becomes huge and hard to change",
+              "A subroutine can be changed without redrawing the main flowchart"
+            ],
+            [
+              "Repeated steps must be drawn again each time",
+              "A subroutine is drawn once and called many times"
+            ],
+            [
+              "Only one person can sensibly work on it",
+              "Different programmers can design and test different subroutines"
+            ]
+          ]
+        },
+        {
+          "type": "warning",
+          "content": "- Putting all the checks into one long sentence in one box instead of **one diamond per check**.\n- Error paths that **continue** into the main work — after \"Sold out\" the machine must not give a drink.\n- Forgetting the **data store** step: a loan that is never saved is not really issued.\n- Using `>` when the boundary value must be accepted (`paid >= 300`), or the reverse.\n- Drawing the steps of a subroutine inside the main flowchart **and** calling it — do one or the other."
+        }
+      ]
+    },
+    {
       "title": "Exam practice: symbols, sequence and selection",
       "objectives": [
         "11.2.2.3"
@@ -2535,6 +2801,20 @@
         "11.2.2.3"
       ],
       "blocks": [
+        {
+          "type": "paragraph",
+          "content": "Computers are most useful when the same steps must be done **many times**: marking 850 attendance records, adding up every sale of the day, asking for a password until it is right. Without iteration a flowchart for 850 students would need 850 copies of the same boxes. With a loop the steps are drawn **once** and an arrow sends the flow back to repeat them. Every loop has four parts, and an examiner looks for all of them:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Initialisation** — variables are given starting values **before** the loop (`count ← 0`, `i ← 1`).",
+            "**The loop condition** — a decision that says whether to repeat again or to leave the loop.",
+            "**The body** — the steps that are repeated (input, calculate, update).",
+            "**The update** — something inside the body changes, so that the condition eventually becomes true (or false) and the loop **ends**. If nothing changes, the loop never stops: an **infinite loop**."
+          ]
+        },
         {
           "type": "definition",
           "term": "Iteration",
@@ -2585,6 +2865,54 @@
           ]
         },
         {
+          "type": "heading",
+          "text": "The three loops explained",
+          "level": 2
+        },
+        {
+          "type": "paragraph",
+          "content": "A **count-controlled loop** is used when the number of repetitions is **known before the loop starts** — 25 students in a class, 12 months in a year, 10 items in a list. A counter variable `i` starts at 1, the decision asks `i <= 25?`, the body runs, and `i ← i + 1` is the last step before the arrow goes back to the decision. In pseudocode the `FOR … NEXT` statement does the setting, testing and increasing automatically, but in a flowchart all three must be **drawn**. The number of repetitions can also come from an input: `INPUT n`, then `FOR i ← 1 TO n` — it is still count-controlled, because `n` is known when the loop begins."
+        },
+        {
+          "type": "paragraph",
+          "content": "A **pre-condition loop** (`WHILE`) asks its question **before** each run of the body. If the condition is false at the very start, the body is **skipped completely** — it runs zero times. That makes it the safe choice when there may be nothing to process: the canteen may have had no sales, a file may be empty. In the flowchart the diamond comes **first** and the arrow from the end of the body goes **back up to the diamond**. Note the typical \"read ahead\" pattern: the first value is input **before** the loop, and the next value is input at the **end** of the body, so the condition always tests a fresh value."
+        },
+        {
+          "type": "paragraph",
+          "content": "A **post-condition loop** (`REPEAT … UNTIL`) runs the body **first** and asks its question **afterwards**, so the body always runs **at least once**. It suits processes where the user must do something before there is anything to check — entering a PIN, choosing a menu option, entering a value that is then validated. In the flowchart the body comes first, then the diamond, and the **No** exit (condition not yet met) goes back up to the start of the body. Remember the logic is reversed compared with WHILE: `WHILE` repeats **while the condition is true**, `REPEAT … UNTIL` repeats **until the condition becomes true**."
+        },
+        {
+          "type": "comparison",
+          "title": "Choosing the right loop — questions to ask",
+          "columns": [
+            "Question about the task",
+            "If the answer is Yes, use…",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Do I know how many times before the loop starts?",
+              "Count-controlled (`FOR`)",
+              "Enter the marks of 30 students"
+            ],
+            [
+              "Might there be nothing to process at all?",
+              "Pre-condition (`WHILE`)",
+              "Add up sales until 0 is entered (maybe none)"
+            ],
+            [
+              "Must the steps run at least once before I can test anything?",
+              "Post-condition (`REPEAT … UNTIL`)",
+              "Ask for a PIN until it is correct"
+            ],
+            [
+              "Does the loop stop when the user enters a special value?",
+              "Condition-controlled with a **rogue (sentinel) value**",
+              "\"Enter −1 to finish\""
+            ]
+          ]
+        },
+        {
           "type": "diagram",
           "format": "svg",
           "content": "<svg class=\"pd4\" viewBox=\"0 0 760 380\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Left: WHILE loop, count set to 0, decision count less than 5 before the loop body, the body loops back above the decision, No exit leaves the loop. Right: REPEAT UNTIL loop, count set to 0, loop body first, then decision count equals 5, No loops back to the body, Yes leaves the loop\">\n  <style>\n    svg.pd4 .sh{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}\n    svg.pd4 .bd{fill:var(--success-soft);stroke:var(--success);stroke-width:2}\n    svg.pd4 .ds{fill:var(--warning);fill-opacity:.15;stroke:var(--warning);stroke-width:2}\n    svg.pd4 .nx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}\n    svg.pd4 .ln{stroke:var(--foreground);stroke-width:1.8;fill:none}\n    svg.pd4 .lp{stroke:var(--primary);stroke-width:2.2;fill:none}\n    svg.pd4 .ah{fill:var(--foreground)} svg.pd4 .ap{fill:var(--primary)}\n    svg.pd4 .dv{stroke:var(--border);stroke-width:1.5;stroke-dasharray:6 5}\n    svg.pd4 .c{font:13px ui-monospace,monospace;fill:var(--foreground);text-anchor:middle}\n    svg.pd4 .hd{font:700 14px system-ui,sans-serif;fill:var(--primary);text-anchor:middle}\n    svg.pd4 .yn{font:700 13px system-ui,sans-serif;fill:var(--muted)}\n    svg.pd4 .s{font:13px system-ui,sans-serif;fill:var(--muted);text-anchor:middle}\n  </style>\n  <text class=\"hd\" x=\"190\" y=\"20\">WHILE — test first</text>\n  <rect class=\"sh\" x=\"110\" y=\"32\" width=\"160\" height=\"38\"/><text class=\"c\" x=\"190\" y=\"56\">count ← 0</text>\n  <line class=\"ln\" x1=\"190\" y1=\"70\" x2=\"190\" y2=\"87\"/><path class=\"ah\" d=\"M190,95 l-6,-11 h12 z\"/>\n  <polygon class=\"ds\" points=\"190,95 270,128 190,161 110,128\"/><text class=\"c\" x=\"190\" y=\"133\">count &lt; 5?</text>\n  <line class=\"ln\" x1=\"190\" y1=\"161\" x2=\"190\" y2=\"180\"/><path class=\"ah\" d=\"M190,188 l-6,-11 h12 z\"/><text class=\"yn\" x=\"198\" y=\"178\">Yes</text>\n  <rect class=\"bd\" x=\"110\" y=\"188\" width=\"160\" height=\"56\"/><text class=\"c\" x=\"190\" y=\"211\">loop body</text><text class=\"c\" x=\"190\" y=\"231\">count ← count + 1</text>\n  <polyline class=\"lp\" points=\"190,244 190,262 60,262 60,82 180,82\"/><path class=\"ap\" d=\"M189,82 l-11,-6 v12 z\"/>\n  <polyline class=\"ln\" points=\"270,128 330,128 330,305 278,305\"/><path class=\"ah\" d=\"M270,305 l11,-6 v12 z\"/><text class=\"yn\" x=\"280\" y=\"120\">No</text>\n  <rect class=\"nx\" x=\"110\" y=\"287\" width=\"160\" height=\"36\"/><text class=\"c\" x=\"190\" y=\"310\">next step</text>\n  <text class=\"s\" x=\"190\" y=\"350\">body runs 0 or more times</text>\n  <line class=\"dv\" x1=\"380\" y1=\"10\" x2=\"380\" y2=\"370\"/>\n  <text class=\"hd\" x=\"570\" y=\"20\">REPEAT … UNTIL — test last</text>\n  <rect class=\"sh\" x=\"490\" y=\"32\" width=\"160\" height=\"38\"/><text class=\"c\" x=\"570\" y=\"56\">count ← 0</text>\n  <line class=\"ln\" x1=\"570\" y1=\"70\" x2=\"570\" y2=\"94\"/><path class=\"ah\" d=\"M570,102 l-6,-11 h12 z\"/>\n  <rect class=\"bd\" x=\"490\" y=\"102\" width=\"160\" height=\"56\"/><text class=\"c\" x=\"570\" y=\"125\">loop body</text><text class=\"c\" x=\"570\" y=\"145\">count ← count + 1</text>\n  <line class=\"ln\" x1=\"570\" y1=\"158\" x2=\"570\" y2=\"175\"/><path class=\"ah\" d=\"M570,183 l-6,-11 h12 z\"/>\n  <polygon class=\"ds\" points=\"570,183 650,216 570,249 490,216\"/><text class=\"c\" x=\"570\" y=\"221\">count = 5?</text>\n  <polyline class=\"lp\" points=\"490,216 430,216 430,84 560,84\"/><path class=\"ap\" d=\"M569,84 l-11,-6 v12 z\"/><text class=\"yn\" x=\"458\" y=\"208\">No</text>\n  <line class=\"ln\" x1=\"570\" y1=\"249\" x2=\"570\" y2=\"279\"/><path class=\"ah\" d=\"M570,287 l-6,-11 h12 z\"/><text class=\"yn\" x=\"578\" y=\"270\">Yes</text>\n  <rect class=\"nx\" x=\"490\" y=\"287\" width=\"160\" height=\"36\"/><text class=\"c\" x=\"570\" y=\"310\">next step</text>\n  <text class=\"s\" x=\"570\" y=\"350\">body runs at least once</text>\n</svg>",
@@ -2606,6 +2934,14 @@
           "content": "A **total** starts at **0** and the **value** of each item is added: `total ← total + price` — e.g. the total value of the day's orders."
         },
         {
+          "type": "paragraph",
+          "content": "Counting and totalling are the two \"accumulator\" patterns that appear in nearly every exam flowchart. Both variables must be set to **0 before the loop** — if they were set inside the loop, they would be reset to 0 on every repetition and the final answer would only describe the last item. The counter is increased by a **fixed 1**; the total is increased by the **value** of the current item. The **average** is calculated **after** the loop, as `total / count`, and only if `count > 0`, otherwise the program would divide by zero."
+        },
+        {
+          "type": "paragraph",
+          "content": "A related pattern is finding the **largest** (or smallest) value. A variable `max` is set to the **first** value (or to a value lower than any possible one), and inside the loop a decision `value > max?` replaces `max` when a bigger value appears. Setting `max ← 0` is a trap when all values can be negative, such as winter temperatures in Astana."
+        },
+        {
           "type": "diagram",
           "format": "mermaid",
           "content": "flowchart TB\n  A([START]) --> B[\"count ← 0, i ← 1\"]\n  B --> C{i <= 850?}\n  C -- No --> H[/OUTPUT count/]\n  C -- Yes --> D[/INPUT arrival time/]\n  D --> E{time > 8:30?}\n  E -- Yes --> F[count ← count + 1]\n  E -- No --> G[i ← i + 1]\n  F --> G\n  G --> C\n  H --> Z([END])",
@@ -2615,6 +2951,11 @@
           "type": "example",
           "title": "Worked example — the school canteen",
           "content": "*At the end of the day the canteen manager enters the value of each sale. Entering **0** means there are no more sales. The process outputs the **number of sales**, the **total takings** and the **average** sale.*\n\n1. The number of sales is not known → a **condition-controlled** loop.\n2. **Initialise** before the loop: `count ← 0`, `total ← 0`.\n3. `INPUT sale` **before** the loop, then `WHILE sale <> 0`: `count ← count + 1`, `total ← total + sale`, `INPUT sale` again.\n4. After the loop: if `count > 0` then `average ← total / count`; OUTPUT count, total, average.\n5. Test with 800, 1200, 600, 0 → count = 3, total = 2600, average ≈ 866.67. Test with just 0 → count = 0 and **no division by zero** — this is why the pre-condition loop and the extra check are used."
+        },
+        {
+          "type": "example",
+          "title": "Worked example — the coldest morning of the week",
+          "content": "*A weather station in Astana records the temperature at 7:00 on each of the **7** days of a week. Design a process that outputs the **lowest** temperature and the **number of days below −20 °C**.*\n\n1. Seven readings, known in advance → **count-controlled** loop, `FOR day ← 1 TO 7`.\n2. Before the loop: `cold ← 0`. The lowest value cannot start at 0 (all readings may be below 0), so input the **first** reading before the loop and set `min ← temp`, then loop for days 2 to 7 — or start `min` at a very large number such as 100.\n3. In the body: `INPUT temp`; decision `temp < min?` → Yes: `min ← temp`; decision `temp < −20?` → Yes: `cold ← cold + 1`.\n4. After the loop: `OUTPUT min, cold`.\n5. Trace with −18, −25, −22, −15, −30, −19, −21: min = −30, cold = 4 (−25, −22, −30, −21).\n\nNotice the two separate decisions: one updates the minimum, the other counts — they are independent, so neither is placed on the exit of the other."
         },
         {
           "type": "warning",
@@ -2631,6 +2972,18 @@
         {
           "type": "paragraph",
           "content": "Many processes of a system must **validate input** before it is stored: the flowchart **keeps asking** until the data obeys the rule, so wrong data never reaches the database."
+        },
+        {
+          "type": "paragraph",
+          "content": "Validation matters because a database is only as good as the data in it — \"garbage in, garbage out\". If a school system accepts a mark of 95 on a 10-point scale, every average, report and ranking calculated from it will be wrong, and nobody may notice for weeks. It is far cheaper to stop bad data **at the moment it is entered**, while the user is still at the keyboard and can correct it, than to find and fix it later."
+        },
+        {
+          "type": "paragraph",
+          "content": "In a flowchart a validation process is a **loop**: input → check → if wrong, explain and ask again. It can be drawn in two ways. With a **post-condition** loop the input is inside the loop and the condition \"data valid?\" is tested after it; the error message is output on the No path before going back. With a **pre-condition** loop the data is input once before the loop, and the loop `WHILE data invalid` outputs the message and inputs again. Both give the same behaviour; the important points are that the error message **explains the problem** (\"Age must be from 11 to 18\", not just \"Error\") and that the flow **returns to the input** rather than ending."
+        },
+        {
+          "type": "paragraph",
+          "content": "A process often needs **several checks** on the same data or on several fields. Each check is its own diamond, so that each failure can give its **own message**. The checks run in order — usually presence first (is anything there?), then type, then length / format, then range — because there is no point checking the range of an empty field. Many real systems also limit the number of attempts (three wrong PINs block a card), which combines a validation loop with a **counter**."
         },
         {
           "type": "definition",
@@ -2702,6 +3055,10 @@
           ]
         },
         {
+          "type": "paragraph",
+          "content": "**Verification** is not the same as validation. Validation asks \"is this data allowed?\"; verification asks \"is this data the **same** as the original?\". A double-entry verification is easy to draw as a flowchart: `INPUT password`, `INPUT confirm`, decision `password = confirm?` — No → \"Passwords do not match\" and back to the first input. A system that needs reliable data uses **both**: the password is first validated (at least 8 characters), then verified (typed twice)."
+        },
+        {
           "type": "comparison",
           "title": "Validation or verification?",
           "columns": [
@@ -2745,6 +3102,14 @@
           "content": "A table with **one column per variable** (and for conditions / outputs), filled in **row by row** as the flowchart or algorithm is followed **by hand** with test data. It is used to find the **output** and to find **logic errors**."
         },
         {
+          "type": "paragraph",
+          "content": "A flowchart can look correct and still be wrong. **Tracing** (a **dry run**) is the way to find out before anything is coded: you play the part of the computer, follow the arrows one box at a time and write down every value in a **trace table**. Tracing finds **logic errors** — mistakes where the flowchart runs but gives the wrong answer, such as a wrong boundary, a counter that is never increased or an output in the wrong place. It is also how exam questions ask you to show that you understand an algorithm: \"Complete the trace table for the input data …\"."
+        },
+        {
+          "type": "paragraph",
+          "content": "Choose the test data carefully. **Normal** data checks the usual path; **boundary** data (the values exactly at the limits, e.g. 8:30) checks that every `<` and `<=` is right; **erroneous** data checks the validation paths. When the expected output (worked out by hand from the task) differs from the traced output, the row where they first differ shows where the error is."
+        },
+        {
           "type": "steps",
           "title": "How to trace a flowchart",
           "items": [
@@ -2771,6 +3136,10 @@
           "language": "text",
           "content": "count ← 0\nFOR i ← 1 TO 850\n    INPUT time\n    IF time > 8:30 THEN\n        count ← count + 1\n    ENDIF\nNEXT i\nOUTPUT count",
           "caption": "The late-students flowchart as pseudocode"
+        },
+        {
+          "type": "paragraph",
+          "content": "Converting between a flowchart and pseudocode is mechanical once you recognise the **shape** of each structure. Look first for arrows that go **back up** — each of them is a loop. If the diamond comes **before** the body, it is a `WHILE`; if the body comes **before** the diamond, it is a `REPEAT … UNTIL`; if a counter is set, compared and increased, it is a `FOR`. Every diamond whose two paths **join further down** without going back is an `IF`. The remaining parallelograms become `INPUT` / `OUTPUT` and the rectangles become assignments. When converting a `REPEAT … UNTIL` from pseudocode, check the exit label: the loop ends when the `UNTIL` condition is **true**, so the **Yes** exit leaves the loop and the **No** exit goes back."
         },
         {
           "type": "comparison",
@@ -2868,6 +3237,7 @@
       "sections": [
         "Flowcharts in process design",
         "Sequence and selection",
+        "Flowcharts of processes in computing systems",
         "Exam practice: symbols, sequence and selection"
       ],
       "questions": [
