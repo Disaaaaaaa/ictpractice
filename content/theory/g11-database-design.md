@@ -6,6 +6,34 @@ summary: Designing the database for a new system — finding entities and attrib
 
 During the **design** stage of a new system the analyst turns the **requirements specification** into an exact plan of the database. Nothing is built yet: the plan is checked with the client first, because a mistake found on paper costs minutes, but a mistake found after the tables are full of data costs days.
 
+## Where database design fits in the life cycle
+
+Database design sits between **analysis** and **development**. In the analysis stage the analyst interviewed the users, observed the current system and collected its documents, and the result was a **requirements specification**: a list of what the new system must store, what it must let users do and which reports it must produce. Database design takes that list and answers a different question — not *what* is needed, but *how exactly the data will be organised* so that every requirement can be met. The output of design is then the input of development: a programmer opens the ERD and the data dictionary and builds the tables in the chosen DBMS (for example MySQL, PostgreSQL, SQLite or Microsoft Access) without having to guess anything.
+
+The design is also used **after** development. Testers read the data dictionary to choose **test data** — a valid value, a boundary value and an invalid value for every validated field — and to check that invalid data really is rejected. Years later, when the system is maintained or extended, a new programmer reads the same documents to understand the database before changing it. This is why the ERD and the data dictionary are kept as part of the **technical documentation** of the system, not thrown away once the tables exist.
+
+## Restrictions that shape the design
+
+A database is never designed in a vacuum. Before drawing anything the analyst must analyse the **restrictions (constraints)** of the new system, because each one changes the design:
+
+- **The DBMS and hardware.** The chosen DBMS decides which data types exist (SQLite has no true BOOLEAN or DATE type; MySQL has both) and how large a table can become. A school that already has a licence for one product will not buy another.
+- **Volume of data and number of users.** A library of 3 000 books and a national register of 20 million people need very different decisions about key sizes, indexes and performance. An `INT` key is enough for millions of records; a two-digit `VARCHAR(2)` key would run out after 100.
+- **Legal restrictions.** In Kazakhstan the Law on Personal Data and its Protection requires that personal data (names, IIN, phone numbers, health data) is collected only with consent, stored securely and kept only as long as needed. The design must therefore decide which personal fields are really necessary, and may put sensitive data (e.g. medical notes) in a separate table with stricter access rights.
+- **Time and budget.** A small project may use a simpler design with fewer tables if it still meets every requirement; there is no reason to model data that nobody will ever ask for.
+- **Existing data.** If records are imported from an old spreadsheet, the new field types and sizes must be able to hold the old values — or the data must be cleaned during conversion.
+
+Writing these restrictions down explains *why* the design looks the way it does, and in an exam a 4–6-mark "analyse" question about a new system expects you to link each restriction to a concrete consequence for the database.
+
+## Why a poor design causes problems
+
+Imagine the music school stores everything in **one** big table: every lesson row repeats the student's name and phone number and the teacher's name and instrument. It looks simple, but it causes three kinds of **anomaly**:
+
+- **Update anomaly.** A parent changes their phone number. The number is stored in all 120 lesson rows of their child, so all 120 must be changed; if one is missed, the database now contains two different numbers and nobody knows which is right.
+- **Insertion anomaly.** A new teacher is hired but has no lessons yet. There is no lesson row to put them in, so the teacher cannot be recorded at all.
+- **Deletion anomaly.** A student's only lesson is deleted, and with it the only copy of the student's details.
+
+A good design avoids all three by storing **each fact once**, in the table about the thing it describes (the phone number in *Student*, the instrument in *Teacher*), and by linking tables through **keys** instead of copying data. This is exactly what the ERD and the data dictionary make visible before a single record is typed in.
+
 :::definition Database design
 The stage of system design in which the analyst decides **which tables (entities)** the database will have, **which fields (attributes)** each table holds, **how the tables are related**, and the **data type, size, key and validation** of every field. Its products are the **ERD** and the **data dictionary**.
 :::
@@ -146,6 +174,18 @@ The analyst reads the requirements and **underlines the nouns**. A noun that has
 | Example (car rental) | Customer, Car, Rental | Model, DailyPrice, StartDate |
 :::
 
+## Entity, instance and attribute — getting the level right
+
+It helps to separate three ideas. An **entity** is the *kind* of thing — *Student*. An **instance** (or occurrence) of the entity is one particular student — Dana Seitova, S0107 — and becomes one **record (row)** in the table. An **attribute** is one property that every instance has — *DateOfBirth* — and becomes one **field (column)**. So the entity *Student* with five attributes and 300 instances becomes a table with five columns and 300 rows. If you can only think of **one** instance of something (the school itself, "the director"), it is usually not an entity at all but a fixed setting of the system.
+
+Two further rules decide which attributes to keep. First, attributes should be **atomic** — one value that cannot sensibly be split. *FullName* is better stored as *FirstName* and *Surname*, because the school will want to sort by surname and write letters "Dear Dana"; an address is often split into *Street*, *City* and *PostCode* for the same reason. Second, **derived** attributes are normally **not stored**. A student's *Age* can always be calculated from *DateOfBirth* and today's date; if *Age* were stored it would be wrong one day a year. Likewise a lesson's *TotalFee* is calculated from the price and the number of lessons, not typed in.
+
+## Choosing primary keys
+
+Every entity needs a **primary key** so that each instance can be found and referred to without confusion. Sometimes the scenario already contains a field that is unique and stable — a **natural key**, such as a car's registration number or a book's ISBN. Often it does not: names repeat, phone numbers change and e-mail addresses are given up. Then the designer adds a **surrogate key** — an ID with no meaning of its own, such as `StudentID` or an auto-numbered `LessonID`. Surrogate keys are short, never change and never repeat, which makes them ideal for copying into other tables as foreign keys.
+
+A key can also be **composite** — made of two or more fields together. In a link entity such as *Lesson*, the combination *StudentID + TeacherID + LessonDate + StartTime* identifies a lesson uniquely, so it could be the key. In practice designers usually add a single surrogate key (`LessonID`) because a one-field key is easier to refer to, and they keep the combination unique with a separate rule.
+
 :::steps How to choose a primary key
 - Use a field that is **unique** for every record and **never empty** — e.g. a student number.
 - If no natural field is unique (names repeat!), **create an ID** field, often auto-incremented.
@@ -164,6 +204,20 @@ The analyst reads the requirements and **underlines the nouns**. A noun that has
 @lo 11.2.2.2
 
 For every pair of entities that are related, ask the question **in both directions**: "Can one A have many B?" and "Can one B have many A?". The two answers give the **degree** of the relationship.
+
+Why both directions? Because one answer alone is ambiguous. "One teacher gives many lessons" is true for a 1:M relationship *and* for an M:M one; only the reverse question — "can one lesson have many teachers?" — tells them apart. Always answer the questions **for the scenario you are given**, not for the real world in general: in a music school with individual lessons, a lesson has one student; in a school with group lessons the same pair would be M:M and would need another link entity (*Enrolment*).
+
+## Understanding the three degrees
+
+**One-to-many (1:M)** is by far the most common relationship and the one a relational database stores most naturally. One record on the "one" side (a teacher) is linked to any number of records on the "many" side (lessons), but each "many" record belongs to exactly one "one" record. It is implemented by putting the **primary key of the "one" table into the "many" table as a foreign key**: each lesson row has a `TeacherID` column. The foreign key must go on the "many" side because each lesson has *one* teacher — one value that fits in one field — while a teacher has *many* lessons, which would never fit in one field.
+
+**One-to-one (1:1)** is rare. One instance of A is linked to at most one instance of B and vice versa — for example, each teacher is in charge of one classroom and each classroom has one teacher in charge. A 1:1 relationship can often be merged into one table; it is kept separate when the two entities have different lives (classrooms exist without a teacher in charge) or when some of the data is sensitive and must be protected separately (a *StudentMedical* table linked 1:1 to *Student*). The foreign key can go in either table, usually in the one whose records are optional.
+
+**Many-to-many (M:M)** means that both questions get the answer "yes": a student has many teachers and a teacher has many students. Relational databases **cannot store an M:M relationship directly**. Try it: if `TeacherID` is put in *Student*, each student can have only one teacher. If columns *Teacher1*, *Teacher2*, *Teacher3* are added, the table has a **repeating group** — there is never the right number of columns, most of them are empty, and searching "all students of T012" means searching three columns. Putting `StudentID` in *Teacher* fails in the same way. The solution is a **link entity** (also called a junction or associative entity) between them, whose every record links **one** student to **one** teacher. The M:M is then replaced by two 1:M relationships, each with its foreign key in the link entity.
+
+:::definition Link entity
+An entity added to **resolve a many-to-many relationship**: it sits between the two entities, is on the **"many" side of two 1:M relationships**, and holds the **primary keys of both as foreign keys** — e.g. *Lesson* between *Student* and *Teacher*, *Loan* between *Member* and *Book*.
+:::
 
 :::compare The three degrees of relationship
 | Degree | Meaning | Example | How it is implemented |
@@ -250,6 +304,22 @@ For every pair of entities that are related, ask the question **in both directio
 </svg>
 :::
 
+## Reading crow's foot notation
+
+An ERD is only useful if everyone reads it the same way, so a standard notation is used. In **crow's foot notation** each entity is a box with its name at the top (and, in a detailed ERD, its attributes, with the PK and FKs marked). A line joins two related entities, and the symbol at **each end** describes how many instances of *that* entity can be linked to one instance of the entity at the other end: a **single bar** means "one", a **crow's foot** (three prongs) means "many". To read a relationship, start at one box, follow the line and read the symbol at the far end: "one **Teacher** … teaches … **many** (crow's foot) Lessons"; then go back the other way: "one **Lesson** … is taught by … **one** (bar) Teacher".
+
+Some textbooks and exam papers also mark **optionality** with a small circle ("zero or …"): a teacher who has just been hired may have **zero** lessons, so the Lesson end could show circle + crow's foot ("zero or many"). At this level you are mainly assessed on the **degree**, but if the scenario says "every lesson *must* have a teacher" you can show the single bar as "exactly one". Whatever notation is used, labels like `1` and `M` written next to the ends are always acceptable in an exam and remove any doubt.
+
+:::example Worked example — an ERD for the Shipager clinic
+*A private clinic in Shymkent records patients (IIN, name, phone), doctors (ID, name, speciality) and appointments (date, time, room, notes). Each appointment is for one patient with one doctor. At an appointment the doctor may prescribe several medicines; each medicine (code, name, price) is prescribed at many appointments, with a dose.*
+
+1. **Entities:** Patient, Doctor, Appointment, Medicine.
+2. **Patient — Appointment:** a patient has many appointments; an appointment is for one patient → **1:M**, FK `PatientIIN` in Appointment.
+3. **Doctor — Appointment:** a doctor has many appointments; an appointment has one doctor → **1:M**, FK `DoctorID` in Appointment.
+4. **Appointment — Medicine:** one appointment → many medicines, and one medicine → many appointments → **M:M**. Resolve it with the link entity **Prescription** (`AppointmentID` FK, `MedicineCode` FK, `Dose`). The *Dose* belongs here: it is not a fact about the medicine in general, nor about the appointment in general, but about *this medicine at this appointment*.
+5. **Final ERD:** Patient 1:M Appointment M:1 Doctor; Appointment 1:M Prescription M:1 Medicine — five lines of reasoning, four 1:M relationships, no M:M left.
+:::
+
 :::steps Drawing the ERD
 - Draw **one box per entity**, named in the singular (Student, not Students) — or plural everywhere, but be consistent.
 - Write the attributes in the box and mark the **PK**; add the **FKs** to the tables on the "many" side.
@@ -293,6 +363,12 @@ In the table on the **"many"** side (1).
 
 **Q: Draw the ERD for: one customer places many orders; an order contains many products. [4]**
 Entities Customer, Order, Product + link entity OrderLine (1); Customer 1:M Order (1); Order 1:M OrderLine (1); Product 1:M OrderLine (1).
+
+**Q: A clinic stores the doctor's name and phone number in every appointment record. Explain one problem this causes. [2]**
+The doctor's details are repeated in many records (data redundancy) (1); if the phone number changes it must be updated in every appointment, and a missed record leaves inconsistent data (update anomaly) (1).
+
+**Q: Explain how one restriction of a new system can affect the database design. [2]**
+E.g. the Law on Personal Data requires personal data to be protected (1), so sensitive fields such as medical notes are kept in a separate table with restricted access / only necessary fields are stored (1).
 :::
 
 :::warning Common mistakes in exam answers
@@ -313,6 +389,27 @@ Entities Customer, Order, Product + link entity OrderLine (1); Customer 1:M Orde
 @lo 11.4.1.6
 
 When the ERD is agreed, every entity is described **field by field** in the **data dictionary**. This is the document programmers follow to create the tables, so it must be **complete and exact**.
+
+## What a data dictionary is for
+
+The ERD shows the *shape* of the database — which tables exist and how they are linked — but it says nothing about what a value looks like. Is `TeacherID` a number or text? How long can a surname be? What happens if someone types a start time of 25:00? The **data dictionary** answers these questions. It is often described as **"data about the data" (metadata)**: it does not contain the school's records, it describes the rules every record must follow.
+
+Because it is so exact, the data dictionary serves several people at once. **Programmers** build each table directly from it, and when several programmers work on different parts of the system they all use the same names, types and sizes, so their parts fit together. **Testers** use the validation column to plan test data: for `Capacity` with a range of 1–40 they test 20 (normal), 1 and 40 (boundary), 0 and 41 (just outside) and "ten" (wrong type). The **client** can check that the information they need is really stored. And during **maintenance** it is the first document a new developer reads. A data dictionary that leaves cells empty or says "number" instead of a real data type fails all of these people.
+
+## The columns of a data dictionary, one by one
+
+Each **row** of the data dictionary describes one **field**, and each **column** records one fact about it:
+
+- **Field name** — the exact name used in the DBMS and in SQL. It should be meaningful and contain **no spaces** (`DateOfBirth` or `date_of_birth`, not `Date of birth`), and the same name should be used for a foreign key as for the primary key it refers to, so the link is obvious.
+- **Data type** — the kind of value stored: `INT`, `DECIMAL`, `VARCHAR`, `CHAR`, `DATE`, `TIME`, `BOOLEAN`. The type decides what the DBMS will accept and what can be done with the value (arithmetic on numbers, date comparisons on dates).
+- **Size / length** — for text, the maximum number of characters (`VARCHAR(30)`); for decimals, the total digits and the decimal places (`DECIMAL(8,2)`). It must fit the **longest** real value and no more, so storage is not wasted.
+- **Format** — how the value is written: `DD/MM/YYYY`, `S` followed by 4 digits, `+7` followed by 10 digits.
+- **Key** — `PK`, `FK → Table`, or blank. A field can be both part of a key and validated.
+- **Validation** — the rule a value must pass to be accepted, with its **limits**: "range 1–40", not just "range check".
+- **Description** — what the field means in the real world and why it is stored, e.g. "Parent's mobile number, used for SMS reminders".
+- **Example** — one realistic value. The example is a quick self-check: if the example `S0107` cannot be stored in the type you wrote, the type is wrong.
+
+Some data dictionaries also include **Required (Y/N)** and **Default value** columns; both are useful and turn directly into SQL (`NOT NULL`, `DEFAULT`).
 
 :::definition Data dictionary
 A document / table that describes **every field of every table** in the database — its **name, data type, size, format, key, validation rule, description** and an **example** value (data about the data — metadata).
@@ -352,20 +449,6 @@ The rule that **every foreign-key value must match an existing primary-key value
   <text class="s" x="208" y="216">one row per attribute; every column is filled in —</text>
   <text class="s" x="208" y="234">a programmer can build the table without asking questions</text>
 </svg>
-:::
-
-:::compare Choosing data types and sizes
-| Data | Data type | Size | Why |
-|---|---|---|---|
-| ID with letters, e.g. `S0107` | VARCHAR / CHAR | 5 | Contains a letter; fixed pattern |
-| Auto-numbered ID | INT (auto-increment) | — | Whole numbers, generated by the DBMS |
-| Name, surname | VARCHAR | 30–50 | Text of varying length |
-| Phone `+77015554433` | VARCHAR | 12 | Has `+`, may start with 0, no arithmetic |
-| Date of birth, lesson date | DATE | — | Allows date checks and sorting by date |
-| Start time | TIME | — | A time of day |
-| Price, fee `12500.00` | DECIMAL(8,2) | — | Money has two decimal places |
-| Number of seats | INT | — | Whole number, used in calculations |
-| Attended? Paid? | BOOLEAN | — | Only True / False |
 :::
 
 :::example Worked example — data dictionary for Student
@@ -415,6 +498,103 @@ The rule that **every foreign-key value must match an existing primary-key value
 </svg>
 :::
 
+:::warning Common mistakes
+- Writing a **data type that cannot hold the example** — INT for `S0107`, INT for `+77015554433`.
+- Giving a foreign key a **different type or size** from the primary key it refers to.
+- Leaving the **validation** column empty for keys — a PK always needs presence + uniqueness, an FK must exist in the other table.
+- A validation rule that does not suit the data — a **range** check on a surname, a **lookup** on a date of birth.
+- Describing the field in the *Description* column with just its name ("StudentID — student ID"): say what it stores and why.
+:::
+
+# Data types, field sizes and validation
+@lo 11.4.1.6
+
+The hardest columns of the data dictionary to fill in well are **data type**, **size** and **validation**. They decide whether the database will accept correct data, reject wrong data and still work when the data grows. This section explains how to choose each one and how they protect the **integrity** of the data.
+
+:::definition Data type
+The **kind of value a field can hold** — e.g. integer, decimal, text, date, time, Boolean. It decides which values the DBMS accepts, how much storage each value uses and which operations (calculation, sorting, date comparison) can be done on it.
+:::
+
+:::definition Validation
+An **automatic check made by the computer** that input data is **reasonable and follows the rules** before it is accepted — e.g. presence, length, range, type, format, lookup and uniqueness checks. Validation cannot prove that data is *correct*, only that it is *sensible*.
+:::
+
+:::definition Data integrity
+The **accuracy, consistency and completeness** of the data in a database. It is protected by **entity integrity** (every table has a unique, non-empty primary key), **referential integrity** (every foreign key matches an existing primary key) and **domain integrity** (every value has the right type, size and passes validation).
+:::
+
+## Choosing a data type
+
+The rule is simple to say: **choose the type that matches what the value is and what will be done with it**. A value is a *number* only if you might calculate with it or compare it as a quantity. A seat count, a quantity in stock or a mark out of 40 is an `INT` (a whole number). A price or a fee has two decimal places and must be exact, so it is `DECIMAL(8,2)` — not a floating-point `REAL`, which can turn 0.10 + 0.20 into 0.30000000000000004. A height or a temperature measured approximately can be `REAL` / `FLOAT`.
+
+Many values that look like numbers are really **text**. A phone number `+77015554433` contains a `+`, may start with `0` (which an integer would drop) and is never added up — it is a `VARCHAR(12)`. The same is true of an IIN (12 digits, may start with 0), a postcode and an ID such as `S0107`. Text comes in two forms: `CHAR(n)` always stores exactly *n* characters and suits fixed-length codes (`CHAR(2)` for a region code), while `VARCHAR(n)` stores up to *n* and suits names and descriptions whose length varies.
+
+Dates and times have their own types, `DATE`, `TIME` and `DATETIME`. Storing a date as text (`"12/10/2026"`) looks harmless, but then the DBMS sorts it alphabetically — "02/11/2026" comes before "12/10/2026" — and cannot check that "31/02/2026" does not exist. A `DATE` field sorts correctly, rejects impossible dates and allows calculations such as "lessons in the last 30 days". Finally, a field with only two possible values — attended / not attended, paid / not paid — is a `BOOLEAN`.
+
+:::compare Choosing data types and sizes
+| Data | Data type | Size | Why |
+|---|---|---|---|
+| ID with letters, e.g. `S0107` | VARCHAR / CHAR | 5 | Contains a letter; fixed pattern |
+| Auto-numbered ID | INT (auto-increment) | — | Whole numbers, generated by the DBMS |
+| Name, surname | VARCHAR | 30–50 | Text of varying length |
+| Phone `+77015554433` | VARCHAR | 12 | Has `+`, may start with 0, no arithmetic |
+| IIN `050312500123` | CHAR | 12 | Always 12 digits, may start with 0, no arithmetic |
+| Date of birth, lesson date | DATE | — | Allows date checks and sorting by date |
+| Start time | TIME | — | A time of day |
+| Price, fee `12500.00` | DECIMAL(8,2) | — | Money has two decimal places and must be exact |
+| Number of seats | INT | — | Whole number, used in calculations |
+| Attended? Paid? | BOOLEAN | — | Only True / False |
+:::
+
+## Choosing the size
+
+For text fields the size is the **maximum length** the field will ever need. Work it out from the longest realistic value, not from the example: a Kazakh surname such as *Nurmukhambetova* has 15 letters, so `VARCHAR(30)` leaves room for double-barrelled names, while `VARCHAR(10)` would cut real names short. For a code with a fixed format the size is exact — `S` + 4 digits is 5 characters, `+7` + 10 digits is 12. A size that is far too large (`VARCHAR(255)` for everything) is not an error in a small database, but it hides the designer's thinking and allows nonsense input; in an exam always give a size you can justify. A foreign key always takes **exactly the same type and size** as the primary key it refers to.
+
+## Choosing validation
+
+Validation stops obviously wrong data from entering the database. Each check has a purpose, and a good data dictionary picks the checks that suit each field:
+
+- **Presence check** — the field must not be left empty. Used for every primary key and for data the system cannot work without (a lesson's date).
+- **Type check** — the value must be of the right data type (a number in `Capacity`, a real date in `LessonDate`).
+- **Length check** — the number of characters is within limits (a phone number has exactly 12 characters; a surname 1–30).
+- **Range check** — a number or date lies between a lower and an upper limit (capacity 1–40; lesson date not before the start of the school year).
+- **Format check** — the value follows a pattern (`S` followed by four digits; `+7` followed by ten digits).
+- **Lookup (list) check** — the value must be one of a fixed list (instrument: piano, dombra, violin, guitar) or, for a foreign key, must **exist in the other table**.
+- **Uniqueness check** — no two records may have the same value (every primary key; often an e-mail or IIN too).
+
+:::svg How validation and integrity rules protect the database
+<svg class="dbd8" viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A new lesson record passes presence, type and range checks, then a referential integrity check against the Student table, and is either stored or rejected with an error message">
+  <style>
+    svg.dbd8 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.dbd8 .ck{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.8}
+    svg.dbd8 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:1.8}
+    svg.dbd8 .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.8}
+    svg.dbd8 .t{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dbd8 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.dbd8 .ln{stroke:var(--muted);stroke-width:1.8;fill:none}
+    svg.dbd8 .ah{fill:var(--muted)}
+    svg.dbd8 .r{font:600 12px system-ui,sans-serif;fill:var(--danger)}
+    svg.dbd8 .g{font:600 12px system-ui,sans-serif;fill:var(--success)}
+  </style>
+  <rect class="bx" x="10" y="40" width="130" height="70" rx="8"/>
+  <text class="t" x="22" y="66">New Lesson</text><text class="s" x="22" y="86">S0107, T012,</text><text class="s" x="22" y="102">room 14, 15:30</text>
+  <path class="ln" d="M140,75 H160"/><path class="ah" d="M160,69 l12,6 l-12,6 z"/>
+  <rect class="ck" x="174" y="40" width="160" height="70" rx="8"/>
+  <text class="t" x="186" y="64">Validation</text><text class="s" x="186" y="84">presence · type ·</text><text class="s" x="186" y="100">range 08:00–20:00</text>
+  <path class="ln" d="M334,75 H354"/><path class="ah" d="M354,69 l12,6 l-12,6 z"/>
+  <rect class="ck" x="368" y="40" width="204" height="70" rx="8"/>
+  <text class="t" x="380" y="64">Referential integrity</text><text class="s" x="380" y="84">does S0107 exist in Student?</text><text class="s" x="380" y="100">does T012 exist in Teacher?</text>
+  <path class="ln" d="M572,75 H588"/><path class="ah" d="M588,69 l12,6 l-12,6 z"/>
+  <rect class="ok" x="602" y="40" width="148" height="70" rx="8"/>
+  <text class="t" x="614" y="66">Record stored</text><text class="g" x="614" y="88">✓ all rules passed</text>
+  <path class="ln" d="M254,110 V160"/><path class="ah" d="M248,158 l6,12 l6,-12 z"/>
+  <path class="ln" d="M463,110 V160"/><path class="ah" d="M457,158 l6,12 l6,-12 z"/>
+  <rect class="no" x="174" y="172" width="384" height="66" rx="8"/>
+  <text class="t" x="188" y="196">Rejected with an error message</text>
+  <text class="r" x="188" y="218">e.g. "Start time must be 08:00–20:00" or "Student S9999 not found"</text>
+</svg>
+:::
+
 :::compare Choosing validation for each field
 | Field | Check(s) | Example rule |
 |---|---|---|
@@ -426,12 +606,38 @@ The rule that **every foreign-key value must match an existing primary-key value
 | Short list (Instrument) | Lookup (list) | piano, dombra, violin, guitar |
 :::
 
+## Validation is not verification
+
+Validation only checks that data is **sensible**: a phone number `+77015554433` passes the format check even if the parent's real number is `+77015554434`. Making sure that data was **copied correctly** from its source is called **verification** — for example, asking the user to type a password twice, or checking the entered data against the paper form. A data dictionary records validation rules; verification is a procedure of data entry.
+
+:::compare Validation vs verification
+| | Validation | Verification |
+|---|---|---|
+| Question it answers | Is the data **reasonable** and does it follow the rules? | Was the data **entered exactly as in the source**? |
+| Done by | The computer, automatically | The user or a second person / second entry |
+| Examples | Range 1–40, format `S`+4 digits, presence | Double entry of a password, visual check against the form |
+| Recorded in the data dictionary? | Yes — the *Validation* column | No — part of the data-entry procedure |
+| Can it catch `+77015554434` typed instead of `…33`? | No — it is a valid phone number | Yes — it differs from the source |
+:::
+
+:::example Worked example — choosing types, sizes and checks for a shop's Product table
+*An online bookshop in Astana stores for each product: a code like `BK-00451`, a title, a price in tenge (up to 99 999.99), the number in stock, the date it was added and whether it is on sale.*
+
+| Field | Decision | Reasoning |
+|---|---|---|
+| ProductCode | VARCHAR(8), PK; presence, format `BK-` + 5 digits, unique | Contains letters and a dash, fixed length 8 |
+| Title | VARCHAR(100); presence, length 1–100 | Book titles are long and vary in length |
+| Price | DECIMAL(7,2); range 0.01–99 999.99 | Money: exact, two decimals; 5 digits before the point + 2 after = 7 |
+| InStock | INT; range 0–9 999, default 0 | A whole-number quantity used in calculations; cannot be negative |
+| DateAdded | DATE; not in the future | Allows "new this month" reports and correct sorting |
+| OnSale | BOOLEAN; default False | Only two possible values |
+:::
+
 :::warning Common mistakes
-- Writing a **data type that cannot hold the example** — INT for `S0107`, INT for `+77015554433`.
-- Giving a foreign key a **different type or size** from the primary key it refers to.
-- Leaving the **validation** column empty for keys — a PK always needs presence + uniqueness, an FK must exist in the other table.
-- A validation rule that does not suit the data — a **range** check on a surname, a **lookup** on a date of birth.
-- Describing the field in the *Description* column with just its name ("StudentID — student ID"): say what it stores and why.
+- Choosing `INT` for a phone number, an IIN or a postcode — the leading `0` or `+` is lost, and nobody calculates with them.
+- Using `REAL` / `FLOAT` for money instead of `DECIMAL` — rounding errors appear in totals.
+- Storing dates as `VARCHAR` — they sort in the wrong order and impossible dates are accepted.
+- Saying validation makes data **correct** — it only makes it **reasonable**; correctness needs verification.
 :::
 
 # Step 4 — From the design to SQL
@@ -510,6 +716,16 @@ CREATE TABLE Lesson (
 | Format / complex checks | In the form or program code (input masks, `pattern`) |
 :::
 
+## What the DBMS does with the design
+
+Once the tables are created, the rules of the data dictionary are no longer just written on paper — the **DBMS enforces them** on every insert and update, whichever program or user sends the data. If a receptionist tries to add a lesson for student `S9999`, the `FOREIGN KEY … REFERENCES Student(StudentID)` constraint makes the DBMS refuse the record, because no such student exists: this is **referential integrity** at work. If someone tries to delete student `S0107` while lessons still refer to them, the DBMS refuses that too, so no lesson is left pointing at nobody. A `PRIMARY KEY` refuses a second record with the same ID and refuses an empty one (**entity integrity**); a `CHECK` refuses a capacity of 0; `NOT NULL` refuses an empty date.
+
+Not every rule can be written in a simple `CREATE TABLE`. A format such as "`S` followed by four digits" or a lookup list that changes often is usually checked in the **input form** or the program (an input mask, a drop-down list, a `pattern` attribute in an HTML form) as well. Good systems validate **twice**: in the form, so the user gets a friendly message at once, and in the database, so that no route around the form can store bad data.
+
+## Testing the design
+
+Before real data is loaded, the designer enters a small set of **test records** to prove the design works: normal records that must be accepted, boundary values (capacity 1 and 40), and erroneous values (capacity 41, a lesson for a student who does not exist) that must be rejected. Then the queries for every required report are run — "all lessons of teacher T012 this week", "students who missed more than two lessons" — to check that the tables and their links really can answer the client's questions. Any failure sends the analyst back to the ERD or the data dictionary, which is still far cheaper than discovering it after the system goes live.
+
 :::tip Order of creation
 Create the tables on the **"one" side first** (Student, Teacher, Room) and the link table (Lesson) **last** — a foreign key can only reference a table that already exists.
 :::
@@ -548,6 +764,12 @@ Range check 08:00–20:00 (1) because the school is only open in those hours, so
 
 **Q: Write the SQL to create the table `Room(RoomNo, Capacity)` with a primary key and a check that the capacity is from 1 to 40. [3]**
 `CREATE TABLE Room (` with both fields and suitable types (1); `RoomNo INT PRIMARY KEY` (1); `CHECK (Capacity BETWEEN 1 AND 40)` / `CHECK (Capacity >= 1 AND Capacity <= 40)` (1).
+
+**Q: Explain why a phone number should be stored as VARCHAR rather than INT. [2]**
+It contains a `+` / may start with 0, which an integer cannot store / would lose (1); no calculations are done with it, so it is text (1).
+
+**Q: Explain the difference between validation and verification. [2]**
+Validation is an automatic check that data is reasonable / follows rules, e.g. a range check (1); verification checks that data was entered exactly as in the source, e.g. double entry (1).
 :::
 
 :::warning Common mistakes in exam answers

@@ -4,67 +4,77 @@
   "points": [
     {
       "title": "Data dictionary",
-      "must": "A document describing every field of every table: name, data type, size, format, key, validation, description, example (metadata).",
+      "must": "A document describing every field of every table: name, data type, size, format, key, validation, description, example — data about the data (metadata).",
       "weight": 3
     },
     {
-      "title": "From ERD to data dictionary",
-      "must": "Each entity becomes a table in the dictionary; each attribute becomes one row with every column filled in.",
+      "title": "Who uses the data dictionary",
+      "must": "Programmers build the tables from it, testers plan test data from the validation column, the client checks the data, maintainers read it later.",
       "weight": 2
     },
     {
-      "title": "Choosing data types",
-      "must": "VARCHAR/CHAR, INT, DECIMAL, DATE, TIME, BOOLEAN — each with an example field and why it fits (phone as VARCHAR, money as DECIMAL).",
+      "title": "The columns one by one",
+      "must": "What each column records: field name (no spaces, FK named like its PK), type, size, format, key, validation with limits, description, example; each entity of the ERD becomes one table, each attribute one row.",
+      "weight": 2
+    },
+    {
+      "title": "Data type and choosing it",
+      "must": "Definition; INT, DECIMAL, REAL, CHAR/VARCHAR, DATE/TIME, BOOLEAN — each with an example field and why (phone and IIN as text, money as DECIMAL, dates as DATE).",
       "weight": 3
     },
     {
       "title": "Field sizes",
-      "must": "Size must fit the longest value, e.g. S0107 → 5, +77015554433 → 12.",
+      "must": "Size fits the longest realistic value, e.g. S0107 → 5, +77015554433 → 12, surname 30; DECIMAL(7,2) for prices.",
       "weight": 1
     },
     {
       "title": "A full data dictionary example",
-      "must": "At least one table (e.g. Student or Lesson) written out with name, type, size, key, validation, description and example.",
+      "must": "At least one table (e.g. Student, Lesson or Product) written out with name, type, size, key, validation, description and example.",
       "weight": 3
     },
     {
       "title": "Foreign keys match primary keys",
-      "must": "An FK must have the same data type and size as the PK it refers to, otherwise the join fails.",
+      "must": "An FK must have the same data type and size as the PK it refers to, otherwise the join and referential integrity fail.",
       "weight": 2
     },
     {
-      "title": "Referential integrity",
-      "must": "Every FK value must match an existing PK value in the linked table — with an example.",
+      "title": "Validation checks",
+      "must": "Definition (reasonable, not correct); presence, type, length, range, format, lookup and uniqueness — each with an example rule with limits.",
       "weight": 3
     },
     {
-      "title": "Choosing validation",
-      "must": "Suitable checks for PK, FK, names, dates, numbers and short lists, with example rules (limits, patterns, lists).",
+      "title": "Validation vs verification",
+      "must": "Validation = automatic check that data is sensible; verification = check that data matches the source (double entry, visual check) — with an example validation cannot catch.",
       "weight": 2
+    },
+    {
+      "title": "Data integrity",
+      "must": "Accuracy and consistency of data; entity integrity (PK), referential integrity (every FK matches an existing PK, with an example), domain integrity (type, size, validation).",
+      "weight": 3
     },
     {
       "title": "From the dictionary to SQL",
-      "must": "Each row → one field line; PK → PRIMARY KEY; FK → FOREIGN KEY … REFERENCES; presence → NOT NULL; unique → UNIQUE; range → CHECK; DEFAULT.",
+      "must": "Each row → one field line; PK → PRIMARY KEY; FK → FOREIGN KEY … REFERENCES; presence → NOT NULL; unique → UNIQUE; range → CHECK; DEFAULT; formats in the form.",
       "weight": 3
     },
     {
-      "title": "CREATE TABLE example",
-      "must": "A complete CREATE TABLE for a link table with PK, two FKs, NOT NULL and CHECK/DEFAULT.",
+      "title": "CREATE TABLE example and order",
+      "must": "A complete CREATE TABLE for a link table with PK, two FKs, NOT NULL and CHECK/DEFAULT; one-side tables first, link table last.",
       "weight": 2
     },
     {
-      "title": "Order of creation",
-      "must": "Tables on the one side first, the link table last, because an FK can only reference an existing table.",
+      "title": "The DBMS enforces the design",
+      "must": "The DBMS refuses records that break PK, FK, NOT NULL or CHECK rules (e.g. a lesson for S9999); validate both in the form and in the database.",
       "weight": 1
     },
     {
-      "title": "Checking the design",
-      "must": "Requirements, normalisation (3NF), keys, data types and validation, test data.",
+      "title": "Testing and checking the design",
+      "must": "Normal, boundary and erroneous test records; run the queries for every required report; check requirements, 3NF, keys, types and validation.",
       "weight": 2
     },
     {
       "title": "Common mistakes",
-      "must": "At least two: wrong type for the example; FK type differs from PK; range check on a name; missing REFERENCES in SQL.",
+      "must": "At least two: INT for a phone/IIN; REAL for money; dates as text; FK type differs from PK; range check on a name; missing REFERENCES in SQL.",
       "weight": 1
     }
   ]
