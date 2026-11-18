@@ -3521,6 +3521,917 @@
           }
         }
       ]
+    },
+    {
+      "key": "dfd-logical-mcq",
+      "title": "Logical model",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "A DFD is a **logical** model. Which of these should **never** appear as a symbol in a DFD of a school library system?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Student"
+        },
+        {
+          "key": "B",
+          "content": "D3 Loans"
+        },
+        {
+          "key": "C",
+          "content": "Printer"
+        },
+        {
+          "key": "D",
+          "content": "2 Issue book"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A DFD shows what data moves and what is done to it, not the hardware or software that does it. Student is an entity, D3 Loans a data store, 2 Issue book a process."
+      }
+    },
+    {
+      "key": "dfd-boundary-tf",
+      "title": "System boundary",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*A school canteen system sends payment requests to the bank and receives payment confirmations.*\n\nThe **Bank** should be drawn **inside** the system boundary, as a process of the canteen system.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The canteen system cannot control how the bank works — it only exchanges data with it — so the Bank is outside the boundary and is drawn as an external entity."
+      }
+    },
+    {
+      "key": "dfd-source-sink-match",
+      "title": "Sources and sinks",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*A shop system.* Match each external entity to its role.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Supplier — only sends delivery notes to the system"
+          },
+          {
+            "key": "L2",
+            "text": "Accountant — only receives a monthly sales report"
+          },
+          {
+            "key": "L3",
+            "text": "Customer — sends orders and receives receipts"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Source"
+          },
+          {
+            "key": "R2",
+            "text": "Sink"
+          },
+          {
+            "key": "R3",
+            "text": "Source and sink"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Supplier — only sends delivery notes to the system – Source; Accountant — only receives a monthly sales report – Sink; Customer — sends orders and receives receipts – Source and sink. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        }
+      }
+    },
+    {
+      "key": "dfd-transform-mcq",
+      "title": "A real process",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Which of these is a correct **process**, because its output is different from its input?",
+      "options": [
+        {
+          "key": "A",
+          "content": "*Pass order*: order details in → order details out"
+        },
+        {
+          "key": "B",
+          "content": "*Calculate bill*: order details and prices in → bill out"
+        },
+        {
+          "key": "C",
+          "content": "*Orders*: order details in → order record out"
+        },
+        {
+          "key": "D",
+          "content": "*Send*: receipt in → receipt out"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A process must transform data: what comes out must be new or different. A and D pass the same data on; C is named with a noun, not verb + noun."
+      }
+    },
+    {
+      "key": "dfd-clinic-ipos-tick",
+      "title": "Clinic flows as IPOS",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*Clinic level-1 DFD: Patient → 1 Book appointment (appointment request); D1 Patients → 1 (patient details); 1 → D2 Appointments (appointment); Doctor → 2 Record visit (diagnosis); 3 Produce prescription → Patient (prescription).*\n\nTick (✓) **one** box in each row to show what each data flow represents.",
+      "content": {
+        "columns": [
+          "Item",
+          "Input",
+          "Storage (read)",
+          "Storage (write)",
+          "Output"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "appointment request",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "patient details",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "appointment",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "diagnosis",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "prescription",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "appointment request → Input (1); patient details → Storage (read) (1); appointment → Storage (write) (1); diagnosis → Input (1); prescription → Output (1)",
+        "points": [
+          {
+            "criterion": "appointment request",
+            "marks": 1
+          },
+          {
+            "criterion": "patient details",
+            "marks": 1
+          },
+          {
+            "criterion": "appointment",
+            "marks": 1
+          },
+          {
+            "criterion": "diagnosis",
+            "marks": 1
+          },
+          {
+            "criterion": "prescription",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "model_answer": "appointment request: Input; patient details: Storage (read); appointment: Storage (write); diagnosis: Input; prescription: Output."
+      }
+    },
+    {
+      "key": "dfd-clinic-gap-mcq",
+      "title": "Spot the missing process",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*In the clinic level-1 DFD, **D1 Patients** is read by process 1 Book appointment, but no process writes to it.*\n\nWhat is the best way to complete the diagram?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Remove D1 Patients from the diagram"
+        },
+        {
+          "key": "B",
+          "content": "Add a flow from Patient directly to D1 Patients"
+        },
+        {
+          "key": "C",
+          "content": "Add a process such as *4 Register patient* that receives *patient details* from Patient and writes them to D1"
+        },
+        {
+          "key": "D",
+          "content": "Add a flow from D2 Appointments to D1 Patients"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Every store must be written by at least one process. Entity → store (B) and store → store (D) flows are not allowed; removing the store (A) loses data that process 1 needs."
+      }
+    },
+    {
+      "key": "dfd-numbering-fill",
+      "title": "Process numbers and levels",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe single process on a context diagram is numbered [[1]]. A level-1 DFD usually shows between three and [[2]] main processes. If process 2 is decomposed into a level-2 DFD, its first sub-process is numbered [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 0 / zero (2) seven / 7 (3) 2.1",
+        "accepted": {
+          "blanks": [
+            [
+              "0",
+              "zero"
+            ],
+            [
+              "seven",
+              "7"
+            ],
+            [
+              "2.1"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "dfd-store-words-mr",
+      "title": "Words that point to a data store",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "When reading a scenario, which **three** phrases most often point to a **data store**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "\"the details are **kept** …\""
+        },
+        {
+          "key": "B",
+          "content": "\"… are **recorded** in …\""
+        },
+        {
+          "key": "C",
+          "content": "\"the system **looks up** …\""
+        },
+        {
+          "key": "D",
+          "content": "\"the customer **receives** …\""
+        },
+        {
+          "key": "E",
+          "content": "\"the system **calculates** …\""
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Kept, recorded and looked up describe data that is held for later use. 'Receives' points to an output to an entity; 'calculates' is a process."
+      }
+    },
+    {
+      "key": "dfd-notation-tf",
+      "title": "Different notations",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "In an exam, processes may be drawn as **circles** (Yourdon–DeMarco notation) instead of rounded rectangles, as long as the notation is used consistently.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Any notation is accepted if it is used consistently and the four symbols are clearly different."
+      }
+    },
+    {
+      "key": "dfd-goods-flow-mcq",
+      "title": "Data, not goods",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*An online pizza shop.* Which of these can be a **data flow** in its DFD?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Pizza"
+        },
+        {
+          "key": "B",
+          "content": "Money"
+        },
+        {
+          "key": "C",
+          "content": "Delivery details"
+        },
+        {
+          "key": "D",
+          "content": "Send to kitchen"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Data flows carry data, not physical goods (pizza, money) and not actions (send). Delivery details is data."
+      }
+    },
+    {
+      "key": "dfd-twoway-mcq",
+      "title": "Reading and writing back",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Process *2 Renew membership* reads a member's record from **D1 Members** and writes the changed record back. How should this be drawn?",
+      "options": [
+        {
+          "key": "A",
+          "content": "One unlabelled two-headed arrow"
+        },
+        {
+          "key": "B",
+          "content": "Two arrows in opposite directions, named *member record* and *updated member record*"
+        },
+        {
+          "key": "C",
+          "content": "No arrow — a process can use a store without a flow"
+        },
+        {
+          "key": "D",
+          "content": "An arrow from D1 Members to the Member entity"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Each flow is one-way and named with the data. When different data goes each way, draw two arrows with two names."
+      }
+    },
+    {
+      "key": "dfd-store-twice-tf",
+      "title": "Drawing a store twice",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "A data store may be drawn **twice** on the same DFD to avoid long crossing arrows; it keeps the same ID and is still the same store.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "It is usually marked with an extra line or asterisk to show that it is a duplicate of the same store."
+      }
+    },
+    {
+      "key": "dfd-greyhole-mcq",
+      "title": "Grey hole",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Process **3 Calculate total** receives only the customer's *name* and outputs a *total price*. Which error is this?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Black hole"
+        },
+        {
+          "key": "B",
+          "content": "Miracle"
+        },
+        {
+          "key": "C",
+          "content": "Grey hole"
+        },
+        {
+          "key": "D",
+          "content": "Balancing error"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "It has inputs and outputs, but the inputs are not enough to produce the output — it needs prices, e.g. from D2 Products. That is a grey hole."
+      }
+    },
+    {
+      "key": "dfd-fix-errors-match",
+      "title": "Fixing DFD errors",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Match each error to the correct fix.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Black hole"
+          },
+          {
+            "key": "L2",
+            "text": "Miracle"
+          },
+          {
+            "key": "L3",
+            "text": "Grey hole"
+          },
+          {
+            "key": "L4",
+            "text": "Entity → data store flow"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Add the missing output flow, e.g. to a store or entity"
+          },
+          {
+            "key": "R2",
+            "text": "Add the input the process needs, e.g. a read from a data store"
+          },
+          {
+            "key": "R3",
+            "text": "Add the missing data needed for the output, e.g. prices"
+          },
+          {
+            "key": "R4",
+            "text": "Put a process between the entity and the store"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Black hole – Add the missing output flow, e.g. to a store or entity; Miracle – Add the input the process needs, e.g. a read from a data store; Grey hole – Add the missing data needed for the output, e.g. prices; Entity → data store flow – Put a process between the entity and the store. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        }
+      }
+    },
+    {
+      "key": "dfd-entity-or-store-tick",
+      "title": "Entity or data store?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*\"The system records each customer's details. Orders are checked against the list of products, and the bank confirms each payment.\"*\n\nTick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Item",
+          "External entity",
+          "Data store"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Customer (the person who sends the details)",
+            null,
+            null
+          ],
+          [
+            "Customers (the records that are kept)",
+            null,
+            null
+          ],
+          [
+            "Products (the list the orders are checked against)",
+            null,
+            null
+          ],
+          [
+            "Bank",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Customer (the person who sends the details) → External entity (1); Customers (the records that are kept) → Data store (1); Products (the list the orders are checked against) → Data store (1); Bank → External entity (1)",
+        "points": [
+          {
+            "criterion": "Customer (the person who sends the details)",
+            "marks": 1
+          },
+          {
+            "criterion": "Customers (the records that are kept)",
+            "marks": 1
+          },
+          {
+            "criterion": "Products (the list the orders are checked against)",
+            "marks": 1
+          },
+          {
+            "criterion": "Bank",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "model_answer": "Customer (the person who sends the details): External entity; Customers (the records that are kept): Data store; Products (the list the orders are checked against): Data store; Bank: External entity."
+      }
+    },
+    {
+      "key": "dfd-group-verbs-mcq",
+      "title": "Grouping verbs into processes",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*\"The system checks the menu for prices, calculates the total and stores the order.\"*\n\nHow should this sentence be shown on a **level-1** DFD?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Three processes: Check menu, Calculate total, Store order"
+        },
+        {
+          "key": "B",
+          "content": "One main process, e.g. *1 Take order*, that reads prices from D1 Menu and writes to D2 Orders"
+        },
+        {
+          "key": "C",
+          "content": "One data store called *Take order*"
+        },
+        {
+          "key": "D",
+          "content": "A decision diamond followed by two processes"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Small related actions are grouped into one main function on a level-1 DFD (3–7 processes in total). A DFD has no decision diamonds."
+      }
+    },
+    {
+      "key": "dfd-which-diagram-tick",
+      "title": "Which diagram?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show the best diagram for each task.",
+      "content": {
+        "columns": [
+          "Item",
+          "DFD",
+          "Flowchart",
+          "ERD"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Agree the inputs and outputs of the whole system with the client",
+            null,
+            null,
+            null
+          ],
+          [
+            "Design the steps and decisions of the calculation in process 2",
+            null,
+            null,
+            null
+          ],
+          [
+            "Design the tables and the one-to-many relationships of the database",
+            null,
+            null,
+            null
+          ],
+          [
+            "Find two processes that each keep their own copy of the student list",
+            null,
+            null,
+            null
+          ],
+          [
+            "Show what happens if the card balance is too low",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Agree the inputs and outputs of the whole system with the client → DFD (1); Design the steps and decisions of the calculation in process 2 → Flowchart (1); Design the tables and the one-to-many relationships of the database → ERD (1); Find two processes that each keep their own copy of the student list → DFD (1); Show what happens if the card balance is too low → Flowchart (1)",
+        "points": [
+          {
+            "criterion": "Agree the inputs and outputs of the whole system with the client",
+            "marks": 1
+          },
+          {
+            "criterion": "Design the steps and decisions of the calculation in process 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Design the tables and the one-to-many relationships of the database",
+            "marks": 1
+          },
+          {
+            "criterion": "Find two processes that each keep their own copy of the student list",
+            "marks": 1
+          },
+          {
+            "criterion": "Show what happens if the card balance is too low",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "model_answer": "Agree the inputs and outputs of the whole system with the client: DFD; Design the steps and decisions of the calculation in process 2: Flowchart; Design the tables and the one-to-many relationships of the database: ERD; Find two processes that each keep their own copy of the student list: DFD; Show what happens if the card balance is too low: Flowchart."
+      }
+    },
+    {
+      "key": "dfd-pizza-writes-mr",
+      "title": "Writes to the orders store",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.1"
+      ],
+      "practice": true,
+      "text": "*Pizza shop level-1 DFD: 1 Take order stores a new order; 2 Process payment records the paid status of the order; 3 Send order to kitchen gets the paid orders.*\n\nSelect the **two** processes that **write** to **D2 Orders**.",
+      "options": [
+        {
+          "key": "A",
+          "content": "1 Take order"
+        },
+        {
+          "key": "B",
+          "content": "2 Process payment"
+        },
+        {
+          "key": "C",
+          "content": "3 Send order to kitchen"
+        },
+        {
+          "key": "D",
+          "content": "Bank"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and B. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "Process 1 writes the new order and process 2 writes the paid status. Process 3 only reads paid orders; the Bank is an entity and cannot write to a store."
+      }
     }
   ],
   "summary": "Data flow diagrams (DFDs) — what they show, the four symbols (external entity, process, data store, data flow), context diagrams and first-level DFDs, the rules for drawing them correctly, and how to create a level-1 DFD that shows input, processing, storage and output.",
@@ -4451,11 +5362,20 @@
         "dfd-when-mcq",
         "dfd-context-stores-tf",
         "dfd-context-mcq",
+        "dfd-logical-mcq",
+        "dfd-notation-tf",
         "dfd-levels-tick",
         "dfd-level-fill",
         "dfd-outputs-mr",
         "dfd-library-match",
-        "dfd-balance-mcq"
+        "dfd-balance-mcq",
+        "dfd-boundary-tf",
+        "dfd-source-sink-match",
+        "dfd-transform-mcq",
+        "dfd-clinic-ipos-tick",
+        "dfd-numbering-fill",
+        "dfd-store-words-mr",
+        "dfd-clinic-gap-mcq"
       ]
     },
     {
@@ -4474,6 +5394,8 @@
         "dfd-store-tf",
         "dfd-process-num-tf",
         "dfd-blackhole-mcq",
+        "dfd-goods-flow-mcq",
+        "dfd-store-twice-tf",
         "dfd-errors-match",
         "dfd-gym-mr",
         "dfd-store-identify-mcq",
@@ -4482,7 +5404,14 @@
         "dfd-not-flowchart-tf",
         "dfd-compare-match",
         "dfd-store-table-tf",
-        "dfd-advantage-mr"
+        "dfd-advantage-mr",
+        "dfd-twoway-mcq",
+        "dfd-greyhole-mcq",
+        "dfd-fix-errors-match",
+        "dfd-entity-or-store-tick",
+        "dfd-which-diagram-tick",
+        "dfd-group-verbs-mcq",
+        "dfd-pizza-writes-mr"
       ]
     }
   ]
