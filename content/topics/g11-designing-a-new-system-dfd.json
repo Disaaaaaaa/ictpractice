@@ -2771,6 +2771,756 @@
           }
         }
       ]
+    },
+    {
+      "key": "dfd-nx-1",
+      "title": "Bike-rental system: symbols, IPOS and context diagram",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "**VeloQala** is a bike-rental service in Almaty. A new system is being designed:\n\n*A rider registers in the app; the rider's details are saved in the Riders file. To rent a bike, the rider scans the bike code. The system checks the rider's account in the Riders file and the bike's status in the Bikes file, saves the rental in the Rentals file and sends the rider an unlock code. When the bike is returned, the system calculates the fee from the rental time and the prices in the Tariffs file and sends a payment request to the bank. The bank sends back a payment confirmation and the rider receives a receipt. Riders can send a fault report about a bike; every Monday the repair team receives a list of faulty bikes.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-nx-1a",
+          "part_label": "(a)",
+          "title": "What a data store represents",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe what is represented by a **data store** in a DFD. Give an example from the VeloQala system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- data that is held / kept in the system for later use, e.g. a file or database table, written and read by processes (1)\n- a correct example: D1 Riders / Bikes / Rentals / Tariffs (1)",
+            "points": [
+              {
+                "criterion": "Data held in the system for later use (file / table)",
+                "marks": 1
+              },
+              {
+                "criterion": "Example from the scenario",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A data store is data that is kept inside the system for later use, such as a file or a database table that processes write to and read from — for example D3 Rentals.",
+            "ai_instructions": "Do not accept an external entity (Rider, Bank) or a data flow as the example."
+          }
+        },
+        {
+          "key": "dfd-nx-1b",
+          "part_label": "(b)",
+          "title": "Input, processing, storage, output",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Tick (✓) **one** box in each row to show which part of the system each item of the VeloQala level-1 DFD represents.",
+          "content": {
+            "columns": [
+              "Item in the DFD",
+              "Input",
+              "Processing",
+              "Storage",
+              "Output"
+            ],
+            "rows": 4,
+            "tick": true,
+            "prefill": [
+              [
+                "*unlock code* from process 2 Rent bike to Rider",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "*rental record* from process 2 Rent bike to D3 Rentals",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "*bike code* from Rider to process 2 Rent bike",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "process 3 Calculate fee",
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "*unlock code* from process 2 Rent bike to Rider – Output (1); *rental record* from process 2 Rent bike to D3 Rentals – Storage (1); *bike code* from Rider to process 2 Rent bike – Input (1); process 3 Calculate fee – Processing (1)",
+            "points": [
+              {
+                "criterion": "Row 1: *unlock code* from process 2 Rent bike to Rider",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2: *rental record* from process 2 Rent bike to D3 Rentals",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3: *bike code* from Rider to process 2 Rent bike",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 4: process 3 Calculate fee",
+                "marks": 1
+              }
+            ],
+            "model_answer": "*unlock code* from process 2 Rent bike to Rider: Output; *rental record* from process 2 Rent bike to D3 Rentals: Storage; *bike code* from Rider to process 2 Rent bike: Input; process 3 Calculate fee: Processing.",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "",
+                  "",
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "✓",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "dfd-nx-1c",
+          "part_label": "(c)",
+          "title": "Draw the context diagram",
+          "type": "dfd",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a **context diagram** for the VeloQala system.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "rider",
+                  "type": "entity",
+                  "label": "Rider",
+                  "x": 0,
+                  "y": 1
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- one process for the whole system, e.g. 0 VeloQala rental system, and no data stores (1)\n- external entities Rider, Bank and Repair team (1)\n- Rider flows: rider details, bike code and fault report in; unlock code and receipt out (at least three of them, correct directions) (1)\n- Bank flows payment request out and payment confirmation in, and faulty bike list out to Repair team; every flow labelled with a noun (1)",
+            "points": [
+              {
+                "criterion": "Single process, no data stores",
+                "marks": 1
+              },
+              {
+                "criterion": "Three external entities",
+                "marks": 1
+              },
+              {
+                "criterion": "Rider flows in correct directions",
+                "marks": 1
+              },
+              {
+                "criterion": "Bank and Repair team flows, all labelled",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0 VeloQala rental system in the centre. Rider —rider details, bike code, fault report→ system; system —unlock code, receipt→ Rider. System —payment request→ Bank; Bank —payment confirmation→ system. System —faulty bike list→ Repair team. No data stores.",
+            "ai_instructions": "Accept equivalent names for the system and the flows. Award no mark for the first point if any data store is drawn. Do not award the last point if there is any entity–store, store–store or entity–entity flow, or any unlabelled flow."
+          }
+        },
+        {
+          "key": "dfd-nx-1d",
+          "part_label": "(d)",
+          "title": "System boundary",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The **Bank** is drawn as an external entity, but the **Rentals** file is not. Explain why, using the idea of the **system boundary**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- the bank is outside the system boundary: the system cannot control it, it only sends data to it / receives data from it (1)\n- the Rentals file is kept inside the system / is part of the new system, so it is a data store, not an entity (1)",
+            "points": [
+              {
+                "criterion": "Bank is outside the boundary — only exchanges data",
+                "marks": 1
+              },
+              {
+                "criterion": "Rentals is kept inside the system — a data store",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The bank is outside the system boundary: VeloQala cannot change how the bank works, it only sends it payment requests and receives confirmations. The Rentals file is data kept inside the system by its own processes, so it is a data store."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-nx-2",
+      "title": "Olympiad registration: levels of DFD",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "An analyst is designing the **Olympiad registration system** for a regional education department.\n\nThe **context diagram** has the external entities **Student**, **School** and **Jury**. Its flows are: *registration form* from Student; *confirmation* to Student; *list of participants* to School; *scores* from Jury; *results table* to Student and to School.\n\nThe analyst then drew a **level-1 DFD**. It has the external entities **Student**, **School**, **Jury** and **Parent**, three processes, two data stores, and a flow *permission form* from Parent to process **1 Register student**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-nx-2a",
+          "part_label": "(a)",
+          "title": "Context diagram vs level 1",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Give **two** differences between the context diagram and the level-1 DFD of this system.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Any two:\n- the context diagram shows the whole system as one process; the level-1 DFD shows the main processes (numbered 1, 2, 3) (1)\n- the context diagram has no data stores; the level-1 DFD shows the data stores (1)\n- the level-1 DFD shows flows between processes and data stores / inside the system; the context diagram shows only flows crossing the boundary (1)",
+            "points": [
+              {
+                "criterion": "First difference",
+                "marks": 1
+              },
+              {
+                "criterion": "Second difference",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The context diagram shows the system as a single process, while the level-1 DFD splits it into its main processes 1, 2 and 3. The context diagram has no data stores, but the level-1 DFD shows the data stores and the flows to and from them.",
+            "ai_instructions": "Each mark needs both sides of the difference or a clear contrast."
+          }
+        },
+        {
+          "key": "dfd-nx-2b",
+          "part_label": "(b)",
+          "title": "Balancing",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the level-1 DFD is **not balanced** with the context diagram, and state how the analyst should correct it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- balanced diagrams have the same external entities and the same flows into / out of the system; the level-1 DFD has the entity Parent and the flow permission form that are not on the context diagram (1)\n- add Parent and the permission form flow to the context diagram (or remove them from the level-1 DFD if they are not part of the system) (1)",
+            "points": [
+              {
+                "criterion": "Parent / permission form not on the context diagram",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The level-1 DFD has an extra entity, Parent, and an extra input, permission form, that do not appear on the context diagram, so the two levels do not have the same entities and external flows. The analyst should add Parent and the permission form to the context diagram."
+          }
+        },
+        {
+          "key": "dfd-nx-2c",
+          "part_label": "(c)",
+          "title": "Level 2",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Process **2 Record scores** is drawn again on a separate diagram as processes **2.1**, **2.2** and **2.3**. State what this diagram is called and explain why the analyst draws it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- a level-2 DFD (1)\n- it breaks one level-1 process down into more detail without making the level-1 DFD too crowded / so that the process can be understood and programmed (1)",
+            "points": [
+              {
+                "criterion": "Level-2 DFD",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason: more detail of one process",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a level-2 DFD. It shows one level-1 process split into smaller processes, giving more detail about Record scores without crowding the level-1 diagram."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-nx-3",
+      "title": "Boarding-house DFD: finding the errors",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A student drew a level-1 DFD for the **boarding house** of a school in Taraz. Students ask to leave for the weekend, the curator gives permission, and the security guard gets a list of students who are away. These are some of the data flows:\n\n| From | Data flow | To |\n|---|---|---|\n| Student | leave request | 1 Record leave request |\n| 1 Record leave request | leave record | D1 Leave requests |\n| D1 Leave requests | leave details | Parent |\n| Parent | permission | Curator |\n| D2 Students | room number | D1 Leave requests |\n\nProcess **2 Produce weekend list** sends a *weekend list* to the Security guard but has **no input**.\n\nProcess **3 Report late returns** receives only *student name* from process 1 and sends a *late-return report* to the Curator.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-nx-3a",
+          "part_label": "(a)",
+          "title": "Illegal flows",
+          "type": "labelled_answers",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **two** data flows in the table that break the rules of DFDs. For each one, explain why it is not allowed.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Flow 1 and reason",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Flow 2 and reason",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two flows, 1 mark for the flow + 1 mark for the reason:\n- D1 Leave requests → Parent (1): a data store cannot send data straight to an external entity; a process must read the data and send it (1)\n- Parent → Curator (1): a flow between two external entities happens outside the system, so it is not shown (1)\n- D2 Students → D1 Leave requests (1): data cannot move from one store to another without a process (1)",
+            "points": [
+              {
+                "criterion": "First illegal flow",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason for first flow",
+                "marks": 1
+              },
+              {
+                "criterion": "Second illegal flow",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason for second flow",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1: D1 Leave requests → Parent — a store cannot send data directly to an entity; a process must read it and produce the output. 2: D2 Students → D1 Leave requests — data cannot go from store to store without a process moving it.",
+            "ai_instructions": "The reason mark needs the rule (every flow must start or end at a process) applied to that flow. Do not award a reason that does not match its flow."
+          }
+        },
+        {
+          "key": "dfd-nx-3b",
+          "part_label": "(b)",
+          "title": "Error in process 2",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Name the error in process **2 Produce weekend list** and describe how to correct it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- miracle (1)\n- add an input flow, e.g. approved leave records / leave details from D1 Leave requests into process 2 (1)",
+            "points": [
+              {
+                "criterion": "Miracle",
+                "marks": 1
+              },
+              {
+                "criterion": "Correction: add an input from D1 Leave requests",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a miracle — the process produces an output from nothing. Add an input flow, approved leave records, from D1 Leave requests to process 2."
+          }
+        },
+        {
+          "key": "dfd-nx-3c",
+          "part_label": "(c)",
+          "title": "Error in process 3",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Process **3 Report late returns** has an input and an output, but it is still wrong. Name the error and explain what is missing.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- grey hole (1)\n- the student name is not enough to produce a late-return report: the process also needs the return dates / times (and the expected return times), e.g. a flow *return times* from the Security guard or *leave details* from D1 Leave requests (1)",
+            "points": [
+              {
+                "criterion": "Grey hole",
+                "marks": 1
+              },
+              {
+                "criterion": "Explains the missing data and its source",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a grey hole: from a student's name alone the process cannot work out who came back late. It needs the expected and actual return times, for example *return times* from the Security guard and *leave details* from D1 Leave requests."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-nx-4",
+      "title": "Courier service: draw a level-1 DFD",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "**TezJet** is a courier service in Shymkent. A new system is being designed:\n\n*A customer sends a delivery request with the two addresses and the size of the parcel. The system calculates the price using the Tariffs file, saves the delivery in the Deliveries file and sends the customer a tracking number. Each morning the system produces a route list for each courier from the Deliveries file. After each delivery the courier sends a delivery status; the system updates the Deliveries file and sends the customer a delivery notification.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-nx-4a",
+          "part_label": "(a)",
+          "title": "Draw the level-1 DFD",
+          "type": "dfd",
+          "marks": 7,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a **first-level DFD** for the TezJet system. Show input, processing, storage and output.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "customer",
+                  "type": "entity",
+                  "label": "Customer",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "courier",
+                  "type": "entity",
+                  "label": "Courier",
+                  "x": 3,
+                  "y": 2
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- at least three processes with verb + noun names, e.g. 1 Take delivery request, 2 Produce route list, 3 Update delivery status (1)\n- data stores D1 Tariffs and D2 Deliveries (1)\n- input delivery request from Customer to the first process and output tracking number to Customer (1)\n- prices read from D1 Tariffs into the request process and the delivery record written to D2 Deliveries (1)\n- deliveries read from D2 Deliveries into the route-list process and route list sent to Courier (1)\n- delivery status from Courier into a process that writes the updated status to D2 Deliveries and sends a delivery notification to Customer (1)\n- every flow labelled with a noun in the correct direction; no entity–store, store–store or entity–entity flows (1)",
+            "points": [
+              {
+                "criterion": "Three processes, verb + noun",
+                "marks": 1
+              },
+              {
+                "criterion": "Both data stores",
+                "marks": 1
+              },
+              {
+                "criterion": "Customer input and tracking number output",
+                "marks": 1
+              },
+              {
+                "criterion": "Tariffs read and delivery written",
+                "marks": 1
+              },
+              {
+                "criterion": "Route list from Deliveries to Courier",
+                "marks": 1
+              },
+              {
+                "criterion": "Status update and notification",
+                "marks": 1
+              },
+              {
+                "criterion": "All flows labelled, no illegal flows",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Customer —delivery request→ 1 Take delivery request; D1 Tariffs —prices→ 1; 1 —delivery record→ D2 Deliveries; 1 —tracking number→ Customer. D2 Deliveries —today's deliveries→ 2 Produce route list —route list→ Courier. Courier —delivery status→ 3 Update delivery status; D2 Deliveries —delivery record→ 3; 3 —updated delivery→ D2 Deliveries; 3 —delivery notification→ Customer.",
+            "ai_instructions": "Accept equivalent process names and a different split of the processes (e.g. a separate Calculate price process). Do not award the last point if there is any entity–store, store–store or entity–entity flow, or any unlabelled flow."
+          }
+        },
+        {
+          "key": "dfd-nx-4b",
+          "part_label": "(b)",
+          "title": "Reading and writing a store",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The process that updates the delivery status **reads** the delivery from *Deliveries* and then **writes** it back. Explain how this is shown in the DFD.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- with two separate one-way arrows: one from D2 Deliveries to the process and one from the process to D2 Deliveries (1)\n- each arrow labelled with the data it carries, e.g. delivery record (read) and updated delivery (write) (1)",
+            "points": [
+              {
+                "criterion": "Two separate arrows, one in each direction",
+                "marks": 1
+              },
+              {
+                "criterion": "Each labelled with its data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Two separate arrows are drawn: D2 Deliveries —delivery record→ 3 Update delivery status, and 3 —updated delivery→ D2 Deliveries. Each arrow is one-way and named with the data it carries.",
+            "ai_instructions": "Do not award the first mark for a single double-headed arrow."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dfd-nx-5",
+      "title": "DFDs and other design diagrams",
+      "type": "structured",
+      "marks": 5,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The TezJet analyst will also produce a **flowchart** and an **entity-relationship diagram (ERD)** for the new system.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dfd-nx-5a",
+          "part_label": "(a)",
+          "title": "Which diagram answers which question",
+          "type": "matching",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each diagram to the question about the TezJet system that it answers.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "Data flow diagram (DFD)"
+              },
+              {
+                "key": "L2",
+                "text": "Flowchart"
+              },
+              {
+                "key": "L3",
+                "text": "Entity-relationship diagram (ERD)"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "In what order are the steps of calculating a price done, and what happens if the parcel is too large?"
+              },
+              {
+                "key": "R2",
+                "text": "Which tables are kept, and how is each delivery linked to one customer?"
+              },
+              {
+                "key": "R3",
+                "text": "What data moves between the customer, the courier, the processes and the files?"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "DFD – what data moves between the customer, the courier, the processes and the files (1); Flowchart – the order of the steps and what happens if the parcel is too large (1); ERD – which tables are kept and how each delivery is linked to one customer (1)",
+            "points": [
+              {
+                "criterion": "DFD",
+                "marks": 1
+              },
+              {
+                "criterion": "Flowchart",
+                "marks": 1
+              },
+              {
+                "criterion": "ERD",
+                "marks": 1
+              }
+            ],
+            "model_answer": "DFD → data moving between entities, processes and stores; flowchart → the order of the steps and the decisions; ERD → the tables and the relationships between them.",
+            "accepted": {
+              "pairs": {
+                "L1": "R3",
+                "L2": "R1",
+                "L3": "R2"
+              }
+            }
+          }
+        },
+        {
+          "key": "dfd-nx-5b",
+          "part_label": "(b)",
+          "title": "What a DFD cannot show",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The manager asks the analyst to add to the DFD what happens when a courier cannot find the address (try again later or return the parcel). Explain why this should **not** be added to the DFD, and state which diagram should show it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- a DFD shows only the movement of data, not decisions / the order of steps / what happens if… (1)\n- a flowchart (of that process) (1)",
+            "points": [
+              {
+                "criterion": "DFD does not show decisions or sequence",
+                "marks": 1
+              },
+              {
+                "criterion": "Flowchart",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A DFD shows what data moves where, not decisions or the order in which things happen, so the choice \"try again or return the parcel\" cannot be drawn in it. It should be shown in a flowchart of the delivery process."
+          }
+        }
+      ]
     }
   ],
   "summary": "Data flow diagrams (DFDs) — what they show, the four symbols (external entity, process, data store, data flow), context diagrams and first-level DFDs, the rules for drawing them correctly, and how to create a level-1 DFD that shows input, processing, storage and output.",
