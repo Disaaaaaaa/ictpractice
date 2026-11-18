@@ -1,9 +1,16 @@
 # Expanding a topic — full checklist
 
-The standard every topic must meet before it is taught. Used by the teacher and by the nightly
-routine (`content/expansion-queue.json`). Reference topics that already meet it:
-`g11-data-dictionary` (lessons 1–2, theory with SVG and a widget, auto practice, ҚМЖ) and
-`g12-data-protection-measures`.
+The standard every topic must meet before it is taught. Used by the teacher and by the three nightly
+sessions (order in `content/expansion-queue.json`, progress in `content/expansion/<stage>.json`):
+
+| Stage | Does | Status file |
+|---|---|---|
+| theory | §0, §1 theory and §4 notes checklists, uploads the theory | `content/expansion/theory.json` |
+| exam | §3 Exam Mode (needs theory done) | `content/expansion/exam.json` |
+| practice | §2 practice, then §5 full check and upload (needs exam done or blocked) | `content/expansion/practice.json` |
+
+Reference for depth and style: `g12-data-protection-measures` lesson 1 (theory) and `g11-sql`
+(practice with the SQL runner). Compare your lesson with it before you finish.
 
 Everything is in **English**. Learning objectives are listed per topic in `docs/TOPICS.md`; the
 exam format rules are in `docs/EXAM_FORMATS.md`; block syntax in `docs/CONTENT.md`
@@ -41,14 +48,22 @@ Each lesson has 2–3 theory sections plus one **"Exam practice"** section. Each
 - [ ] "Exam practice" section: 4–6 exam-style questions with **model answers and marks**
       (`**Q: … [2]**` then the answer with (1) marks), a common-mistakes box and a
       **"Check yourself"** list.
-- [ ] Depth: about 12–25 blocks per lesson. Wide tables are fine (they scroll).
+- [ ] **Minimum depth per lesson** (not counting the "Exam practice" section), checked by
+      `npx tsx scripts/theory-stats.ts <slug>` — it must print ✓ for every lesson:
+      **≥ 2500 words of explanation**, ≥ 3 theory sections, ≥ 3 diagrams (SVG or mermaid),
+      ≥ 2 worked examples, ≥ 2 comparison tables, ≥ 4 definitions, ≥ 1 common-mistakes box.
+      Write like a textbook, not a summary: every learning objective and every sub-point of it in
+      the curriculum (`docs/TOPICS.md`, `content/curriculum/exam_spec.json`) gets its own explanation —
+      what it is, how it works, why it matters, an example — so a student can answer a 6-mark
+      "explain / analyse" question from the theory alone. Short bullet lists are not enough.
+- [ ] Wide tables are fine (they scroll).
 - [ ] `npm run theory:build -- <slug>` passes; no section is empty.
 - [ ] Interactive widgets (`:::widget name`) only from the existing list in
       `src/lib/theory/blocks.ts` — do not write new app code at night.
 
 ## 2. Practice (per lesson, in `content/topics/<slug>.json`)
 
-- [ ] **12–20 questions per lesson, all `"grading": "AUTO"`** (teacher's rule: practice is auto-marked only).
+- [ ] **20–30 questions per lesson, all `"grading": "AUTO"`** (teacher's rule: practice is auto-marked only).
       Allowed types: `mcq`, `true_false`, `multiple_response`, `matching`, `fill_blank`
       (accepted alternatives per blank), `short_answer` with `accepted.values`, `table_completion` with
       ticks (`tick: true`) or text cells (`accepted.rows`, alternatives `a||b`, `""` = must stay empty).
@@ -86,8 +101,9 @@ Each lesson has 2–3 theory sections plus one **"Exam practice"** section. Each
 ## 5. Check and upload
 
 - [ ] `npx tsx scripts/check-topic.ts <slug> --exam-marks 40` prints "✓ ready to upload".
+- [ ] `npx tsx scripts/theory-stats.ts <slug>` prints ✓ for every lesson.
 - [ ] `npm test` passes.
 - [ ] Upload: `npm run theory:apply -- <slug>` then `npm run questions:apply -- <slug>`
       (needs `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`).
 - [ ] Commit only the topic's files (`content/theory/<slug>.md`, `content/topics/<slug>.json`,
-      `content/notes-checklists/<slug>-L*.json`, `content/expansion-queue.json`) and push to `main`.
+      `content/notes-checklists/<slug>-L*.json`, and your stage's `content/expansion/<stage>.json`) and push to `main`.
