@@ -10,6 +10,12 @@ Every software project produces **documentation**: the **requirements specificat
 The written documents produced during the system life cycle that **describe the system** — how it was analysed, designed, built and tested (**technical documentation**) and how to install and use it (**user documentation**).
 :::
 
+## Why documentation has to be well made
+
+A program without documentation is very hard to use or change. The developer who wrote it may leave the company; a new programmer then has only the code and the documents to understand how it works. A user who meets an error message at 8 a.m. before lessons cannot phone the developer — they open the user guide. An examiner or a client who checks the project reads the requirements, the design and the test results to decide whether the system does what was agreed. In all these cases the **reader is looking for one piece of information quickly**, often in a long document of 30–100 pages, and often on a printed copy.
+
+That is why the **structure** of a document matters as much as its content. The four features in this lesson each solve one navigation problem. A **table of contents** answers *"where is the section I need?"*. **Headers and footers** answer *"which document, which version and which page am I looking at?"* on every single page. **Footnotes** answer *"where does this fact come from / what does this term mean?"* without making the main text longer. **Tables** answer *"what is the value for this item?"* by putting related data into rows and columns. A word processor creates all four **automatically**, so they stay correct when the document is edited — and documentation is edited constantly as a project moves through the life cycle.
+
 :::svg The parts of a document page
 <svg class="td" viewBox="0 0 760 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A document page with a header at the top, a heading, a footnote reference mark, a table with a header row and caption, the footnote text at the bottom of the page and a footer with the page number">
   <defs><marker id="tda1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
@@ -117,6 +123,16 @@ A **header** is an area in the **top margin** of every page, and a **footer** an
 :::definition Field
 A placeholder in a document that the word processor **fills in and updates automatically**, e.g. the **page number**, total number of pages, date or file name.
 :::
+
+## How headers and footers work
+
+The header and footer are separate areas that sit **in the top and bottom margins**, outside the body text. You edit them once, and the word processor **copies their content onto every page** when it lays the document out. If you add ten pages, the ten new pages get the same header automatically. Anything that should look the same on every page belongs here — and only that: a paragraph of body text typed in the header would also repeat on every page.
+
+Headers and footers become really useful together with **fields**. A field is not ordinary text: it is an instruction such as "insert the current page number here". The word processor calculates the value for each page, so page 1 shows "1" and page 17 shows "17", although you typed the field only once. "Page X of Y" uses two fields — the page number and the total number of pages — so a reader with a printed copy can see at once whether pages are missing.
+
+A long document is often split into **sections** (Layout → Breaks → Section break). Each section can have its own header and footer: the title page has none, the contents pages are numbered i, ii, iii, and the chapters are numbered 1, 2, 3 with the chapter name in the header. In Word, the option **Link to Previous** controls whether a section copies the header of the section before it; switching it off lets you give a new chapter its own header text.
+
+In a **project**, the most important item in a header or footer is usually the **version number and date**. Several people — analyst, programmers, testers, the client — read the documents, and the documents change many times. If two printed copies of the design say *v1.2* and *v1.4*, everyone can see which one is current; without a version number, a programmer may build from an out-of-date design.
 
 :::svg A header and footer are typed once and repeated on every page
 <svg class="td" viewBox="0 0 760 275" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four pages: the title page has no header or footer; pages 2 to 4 repeat the same header with the title and version and a footer with an automatic page number">
@@ -251,6 +267,14 @@ A **note at the bottom of the same page**, linked to a **reference mark** (usual
 Like a footnote, but all the notes are collected at the **end of the document** (or of a chapter) instead of at the bottom of each page.
 :::
 
+## How footnotes work
+
+A footnote has two linked parts: a **reference mark** in the text (a small raised number, ¹) and the **note** with the same number at the bottom of the page, separated from the body text by a short line. The word processor keeps the two parts together. If you insert a new footnote before an existing one, **all the numbers change automatically** (the old ¹ becomes ²), and if editing moves the sentence to the next page, the note moves with it. That is why footnotes must always be inserted with the footnote command and never typed by hand.
+
+In project documentation footnotes have three main jobs. First, **citing sources**: when the analysis says *"60 % of students skip breakfast"*, a footnote names the survey or website the figure came from. This lets the reader check the fact and shows that the work of others has been acknowledged — copying information without saying where it came from is **plagiarism**. A useful citation gives the **author or organisation, the title, the URL and the date it was accessed**, not just "Google". Second, **explaining terms** for a reader who is not an expert: a user guide can say *"Log in with your SSO¹ account"* and explain *Single Sign-On* in the note, so experienced users are not slowed down. Third, **extra detail** that some readers need and others do not, such as the exact server configuration used in testing.
+
+Footnotes are better than brackets when the extra information is long, and better than endnotes when the reader needs it **immediately** while reading. **Endnotes** suit a document with a long list of references, because they keep the pages clean.
+
 :::svg Footnotes and endnotes
 <svg class="td" viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Footnotes appear at the bottom of the same page as the reference mark; endnotes are collected together at the end of the document">
   <defs><marker id="tda3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
@@ -376,6 +400,12 @@ An arrangement of information in **rows and columns** of **cells**, used to pres
 A **numbered title** above or below a table or figure ("Table 4. Test plan for the age field"), so that it can be **referred to in the text** and listed automatically.
 :::
 
+## Why project documents are full of tables
+
+Much of the information in a project is **structured**: many items that all have the same properties. Every field in a database has a name, a data type, a size and a validation rule; every test has a number, test data, an expected result and an actual result; every task in the plan has a start date, an end date and a person responsible. Written as paragraphs, this information is long and repetitive, and a missing value is invisible. In a table, each **item is a row** and each **property is a column**, so the reader can scan down one column to compare values, find one value where a row and a column cross, and see at once that a cell is **empty** — for example a test whose actual result was never recorded.
+
+To design a good table, decide the **columns first**: what does the reader need to know about every item? Put **one kind of data in each column** and **one fact in each cell**. Give the table a **header row** that names the columns and is **repeated on every page**, and a **numbered caption** so the text can say *"see Table 3"*. Keep formatting simple — light borders or banded rows help the eye follow a row; many colours do not.
+
 :::svg The parts of a table
 <svg class="td" viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A test plan table with a shaded header row, rows, columns, cells and a numbered caption underneath">
   <defs><marker id="tda4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
@@ -497,6 +527,12 @@ A **numbered title** above or below a table or figure ("Table 4. Test plan for t
 :::definition Table of contents (TOC)
 A list at the **start of a document** of its **headings** (chapters and sections) with the **page number** of each, used to **navigate** the document. In a word processor it is **generated automatically** from text formatted with **heading styles** and can be **updated** with one click.
 :::
+
+## How an automatic table of contents works
+
+The word processor cannot guess which lines are headings just because they are bold or large. It recognises headings by their **style**. A **heading style** (Heading 1, Heading 2, Heading 3) gives a line both its appearance and its **level** in the structure: Heading 1 for chapters (*2 Design*), Heading 2 for sections (*2.1 Data flow diagram*), Heading 3 for sub-sections. When you insert a table of contents, the program searches the document for these styles, lists each heading in order, indents it according to its level, and looks up the page it is on. The result is itself a **field**: it does not change by itself while you type, but **Update Table** rebuilds it in one click, so it can always be made correct before the document is printed or submitted.
+
+The same heading styles also power the **Navigation pane** (View → Navigation Pane), which lets the writer jump between sections while editing, and they become **bookmarks** when the document is saved as a PDF. So using heading styles helps the writer as well as the reader. The table of contents is placed **after the title page and before the first chapter**, and it works together with the footer: the TOC tells the reader that *Testing* starts on page 14, and the page number in the footer tells them when they have arrived.
 
 :::svg An automatic table of contents is built from heading styles
 <svg class="td" viewBox="0 0 760 285" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Headings formatted with Heading 1 and Heading 2 styles are collected by Insert Table of Contents into a contents page with page numbers">
