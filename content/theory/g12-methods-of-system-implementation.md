@@ -30,6 +30,20 @@ The **plan for how the old system is replaced by the new one** — all at once, 
 Transferring the existing data from the old system (paper files or old software) into the **format of the new system**, then **checking** it — e.g. typing paper patient cards into the new database, or exporting old records and importing them.
 :::
 
+## Why implementation is a risky moment
+
+By the time a system reaches implementation it has been analysed, designed, developed and tested. Yet implementation is often the **most dangerous** stage of the whole life cycle, because for the first time the system meets **real data, real users and real workload**. Testing uses test data and a small number of testers; on the first working day a clinic's system must handle hundreds of real patients, receptionists who are still learning, and records copied from an old system that may contain errors. Faults that testing missed appear exactly when the organisation depends on the system.
+
+At the same time the organisation **cannot stop working** while it changes systems. A shop must keep selling, a hospital must keep treating patients, a school must keep recording attendance. The implementation method is the organisation's answer to the question: *how do we move from the old way of working to the new one without losing data or stopping our work if something goes wrong?*
+
+## Data conversion and training in more detail
+
+**Data conversion** is often the biggest single job of implementation. If the old system is on **paper**, every record must be typed in — usually by staff or temporary data-entry workers — and then checked by **verification** (a second person compares the typed record with the paper card, or the data is entered twice and the computer compares both copies). If the old system is **electronic**, the data is **exported** from it, **transformed** into the new structure (for example one "name" field split into surname and first name, dates changed from MM/DD to DD.MM) and **imported** into the new database. After conversion, record counts and totals are compared (e.g. "1 250 patients and 18 340 visits in both systems") to make sure nothing was lost.
+
+Conversion takes time, and during that time the old system keeps changing — new patients arrive, new sales are made. This is one reason the choice of method matters: with **direct** changeover the conversion must be finished and checked **before** the changeover date; with **parallel** running new data is entered into both systems anyway; with **pilot** and **phased** methods only part of the data needs converting at each step.
+
+**Training** must also fit the method. With direct changeover every user must be trained before the same day; with pilot implementation only the pilot site's staff are trained first, and they later help to train others; with phased implementation staff learn one module at a time. Without training even a perfect system fails, because users make mistakes, work slowly and lose trust in it.
+
 There are **four** implementation methods. They differ in **how quickly** the old system is replaced and **how much risk** the organisation takes if the new system fails.
 
 :::svg The four implementation methods over time (dark bar = old system, light bar = new system)
@@ -78,6 +92,12 @@ There are **four** implementation methods. They differ in **how quickly** the ol
 The old system is **stopped completely** and the new system is **started immediately** in its place, on a fixed date ("big bang").
 :::
 
+### How direct changeover works
+
+With direct changeover the organisation chooses a **changeover date** — often a weekend or a holiday, when the workload is low. Before that date all data is converted and checked, all staff are trained and the new hardware and software are installed and tested. On the changeover day the old system is **switched off** and from that moment all work is done with the new system only. There is no going back: the old system is not updated any more, so even if it is still physically there, its data is soon out of date.
+
+The method is attractive because it is **simple, fast and cheap**: there is only one system to run, staff do not do any work twice, and the benefits of the new system start immediately. Its weakness is that it puts **all the risk on one day**. If the new system has a serious fault, the whole organisation is affected at once and has **no working system to fall back on**. For that reason direct changeover is chosen when a failure would be an inconvenience rather than a disaster, when the new system has been very thoroughly tested, or when there is no alternative — for example when the old system has broken down or the new system is so different that both cannot be run together.
+
 :::compare Direct changeover
 | Advantages | Disadvantages |
 |---|---|
@@ -96,6 +116,12 @@ The old system is **stopped completely** and the new system is **started immedia
 :::definition Parallel running
 The **old and new systems run at the same time** for a period. The same data is entered into **both** and the **results are compared**. When the new system has been shown to be reliable, the old one is stopped.
 :::
+
+### How parallel running works
+
+During parallel running every transaction is processed **twice**: once in the old system and once in the new. A payroll clerk, for example, calculates the salaries for March in the old program and also in the new one, and then the **outputs are compared** line by line. If they agree, the new system is trusted a little more; if they differ, the cause is found and fixed — while the employees are still paid correctly from the old system. The period of parallel running is planned in advance (for example **one full month**, or one complete cycle such as a term or a quarter, so that every kind of processing is checked at least once). When the new system has produced correct results for the whole period, management decides to **switch off the old system**.
+
+The great strength of parallel running is that the old system acts as a **live backup**: if the new system fails, work simply continues on the old one, and no data is lost. Its price is **cost and effort**: staff must enter all data twice, often working overtime or with temporary help; two sets of hardware and software must be kept running; and the comparison of results takes time. Tired staff entering everything twice also make more mistakes, which can make the comparison harder. Parallel running is therefore chosen when a failure would be **very expensive or dangerous** and the organisation can afford the extra cost.
 
 :::compare Parallel running
 | Advantages | Disadvantages |
@@ -171,6 +197,12 @@ The new system is introduced **gradually, one part (module / function) at a time
 </svg>
 :::
 
+### How pilot implementation works
+
+Pilot implementation uses one part of the organisation as a **real-life test site**. A supermarket chain with 40 shops installs the new checkout system in **one** shop; the other 39 continue with the old system. The pilot shop changes over (often directly, sometimes in parallel), and for some weeks its staff and customers use the new system for real. Problems are recorded and fixed; the user guide and the training are improved. When the pilot is successful, the system is **rolled out** to the other shops — either all at once or in groups — and the pilot staff, who now know the system well, help to train their colleagues.
+
+The pilot limits the risk to **one site**, gives a realistic test with real workload, and produces experienced users who can support the rest of the organisation. It works best when the organisation has **several similar units** (shops, branches, schools, classes), so that what works in one will work in the others. Its limitations are that the full rollout is slower, that for a time two different systems are in use (data from the pilot shop may have to be combined with data from the others), and that the pilot site may not be typical — a small shop in a quiet district may not reveal the problems of a busy one in the city centre.
+
 :::compare Pilot implementation
 | Advantages | Disadvantages |
 |---|---|
@@ -185,6 +217,14 @@ The new system is introduced **gradually, one part (module / function) at a time
 - A **school** introduces a new club-management system for **one grade** before the whole school.
 - A bank tests new software in **one branch** of its network.
 :::
+
+### How phased implementation works
+
+Phased implementation divides the **system**, not the organisation. A school's new information system may have modules for attendance, marks, timetables and reports to parents. In phase 1 **everyone** in the school starts using the attendance module, while marks, timetables and reports are still done the old way. Only when attendance works well does phase 2 — marks — begin, and so on. Each phase is a small changeover of its own, and each can be done directly or with a short period of parallel running.
+
+Because each step is small, problems affect only **one function** and are easier to locate and fix; staff learn the system **gradually**; and the cost of hardware, training and support is **spread over a longer period**. The main difficulty is that, during the changeover, **old and new parts must work together**: the new marks module may need pupil lists from the old system, or the old report program may need marks from the new database. Building these temporary links is extra work and a source of errors. Phased implementation is also the **slowest** way to get the full benefit of the new system, and it is only possible when the system really can be split into **fairly independent modules**.
+
+Methods can also be **combined**: a bank may run a pilot in one branch and, inside that branch, use parallel running for the first month; a hospital may introduce its modules in phases and pilot each phase in one department first.
 
 :::compare Phased implementation
 | Advantages | Disadvantages |
@@ -279,6 +319,24 @@ The new system is introduced **gradually, one part (module / function) at a time
   <text class="ss" x="300" y="290">small, cheap, urgent or old system unusable</text>
 </svg>
 :::
+
+## The factors that decide the choice
+
+No method is best in every situation; each is a **trade-off** between speed, cost and risk. When choosing, analysts look at the following factors of the scenario.
+
+**How critical the system is.** Ask what happens if the new system stops working for a day. For a café's online menu, staff take orders by hand — an inconvenience. For a hospital's prescription system or a port's ship-tracking system, errors could harm people or cause large financial losses. The more critical the system, the more the organisation should pay for safety — parallel running, or at least a pilot.
+
+**The structure of the organisation.** An organisation with **many similar sites** (a chain of shops, a network of schools, bank branches) is a natural candidate for a pilot. A single site with a system made of **separate modules** suits phased implementation. A small organisation with one simple system usually has no real choice except direct changeover.
+
+**Budget and staff.** Parallel running needs money for overtime and staff who are able to do double work for weeks. If the organisation cannot afford this, a safer-than-direct alternative is a pilot or phased approach.
+
+**Time.** If the new system is needed by a fixed date (a new law comes into force, the old software licence expires), the slower methods may not be possible.
+
+**How similar the old and new systems are.** Parallel running requires that both systems can process the same data and produce comparable results. If the new system works in a completely different way (for example online self-service instead of paper forms handled by staff), parallel running may make no sense.
+
+**How well the new system has been tested.** A system that has been used successfully by other organisations is less risky than custom software used for the first time.
+
+In an exam answer, the method you choose matters less than the **justification**: a reason taken from the scenario and, for an evaluation, an honest disadvantage of the chosen method for that organisation.
 
 :::steps How to choose and justify a method for a scenario
 - How **critical** is the system? If failure is dangerous or very costly → **parallel**.
