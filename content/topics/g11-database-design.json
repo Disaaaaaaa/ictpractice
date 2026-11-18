@@ -2244,6 +2244,752 @@
           }
         }
       ]
+    },
+    {
+      "key": "dbd-nx-1",
+      "title": "Tilashar language centre: entities, attributes and keys",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The **Tilashar** language centre in Kostanay is replacing its paper registers with a database. Part of the requirements specification:\n\n*Each **learner** has a learner number (e.g. `L0412`), first name, surname, date of birth and a phone number. Each **tutor** has a tutor code, a name and an e-mail address. The centre runs **courses**; each course has a course code (e.g. `EN-B1-07`), a language, a level, a start date and a weekly fee. Each course is taught by one tutor, and a tutor can teach several courses. A learner can enrol on several courses at the same time, and each course has many learners. For every enrolment the centre records the date of enrolment and the learner's final grade.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-nx-1a",
+          "part_label": "(a)",
+          "title": "Entity and attribute",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain the difference between an **entity** and an **attribute**, using one example of each from the requirements above.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- an entity is a thing / person / object / event about which data is stored (with many instances) and becomes a table, e.g. Learner / Tutor / Course (1)\n- an attribute is one property of an entity and becomes a field / column, e.g. Surname / DateOfBirth / WeeklyFee (1)",
+            "points": [
+              {
+                "criterion": "Entity explained with example",
+                "marks": 1
+              },
+              {
+                "criterion": "Attribute explained with example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "An entity is a thing about which data is stored, such as Learner, and it becomes a table. An attribute is a single property of an entity, such as the learner's Surname, and it becomes a field of that table.",
+            "ai_instructions": "Each mark needs both the meaning and a correct example from the scenario. An example that is not in the scenario (e.g. Student, Name) can be accepted if it clearly fits the centre."
+          }
+        },
+        {
+          "key": "dbd-nx-1b",
+          "part_label": "(b)",
+          "title": "Not storing Age",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The manager asks for every learner's **age** to be shown on the class list. The analyst does **not** add an attribute *Age* to the entity Learner. Explain why.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- age is a derived attribute: it can be calculated from DateOfBirth (and today's date) (1)\n- a stored age would become wrong / out of date (every birthday) and would have to be updated / it is the same fact stored twice (1)",
+            "points": [
+              {
+                "criterion": "Derived / calculated from DateOfBirth",
+                "marks": 1
+              },
+              {
+                "criterion": "Stored value becomes wrong / redundant",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Age can be calculated at any time from DateOfBirth and today's date, so it is a derived attribute. If it were stored, it would become wrong on every learner's birthday unless someone updated it."
+          }
+        },
+        {
+          "key": "dbd-nx-1c",
+          "part_label": "(c)",
+          "title": "Choosing the primary key of Learner",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A receptionist suggests that **Surname** should be the primary key of the table Learner. Explain why Surname is not suitable, and describe a more suitable primary key.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Surname is unsuitable — any two:\n- two learners can have the same surname, so it is not unique (1)\n- a surname can change (e.g. after marriage), but a key must not change (1)\n- it is long / not fixed in length, and the key is copied into other tables as a foreign key (1)\nBetter key (max 1):\n- the learner number (e.g. L0412) / an auto-numbered LearnerID, which is unique for every learner and never changes (1)",
+            "points": [
+              {
+                "criterion": "First reason Surname is unsuitable",
+                "marks": 1
+              },
+              {
+                "criterion": "Second reason",
+                "marks": 1
+              },
+              {
+                "criterion": "Suitable key described",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Two learners can share the surname Akhmetova, so it does not identify a learner uniquely, and a surname can change, which a key must never do. A better key is the learner number such as L0412 (a surrogate key): it is unique, short and never changes.",
+            "ai_instructions": "The third mark needs a named key and a reason (unique / never changes / short). Accept IIN as a natural key if the answer says it is unique and fixed."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dbd-nx-2",
+      "title": "Tilashar: relationships and the ERD",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "Use the requirements of the Tilashar language centre from question 1.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-nx-2a",
+          "part_label": "(a)",
+          "title": "Degrees of relationships",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the degree of each relationship as it is described in the requirements. Write 1:1, 1:M or M:M.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Tutor — Course",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Learner — Course",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 Tutor — Course: 1:M (1)\n2 Learner — Course: M:M (1)",
+            "points": [
+              {
+                "criterion": "Tutor — Course 1:M",
+                "marks": 1
+              },
+              {
+                "criterion": "Learner — Course M:M",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1: 1:M (one tutor teaches many courses); 2: M:M (a learner takes many courses and a course has many learners).",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "1:M",
+                  "1:N",
+                  "1-M",
+                  "1 : M",
+                  "1 to M",
+                  "1 to many",
+                  "one-to-many",
+                  "one to many"
+                ],
+                "2": [
+                  "M:M",
+                  "M:N",
+                  "N:M",
+                  "M-M",
+                  "M-N",
+                  "M : M",
+                  "M : N",
+                  "many-to-many",
+                  "many to many"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "dbd-nx-2b",
+          "part_label": "(b)",
+          "title": "Resolving the M:M relationship",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the relationship between **Learner** and **Course** cannot be stored directly in a relational database, and how the analyst should resolve it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- a field can hold only one value, so neither table can store one foreign key for its many partners / extra columns Course1, Course2 … would be a repeating group (1)\n- add a link entity (e.g. Enrolment) that holds the primary keys of Learner and Course as foreign keys, giving two 1:M relationships (1)",
+            "points": [
+              {
+                "criterion": "Why it cannot be stored directly",
+                "marks": 1
+              },
+              {
+                "criterion": "Link entity with both keys as FKs",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A field can hold only one value, so Learner cannot have one CourseCode field for all its courses (and Course cannot hold all its learners). A link entity Enrolment is added; each enrolment holds one LearnerNo and one CourseCode as foreign keys, so Learner 1:M Enrolment and Course 1:M Enrolment.",
+            "ai_instructions": "'Because it is M:M' alone gets no mark — the answer must say why one field cannot store many values (or describe the repeating group)."
+          }
+        },
+        {
+          "key": "dbd-nx-2c",
+          "part_label": "(c)",
+          "title": "Draw the ERD",
+          "type": "erd",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw the ERD for the language centre with the entities **Tutor**, **Course**, **Learner** and **Enrolment**. Connect the related entities and give every relationship its degree. Do not leave a many-to-many relationship in the diagram.",
+          "content": {},
+          "scheme": {
+            "mark_scheme": "Entities: Tutor, Course, Learner, Enrolment (1 item each)\nRelationships: Tutor 1:M Course; Course 1:M Enrolment; Learner 1:M Enrolment (1 item each, with the correct degree)\n7 items; the 4 marks are given in proportion to the correct items. Each extra entity or line cancels one correct item.",
+            "points": [
+              {
+                "criterion": "Entities",
+                "marks": 1
+              },
+              {
+                "criterion": "Tutor 1:M Course",
+                "marks": 1
+              },
+              {
+                "criterion": "Course 1:M Enrolment",
+                "marks": 1
+              },
+              {
+                "criterion": "Learner 1:M Enrolment",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Tutor 1 —— M Course; Course 1 —— M Enrolment; Learner 1 —— M Enrolment",
+            "accepted": {
+              "erd": {
+                "entities": [
+                  {
+                    "name": "Tutor",
+                    "aliases": [
+                      "Tutors",
+                      "Teacher",
+                      "Teachers"
+                    ]
+                  },
+                  {
+                    "name": "Course",
+                    "aliases": [
+                      "Courses"
+                    ]
+                  },
+                  {
+                    "name": "Learner",
+                    "aliases": [
+                      "Learners",
+                      "Student",
+                      "Students"
+                    ]
+                  },
+                  {
+                    "name": "Enrolment",
+                    "aliases": [
+                      "Enrolments",
+                      "Enrollment",
+                      "Enrollments",
+                      "Registration"
+                    ]
+                  }
+                ],
+                "relationships": [
+                  {
+                    "a": "Tutor",
+                    "b": "Course",
+                    "degree": "1:M"
+                  },
+                  {
+                    "a": "Course",
+                    "b": "Enrolment",
+                    "degree": "1:M"
+                  },
+                  {
+                    "a": "Learner",
+                    "b": "Enrolment",
+                    "degree": "1:M"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "dbd-nx-2d",
+          "part_label": "(d)",
+          "title": "Where the final grade belongs",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The analyst must decide in which entity to store the attribute **FinalGrade**. Identify the entity and explain your choice.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Enrolment (1)\n- the grade is a fact about one learner on one particular course / the relationship, not about the learner in general (who has many grades) or the course in general (which has many learners) (1)",
+            "points": [
+              {
+                "criterion": "Enrolment",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason: fact about this learner on this course",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Enrolment. A final grade belongs to one learner on one course: a learner on three courses has three grades, and a course has a different grade for each learner, so it can only be stored once per enrolment."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dbd-nx-3",
+      "title": "Why Tilashar needs a database design",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "At the moment the centre keeps **one spreadsheet**. Each row is one enrolment and contains the learner's name and phone number, the course code, the tutor's name and e-mail address, the weekly fee and the enrolment date. A learner on three courses appears in three rows.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-nx-3a",
+          "part_label": "(a)",
+          "title": "Problems of the single table",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Describe **two** problems (anomalies) that storing the data in this one spreadsheet can cause. Use examples from the centre.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Two of the following, 2 marks each — name / idea (1) + example from the centre (1):\n- update anomaly: the learner's phone (or tutor's e-mail) is repeated in many rows, so a change must be made in every row; if one row is missed the data is inconsistent (1+1)\n- insertion anomaly: a new tutor (or a new course) with no enrolments yet cannot be recorded, because every row must be an enrolment (1+1)\n- deletion anomaly: deleting a learner's only enrolment also deletes the only copy of the learner's details (1+1)\n- data redundancy: the same details are typed many times, wasting storage / time and causing typing errors (1+1) — max once",
+            "points": [
+              {
+                "criterion": "First problem identified",
+                "marks": 1
+              },
+              {
+                "criterion": "First problem described with example",
+                "marks": 1
+              },
+              {
+                "criterion": "Second problem identified",
+                "marks": 1
+              },
+              {
+                "criterion": "Second problem described with example",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Update anomaly: a learner on three courses has her phone number in three rows; if she changes it and only one row is edited, the centre has two different numbers. Insertion anomaly: a newly hired tutor who has no course yet cannot be entered, because every row has to be an enrolment."
+          }
+        },
+        {
+          "key": "dbd-nx-3b",
+          "part_label": "(b)",
+          "title": "Restrictions of the new system",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Before drawing the ERD the analyst lists the **restrictions** of the new system. Explain how **two** different restrictions could affect the design of the Tilashar database.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Two restrictions, 2 marks each — restriction (1) + consequence for the design (1), e.g.:\n- legal: the Law on Personal Data — store only personal data that is needed / with consent; sensitive data in a separate table with restricted access (1+1)\n- the chosen DBMS — decides which data types exist (e.g. no DATE / BOOLEAN in SQLite) and limits (1+1)\n- volume of data / number of users — key types and sizes must be large enough for all future records, e.g. INT key not a 2-digit code (1+1)\n- existing data imported from the spreadsheet — field types and sizes must hold the old values or the data must be cleaned (1+1)\n- time and budget — a simpler design with fewer tables that still meets the requirements (1+1)",
+            "points": [
+              {
+                "criterion": "First restriction",
+                "marks": 1
+              },
+              {
+                "criterion": "Its effect on the design",
+                "marks": 1
+              },
+              {
+                "criterion": "Second restriction",
+                "marks": 1
+              },
+              {
+                "criterion": "Its effect on the design",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The Law on Personal Data means the centre may store only the personal data it needs, so the analyst leaves out fields such as home address and protects the phone numbers with access rights. The data must also be imported from the old spreadsheet, so every field must be large enough to hold the old values, e.g. surnames up to 30 characters.",
+            "ai_instructions": "The consequence must be a concrete effect on the database (tables, fields, types, sizes, keys, access); a general statement such as 'the design must follow the law' gets the first mark only."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dbd-nx-4",
+      "title": "The data dictionary for Course",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The analyst writes the **data dictionary** for the table **Course**. Example data for one course:\n\n| CourseCode | Language | Level | StartDate | WeeklyFee | MaxLearners | Online |\n|---|---|---|---|---|---|---|\n| EN-B1-07 | English | B1 | 14/01/2027 | 8500.00 | 12 | Yes |\n\nLevels are always one of A1, A2, B1, B2 or C1. A group never has more than 15 learners. The weekly fee is never more than 50 000 tenge.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-nx-4a",
+          "part_label": "(a)",
+          "title": "Data types and sizes",
+          "type": "table_completion",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the data dictionary by giving the most suitable **data type** and **size** of each field. Write — if no size is needed.",
+          "content": {
+            "columns": [
+              "Field name",
+              "Example",
+              "Data type",
+              "Size"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "CourseCode",
+                "EN-B1-07",
+                null,
+                null
+              ],
+              [
+                "StartDate",
+                "14/01/2027",
+                null,
+                null
+              ],
+              [
+                "WeeklyFee",
+                "8500.00",
+                null,
+                null
+              ],
+              [
+                "Online",
+                "Yes",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "CourseCode: VARCHAR / CHAR / text, size 8 (1)\nStartDate: DATE, no size (accept 10 if the type is DATE) (1)\nWeeklyFee: DECIMAL / currency with 2 decimal places, e.g. DECIMAL(7,2) / (8,2) (1)\nOnline: BOOLEAN / Yes-No, no size (1)\nThe type and the size must both be correct for the mark; INT or REAL / FLOAT for WeeklyFee = 0.",
+            "points": [
+              {
+                "criterion": "CourseCode",
+                "marks": 1
+              },
+              {
+                "criterion": "StartDate",
+                "marks": 1
+              },
+              {
+                "criterion": "WeeklyFee",
+                "marks": 1
+              },
+              {
+                "criterion": "Online",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CourseCode VARCHAR(8); StartDate DATE (—); WeeklyFee DECIMAL(7,2); Online BOOLEAN (—)."
+          }
+        },
+        {
+          "key": "dbd-nx-4b",
+          "part_label": "(b)",
+          "title": "Validation rules",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "suggest",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Suggest a suitable **validation rule** for each field. Give the rule with its values or limits, not only the name of the check.",
+          "content": {
+            "columns": [
+              "Field name",
+              "Validation rule"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "Level",
+                null
+              ],
+              [
+                "MaxLearners",
+                null
+              ],
+              [
+                "CourseCode",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Level (1): lookup / list check — must be one of A1, A2, B1, B2, C1\nMaxLearners (1): range check 1–15 (accept 1 ≤ x ≤ 15; type whole number with the range)\nCourseCode (1): format two letters, dash, level, dash, two digits (e.g. LL-XX-99) / length exactly 8 / presence and unique\nOnly the name of a check with no rule = 0.",
+            "points": [
+              {
+                "criterion": "Level",
+                "marks": 1
+              },
+              {
+                "criterion": "MaxLearners",
+                "marks": 1
+              },
+              {
+                "criterion": "CourseCode",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Level: lookup — one of A1, A2, B1, B2, C1. MaxLearners: range 1 to 15. CourseCode: format two capital letters, '-', level, '-', two digits; unique and not empty."
+          }
+        },
+        {
+          "key": "dbd-nx-4c",
+          "part_label": "(c)",
+          "title": "Validation and verification",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A receptionist enters **MaxLearners** as **11** instead of **12**. The validation rule does not reject it. Explain why, and state a method that **could** detect this error.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- validation only checks that data is reasonable / follows the rule; 11 is inside the allowed range, so it is accepted (1)\n- verification, e.g. double entry / a second person checks the entry against the source document (visual check) (1)",
+            "points": [
+              {
+                "criterion": "Why validation accepts 11",
+                "marks": 1
+              },
+              {
+                "criterion": "Verification method",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Validation only checks that the value is sensible, and 11 is within the range 1–15, so it passes. Verification would detect it — for example, a visual check of the entered data against the course form, or typing the value twice."
+          }
+        }
+      ]
+    },
+    {
+      "key": "dbd-nx-5",
+      "title": "Building the Enrolment table",
+      "type": "structured",
+      "marks": 6,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The data dictionary for the link table **Enrolment**:\n\n| Field | Type | Key | Validation |\n|---|---|---|---|\n| EnrolID | INT, auto-increment | PK | unique |\n| LearnerNo | CHAR(5) | FK → Learner | must exist in Learner; presence |\n| CourseCode | VARCHAR(8) | FK → Course | must exist in Course; presence |\n| EnrolDate | DATE | | presence |\n| FinalGrade | INT | | range 0–100 |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "dbd-nx-5a",
+          "part_label": "(a)",
+          "title": "Write CREATE TABLE",
+          "type": "sql",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write the SQL statement to create the table **Enrolment** exactly as designed, including the primary key, both foreign keys, the presence checks and the range check.",
+          "content": {
+            "language": "sql",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- CREATE TABLE Enrolment ( … ); with all five fields and the types from the design (1)\n- EnrolID … PRIMARY KEY (1)\n- FOREIGN KEY (LearnerNo) REFERENCES Learner(LearnerNo) and FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode) (1)\n- NOT NULL on LearnerNo, CourseCode and EnrolDate and CHECK (FinalGrade BETWEEN 0 AND 100) / >= 0 AND <= 100 (1)\nIgnore minor syntax slips (capitals, commas) if the meaning is clear.",
+            "points": [
+              {
+                "criterion": "CREATE TABLE with all fields and types",
+                "marks": 1
+              },
+              {
+                "criterion": "Primary key",
+                "marks": 1
+              },
+              {
+                "criterion": "Both foreign keys with REFERENCES",
+                "marks": 1
+              },
+              {
+                "criterion": "NOT NULL and CHECK",
+                "marks": 1
+              }
+            ],
+            "model_answer": "CREATE TABLE Enrolment (\n  EnrolID    INT AUTO_INCREMENT PRIMARY KEY,\n  LearnerNo  CHAR(5)    NOT NULL,\n  CourseCode VARCHAR(8) NOT NULL,\n  EnrolDate  DATE       NOT NULL,\n  FinalGrade INT CHECK (FinalGrade BETWEEN 0 AND 100),\n  FOREIGN KEY (LearnerNo)  REFERENCES Learner(LearnerNo),\n  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)\n);"
+          }
+        },
+        {
+          "key": "dbd-nx-5b",
+          "part_label": "(b)",
+          "title": "Deleting a learner",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.2",
+            "11.4.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "After the tables are created, the receptionist tries to delete learner **L0412**, who still has two enrolments. Explain what the DBMS does and why.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- the DBMS refuses / rejects the deletion (unless the enrolments are deleted first) (1)\n- the two Enrolment records would have a LearnerNo that matches no learner; the foreign key constraint enforces referential integrity (1)",
+            "points": [
+              {
+                "criterion": "DBMS refuses the delete",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason: referential integrity / FK would point to nothing",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The DBMS refuses to delete the learner. Two Enrolment records still contain LearnerNo L0412 as a foreign key; deleting the learner would leave them pointing at a learner who does not exist, which breaks referential integrity."
+          }
+        }
+      ]
     }
   ],
   "summary": "Designing the database for a new system — finding entities and attributes in the requirements, deciding the degree of each relationship, drawing the ERD and resolving many-to-many relationships, then writing a complete data dictionary (data types, sizes, keys, validation) for every table and turning the design into CREATE TABLE statements.",
@@ -3203,10 +3949,11 @@
     "duration": 50,
     "instructions": "Answer **all** questions. Draw diagrams with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "dbd-tx-1",
-      "dbd-tx-2",
-      "dbd-tx-3",
-      "dbd-tx-4"
+      "dbd-nx-1",
+      "dbd-nx-2",
+      "dbd-nx-3",
+      "dbd-nx-4",
+      "dbd-nx-5"
     ]
   },
   "lessons": [
