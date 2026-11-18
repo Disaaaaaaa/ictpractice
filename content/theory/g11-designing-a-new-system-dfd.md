@@ -10,6 +10,20 @@ A diagram that shows **how data moves through a system**: where it comes **from*
 
 A DFD is drawn during **analysis** (to describe the current system) and **design** (to plan the new system). It helps the analyst, the programmers and the client agree on the **inputs, processes, outputs and storage (IPOS)** of the system before any code is written. A DFD uses only **four symbols**.
 
+## Why a new system is designed with a DFD
+
+When a school, a clinic or a shop asks for a new computer system, the first problem is not programming — it is **understanding**. The client knows the job ("we take orders, we cook, we deliver") but usually cannot describe it as data. The programmers know how to write code but do not know the business. A DFD is the common language between them. It turns a long, unclear description into a picture that answers four questions: **What data comes into the system? What does the system do with it? What does it keep? What does it give back?** Because the picture uses only four simple shapes, the client can read it, point at a box and say "this is wrong — the receipt also goes to the accountant". Finding that mistake on paper costs minutes; finding it after the program is written can cost weeks.
+
+In the **system life cycle**, the DFD links the stages together. During **analysis** the analyst interviews users, observes the work and collects documents, then draws a DFD of the **current** system to check that they have understood it. During **design** a second DFD shows the **new** system: which processes will be computerised, which new data stores (database tables) are needed and which reports will be produced. Later, each **data store** becomes a table in the database design (ERD and data dictionary), each **process** becomes a part of the program that can be designed with a flowchart or pseudocode, and each **data flow** from or to an entity becomes an **input screen** or an **output** (report, receipt, message). So a good DFD is the plan that the rest of the project follows.
+
+## Logical, not physical
+
+A DFD is a **logical** model: it shows **what** data moves and **what** is done to it, not the hardware, the software or the people that do it. A DFD of a school library looks the same whether loans are written in a paper book or saved in a cloud database. That is why a DFD never contains boxes such as "computer", "printer", "Wi-Fi" or "Python program". It also does not show **time** (when something happens), **order** (what happens first) or **decisions** (if… then…). Those belong in a flowchart. Keeping the DFD logical has a big advantage: the analyst can agree **what** the system must do with the client first, and choose **how** to build it later.
+
+## How the four symbols work together
+
+Each symbol has one job, and the four jobs fit together like a sentence. An **external entity** is the *who* outside the system: a source that supplies data (a customer typing an order) or a sink that receives data (a kitchen receiving a meal list); many entities are both. A **process** is the *verb* of the sentence: it takes data in and produces different or more useful data out — it validates, calculates, records, searches, sorts or prints. A **data store** is the system's *memory*: data that must still exist after the process has finished, for example yesterday's orders or the list of members. A **data flow** is the *noun* that travels: a named packet of data moving in one direction. A complete statement read from a DFD therefore sounds like: "The **Customer** sends **order details** to process **1 Take order**, which saves an **order record** in **D2 Orders**." If you cannot read a part of your diagram as a sentence like this, a symbol or label is probably missing.
+
 :::definition External entity
 A person, organisation or other system **outside** the system being designed that **sends data into** the system (a **source**) or **receives data from** it (a **sink**). Named with a **noun**: *Customer*, *Bank*, *Teacher*.
 :::
@@ -90,9 +104,28 @@ Data that is **held** in the system for later use — a file, a database table, 
 | **Data flow** | **Arrow** with a label | **Data moving** between the other symbols; the arrow shows the direction | A **noun** — the data carried | Order details, Payment, Receipt |
 :::
 
-## Input, processing, storage and output in a DFD
+# Input, processing, storage and output in a DFD
+@lo 11.2.2.1
 
 Every DFD shows the four parts of a computer system. **Inputs** are the flows that come **from external entities** into processes; **processing** happens in the processes; **storage** is shown by the data stores; **outputs** are the flows that go **from processes to external entities**.
+
+The learning objective asks you to use a first-level DFD **to represent input, processing, storage and output**. That means two skills: **reading** an existing DFD and saying which parts are which, and **drawing** a DFD so that all four parts of the described system appear. Both depend on understanding each part properly, so each one is explained below.
+
+## Input
+
+An **input** is data that **enters the system from outside**. In a DFD it is always a **data flow from an external entity to a process**. Examples: a student's *meal choice*, a patient's *appointment request*, a supplier's *delivery note*, a bank's *payment confirmation*. Notice the last one: an input does not have to come from a person — another organisation or computer system outside the boundary also sends inputs. When you design a new system, every input flow later becomes something real: an **input form** on a screen, a scanned card, a file received from another system. That is why inputs must be named precisely. "Data" or "information" is not a name; *new member details* tells the designer exactly which form to build. An input must also go **to a process**, never straight into a store: someone has to check, validate or record the data before it is kept.
+
+## Processing
+
+**Processing** is shown by the **processes**. A process is where data is **changed**: checked (*Validate card*), calculated (*Calculate total*), combined (*Produce timetable*), searched (*Find available rooms*) or recorded (*Record loan*). A useful test: the data coming **out** of a process must be **different** from the data going **in**. *Order details* in and *order details* out is not a process — but *order details* and *prices* in, *bill* out, is. Every process must therefore have **at least one input and at least one output**. On a level-1 DFD the processes are the **main functions** of the system, normally between three and seven of them. They are numbered 1, 2, 3… so that they can be referred to ("process 2 is missing an output") — the numbers do not show the order in which they happen.
+
+## Storage
+
+**Storage** is shown by the **data stores** together with the flows that touch them. A flow **from a process into a store** means the process **writes** (saves, adds or updates) data; a flow **from a store into a process** means the process **reads** data it needs. Storage is needed whenever data must be **kept between processes or between days**: a pre-order taken in the morning must still exist at 11:00 when the kitchen list is printed, so it is stored in *D1 Pre-orders*. In a scenario, look for words such as *kept, saved, recorded, stored, looked up, the list of…, the file of…* — they almost always point to a data store. A good check is that each store is **written by at least one process and read by at least one process**; a store that is only written to is useless, and a store that is only read from has no way to get its data.
+
+## Output
+
+An **output** is data that **leaves the system** and goes to someone or something outside it: a *receipt* to a customer, a *meal list* to the kitchen, an *overdue report* to the librarian, a *payment request* to the bank. In a DFD it is always a **data flow from a process to an external entity**. Outputs are the reason the system exists — the client pays for a system because of what it gives back. When a scenario says that someone *receives, is sent, is given, gets a report / message / notification*, that is an output. A flow from a process **into a data store is not an output**: the data has not left the system, it has only been saved inside it.
 
 :::svg A canteen pre-order system: input, processing, storage and output
 <svg class="dfd" viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A small DFD for a canteen pre-order system showing input from the student, processing, storage in a data store and output back to the student and the kitchen">
@@ -176,12 +209,46 @@ This platform uses **Gane–Sarson** notation. Some books draw **processes as ci
 Entities and stores are **nouns**, processes are **verb + noun**, data flows are **nouns** that name the data — never "send", "check" or "go" on an arrow.
 :::
 
+:::example Worked example — reading a clinic DFD as IPOS
+*A level-1 DFD for a district clinic in Kyzylorda has: entities **Patient** and **Doctor**; processes **1 Book appointment**, **2 Record visit**, **3 Produce prescription**; stores **D1 Patients**, **D2 Appointments**, **D3 Visits**. Flows: Patient → 1 *appointment request*; D1 → 1 *patient details*; 1 → D2 *appointment*; 1 → Patient *appointment confirmation*; D2 → 2 *today's appointments*; Doctor → 2 *diagnosis*; 2 → D3 *visit record*; D3 → 3 *treatment details*; 3 → Patient *prescription*.*
+
+1. **Inputs** — look for flows that start at an entity: *appointment request* (from Patient) and *diagnosis* (from Doctor). Two inputs.
+2. **Processing** — the three numbered processes. For each, check that the output is new data: process 1 turns a request plus patient details into an appointment and a confirmation ✔; process 2 turns the diagnosis into a visit record ✔; process 3 turns treatment details into a prescription ✔.
+3. **Storage** — writes: *appointment* (1 → D2), *visit record* (2 → D3). Reads: *patient details* (D1 → 1), *today's appointments* (D2 → 2), *treatment details* (D3 → 3).
+4. **Outputs** — flows that end at an entity: *appointment confirmation* and *prescription* (both to Patient).
+5. **Spot the gap** — D1 Patients is read but never written in this diagram, so a process such as *4 Register patient* (Patient → 4 → D1) is missing. Saying this in an exam answer shows that you understand storage, not just the symbols.
+:::
+
+:::warning Common mistakes with input, processing, storage and output
+- Calling a flow **into a data store** an "output" — it is **storage (write)**; outputs go to **entities**.
+- Calling a data store an "input" because a process reads from it — reading is **storage (read)**; inputs come from **outside**.
+- Listing an **entity** (e.g. "Customer") as an input — the input is the **data** (*order details*), not the person.
+- A "process" whose output is the same data as its input (*order → Pass order → order*) — nothing is processed.
+- Writing vague flow names such as *data*, *info*, *details* — the examiner cannot tell which input or output you mean.
+:::
+
 # Context diagrams and first-level DFDs
 @lo 11.2.2.1
 
 :::definition Context diagram (level-0 DFD)
 A DFD that shows the **whole system as one single process** with all the **external entities** and the data flows between them and the system. It shows the **boundary** of the system; it has **no data stores**.
 :::
+
+:::definition System boundary
+The imaginary line between **what is inside the system** (processes and data stores, which the new system will do and keep) and **what is outside** (external entities, which the system cannot control but exchanges data with).
+:::
+
+## Why DFDs are drawn in levels
+
+A real system can have dozens of processes and stores. Drawn on one page, it becomes a tangle of arrows that nobody can check. DFDs solve this with **levels**, the same way a map does: a map of Kazakhstan shows cities, a map of one city shows streets. The **context diagram** is the top-level map. It treats the whole system as **one black box** and shows only how it talks to the outside world. It answers the first question the client asks: *"What will this system receive and what will it give us?"* Because it is so simple, it is usually the first diagram the analyst draws and the first one the client signs off.
+
+The context diagram is also where the **system boundary** is fixed. Deciding the boundary is a real design decision. In a school canteen, is the **Bank** inside or outside? The canteen cannot change how the bank works — it only sends payment requests and receives confirmations — so the bank is **outside** and becomes an external entity. Is the **Kitchen** inside? If the new system only prints a list that cooks read, the kitchen is a **sink** outside the boundary. If the system also tracked stock in the kitchen, part of the kitchen's work would move inside. The rule for deciding: anything the system **does or keeps** is inside; any person or organisation the system only **exchanges data with** is outside.
+
+The context diagram has **no data stores** because stores are part of the inside of the black box. As soon as you show a store, you are showing *how* the system works internally, and that is the job of the next level.
+
+## From context diagram to level 1
+
+The **first-level (level-1) DFD** opens the black box. The single process *0 System* is **decomposed** (split) into its main processes, numbered 1, 2, 3…, and the data stores that those processes share appear for the first time. The external entities do not change — they are still outside — and every data flow that crossed the boundary on the context diagram must now arrive at, or leave from, **one of the new processes**. New flows appear only *inside* the boundary: between processes, and between processes and stores. This rule is called **balancing**, and it is what makes the two levels a single, consistent model rather than two unrelated pictures. If a level-1 DFD suddenly has a new entity, or loses a flow that was on the context diagram, either the context diagram or the level-1 DFD is wrong. If needed, any level-1 process can be decomposed again into a level-2 DFD (processes 2.1, 2.2…), but the curriculum asks you to create diagrams up to **level 1**.
 
 :::definition First-level (level-1) DFD
 A DFD that **splits the single process of the context diagram into its main processes** (usually 3–7), and shows the **data stores** and all the data flows between entities, processes and stores.
@@ -490,6 +557,20 @@ It shows the whole system as **one process / a black box** (1); data stores are 
 
 Every data flow must **start or end at a process**: data can only be **stored, read, changed or passed on by a process**. This one rule explains all the flows that are not allowed.
 
+## Why the rules exist
+
+A DFD is not just a drawing — it is a **specification** that programmers will build from. Every arrow in it promises that some part of the system will move that data. If an arrow goes **from an entity straight into a data store**, the diagram promises that a customer can write into the database with no program in between: nobody validates the data, nobody decides which record to update, nobody checks the customer is allowed to. In a real system that is impossible (and, if it were possible, it would be a security hole). The arrow must go into a **process** — *1 Register customer* — which checks the data and then writes it to the store. That process later becomes a real input screen with validation.
+
+The same reasoning explains the other illegal flows. **Store → store**: data cannot copy itself from one table to another; a program (process) has to read it, perhaps change it, and write it. **Entity → entity**: if a customer phones the manager, that conversation happens **outside** the system; the system cannot record or control it, so it is not drawn. **Store → entity**: an entity cannot "open the database and look"; a process must search the store and produce an output, such as *1 Search catalogue* producing a *search result*. When you meet a question that asks you to "identify and correct an error", the correction is almost always **"put a process in between"**.
+
+## Rules for each symbol, explained
+
+**Processes** must have at least one input and one output, because a process is defined as something that **transforms** data. With no input it creates data from nothing; with no output its work is wasted. The name must start with a **verb** because a process is an action: *Calculate fee*, not *Fee*. Numbers (1, 2, 3) are labels for reference only; the processes may run in any order, at the same time, or many times a day.
+
+**Data stores** must be written to by at least one process and read by at least one process somewhere in the full set of diagrams. A store may be drawn **twice** on the same diagram (marked with an extra line or an asterisk) to avoid long crossing arrows — it is still the **same** store with the same ID. Stores are named with **nouns**, usually plural, because they hold many records: *D1 Members*, *D2 Bookings*.
+
+**Data flows** carry **data, not actions and not physical goods**. A pizza is not a data flow, but *delivery details* is; money is not a data flow, but *payment details* is. Each flow is a **one-way** arrow named with the data it carries. If data goes both ways between a process and a store — the process reads a record and then writes it back — draw **two arrows** with two names (*member record* and *updated member record*), or one two-headed arrow only when the data is the same in both directions. A flow must never be labelled with a verb such as *send*, *check* or *go to*: the verb belongs in the process.
+
 :::svg Allowed and not allowed data flows
 <svg class="dfd" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Allowed flows: entity to process, process to store, store to process, process to process. Not allowed: entity to store, store to store, entity to entity">
   <defs><marker id="dfs6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker><marker id="dfs6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--danger)"/></marker><marker id="dfs6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--success)"/></marker></defs>
@@ -668,6 +749,12 @@ A process that has **inputs but no outputs** — data goes in and disappears.
 A process that has **outputs but no inputs** — it produces data from nothing.
 :::
 
+:::definition Grey hole
+A process whose **inputs are not enough to produce its outputs** — some of the data it needs is missing, e.g. it outputs a *total price* but never receives any *prices*.
+:::
+
+These three errors are found by checking each process **one at a time**: list what goes in, list what comes out, and ask "could a person with only these inputs produce these outputs?" A black hole usually means the student forgot where the result is saved or sent. A miracle usually means a forgotten read from a data store — the report must come *from* somewhere. A grey hole is the hardest to spot because the process looks complete; it appears when a calculation needs data (prices, rates, dates) that is held in a store the student forgot to connect.
+
 :::svg Black hole, miracle and grey hole
 <svg class="dfd" viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three process errors: a black hole has inputs but no output, a miracle has outputs but no input, a grey hole has outputs that cannot be made from its inputs">
   <defs><marker id="dfs7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker><marker id="dfs7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--danger)"/></marker><marker id="dfs7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--success)"/></marker></defs>
@@ -761,6 +848,20 @@ A process that has **outputs but no inputs** — it produces data from nothing.
 
 # Creating a first-level DFD from a description
 @lo 11.2.2.1
+
+The exam task "create a first-level DFD for the system described" gives you a paragraph of text — a scenario — and asks you to turn it into a diagram. This is a skill of **careful reading** more than drawing. The scenario contains every entity, process, store and flow you need, and examiners award marks for each one you find and connect correctly. The method below works for any scenario.
+
+## Reading the scenario: nouns and verbs
+
+Read the text twice. The first time, just understand the business. The second time, mark three things. **People and organisations** that give or receive information (*customer, bank, teacher, supplier, parent*) are candidate **external entities**. **Things the system keeps** — usually a plural noun after words like *stores, keeps, records, looks up, the list of* (*orders, members, products, results*) — are candidate **data stores**. **Actions the system performs** — verbs such as *checks, calculates, records, sends, produces, updates* — are candidate **processes**. Then group the verbs: "checks the menu, calculates the total and stores the order" is one main function, *Take order*, not three separate processes. A level-1 DFD should show **three to seven** main processes; if you have ten, merge the small ones; if you have one, split it.
+
+## Deciding entity or data store
+
+Students often confuse the two because both can be named with the same word. *"The system records each **customer's** details"* contains both: **Customer** (the person, outside, who supplies the details) is an entity, and **D1 Customers** (the records kept inside) is a store. Ask: *is this someone who acts, or something that is kept?* A person who acts is an entity; records that are kept are a store. Also ask: *does the system control it?* The system controls its own stores; it cannot control a bank or a parent.
+
+## Finding the flows
+
+For every process, write a short list: **inputs** (from which entity or store) and **outputs** (to which entity, store or process). Each item becomes a labelled arrow. Check the scenario for outputs that people *receive* (*receipt, report, confirmation, list*) — they are easy marks and easy to forget. Then check every store: what process **writes** to it and what process **reads** from it? Finally compare with the context diagram, if one was given: every external flow there must appear here, attached to the right process.
 
 :::steps How to draw a level-1 DFD
 - Read the description and **underline the external entities** (who gives or receives data).
@@ -862,6 +963,10 @@ A process that has **outputs but no inputs** — it produces data from nothing.
 </svg>
 :::
 
+## Reading the finished diagram back
+
+When the diagram is drawn, read it back as a story and compare it with the scenario sentence by sentence. *"Customers order pizzas online"* — the Customer sends *order details* to 1 Take order ✔. *"The system checks the menu for prices"* — D1 Menu sends *prices* to process 1 ✔. *"calculates the total and stores the order"* — process 1 writes a *new order* to D2 Orders and passes the *amount due* on ✔. *"The customer pays by card through the bank"* — *card details* from Customer and a *payment request* to Bank via 2 Process payment ✔. *"The kitchen receives a list of paid orders"* — 3 Send order to kitchen reads *paid orders* from D2 and outputs the *kitchen order list* ✔. *"the customer receives a receipt"* — process 2 outputs the *receipt* ✔. Every sentence of the scenario is now visible in the diagram, and nothing in the diagram is invented. This read-back takes two minutes in the exam and is the most reliable way to catch a missing flow before the examiner does.
+
 :::compare Checking the pizza shop DFD
 | Check | Result |
 |---|---|
@@ -890,6 +995,24 @@ In DFD questions, add **external entities**, **processes** and **data stores** f
 
 # DFDs compared with other diagrams
 @lo 11.2.2.1
+
+A DFD is one of several diagrams produced during design, and each one answers a different question. Exam questions often ask you to **compare** a DFD with a flowchart or to say **why** a DFD was chosen, so you need to know what the others show.
+
+:::definition Flowchart
+A diagram that shows the **sequence of steps, decisions and loops** of an algorithm or a single process, using start/stop, process, input/output and decision symbols.
+:::
+
+:::definition Entity-relationship diagram (ERD)
+A diagram that shows the **entities** (tables) of a database, their attributes and the **relationships** (one-to-one, one-to-many, many-to-many) between them.
+:::
+
+A **DFD** answers *"what data moves where?"* for the **whole system**. A **flowchart** answers *"in what order are the steps done, and what happens if…?"* for **one process or program**. An **ERD** answers *"what data is kept, and how are the records connected?"* for the **database**. They are not competitors — they are three views of the same system. In a canteen project, the level-1 DFD shows the process *2 Take payment*; a flowchart then designs that process step by step ("read card → is balance ≥ total? → yes: deduct, no: show error"); and the data stores *D1 Students* and *D2 Pre-orders* become two tables in the ERD, joined by a one-to-many relationship (one student places many pre-orders).
+
+The most common confusion is between a DFD and a flowchart, because both use boxes and arrows. The difference is in what the **arrow means**. In a flowchart an arrow means **"next"** — control passes to the following step. In a DFD an arrow means **"data moves"** — a named piece of data travels from one place to another, and nothing about time or order is implied. That is why a DFD has no **decision diamond**, no **start/stop** symbol and no **loop**: a process in a DFD can happen a thousand times a day, and the diagram does not change.
+
+### Why choose a DFD?
+
+A DFD is the best choice when the analyst needs to **agree the scope** of a system with a client who is not technical, to see **all inputs and outputs at once**, or to find **missing or duplicated data** (for example, two processes each keeping their own copy of the student list). It is a poor choice when you need to design the **logic** of a calculation — use a flowchart or pseudocode — or the **structure** of the database — use an ERD and a data dictionary.
 
 :::compare DFD vs flowchart vs ERD
 | | DFD | Flowchart | ERD |
