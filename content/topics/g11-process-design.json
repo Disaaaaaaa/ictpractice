@@ -2985,6 +2985,727 @@
           }
         }
       ]
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-ipo-match",
+      "title": "Input, process, output",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "text": "A school canteen process *Record sale* is being designed. Match each step to the part of the input → process → output model it belongs to.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`INPUT cardID, price`"
+          },
+          {
+            "key": "L2",
+            "text": "`balance ← balance − price`"
+          },
+          {
+            "key": "L3",
+            "text": "`balance >= price?`"
+          },
+          {
+            "key": "L4",
+            "text": "`OUTPUT \"Paid. New balance:\", balance`"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Processing"
+          },
+          {
+            "key": "R2",
+            "text": "Output"
+          },
+          {
+            "key": "R3",
+            "text": "Input"
+          },
+          {
+            "key": "R4",
+            "text": "Decision"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R3, L2–R1, L3–R4, L4–R2. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R1",
+            "L3": "R4",
+            "L4": "R2"
+          }
+        },
+        "explanation": "Data entered is input; a calculation or assignment is processing; a Yes/No question is a decision; what is displayed is output."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-subroutine-mcq",
+      "title": "Calling another process",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "text": "The checkout flowchart of an online shop must carry out *CalculateDelivery*, which is drawn in its own separate flowchart. Which symbol is used for this step?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A diamond"
+        },
+        {
+          "key": "B",
+          "content": "A rectangle with double vertical sides"
+        },
+        {
+          "key": "C",
+          "content": "A parallelogram"
+        },
+        {
+          "key": "D",
+          "content": "A rounded rectangle (terminator)"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A subroutine (predefined process) is a rectangle with double sides: it calls steps drawn in a separate flowchart."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-and-nested-tf",
+      "title": "AND or two diamonds",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "text": "One diamond `age >= 18 AND hasTicket = TRUE?` can be replaced by two nested diamonds (the second asked only on the Yes exit of the first, both No exits leading to the same action) and the process gives the same output for every input.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "The two designs are equivalent: the Yes path is reached only when both conditions are true."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-or-trap-mcq",
+      "title": "A condition that is always true",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "text": "A student writes the decision `age >= 11 OR age <= 18?` for a club for ages 11 to 18. For which ages is the Yes exit followed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Only ages 11 to 18"
+        },
+        {
+          "key": "B",
+          "content": "Only ages below 11 and above 18"
+        },
+        {
+          "key": "C",
+          "content": "Every age"
+        },
+        {
+          "key": "D",
+          "content": "No age at all"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Every number is either ≥ 11 or ≤ 18, so OR makes the condition always true. A range needs AND."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-vending-short",
+      "title": "Vending machine change",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "text": "A vending machine flowchart: `INPUT paid` · decision `paid >= 300?` — No: OUTPUT \"Insert more\", END; Yes: `change ← paid − 300`, OUTPUT change, END.\n\nState the output when **500** is paid.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "200",
+        "accepted": {
+          "values": [
+            "200",
+            "200 ₸",
+            "200 tenge"
+          ]
+        },
+        "explanation": "500 >= 300 is true, so change = 500 − 300 = 200."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-loyalty-short",
+      "title": "IF without ELSE",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "text": "A shop flowchart: `INPUT price, card` · decision `card = \"Yes\"?` — Yes: `price ← price × 0.9`; No: go straight on · `OUTPUT price`.\n\nState the output when price = **4000** and card = **\"Yes\"**.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "3600",
+        "accepted": {
+          "values": [
+            "3600",
+            "3600 ₸",
+            "3600.0",
+            "3600 tenge"
+          ]
+        },
+        "explanation": "The Yes exit applies a 10 % discount: 4000 × 0.9 = 3600. With no card the No exit skips the discount (IF … THEN with no ELSE)."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-library-order-mcq",
+      "title": "Order of the checks",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "text": "The library process *Issue book* checks three things: the member exists, the member has fewer than 5 books, the book is available. Which check should come **first**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Is the book available?"
+        },
+        {
+          "key": "B",
+          "content": "Does the member exist (is the card in the Members table)?"
+        },
+        {
+          "key": "C",
+          "content": "Does the member have fewer than 5 books?"
+        },
+        {
+          "key": "D",
+          "content": "The order does not matter"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The check that makes the others pointless goes first: if the card is unknown there is no point checking loans or the book."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-dfd-flowchart-tick",
+      "title": "DFD or flowchart?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "text": "Tick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Statement",
+          "DFD",
+          "Flowchart"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Shows the order of the steps inside one process",
+            null,
+            null
+          ],
+          [
+            "Shows external entities and data stores of the whole system",
+            null,
+            null
+          ],
+          [
+            "Shows decisions with Yes / No exits",
+            null,
+            null
+          ],
+          [
+            "Used first, to agree with the client which processes the system needs",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Shows the order of the steps inside one process — Flowchart (1); Shows external entities and data stores of the whole system — DFD (1); Shows decisions with Yes / No exits — Flowchart (1); Used first, to agree with the client which processes the system needs — DFD (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "model_answer": "Shows the order of the steps inside one process — Flowchart; Shows external entities and data stores of the whole system — DFD; Shows decisions with Yes / No exits — Flowchart; Used first, to agree with the client which processes the system needs — DFD.",
+        "explanation": "A DFD shows what processes exist and how data moves between them; a flowchart shows how one process works, including decisions and loops."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-pin-loop-mcq",
+      "title": "The right loop for a PIN",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "text": "A cash machine asks for the PIN and keeps asking until the PIN entered is correct. Which loop is the best choice?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Count-controlled (FOR) loop"
+        },
+        {
+          "key": "B",
+          "content": "Post-condition (REPEAT … UNTIL) loop"
+        },
+        {
+          "key": "C",
+          "content": "No loop — a single decision"
+        },
+        {
+          "key": "D",
+          "content": "A nested IF"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The PIN must be entered at least once before it can be checked, and the number of tries is not known — a post-condition loop."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-while-zero-tf",
+      "title": "A WHILE loop can skip its body",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "text": "The body of a pre-condition (WHILE) loop may run zero times.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "The condition is tested before the body; if it is false at the start, the body is skipped completely."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-check-type-mcq",
+      "title": "Name the check",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "text": "A registration flowchart contains the decision `LENGTH(password) >= 8?`. Which validation check is this?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Presence check"
+        },
+        {
+          "key": "B",
+          "content": "Range check"
+        },
+        {
+          "key": "C",
+          "content": "Length check"
+        },
+        {
+          "key": "D",
+          "content": "Format check"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C.",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "It counts the characters of the input — a length check."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-offbyone-short",
+      "title": "Off-by-one",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "text": "A flowchart for 850 students sets `i ← 1` and uses the decision `i < 850?` (Yes: process a student, `i ← i + 1`, back to the decision).\n\nState how many students are processed.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "849",
+        "accepted": {
+          "values": [
+            "849"
+          ]
+        },
+        "explanation": "i takes the values 1 … 849 while i < 850 is true; for 850 students the decision must be `i <= 850?`."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-max-init-mcq",
+      "title": "Starting value for the maximum",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "text": "A flowchart finds the **highest** of 7 morning temperatures in Astana in January (all readings are below 0 °C). It sets `max ← 0` before the loop and uses `temp > max?` → Yes: `max ← temp`. Why is this a bad design?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Because 0 is not a valid temperature"
+        },
+        {
+          "key": "B",
+          "content": "No reading is greater than 0, so max stays 0 and the output is wrong"
+        },
+        {
+          "key": "C",
+          "content": "Because max must be set to 0 inside the loop"
+        },
+        {
+          "key": "D",
+          "content": "Because a FOR loop cannot be used for 7 readings"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B.",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Every reading is below 0, so `temp > max?` is never Yes and 0 is output. Set max to the first reading (or a value lower than any possible reading) before the loop."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-valid-verify-tick",
+      "title": "Validation or verification?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "text": "Tick (✓) **one** box in each row.",
+      "content": {
+        "columns": [
+          "Check",
+          "Validation",
+          "Verification"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "The password is typed twice and the two entries must match",
+            null,
+            null
+          ],
+          [
+            "A mark must be from 1 to 10",
+            null,
+            null
+          ],
+          [
+            "An e-mail must contain \"@\" and \".\"",
+            null,
+            null
+          ],
+          [
+            "A clerk compares the typed data with the paper form",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The password is typed twice and the two entries must match — Verification (1); A mark must be from 1 to 10 — Validation (1); An e-mail must contain \"@\" and \".\" — Validation (1); A clerk compares the typed data with the paper form — Verification (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "model_answer": "The password is typed twice and the two entries must match — Verification; A mark must be from 1 to 10 — Validation; An e-mail must contain \"@\" and \".\" — Validation; A clerk compares the typed data with the paper form — Verification.",
+        "explanation": "Validation checks that data is allowed by the rules; verification checks that it was copied or typed accurately (double entry, visual check)."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-test-data-match",
+      "title": "Test data for a range check",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "text": "A validation loop accepts an age from **11 to 18**. Match each test value to its kind of test data.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "15"
+          },
+          {
+            "key": "L2",
+            "text": "18"
+          },
+          {
+            "key": "L3",
+            "text": "\"abc\""
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Boundary data"
+          },
+          {
+            "key": "R2",
+            "text": "Normal data"
+          },
+          {
+            "key": "R3",
+            "text": "Erroneous data"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1–R2, L2–R1, L3–R3. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R1",
+            "L3": "R3"
+          }
+        },
+        "explanation": "Normal data is well inside the range, boundary data is exactly at a limit, erroneous data must be rejected."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-cold-days-short",
+      "title": "Counting below a limit",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "text": "A flowchart counts the days with a temperature **below −20 °C** (decision `temp < −20?` — Yes: `cold ← cold + 1`). `cold` starts at 0. The temperatures input are:\n\n−10, −22, −20, −25, −5\n\nState the final value of `cold`.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "2",
+        "accepted": {
+          "values": [
+            "2"
+          ]
+        },
+        "explanation": "Only −22 and −25 are below −20. −20 is not below −20 (boundary)."
+      }
+    },
+    {
+      "grading": "AUTO",
+      "objectives": [
+        "11.2.2.3"
+      ],
+      "practice": true,
+      "key": "pd-pin-tries-fill",
+      "title": "Trace the PIN check",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "text": "Pseudocode of a flowchart:\n\n```text\ntries ← 0\nREPEAT\n    INPUT pin\n    tries ← tries + 1\nUNTIL pin = 4321 OR tries = 3\nIF pin = 4321 THEN OUTPUT \"Welcome\" ELSE OUTPUT \"Card blocked\" ENDIF\n```\n\nThe user enters 1111, 2222, 3333. The loop body runs [[1]] times and the output is [[2]].",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) Card blocked",
+        "accepted": {
+          "blanks": [
+            [
+              "3",
+              "three"
+            ],
+            [
+              "Card blocked",
+              "\"Card blocked\""
+            ]
+          ]
+        },
+        "explanation": "After the third wrong PIN tries = 3, so the loop ends; pin is not 4321, so \"Card blocked\" is output."
+      }
     }
   ],
   "summary": "Designing the processes of a new system with flowcharts — where process design fits in the life cycle, the standard symbols and rules, sequence and selection (nested decisions, AND / OR conditions, boundary testing), flowcharts of real processes in computing systems (library, vending machine, subroutines), iteration with count-controlled, pre-condition and post-condition loops, counting, totalling and finding the smallest value, validation loops, tracing a flowchart with a trace table and converting between flowcharts and pseudocode.",
@@ -4020,14 +4741,22 @@
         "pd-start-end-tf",
         "pd-construct-match",
         "pd-order-fill",
+        "pd-ipo-match",
+        "pd-subroutine-mcq",
         "pd-cinema-short",
         "pd-delivery-short",
         "pd-grade-short",
         "pd-range-condition-mcq",
         "pd-or-mr",
-        "pd-errors-mr",
         "pd-advantages-mr",
-        "pd-boundary-mcq"
+        "pd-and-nested-tf",
+        "pd-or-trap-mcq",
+        "pd-vending-short",
+        "pd-loyalty-short",
+        "pd-dfd-flowchart-tick",
+        "pd-errors-mr",
+        "pd-boundary-mcq",
+        "pd-library-order-mcq"
       ]
     },
     {
@@ -4040,22 +4769,31 @@
       ],
       "questions": [
         "pd-iteration-mcq",
-        "pd-loops-tick",
         "pd-post-tf",
         "pd-for-unknown-tf",
         "pd-count-total-match",
+        "pd-validation-fill",
+        "pd-pin-loop-mcq",
+        "pd-while-zero-tf",
+        "pd-check-type-mcq",
+        "pd-loops-tick",
         "pd-init-mcq",
         "pd-loop-times-short",
         "pd-validation-match",
-        "pd-validation-fill",
         "pd-validation-error-mcq",
         "pd-trace",
-        "pd-trace-while",
         "pd-repeat-output-short",
         "pd-convert-match",
         "pd-pseudo-fill",
+        "pd-offbyone-short",
+        "pd-valid-verify-tick",
+        "pd-test-data-match",
+        "pd-trace-while",
         "pd-infinite-mcq",
-        "pd-average-short"
+        "pd-average-short",
+        "pd-max-init-mcq",
+        "pd-cold-days-short",
+        "pd-pin-tries-fill"
       ]
     }
   ]
