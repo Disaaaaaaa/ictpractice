@@ -2215,6 +2215,776 @@
           }
         }
       ]
+    },
+    {
+      "key": "pd-nx-1",
+      "title": "Issuing a book in the Kitap library system",
+      "type": "structured",
+      "marks": 12,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The **Kitap** library in Pavlodar is getting a new computer system. The analyst has drawn a DFD with the process *Issue book*, which receives *memberID* and *bookID* from the librarian, reads the data stores *Members* and *Books* and writes to the data store *Loans*. The process is now being designed with a flowchart.\n\n*A book can be issued only if the member is registered, has **fewer than 5** books on loan and has **no unpaid fines**, and the book is not already on loan. A loan lasts **14 days**. Unpaid fines are checked by a subroutine `CheckFines`, which is drawn in a separate flowchart.*",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pd-nx-1a",
+          "part_label": "(a)",
+          "title": "DFD and flowchart",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the analyst draws a flowchart for *Issue book* even though the process already appears on the DFD.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- the DFD shows only **what** processes exist / **how data moves** between entities, processes and data stores (1)\n- the flowchart shows **how** the process works: the **order of the steps**, the **decisions** (e.g. fewer than 5 loans?) and loops, so the programmer can code it / the tester can plan tests (1)",
+            "points": [
+              {
+                "criterion": "DFD: what / data movement only",
+                "marks": 1
+              },
+              {
+                "criterion": "Flowchart: how, order of steps, decisions, for coding",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The DFD only shows that *Issue book* exists and which data flows in and out of it. It does not show the order of the steps or the decisions. The flowchart shows how the process works step by step, including every check (member found? fewer than 5 loans? book available?), so the programmer can code it and the tester can test each path."
+          }
+        },
+        {
+          "key": "pd-nx-1b",
+          "part_label": "(b)",
+          "title": "Symbols",
+          "type": "matching",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a line to link each step of *Issue book* to the flowchart symbol used for it.",
+          "content": {
+            "left": [
+              {
+                "key": "L1",
+                "text": "INPUT memberID, bookID"
+              },
+              {
+                "key": "L2",
+                "text": "onLoan < 5?"
+              },
+              {
+                "key": "L3",
+                "text": "CheckFines"
+              },
+              {
+                "key": "L4",
+                "text": "dueDate ← today + 14"
+              }
+            ],
+            "right": [
+              {
+                "key": "R1",
+                "text": "Rectangle"
+              },
+              {
+                "key": "R2",
+                "text": "Rectangle with double vertical sides"
+              },
+              {
+                "key": "R3",
+                "text": "Diamond"
+              },
+              {
+                "key": "R4",
+                "text": "Parallelogram"
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "INPUT memberID, bookID – parallelogram; onLoan < 5? – diamond; CheckFines – rectangle with double vertical sides; dueDate ← today + 14 – rectangle (1 each)",
+            "points": [
+              {
+                "criterion": "Line 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Line 4",
+                "marks": 1
+              }
+            ],
+            "model_answer": "INPUT memberID, bookID → parallelogram (input/output); onLoan < 5? → diamond (decision); CheckFines → rectangle with double vertical sides (subroutine / predefined process); dueDate ← today + 14 → rectangle (process).",
+            "accepted": {
+              "pairs": {
+                "L1": "R4",
+                "L2": "R3",
+                "L3": "R2",
+                "L4": "R1"
+              }
+            }
+          }
+        },
+        {
+          "key": "pd-nx-1c",
+          "part_label": "(c)",
+          "title": "Draw the Issue book process",
+          "type": "flowchart",
+          "marks": 6,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a flowchart for the process *Issue book*. Each failed check must output a message that says what is wrong and end the process. Call the subroutine `CheckFines` instead of drawing its steps.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "start",
+                  "type": "terminator",
+                  "label": "START",
+                  "x": 0.5,
+                  "y": 0
+                },
+                {
+                  "id": "end",
+                  "type": "terminator",
+                  "label": "END",
+                  "x": 0.5,
+                  "y": 0.92
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- START / END and INPUT memberID, bookID (1)\n- decision member found in Members? with No → error message (e.g. \"Unknown member\") → END (1)\n- decision onLoan < 5? (accept onLoan <= 4; not <= 5) with No → \"Loan limit reached\" → END (1)\n- subroutine symbol CheckFines followed by a decision on fines (e.g. fines = 0?) with No → message → END (1)\n- decision book available? / not on loan with No → \"Book already on loan\" → END (1)\n- dueDate ← today + 14, save the loan in Loans (data store) and OUTPUT \"Return by\" dueDate on the path where all checks pass (1)\nAll decision exits must be labelled Yes / No for the decision marks.",
+            "points": [
+              {
+                "criterion": "Start, end, inputs",
+                "marks": 1
+              },
+              {
+                "criterion": "Member check with error path",
+                "marks": 1
+              },
+              {
+                "criterion": "Loan limit check (< 5)",
+                "marks": 1
+              },
+              {
+                "criterion": "CheckFines subroutine and fines decision",
+                "marks": 1
+              },
+              {
+                "criterion": "Book available check with error path",
+                "marks": 1
+              },
+              {
+                "criterion": "Due date, save in Loans, output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "START → INPUT memberID, bookID → member in Members? No: OUTPUT \"Unknown member\" → END; Yes → onLoan < 5? No: OUTPUT \"Loan limit reached\" → END; Yes → [CheckFines] → fines = 0? No: OUTPUT \"Pay fines first\" → END; Yes → book available? No: OUTPUT \"Book already on loan\" → END; Yes → dueDate ← today + 14 → save memberID, bookID, dueDate in Loans → OUTPUT \"Return by\", dueDate → END",
+            "ai_instructions": "The order of the checks may differ, but the member check should come before the others. Do not award the loan-limit mark for onLoan <= 5. Accept a data store shown as a cylinder or as a process box such as 'Save loan in Loans'."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pd-nx-2",
+      "title": "Parking charges at the Shymkent Plaza car park",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The car park of **Shymkent Plaza** is designing the process that calculates the parking charge when a car leaves.\n\n*Stays of **up to and including 2 hours** are free. Longer stays pay **300 ₸ for every hour** of the stay. The charge is never more than **2000 ₸**. Electric cars park free for any length of time.*\n\nThe flowchart inputs `hours` (a whole number) and `electric` (Y/N) and outputs `charge`.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pd-nx-2a",
+          "part_label": "(a)",
+          "title": "Expected outputs",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the charge, in ₸, that the process should output for each car (number only).",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "hours = 2, electric = N",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "hours = 5, electric = N",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "hours = 9, electric = N",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1: 0 (1)\n2: 1500 (1)\n3: 2000 (1)",
+            "points": [
+              {
+                "criterion": "2 hours → 0",
+                "marks": 1
+              },
+              {
+                "criterion": "5 hours → 1500",
+                "marks": 1
+              },
+              {
+                "criterion": "9 hours → 2000",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1: 0 (2 hours is free); 2: 5 × 300 = 1500; 3: 9 × 300 = 2700, more than the maximum, so 2000.",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "0",
+                  "0 ₸",
+                  "0 tg",
+                  "free"
+                ],
+                "2": [
+                  "1500",
+                  "1500 ₸",
+                  "1 500",
+                  "1500 tg"
+                ],
+                "3": [
+                  "2000",
+                  "2000 ₸",
+                  "2 000",
+                  "2000 tg"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "pd-nx-2b",
+          "part_label": "(b)",
+          "title": "A boundary error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The programmer drew the first decision as `hours < 2?` (Yes → charge ← 0). Explain the error and identify the test data that would show it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- the condition should be `hours <= 2` / 2 hours must be free, but `hours < 2` sends 2 hours to the paid path (1)\n- test with the boundary value hours = 2 (electric N): expected 0, the flowchart outputs 600 (1)",
+            "points": [
+              {
+                "criterion": "Explains wrong boundary",
+                "marks": 1
+              },
+              {
+                "criterion": "Test data 2 with expected / actual output",
+                "marks": 1
+              }
+            ],
+            "model_answer": "`hours < 2` is false for exactly 2 hours, so a 2-hour stay is charged 2 × 300 = 600 ₸ instead of being free; the condition should be `hours <= 2`. The boundary value hours = 2 shows the error: the expected output is 0 but the flowchart gives 600."
+          }
+        },
+        {
+          "key": "pd-nx-2c",
+          "part_label": "(c)",
+          "title": "A wrong condition",
+          "type": "mcq",
+          "marks": 1,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The car park wants to count the cars that stayed **from 3 to 6 hours**. Which condition is **true for every** value of `hours`?",
+          "scheme": {
+            "mark_scheme": "C (1)",
+            "points": [
+              {
+                "criterion": "C",
+                "marks": 1
+              }
+            ],
+            "model_answer": "C — hours >= 3 OR hours <= 6.",
+            "accepted": {
+              "correct": "C"
+            },
+            "explanation": "With OR only one part needs to be true: every number is either at least 3 or at most 6. A, B and D are all correct ways of writing 'from 3 to 6'."
+          },
+          "options": [
+            {
+              "key": "A",
+              "content": "hours >= 3 AND hours <= 6"
+            },
+            {
+              "key": "B",
+              "content": "hours > 2 AND hours < 7"
+            },
+            {
+              "key": "C",
+              "content": "hours >= 3 OR hours <= 6"
+            },
+            {
+              "key": "D",
+              "content": "NOT (hours < 3 OR hours > 6)"
+            }
+          ]
+        },
+        {
+          "key": "pd-nx-2d",
+          "part_label": "(d)",
+          "title": "Electric cars first",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why the decision `electric = \"Y\"?` should be placed **before** the decisions about hours in the flowchart.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- an electric car is free whatever the hours, so the other checks are not needed for it / the check that makes the others pointless goes first (1)\n- otherwise the electric car could be given a charge on the hours path / the paths would need extra checks to set the charge back to 0 (1)",
+            "points": [
+              {
+                "criterion": "Other checks pointless for electric cars",
+                "marks": 1
+              },
+              {
+                "criterion": "Avoids wrong charge / extra steps",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If the car is electric the charge is 0 whatever the number of hours, so checking the hours would be pointless. Putting this decision first sends electric cars straight to charge ← 0 and stops them being charged on the hours path."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pd-nx-3",
+      "title": "Step counter in the Qadam fitness app",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "The **Qadam** fitness app records the number of steps a user walks on each of the **5** school days of a week. A flowchart of the weekly summary contains these steps:\n\n1. `total ← 0`, `goal ← 0`, `day ← 1`\n2. Decision `day <= 5?` — No: go to step 8\n3. `INPUT steps`\n4. `total ← total + steps`\n5. Decision `steps >= 10000?` — Yes: `goal ← goal + 1`\n6. `day ← day + 1`\n7. Go back to step 2\n8. `OUTPUT total, goal`",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pd-nx-3a",
+          "part_label": "(a)",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the trace table for the inputs **8000, 12000, 10000, 9999, 15000**. Write one row for each value input: the value of `day` when it is input, and the values of `total` and `goal` after steps 4 and 5.",
+          "content": {
+            "columns": [
+              "day",
+              "steps",
+              "total",
+              "goal"
+            ],
+            "rows": 5
+          },
+          "scheme": {
+            "mark_scheme": "1 | 8000 | 8000 | 0 (1)\n2 | 12000 | 20000 | 1 (1)\n3 | 10000 | 30000 | 2 (1)\n4 | 9999 | 39999 | 2 (1)\n5 | 15000 | 54999 | 3 (1)\nOutput 54999, 3.",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 4",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 5",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| day | steps | total | goal |\n|---|---|---|---|\n| 1 | 8000 | 8000 | 0 |\n| 2 | 12000 | 20000 | 1 |\n| 3 | 10000 | 30000 | 2 |\n| 4 | 9999 | 39999 | 2 |\n| 5 | 15000 | 54999 | 3 |\n\nOutput: 54999, 3.",
+            "accepted": {
+              "rows": [
+                [
+                  "1",
+                  "8000",
+                  "8000",
+                  "0"
+                ],
+                [
+                  "2",
+                  "12000",
+                  "20000",
+                  "1"
+                ],
+                [
+                  "3",
+                  "10000",
+                  "30000",
+                  "2"
+                ],
+                [
+                  "4",
+                  "9999",
+                  "39999",
+                  "2"
+                ],
+                [
+                  "5",
+                  "15000",
+                  "54999",
+                  "3"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "pd-nx-3b",
+          "part_label": "(b)",
+          "title": "Type of loop",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify the type of loop used in this flowchart and explain why it is suitable for this process.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- count-controlled loop (FOR loop) (1)\n- the number of repetitions (5 days) is known before the loop starts (1)",
+            "points": [
+              {
+                "criterion": "Count-controlled",
+                "marks": 1
+              },
+              {
+                "criterion": "Number of days known in advance",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a count-controlled loop: a counter `day` goes from 1 to 5. It is suitable because the number of repetitions — 5 school days — is known before the loop starts."
+          }
+        },
+        {
+          "key": "pd-nx-3c",
+          "part_label": "(c)",
+          "title": "Write the pseudocode",
+          "type": "pseudocode",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Write pseudocode for the same process using a `FOR` loop. It must also output the **average** number of steps per day.",
+          "content": {
+            "language": "pseudocode"
+          },
+          "scheme": {
+            "mark_scheme": "- total ← 0 and goal ← 0 before a FOR day ← 1 TO 5 … NEXT loop (1)\n- INPUT steps and total ← total + steps inside the loop (1)\n- IF steps >= 10000 THEN goal ← goal + 1 inside the loop, and OUTPUT total, goal and total / 5 after the loop (1)",
+            "points": [
+              {
+                "criterion": "Initialisation and FOR loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Input and totalling in the loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Counting decision and outputs incl. average after the loop",
+                "marks": 1
+              }
+            ],
+            "model_answer": "total ← 0\ngoal ← 0\nFOR day ← 1 TO 5\n    INPUT steps\n    total ← total + steps\n    IF steps >= 10000 THEN\n        goal ← goal + 1\n    ENDIF\nNEXT day\nOUTPUT total, goal\nOUTPUT total / 5",
+            "ai_instructions": "Any clear pseudocode or code is acceptable. The average may be total / 5 or total / day-count; outputs must be after the loop for the last mark."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pd-nx-4",
+      "title": "Entering marks in the Kundelik e-diary",
+      "type": "structured",
+      "marks": 10,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A teacher enters each student's mark for a test into a school e-diary. The mark must be a **whole number from 1 to 10**. An invalid mark is rejected with a message and the teacher enters it again. A valid mark is saved in the *Marks* table and the message *Saved* is output.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "pd-nx-4a",
+          "part_label": "(a)",
+          "title": "Draw the validation process",
+          "type": "flowchart",
+          "marks": 5,
+          "difficulty": "exam",
+          "command_word": "draw",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Draw a flowchart for entering **one** mark, using a **post-condition** loop for the validation.",
+          "content": {
+            "starter": {
+              "nodes": [
+                {
+                  "id": "start",
+                  "type": "terminator",
+                  "label": "START",
+                  "x": 0.5,
+                  "y": 0
+                },
+                {
+                  "id": "end",
+                  "type": "terminator",
+                  "label": "END",
+                  "x": 0.5,
+                  "y": 0.92
+                }
+              ],
+              "edges": []
+            }
+          },
+          "scheme": {
+            "mark_scheme": "- START / END and INPUT mark placed inside the loop (1)\n- decision checks the range with correct boundaries and AND, e.g. mark >= 1 AND mark <= 10? (or two decisions) (1)\n- a check that the mark is a whole number / integer (type check) (1)\n- No exit → OUTPUT error message → flow line back up to INPUT mark (not to END) (1)\n- Yes exit → save mark in Marks (data store) → OUTPUT \"Saved\" → END (1)",
+            "points": [
+              {
+                "criterion": "Start, end, input in the loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Range check 1–10 with AND",
+                "marks": 1
+              },
+              {
+                "criterion": "Type check (whole number)",
+                "marks": 1
+              },
+              {
+                "criterion": "Error message and loop back to input",
+                "marks": 1
+              },
+              {
+                "criterion": "Save in Marks and output Saved",
+                "marks": 1
+              }
+            ],
+            "model_answer": "START → INPUT mark → mark is a whole number AND mark >= 1 AND mark <= 10? No: OUTPUT \"Mark must be a whole number from 1 to 10\" → back to INPUT mark; Yes: save mark in Marks → OUTPUT \"Saved\" → END",
+            "ai_instructions": "In a post-condition loop the input comes before the decision and the No path returns to the input. Do not award the range mark for OR or for > 1 / < 10."
+          }
+        },
+        {
+          "key": "pd-nx-4b",
+          "part_label": "(b)",
+          "title": "Test data",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table by writing the **type of test data** (normal, boundary or erroneous) for each test value.",
+          "content": {
+            "columns": [
+              "Test value",
+              "Type of test data"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "7",
+                null
+              ],
+              [
+                "10",
+                null
+              ],
+              [
+                "11",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "7 – normal (1)\n10 – boundary (1)\n11 – erroneous (1)",
+            "points": [
+              {
+                "criterion": "7",
+                "marks": 1
+              },
+              {
+                "criterion": "10",
+                "marks": 1
+              },
+              {
+                "criterion": "11",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Test value | Type of test data |\n|---|---|\n| 7 | normal |\n| 10 | boundary (extreme) |\n| 11 | erroneous (abnormal) |",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "normal||typical||valid"
+                ],
+                [
+                  null,
+                  "boundary||extreme||boundary data||extreme data"
+                ],
+                [
+                  null,
+                  "erroneous||abnormal||invalid||erroneous data||abnormal data"
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "key": "pd-nx-4c",
+          "part_label": "(c)",
+          "title": "Valid but wrong",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.2.2.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The teacher types **6** for a student who scored **9**. Explain why the validation process does not stop this error, and identify a method that would help to find it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- 6 obeys the rule / is in range, so validation accepts it: validation checks that data is reasonable / allowed, not that it is correct (1)\n- verification, e.g. double entry or a visual check against the original paper / source (1)",
+            "points": [
+              {
+                "criterion": "Validation only checks the rule",
+                "marks": 1
+              },
+              {
+                "criterion": "Verification method",
+                "marks": 1
+              }
+            ],
+            "model_answer": "6 is a whole number from 1 to 10, so it passes validation: validation only checks that data is allowed, not that it is correct. Verification — for example entering the mark twice or checking the screen against the test paper — would help to find the mistake."
+          }
+        }
+      ]
     }
   ],
   "summary": "Designing the processes of a new system with flowcharts — where process design fits in the life cycle, the standard symbols and rules, sequence and selection (nested decisions, AND / OR conditions, boundary testing), flowcharts of real processes in computing systems (library, vending machine, subroutines), iteration with count-controlled, pre-condition and post-condition loops, counting, totalling and finding the smallest value, validation loops, tracing a flowchart with a trace table and converting between flowcharts and pseudocode.",
@@ -3225,10 +3995,10 @@
     "duration": 50,
     "instructions": "Answer **all** questions. Draw flowcharts with the diagram tool where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "pd-tx-1",
-      "pd-tx-2",
-      "pd-tx-3",
-      "pd-tx-4"
+      "pd-nx-1",
+      "pd-nx-2",
+      "pd-nx-3",
+      "pd-nx-4"
     ]
   },
   "lessons": [
