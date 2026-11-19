@@ -10,12 +10,14 @@
     {
       "title": "Redundancy and anomalies",
       "must": "Data redundancy explained, and the update, insertion and deletion anomalies, each with an example.",
-      "weight": 3
+      "weight": 3,
+      "model": "Data redundancy — the same data stored more than once (a customer's address in every order row); it wastes storage and copies can disagree. Anomalies: update anomaly — the same data must be changed in many rows, and missing one makes the data inconsistent (changing a customer's address everywhere); insertion anomaly — data cannot be added without other, unrelated data (a new customer cannot be added until they place an order); deletion anomaly — deleting one record also removes other important data (deleting the only order deletes the customer's details)."
     },
     {
       "title": "Benefits and drawbacks",
       "must": "At least two: less redundancy / storage, consistent data (change in one place), no anomalies, easier to maintain. Drawback: More tables so queries need joins (can be slower / more complex); some systems denormalise for speed.",
-      "weight": 2
+      "weight": 2,
+      "model": "Benefits: less redundancy and storage; consistent data — a fact is changed in one place; no update, insertion or deletion anomalies; easier to maintain and extend. Drawbacks: more tables, so queries need joins and can be slower or more complex; very large systems sometimes denormalise for speed."
     },
     {
       "title": "Rules of 1NF, 2NF and 3NF",
@@ -25,7 +27,8 @@
     {
       "title": "Key terms",
       "must": "Atomic value, repeating group, composite key, functional dependency (A → B) — each with an example.",
-      "weight": 2
+      "weight": 2,
+      "model": "Atomic value — cannot be divided further (FirstName and LastName instead of 'Aliya Nurlanovna'). Repeating group — several values of the same attribute in one row (Subjects: Maths, Physics, ICT). Composite key — a primary key of two or more fields (StudentID, SubjectID). Functional dependency A → B — the value of A decides the value of B (StudentID → StudentName)."
     },
     {
       "title": "Full, partial and transitive dependency",
@@ -55,7 +58,8 @@
     {
       "title": "A full worked example",
       "must": "An unnormalised table (e.g. the club register) taken step by step to 1NF, 2NF and 3NF with the final tables and keys.",
-      "weight": 3
+      "weight": 3,
+      "model": "Worked example — UNF: ClubRegister(PupilID, PupilName, Class, ClassTeacher, ClubID, ClubName, ClubDay) with several clubs per pupil. 1NF: one row per pupil per club, key (PupilID, ClubID). 2NF: remove partial dependencies — Pupils(PupilID, PupilName, Class, ClassTeacher), Clubs(ClubID, ClubName, ClubDay), Memberships(PupilID*, ClubID*). 3NF: remove the transitive dependency Class → ClassTeacher — Pupils(PupilID, PupilName, Class*), Classes(Class, ClassTeacher). Final tables: Pupils, Classes, Clubs, Memberships."
     },
     {
       "title": "Link (junction) table",
@@ -65,7 +69,8 @@
     {
       "title": "Steps to create the database",
       "must": "Create tables with data types, set primary keys, create foreign keys, create the “one” tables first, enter test data, test with join queries.",
-      "weight": 3
+      "weight": 3,
+      "model": "Steps to create the database: 1) create each table with fields and data types; 2) set the primary keys; 3) create the foreign keys (REFERENCES); 4) create the 'one' tables first (Classes, Clubs) and then the 'many' tables (Pupils, Memberships); 5) enter test data; 6) test with queries that join the tables."
     },
     {
       "title": "Referential integrity",
@@ -75,7 +80,8 @@
     {
       "title": "CREATE TABLE with keys",
       "must": "SQL with PRIMARY KEY, REFERENCES Table(Field), NOT NULL, and a composite PRIMARY KEY (a, b).",
-      "weight": 3
+      "weight": 3,
+      "model": "CREATE TABLE Classes (Class VARCHAR(3) PRIMARY KEY, ClassTeacher VARCHAR(50) NOT NULL);\nCREATE TABLE Pupils (PupilID INT PRIMARY KEY, PupilName VARCHAR(50) NOT NULL, Class VARCHAR(3) REFERENCES Classes(Class));\nCREATE TABLE Memberships (PupilID INT REFERENCES Pupils(PupilID), ClubID INT REFERENCES Clubs(ClubID), PRIMARY KEY (PupilID, ClubID));"
     }
   ]
 }

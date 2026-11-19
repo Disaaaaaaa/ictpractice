@@ -148,6 +148,12 @@ export function NoteResultView({
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium">{p.title}</p>
                     {(p.status !== "covered" || !mine) && <p className="text-sm text-muted">{p.must}</p>}
+                    {p.status !== "covered" && p.model && (
+                      <p className="mt-1 rounded-md bg-surface-2 px-3 py-2 text-sm">
+                        <span className="font-semibold">{mine ? "Write in your notes: " : "To add: "}</span>
+                        {p.model}
+                      </p>
+                    )}
                     {p.note && <p className="text-sm text-warning">{p.note}</p>}
                   </div>
                   <span className={cn("whitespace-nowrap text-xs font-medium", cls)}>{label}</span>

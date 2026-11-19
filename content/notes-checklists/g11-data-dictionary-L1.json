@@ -15,17 +15,20 @@
     {
       "title": "What it records for each field",
       "must": "At least five of: field name, data type, size, format, key (PK/FK), validation rule, required / null, description, example.",
-      "weight": 3
+      "weight": 3,
+      "model": "For each field a data dictionary records: field name; data type (VARCHAR, INT, DATE…); size / length; format (e.g. DD/MM/YYYY); key (PK / FK); validation rule (e.g. range 0–100); whether it is required (NOT NULL); a description; an example value."
     },
     {
       "title": "An example entry",
       "must": "One field described in full, e.g. DateOfBirth — Date — 10 — DD/MM/YYYY — PK/none — validation range — example value.",
-      "weight": 1
+      "weight": 1,
+      "model": "Example entry — Field: DateOfBirth; Type: DATE; Size: 10; Format: DD/MM/YYYY; Key: none; Validation: range — between 01/01/2005 and today; Required: yes; Description: the student's date of birth; Example: 14/03/2009."
     },
     {
       "title": "Data types",
       "must": "Text / VARCHAR(n), CHAR(n), Integer, Real / Decimal, Date / Time, Boolean, each with an example field or value.",
-      "weight": 2
+      "weight": 2,
+      "model": "Data types: VARCHAR(n) — text up to n characters (Name VARCHAR(30)); CHAR(n) — fixed length (Gender CHAR(1)); INT — whole numbers (Age); DECIMAL(p,s) / REAL — numbers with a fractional part (Price DECIMAL(8,2)); DATE / TIME (DateOfBirth); BOOLEAN — yes/no (Paid)."
     },
     {
       "title": "Phone numbers as text",
@@ -55,7 +58,8 @@
     {
       "title": "What goes wrong without it",
       "must": "An example of problems: a key is Text in one table and Integer in another so tables cannot be joined; dates in different formats; invalid data accepted.",
-      "weight": 1
+      "weight": 1,
+      "model": "Without a data dictionary: StudentID is VARCHAR in Students but INT in Loans, so the tables cannot be joined; one table stores dates as DD/MM/YYYY and another as MM/DD/YYYY; there are no validation rules, so invalid data (age 250) is accepted; developers use different names for the same data."
     },
     {
       "title": "Active and passive data dictionaries",

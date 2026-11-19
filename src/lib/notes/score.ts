@@ -12,6 +12,8 @@ export type RubricPoint = {
   must: string;
   /** 3 = essential, 2 = important, 1 = supporting detail */
   weight: number;
+  /** the correct information itself, ready to be written into the notes (shown when the point is missing or partial) */
+  model?: string;
 };
 
 export type PointStatus = "covered" | "partial" | "missing";
@@ -57,8 +59,13 @@ export function scoreNotes(rubric: RubricPoint[], verdicts: Verdict[], errors: s
       .sort((a, b) => b.weight * (1 - VALUE[b.status]) - a.weight * (1 - VALUE[a.status]))
       .map((p): Advice =>
         p.status === "missing"
-          ? { kind: "add", title: p.title, text: p.must, gain: gain(p) }
-          : { kind: "complete", title: p.title, text: p.note ? `${p.note.replace(/[.\s]+$/, "")}. Your notes should include: ${p.must}` : p.must, gain: gain(p) },
+          ? { kind: "add", title: p.title, text: p.model ? `Write in your notes: ${p.model}` : p.must, gain: gain(p) }
+          : {
+              kind: "complete",
+              title: p.title,
+              text: `${p.note ? `${p.note.replace(/[.\s]+$/, "")}. ` : ""}${p.model ? `Write in your notes: ${p.model}` : p.note ? `Your notes should include: ${p.must}` : p.must}`,
+              gain: gain(p),
+            },
       ),
     ...errors.slice(0, 3).map((e): Advice => ({ kind: "fix", title: "Correct a mistake", text: e.trim().slice(0, 300), gain: 0 })),
   ];

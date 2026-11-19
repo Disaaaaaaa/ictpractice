@@ -10,12 +10,14 @@
     {
       "title": "Validation checks",
       "must": "At least five of: presence, range, type, length, format (picture), lookup (list), uniqueness — what each checks.",
-      "weight": 3
+      "weight": 3,
+      "model": "Validation checks: presence — the field is not empty; range — the value is between a lower and an upper limit; type — the data is of the right type (a number, a date); length — the number of characters is allowed; format (picture) — the data matches a pattern; lookup (list) — the value is in a list of allowed values; uniqueness — no other record has the same value."
     },
     {
       "title": "Examples of the checks",
       "must": "An example rule for each check, e.g. Mark 0–100 (range), StudentID S + 4 digits (format), Grade 11 or 12 (lookup).",
-      "weight": 2
+      "weight": 2,
+      "model": "Examples: presence — Surname must be entered; range — Mark 0–100; type — Age is a whole number; length — Password 8–20 characters; format — StudentID = S + 4 digits (S1024); lookup — Grade is 11 or 12; uniqueness — Email is not used by another student."
     },
     {
       "title": "Choosing a check",
@@ -40,7 +42,8 @@
     {
       "title": "Test data",
       "must": "Normal (accepted), boundary / extreme (on the limits, accepted) and erroneous (rejected) data, with an example for one rule.",
-      "weight": 2
+      "weight": 2,
+      "model": "Test data for the rule 'Mark 0–100': normal — 57 (accepted); boundary / extreme — 0 and 100 (on the limits, accepted); erroneous — -5, 150 or 'abc' (rejected with an error message)."
     },
     {
       "title": "Validation rules in SQL",
@@ -65,7 +68,8 @@
     {
       "title": "A complete example",
       "must": "A data dictionary table for a whole table with type, size, key, validation, description and example for every field.",
-      "weight": 2
+      "weight": 2,
+      "model": "Example data dictionary for Students: StudentID | VARCHAR | 5 | PK | presence, format S + 4 digits, unique | the student's code | S1024. FullName | VARCHAR | 50 | — | presence | name and surname | Aliya Nurlanovna. DateOfBirth | DATE | 10 | — | range 2005–2012 | date of birth | 14/03/2009. Grade | INT | 2 | — | lookup 11, 12 | grade | 11. Phone | VARCHAR | 12 | — | length 12, format +7 and 10 digits | phone number | +77011234567."
     }
   ]
 }

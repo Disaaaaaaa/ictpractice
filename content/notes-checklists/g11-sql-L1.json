@@ -20,7 +20,8 @@
     {
       "title": "DDL vs DML comparison",
       "must": "A comparison (table) of DDL and DML: purpose, commands, what is affected (schema vs records), an example of each.",
-      "weight": 2
+      "weight": 2,
+      "model": "DDL vs DML — Purpose: DDL defines / changes the structure; DML works with the data in the tables. Commands: DDL — CREATE, ALTER, DROP; DML — SELECT, INSERT, UPDATE, DELETE. Affects: DDL — the schema (tables, fields, types, keys); DML — the records. Example: DDL — CREATE TABLE Students (…); DML — INSERT INTO Students VALUES (…)."
     },
     {
       "title": "SQL data types",
@@ -40,7 +41,8 @@
     {
       "title": "CREATE DATABASE / CREATE TABLE",
       "must": "A full CREATE TABLE example: one line per field with name, type (size) and constraints, commas between lines, primary key, closing );.",
-      "weight": 3
+      "weight": 3,
+      "model": "CREATE DATABASE School;\nCREATE TABLE Students (\n  StudentID INT PRIMARY KEY,\n  FirstName VARCHAR(30) NOT NULL,\n  LastName VARCHAR(30) NOT NULL,\n  Class CHAR(3),\n  Points INT CHECK (Points BETWEEN 0 AND 100)\n);  — one field per line: name, type (size), constraints; commas between lines; no comma after the last line."
     },
     {
       "title": "ALTER TABLE",
@@ -75,7 +77,8 @@
     {
       "title": "Worked example of SELECT",
       "must": "A task broken into columns → table → rows → the final query (e.g. vegetarian meals under 900 tenge).",
-      "weight": 2
+      "weight": 2,
+      "model": "Worked example — 'show the names and prices of vegetarian meals under 900 tenge': columns → Name, Price; table → Meals; rows → Vegetarian = TRUE AND Price < 900. Query: SELECT Name, Price FROM Meals WHERE Vegetarian = TRUE AND Price < 900;"
     },
     {
       "title": "UPDATE syntax",
@@ -100,7 +103,8 @@
     {
       "title": "Common mistakes",
       "must": "At least two: spaces in names, missing / extra commas, DELETE instead of DROP COLUMN, SELECT called DDL, VARCHAR without size; At least two: missing quotes, SET after WHERE, DELETE field FROM, = with a pattern instead of LIKE, AND instead of OR.",
-      "weight": 1
+      "weight": 1,
+      "model": "Common mistakes: spaces in names (Student ID → StudentID); missing or extra commas in CREATE TABLE; DELETE used instead of ALTER TABLE … DROP COLUMN; calling SELECT a DDL command; VARCHAR without a size; text without quotes (WHERE Town = Almaty → 'Almaty'); SET written after WHERE; DELETE Name FROM … (DELETE removes whole rows); = with a pattern instead of LIKE ('A%'); AND instead of OR on one field (Town = 'Almaty' AND Town = 'Astana' returns nothing)."
     }
   ]
 }

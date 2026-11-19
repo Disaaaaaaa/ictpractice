@@ -97,6 +97,7 @@ Each lesson has 2–3 theory sections plus one **"Exam practice"** section. Each
       `{ "topic": slug, "lesson": n, "points": [ { "title", "must", "weight": 1–3 } ] }`,
       10–15 points that follow the lesson's theory in order; weight 3 = core definition / key idea,
       1 = detail. `must` says exactly what a full note contains.
+- [ ] Every point also has `"model"`: the correct information itself, written as the student should copy it into the notebook (definitions, the list items, the example with its values, the SQL) — not a description such as "explained with an example". Students see it after the check as "Write in your notes: …" for missing or partial points.
 
 ## 5. Check and upload
 

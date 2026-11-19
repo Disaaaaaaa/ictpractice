@@ -21,7 +21,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { scoreNotes, type RubricPoint } from "../src/lib/notes/score";
 
-const point = z.object({ title: z.string().min(1).max(120), must: z.string().min(1).max(400), weight: z.number().int().min(1).max(3) });
+const point = z.object({ title: z.string().min(1).max(120), must: z.string().min(1).max(400), weight: z.number().int().min(1).max(3), model: z.string().min(1).max(1500).optional() });
 const fileSchema = z.object({
   rubrics: z.array(z.object({ topic: z.string(), lesson: z.number().int().nullable(), hash: z.string(), points: z.array(point).min(3).max(20) })).default([]),
   results: z.array(
