@@ -2473,6 +2473,368 @@
           }
         }
       ]
+    },
+    {
+      "key": "ost-deterministic-mcq",
+      "title": "Deterministic",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "text": "An RTOS is described as **deterministic**. What does this mean?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It always gives the fastest possible average speed"
+        },
+        {
+          "key": "B",
+          "content": "The same event always gets a response within a known maximum time"
+        },
+        {
+          "key": "C",
+          "content": "It never needs any input from sensors"
+        },
+        {
+          "key": "D",
+          "content": "It runs jobs one after another without users"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Deterministic = predictable: every deadline can be guaranteed. It is not about average speed."
+      }
+    },
+    {
+      "key": "ost-sensor-actuator",
+      "title": "Sensor or actuator",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "text": "Tick (✓) **one** box in each row to show whether each device is a sensor or an actuator in a real-time control system.",
+      "content": {
+        "columns": [
+          "Device",
+          "Sensor",
+          "Actuator"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Temperature probe",
+            null,
+            null
+          ],
+          [
+            "Valve",
+            null,
+            null
+          ],
+          [
+            "Motor that opens a greenhouse window",
+            null,
+            null
+          ],
+          [
+            "Wheel-speed detector in ABS brakes",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Temperature probe – Sensor (1); Valve – Actuator (1); Motor that opens a greenhouse window – Actuator (1); Wheel-speed detector in ABS brakes – Sensor (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Sensors are inputs that measure the process; actuators are outputs that change it."
+      }
+    },
+    {
+      "key": "ost-gpos-deterministic-tf",
+      "title": "General-purpose OS",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "text": "A general-purpose OS such as Windows guarantees a deterministic response time for every event.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A general-purpose OS aims for good average speed and fairness; its response time varies with the load."
+      }
+    },
+    {
+      "key": "ost-priority-mcq",
+      "title": "Pre-emption",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "text": "In a greenhouse RTOS, the display task is running when the **fire sensor** sends an interrupt. What does the RTOS do?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Finishes updating the display, then runs the alarm task"
+        },
+        {
+          "key": "B",
+          "content": "Saves the display task, pre-empts it and runs the higher-priority alarm task at once"
+        },
+        {
+          "key": "C",
+          "content": "Puts the alarm task at the end of a job queue"
+        },
+        {
+          "key": "D",
+          "content": "Restarts the whole system"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Priority-based pre-emptive scheduling: the most urgent task takes the processor immediately."
+      }
+    },
+    {
+      "key": "ost-latency-short",
+      "title": "Interrupt latency",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.1"
+      ],
+      "text": "State the term for the time between an interrupt arriving and the start of the task that handles it.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "interrupt latency (1)",
+        "accepted": {
+          "values": [
+            "interrupt latency",
+            "latency"
+          ]
+        },
+        "explanation": "An RTOS keeps interrupt latency very short and bounded."
+      }
+    },
+    {
+      "key": "ost-batch-terms-match",
+      "title": "Batch processing terms",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "text": "Match each term to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Master file"
+          },
+          {
+            "key": "L2",
+            "text": "Transaction file"
+          },
+          {
+            "key": "L3",
+            "text": "Job control language"
+          },
+          {
+            "key": "L4",
+            "text": "Job queue"
+          }
+        ],
+        "right": [
+          {
+            "key": "R3",
+            "text": "Instructions written in advance telling the OS which program and files to use"
+          },
+          {
+            "key": "R1",
+            "text": "Permanent data, e.g. each customer's tariff and balance, sorted by a key field"
+          },
+          {
+            "key": "R4",
+            "text": "Where submitted jobs wait until the OS runs them"
+          },
+          {
+            "key": "R2",
+            "text": "Changes collected during the period, e.g. meter readings"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Master file – Permanent data, e.g. each customer's tariff and balance, sorted by a key field; Transaction file – Changes collected during the period, e.g. meter readings; Job control language – Instructions written in advance telling the OS which program and files to use; Job queue – Where submitted jobs wait until the OS runs them. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "The transaction file updates the master file; JCL describes each job; jobs wait in the queue."
+      }
+    },
+    {
+      "key": "ost-sort-why-mcq",
+      "title": "Sorting transactions",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "text": "Why is the transaction file **sorted** into the same order as the master file before batch processing?",
+      "options": [
+        {
+          "key": "A",
+          "content": "So that users can check each record while it runs"
+        },
+        {
+          "key": "B",
+          "content": "So that both files can be read once from start to end, matching each transaction with its master record"
+        },
+        {
+          "key": "C",
+          "content": "So that the output does not need to be spooled"
+        },
+        {
+          "key": "D",
+          "content": "So that the job runs in real time"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Sorted files allow one efficient sequential pass that updates each master record and writes a new master file."
+      }
+    },
+    {
+      "key": "ost-batch-disadv-mr",
+      "title": "Batch disadvantages",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "practice": true,
+      "objectives": [
+        "12.3.1.3"
+      ],
+      "text": "Select the **two** disadvantages of batch processing.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Results are not available immediately"
+        },
+        {
+          "key": "B",
+          "content": "It is efficient for large volumes of similar data"
+        },
+        {
+          "key": "C",
+          "content": "Errors may be found only after the whole batch has run"
+        },
+        {
+          "key": "D",
+          "content": "No operator is needed while it runs"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A and C. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "B and D are advantages. The delay and late discovery of errors are disadvantages."
+      }
     }
   ],
   "summary": "Real-time, network and batch processing operating systems — how each works, their key features, hard and soft real-time, pre-emptive scheduling and interrupts, client–server networks and user account management in a NOS, job queues and scheduling in batch systems, and how to choose the right type for a scenario.",
@@ -2995,24 +3357,32 @@
       "questions": [
         "ost-rtos-define-mcq",
         "ost-rtos-uses-mr",
-        "ost-fast-tf",
         "ost-rtos-features-mr",
-        "ost-preempt-fill",
-        "ost-hard-soft",
         "ost-nos-define-mcq",
         "ost-central-backup-tf",
-        "ost-nos-functions-match",
-        "ost-auth-tick",
-        "ost-groups-mcq",
-        "ost-cs-p2p-tick",
         "ost-batch-define-mcq",
         "ost-batch-interaction-tf",
+        "ost-sensor-actuator",
+        "ost-fast-tf",
+        "ost-preempt-fill",
+        "ost-hard-soft",
+        "ost-nos-functions-match",
+        "ost-auth-tick",
+        "ost-cs-p2p-tick",
         "ost-batch-steps",
         "ost-spooling-short",
-        "ost-jcl-short",
         "ost-batch-adv-mr",
         "ost-batch-unsuitable-mcq",
-        "ost-choose"
+        "ost-choose",
+        "ost-deterministic-mcq",
+        "ost-gpos-deterministic-tf",
+        "ost-priority-mcq",
+        "ost-batch-terms-match",
+        "ost-batch-disadv-mr",
+        "ost-groups-mcq",
+        "ost-jcl-short",
+        "ost-latency-short",
+        "ost-sort-why-mcq"
       ]
     }
   ]
