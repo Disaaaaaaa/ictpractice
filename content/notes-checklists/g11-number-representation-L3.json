@@ -4,68 +4,87 @@
   "points": [
     {
       "title": "Rules of binary addition",
-      "must": "0+0=0; 0+1=1; 1+1=0 carry 1; 1+1+1=1 carry 1.",
-      "weight": 3
+      "must": "0+0=0; 0+1=1; 1+1=10 (write 0 carry 1); 1+1+1=11 (write 1 carry 1).",
+      "weight": 3,
+      "model": "0 + 0 = 0; 0 + 1 = 1; 1 + 1 = 10 (write 0, carry 1); 1 + 1 + 1 = 11 (write 1, carry 1)."
+    },
+    {
+      "title": "Carry",
+      "must": "Definition of carry; comparison with denary column addition (column fills up at 2 instead of 10).",
+      "weight": 2,
+      "model": "Carry — the 1 passed to the next column on the left when a column's total is too big for one digit; in binary when the total is 2 (10₂) or 3 (11₂). Same as denary column addition, but a column fills up at 2 instead of 10."
     },
     {
       "title": "Column addition method",
-      "must": "Line up on the right, add from the right with carries written above the next column; a worked example (01101101 + 00110110 = 10100011) checked in denary.",
-      "weight": 3
+      "must": "Line up on the right, add from the rightmost column with carries, continue to the left; worked example with carries (e.g. 01101111 + 00111011 = 10101010).",
+      "weight": 3,
+      "model": "Write the numbers under each other lined up on the right; start from the rightmost column; add both bits and the carry; write the result bit and carry 1 to the left. 01101111 (111) + 00111011 (59) = 10101010 (170)."
     },
     {
-      "title": "Checking in denary",
-      "must": "Convert both numbers and the answer to denary to check (109 + 54 = 163).",
-      "weight": 1
+      "title": "Checking and adding three numbers",
+      "must": "Check by converting to denary; add three numbers two at a time.",
+      "weight": 1,
+      "model": "Check: convert both numbers and the answer to denary (111 + 59 = 170 ✔). For three numbers: add the first two, then add the third to the result."
     },
     {
       "title": "Definition of overflow",
-      "must": "The result is too large for the number of bits available, e.g. more than 255 in an 8-bit register.",
-      "weight": 3
+      "must": "Result too large for the number of bits available (8 bits > 255); the extra bit is lost, so the stored result is wrong.",
+      "weight": 3,
+      "model": "Overflow error — the result of a calculation is too large to be stored in the number of bits available (e.g. > 255 in an 8-bit register); the extra (9th) bit is lost, so the stored result is wrong."
     },
     {
-      "title": "What happens in overflow",
-      "must": "The carry out of the leftmost column (9th bit) is lost; the register keeps the true result minus 256; the overflow flag is set.",
-      "weight": 3
+      "title": "Overflow: what happens and how to spot it",
+      "must": "Carry out of the leftmost column; only the lowest 8 bits kept (true answer − 256); overflow/carry flag set; spot by sum > 255 or > 15 for 4 bits; fixes: more bits, check values; real example (view counter).",
+      "weight": 2,
+      "model": "The carry out of the leftmost column has nowhere to go; the register keeps the lowest 8 bits (= true answer − 256); the processor sets the overflow/carry flag. Spot it: carry out of the last column, or sum > 255 (8 bits) / > 15 (4 bits). Fix: more bits (16-bit), check before adding. Example: a 32-bit video view counter had to be changed to 64 bits."
     },
     {
       "title": "Overflow example",
-      "must": "A worked example such as 200 + 100 → stored 00101100 = 44, or 240 + 31 → 15.",
-      "weight": 2
+      "must": "Worked example: 240 + 31 = 271 in 8 bits → 100001111, stored 00001111 = 15.",
+      "weight": 2,
+      "model": "11110000 (240) + 00011111 (31) = 1 00001111 (271). 271 > 255 → only 00001111 = 15 is stored: overflow error."
     },
     {
-      "title": "Avoiding overflow",
-      "must": "Use more bits (e.g. a 16-bit register) or check values before adding.",
-      "weight": 1
+      "title": "Binary multiplication: rules and why shift-and-add works",
+      "must": "Rules 0×0=0, 0×1=0, 1×1=1; multiplier split into powers of 2 (13 × 5 = 13×4 + 13×1); each row is the multiplicand shifted or zero.",
+      "weight": 3,
+      "model": "0×0 = 0, 0×1 = 0, 1×1 = 1. The multiplier is split into powers of 2: 13 × 101₂ = 13×4 + 13×1. Multiplying by 2, 4, 8 = shifting 1, 2, 3 places left, so each row is the multiplicand shifted or all zeros."
     },
     {
-      "title": "Rules of binary multiplication",
-      "must": "0×0 = 0, 0×1 = 0, 1×1 = 1 — each row is a copy of the number or zeros.",
-      "weight": 1
+      "title": "Partial products and the method",
+      "must": "Definition of partial product; for each multiplier bit from the right copy (1) or zeros (0), shift each row one more place left, add; worked example (1011 × 110 = 1000010 = 66).",
+      "weight": 3,
+      "model": "Partial product — multiplicand × one bit of the multiplier, shifted to that bit's position. Method: from the rightmost bit of the multiplier: 1 → copy the multiplicand, 0 → zeros; shift each row one more place left; add all rows. 1011 × 110: 0000 + 10110 + 101100 = 1000010 = 66 (11 × 6)."
     },
     {
-      "title": "Shift-and-add method",
-      "must": "For each multiplier bit from the right, copy or write zeros, shift one more place left each row, then add the partial products.",
-      "weight": 3
+      "title": "Logical shifts",
+      "must": "Definition; left shift by n = × 2ⁿ, right shift by n = ÷ 2ⁿ with remainder lost; zeros fill the gaps; 1 shifted out of the left = overflow; example table for 00010110.",
+      "weight": 3,
+      "model": "Logical shift — moving all bits left or right, filling empty places with 0. Left by n = × 2ⁿ; right by n = ÷ 2ⁿ (remainder lost). 00010110 (22): left 1 → 00101100 (44); left 2 → 01011000 (88); right 1 → 00001011 (11); right 2 → 00000101 (5). A 1 shifted out of the left end = overflow."
     },
     {
-      "title": "Multiplication example",
-      "must": "A worked example such as 1101 × 101 = 1000001 (13 × 5 = 65) with partial products, checked in denary.",
-      "weight": 2
+      "title": "ALU and registers",
+      "must": "Definitions of ALU and register; how the ALU adds column by column with a carry into the next adder; carry out goes to the carry/overflow flag.",
+      "weight": 2,
+      "model": "ALU — part of the processor that performs arithmetic and logic operations on binary numbers. Register — small, fast storage inside the processor with a fixed number of bits. The ALU adds column by column (one adder per column, carry passed left); the carry out of the leftmost column goes to the carry/overflow flag, which the program can test."
     },
     {
-      "title": "Logical shift",
-      "must": "Bits move left or right; empty places filled with 0; left n places = × 2ⁿ, right n places = ÷ 2ⁿ (remainder lost).",
-      "weight": 3
+      "title": "How the processor multiplies",
+      "must": "Shift-and-add algorithm: total 0; if multiplier bit 1 add multiplicand; shift multiplicand left; next bit; shifts are faster than full multiplication.",
+      "weight": 2,
+      "model": "Total = 0; for each multiplier bit from the right: if 1 add the multiplicand to the total; shift the multiplicand one place left. Multiplying by 2, 4, 8 is replaced by a left shift because a shift is much faster."
     },
     {
-      "title": "Shift example",
-      "must": "00010110 (22) shifted left once = 00101100 (44); right once = 00001011 (11).",
-      "weight": 1
+      "title": "Overflow in multiplication",
+      "must": "Two n-bit numbers: sum needs up to n+1 bits, product up to 2n bits (255×255 = 65 025, 16 bits); example 25 × 12 = 300 → 00101100 = 44 in 8 bits; double-length register.",
+      "weight": 2,
+      "model": "Sum of two 8-bit numbers ≤ 510 (9 bits); product ≤ 255 × 255 = 65 025 (16 bits); n-bit × m-bit product needs up to n + m bits. 00011001 (25) × 00001100 (12) = 100101100 (300) → in 8 bits only 00101100 = 44: overflow. Fix: 16-bit / double-length register."
     },
     {
       "title": "Common mistakes",
-      "must": "Forgetting carries; not shifting partial products; starting from the left bit of the multiplier; keeping the 9th bit in an 8-bit answer.",
-      "weight": 1
+      "must": "Forgotten carries (1+1+1); 9th bit is lost; overflow defined with the number of bits; shift each partial product; start from the right; right shift loses the remainder; multiplication overflows too.",
+      "weight": 1,
+      "model": "Do not forget carries, especially 1+1+1 = 1 carry 1. In 8 bits the 9th bit is lost. Define overflow 'too large for the number of bits'. Shift each partial product one more place; start from the rightmost multiplier bit. Right shift of an odd number loses the remainder. Multiplication and left shifts can overflow too."
     }
   ]
 }

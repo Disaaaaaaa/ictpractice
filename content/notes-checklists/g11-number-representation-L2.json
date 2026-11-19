@@ -4,73 +4,93 @@
   "points": [
     {
       "title": "Why hex matches binary",
-      "must": "16 = 2⁴, so one hex digit represents exactly 4 bits (one nibble).",
-      "weight": 3
+      "must": "16 = 2⁴: a nibble has 16 patterns and hex has 16 digits, so one hex digit = exactly 4 bits; each hex place covers its own 4 bits; denary has no such link.",
+      "weight": 3,
+      "model": "16 = 2⁴, so 4 bits give 16 patterns (0000–1111 = 0–15) and hex has 16 digits (0–F): one hex digit = exactly one nibble. Hex place values 16 = 2⁴, 256 = 2⁸, so each hex digit covers its own block of 4 bits. 10 is not a power of 2, so denary digits do not match groups of bits."
+    },
+    {
+      "title": "Nibble",
+      "must": "Definition of nibble: 4 bits, 16 values, one hex digit.",
+      "weight": 2,
+      "model": "Nibble — a group of 4 bits, half a byte; 16 values (0–15), one hexadecimal digit."
     },
     {
       "title": "Hex digit table",
-      "must": "The table of hex digits 0–F with their denary values and 4-bit binary patterns.",
-      "weight": 2
+      "must": "The table 0–F with denary 0–15 and 4-bit binary 0000–1111.",
+      "weight": 3,
+      "model": "0=0000, 1=0001, 2=0010, 3=0011, 4=0100, 5=0101, 6=0110, 7=0111, 8=1000, 9=1001, A(10)=1010, B(11)=1011, C(12)=1100, D(13)=1101, E(14)=1110, F(15)=1111."
     },
     {
       "title": "Binary → hex",
-      "must": "Split into nibbles from the right, pad with leading 0s, convert each nibble (e.g. 11010011 = D3; 101101 = 2D).",
-      "weight": 3
+      "must": "Group into nibbles from the RIGHT, pad the left group with leading zeros, convert each nibble; why from the right; example.",
+      "weight": 3,
+      "model": "Split into groups of 4 bits from the right, add leading 0s to the left group, change each nibble to one hex digit. 11010011 → 1101 0011 → D3. 101101 → 0010 1101 → 2D (grouping from the left gives a wrong answer)."
     },
     {
       "title": "Hex → binary",
-      "must": "Each hex digit becomes exactly 4 bits (e.g. 5C = 0101 1100).",
-      "weight": 2
+      "must": "Each hex digit becomes exactly 4 bits (keep zeros inside groups); example.",
+      "weight": 2,
+      "model": "Write each hex digit as exactly 4 bits. 5C → 0101 1100 = 01011100. A5 → 1010 0101 (not 1010101)."
     },
     {
       "title": "Hex → denary",
-      "must": "Multiply each digit by its place value 256, 16, 1 and add (7A = 122; 1F4 = 500).",
-      "weight": 3
+      "must": "Place values 1, 16, 256; letters to values; multiply and add; examples (7A = 122; 1F4 = 500).",
+      "weight": 3,
+      "model": "Place values 256, 16, 1. 7A = 7×16 + 10 = 122. 1F4 = 1×256 + 15×16 + 4 = 256 + 240 + 4 = 500."
     },
     {
       "title": "Denary → hex",
-      "must": "Divide by 16: quotient then remainder, or go via binary (245 = F5).",
-      "weight": 2
-    },
-    {
-      "title": "Worked example",
-      "must": "A conversion in a real context, e.g. printer error code 3C = 60 = 00111100.",
-      "weight": 1
+      "must": "Divide by 16: quotient and remainder (repeat for large numbers, read bottom up), or go via binary; example.",
+      "weight": 2,
+      "model": "Divide by 16: quotient = left digit, remainder = right digit (10–15 → A–F). 245 = 15×16 + 5 → F5. Large: 500 ÷16 = 31 r 4; 31 ÷16 = 1 r 15 (F); 1 ÷16 = 0 r 1 → 1F4. Or denary → binary → hex: 245 = 1111 0101 = F5."
     },
     {
       "title": "Hex is only for people",
-      "must": "The computer stores and processes binary; hex is a shorthand to display binary for humans.",
-      "weight": 3
+      "must": "The computer stores and processes binary; hex is a shorthand to display binary for humans; it does not save memory or make the computer faster.",
+      "weight": 3,
+      "model": "The computer stores and processes only binary. Hexadecimal is a way for people to write/display binary values. It does not use less memory and does not make processing faster."
     },
     {
-      "title": "Advantages of hexadecimal",
-      "must": "Shorter (2 digits per byte), easier to read/remember, fewer copying errors, easy conversion to binary, lines up with bytes — each with a reason.",
-      "weight": 3
+      "title": "Advantages of hexadecimal (explained)",
+      "must": "Each advantage with its reason: shorter (1 digit = 4 bits, byte = 2 digits); easier to read/remember/compare; fewer errors when copying; easy conversion to binary digit by digit (unlike denary); lines up with bytes and memory.",
+      "weight": 3,
+      "model": "Shorter — one hex digit replaces 4 bits, a byte is 2 digits instead of 8. Easier for people to read, remember and compare (FF vs F0). Fewer errors when copying/typing because there are fewer digits. Easy to convert to/from binary digit by digit, unlike denary, so the bits can still be seen. Lines up with bytes: 2 digits = 1 byte."
     },
     {
-      "title": "Uses of hexadecimal",
-      "must": "At least four: colour codes, MAC addresses, memory addresses / machine code, error codes, IPv6, Unicode.",
-      "weight": 2
+      "title": "RGB colour codes",
+      "must": "Definition: #RRGGBB, three bytes red/green/blue 0–255; worked example #1E90C8 = (30, 144, 200).",
+      "weight": 2,
+      "model": "RGB colour code — three bytes for red, green, blue (0–255 each), written #RRGGBB. #000000 black, #FFFFFF white, #FF0000 red. #1E90C8: 1E = 30, 90 = 144, C8 = 200 → RGB(30, 144, 200)."
     },
     {
-      "title": "Colour code example",
-      "must": "#2E8B57 split into three bytes: red 46, green 139, blue 87; 3 bytes = 24 bits.",
-      "weight": 1
+      "title": "Memory addresses and memory dumps",
+      "must": "Definition of memory address; dumps show addresses and bytes in hex; text can be read (48 65 6C 6C 6F = Hello).",
+      "weight": 2,
+      "model": "Memory address — a number identifying one byte location in memory, shown in hex (0x7FFE0010). A memory dump lists addresses and bytes in hex, 2 digits per byte: 48 65 6C 6C 6F = ASCII 'Hello'."
     },
     {
-      "title": "MAC address example",
-      "must": "6 bytes = 48 bits = 12 hex digits; easier to read than 48 binary digits.",
-      "weight": 1
+      "title": "MAC addresses and other uses",
+      "must": "MAC address = 48 bits = 6 bytes = 12 hex digits (first 3 bytes = manufacturer); IPv6, Unicode, error codes, machine code / assembly.",
+      "weight": 2,
+      "model": "MAC address — 48-bit hardware address of a network card, 6 pairs of hex digits: 3C-A8-2A-F0-11-6B. Other uses: IPv6 (128 bits, 8 groups of 4 hex digits), Unicode (U+0416), error codes (0x0000007B), machine code and assembly."
     },
     {
-      "title": "Hex vs denary",
-      "must": "Hex lines up with nibbles and converts digit by digit; denary needs arithmetic and does not line up.",
-      "weight": 2
+      "title": "Hex vs denary vs binary",
+      "must": "Comparison: digits per byte (8 / up to 3 / always 2), readability, ease of conversion to binary, lining up with bytes.",
+      "weight": 1,
+      "model": "One byte: binary 8 digits (hard to read), denary up to 3 digits (no link to bits, needs arithmetic), hex always 2 digits (easy to read and converts digit by digit to binary)."
     },
     {
-      "title": "Prefixes",
-      "must": "0x, #, h or subscript 16 show that a number is hexadecimal.",
-      "weight": 1
+      "title": "Prefixes for hexadecimal",
+      "must": "0x, #, h suffix, subscript 16 — and why they are needed.",
+      "weight": 1,
+      "model": "Hex prefixes: 0x1F (programming), #1F4FD8 (colours), 1Fh, 1F₁₆. Without a prefix '10' could be ten, two or sixteen."
+    },
+    {
+      "title": "Common mistakes",
+      "must": "Group from the right; letters A–F not two digits; keep 4 bits per digit; place values 16 and 256; hex is not stored; colour pairs RR GG BB; MAC = 6 bytes.",
+      "weight": 1,
+      "model": "Group nibbles from the right. Write 10–15 as A–F. Each hex digit = exactly 4 bits. Hex place values are 16, 256 (not 10, 100). The computer stores binary, not hex. Colour code pairs = RR GG BB. MAC address = 6 bytes = 48 bits."
     }
   ]
 }

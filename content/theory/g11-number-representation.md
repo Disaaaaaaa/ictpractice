@@ -6,6 +6,28 @@ summary: The binary, denary and hexadecimal number systems, converting between t
 
 Computers store and process **all data as binary** — patterns of **0s and 1s**. People normally count in **denary** (decimal), and programmers often write binary values in **hexadecimal**, a short form of binary. All three systems are **place-value** systems: the value of a digit depends on its **position**.
 
+A number system is simply an agreed way of writing quantities with symbols. The quantity itself — for example, the number of students in your class — does not change when we write it in a different system; only the **symbols** and the **rules for reading them** change. Twenty-six students can be written as 26 in denary, 11010 in binary or 1A in hexadecimal. All three describe exactly the same quantity. This idea is the key to the whole topic: converting between number systems never changes the value, it only changes the way the value is written down.
+
+## How place value works
+
+In a place-value (positional) system each position in a number has a **weight**, called its **place value**. The rightmost position always has the weight **1**. Every time you move one position to the left, the weight is **multiplied by the base**. To find the value of the whole number you multiply each digit by its place value and add the results.
+
+In denary, the base is 10, so the place values are 1, 10, 100, 1000 and so on. The number 307 means 3 × 100 + 0 × 10 + 7 × 1. The zero is important: it holds the tens place empty, so that the 3 stays in the hundreds place. Without a zero, 307 and 37 would look the same. Binary and hexadecimal use exactly the same idea with a different base. In binary the base is 2, so the place values are 1, 2, 4, 8, 16, 32, 64, 128 — each one **double** the previous. In hexadecimal the base is 16, so the place values are 1, 16, 256, 4096 — each one **sixteen times** the previous.
+
+The base also tells you **how many different digits** the system needs. A system with base *b* needs exactly *b* digits, from 0 up to *b* − 1. Denary needs ten digits (0–9). Binary needs only two (0 and 1), because as soon as a column reaches 2 it "fills up" and a 1 is carried to the next column. Hexadecimal needs sixteen digits, but we only have ten number symbols, so the letters **A to F** are used for the values ten to fifteen. A single hex digit such as **C** therefore stands for the value 12, not for two digits 1 and 2.
+
+:::example Worked example: the same digits in three bases
+The digits **1011** mean a different quantity in each system, because the place values are different.
+1. **Denary** (place values 1000, 100, 10, 1): 1 × 1000 + 0 × 100 + 1 × 10 + 1 × 1 = **one thousand and eleven**.
+2. **Binary** (place values 8, 4, 2, 1): 1 × 8 + 0 × 4 + 1 × 2 + 1 × 1 = **11**.
+3. **Hexadecimal** (place values 4096, 256, 16, 1): 1 × 4096 + 0 × 256 + 1 × 16 + 1 × 1 = **4113**.
+This is why we must always show which base a number is written in — with a subscript (1011₂), a prefix (0x1011) or words ("the binary number 1011").
+:::
+
+:::definition Place value
+The **weight of a position** in a number. The rightmost place value is 1 and each place to the left is the previous place value **multiplied by the base**; a digit's contribution is digit × place value.
+:::
+
 :::definition Number base
 The **number of different digits** a number system uses, which is also the number each place value is **multiplied by** when you move one place to the left. Denary is base 10, binary base 2, hexadecimal base 16.
 :::
@@ -32,6 +54,20 @@ A number system with **sixteen digits, 0–9 and A–F** (A = 10, B = 11, C = 12
 | **Digits needed for 182** | 3 (182) | 8 (10110110) | 2 (B6) |
 | How to show the base | 182₁₀ | 10110110₂ | B6₁₆, 0xB6, #B6 |
 :::
+
+## Explaining the differences
+
+An exam question that asks you to **explain the difference** between the number systems expects more than "binary uses 0 and 1". A full answer compares the systems on several points and gives a reason or a consequence for each one.
+
+**1. The base and the digits.** Denary is base 10 and uses ten digits, 0–9. Binary is base 2 and uses only two digits, 0 and 1. Hexadecimal is base 16 and uses sixteen symbols, 0–9 and A–F. The base is the number of digits, and it is also the number at which a column "fills up" and carries into the next column.
+
+**2. The place values.** Because the bases differ, the weights of the positions grow at different speeds: by ×10 in denary (1, 10, 100), by ×2 in binary (1, 2, 4, 8) and by ×16 in hexadecimal (1, 16, 256). The same row of digits therefore stands for different quantities in each system, as the worked example above shows.
+
+**3. The length of a number.** The smaller the base, the more digits are needed for the same value. The value 182 needs eight binary digits (10110110), three denary digits (182) and only two hex digits (B6). Binary numbers are long because each binary digit carries very little information — only a choice between two possibilities.
+
+**4. Who uses each system and why.** Binary is the only system the **hardware** actually uses, because a circuit can easily be made to have two states. Denary is used by **people** for everyday counting and for input and output (prices, marks, temperatures). Hexadecimal is used by **programmers and technicians** as a compact way of writing binary values; it is never used for storage inside the computer.
+
+**5. Link to binary.** Hexadecimal has a special relationship with binary because 16 = 2⁴: one hex digit always matches exactly four bits. Denary has no such link, because 10 is not a power of 2, so converting between denary and binary always needs arithmetic.
 
 ## Why computers use binary
 
@@ -81,11 +117,23 @@ A number system with **sixteen digits, 0–9 and A–F** (A = 10, B = 11, C = 12
 - The same pattern can mean different things: 01000001 is the number 65 **or** the letter "A", depending on how it is used.
 :::
 
+A processor contains billions of **transistors**, tiny electronic switches. A transistor could in theory be set to many different voltage levels, but measuring ten different levels accurately would be very difficult: a small change in temperature, a weak battery or interference from a nearby wire could push a voltage from one level into the next, and the stored digit would change. With only **two** levels the circuit just needs to decide "is the voltage above or below the threshold?". There is a wide safety gap between the two states, so small disturbances do not cause errors. This makes binary hardware **reliable**, **cheap to manufacture** and **fast**.
+
+Binary also suits every kind of storage. On a hard disk a tiny area is magnetised in one of **two directions**. On a CD or DVD the surface has **pits and lands** that either reflect the laser or do not. In flash memory (USB sticks, SSDs) a cell either **holds an electric charge or does not**. In each case the medium naturally has two states, which can stand for 1 and 0.
+
+Finally, binary fits the **logic** that processors are built from. Logic gates (AND, OR, NOT) work with two values, true and false, so every calculation the computer performs — addition, comparison, decision — can be built from simple two-state circuits. This is why all data has to be turned into binary before a computer can use it: numbers, letters, the pixels of a photo, the samples of a song and the instructions of a program are all stored as patterns of bits. The pattern itself has no meaning; the **program** that reads it decides whether 01000001 is the number 65, the letter "A" or part of a colour.
+
 ## Bits, nibbles and bytes
 
 :::definition Bit
 A **binary digit** — a single 0 or 1. The smallest unit of data.
 :::
+
+:::definition Byte
+A group of **8 bits**. It can hold 2⁸ = **256 different values**, 0 to 255; memory sizes are measured in bytes.
+:::
+
+Why does every extra bit **double** the number of values? Think of all the patterns you can make with 2 bits: 00, 01, 10, 11 — four patterns. Adding a third bit, you can put a 0 in front of each of the four patterns or a 1 in front of each of them, giving 4 + 4 = 8 patterns. Each new bit repeats the whole previous list twice, so *n* bits give 2 × 2 × … × 2 = **2ⁿ** patterns. Because one of the patterns is used for zero (00000000), the largest value is one less than the number of patterns: **2ⁿ − 1**.
 
 :::cards
 ### Units
@@ -119,7 +167,11 @@ A school gives every locker a binary number. It has **150 lockers**, numbered 0�
 # Converting binary and denary
 @lo 11.1.1.2
 
+Converting means writing the **same value** in a different number system. In the exam you must be able to convert in both directions and to **show your working**, because a 2-mark conversion usually gives one mark for the method and one for the answer. There are two directions for binary and denary, and for each there is a reliable method.
+
 ## Binary → denary
+
+Converting from binary to denary is the easier direction, because it simply uses the meaning of place value. Each bit tells you whether a particular power of two is **included** in the number (1) or **not included** (0). You write the place values above the bits, then add up the place values that have a 1 under them. The 0 bits contribute nothing, so you can ignore them. For an 8-bit number the place values are always 128, 64, 32, 16, 8, 4, 2, 1. If the number has fewer than eight bits, line it up on the **right**: the rightmost bit is always worth 1, whatever the length of the number.
 
 :::svg Binary → denary: add the place values of the 1-bits
 <svg class="nr" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The binary number 10110110 under the place values 128 to 1; the 1-bits add up to 182">
@@ -178,6 +230,10 @@ A school gives every locker a binary number. It has **150 lockers**, numbered 0�
 
 ## Denary → binary
 
+Going the other way, you need to find **which powers of two add up to the number**. There are two methods and both are accepted in the exam; choose the one you make fewer mistakes with, and use the other to check.
+
+The **subtraction method** works from the largest place value downwards. You ask "does 128 fit into my number?". If it does, that bit is 1 and you subtract 128; if not, the bit is 0. Then you ask the same question for 64 with what is left, and so on down to 1. Because each place value is bigger than all the smaller ones added together (128 > 64 + 32 + … + 1 = 127), there is always exactly one correct answer, and the remainder at the end must be 0.
+
 :::steps Denary → binary (place-value / subtraction method)
 - Start with the largest place value (128). If it **fits** into the number, write **1** and **subtract** it; otherwise write **0**.
 - Repeat with the remainder for 64, 32, 16, 8, 4, 2, 1.
@@ -225,6 +281,18 @@ A school gives every locker a binary number. It has **150 lockers**, numbered 0�
 - Read the remainders from the **bottom up**; add leading 0s to make 8 bits if the question asks for it.
 :::
 
+The **division method** works from the smallest place value upwards. When you divide a number by 2, the remainder tells you whether the number is odd (1) or even (0) — and that is exactly the value of the rightmost bit. Dividing by 2 also shifts all the other bits one place to the right, so the next remainder gives the next bit, and so on. This is why the **first remainder is the rightmost bit** and the remainders must be read from the **bottom up**. The division method is useful for large numbers when you do not remember the place values above 128.
+
+:::compare Two methods for denary → binary
+| | Subtraction (place-value) method | Division-by-2 method |
+|---|---|---|
+| Works from | The **largest** place value down | The **smallest** bit (the 1s) up |
+| You need to know | The place values 128, 64 … 1 | Only how to halve a number |
+| Order of the answer | Bits are written **left to right** | Remainders are read **bottom up** |
+| Good for | Numbers up to 255 in an exam | Large numbers (e.g. 1000, 5000) |
+| Typical mistake | Forgetting to write the 0 bits | Reading the remainders top to bottom |
+:::
+
 :::example Worked example: a classroom sensor
 A temperature sensor in a school's computer room sends the reading **00011001** to the controller.
 1. Place values of the 1-bits: 16, 8 and 1.
@@ -240,6 +308,111 @@ A temperature sensor in a school's computer room sends the reading **00011001** 
 - Writing place values from the **left** as 1, 2, 4 … — the **rightmost** bit is worth 1.
 - Giving 7 bits when the question says "8-bit binary" — add a **leading 0**.
 - Thinking 8 bits can store 256 as a number — 256 **different values**, but the largest is **255**.
+:::
+
+# Binary in real systems
+@lo 11.1.1.1 11.1.1.2
+
+So far we have converted single numbers. In real computer systems, binary numbers are always stored in a **fixed number of bits** — a register in the processor, a byte in memory, a field in a network packet. Understanding what that fixed size means is what turns conversion practice into real understanding of how data is represented.
+
+## Counting in binary
+
+Counting in binary follows the same pattern as counting in denary or as the wheels of a car's odometer. The rightmost digit goes up by one each time. When it cannot go any higher (9 in denary, 1 in binary), it goes back to 0 and the digit to its left goes up by one. In binary this happens on **every second count**, so the rightmost bit alternates 0, 1, 0, 1; the next bit changes every 2 counts, the next every 4 counts, and the next every 8 counts.
+
+:::compare Counting from 0 to 15 in 4 bits
+| Denary | Binary | Hex | Denary | Binary | Hex |
+|---|---|---|---|---|---|
+| 0 | 0000 | 0 | 8 | 1000 | 8 |
+| 1 | 0001 | 1 | 9 | 1001 | 9 |
+| 2 | 0010 | 2 | 10 | 1010 | A |
+| 3 | 0011 | 3 | 11 | 1011 | B |
+| 4 | 0100 | 4 | 12 | 1100 | C |
+| 5 | 0101 | 5 | 13 | 1101 | D |
+| 6 | 0110 | 6 | 14 | 1110 | E |
+| 7 | 0111 | 7 | 15 | 1111 | F |
+:::
+
+Look at the pattern: a number of the form 1000…0 is always a **power of two** (1000 = 8, 10000 = 16), and a number made only of 1s is always **one less than a power of two** (111 = 7, 1111 = 15, 11111111 = 255). These two facts are very useful for quick checks in the exam.
+
+## Most and least significant bits
+
+:::definition Most significant bit (MSB)
+The **leftmost bit** of a binary number — the bit with the **largest place value** (128 in a byte). Changing it changes the value the most.
+:::
+
+:::definition Least significant bit (LSB)
+The **rightmost bit** of a binary number, with place value **1**. It shows whether the number is odd (1) or even (0).
+:::
+
+When a number is stored in a fixed number of bits, the empty positions on the left are filled with **leading zeros**. The value 5 stored in a byte is 00000101, not 101. Leading zeros do not change the value, but they matter for the computer: the byte always contains exactly eight bits, and the processor reads all eight. That is why an exam question that says "give your answer as an **8-bit** binary number" expects all eight digits.
+
+:::svg A byte: bit positions, place values, MSB and LSB
+<svg class="nr" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The byte 00000101 with place values 128 down to 1; the leftmost bit is the most significant bit and the rightmost bit is the least significant bit; leading zeros fill the empty places">
+  <style>
+    svg.nr .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.nr .d{font:700 22px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nr .dp{font:700 22px ui-monospace,monospace;fill:var(--primary)}
+    svg.nr .pv{font:600 13px ui-monospace,monospace;fill:var(--muted)}
+    svg.nr .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nr .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nr .wr{fill:none;stroke:var(--warning);stroke-width:2;stroke-dasharray:5 4}
+  </style>
+  <text class="pv" x="100" y="30" text-anchor="middle">128</text><text class="pv" x="180" y="30" text-anchor="middle">64</text><text class="pv" x="260" y="30" text-anchor="middle">32</text><text class="pv" x="340" y="30" text-anchor="middle">16</text><text class="pv" x="420" y="30" text-anchor="middle">8</text><text class="pv" x="500" y="30" text-anchor="middle">4</text><text class="pv" x="580" y="30" text-anchor="middle">2</text><text class="pv" x="660" y="30" text-anchor="middle">1</text>
+  <rect class="bx" x="70" y="42" width="60" height="50" rx="6"/><text class="d" x="100" y="76" text-anchor="middle">0</text>
+  <rect class="bx" x="150" y="42" width="60" height="50" rx="6"/><text class="d" x="180" y="76" text-anchor="middle">0</text>
+  <rect class="bx" x="230" y="42" width="60" height="50" rx="6"/><text class="d" x="260" y="76" text-anchor="middle">0</text>
+  <rect class="bx" x="310" y="42" width="60" height="50" rx="6"/><text class="d" x="340" y="76" text-anchor="middle">0</text>
+  <rect class="bx" x="390" y="42" width="60" height="50" rx="6"/><text class="d" x="420" y="76" text-anchor="middle">0</text>
+  <rect class="on" x="470" y="42" width="60" height="50" rx="6"/><text class="dp" x="500" y="76" text-anchor="middle">1</text>
+  <rect class="bx" x="550" y="42" width="60" height="50" rx="6"/><text class="d" x="580" y="76" text-anchor="middle">0</text>
+  <rect class="on" x="630" y="42" width="60" height="50" rx="6"/><text class="dp" x="660" y="76" text-anchor="middle">1</text>
+  <rect class="wr" x="62" y="36" width="396" height="62" rx="8"/>
+  <text class="t" x="260" y="120" text-anchor="middle">leading zeros: keep the byte 8 bits long</text>
+  <text class="h" x="100" y="150" text-anchor="middle">MSB</text><text class="s" x="100" y="168" text-anchor="middle">largest place value</text>
+  <text class="h" x="660" y="150" text-anchor="middle">LSB</text><text class="s" x="660" y="168" text-anchor="middle">place value 1 (odd/even)</text>
+  <text class="t" x="380" y="190" text-anchor="middle">00000101 = 4 + 1 = 5</text>
+</svg>
+:::
+
+## Choosing the number of bits
+
+Every system designer has to decide how many bits to use for each value. Too few bits and some values cannot be stored; too many bits and memory, storage and network capacity are wasted. The rule comes straight from 2ⁿ: to store values from 0 up to a maximum *M*, you need the smallest *n* for which **2ⁿ − 1 ≥ M** (or, if you need *N* different values, the smallest *n* with **2ⁿ ≥ N**).
+
+:::steps How to find the minimum number of bits
+- Write down the **largest value** to be stored (or the number of different values needed).
+- List the powers of two: 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 …
+- Find the **first power of two that is greater than the largest value** (or at least the number of values).
+- Its exponent is the number of bits. *Example:* largest value 500 → 512 = 2⁹ → **9 bits**.
+:::
+
+:::example Worked example: an IPv4 address
+A school's server has the IPv4 address **192.168.10.37**. An IPv4 address is 32 bits, written as **four denary numbers**, each stored in **one byte** (so each part must be 0–255).
+1. 192 = 128 + 64 → **11000000**
+2. 168 = 128 + 32 + 8 → **10101000**
+3. 10 = 8 + 2 → **00001010** (leading zeros keep it 8 bits)
+4. 37 = 32 + 4 + 1 → **00100101**
+5. The router actually works with the 32-bit pattern 11000000 10101000 00001010 00100101. A part such as "300" is impossible in an IPv4 address, because 300 > 255 does not fit in a byte.
+:::
+
+:::cards
+### Where binary sizes matter
+- **Colour depth**: 8 bits per colour channel gives 256 shades of red, green and blue.
+- **Characters**: 7-bit ASCII has 128 codes; 8-bit extended ASCII has 256.
+- **Counters and sensors**: a 10-bit sensor gives readings 0–1023.
+- **Addresses**: a 32-bit address can name 2³² ≈ 4.3 billion different locations.
+### What goes wrong with too few bits
+- Values above 2ⁿ − 1 **cannot be stored** at all.
+- A calculation that goes past the limit causes an **overflow** (lesson 3).
+- The program may show **wrong results** without any warning.
+:::
+
+:::warning Common mistakes
+- Using 2ⁿ as the largest value instead of **2ⁿ − 1** (8 bits → 255, not 256).
+- Answering "how many bits are needed for 64?" with 6 — 6 bits only reach **63**, so **7 bits** are needed.
+- Dropping leading zeros when a fixed number of bits is asked for.
+- Calling the leftmost bit the "least" significant — the **MSB is on the left**.
 :::
 
 # Exam practice: number systems and binary
@@ -281,6 +454,14 @@ Computer circuits / transistors have **two states**, on and off (1); these two s
 
 Hexadecimal is closely linked to binary because **16 = 2⁴**: every hex digit stands for **one nibble** (4 bits). That makes binary ↔ hex conversion a matter of **grouping**, with no arithmetic on large numbers.
 
+Why does this work? A group of four bits can hold 2⁴ = 16 different patterns, from 0000 (0) to 1111 (15). Hexadecimal has exactly sixteen digits, from 0 to F (15). So there is a perfect one-to-one match: **every possible nibble has its own hex digit, and every hex digit has its own nibble**. Furthermore, the hex place values are powers of 16, and 16 = 2⁴, 256 = 2⁸, 4096 = 2¹². That means the second hex digit from the right covers exactly bits 4–7, the third covers bits 8–11, and so on. Each hex digit "owns" its own block of four bits and never affects any other block. Denary does not have this property: 10 is not a power of two, so a single denary digit does not correspond to any fixed group of bits, and converting denary to binary always needs real arithmetic.
+
+:::definition Nibble
+A group of **4 bits** — half a byte. It holds 2⁴ = **16 values** (0000–1111, 0–15), so **one nibble = one hexadecimal digit**.
+:::
+
+In this lesson you will meet three directions of conversion: binary ↔ hexadecimal (by grouping), hexadecimal ↔ denary (by place values or by division), and the route **via binary**, which is often the safest way to go from denary to hex in an exam. You should learn the sixteen-row table below by heart — it is used in every hex question.
+
 :::compare Hex digit ↔ denary ↔ 4-bit binary
 | Hex | Denary | Binary | Hex | Denary | Binary |
 |---|---|---|---|---|---|
@@ -295,6 +476,10 @@ Hexadecimal is closely linked to binary because **16 = 2⁴**: every hex digit s
 :::
 
 ## Binary ↔ hexadecimal
+
+To change binary into hexadecimal you cut the bit pattern into nibbles and replace each nibble with its hex digit. The cutting must start from the **right-hand end**, because the rightmost bit is always the 1s bit and each nibble must line up with the place values 8, 4, 2, 1. If the number of bits is not a multiple of four, the leftmost group will be short; you complete it with **leading zeros**, which never change the value. For example, the 6-bit number 101101 is grouped as **10 1101**, completed to **0010 1101**, and gives **2D**. If you grouped from the left (1011 01) you would get a completely different and wrong answer.
+
+The reverse direction is even simpler: each hex digit is written as **exactly four bits**. The important word is *exactly*: the digit 3 must be written as 0011, not 11, otherwise the bits of the other digits move into the wrong places. Only zeros at the very **start** of the whole number may be dropped (unless a fixed size is asked for).
 
 :::svg Binary → hexadecimal: split into nibbles from the right
 <svg class="nr" viewBox="0 0 760 216" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="11010011 is split into 1101 and 0011, giving D3; 101101 is padded to 0010 1101, giving 2D">
@@ -341,6 +526,18 @@ Hexadecimal is closely linked to binary because **16 = 2⁴**: every hex digit s
 :::
 
 ## Hexadecimal ↔ denary
+
+Hexadecimal to denary uses the place-value method exactly as in binary, but the place values are **1, 16, 256, 4096**. First change each letter into its value (A = 10 … F = 15), then multiply each digit by its place value and add. For a two-digit hex number the left digit counts how many **sixteens** there are and the right digit how many **ones**: 7A means seven sixteens and ten ones. For three digits, the leftmost digit counts the 256s.
+
+From denary to hexadecimal you can **divide by 16**. For numbers up to 255 one division is enough: the whole-number quotient is the left digit and the remainder is the right digit. For larger numbers, keep dividing the quotient by 16 and read the remainders from the bottom up — the same idea as the division-by-2 method for binary. Many students find it easier and safer to convert **denary → binary → hex**, because both of those steps use methods they already know well, and the binary in the middle gives a natural check.
+
+:::example Worked example: a three-digit hex number
+A games console reports that a save file is **1F4** bytes long. What is that in denary, and in binary?
+1. Place values: 256, 16, 1. Digits: 1, F (= 15), 4.
+2. 1 × 256 + 15 × 16 + 4 × 1 = 256 + 240 + 4 = **500 bytes**.
+3. To binary, write 4 bits per digit: 1 = 0001, F = 1111, 4 = 0100 → 0001 1111 0100 → **111110100** (the leading zeros of the whole number can be dropped).
+4. Check: 256 + 128 + 64 + 32 + 16 + 4 = 500 ✔. Back to hex from 500: 500 ÷ 16 = 31 r 4; 31 ÷ 16 = 1 r 15 (F); 1 ÷ 16 = 0 r 1 → read bottom up: **1F4** ✔.
+:::
 
 :::svg Hexadecimal → denary with place values 256, 16, 1
 <svg class="nr" viewBox="0 0 760 196" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1F4 under the hexadecimal place values 256, 16 and 1 gives 256 + 240 + 4 = 500">
@@ -412,6 +609,22 @@ A school printer shows the error code **3C**. The technician's manual lists code
 
 The computer **never** stores hexadecimal — inside it everything is still binary. Hexadecimal is used by **people** (programmers, technicians, web designers) as a **shorthand for binary**.
 
+To understand why hexadecimal is so popular, imagine the job of a programmer who must look at the contents of memory while searching for a bug. Memory is billions of bytes, and every byte is eight 0s and 1s. A screen full of binary — 01001000 01100101 01101100 01101100 — is almost impossible to read: the eye loses its place, two similar patterns look identical, and copying one value by hand easily introduces an error. Denary would be shorter, but the programmer often needs to know **which individual bits** are set (for example, which bit is a flag or which bits make up a colour channel), and a denary number hides the bits. Hexadecimal solves both problems at once: it is short **and** it shows the bits, because each digit can be turned back into its nibble instantly.
+
+## The advantages explained
+
+**It is much shorter than binary.** One hex digit replaces four bits, so a byte is written with two characters instead of eight, and a 32-bit memory address needs eight hex digits instead of thirty-two bits. Shorter values fit on a screen, in a table or on a device label, and can be read aloud over the phone.
+
+**It is easier for people to read, remember and compare.** Humans are poor at handling long strings of identical symbols. FF and F0 are clearly different at a glance; 11111111 and 11110000 need careful counting. Because the digits are more varied, a person can remember a value such as 3C long enough to type it.
+
+**It reduces errors.** Every copied digit is a chance for a mistake. With a quarter of the digits there are far fewer chances to drop, swap or repeat a symbol, so technicians and programmers make fewer transcription errors.
+
+**It converts to and from binary easily.** Unlike denary, no arithmetic is needed: each hex digit maps directly onto four bits. This means a programmer can still "see" the binary — for example, that the hex value 80 is 1000 0000, with only the MSB set.
+
+**It lines up with bytes and memory.** Two hex digits are exactly one byte, four digits are two bytes, and so on. Memory sizes and addresses are powers of two, so they come out as round numbers in hex (a 64 KB block ends at address FFFF), which makes memory layouts easy to understand.
+
+None of these advantages is about the computer itself. Hexadecimal does **not** make the computer faster and does **not** save any memory, because the value is stored in binary whichever way a human writes it.
+
 :::cards
 ### Advantages of hexadecimal
 - **Shorter** than binary — one hex digit replaces **4 bits**, so a byte is just **2 digits** (B6 instead of 10110110).
@@ -482,6 +695,92 @@ A sign that shows a number is written in hex: **0x** (programming, e.g. `0x1F`),
 - Advantages without explanation: say **why** it is easier (fewer digits, one digit = 4 bits).
 :::
 
+# Hexadecimal at work
+@lo 11.1.1.2 11.1.1.3
+
+An exam answer about the advantages of hexadecimal is much stronger when it is linked to a **real use**. In this section we look closely at four places where you meet hexadecimal and see, in each case, exactly why hex is chosen instead of binary or denary.
+
+## Colour codes on web pages
+
+:::definition RGB colour code
+A colour written as three bytes — the amounts of **red, green and blue** light, each 0–255 — usually in hex as **#RRGGBB**, e.g. #FF8000 (red 255, green 128, blue 0).
+:::
+
+Every colour on a screen is mixed from red, green and blue light. A web page stores each of the three amounts in **one byte**, so a colour takes 24 bits. In CSS that colour is written as a # followed by **six hex digits**: the first pair is red, the second green, the third blue. #000000 is black (no light), #FFFFFF is white (all channels at 255), #FF0000 is pure red. A designer can tell from the code alone that #F0F0F0 is a very light grey (all three channels high and equal) or that #0000AA is a darker blue. The same colour in binary would be a 24-digit string, and in denary three separate numbers that do not show the byte boundaries as neatly.
+
+:::example Worked example: a school website colour
+The school website uses the colour **#1E90C8** for its buttons. Find the red, green and blue values.
+1. Split into pairs: **1E**, **90**, **C8**.
+2. Red: 1E = 1 × 16 + 14 = **30**.
+3. Green: 90 = 9 × 16 + 0 = **144**.
+4. Blue: C8 = 12 × 16 + 8 = **200**.
+5. So the colour is RGB(30, 144, 200) — mostly blue with some green: a sky blue. To make it slightly darker, the designer lowers each pair, e.g. #1A7EB0.
+:::
+
+## Memory addresses and memory dumps
+
+:::definition Memory address
+A number that identifies **one location (byte) in main memory**. Addresses are shown in hex, e.g. 0x7FFE0010, because they are long binary numbers.
+:::
+
+When a program crashes, the operating system or a debugger can show a **memory dump**: a listing of the addresses and the bytes stored at them. Both are shown in hex. Each row of the dump typically shows 16 bytes, so the addresses go up by 10₁₆ each row — a neat pattern that would be lost in denary. A programmer who knows the character codes can even read text in the dump: the bytes 48 65 6C 6C 6F are the ASCII codes of "Hello".
+
+:::svg A memory dump: addresses and bytes shown in hexadecimal
+<svg class="nr" viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A memory dump. Address 0x0040 holds bytes 48 65 6C 6C 6F, which are the ASCII codes of Hello; the same first byte 48 in binary is 01001000">
+  <style>
+    svg.nr .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.nr .m{font:600 15px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nr .mp{font:700 15px ui-monospace,monospace;fill:var(--primary)}
+    svg.nr .ms{font:700 15px ui-monospace,monospace;fill:var(--success)}
+    svg.nr .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nr .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nr .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+  </style>
+  <text class="h" x="30" y="28">Address</text><text class="h" x="160" y="28">Bytes (hex)</text><text class="h" x="560" y="28">As text</text>
+  <rect class="bx" x="20" y="40" width="720" height="34" rx="6"/>
+  <text class="m" x="30" y="63">0x0030</text><text class="m" x="160" y="63">00 00 00 00 1F 4A 00 02</text><text class="m" x="560" y="63">. . . . . J . .</text>
+  <rect class="on" x="20" y="80" width="720" height="34" rx="6"/>
+  <text class="mp" x="30" y="103">0x0040</text><text class="mp" x="160" y="103">48 65 6C 6C 6F 21 00 00</text><text class="ms" x="560" y="103">H e l l o ! . .</text>
+  <rect class="ok" x="20" y="128" width="340" height="60" rx="8"/>
+  <text class="t" x="34" y="152">one byte: hex 48 = 0100 1000</text>
+  <text class="s" x="34" y="174">= 64 + 8 = 72 = ASCII code of "H"</text>
+  <text class="t" x="390" y="152">2 hex digits per byte, 8 bytes per row</text>
+  <text class="s" x="390" y="174">the same row in binary would be 64 digits long</text>
+</svg>
+:::
+
+## MAC addresses and other identifiers
+
+:::definition MAC address
+A **48-bit** hardware address that identifies a network interface card, written as **6 pairs of hex digits**, e.g. 3C-A8-2A-F0-11-6B. The first 3 bytes identify the manufacturer.
+:::
+
+A MAC address is burned into every network card, Wi-Fi adapter and phone. Network administrators read them from labels, type them into router filter lists and compare them in log files. Written in binary, each address would be 48 digits long; in hex it is 12 digits, separated into pairs so that each pair is one byte. The same idea is used for **IPv6** addresses (128 bits written as eight groups of four hex digits, e.g. 2001:0db8:0000:0000:0000:ff00:0042:8329) and for **Unicode** character codes (U+0416 is the Cyrillic letter Ж).
+
+## Error codes, machine code and assembly
+
+When Windows stops with an error screen, or a printer shows a fault code, the code is often in hex, for example **0x0000007B**. The value is really a binary number produced by the program, and hex lets an engineer look it up in a manual or type it into a search engine. Programmers who work close to the hardware — writing **assembly language** or examining **machine code** — also see instructions and data in hex, because each instruction is a binary pattern and hex shows its bytes and bits compactly.
+
+:::compare Where hexadecimal is used — and why
+| Use | Example | Size | Why hex rather than binary or denary |
+|---|---|---|---|
+| Colour codes (HTML/CSS) | #1E90C8 | 3 bytes | Each pair = one colour channel; 6 digits instead of 24 bits |
+| Memory addresses / dumps | 0x0040: 48 65 6C | Many bytes | Rows line up with bytes; bits of each byte can be seen |
+| MAC addresses | 3C-A8-2A-F0-11-6B | 6 bytes | 12 digits instead of 48 bits; easy to read off a label |
+| IPv6 addresses | 2001:0db8::8329 | 16 bytes | 32 digits instead of 128 bits |
+| Error / status codes | 0x0000007B | 4 bytes | Short, exact value to look up |
+| Machine code / assembly | B8 01 00 | Instructions | Shows the bit patterns of instructions compactly |
+:::
+
+:::warning Common mistakes
+- Splitting a colour code into the wrong pairs — it is always **RR GG BB** from the left after the #.
+- Writing that a MAC address has 6 bits — it has **6 bytes = 48 bits**.
+- Converting a colour pair with denary place values (C8 = 12 × 10 + 8 ✗) — use **× 16**.
+- Naming a use without the reason: the mark is often for **why** hex suits that use.
+:::
+
 # Exam practice: hexadecimal
 @lo 11.1.1.2 11.1.1.3
 
@@ -520,6 +819,14 @@ Any two: HTML / CSS **colour codes** (1); **MAC addresses** (1); memory addresse
 @lo 11.1.1.4
 
 Binary addition works like column addition in denary, but a column "fills up" at **2** instead of 10: 1 + 1 = **10₂** (write 0, carry 1).
+
+Remember how you add 58 + 67 in denary. You add the units, 8 + 7 = 15; 15 does not fit in one column, so you write 5 and **carry** 1 ten into the tens column. Then 5 + 6 + 1 = 12: write 2, carry 1 into the hundreds. The answer is 125. Binary addition uses exactly the same method. The only difference is that a binary column can hold only 0 or 1, so it overflows into the next column much sooner — as soon as the total in a column reaches **2**. Since 2 in binary is written 10, you write the 0 in the current column and carry the 1. If a column contains two 1s **and** a carry from the right, the total is 3, which is 11 in binary: write 1 and carry 1. These are the only four cases that can ever happen, so binary addition is very easy to learn and very easy to build into hardware.
+
+:::definition Carry
+The **1 that is passed to the next column on the left** when the total in a column is too large for one digit — in binary, when a column adds up to 2 (10₂) or 3 (11₂).
+:::
+
+Processors add binary numbers all the time — not only for arithmetic in programs, but also to calculate the address of the next instruction, to move through the items of an array and to count loop repetitions. Every one of these additions follows the four rules in the table below.
 
 :::compare Rules of binary addition
 | Sum in a column | Result (denary) | Write | Carry to the next column |
@@ -571,7 +878,24 @@ Binary addition works like column addition in denary, but a column "fills up" at
 :::widget binary_addition Try it: add two 8-bit numbers and watch the carries
 :::
 
+:::example Worked example: a column with three 1s
+A shop's stock program adds the morning delivery to the stock of exercise books: **01101111** (111) + **00111011** (59).
+1. Column 1 (place value 1): 1 + 1 = 10 → write **0**, carry 1.
+2. Column 2: 1 + 1 + carry 1 = 11 → write **1**, carry 1.
+3. Column 3: 1 + 0 + 1 = 10 → write **0**, carry 1.
+4. Column 4: 1 + 1 + 1 = 11 → write **1**, carry 1.
+5. Column 5: 0 + 1 + 1 = 10 → write **0**, carry 1.
+6. Column 6: 1 + 1 + 1 = 11 → write **1**, carry 1.
+7. Column 7: 1 + 0 + 1 = 10 → write **0**, carry 1.
+8. Column 8: 0 + 0 + 1 = 1 → write **1**, no carry out.
+9. Result **10101010** = 128 + 32 + 8 + 2 = **170**. Check: 111 + 59 = 170 ✔. There is no carry out of the eighth column, so the answer fits in 8 bits.
+:::
+
+Always check an addition by converting both numbers and the result into denary. The check takes less than a minute and catches the most common error — a forgotten carry. If a question asks you to add **three** binary numbers, add the first two, then add the third to that result; trying to add three bits plus carries in one column at once (which can give totals up to 5) leads to mistakes.
+
 ## Overflow
+
+Inside a computer, numbers are not written on paper with as many columns as we like — they are held in **registers** and memory locations of a **fixed size**. An 8-bit register has exactly eight places, so the largest number it can hold is 11111111 = 255. When the true result of an addition needs more bits than the register has, the extra bit is simply not stored. The result that remains looks like a normal number, but it is wrong. This is called an **overflow**, and it is one of the classic sources of bugs in real software: counters that suddenly jump back to zero, scores that become small after becoming very large, and clocks that reset. A famous example is a video-view counter that was stored in a 32-bit signed integer; when a popular music video passed about 2.1 billion views the counter could not go any higher, and the programmers had to change it to 64 bits.
 
 :::definition Overflow error
 An error that occurs when the result of a calculation is **too large to be stored in the number of bits available**. In an 8-bit register the largest value is **255**; a result of 256 or more needs a **9th bit**, which is **lost**, so the stored result is **wrong**.
@@ -638,6 +962,12 @@ A museum's turnstile counts visitors in an **8-bit** register. At 15:00 it holds
 
 Binary multiplication uses the same **long multiplication** as denary, but it is easier: every digit of the multiplier is 0 or 1, so each row is either **a copy of the first number** or **all zeros**.
 
+Why does this work? In denary long multiplication, 23 × 14 is worked out as 23 × 4 plus 23 × 10: the second row is shifted one place left because it represents tens. In binary the multiplier is split into **powers of two** in the same way. The multiplier 101 (5) means 4 + 1, so 13 × 5 = 13 × 4 + 13 × 1. Multiplying by 1 just copies the number; multiplying by 2, 4 or 8 just **shifts** it 1, 2 or 3 places to the left. So every row of a binary long multiplication is either the multiplicand shifted to the position of a 1 in the multiplier, or nothing at all. The rows are then added with ordinary binary addition. There are no times tables to learn — the method needs only **copying, shifting and adding**.
+
+:::definition Partial product
+One row of a long multiplication: the **multiplicand × one bit of the multiplier**, shifted to that bit's position. In binary each partial product is either the multiplicand (shifted) or **zero**; the product is the sum of the partial products.
+:::
+
 :::compare Rules of binary multiplication
 | | × 0 | × 1 |
 |---|---|---|
@@ -695,6 +1025,10 @@ Binary multiplication uses the same **long multiplication** as denary, but it is
 
 ## Shifting
 
+A **shift** moves every bit of a number the same number of places to the left or to the right. It is the binary version of multiplying or dividing a denary number by 10 by adding or removing a zero at the end: 47 becomes 470 when every digit moves one place left. In binary, moving every bit one place left puts each 1 into a column worth **twice as much**, so the whole value doubles. Moving two places multiplies by 4, three places by 8 — in general, a left shift by *n* places multiplies by 2ⁿ. The empty places on the right are filled with zeros.
+
+A right shift does the opposite: every bit moves into a column worth half as much, so the value is **halved**. The rightmost bit falls off the end and is lost. If that bit was a 1 (the number was odd), the remainder of the division is lost too: 00010111 (23) shifted right one place becomes 00001011 (11), not 11.5. A left shift has the opposite danger: if a 1 falls off the **left** end of the register, the result is too large to store and an overflow occurs. Shifting is exactly what happens to each row in long multiplication, which is why the two ideas are taught together.
+
 :::svg A left shift multiplies by 2
 <svg class="nr" viewBox="0 0 760 222" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="00010110 (22) shifted one place left becomes 00101100 (44): the value doubles">
   <style>
@@ -747,6 +1081,93 @@ Multiplication in a processor is built from **shifts and additions**. Multiplyin
 - Starting with the **leftmost** bit of the multiplier (start from the **right**).
 - Adding the partial products without **carries**.
 - Saying a right shift always halves exactly — odd numbers **lose** their remainder.
+:::
+
+# Binary arithmetic in the processor
+@lo 11.1.1.4
+
+The methods you use on paper are the same ones the processor uses in hardware. Seeing how the processor does it explains **why** binary arithmetic is so important and **why** overflow is a real problem, not just an exam trick.
+
+:::definition Arithmetic logic unit (ALU)
+The part of the **processor** that performs **arithmetic** (addition, subtraction, shifts, multiplication) and **logic** operations (AND, OR, NOT, comparisons) on binary numbers held in registers.
+:::
+
+:::definition Register
+A very small, very fast **storage location inside the processor** that holds a fixed number of bits (e.g. 8, 16, 32 or 64), such as the numbers an instruction is working on and its result.
+:::
+
+## How the ALU adds
+
+When a program contains an instruction such as `total ← total + price`, the processor copies the two values into **registers**, the **ALU** adds them bit by bit with exactly the four rules of binary addition, and the result is written into a register. The ALU contains one small circuit, called an adder, for each column. Each adder takes two bits and the carry from the column on its right, produces one result bit and passes a carry to the next column on its left — just as you do on paper, but for all 32 or 64 columns in a few billionths of a second. The carry that comes out of the leftmost adder has no register column to go into, so the ALU puts it into a special one-bit store called the **carry flag** (often discussed as the overflow flag at this level). After every addition the program can test the flag; if it is 1, the result did not fit and the program can show an error or switch to a larger number size.
+
+:::svg Inside the processor: registers, the ALU and the overflow flag
+<svg class="nr" viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two 8-bit registers A = 11110000 and B = 00011111 feed the ALU; the 8-bit result register gets 00001111 and the 9th carry bit goes to the overflow flag, which is set to 1">
+  <style>
+    svg.nr .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nr .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.nr .m{font:700 16px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nr .md{font:700 16px ui-monospace,monospace;fill:var(--danger)}
+    svg.nr .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nr .on{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nr .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}
+    svg.nr .ln{stroke:var(--muted);stroke-width:2;fill:none}
+    svg.nr .ar{fill:var(--muted)}
+  </style>
+  <rect class="bx" x="20" y="20" width="210" height="56" rx="8"/><text class="s" x="34" y="40">Register A (240)</text><text class="m" x="34" y="64">11110000</text>
+  <rect class="bx" x="20" y="100" width="210" height="56" rx="8"/><text class="s" x="34" y="120">Register B (31)</text><text class="m" x="34" y="144">00011111</text>
+  <path class="ln" d="M230,48 H290 V100"/><path class="ln" d="M230,128 H290"/>
+  <rect class="on" x="290" y="70" width="150" height="90" rx="10"/><text class="h" x="365" y="108" text-anchor="middle">ALU</text><text class="s" x="365" y="128" text-anchor="middle">adds A + B</text>
+  <path class="ln" d="M440,100 H500"/><path class="ar" d="M500,93 l12,7 l-12,7 z"/>
+  <rect class="bx" x="514" y="72" width="226" height="56" rx="8"/><text class="s" x="528" y="92">Result register (8 bits)</text><text class="m" x="528" y="116">00001111 = 15 ✗</text>
+  <path class="ln" d="M365,160 V190 H500"/><path class="ar" d="M500,183 l12,7 l-12,7 z"/>
+  <rect class="no" x="514" y="164" width="226" height="52" rx="8"/><text class="s" x="528" y="184">9th bit → overflow / carry flag</text><text class="md" x="528" y="206">flag = 1</text>
+  <text class="t" x="20" y="196">true sum 240 + 31 = 271 = 1 00001111</text>
+  <text class="s" x="20" y="216">271 needs 9 bits; only 8 are kept</text>
+</svg>
+:::
+
+## How the processor multiplies
+
+Simple processors do not have a separate multiplication circuit at all: they multiply by **repeating shifts and additions**, exactly the method on paper. The processor looks at the multiplier one bit at a time, starting from the right. Every time the bit is 1 it adds the (shifted) multiplicand to a running total; every time it moves to the next bit it shifts the multiplicand one more place to the left. Modern processors have fast multiplier circuits, but these are still built from the same two operations. This is also why programmers and compilers replace a multiplication by 2, 4, 8 … with a **left shift**: a shift is a single, very fast operation, whereas a full multiplication takes several steps.
+
+:::steps The shift-and-add algorithm (as the processor does it)
+- Set the **total** to 0.
+- Look at the **rightmost bit** of the multiplier. If it is **1**, add the multiplicand to the total.
+- **Shift the multiplicand one place left** (× 2) and move to the **next bit** of the multiplier.
+- Repeat until all bits of the multiplier have been used; the total is the **product**.
+- If any addition or shift needs more bits than the register has, an **overflow** occurs.
+:::
+
+## Overflow in multiplication
+
+Multiplication makes numbers grow much faster than addition. Adding two 8-bit numbers can give at most 255 + 255 = 510, which needs **9 bits**. Multiplying two 8-bit numbers can give up to 255 × 255 = 65 025, which needs **16 bits**. In general, the product of an *n*-bit number and an *m*-bit number can need up to **n + m bits**. For this reason processors usually put the result of a multiplication into a **double-length** register, or a pair of registers, and programs that keep the product in the original size must check for overflow.
+
+:::example Worked example: overflow in a multiplication
+A school canteen's till stores amounts in **8-bit** registers. It multiplies the price of a juice, **00011001** (25 tenge-units), by the number sold, **00001100** (12).
+1. The multiplier 1100 has 1s in positions 2 and 3 (place values 4 and 8).
+2. Partial products: 11001 shifted 2 places → **1100100** (100); shifted 3 places → **11001000** (200).
+3. Add: 1100100 + 11001000 = **100101100** — that is 9 bits (300).
+4. 300 > 255, so in an 8-bit register only **00101100** = 44 is kept: an **overflow error**. The till would charge for 44 units instead of 300.
+5. Fix: store the result in a **16-bit** register (maximum 65 535).
+:::
+
+:::compare Binary addition and binary multiplication
+| | Addition | Multiplication |
+|---|---|---|
+| Basic method | Column addition with carries | Long multiplication: shift and add partial products |
+| Operations used | Add bits + carry | Copy, **shift left**, add |
+| Rules to learn | 0+0=0, 0+1=1, 1+1=10, 1+1+1=11 | 0×0=0, 0×1=0, 1×1=1 |
+| Largest result of two 8-bit numbers | 510 → needs **9 bits** | 65 025 → needs **16 bits** |
+| How overflow shows | A **carry out** of the leftmost column | Product has **more bits** than the register |
+| Quick check | Convert to denary and add | Convert to denary and multiply |
+:::
+
+:::warning Common mistakes
+- Thinking overflow only happens in addition — **multiplication and left shifts** overflow too, and more easily.
+- Saying the processor "notices it is too big and stores 255" — it keeps the **lowest bits**, giving a wrong, smaller value, and sets a **flag**.
+- Saying the ALU stores data — the ALU **calculates**; values are held in **registers**.
+- Forgetting that a product of two 4-bit numbers can need **8 bits**.
 :::
 
 # Exam practice: binary arithmetic

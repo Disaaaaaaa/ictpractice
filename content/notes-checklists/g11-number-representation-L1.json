@@ -3,69 +3,94 @@
   "lesson": 1,
   "points": [
     {
-      "title": "Number base",
-      "must": "The base is the number of different digits a system uses and the multiplier between place values; denary base 10, binary base 2, hexadecimal base 16.",
-      "weight": 3
+      "title": "Place value and number base",
+      "must": "Place-value system: each position has a weight; rightmost = 1, each place to the left × base; value = sum of digit × place value. Base = number of digits and the multiplier between places.",
+      "weight": 3,
+      "model": "Place value — the weight of a position; rightmost place value is 1, each place to the left = previous × base. Number base — the number of different digits a system uses (base b uses digits 0 … b−1). Example: 307 = 3×100 + 0×10 + 7×1."
     },
     {
-      "title": "Binary, denary and hexadecimal compared",
-      "must": "Digits of each system (0–1; 0–9; 0–9 and A–F with A=10 … F=15) and their place values (1, 2, 4 … 128; 1, 10, 100; 1, 16, 256).",
-      "weight": 3
+      "title": "Binary, denary and hexadecimal: definitions",
+      "must": "Each system with its base, digits and place values (binary 2: 0–1, 1,2,4…128; denary 10: 0–9, 1,10,100; hex 16: 0–9 A–F, 1,16,256) and A=10 … F=15.",
+      "weight": 3,
+      "model": "Binary — base 2, digits 0 and 1, place values 1, 2, 4, 8, 16, 32, 64, 128. Denary — base 10, digits 0–9, place values 1, 10, 100, 1000. Hexadecimal — base 16, digits 0–9 and A–F (A=10, B=11, C=12, D=13, E=14, F=15), place values 1, 16, 256, 4096."
     },
     {
-      "title": "Who uses each system",
-      "must": "Hardware uses binary; people use denary; programmers use hexadecimal as a short form of binary.",
-      "weight": 1
+      "title": "Same digits, different bases",
+      "must": "The example 1011 read in denary, binary and hex (1011, 11, 4113) and why the base must be shown (subscript, 0x, #).",
+      "weight": 2,
+      "model": "1011 in denary = 1011; in binary = 8+2+1 = 11; in hex = 4096+16+1 = 4113. Always show the base: 1011₂, 0x1011, B6₁₆, #B6."
+    },
+    {
+      "title": "Explaining the differences",
+      "must": "Five points of difference: base/digits, place values, length of a number (182 = 10110110 = 182 = B6), who uses each, link to binary (16 = 2⁴, 10 is not a power of 2).",
+      "weight": 3,
+      "model": "1) Base and digits differ (2 / 10 / 16). 2) Place values grow ×2, ×10, ×16. 3) Smaller base → longer number: 182 = 10110110₂ (8 digits) = 182 (3) = B6 (2). 4) Binary used by hardware, denary by people, hex by programmers as short form of binary. 5) 16 = 2⁴ so 1 hex digit = 4 bits; 10 is not a power of 2 so denary ↔ binary needs arithmetic."
     },
     {
       "title": "Why computers use binary",
-      "must": "Transistors / circuits have two states (on/off, high/low voltage) that represent 1 and 0; two states are reliable and easy to tell apart.",
-      "weight": 3
+      "must": "Transistors have two states (on/off, high/low voltage) = 1 and 0; two states are reliable despite noise, cheap and fast; storage media have two states; logic gates work with two values.",
+      "weight": 3,
+      "model": "Computers use binary because transistors are switches with two states (on/off, high/low voltage) representing 1 and 0. Two states are easy to tell apart even with electrical noise → reliable, cheap, fast. Storage also has two states: magnetised two directions (HDD), pits/lands (CD), charge/no charge (flash). Logic gates work with true/false."
+    },
+    {
+      "title": "All data is binary",
+      "must": "Numbers, text, images, sound and instructions are all stored as bit patterns; the program decides what a pattern means (01000001 = 65 or 'A').",
+      "weight": 1,
+      "model": "Numbers, characters, pixels, sound samples and program instructions are all stored as bit patterns. The same pattern can mean different things: 01000001 = 65 or the letter 'A'."
     },
     {
       "title": "Bit, nibble, byte",
-      "must": "Bit = one binary digit; nibble = 4 bits (one hex digit); byte = 8 bits (0–255).",
-      "weight": 2
+      "must": "Definitions: bit = one binary digit; nibble = 4 bits (one hex digit, 0–15); byte = 8 bits (0–255).",
+      "weight": 2,
+      "model": "Bit — a binary digit, 0 or 1, the smallest unit of data. Nibble — 4 bits = one hex digit (0–15). Byte — 8 bits, 256 values (0–255)."
     },
     {
       "title": "Number of values in n bits",
-      "must": "n bits store 2ⁿ values; the largest is 2ⁿ − 1 (8 bits: 256 values, largest 255); one more bit doubles the range.",
-      "weight": 3
-    },
-    {
-      "title": "Powers of 2 table",
-      "must": "A table of 2ⁿ and 2ⁿ − 1 for n = 1 to 8 (and 16).",
-      "weight": 1
-    },
-    {
-      "title": "Minimum number of bits",
-      "must": "A worked example such as 150 lockers need 8 bits because 7 bits only give 128 numbers.",
-      "weight": 1
+      "must": "n bits give 2ⁿ values and the largest value is 2ⁿ − 1; why one more bit doubles the number of patterns; table of powers of 2.",
+      "weight": 3,
+      "model": "n bits store 2ⁿ different values; largest unsigned value = 2ⁿ − 1 (one pattern is 0). Each extra bit doubles the patterns (put 0 or 1 in front of every old pattern). 4 bits → 16 values, max 15; 8 bits → 256, max 255; 16 bits → 65 536, max 65 535."
     },
     {
       "title": "Binary → denary",
-      "must": "Write place values 128 … 1 above the bits and add those with a 1, with an example (e.g. 10110110 = 182).",
-      "weight": 3
+      "must": "Method: write place values 128 … 1 above the bits (line up on the right), add the place values of the 1-bits; example with working.",
+      "weight": 3,
+      "model": "Write 128 64 32 16 8 4 2 1 above the bits (rightmost bit = 1). Add the place values where the bit is 1. Example: 01011010 = 64 + 16 + 8 + 2 = 90."
     },
     {
-      "title": "Quick checks",
-      "must": "Ends in 1 → odd; leftmost bit of 8 is worth 128; leading zeros do not change the value.",
-      "weight": 1
-    },
-    {
-      "title": "Denary → binary: place-value method",
-      "must": "Subtract the largest place value that fits, write 1 or 0 for each place, with an example (156 = 10011100) and a check.",
-      "weight": 3
+      "title": "Denary → binary: subtraction method",
+      "must": "Largest place value first: if it fits write 1 and subtract, else 0; repeat to 1; example (156 = 10011100) and check by converting back.",
+      "weight": 3,
+      "model": "Start at 128: if it fits write 1 and subtract, else write 0; repeat for 64, 32 … 1. Example 156: 128 (r 28), 64 no, 32 no, 16 (r 12), 8 (r 4), 4 (r 0), 2 no, 1 no → 10011100. Check: 128+16+8+4 = 156."
     },
     {
       "title": "Denary → binary: division method",
-      "must": "Divide by 2 repeatedly, note remainders, read them from the bottom up (e.g. 47 = 101111 = 00101111).",
-      "weight": 2
+      "must": "Divide by 2 repeatedly, write remainders, read them bottom up; why the first remainder is the rightmost bit; comparison with the subtraction method.",
+      "weight": 2,
+      "model": "Divide by 2, write the remainder (0/1), divide the quotient again until 0; read remainders from the bottom up. The first remainder shows odd/even = the rightmost bit. Subtraction method works from the largest place value (good up to 255); division method from the smallest bit (good for large numbers)."
+    },
+    {
+      "title": "Counting in binary, MSB and LSB, leading zeros",
+      "must": "Counting 0–15 in 4 bits; 100…0 = power of 2, 11…1 = power of 2 minus 1; MSB = leftmost (largest place value), LSB = rightmost (place value 1); leading zeros keep a fixed size (5 = 00000101).",
+      "weight": 2,
+      "model": "Count: 0000, 0001, 0010, 0011 … 1111 (15). 1000 = 8, 1111 = 15, 11111111 = 255. MSB — leftmost bit, largest place value (128 in a byte). LSB — rightmost bit, place value 1, odd/even. Leading zeros do not change the value but keep the fixed number of bits: 5 in a byte = 00000101."
+    },
+    {
+      "title": "Minimum number of bits",
+      "must": "Rule: smallest n with 2ⁿ − 1 ≥ largest value (or 2ⁿ ≥ number of values); examples (150 lockers → 8 bits; 500 → 9 bits; 64 → 7 bits).",
+      "weight": 2,
+      "model": "Find the first power of 2 greater than the largest value; its exponent is the number of bits. 150 lockers (0–149): 2⁷ = 128 too few, 2⁸ = 256 → 8 bits. Largest value 500 → 512 = 2⁹ → 9 bits. Value 64 → 6 bits reach only 63 → 7 bits."
+    },
+    {
+      "title": "Worked example: IPv4 address",
+      "must": "An IPv4 address is 4 bytes (each 0–255); conversion of each part to 8-bit binary with leading zeros.",
+      "weight": 1,
+      "model": "192.168.10.37 = 11000000.10101000.00001010.00100101 (32 bits, 4 bytes). Each part must be 0–255; 300 is impossible because it does not fit in a byte."
     },
     {
       "title": "Common mistakes",
-      "must": "Remainders read top-down; rightmost bit is worth 1; give 8 bits when asked; 256 values but largest 255.",
-      "weight": 1
+      "must": "Remainders read bottom up; rightmost bit is worth 1; give all 8 bits; 8 bits store 256 values but max 255; MSB is on the left.",
+      "weight": 1,
+      "model": "Read division remainders bottom up. Rightmost bit = 1. '8-bit answer' → write all 8 bits with leading 0s. 8 bits: 256 values, largest 255. MSB is the leftmost bit."
     }
   ]
 }
