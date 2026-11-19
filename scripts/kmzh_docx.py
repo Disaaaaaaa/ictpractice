@@ -144,7 +144,7 @@ def build(plan_path, out_path):
                 acts.append([("Poll: ", True), (plain(b["poll"]["question"]) + " (" + " / ".join(b["poll"]["options"]) + ")", False)])
             if b.get("together"):
                 for key in b["together"]:
-                    acts.append([("Together task: ", True), (plain(live[key]["text"]), False)])
+                    acts.append([("Together task: ", True), (plain(live[key]["text"]) if key in live else titles[key], False)])
             if b.get("tasks"):
                 acts.append([("Tasks: ", True), ("; ".join(titles[x] for x in b["tasks"]), False)])
             if b.get("scenarios"):

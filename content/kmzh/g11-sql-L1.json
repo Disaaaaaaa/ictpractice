@@ -1,0 +1,217 @@
+{
+  "topic": "g11-sql",
+  "lesson": 1,
+  "grade": 11,
+  "unit": "11.2A Information systems",
+  "title": "SQL: DDL and DML — CREATE, ALTER, DROP, INSERT, SELECT, UPDATE, DELETE",
+  "teacher": "Assylbek Dias",
+  "date": "",
+  "class": "",
+  "minutes": 80,
+  "learning_objectives": [
+    { "code": "11.4.1.4", "text": "define data types in an SQL database" },
+    { "code": "11.4.2.1", "text": "compare data definition language (DDL) and data manipulation language (DML)" },
+    { "code": "11.4.2.2", "text": "create a database structure using DDL commands: CREATE, ALTER and DROP" },
+    { "code": "11.4.2.3", "text": "use SQL SELECT, UPDATE, INSERT and DELETE queries to manage data in a single table" }
+  ],
+  "lesson_objectives": {
+    "all": "tell DDL from DML, choose SQL data types and write CREATE TABLE, INSERT and a simple SELECT … WHERE that run in the SQL runner",
+    "most": "change a table's structure with ALTER and DROP and manage records with UPDATE and DELETE using a correct WHERE condition",
+    "some": "write tables with foreign, unique and composite keys and queries with AND, LIKE and IS NULL, and explain why UPDATE / DELETE without WHERE is dangerous"
+  },
+  "assessment_criteria": [
+    {
+      "criterion": "Create a database structure with DDL",
+      "descriptors": [
+        "distinguishes DDL (structure) from DML (data)",
+        "chooses suitable data types (INT, VARCHAR(n), CHAR(n), DECIMAL(p,s), DATE, BOOLEAN)",
+        "writes CREATE TABLE with a primary key and constraints; changes it with ALTER TABLE … ADD / DROP COLUMN; removes a table with DROP TABLE"
+      ]
+    },
+    {
+      "criterion": "Manage data in a single table with DML",
+      "descriptors": [
+        "adds records with INSERT INTO … VALUES",
+        "selects fields and records with SELECT … FROM … WHERE (comparison, AND, LIKE, IS NULL)",
+        "changes and deletes the right records with UPDATE … SET … WHERE and DELETE FROM … WHERE"
+      ]
+    }
+  ],
+  "language_objectives": {
+    "learners_can": [
+      "read an SQL statement aloud and say what it does",
+      "explain the difference between DDL and DML in one sentence",
+      "describe an error message and how they fixed it"
+    ],
+    "vocabulary": [
+      "SQL", "DDL", "DML", "statement", "query", "data type", "VARCHAR", "DECIMAL", "primary key",
+      "foreign key", "constraint", "NOT NULL", "UNIQUE", "CREATE", "ALTER", "DROP", "INSERT", "SELECT",
+      "WHERE", "UPDATE", "DELETE", "record", "field"
+    ],
+    "phrases": [
+      "This statement is DDL / DML because it changes the structure / the data …",
+      "I chose VARCHAR(50) because …",
+      "Without WHERE this statement would …",
+      "The error says …, so I …"
+    ]
+  },
+  "values": [
+    { "value": "Diligence and creativity", "action": "Learners run their code, read the error messages and correct it until the SQL runner accepts it." },
+    { "value": "Academic honesty", "action": "Every learner writes and runs their own statements; the teacher sees each attempt live." },
+    { "value": "Lifelong learning", "action": "Learners build on their ERDs and data dictionaries and see the same SQL used in real systems (school, library, shop)." }
+  ],
+  "cross_curricular": [
+    "English: technical vocabulary and precise instructions.",
+    "Mathematics: comparison operators and conditions (>, <, BETWEEN, AND).",
+    "Programming: syntax, errors and debugging."
+  ],
+  "ict": [
+    "ICT Practice Platform, Lessons section: theory as slides, live votes, tasks pushed to every learner's screen.",
+    "SQL runner: learners run their code on a sample database, see the result table and the tables after their code; Check Answer marks it automatically.",
+    "Teacher → Lessons shows every learner's answers and marks live."
+  ],
+  "previous_learning": "Basic concepts of a database (tables, fields, records, keys, data types), ERDs, the data dictionary and normalisation.",
+  "stages": [
+    {
+      "stage": "Beginning",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "b1",
+          "minutes": 3,
+          "title": "Hook: who talks to the database?",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Shows the lesson objectives and asks how the school's e-journal stores and changes marks.",
+          "learners": "Vote and give one example of data that is added, changed or deleted in a school system.",
+          "poll": {
+            "question": "A teacher corrects a mark in the e-journal. What does the system do to the database?",
+            "options": ["Creates a new table", "Changes a record in an existing table", "Deletes the whole table", "Nothing — marks are stored on paper"]
+          },
+          "resources": ["Title slide: objectives", "Live poll"]
+        },
+        {
+          "id": "b2",
+          "minutes": 7,
+          "title": "Starter: DDL or DML?",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Pushes three practice questions; shows the class results and clears up the most common wrong answer.",
+          "learners": "Sort the commands into DDL and DML, complete the definition of DML and match each command with its purpose.",
+          "tasks": ["sql-ddl-dml-tick", "sql-dml-explain", "sql-ddl-dml-purpose-match"],
+          "resources": ["Practice: DDL or DML, The term DML, What each command does"]
+        }
+      ]
+    },
+    {
+      "stage": "Middle",
+      "minutes": 60,
+      "blocks": [
+        {
+          "id": "m1",
+          "minutes": 10,
+          "title": "Slides: data types and DDL",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Explains SQL, DDL vs DML, the data types and CREATE / ALTER / DROP with the slides; writes CREATE TABLE Students live in the SQL runner and runs it, then shows a common error (missing comma, text without quotes).",
+          "learners": "Follow the slides, answer the votes, say which data type fits each field.",
+          "slides": ["What SQL is: DDL and DML", "Data types in SQL", "Creating the structure: CREATE, ALTER, DROP"],
+          "together": ["sql-type-tick", "sql-create-error-mcq"],
+          "resources": ["Theory slides: What SQL is, Data types, CREATE / ALTER / DROP", "Live votes: Choosing SQL data types, Find the error", "SQL runner demo"]
+        },
+        {
+          "id": "m2",
+          "minutes": 15,
+          "title": "SQL runner: create and change tables",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Pushes the DDL tasks; walks round, helps learners read error messages (\"Show the database\", \"Run SQL\") and shows one good solution on the board after each two tasks.",
+          "learners": "Write each statement in the SQL runner, run it, look at the tables after the code, correct errors, then press Check Answer. Fast finishers do the foreign-key and unique tasks.",
+          "tasks": ["sqlw-create-students", "sqlw-create-products", "sqlw-add-genre", "sqlw-drop-price", "sqlw-drop-members", "sqlw-create-teachers", "sqlw-create-loans"],
+          "resources": ["SQL runner tasks (practice): create tables, add / remove a column, delete a table", "Success criteria on the slide"]
+        },
+        {
+          "id": "m3",
+          "minutes": 10,
+          "title": "Slides: INSERT, SELECT, UPDATE, DELETE",
+          "mode": "class",
+          "kind": "slides",
+          "teacher": "Explains DML with the slides and runs each command live on the Students table; shows what happens to the table when UPDATE or DELETE has no WHERE.",
+          "learners": "Predict the result of each query before it runs; answer the votes.",
+          "slides": ["Adding and selecting data: INSERT and SELECT", "Changing and deleting data: UPDATE and DELETE"],
+          "together": ["sql-where-tick", "sql-operator-match"],
+          "resources": ["Theory slides: INSERT and SELECT, UPDATE and DELETE", "Live votes: Which rows are returned?, WHERE operators", "SQL runner demo"]
+        },
+        {
+          "id": "m4",
+          "minutes": 25,
+          "title": "SQL runner: manage the data",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Pushes the DML tasks in order (INSERT → SELECT → UPDATE → DELETE); follows the marks live, stops the class once to discuss the most common error, supports learners who are stuck.",
+          "learners": "Write, run and check each query; compare the result table with what the task asks. Fast finishers do LIKE, IS NULL and the composite-key task.",
+          "tasks": ["sqlw-insert-one", "sqlw-insert-two", "sqlw-select-class", "sqlw-select-points", "sqlw-select-and", "sqlw-update-one", "sqlw-update-many", "sqlw-delete-many", "sqlw-select-like", "sqlw-select-null", "sqlw-composite-key"],
+          "resources": ["SQL runner tasks (practice): insert, select, update, delete", "Slide: the order SELECT → FROM → WHERE and the WHERE operators"]
+        }
+      ]
+    },
+    {
+      "stage": "End",
+      "minutes": 10,
+      "blocks": [
+        {
+          "id": "e1",
+          "minutes": 6,
+          "title": "Exit ticket",
+          "mode": "individual",
+          "kind": "task",
+          "teacher": "Pushes three short practice questions and checks the results to plan the next lesson.",
+          "learners": "Complete the CREATE TABLE, the INSERT and the DELETE statements.",
+          "tasks": ["sql-create-table", "sql-insert", "sql-delete-where"],
+          "resources": ["Practice: Create the Movies table, Insert a publisher, Delete old books"]
+        },
+        {
+          "id": "e2",
+          "minutes": 4,
+          "title": "Reflection and homework",
+          "mode": "class",
+          "kind": "poll",
+          "teacher": "Asks the reflection question and sets homework: the remaining practice questions of lesson 1 and handwritten notes of the lesson.",
+          "learners": "Vote and name one SQL error they made today and how they fixed it.",
+          "poll": {
+            "question": "How confident are you writing SQL statements now?",
+            "options": ["I can write all of them without help", "I can write most, but I check the syntax", "I need more practice with the SQL runner"]
+          },
+          "homework": ["sql-data-types", "sql-varchar-char-mcq", "sql-decimal-fill", "sql-create-db", "sql-alter-add", "sql-select-grade", "sql-select-and", "sql-like-mcq", "sql-update-name", "sql-update-percent", "sqlw-create-autonumber", "sqlw-create-and-fill"],
+          "resources": ["Live poll", "Homework: practice lesson 1 + notes"]
+        }
+      ]
+    }
+  ],
+  "safety": [
+    "Laptops on the desk, charging cables kept off the walkways.",
+    "The SQL runner uses a practice database that is reset after every run — nothing real can be damaged."
+  ],
+  "differentiation": {
+    "support": [
+      "The syntax of each command stays on the slide during the tasks (CREATE TABLE, INSERT INTO … VALUES, SELECT … FROM … WHERE, UPDATE … SET … WHERE, DELETE FROM … WHERE).",
+      "\"Show the database\" lets learners see the table and its field names before they write a query.",
+      "Tasks go from simple to harder; the teacher helps learners read error messages one to one."
+    ],
+    "stretch": [
+      "Extra SQL runner tasks: foreign keys, UNIQUE, composite primary key, LIKE and IS NULL.",
+      "Explain to a neighbour why UPDATE or DELETE without WHERE is dangerous and how to test the WHERE with a SELECT first."
+    ]
+  },
+  "assessment": [
+    "Starter and exit ticket: automatic marks, seen live by the teacher.",
+    "SQL runner tasks: the code runs on a sample database and Check Answer compares the result with a model solution.",
+    "Live votes during the slides show misconceptions straight away.",
+    "Oral feedback while the teacher walks round; notes checked later against the checklist."
+  ],
+  "reflection": [
+    "Could every learner write and run CREATE TABLE, INSERT and SELECT on their own?",
+    "Which SQL errors were most common, and what should be repeated next lesson?",
+    "Was the time for the SQL runner tasks enough?"
+  ]
+}
