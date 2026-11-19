@@ -19,6 +19,8 @@ Operating systems are designed for different **workloads**. A laptop OS is built
 An operating system that **processes data and responds to events within a strict, guaranteed time limit (deadline)**, so that it can **monitor and control** a physical process as it happens. A result is only correct if it is produced **on time**.
 :::
 
+The word "real-time" does not mean "very fast". It means that the computer works **at the speed of the real world** it controls. A real-time system is connected to the physical world through **sensors** (inputs such as temperature probes, pressure sensors, wheel-speed sensors) and **actuators** (outputs such as motors, valves, heaters and alarms). The OS reads the sensors, the control program compares the readings with set values, and the OS sends signals to the actuators — and then the cycle starts again. Because each output changes the physical process, and the sensors then measure that change, this is called a **feedback loop**. For a feedback loop to be safe, every pass through it must finish before the physical process has changed too much: an airbag must inflate within about 30 milliseconds of a crash, long before the passenger hits the steering wheel. If the response came later, a perfectly correct calculation would still be useless. That is why, for an RTOS, **timing is part of correctness**.
+
 :::svg An RTOS controls a process in a feedback loop
 <svg class="ost" viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sensor sends readings to the RTOS, which decides within a deadline and drives an actuator that changes the physical process, which the sensor measures again">
   <defs><marker id="ostA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
@@ -110,6 +112,8 @@ A system is deterministic when the **same event always gets a response within th
 A **signal** from hardware (e.g. a sensor) or software that tells the processor an event **needs attention now**; the OS pauses the current task and runs the task that handles the event.
 :::
 
+How does an RTOS make sure the most important work is always done on time? The control software is divided into separate **tasks**, and the designers give each task a **priority** that reflects how urgent it is: the brake-control task in a car has a higher priority than the task that updates the dashboard display. When a sensor detects an event, it sends an **interrupt**. The RTOS immediately saves the state of the task that is running, looks at the priorities, and if the new task is more urgent it **pre-empts** (takes the processor away from) the current task and starts the urgent one. When the urgent task finishes, the interrupted task continues from where it stopped. The time between the interrupt and the start of the handling task is called the **interrupt latency**, and an RTOS keeps it very short and, above all, **bounded** — it never exceeds a known maximum. A general-purpose OS like Windows also uses interrupts, but it shares processor time fairly between many programs and may pause for background work such as updates or memory management, so its worst-case response time cannot be guaranteed. Being deterministic also explains why RTOSs are **small**: fewer features mean fewer unpredictable delays and less to go wrong, which is also why they can run reliably for years inside an embedded device.
+
 ## Hard and soft real-time
 
 :::svg Hard vs soft real-time: what a missed deadline means
@@ -176,6 +180,18 @@ Sensors measure **temperature** and **humidity** every second.
 
 :::definition Network operating system (NOS)
 An operating system that **manages a network** of computers: its **shared resources** — files, printers, applications, Internet access — and the **users** who access them. It usually runs on a **server**, and client computers connect to it.
+:::
+
+A stand-alone OS looks after one computer: its own files, its own printer, its own users. As soon as an organisation has dozens or hundreds of computers, managing each one separately becomes impossible — every password, every folder permission and every backup would have to be set up machine by machine. A network operating system solves this by **centralising** control. In a **client–server** network, the NOS runs on one or more powerful **servers**. The client computers (pupils' PCs, teachers' laptops) run an ordinary OS, but when a user logs in, the client sends the user name and password to the server, and the server decides whether the user may log in and what they may use. Shared files are stored on the server's disks, shared printers are managed through the server's print queues, and the server keeps a single database of all users and groups (in Windows Server this is called **Active Directory**).
+
+The two key ideas are **authentication** and **authorisation**. Authentication answers the question "**who are you?**" — the NOS checks the user name and password (and sometimes a second factor such as a code on a phone) against its account database. Authorisation answers "**what are you allowed to do?**" — once the user is known, the NOS checks the **access rights** of the account and of every group it belongs to, and allows only the permitted actions on each folder, file or printer. Giving rights to **groups** instead of individual users is what makes a NOS practical: when a new pupil joins grade 12, the administrator only adds the account to the "Grade 12" group, and the pupil immediately gets the right access to every resource. Because every access passes through the server, the NOS can also **log** it, which supports security and accountability.
+
+:::definition Authentication
+Checking the **identity** of a user ("who are you?"), e.g. by user name and password or two-factor authentication, before allowing log-in.
+:::
+
+:::definition Authorisation
+Deciding **what an authenticated user may access and do** ("what are you allowed to do?"), using the access rights of the account and its groups.
 :::
 
 :::svg A NOS on a server manages users and shared resources
@@ -280,6 +296,12 @@ A clinic in Shymkent installs a server with a NOS.
 An operating system that **groups jobs with similar requirements into batches** and **runs them one after another automatically, without user interaction**, usually at a **scheduled time**. The data is **collected over a period** and processed **together**.
 :::
 
+Batch processing is the oldest way of running a computer, and it is still used today wherever **huge amounts of similar data** must be processed. The idea is simple: instead of a person sitting at the computer and processing each item as it arrives, the items are **collected** for a period (a day, a week, a month) and then processed **all at once** by a program that needs no human help. Because the computer does the same operation on every record, it can work at full speed without waiting for anyone to type or click, so the total processing is very **efficient**.
+
+A batch system typically works with two files. The **master file** holds the permanent data, such as each customer's name, address, tariff and balance, sorted by a key field such as the customer number. The **transaction file** holds the changes collected during the period, such as each meter reading or each card payment. Before processing, the transaction file is **sorted into the same order** as the master file; the program can then read both files once from start to end, match each transaction with its master record, update it and write a **new master file**. This single sequential pass is what makes batch processing so fast for very large volumes.
+
+The jobs themselves are described in advance in a **job control language (JCL)** or a script, which tells the OS which program to run, which files to use and what to do if an error occurs. The batch OS holds the submitted jobs in a **job queue**, chooses the order in which they run (for example by priority or by the resources they need), starts each job automatically when the previous one finishes, and **spools** the output so that slow printers do not hold up the processor. Jobs are usually scheduled for **off-peak** times such as the night, when the computer is not needed by interactive users.
+
 :::svg Batch processing: collect, sort, queue, run
 <svg class="ost" viewBox="0 0 760 266" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transactions are collected, sorted, placed in a job queue and run at night against the master file to produce bills and a new master file">
   <defs><marker id="ostA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs>
@@ -361,6 +383,10 @@ An energy company in Almaty has **400 000** customers.
 4. The OS processes every customer **without interaction**, matching each reading with the **master file** (tariff, address).
 5. 400 000 bills are **spooled** to the printers and a new master file is saved. No customer needs their bill instantly, so the delay does not matter.
 :::
+
+## Choosing the right OS type
+
+Exam questions often describe a situation and ask you to **identify** the most suitable type of operating system and **justify** your choice. Ask three questions about the scenario. First, **does it control a physical process where a late response is a failure?** If yes, it needs a real-time OS — and if a missed deadline could harm people or equipment, it is hard real-time. Second, **do many users need to share files, printers or applications, with central control of security?** That points to a network OS on a server. Third, **is there a large volume of similar data that can wait and be processed together without anyone watching?** That is batch processing. Always link the reason to a detail **in the scenario** ("the 400 000 bills are not needed immediately, so they can be processed overnight"), because a general definition alone usually earns only one mark. Remember that a real organisation often uses all three types: a bank runs a NOS for its office staff, an RTOS inside its cash machines' hardware and batch jobs at night to process the day's card payments.
 
 :::compare Choosing an OS type for a scenario
 | Scenario | OS type | Reason |

@@ -2,20 +2,95 @@
   "topic": "g12-os-types",
   "lesson": 1,
   "points": [
-    { "title": "Three specialised OS types", "must": "Real-time, network and batch processing OS, each with its main goal (deadline / shared network resources / large volumes of similar jobs) and an example of where it is used.", "weight": 2 },
-    { "title": "Definition of an RTOS", "must": "An OS that processes data and responds to events within a strict, guaranteed time limit (deadline) to monitor and control a physical process as it happens.", "weight": 3 },
-    { "title": "RTOS feedback loop", "must": "Sensor → RTOS decides within the deadline → actuator → physical process → sensor again, with an example such as a greenhouse or airbag.", "weight": 2 },
-    { "title": "Features of an RTOS", "must": "At least four: deterministic response, priority-based pre-emptive scheduling, fast interrupt handling / low latency, continuous monitoring, reliability / fault tolerance, small and embedded.", "weight": 3 },
-    { "title": "Interrupts and pre-emption", "must": "An interrupt is a signal that an event needs attention now; the highest-priority task pre-empts a lower-priority task and finishes before its deadline.", "weight": 2 },
-    { "title": "Hard and soft real-time", "must": "Hard: a missed deadline is a failure and may be dangerous (airbag, ABS, pacemaker); soft: a missed deadline only lowers quality (video call, online game).", "weight": 3 },
-    { "title": "RTOS vs general-purpose OS", "must": "RTOS meets every deadline with deterministic response and minimal interface; a general-purpose OS aims for good average speed, time-sharing and a rich GUI.", "weight": 1 },
-    { "title": "Definition of a NOS", "must": "An OS, usually on a server, that manages a network: its shared resources (files, printers, applications, Internet access) and the users who access them.", "weight": 3 },
-    { "title": "Functions of a NOS", "must": "At least five: user accounts and groups, authentication, authorisation / access rights, file and printer sharing, security and audit logs, central backup and updates, remote administration.", "weight": 3 },
-    { "title": "User account management", "must": "Accounts in groups → log-in → authentication (who are you?) → authorisation (what may you access?) → access only to allowed resources, logged; with an access-rights example.", "weight": 2 },
-    { "title": "Client–server vs peer-to-peer", "must": "Client–server: central control, stronger security, central backup, needs a server and administrator, for large networks; peer-to-peer: each computer manages itself, cheap, for small networks.", "weight": 2 },
-    { "title": "Definition of a batch processing OS", "must": "Groups jobs with similar requirements and runs them one after another automatically, without user interaction, usually at a scheduled time; data is collected over a period and processed together.", "weight": 3 },
-    { "title": "How batch processing works", "must": "Collect data → sort to match the master file → submit jobs with JCL / script to a job queue → run at night with no operator → output spooled; definition of spooling.", "weight": 2 },
-    { "title": "Uses, advantages and disadvantages of batch", "must": "Uses (payroll, bills, bank statements, card payments); advantages (efficient for large volumes, off-peak, no operator); disadvantages (delay, errors found late, no interaction).", "weight": 2 },
-    { "title": "Choosing an OS type", "must": "For a scenario, name the OS type and give a reason linked to the scenario (e.g. ABS → hard real-time; school files → NOS; water bills → batch).", "weight": 1 }
+    {
+      "title": "Three specialised OS types",
+      "must": "Real-time, network and batch processing OS, each with its main goal (deadline / shared network resources / large volumes of similar jobs) and an example of where it is used.",
+      "weight": 2,
+      "model": "Real-time OS — responds within a guaranteed deadline (embedded/control systems, e.g. ABS). Network OS — manages shared network resources and users (school/office servers, e.g. Windows Server). Batch OS — processes large volumes of similar jobs without interaction (banks, utility bills)."
+    },
+    {
+      "title": "Definition of an RTOS",
+      "must": "An OS that processes data and responds to events within a strict, guaranteed time limit (deadline) to monitor and control a physical process as it happens.",
+      "weight": 3,
+      "model": "RTOS — an operating system that processes data and responds to events within a strict, guaranteed time limit (deadline), so it can monitor and control a physical process as it happens. 'Real-time' = on time, not just fast; a late result is a wrong result."
+    },
+    {
+      "title": "RTOS feedback loop",
+      "must": "Sensor → RTOS decides within the deadline → actuator → physical process → sensor again, with an example such as a greenhouse or airbag.",
+      "weight": 2,
+      "model": "Sensor (input) → RTOS / control program compares with the set value within the deadline → actuator (output: motor, valve, heater) → physical process changes → sensor measures again. Greenhouse: 32 °C > 30 °C → windows open within 2 s. Airbag must inflate within ~30 ms."
+    },
+    {
+      "title": "Features of an RTOS",
+      "must": "At least four: deterministic response, priority-based pre-emptive scheduling, fast interrupt handling / low latency, continuous monitoring, reliability / fault tolerance, small and embedded.",
+      "weight": 3,
+      "model": "Deterministic (predictable, bounded response time); priority-based pre-emptive scheduling; fast interrupt handling / low interrupt latency; continuous monitoring with feedback; high reliability / fault tolerance, runs for years; small and efficient, embedded in ROM/flash, little or no user interface."
+    },
+    {
+      "title": "Interrupts and pre-emption",
+      "must": "An interrupt is a signal that an event needs attention now; tasks have priorities; the highest-priority task pre-empts a lower-priority task and finishes before its deadline; interrupt latency is short and bounded.",
+      "weight": 2,
+      "model": "Interrupt — a signal from hardware/software that an event needs attention now. Tasks have priorities; the RTOS saves the running task, pre-empts it and runs the more urgent task, then resumes the interrupted task. Interrupt latency = time from interrupt to start of the handling task; kept short and bounded."
+    },
+    {
+      "title": "Hard and soft real-time",
+      "must": "Hard: a missed deadline is a failure and may be dangerous (airbag, ABS, pacemaker); soft: a missed deadline only lowers quality (video call, online game).",
+      "weight": 3,
+      "model": "Hard real-time — a missed deadline is a system failure, may be dangerous: airbag, ABS, pacemaker, flight control. Soft real-time — a missed deadline only lowers quality, the system keeps working: video call, streaming, online game."
+    },
+    {
+      "title": "RTOS vs general-purpose OS",
+      "must": "RTOS meets every deadline with deterministic response and minimal interface; a general-purpose OS aims for good average speed, time-sharing and a rich GUI.",
+      "weight": 1,
+      "model": "RTOS: meets every deadline, strict priority pre-emptive scheduling, deterministic response, small, minimal interface. General-purpose OS (Windows): good average speed, fair time-sharing between programs, response varies with load (background updates), large, rich GUI."
+    },
+    {
+      "title": "Definition of a NOS",
+      "must": "An OS, usually on a server, that manages a network: its shared resources (files, printers, applications, Internet access) and the users who access them.",
+      "weight": 3,
+      "model": "Network operating system — an OS, usually on a server, that manages a network: its shared resources (files, printers, applications, Internet access) and the users who access them; client computers connect to it (client–server)."
+    },
+    {
+      "title": "Functions of a NOS",
+      "must": "At least five: user accounts and groups, authentication, authorisation / access rights, file and printer sharing, security and audit logs, central backup and updates, remote administration.",
+      "weight": 3,
+      "model": "User account and group management, password policies; authentication; authorisation / access rights; file and printer sharing (print queues, home folders); security (firewall, audit logs); centralised backup and software updates; remote administration, DHCP/DNS/e-mail; many users at once."
+    },
+    {
+      "title": "User account management",
+      "must": "Accounts in groups → log-in → authentication (who are you?) → authorisation (what may you access?) → access only to allowed resources, logged; with an access-rights example.",
+      "weight": 2,
+      "model": "Admin creates accounts and puts them in groups (Teachers, Grade 12); rights are given to groups. Log-in: authentication = who are you? (user name + password, 2FA); authorisation = what may you access? (rights of account and groups). Example: \\\\Exams teachers read/write, pupils no access; access is logged; leaver's account disabled in one place."
+    },
+    {
+      "title": "Client–server vs peer-to-peer",
+      "must": "Client–server: central control, stronger security, central backup, needs a server and administrator, for large networks; peer-to-peer: each computer manages itself, cheap, for small networks.",
+      "weight": 2,
+      "model": "Client–server (NOS on a server): centralised control, strong security set in one place, central automatic backup, needs a server and administrator, server is a single point of failure, for large networks. Peer-to-peer: each computer manages itself, weaker security, users back up themselves, cheap and simple, for home/small office."
+    },
+    {
+      "title": "Definition of a batch processing OS",
+      "must": "Groups jobs with similar requirements and runs them one after another automatically, without user interaction, usually at a scheduled time; data is collected over a period and processed together.",
+      "weight": 3,
+      "model": "Batch processing OS — groups jobs with similar requirements into batches and runs them one after another automatically, without user interaction, usually at a scheduled (off-peak) time; data is collected over a period and processed together."
+    },
+    {
+      "title": "How batch processing works",
+      "must": "Collect data in a transaction file → sort to match the master file → submit jobs with JCL / script to a job queue → run at night with no operator, matching each transaction to its master record → new master file, output spooled; definition of spooling.",
+      "weight": 2,
+      "model": "Data collected in a transaction file → sorted into the order of the master file (key field) → jobs submitted with JCL/script to a job queue → run at night with no operator, one sequential pass matching transactions to master records → new master file; output spooled. Spooling — output for a slow device queued on disk so the processor continues with the next job."
+    },
+    {
+      "title": "Uses, advantages and disadvantages of batch",
+      "must": "Uses (payroll, bills, bank statements, card payments); advantages (efficient for large volumes, off-peak, no operator); disadvantages (delay, errors found late, no interaction).",
+      "weight": 2,
+      "model": "Uses: payroll, utility bills, bank statements, end-of-day card payments, exam results, backups. Advantages: efficient for large volumes of similar data, uses off-peak time, no operator, consistent. Disadvantages: delay (results not immediate), errors found only after the batch, jobs cannot be changed while running, not for interactive/urgent tasks."
+    },
+    {
+      "title": "Choosing an OS type",
+      "must": "For a scenario, name the OS type and give a reason linked to the scenario (e.g. ABS → hard real-time; school files → NOS; water bills → batch).",
+      "weight": 1,
+      "model": "Ask: late response = failure? → real-time (dangerous → hard). Many users sharing resources with central security? → NOS. Large volume of similar data that can wait? → batch. Give a reason linked to the scenario: ABS → hard real-time; school of 900 pupils → NOS; 300 000 water bills → batch; video call → soft real-time."
+    }
   ]
 }
