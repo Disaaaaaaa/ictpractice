@@ -10,17 +10,20 @@
     {
       "title": "Full, incremental and differential backups",
       "must": "What each copies (all data / changes since the last backup / changes since the last full) and how they compare in time and space.",
-      "weight": 3
+      "weight": 3,
+      "model": "Full — copies all the data every time: slowest, needs the most space, easiest to restore. Incremental — copies only the changes since the last backup of any kind: fastest, least space, slowest to restore. Differential — copies the changes since the last full backup: medium time and space; grows every day until the next full backup."
     },
     {
       "title": "Restoring from backups",
       "must": "Incremental: the full backup plus every incremental in order; differential: the full backup plus the latest differential; restores are tested.",
-      "weight": 2
+      "weight": 2,
+      "model": "Incremental: restore the last full backup, then every incremental backup since it, in order (Sunday full → Mon → Tue → Wed → Thu). Differential: restore the last full backup, then only the latest differential (Sunday full → Thursday differential). Restores should be tested regularly."
     },
     {
       "title": "RPO and RTO",
       "must": "RPO: most recent data that may be lost (measured in time); RTO: the longest time the system may be down while restored; with examples.",
-      "weight": 2
+      "weight": 2,
+      "model": "RPO (recovery point objective) — the largest amount of recent data the organisation can afford to lose, measured in time: a nightly backup gives an RPO of up to 24 hours; an online shop that cannot lose orders backs up every 15 minutes. RTO (recovery time objective) — the longest time the system may be unavailable while it is restored: a school may accept a day, a hospital or bank only minutes, so they also need mirroring or a spare server."
     },
     {
       "title": "Rules for backups",
@@ -35,7 +38,8 @@
     {
       "title": "Backup media",
       "must": "At least three of: external disk, SSD / flash, magnetic tape, NAS, cloud — with capacity, speed or cost.",
-      "weight": 2
+      "weight": 2,
+      "model": "External hard disk — large capacity, cheap, but can be lost or damaged. SSD / flash drive — fast and small, more expensive per GB. Magnetic tape — very large capacity and cheap for archives, slow to restore. NAS — network storage for automatic backups of many computers. Cloud — off-site automatically, monthly cost, needs Internet."
     },
     {
       "title": "Cloud backup",
@@ -60,7 +64,8 @@
     {
       "title": "Contents of the plan",
       "must": "At least three: critical systems in order, who is responsible, where backups are and how to restore, acceptable downtime / data loss, alternative arrangements, testing the plan.",
-      "weight": 2
+      "weight": 2,
+      "model": "A disaster recovery plan contains: the critical systems in the order they are restored; who is responsible for each step; where the backups are and how to restore them; the acceptable downtime and data loss (RTO, RPO); alternative arrangements (spare server, another site, working on paper); contact list; how and when the plan is tested."
     }
   ]
 }

@@ -15,12 +15,14 @@
     {
       "title": "Validation vs verification comparison",
       "must": "Table: question asked, who does it, examples, and an error each one catches (150 vs 67 typed as 76).",
-      "weight": 3
+      "weight": 3,
+      "model": "Validation — question: is the data sensible / allowed? Done by: the computer, automatically. Examples: presence, range, format check. Catches: 150 typed for a mark out of 100. Verification — question: is the data the same as the original? Done by: the user (double entry, visual check). Catches: 67 typed as 76 (a sensible value that validation would accept)."
     },
     {
       "title": "Validation checks",
       "must": "Presence, type, range, length, lookup, format, uniqueness — each with a rule example.",
-      "weight": 2
+      "weight": 2,
+      "model": "Presence — Surname must be entered. Type — Age must be a whole number. Range — Mark between 0 and 100. Length — Password 8–20 characters. Lookup — Grade is 11 or 12. Format — StudentID = S + 4 digits (S1024). Uniqueness — no two students have the same Email."
     },
     {
       "title": "Validation in SQL",
@@ -30,7 +32,8 @@
     {
       "title": "Worked validation example",
       "must": "A scenario (e.g. olympiad registration) with each check named as validation or verification and why.",
-      "weight": 1
+      "weight": 1,
+      "model": "Olympiad registration form: Surname — presence check (validation: the computer rejects an empty field); Grade — lookup 9, 10 or 11 (validation); Date of birth — range check (validation); IIN — length 12 and type digits (validation); the student types the email twice and the two entries are compared — double entry (verification: checks the data was typed correctly); the teacher reads the printed list against the forms — visual check (verification)."
     },
     {
       "title": "ORDER BY, ASC and DESC",
@@ -40,7 +43,8 @@
     {
       "title": "ORDER BY examples",
       "must": "Sorting by one field ASC and DESC, and by two fields (second field decides ties); WHERE before ORDER BY.",
-      "weight": 3
+      "weight": 3,
+      "model": "SELECT Title, Price FROM Books ORDER BY Price; — cheapest first (ASC is the default). SELECT Title, Price FROM Books ORDER BY Price DESC; — most expensive first. SELECT * FROM Students ORDER BY Class, LastName; — by class, and inside each class by surname (the second field decides ties). WHERE comes before ORDER BY: SELECT Title FROM Books WHERE Year > 2020 ORDER BY Title;"
     },
     {
       "title": "Order of clauses",
@@ -50,7 +54,8 @@
     {
       "title": "Aggregate functions",
       "must": "COUNT(*), SUM, AVG, MAX, MIN (and GROUP BY) with an example and its result.",
-      "weight": 1
+      "weight": 1,
+      "model": "COUNT(*) — number of rows: SELECT COUNT(*) FROM Students; → 25. SUM(Points), AVG(Points), MAX(Price), MIN(Price). With GROUP BY: SELECT Class, COUNT(*) FROM Students GROUP BY Class; → 11A 12, 11B 13."
     },
     {
       "title": "Join definition",
@@ -60,7 +65,8 @@
     {
       "title": "Join condition",
       "must": "WHERE Table1.FK = Table2.PK (or JOIN … ON …) — with the Titles / Publishers example.",
-      "weight": 3
+      "weight": 3,
+      "model": "The join condition matches the foreign key with the primary key: WHERE Titles.PublisherID = Publishers.PublisherID (or FROM Titles JOIN Publishers ON Titles.PublisherID = Publishers.PublisherID). Example: SELECT Titles.Title, Publishers.Name FROM Titles, Publishers WHERE Titles.PublisherID = Publishers.PublisherID;"
     },
     {
       "title": "Two ways to join",
@@ -70,12 +76,14 @@
     {
       "title": "Steps for a join query",
       "must": "Fields as Table.field → both tables in FROM → join condition → extra conditions with AND → ORDER BY last; A query with two join conditions (tables − 1), e.g. student name, book title, loan date.",
-      "weight": 2
+      "weight": 2,
+      "model": "1) Write the fields as Table.field (Students.Name, Books.Title, Loans.LoanDate). 2) Put all the tables in FROM (Students, Books, Loans). 3) Add a join condition for each link — number of tables − 1: Loans.StudentID = Students.StudentID AND Loans.BookID = Books.BookID. 4) Add extra conditions with AND. 5) ORDER BY last."
     },
     {
       "title": "Worked join example",
       "must": "A join with an extra condition and ORDER BY, plus its result table (e.g. books published in Almaty, cheapest first).",
-      "weight": 2
+      "weight": 2,
+      "model": "Books published in Almaty, cheapest first: SELECT Titles.Title, Titles.Price, Publishers.Name FROM Titles, Publishers WHERE Titles.PublisherID = Publishers.PublisherID AND Publishers.City = 'Almaty' ORDER BY Titles.Price; Result: Abai Joly 2500 Atamura | Kazakh Tales 3200 Mektep | Steppe Poems 4100 Atamura."
     },
     {
       "title": "Missing join condition",
@@ -100,7 +108,8 @@
     {
       "title": "Building the tables with FOREIGN KEY",
       "must": "From the ERD: tables, fields, PKs; FK in the 'many' table; same type as the PK; create parent tables first, then child tables; insert parents first; A full example: FOREIGN KEY (StudentID) REFERENCES Students(StudentID) in Loans.",
-      "weight": 3
+      "weight": 3,
+      "model": "From the ERD: Students(StudentID PK) — 1:M — Loans(LoanID PK, StudentID FK). The FK goes in the 'many' table and has the same type as the PK. Create the parent table first: CREATE TABLE Students (StudentID INT PRIMARY KEY, Name VARCHAR(50)); then the child: CREATE TABLE Loans (LoanID INT PRIMARY KEY, StudentID INT, LoanDate DATE, FOREIGN KEY (StudentID) REFERENCES Students(StudentID)); Insert the students before their loans."
     }
   ]
 }
