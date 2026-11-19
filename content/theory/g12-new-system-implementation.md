@@ -14,6 +14,27 @@ A document that describes **how, when and by whom** a new system will be **insta
 
 Implementing a new system involves many people (developers, managers, staff, suppliers) and many tasks that depend on each other: the hardware must be installed before the software, the data must be converted before the system goes live, staff must be trained before they use it. Without a plan, tasks are forgotten, done in the wrong order or late.
 
+## Why the plan matters: each reason explained
+
+**Tasks are not forgotten.** Implementation is a long list of small jobs: buying cables, creating user accounts, copying thousands of records, printing user guides, booking a room for training. Each one is easy, but if a single job is forgotten the system cannot start. Writing every task in a plan turns a vague goal ("start the new system in November") into a checklist that can be ticked off.
+
+**Tasks happen in the right order.** Many tasks **depend** on others. Software cannot be installed on computers that have not arrived; data cannot be imported into a database that does not exist; staff cannot practise on a system that is not installed. The plan shows these dependencies, so nobody waits for a task that has not started and nobody starts a task too early.
+
+**The system goes live on time.** A plan gives every task a start date, an end date and a duration, and marks **milestones** such as "all data converted" or "go-live". Managers compare the real progress with the plan every week. If a task is late they see it **early**, while there is still time to add staff or move other tasks, instead of discovering on the go-live day that nothing is ready.
+
+**Everyone knows their role.** Implementation involves the developer, the IT technician, the supplier, managers and ordinary staff. When each task has a **responsible person**, work is not done twice and no task is left with "I thought you were doing that".
+
+**Cost and resources are controlled.** The plan lists the equipment, the trainers and the staff time each task needs. Staff who enter data or attend training are not doing their normal work, so the organisation must plan cover for them. Knowing the resources in advance keeps the project inside its **budget**.
+
+**Risk and disruption are reduced.** The changeover is the most dangerous moment in the life of a system: real data and real customers meet the new software for the first time. The plan makes sure a **backup** exists, that the data is **verified**, that the system is **tested** before go-live, and that there is a **contingency plan** if it fails. It also schedules disruptive work at quiet times — a shop installs new tills on a Sunday night, a school changes its system during the holidays — so that normal work continues.
+
+**Success can be checked.** Because the plan states what should be achieved and by when, a **review** after go-live can compare the result with the plan and with the original requirements.
+
+:::example Why a clinic needs a plan
+A clinic in Karaganda replaces its paper appointment book with an online booking system. Without a plan, the receptionists are trained after the system goes live, the old appointments for next month are not entered, and on Monday morning patients arrive for appointments the new system does not know about. With a plan, the existing appointments are **backed up and entered** in the week before go-live and **checked** against the paper book, the receptionists are **trained on Thursday and Friday**, the system goes live on **Monday at 08:00**, and the paper book is kept for two weeks as a **contingency**. The same work is done, but in the right order and with a safety net.
+:::
+
+
 :::svg Where the implementation plan fits in the system life cycle
 <svg class="nsi" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System life cycle stages ending with review; the implementation plan is written before implementation and guides installation, data conversion, training and changeover">
   <style>
@@ -95,6 +116,19 @@ The **method** (direct, parallel, pilot, phased) is only **one element** of the 
 | **Review / evaluation** | How and when the success of the implementation will be checked | Review meeting on 10.01 |
 :::
 
+
+## How the elements fit together
+
+The **method** decides the shape of the whole plan. With **direct changeover** everything — data conversion, training, testing — must be finished before one fixed date, so the schedule is tight and the contingency plan is critical. With **parallel running** the plan must include the period when staff work in **both** systems, the extra staff time this needs and the date when results are compared and the old system is switched off. With **pilot** or **phased** implementation the plan repeats installation and training for each department or each part of the system.
+
+The **schedule** turns the list of tasks into dates. It shows the start and end of every task, the tasks that can run at the same time and the milestones. **Hardware installation** comes early because almost everything else depends on it; it includes delivery, cabling, connecting the devices and checking that they work. **Software installation** includes installing the application and the database, configuring settings, and creating **user accounts with access rights**, so that each member of staff sees only what they need — a receptionist can book appointments, but only a doctor can read medical notes.
+
+**Testing before go-live** is the last check that the system is ready. The client tries real tasks with the converted data — this is **acceptance testing** — and confirms the system meets the requirements. Only after the client accepts it does the system go live. **Documentation and support** continue after go-live: users need a guide to look things up, technicians need technical documentation, and someone must answer questions in the first busy weeks. Finally the **review** compares the new system with the requirements: is it faster, are there fewer errors, are users satisfied?
+
+:::definition Acceptance testing
+Testing of the finished system **by the client and the users**, with real or realistic data, to confirm that it **meets the requirements** before it goes live. If the client accepts the system, the go-live milestone can be reached.
+:::
+
 ## Data conversion
 
 :::definition Data conversion (data migration)
@@ -142,6 +176,12 @@ Always make a **full backup of the old data** before conversion begins, so nothi
 
 ## Staff training
 
+A new system only brings benefits if people **use it correctly**. Staff who do not know how to do their everyday tasks make errors, work slowly and lose confidence in the system; some go back to their old ways of working. Training is therefore a separate element of the plan, with its own **method, timing, trainer and resources**.
+
+The **method** is chosen to fit the staff and the organisation. A large group with the same tasks — thirty teachers learning an electronic register — can be trained together in a classroom session. A manager who needs only reports can be shown one-to-one. Staff who work shifts, such as nurses, benefit from online videos they can watch at any time. Many organisations combine methods: a short group session, a quick guide on every desk and a practice mode for trying things without risk.
+
+The **timing** matters as much as the method. Training given months before go-live is forgotten; training given after go-live means staff learn on real customers. The plan therefore puts training **after the software is installed** (there must be something to practise on) and **just before go-live**, with refresher help in the first weeks. Training is usually arranged in groups or shifts so that the organisation keeps working while some staff are away.
+
 :::compare Staff training methods
 | Method | Advantages | Disadvantages |
 |---|---|---|
@@ -177,6 +217,21 @@ An important **point in the schedule** that marks the **end of a stage**, with a
 
 :::definition Contingency plan
 A plan of **what to do if something goes wrong** during implementation — e.g. restore the data from the backup, go back to the old system, use a temporary manual procedure.
+:::
+
+
+## Ordering tasks and estimating time
+
+The hardest part of making a plan is deciding the **order** of the tasks. Start with the end: the **go-live** date. Ask what must be finished before go-live — the data converted and checked, the staff trained, the system tested. Then ask what each of those needs before it can start: training needs the software installed; the software needs the hardware; data conversion needs the database and a backup of the old data. Working backwards like this produces a chain of **dependencies**.
+
+Next, estimate the **duration** of each task. Some durations can be calculated: if one assistant can type 100 book records an hour and there are 2 400 books, data entry takes 24 hours of work — with two assistants working 4 hours a day, about 3 days. Others are estimated from experience or from the supplier (delivery takes 5 working days). It is sensible to add a little **spare time** to risky tasks.
+
+Tasks that do not depend on each other can be done **at the same time**, which shortens the project. For example, the backup of old records and the installation of the hardware can happen together, and staff training can start while the last records are typed in. The longest chain of dependent tasks from start to go-live decides the **earliest possible go-live date**: if any task in that chain is late, the go-live is late. Managers watch these tasks most closely.
+
+Once the order and durations are known, each task gets a **start date**, an **end date** and a **responsible person**, and the milestones are added. The plan is then drawn as a **table** (for the details) and a **Gantt chart** (for the timeline). The plan is not fixed for ever: when something is late, the plan is updated and everyone is told the new dates.
+
+:::definition Critical path
+The **longest chain of dependent tasks** from the start of the project to its end. It gives the shortest possible time to finish; a delay to any task on the critical path delays the whole implementation.
 :::
 
 :::steps How to write the plan
