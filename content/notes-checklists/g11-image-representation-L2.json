@@ -1,0 +1,96 @@
+{
+  "topic": "g11-image-representation",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Formula for bitmap file size",
+      "must": "File size (bits) = width × height × colour depth; then ÷8 bytes, ÷1024 KB, ÷1024 MB; metadata and compression ignored.",
+      "weight": 3,
+      "model": "File size (bits) = width (px) × height (px) × colour depth (bits per pixel). ÷ 8 → bytes; ÷ 1024 → KB; ÷ 1024 → MB; ÷ 1024 → GB. Ignore metadata and compression unless told."
+    },
+    {
+      "title": "Why the formula works",
+      "must": "Width × height = number of pixels; each pixel uses colour-depth bits; size does not depend on the picture's content (uncompressed); each factor changes the size in proportion.",
+      "weight": 2,
+      "model": "Width × height = number of pixels; every pixel uses the same number of bits (colour depth), so pixels × depth = total bits. Content does not matter for an uncompressed bitmap. Doubling any factor doubles the size."
+    },
+    {
+      "title": "Units of storage",
+      "must": "Byte = 8 bits; KB = 1024 bytes; MB = 1024 KB; GB = 1024 MB; divide to go to a larger unit, multiply to go back; 1000 vs 1024 rule.",
+      "weight": 3,
+      "model": "1 byte = 8 bits; 1 KB = 1024 bytes; 1 MB = 1024 KB = 1 048 576 bytes; 1 GB = 1024 MB; 1 TB = 1024 GB. Larger unit → divide; smaller unit → multiply. Bits → bytes is ÷ 8. Use 1024 unless the question says 1000; never mix."
+    },
+    {
+      "title": "Steps of the calculation",
+      "must": "Procedure: convert colours to colour depth, pixels, bits, bytes, KB, MB; show working with units; round at the end.",
+      "weight": 2,
+      "model": "1) Colours → colour depth if needed. 2) width × height = pixels. 3) × depth = bits. 4) ÷ 8 = bytes. 5) ÷ 1024 = KB, ÷ 1024 = MB. Show each step with its unit; round only at the end."
+    },
+    {
+      "title": "Worked example: file size in MB",
+      "must": "1024 × 768, 24-bit → 2.25 MB with all steps.",
+      "weight": 3,
+      "model": "1024 × 768 = 786 432 pixels; × 24 = 18 874 368 bits; ÷ 8 = 2 359 296 bytes; ÷ 1024 = 2304 KB; ÷ 1024 = 2.25 MB."
+    },
+    {
+      "title": "Worked example: number of colours given",
+      "must": "800 × 600, 256 colours → 8 bits → 468.75 KB.",
+      "weight": 2,
+      "model": "256 colours = 2⁸ → 8 bits. 800 × 600 × 8 = 3 840 000 bits ÷ 8 = 480 000 bytes ÷ 1024 = 468.75 KB."
+    },
+    {
+      "title": "Working backwards",
+      "must": "Convert the size back to bits (×1024, ×8) and divide by the known values; example finding colour depth.",
+      "weight": 3,
+      "model": "640 × 480 image, 600 KB: 600 × 1024 = 614 400 bytes × 8 = 4 915 200 bits; ÷ (640 × 480 = 307 200) = 16 bits per pixel. To find the width: bits ÷ (height × depth)."
+    },
+    {
+      "title": "Storage and transfer time",
+      "must": "Number of images = free space ÷ size, rounded down; transfer time = size in bits ÷ speed in bits per second; camera example.",
+      "weight": 2,
+      "model": "4000 × 3000, 24-bit = 36 000 000 bytes ≈ 34.3 MB. 16 GB card = 16 384 MB ÷ 34.3 → 477 photos (round down). Time at 20 Mbps = 288 000 000 bits ÷ 20 000 000 = 14.4 s. Speeds are in bits per second."
+    },
+    {
+      "title": "Effect of changes on file size",
+      "must": "Scale factors: width ×2 → ×2; width and height ×2 → ×4; both ÷2 → ÷4; depth 8→24 → ×3.",
+      "weight": 3,
+      "model": "Width × 2 → size × 2. Width and height × 2 → 4 × the pixels → size × 4. Both halved → ÷ 4. Colour depth 8 → 24 bits → × 3; 24 → 1 bit → ÷ 24."
+    },
+    {
+      "title": "Ways to reduce file size",
+      "must": "Reduce resolution, reduce colour depth, crop, compress — each with its cost.",
+      "weight": 2,
+      "model": "Reduce resolution (less detail), reduce colour depth (fewer colours, banding), crop (removes unwanted pixels only), compress (lossless or lossy)."
+    },
+    {
+      "title": "Compression: lossless and lossy",
+      "must": "Definition of compression; lossless rebuilds the original exactly (RLE example, PNG/GIF); lossy permanently removes data the eye barely notices (JPEG), artefacts; when to use each.",
+      "weight": 3,
+      "model": "Compression — reducing the number of bits needed to store a file. Lossless: original rebuilt exactly; e.g. run-length encoding WWWWWWBBBWWW → 6W 3B 3W; PNG, GIF; for logos, screenshots, medical images. Lossy: permanently removes detail the eye barely notices; JPEG; much smaller; artefacts; for photos on websites/messages."
+    },
+    {
+      "title": "Worked example: photos for the school website",
+      "must": "Resize 4000 × 3000 to 1200 × 900 (≈34.3 MB → ≈3.09 MB), then JPEG (≈300 KB); keep originals.",
+      "weight": 1,
+      "model": "4000 × 3000 24-bit ≈ 34.3 MB → resize to 1200 × 900: 1200 × 900 × 24 ÷ 8 = 3 240 000 bytes ≈ 3.09 MB (≈ 11 × smaller) → JPEG ≈ 300 KB. Keep originals for printing."
+    },
+    {
+      "title": "Definition of a vector graphic",
+      "must": "Image stored as objects/shapes with mathematical properties (coordinates, size, colours, line width), redrawn at any size; SVG example.",
+      "weight": 3,
+      "model": "Vector graphic — an image stored as objects (lines, curves, circles, text) described by mathematical properties: coordinates, size, line colour/width, fill. Redrawn from the instructions at any size. e.g. <circle cx=100 cy=100 r=80 fill=…>."
+    },
+    {
+      "title": "Bitmap vs vector",
+      "must": "Comparison: stored as, enlarging, what file size depends on, editing, best for, formats.",
+      "weight": 3,
+      "model": "Bitmap: grid of pixels; pixelates when enlarged; size = resolution × colour depth; photos, scans; BMP, PNG, JPEG, GIF. Vector: shapes; stays sharp when scaled; size depends on number of objects, usually small; logos, icons, diagrams, fonts; SVG, AI, EPS."
+    },
+    {
+      "title": "Choosing bitmap or vector",
+      "must": "Choose by content and use: photo → bitmap (JPEG for web), logo → vector, screenshot → PNG.",
+      "weight": 1,
+      "model": "Graduation photo → bitmap (camera, complex colours), JPEG for the website. School logo → vector (few shapes, sharp from icon to banner). Screenshot for a guide → PNG (lossless, crisp text)."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "topic": "g11-image-representation",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Definition of a bitmap image",
+      "must": "A bitmap (raster) image is a grid of pixels in rows and columns; each pixel has one colour stored as a binary number; examples of bitmap formats.",
+      "weight": 3,
+      "model": "Bitmap (raster) image — an image made of a grid of tiny squares called pixels; each pixel has one colour, stored as a binary number. Photos, scans, screenshots. Formats: BMP, PNG, JPEG, GIF."
+    },
+    {
+      "title": "Definition of a pixel",
+      "must": "Pixel = picture element, the smallest single-coloured element of an image; cannot show detail inside itself.",
+      "weight": 3,
+      "model": "Pixel (picture element) — the smallest single-coloured element of a bitmap image or screen. The whole square is one colour."
+    },
+    {
+      "title": "How pixels are stored",
+      "must": "Each colour has a binary code; pixel codes are stored in order from the top-left, row by row; 1-bit example (1 = black, 0 = white) with the size worked out.",
+      "weight": 2,
+      "model": "Pixel codes are stored one after another: top-left pixel first, left to right along row 1, then row 2 … 1-bit image: 1 = black, 0 = white. 8 × 8 smiley = 64 pixels × 1 bit = 64 bits = 8 bytes."
+    },
+    {
+      "title": "Metadata and why it is needed",
+      "must": "Metadata = data about the data stored in the file header: width, height, colour depth (and file type, date, camera…); needed to split the bits into rows and pixels and display the image correctly.",
+      "weight": 3,
+      "model": "Metadata — data about the data, stored in the header: width and height in pixels, colour depth, file type, compression, date, camera, GPS. Needed so the computer knows how many pixels are in each row and how many bits per pixel; without it the bits could be split many ways (24 bits = 6×4 or 4×6 or 8×3)."
+    },
+    {
+      "title": "Worked example: rebuilding a picture from binary",
+      "must": "Splitting a bit string into rows using the width from the header and drawing the result.",
+      "weight": 1,
+      "model": "Width 5, height 4, 1-bit: 00100 01110 11111 00100 → rows of 5 → an arrow pointing up. With width 4 the same bits give a different, meaningless picture."
+    },
+    {
+      "title": "Definition of resolution",
+      "must": "Image resolution = the number of pixels, given as width × height or total pixels/megapixels, with an example.",
+      "weight": 3,
+      "model": "Image resolution — the number of pixels in an image, width × height, e.g. 1920 × 1080 = 2 073 600 pixels ≈ 2 megapixels. Higher resolution = more, smaller pixels (not bigger pixels)."
+    },
+    {
+      "title": "Why more pixels give more detail",
+      "must": "Each pixel is one colour, so detail smaller than a pixel is lost; more pixels follow edges more closely; enlarging software only stretches/interpolates and cannot add detail.",
+      "weight": 2,
+      "model": "Each pixel holds one colour, so any detail smaller than one pixel is not recorded. More pixels → edges and small text recorded more accurately (circle at 8×8 is blocky, at 32×32 smooth). Enlarging in software only stretches or interpolates pixels — no new detail."
+    },
+    {
+      "title": "Pixelation",
+      "must": "Definition of pixelation and its cause (resolution too low for the display/print size), with an example.",
+      "weight": 2,
+      "model": "Pixelation — the blocky look of a bitmap enlarged so much that individual pixels become visible; caused by too low a resolution for the display or print size (e.g. a small website logo printed on a banner)."
+    },
+    {
+      "title": "Pixel density (PPI/DPI) and print size",
+      "must": "PPI/DPI = pixels/dots per inch; printed width = pixels ÷ PPI; ~300 PPI needed for sharp prints; the poster example with numbers.",
+      "weight": 2,
+      "model": "PPI/DPI — pixels (dots) per inch. Printed width (in) = width in pixels ÷ PPI. Sharp photo prints need about 300 PPI. A4 poster 8.3 × 11.7 in at 300 PPI needs ≈ 2490 × 3510 px; a 1280 × 720 photo gives only 1280 ÷ 11.7 ≈ 109 PPI → pixelated."
+    },
+    {
+      "title": "High vs low resolution",
+      "must": "Comparison: detail, enlarging, file size, loading time, editing, typical uses; choose the lowest resolution that still looks good for the use.",
+      "weight": 2,
+      "model": "High resolution: more detail, sharp when enlarged, larger file, slower upload/loading, needs more RAM — prints, posters, medical scans. Low resolution: less detail, pixelated if enlarged, smaller file, faster — thumbnails, icons, messengers."
+    },
+    {
+      "title": "Definition of colour depth and 2ⁿ",
+      "must": "Colour depth = number of bits per pixel; n bits give 2ⁿ colours; each extra bit doubles the colours; table of 1, 8, 24, 32 bits.",
+      "weight": 3,
+      "model": "Colour depth (bit depth) — the number of bits used to store the colour of each pixel; n bits → 2ⁿ colours. 1 bit = 2, 4 bits = 16, 8 bits = 256, 16 bits = 65 536, 24 bits = 16 777 216 (true colour), 32 bits = 24-bit colour + 8-bit transparency (alpha)."
+    },
+    {
+      "title": "Palette and RGB coding",
+      "must": "Small depths use a palette (pixel stores the colour's number in a table); 24-bit uses RGB, 8 bits per channel 0–255, hex notation example.",
+      "weight": 2,
+      "model": "Palette — the header lists the colours; each pixel stores the number of its colour. 24-bit RGB: 8 bits each for red, green, blue (0–255); 256 × 256 × 256 = 2²⁴ colours. #FF8000 = R255 G128 B0 = orange; (0,0,0) black, (255,255,255) white."
+    },
+    {
+      "title": "Bits needed for a number of colours",
+      "must": "Rule: smallest n with 2ⁿ ≥ number of colours, rounding up, with examples.",
+      "weight": 3,
+      "model": "Find the smallest n with 2ⁿ ≥ colours (round up). 5 colours → 3 bits; 20 → 5 bits; 256 → 8 bits; 1000 → 10 bits. 6 bits → 2⁶ = 64 colours."
+    },
+    {
+      "title": "Effect of colour depth on quality and file size",
+      "must": "More bits → more colours, smoother shading, less banding (definition of banding); file size grows in proportion to bits per pixel (8→24 = ×3, 8→16 = ×2).",
+      "weight": 3,
+      "model": "Higher colour depth → colours closer to real, smoother shading, no banding (stripes of flat colour in gradients). File size ∝ bits per pixel: 8 → 16 bits doubles it, 8 → 24 bits triples it. Colour depth gives colours, resolution gives detail."
+    },
+    {
+      "title": "Choosing resolution and colour depth together",
+      "must": "Examples of choosing both for a purpose: scanned text (high resolution, 1 bit), photo (24-bit), icon (32-bit for transparency).",
+      "weight": 1,
+      "model": "Scanned text page: high resolution, 1-bit colour. Family photo: good resolution, 24-bit. App icon: 64 × 64 but 32-bit for transparent edges. Justify by the use of the image."
+    }
+  ]
+}
