@@ -1728,6 +1728,751 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "ost-nx-1",
+      "title": "Intensive care unit",
+      "type": "structured",
+      "marks": 10,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A hospital in Karaganda is equipping its **intensive care unit**. Each bed has a **ventilator** that helps the patient breathe and a **patient monitor** that measures heart rate and blood oxygen and shows them on a screen. Both are controlled by a **real-time operating system (RTOS)**. The hospital also runs a **video consultation** service so that doctors in other cities can see patients.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-1a",
+          "part_label": "(a)",
+          "title": "Meaning of real-time",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "Explain what is meant by **real-time** in a real-time operating system.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- the system processes inputs and responds within a guaranteed / strict time limit / deadline (1)\n- it works at the speed of the real-world process it controls / a result is only correct if it is produced on time (not simply \"very fast\") (1)",
+            "points": [
+              {
+                "criterion": "Response within a guaranteed deadline",
+                "marks": 1
+              },
+              {
+                "criterion": "Keeps pace with the real-world process / correct only if on time",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Real-time means the system processes each input and responds within a guaranteed deadline, keeping pace with the physical process it controls; a result is only correct if it is produced on time, so being predictable matters more than being fast."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-1b",
+          "part_label": "(b)",
+          "title": "Interrupts and priorities",
+          "type": "short_answer",
+          "marks": 4,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "The monitor is updating its screen when the oxygen sensor detects that the patient's blood oxygen has fallen below a safe level. Describe how the RTOS uses **interrupts** and **priorities** to respond.",
+          "content": {
+            "answer_lines": 8
+          },
+          "scheme": {
+            "mark_scheme": "- the oxygen sensor sends an interrupt (signal) to the processor (1)\n- the alarm / ventilator task has a higher priority than the screen-update task (1)\n- the RTOS pre-empts / pauses the screen task, saving its state (1)\n- the high-priority task runs immediately (sounds the alarm / adjusts the ventilator) within the deadline, then the screen task is resumed (1)",
+            "points": [
+              {
+                "criterion": "Sensor sends an interrupt",
+                "marks": 1
+              },
+              {
+                "criterion": "Alarm / ventilator task has higher priority",
+                "marks": 1
+              },
+              {
+                "criterion": "Lower-priority task pre-empted, state saved",
+                "marks": 1
+              },
+              {
+                "criterion": "Urgent task runs at once, display resumed after",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The oxygen sensor sends an interrupt to the processor. The task that raises the alarm and adjusts the ventilator has a higher priority than the screen-update task, so the RTOS pre-empts the screen task and saves its state. The urgent task runs immediately and finishes within its deadline; afterwards the RTOS resumes the screen update where it stopped."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-1c",
+          "part_label": "(c)",
+          "title": "Hard and soft",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "Explain why the ventilator is a **hard** real-time system but the video consultation service is a **soft** real-time system.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- ventilator: a missed deadline is a system failure / could harm or kill the patient (1)\n- video consultation: a missed deadline only lowers quality (frozen picture, delayed sound) and the system keeps working (1)",
+            "points": [
+              {
+                "criterion": "Ventilator — missed deadline is dangerous / failure",
+                "marks": 1
+              },
+              {
+                "criterion": "Video — missed deadline only reduces quality",
+                "marks": 1
+              }
+            ],
+            "model_answer": "If the ventilator misses a deadline the patient may not get air, which is a dangerous failure, so every deadline must be guaranteed. If the video call misses a deadline the picture freezes or the sound is delayed, which lowers quality but is not dangerous."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-1d",
+          "part_label": "(d)",
+          "title": "Classify the systems",
+          "type": "table_completion",
+          "marks": 2,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "Tick (✓) **one** box in each row.",
+          "content": {
+            "columns": [
+              "Hospital system",
+              "Hard real-time",
+              "Soft real-time"
+            ],
+            "rows": 2,
+            "tick": true,
+            "prefill": [
+              [
+                "Insulin pump that injects a dose when blood sugar is high",
+                null,
+                null
+              ],
+              [
+                "Screen in the waiting room streaming health videos",
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Insulin pump – hard (1); streaming health videos – soft (1)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓"
+                ]
+              ]
+            },
+            "model_answer": "Insulin pump: hard real-time. Streaming videos: soft real-time."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "ost-nx-2",
+      "title": "Welding robot",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A factory in Pavlodar uses **welding robots** to join steel parts. Each robot has sensors that measure the **position** of its arm and the **temperature** of the weld, and motors that move the arm. The robots are controlled by an RTOS. A manager suggests saving money by controlling the robots from ordinary office PCs running a **general-purpose operating system** such as Windows.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-2a",
+          "part_label": "(a)",
+          "title": "Feedback loop",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "Describe how the RTOS uses **feedback** to control the position of the robot arm.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "- sensors measure the arm's position continuously and send the readings to the computer (1)\n- the control program compares the reading with the required position (1)\n- it sends a signal to the actuators / motors to correct the position, and the new position is measured again — the output affects the next input (loop repeats) (1)",
+            "points": [
+              {
+                "criterion": "Sensors measure position continuously",
+                "marks": 1
+              },
+              {
+                "criterion": "Reading compared with required value",
+                "marks": 1
+              },
+              {
+                "criterion": "Actuator adjusted; new reading taken (loop)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Position sensors measure where the arm is many times a second and send the readings to the RTOS. The control program compares each reading with the position the arm should be in. If they differ, it sends a signal to the motors to move the arm; the new position is then measured again, so the output of the system affects its next input in a continuous loop."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-2b",
+          "part_label": "(b)",
+          "title": "Why not a general-purpose OS",
+          "type": "short_answer",
+          "marks": 4,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "Explain **two** reasons why a general-purpose operating system is **not** suitable for controlling the welding robots.",
+          "content": {
+            "answer_lines": 8
+          },
+          "scheme": {
+            "mark_scheme": "Two reasons, each identified (1) + explained in context (1):\n- not deterministic / response time varies with the load (1) → the robot may react too late and weld in the wrong place / damage the part (1)\n- uses time-sharing / fairness between programs, not strict priority pre-emption (1) → the urgent control task may have to wait behind other programs (1)\n- large, needs updates and restarts / less reliable (1) → the robot could stop in the middle of a weld / production line stops (1)\n- higher interrupt latency (1) → a dangerous temperature reading is not handled at once (1)",
+            "points": [
+              {
+                "criterion": "Reason 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Explained in context",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Explained in context",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A general-purpose OS is not deterministic: its response time depends on how busy the PC is, so the arm could move too late and weld in the wrong place. It also shares processor time fairly between many programs instead of always running the most urgent task first, so the control task might wait behind an update or another program while the weld overheats."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-2c",
+          "part_label": "(c)",
+          "title": "Another feature",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.1"
+          ],
+          "text": "State **one** other feature of an RTOS that makes it suitable for the factory robots.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Any one (1): high reliability / fault tolerance / runs for years without restarting; redundant (duplicated) hardware; small and efficient / embedded in ROM or flash; minimal user interface; fast interrupt handling / low interrupt latency",
+            "points": [
+              {
+                "criterion": "One correct feature",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is highly reliable and fault tolerant, so it can run for years without being restarted."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "ost-nx-3",
+      "title": "IT company network",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "**DalaSoft**, a software company in Astana, has **150 employees** in three departments: Developers, Accounts and HR. Every computer is connected to a server that runs a **network operating system (NOS)**. Salaries are kept in the shared folder **\\\\Finance** and staff records in **\\\\HR**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-3a",
+          "part_label": "(a)",
+          "title": "Authentication and authorisation",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "text": "Explain the difference between **authentication** and **authorisation** when an employee of DalaSoft opens the \\\\Finance folder.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- authentication: the NOS checks who the employee is, e.g. user name and password / 2FA, at log-in (1)\n- authorisation: the NOS then checks the access rights of the account / group to decide whether this employee may open / change \\\\Finance (1)",
+            "points": [
+              {
+                "criterion": "Authentication — identity checked",
+                "marks": 1
+              },
+              {
+                "criterion": "Authorisation — rights to the folder checked",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Authentication checks who the employee is: at log-in the NOS compares the user name and password with its account database. Authorisation then decides what that employee may do: the NOS checks the access rights of the account and its groups and only lets an Accounts employee open \\\\Finance."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-3b",
+          "part_label": "(b)",
+          "title": "Groups",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "text": "A new accountant joins DalaSoft. Describe how the network administrator uses the NOS so that the accountant can open \\\\Finance but **not** \\\\HR.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "- creates a user account with a user name and (initial) password / password policy (1)\n- adds the account to the Accounts group (1)\n- the Accounts group already has read / write rights to \\\\Finance and no access to \\\\HR, so the new user gets the correct rights automatically / without setting each folder (1)",
+            "points": [
+              {
+                "criterion": "Creates account and password",
+                "marks": 1
+              },
+              {
+                "criterion": "Adds account to Accounts group",
+                "marks": 1
+              },
+              {
+                "criterion": "Rights come from the group: Finance yes, HR no",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The administrator creates an account for the accountant with a user name and a temporary password that must be changed at first log-in. The account is added to the Accounts group. That group already has read/write rights to \\\\Finance and no access to \\\\HR, so the new accountant automatically gets exactly the right access."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-3c",
+          "part_label": "(c)",
+          "title": "Another function",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.2"
+          ],
+          "text": "Describe **one** other function of the NOS, apart from managing user accounts, and how it benefits DalaSoft.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Function (1) + benefit in context (1), e.g.:\n- central backup of shared folders (1) → code / salary files can be restored if a computer fails (1)\n- audit log of who accessed what (1) → the company can see who opened staff records in \\\\HR (1)\n- printer sharing / print queues (1) → fewer printers to buy (1)\n- pushing software updates / installing software on all clients (1) → developers all use the same, secure versions (1)\n- security: firewall / encryption (1) → protects source code from outsiders (1)",
+            "points": [
+              {
+                "criterion": "Function",
+                "marks": 1
+              },
+              {
+                "criterion": "Benefit to DalaSoft",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The NOS backs up all shared folders to the server every night, so if a developer's computer breaks or a file is deleted, the company's code and salary data can be restored."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "ost-nx-4",
+      "title": "National testing centre",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A national testing centre marks the multiple-choice answer sheets of **150 000** school leavers. During the day the sheets are scanned and the answers are stored in a **transaction file**. Each night a **batch processing** operating system matches the answers with the **master file** of candidates (ID, name, school), calculates the scores and prints a results certificate for every candidate.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-4a",
+          "part_label": "(a)",
+          "title": "Sorting the transaction file",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "text": "Explain why the transaction file is **sorted** before it is processed.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- it is sorted by the key field (candidate ID) into the same order as the master file (1)\n- so each master record can be matched with its transactions in one pass / read once in sequence, without searching (faster, efficient) (1)",
+            "points": [
+              {
+                "criterion": "Same key order as master file",
+                "marks": 1
+              },
+              {
+                "criterion": "Matching in one pass without searching",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The transaction file is sorted by candidate ID, the same key field as the master file. The OS can then read both files once from start to end and match each candidate with their answers in one pass, without searching, which is much faster for 150 000 records."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-4b",
+          "part_label": "(b)",
+          "title": "Running the job",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "text": "Describe how the batch processing OS runs the marking job each night **without an operator**.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- the job is written in advance in a job control language / script stating which program, which files and what to do on an error (1)\n- it is placed in a job queue / scheduled, and the OS starts it automatically at the set time (off-peak) and runs the jobs one after another with no user interaction (1)",
+            "points": [
+              {
+                "criterion": "Instructions written in advance (JCL / script)",
+                "marks": 1
+              },
+              {
+                "criterion": "Job queue, scheduled automatic start, one after another",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The marking job is written in advance in a job control language that tells the OS which program to run, which files to use and what to do if an error occurs. The job waits in the job queue and at the scheduled time at night the OS starts it automatically and runs each job in turn with no one at the computer."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-4c",
+          "part_label": "(c)",
+          "title": "Spooling",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "text": "The certificates are **spooled** to the printers. Explain what spooling is and why it is useful here.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- output for the slow printer is stored in a queue on disk (1)\n- so the processor does not wait for the printer and can carry on with the next job / candidates while the printers work through the queue (1)",
+            "points": [
+              {
+                "criterion": "Output queued on disk for the printer",
+                "marks": 1
+              },
+              {
+                "criterion": "Processor continues without waiting",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Spooling puts each certificate into a print queue on disk instead of sending it straight to the slow printer. The processor can then continue marking the next candidates while the printers work through the queue."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-4d",
+          "part_label": "(d)",
+          "title": "A disadvantage",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "text": "Explain **one** disadvantage of using batch processing for the testing centre.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Disadvantage (1) + explained in context (1), e.g.:\n- errors are found only after the whole batch has run (1) → e.g. a wrongly scanned set of sheets or a wrong answer key means the whole night's run must be repeated (1)\n- results are delayed / not available immediately (1) → candidates must wait until the next day for their score (1)\n- the job cannot be changed / no interaction while it runs (1) → a mistake noticed at midnight cannot be fixed until the batch ends (1)",
+            "points": [
+              {
+                "criterion": "Disadvantage",
+                "marks": 1
+              },
+              {
+                "criterion": "Explained in context",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Errors are found only after the whole batch has run: if the answer key loaded that night is wrong, all 150 000 scores are wrong and the whole batch has to be run again."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "ost-nx-5",
+      "title": "Choosing an OS type",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A city council in Kazakhstan uses several computer systems.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-5a",
+          "part_label": "(a)",
+          "title": "Most suitable type",
+          "type": "table_completion",
+          "marks": 4,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.1.1",
+            "12.3.1.2",
+            "12.3.1.3"
+          ],
+          "text": "Tick (✓) the **most suitable** type of operating system for each system.",
+          "content": {
+            "columns": [
+              "System",
+              "Real-time",
+              "Network",
+              "Batch processing"
+            ],
+            "rows": 4,
+            "tick": true,
+            "prefill": [
+              [
+                "Flight controller of a drone that inspects bridges",
+                null,
+                null,
+                null
+              ],
+              [
+                "40 computers in the city library sharing the catalogue and printers",
+                null,
+                null,
+                null
+              ],
+              [
+                "Producing 300 000 water bills every quarter",
+                null,
+                null,
+                null
+              ],
+              [
+                "Gas leak detectors that close the supply valve within 1 second",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Drone flight controller – real-time (1); library computers – network (1); water bills – batch (1); gas leak detectors – real-time (1)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 4",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "✓",
+                  ""
+                ],
+                [
+                  null,
+                  "",
+                  "",
+                  "✓"
+                ],
+                [
+                  null,
+                  "✓",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            "model_answer": "Drone: real-time. Library: network. Water bills: batch processing. Gas leak detectors: real-time."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "ost-nx-5b",
+          "part_label": "(b)",
+          "title": "Batch at the till?",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.1.3"
+          ],
+          "text": "The council's swimming pool takes card payments at its entrance gate. An employee suggests checking these payments with **batch processing** because it is efficient. Explain why batch processing is **not** suitable for checking a payment at the gate, and suggest how the pool **could** use batch processing.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "- the payment must be checked immediately / while the customer waits at the gate (1)\n- batch processing collects data and processes it later with a delay / no interaction, so the gate could not open / the customer would wait (1)\n- suitable use: processing all of the day's payments / attendance reports / staff payroll overnight / at the end of the month (1)",
+            "points": [
+              {
+                "criterion": "Payment needs an immediate response",
+                "marks": 1
+              },
+              {
+                "criterion": "Batch causes a delay / no interaction",
+                "marks": 1
+              },
+              {
+                "criterion": "Suitable batch use suggested",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The card must be checked straight away so that the gate can open while the customer waits. Batch processing collects data and processes it later, at a scheduled time, so the customer would not get an answer. The pool could instead use batch processing overnight to process all of the day's payments and produce attendance and income reports."
+          }
+        }
+      ]
     }
   ],
   "summary": "Real-time, network and batch processing operating systems — how each works, their key features, hard and soft real-time, pre-emptive scheduling and interrupts, client–server networks and user account management in a NOS, job queues and scheduling in batch systems, and how to choose the right type for a scenario.",
@@ -2231,10 +2976,11 @@
     "duration": 50,
     "instructions": "Answer **all** questions. Link your answers to each scenario. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "ost-tx-1",
-      "ost-tx-2",
-      "ost-tx-3",
-      "ost-tx-4"
+      "ost-nx-1",
+      "ost-nx-2",
+      "ost-nx-3",
+      "ost-nx-4",
+      "ost-nx-5"
     ]
   },
   "lessons": [
