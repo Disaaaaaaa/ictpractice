@@ -35,8 +35,11 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
       status: f.status ? [f.status] : ["SUBMITTED", "GRADED", "REVIEW_REQUIRED"],
       limit: 1000,
     })
-  ).sort((a, b) => compareNames(a.profiles ? displayName(a.profiles) : "", b.profiles ? displayName(b.profiles) : "") || (b.submitted_at ?? "").localeCompare(a.submitted_at ?? ""));
-  const { data: examRows } = await supabase.from("exams").select("id, title, variant_of").not("current_version_id", "is", null).order("title");
+  )
+    // mock exams have their own page (Mock Exam Results)
+    .filter((a) => a.exams?.kind !== "mock")
+    .sort((a, b) => compareNames(a.profiles ? displayName(a.profiles) : "", b.profiles ? displayName(b.profiles) : "") || (b.submitted_at ?? "").localeCompare(a.submitted_at ?? ""));
+  const { data: examRows } = await supabase.from("exams").select("id, title, variant_of").not("current_version_id", "is", null).neq("kind", "mock").order("title");
   // Variants are reached through their base exam.
   const hasVariants = new Set((examRows ?? []).map((e) => e.variant_of as string | null).filter(Boolean));
   const exams = (examRows ?? []).filter((e) => !e.variant_of || !(examRows ?? []).some((b) => b.id === e.variant_of));
@@ -61,7 +64,7 @@ export default async function ResultsPage({ searchParams }: PageProps<"/teacher/
     <>
       <PageHeader
         title="Results"
-        description="Submitted attempts by your students. Open an attempt to moderate AI marks."
+        description="Submitted attempts by your students (mock exams are under Mock Exam Results). Open an attempt to moderate AI marks."
         actions={<ButtonLink href={exportHref} variant="secondary" prefetch={false}><Download className="h-4 w-4" /> Export</ButtonLink>}
       />
       {(queue ?? []).length > 0 && (

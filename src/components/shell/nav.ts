@@ -38,6 +38,7 @@ export function navFor(role: Role, t: Dict): NavGroup[] {
       { href: "/teacher/points", label: t.nav.points, icon: "points" },
       { href: "/teacher/questions", label: t.nav.questions, icon: "questions" },
       { href: "/teacher/results", label: t.nav.results, icon: "results" },
+      { href: "/teacher/mock-results", label: t.nav.mockResults, icon: "mocks" },
       { href: "/teacher/analytics", label: t.nav.analytics, icon: "analytics" },
     ],
   };
