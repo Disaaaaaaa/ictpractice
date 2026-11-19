@@ -4,78 +4,93 @@
   "points": [
     {
       "title": "Technical specification",
-      "must": "A document written at the design stage listing the hardware and software needed to run the new system, with figures (GB, GHz) and a reason for every choice.",
-      "weight": 3
+      "must": "Definition: a document written at the design stage listing the hardware and software needed to run the new system, with exact figures and units and a reason for every choice; who uses it.",
+      "weight": 3,
+      "model": "Technical specification — a document written at the design stage that lists the hardware and software needed to implement and run a new system, with exact figures (GB, GHz, resolution) and a reason for every choice. Used by the client (budget), the supplier (ordering), the technician (installation) and the developer (testing)."
     },
     {
       "title": "Minimum and recommended requirements",
-      "must": "Minimum: the lowest hardware on which the software still runs; recommended: higher, runs comfortably; the specification is never below the minimum.",
-      "weight": 3
+      "must": "Both definitions; below the minimum the software will not install or is too slow; far above wastes money; the specification is at least the minimum, close to recommended.",
+      "weight": 3,
+      "model": "Minimum requirements — the lowest specification of each component on which the OS, software and data still run correctly. Recommended requirements — a higher specification with which the software runs comfortably. Below the minimum: will not install / too slow. Far above: money wasted. A good specification is just above the minimum, with a margin for growth."
     },
     {
-      "title": "Hardware components",
-      "must": "Processor (cores, GHz), RAM (GB), storage (SSD/HDD, GB), display (resolution), network (card, Mbps), input and output devices, UPS / backup.",
-      "weight": 2
+      "title": "Hardware components and units",
+      "must": "The components of a specification with what is specified for each: CPU, RAM, storage, display, network, input, output, UPS / backup.",
+      "weight": 2,
+      "model": "Processor — cores, clock speed in GHz. RAM — GB. Storage — SSD/HDD, GB/TB. Display — size, resolution (1920 × 1080), graphics card. Network — card (wired/Wi-Fi), bandwidth in Mbps. Input devices (keyboard, barcode scanner, card reader). Output devices (monitor, printer). Other — UPS, backup drive, server."
     },
     {
-      "title": "Rule for the processor",
-      "must": "Take the highest processor requirement of all the software; speeds are never added.",
-      "weight": 3
+      "title": "Processor: take the highest",
+      "must": "What clock speed and cores mean; one processor shares its time between programs, so speeds are never added — take the highest minimum; more cores for servers / video / many users.",
+      "weight": 3,
+      "model": "Clock speed (GHz) = cycles per second; cores = instructions worked on at the same time. The processor shares its time between all programs, so requirements are NOT added: take the HIGHEST minimum (e.g. OS 1 GHz, DBMS 2 GHz, app 1.5 GHz → 2 GHz). More cores for a server with many users, video, 3D graphics."
     },
     {
-      "title": "Rule for RAM",
-      "must": "Add the RAM of the OS and all programs that run at the same time; round up to a standard size (e.g. 7 GB → 8 GB).",
-      "weight": 3
+      "title": "RAM: add what runs together",
+      "must": "RAM holds the OS, open programs and current data and is divided between them, so add the RAM of programs that run at the same time; virtual memory makes it slow; round up to a standard size.",
+      "weight": 3,
+      "model": "RAM (main memory) holds the OS, open programs and the data in use now. It is divided between programs, so ADD the RAM of everything that runs at the same time (4 + 2 + 1 = 7 GB) and round up to a standard size → 8 GB. Too little RAM → virtual memory on the disk → very slow."
     },
     {
-      "title": "Rule for storage",
-      "must": "Add all software + the data now + the growth of the data over the life of the system (+ backups).",
-      "weight": 2
-    },
-    {
-      "title": "Worked calculation",
-      "must": "A full example with figures, e.g. 4 + 2 + 1 = 7 → 8 GB RAM; 69 GB software + 16 GB data → 128 GB.",
-      "weight": 1
-    },
-    {
-      "title": "Peripherals from inputs and outputs",
-      "must": "Input and output devices chosen from the system's inputs/outputs, each with a reason (barcode scanner, receipt printer, card reader).",
-      "weight": 2
+      "title": "Storage: software + data + growth",
+      "must": "Storage keeps software and data permanently; add all software, the data now, its growth over the life of the system, backups/updates.",
+      "weight": 3,
+      "model": "Storage = size of all software (OS + programs) + data now + growth per year × number of years + space for backups and updates. Example: 69 GB software + (6 GB + 5 × 2 GB) data = 85 GB → 128 GB (or 256 GB with backups)."
     },
     {
       "title": "SSD and HDD",
-      "must": "SSD: faster access, no moving parts, good for databases; HDD: cheaper per GB, good for backups.",
-      "weight": 1
+      "must": "SSD: no moving parts, faster access, good for databases; HDD: cheaper per GB, good for archives and backups.",
+      "weight": 1,
+      "model": "SSD — no moving parts, much faster access, quieter, more reliable → good for a database that must answer queries quickly. HDD — cheaper per GB → good for large backups and archives."
+    },
+    {
+      "title": "Peripherals from inputs and outputs",
+      "must": "Definition of a peripheral; devices are chosen from the system's inputs and outputs, each with a reason (faster / more accurate / possible); network card and bandwidth if data is shared.",
+      "weight": 2,
+      "model": "Peripheral — a device connected to the computer to input data or output information. Chosen from the system's inputs/outputs, each with a reason: barcode scanner — reads book/product codes quickly without typing errors; receipt printer — prints a receipt for every customer; card reader — enters details from ID cards. Network card + enough Mbps if data is shared."
+    },
+    {
+      "title": "Worked calculation (library)",
+      "must": "The library example with figures: CPU highest 2 GHz, RAM 4 + 2 + 1 = 7 → 8 GB, storage 69 + 16 = 85 → 128 GB, scanner, printer, network card.",
+      "weight": 2,
+      "model": "Library: Windows (4 GB, 1 GHz, 64 GB), DBMS (2 GB, 2 GHz, 4 GB), app (1 GB, 1.5 GHz, 1 GB); data 6 GB + 2 GB/year for 5 years. CPU = 2 GHz (highest). RAM = 4 + 2 + 1 = 7 → 8 GB. Storage = 69 + 16 = 85 → 128 GB. Barcode scanner, printer for loan slips, network card (shared database)."
     },
     {
       "title": "System and application software",
-      "must": "System software runs the computer (OS, utilities: antivirus, backup); application software does the user's task (DBMS, booking program).",
-      "weight": 2
+      "must": "Both definitions with examples; software is chosen before the hardware: application first, then the OS it runs on, then utilities.",
+      "weight": 2,
+      "model": "System software — runs and manages the computer: operating system (Windows, Linux), utilities (antivirus, backup, drivers). Application software — does a task for the user: DBMS, spreadsheet, booking/library program. Order of choice: application → OS it runs on → utilities; then the hardware from their requirements."
     },
     {
       "title": "Off-the-shelf and bespoke",
-      "must": "Off-the-shelf: cheaper, available now, tested, may not fit exactly; bespoke: fits exactly, expensive, slow to develop.",
-      "weight": 2
+      "must": "Both defined; at least two differences (cost, availability, fit, testing/support) with an example of each.",
+      "weight": 2,
+      "model": "Off-the-shelf — ready-made, same for many customers: cheaper, available immediately, tested by many users, but may miss needs or have unneeded features (MS Office, MySQL). Bespoke — written for one organisation: fits exactly, but expensive, takes months, bugs found later, support only from the developer (a booking system for one hotel)."
     },
     {
-      "title": "Open source and proprietary",
-      "must": "Open source: code available, usually free, community support; proprietary: closed code, licence fee, official support; freeware is free but closed.",
-      "weight": 2
+      "title": "Open source, proprietary, freeware, licence",
+      "must": "Open source vs proprietary (source code, cost, support, changes); freeware is free but closed; definition of a software licence.",
+      "weight": 2,
+      "model": "Proprietary — closed source, licence fee, official support, only the company changes it (Windows, Access). Open source — source code available, usually free, community support, can be adapted (Linux, LibreOffice). Freeware — free but the code is closed. Software licence — legal permission stating how many computers/users, for how long, and whether it may be copied or changed."
     },
     {
       "title": "Criteria for choosing software",
-      "must": "Functionality, compatibility, cost, ease of use, support, security, scalability, multi-user access.",
-      "weight": 3
+      "must": "The eight criteria: functionality, compatibility, cost (incl. total cost of ownership), ease of use, support, security, scalability, multi-user access; functionality comes first.",
+      "weight": 3,
+      "model": "Functionality (does everything required — first), compatibility (hardware, OS, existing data), cost (licences per user/subscription, upgrades, training = total cost of ownership), ease of use for these users/language, support and updates, security (accounts, access rights, encryption), scalability (more users/data later), multi-user access."
     },
     {
       "title": "Writing a justification",
-      "must": "Software → criterion → 'because' + a need of the scenario, with one worked example.",
-      "weight": 2
+      "must": "Software + type → criterion → what it provides → 'because' link to the scenario; a reason that fits any system earns nothing; the clinic example.",
+      "weight": 3,
+      "model": "Name the software and type → criterion → what it provides → link with 'because / so that' to a need of the scenario. Example: 'An off-the-shelf clinic package, because it is available immediately and already sends SMS reminders, which the clinic needs.' Not: 'it is good / popular / cheap'."
     },
     {
-      "title": "Why specify above the minimum",
-      "must": "Growth of data, more users, software updates, several programs at once, performance — but not the most expensive without reason.",
-      "weight": 1
+      "title": "The specification table and above-minimum margin",
+      "must": "Table component — minimum specification — reason, software in the same table; every component compatible; reasons to specify above the minimum (growth, users, updates, several programs) without overspending.",
+      "weight": 2,
+      "model": "Present as a table: component | minimum specification | reason (e.g. RAM | 8 GB | Windows 4 + booking 2 + browser 1 = 7 GB, rounded up). Include the OS and utilities. All parts must be compatible (drivers, OS, existing hardware). Specify a little above the minimum for data growth, more users, updates, several programs at once — but not the most expensive."
     }
   ]
 }

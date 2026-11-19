@@ -16,6 +16,17 @@ The **lowest specification of each hardware component** (processor, RAM, storage
 A higher specification, suggested by the software developer, with which the software runs **comfortably** — quickly, with several programs open and with room for growth. A good technical specification is **at least the minimum** and usually close to the **recommended** figures.
 :::
 
+## Why a technical specification is written
+
+A new system is not only a program. It is a **combination of hardware, system software, application software and data** that must work together from the first day. During analysis the developers find out *what* the system must do: how many users there are, what is input, what is output and how much data is kept. At the **design stage** these requirements are turned into a technical specification, which answers the question *"what exactly must be bought and installed so that the system works?"*.
+
+The specification is used by several people. The **client** (for example the school director) uses it to approve the budget, because every item has a price. The **supplier** uses it to order the right computers and devices. The **technician** uses it to install and configure the equipment, and the **developer** uses it to make sure the software is tested on the same kind of hardware that the users will have. Because so many people rely on it, the specification must contain **exact figures with units** (8 GB, 2.5 GHz, 256 GB SSD, 1920 × 1080) and not vague words such as "fast" or "big".
+
+Every line also needs a **reason**. A reason shows that the figure was **calculated from the requirements** and was not simply copied from an advertisement. If the client asks "why do we need 16 GB of RAM and not 8 GB?", the reason in the specification answers that question. This is also why exam questions on this topic almost always say *"justify"* or *"give a reason for each"*: a device or a figure without a reason earns at most half of the marks.
+
+The specification deliberately describes the **minimum** that is needed. If the hardware is below the minimum, the software may refuse to install, crash, or be so slow that users stop using it. If it is far above the minimum, the organisation wastes money that could be spent on training or support. A good specification is therefore **just above the minimum**, with a sensible margin for growth.
+
+
 :::svg How the minimum hardware requirements are determined
 <svg class="ts" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The requirements of the operating system, DBMS and application, plus the data and the inputs and outputs, combine into the minimum hardware requirements">
   <style>
@@ -104,6 +115,30 @@ The library will run **Windows** (min. 4 GB RAM, 1 GHz, 64 GB), a **DBMS** (min.
 - Each device needs a **reason**: "a barcode scanner, because …".
 :::
 
+
+## How each component affects the system
+
+**The processor** carries out the instructions of every program. Its **clock speed**, measured in gigahertz (GHz), tells us how many cycles it performs per second, and the number of **cores** tells us how many instructions it can work on at the same time. A program's minimum processor requirement means "the program needs a processor at least this fast to respond in an acceptable time". Because one processor runs all the programs by sharing its time between them, the requirements are **not added**: a 2.5 GHz processor is fast enough for a program that needs 2 GHz *and* for one that needs 1.5 GHz. We therefore take the **highest** minimum. More cores are needed when the work can be split up — a **server** that answers many users at once, video editing, or 3D graphics.
+
+**RAM** is the main memory. It holds the operating system, every program that is **open** and the data those programs are working on **right now**. Unlike the processor, RAM is **divided** between the programs: if Windows uses 4 GB and the DBMS uses 2 GB, those 6 GB cannot be used by anything else. This is why the RAM needs of programs that run **at the same time** are **added**. When RAM runs out, the operating system moves parts of programs to the disk (**virtual memory**); the disk is thousands of times slower than RAM, so the whole computer becomes very slow. RAM is sold in standard sizes (4, 8, 16, 32 GB), so the total is always **rounded up**.
+
+**Storage** (secondary storage) keeps the software and the data **permanently**, even when the power is off. Everything that is installed takes space, so the sizes of the OS and all the programs are added. The **data** must be added too, and data **grows**: a shop adds new sales every day, a clinic adds new patients and scans. The specification is written for the **whole life** of the system (often 3–5 years), so the growth per year is multiplied by the number of years. Space for **backups** and updates is also needed. The **type** of storage matters: an **SSD** has no moving parts and much faster access, so a database answers queries quickly; an **HDD** is cheaper per gigabyte and suits large archives.
+
+**Peripherals** — the input and output devices — come from the **inputs and outputs** of the system found during analysis. If the system reads barcodes, it needs a barcode scanner; if it prints receipts, it needs a receipt printer; if customers pay by card, it needs a card terminal. Each device is chosen because it makes a task **faster, more accurate or possible at all**. Finally the **network**: if the data is shared by several computers, or the system works online, each computer needs a network card and the connection needs enough **bandwidth** (Mbps) for all users at once.
+
+:::definition Peripheral device
+A hardware device connected to the computer to **input** data (keyboard, scanner, camera, card reader) or **output** information (monitor, printer, speakers). In a technical specification each peripheral is chosen from the system's inputs and outputs and given a reason.
+:::
+
+:::compare Too little or too much hardware
+| | Below the minimum | Far above the minimum |
+|---|---|---|
+| Processor | Programs respond slowly; users wait at every screen | Money wasted; the extra speed is never used |
+| RAM | Virtual memory is used; the computer freezes when several programs are open | Unused memory; higher price per computer |
+| Storage | The disk fills up; no new records or backups can be saved | Paying for space the data will never need |
+| Result | The system fails its requirements | The budget is spent on hardware instead of training or support |
+:::
+
 :::warning Common mistakes with hardware requirements
 - **Adding processor speeds** (2 + 1.5 + 1 GHz = 4.5 GHz) — speed is not added; take the highest.
 - Forgetting the **operating system** when adding RAM or storage.
@@ -125,6 +160,19 @@ Software that does a **task for the user**: a DBMS (MySQL, Microsoft Access), a 
 
 :::definition Justify (a choice of software)
 Give a **reason**, linked to the **needs of the scenario**, why this software is chosen: *software* → *criterion* → *because the system needs …*. A list of features without a link to the scenario is **not** a justification.
+:::
+
+
+## How software is chosen
+
+Software is chosen **before** the hardware, because the hardware requirements come from the software. The order is usually: first the **application software** that does the user's task (the booking program, the library system, the DBMS), then an **operating system** that this application runs on, then the **utilities** that keep the system safe (antivirus, backup, drivers for the devices). The choice of operating system is often decided by the application: if the clinic's booking package runs only on Windows, the clinic needs Windows, whatever the IT teacher prefers.
+
+For each type of software there are several options, and the developer must **compare them using criteria**. The most important criterion is **functionality**: software that is cheap but cannot do a required task is useless. After that the options are compared on **compatibility** (with the hardware, the OS, other programs and the existing data), **cost**, **ease of use** for these particular users, **support**, **security**, **scalability** and **multi-user access**. No software is best on every criterion. Off-the-shelf software is cheap and available at once but may not fit exactly; bespoke software fits exactly but is expensive and slow to produce. Open-source software has no licence fee but may have less official support. The developer chooses the option whose strengths match the **most important needs of this scenario** — that is what "justify" means.
+
+Cost is more than the purchase price. A licence may be paid **per computer** or **per user**, or as a yearly **subscription**; there may be costs for upgrades, training and support. This total over the life of the system is called the **total cost of ownership**. Free software is not always cheaper in total if staff need a lot of training to use it.
+
+:::definition Software licence
+The legal permission to use a piece of software, stating **how many computers or users** may use it, for **how long** and whether the software may be **copied or changed**. The number of licences needed is part of the technical specification.
 :::
 
 :::compare Off-the-shelf and bespoke software
@@ -216,6 +264,13 @@ Give a **reason**, linked to the **needs of the scenario**, why this software is
 
 # Writing a technical specification
 @lo 11.3.2.1 11.3.1.4
+
+
+## Hardware and software depend on each other
+
+The two halves of the specification cannot be written separately. The software decides the minimum hardware; but the hardware the organisation **already owns** can also limit the software. If a school has thirty computers with 4 GB of RAM, choosing a program that needs 8 GB means buying thirty new computers or extra memory. In that case a lighter program, or a web-based system that runs on a server, may be the better justified choice. A complete specification therefore shows that **every component is compatible** with every other: the OS supports the devices (there are drivers), the application runs on that OS, and the hardware meets the combined requirements.
+
+The final document is usually a **table** with three columns — component, minimum specification, reason — because a table is easy for the client to read and for the supplier to order from. Software appears in the same table as the hardware, each with its justification. Writing the reason in the same row as the figure makes it clear that every number was **calculated from the requirements**.
 
 :::steps How to write a technical specification for a new system
 - Read the **requirements** of the system: tasks, number of users, inputs, outputs, amount of data.
