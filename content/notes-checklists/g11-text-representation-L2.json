@@ -1,0 +1,90 @@
+{
+  "topic": "g11-text-representation",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Formula for the size of a text",
+      "must": "Size = number of characters × bits (bytes) per character; ÷8 → bytes, ÷1024 → KB; metadata/formatting ignored unless told.",
+      "weight": 3,
+      "model": "Size (bits) = number of characters × bits per character. ÷ 8 → bytes, ÷ 1024 → KB, ÷ 1024 → MB. Formatting and metadata are ignored unless the question mentions them."
+    },
+    {
+      "title": "Bit, byte, kilobyte",
+      "must": "1 byte = 8 bits; 1 KB = 1024 bytes (KiB; use 1000 only if told); 1 MB = 1024 KB.",
+      "weight": 2,
+      "model": "Bit = one binary digit (0 or 1). Byte = 8 bits = one ASCII character. 1 KB = 1024 bytes (follow the question if it says 1000). 1 MB = 1024 KB; 1 GB = 1024 MB."
+    },
+    {
+      "title": "What counts as a character",
+      "must": "Letters, every digit separately, every space, punctuation and symbols, new-line characters if mentioned (CR+LF = 2 on Windows); quotation marks around the question text are not counted; counting example (\"NIS Astana, 2026!\" = 17).",
+      "weight": 3,
+      "model": "Count letters, each digit (\"2026\" = 4 characters), every space, all punctuation and symbols, and new lines if told (Windows CR+LF = 2, Linux LF = 1). Do not count the quotation marks the question puts round the text. \"NIS Astana, 2026!\" = 9 letters + 2 spaces + 4 digits + 2 punctuation = 17 characters."
+    },
+    {
+      "title": "Size of one character",
+      "must": "ASCII 8 bits = 1 byte; 16-bit Unicode = 2 bytes; UTF-32 = 4 bytes; UTF-8 1–4 bytes; 7-bit ASCII if the question says so (work in bits).",
+      "weight": 2,
+      "model": "ASCII / extended ASCII: 8 bits = 1 byte. 16-bit Unicode (UTF-16): 2 bytes. UTF-32: 4 bytes. UTF-8: 1, 2, 3 or 4 bytes depending on the character. If told 7 bits (or another code size), work in bits and ÷ 8 at the end."
+    },
+    {
+      "title": "Steps of the calculation",
+      "must": "Count → identify bytes per character → multiply → convert → answer with unit, round at the end; worked example \"Hello, World!\" (13 chars → 13 bytes ASCII, 26 bytes Unicode, 104 bits).",
+      "weight": 3,
+      "model": "1) Count every character. 2) Bytes/bits per character from the question. 3) Multiply. 4) Convert units. 5) Answer with unit, round only at the end. \"Hello, World!\" = 13 characters → ASCII 13 bytes (104 bits), 16-bit Unicode 26 bytes, UTF-32 52 bytes."
+    },
+    {
+      "title": "Fixed-length fields example",
+      "must": "Names in 30-character fields, 25 students, 16-bit Unicode: 30 × 2 = 60 bytes × 25 = 1500 bytes = 1.46 KB; field size used, not name length.",
+      "weight": 1,
+      "model": "25 names × 30-character fields × 2 bytes = 1500 bytes ÷ 1024 = 1.46 KB. In a fixed-length field the full field size is used even for short names (padded with spaces)."
+    },
+    {
+      "title": "SMS limit",
+      "must": "140 bytes = 1120 bits; 7-bit code → 160 characters; 16-bit Unicode (Cyrillic/emoji) → 70 characters.",
+      "weight": 1,
+      "model": "One SMS = 140 bytes = 1120 bits. Latin-only: 7-bit code → 1120 ÷ 7 = 160 characters. With Kazakh/Cyrillic letters or emoji: 16-bit Unicode → 1120 ÷ 16 = 70 characters."
+    },
+    {
+      "title": "Fixed- and variable-length encoding",
+      "must": "Fixed: every character same size (ASCII 1, UTF-32 4) → characters × size; variable (UTF-8; UTF-16 for emoji) → group characters and add.",
+      "weight": 2,
+      "model": "Fixed-length encoding: every character the same size (ASCII 1 byte, UTF-32 4 bytes) → size = characters × bytes per character. Variable-length (UTF-8, UTF-16 for emoji): different characters have different sizes → group the characters and add the bytes."
+    },
+    {
+      "title": "UTF-8 sizes by type of character and a mixed-text calculation",
+      "must": "ASCII 1, Cyrillic/Kazakh 2, Chinese/€/₸ 3, emoji 4 bytes; \"Сәлем, әлем!\" 12 characters: UTF-8 9×2+3×1 = 21, UTF-16 24, UTF-32 48, ASCII impossible.",
+      "weight": 3,
+      "model": "UTF-8: English letters, digits, space, punctuation 1 byte; Cyrillic incl. Kazakh 2 bytes; Chinese, €, ₸ 3 bytes; emoji 4 bytes. \"Сәлем, әлем!\" = 12 characters (9 Cyrillic + 3 ASCII): UTF-8 9 × 2 + 3 × 1 = 21 bytes; UTF-16 12 × 2 = 24 bytes; UTF-32 48 bytes; ASCII not possible."
+    },
+    {
+      "title": "Emoji in calculations",
+      "must": "Emoji = 4 bytes in UTF-8, UTF-16 and UTF-32; \"OK 👍\": UTF-8 7, UTF-16 10, UTF-32 16 bytes; follow the question if it says 2 bytes per character.",
+      "weight": 1,
+      "model": "A simple emoji is 4 bytes in UTF-8, UTF-16 (surrogate pair) and UTF-32. \"OK 👍\" = 4 characters: UTF-8 3 + 4 = 7 bytes; UTF-16 6 + 4 = 10 bytes; UTF-32 16 bytes. If the question says 2 bytes per character, use 2."
+    },
+    {
+      "title": "Which encoding is smallest",
+      "must": "English → UTF-8 (= ASCII, half of UTF-16); Cyrillic → UTF-8 ≈ UTF-16; Chinese → UTF-16 smaller (2 vs 3); UTF-32 always largest.",
+      "weight": 2,
+      "model": "English text: UTF-8 smallest (same as ASCII, half of UTF-16). Cyrillic: UTF-8 and UTF-16 nearly equal (2 bytes per letter, spaces 1 byte in UTF-8). Chinese/Japanese: UTF-16 smaller (2 bytes vs 3). UTF-32 always the largest."
+    },
+    {
+      "title": "Large documents",
+      "must": "Characters = pages × lines × characters per line, or words × average characters per word; worked example with KB/MB (300 pages × 40 × 60 = 720 000 chars × 2 = 1 440 000 bytes = 1406.25 KB = 1.37 MB).",
+      "weight": 3,
+      "model": "Characters = pages × lines × characters per line (or words × average characters per word incl. space). Textbook: 300 × 40 × 60 = 720 000 characters × 2 bytes = 1 440 000 bytes ÷ 1024 = 1406.25 KB ÷ 1024 = 1.37 MB. Report: 2500 words × 6 = 15 000 × 2 = 30 000 bytes = 29.30 KB."
+    },
+    {
+      "title": "Working backwards",
+      "must": "Characters = size in bytes ÷ bytes per character; bits per character = size in bits ÷ characters; examples (4 KB / 2 = 2048 chars; 2000 bytes for 1000 chars = 16 bits → Unicode; 24 bytes of 6-bit code = 32 chars).",
+      "weight": 2,
+      "model": "Number of characters = size (bytes) ÷ bytes per character: 4 KB = 4096 bytes ÷ 2 = 2048 characters. Bits per character = size (bits) ÷ characters: 16 000 bits ÷ 1000 = 16 → 16-bit Unicode. 24 bytes = 192 bits ÷ 6-bit code = 32 characters."
+    },
+    {
+      "title": "Transmission time",
+      "must": "Bit rate definition (bits per second); time = size in bits ÷ bit rate; convert bytes to bits first; example 1 440 000 bytes × 8 = 11 520 000 bits ÷ 2 000 000 = 5.76 s.",
+      "weight": 2,
+      "model": "Bit rate = bits transmitted per second (bps, Mbps). Time (s) = size in bits ÷ bit rate. Convert bytes → bits (× 8) first. 1 440 000 bytes × 8 = 11 520 000 bits ÷ 2 Mbps (2 000 000 bps) = 5.76 s; in ASCII half the time."
+    }
+  ]
+}

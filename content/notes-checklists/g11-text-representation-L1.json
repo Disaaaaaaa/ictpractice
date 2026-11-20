@@ -1,0 +1,96 @@
+{
+  "topic": "g11-text-representation",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Character and character code",
+      "must": "Defines a character (letter, digit, punctuation, space, symbol, control character) and a character code (unique binary number for one character), with an example.",
+      "weight": 3,
+      "model": "Character = one symbol stored as text: letter, digit, punctuation mark, space, symbol, emoji or control character (new line, tab). Character code = the unique binary number that represents one character, e.g. ASCII \"A\" = 65 = 1000001."
+    },
+    {
+      "title": "Character set",
+      "must": "Definition in exam wording (list of characters + unique binary code for each) and examples ASCII, extended ASCII, Unicode.",
+      "weight": 3,
+      "model": "Character set = a defined list of characters that a computer can recognise, with a unique binary code for each one. Examples: ASCII, extended ASCII, Unicode."
+    },
+    {
+      "title": "Encoding and decoding text",
+      "must": "Key press → look up code → store binary; display: read code → look up the same set → font draws the glyph; code says which character, font says how it looks.",
+      "weight": 2,
+      "model": "Typing \"A\": key press → look up \"A\" in the character set → code 65 → stored as 01000001. Displaying: read 65 → look up the same character set → the font draws the glyph \"A\". The code decides which character; the font decides what it looks like."
+    },
+    {
+      "title": "Why a standard character set is needed",
+      "must": "All devices must use the same codes so text is exchanged/displayed correctly; otherwise mojibake; standard codes in order allow sorting and searching.",
+      "weight": 2,
+      "model": "Every computer, program and country must use the same codes, so a file shows the same characters on any device. With the wrong character set the text appears as wrong symbols (mojibake), e.g. \"РЎ\" instead of \"С\". Codes in alphabetical order allow sorting and searching."
+    },
+    {
+      "title": "Printable and control characters; digit characters",
+      "must": "Printable vs control characters with examples (LF 10, CR 13, tab 9); the character \"7\" is code 55, not the number 7.",
+      "weight": 1,
+      "model": "Printable: letters, digits, punctuation, space, symbols. Control (not printed): line feed 10, carriage return 13, tab 9, backspace 8. The character \"7\" is stored as code 55, not as the number 7."
+    },
+    {
+      "title": "Bits per character and number of characters",
+      "must": "n bits → 2ⁿ codes; 7 bits = 128, 8 bits = 256, 16 bits = 65 536; more bits = more characters but more storage; worked example (37 characters → 6 bits).",
+      "weight": 2,
+      "model": "n bits give 2ⁿ codes: 5 → 32, 7 → 128, 8 → 256, 16 → 65 536. More bits per character → more characters but more memory per character. 37 characters: 2⁵ = 32 too few, 2⁶ = 64 → 6 bits."
+    },
+    {
+      "title": "ASCII",
+      "must": "Definition: 7 bits, 128 characters (0–127), English letters, digits, punctuation, control codes; stored in 1 byte with leading 0.",
+      "weight": 3,
+      "model": "ASCII (American Standard Code for Information Interchange) uses 7 bits per character → 2⁷ = 128 characters (codes 0–127): English upper and lower case letters, digits, punctuation, space and control codes. Each character is stored in 1 byte with the leftmost bit 0."
+    },
+    {
+      "title": "Structure of the ASCII table",
+      "must": "Blocks: 0–31 control, 32 space, 48–57 digits, 65–90 A–Z, 97–122 a–z, 127 DEL; lower case = capital + 32; codes in alphabetical order; worked encoding (e.g. \"Cab1\" = 67 97 98 49).",
+      "weight": 2,
+      "model": "0–31 control, 32 space, 48–57 \"0\"–\"9\", 65–90 A–Z, 97–122 a–z, 127 DEL. Lower case = capital + 32 (a = 97). Digit code = 48 + value (\"7\" = 55). Letters are in alphabetical order. \"Cab1\" = 67 97 98 49."
+    },
+    {
+      "title": "Extended ASCII and code pages",
+      "must": "8 bits, 256 characters; 0–127 = ASCII, 128–255 extra; different code pages (Windows-1251, Windows-1252, KZ-1048) use 128–255 differently → same byte = different character; only one extra alphabet; mojibake.",
+      "weight": 3,
+      "model": "Extended ASCII uses 8 bits → 256 characters. 0–127 are ASCII, 128–255 hold extra characters. Different code pages (Windows-1252 Western Europe, Windows-1251 Cyrillic, KZ-1048 Kazakh) use 128–255 differently: byte 192 = À, А or ю. Only one extra alphabet per code page; a file opened with the wrong code page shows wrong symbols."
+    },
+    {
+      "title": "Unicode and code points",
+      "must": "Definition: one universal set, unique code point for every character of every language and emoji; U+hex notation with examples; 1 114 112 code points, ~150 000 assigned; first 128 = ASCII (backward compatible).",
+      "weight": 3,
+      "model": "Unicode gives every character of every writing system (Latin, Cyrillic incl. Ә Қ Ө, Chinese, Arabic, emoji) a unique code point, written U+hex: U+0041 = A, U+04D8 = Ә, U+20AC = €, U+1F600 = 😀. Room for 1 114 112 code points, about 150 000 assigned. The first 128 code points are the ASCII codes (backward compatible)."
+    },
+    {
+      "title": "Encodings UTF-8, UTF-16, UTF-32",
+      "must": "Encoding = rule turning code points into bytes; UTF-8 1–4 bytes (ASCII 1, Cyrillic 2, Chinese/€ 3, emoji 4), UTF-16 2 or 4 bytes, UTF-32 always 4; exam assumption Unicode = 16 bits.",
+      "weight": 3,
+      "model": "Encoding = rule that converts a code point into bytes. UTF-8: 1–4 bytes (English 1, Cyrillic 2, Chinese/€ 3, emoji 4), used by ~98 % of web pages. UTF-16: 2 bytes (4 for emoji). UTF-32: always 4 bytes. Exam: ASCII = 8 bits, Unicode = 16 bits unless told otherwise."
+    },
+    {
+      "title": "How UTF-8 works",
+      "must": "Prefix bits: 0 = 1 byte, 110 = 2, 1110 = 3, 11110 = 4, continuation bytes 10; ASCII text is valid UTF-8; disadvantage: variable length.",
+      "weight": 1,
+      "model": "First byte 0xxxxxxx = 1-byte (ASCII) character; 110 = 2 bytes; 1110 = 3 bytes; 11110 = 4 bytes; every continuation byte starts 10. So ASCII text is already UTF-8. Variable length makes finding the n-th character slower."
+    },
+    {
+      "title": "ASCII vs Unicode comparison",
+      "must": "Both sides each time: bits per character (7/8 vs 8–32, usually 16), number of characters (128/256 vs over 1.1 million), languages (English vs all), storage (less vs more); similarity: both give unique codes, first 128 identical.",
+      "weight": 3,
+      "model": "ASCII 7 bits (1 byte) whereas Unicode 8–32 bits (16 in UTF-16). ASCII 128 characters (256 extended) whereas Unicode over 1.1 million code points. ASCII English only whereas Unicode all languages and emoji. ASCII less storage / smaller files whereas Unicode more storage and bandwidth. Similar: both give each character a unique code; first 128 codes are the same."
+    },
+    {
+      "title": "Advantages and disadvantages of Unicode",
+      "must": "At least 3 advantages (all languages in one document, consistent worldwide, room to grow, emoji, backward compatible) and 3 disadvantages (more storage, more bandwidth, complex variable-length processing, old software support).",
+      "weight": 2,
+      "model": "Advantages: all languages in one document; same code everywhere (no mojibake); room for new characters (₸, emoji); symbols and emoji; backward compatible with ASCII. Disadvantages: 2–4 bytes per character → larger files; more bandwidth / slower transfer; variable length harder to process; some old software/devices do not support it."
+    },
+    {
+      "title": "Choosing a character set for a scenario",
+      "must": "Justified choice: Kazakh/Russian/English school site → Unicode (UTF-8) because ASCII has no Cyrillic/Kazakh letters; English-only sensor data on slow link → ASCII (1 byte, smaller messages); emoji → Unicode.",
+      "weight": 2,
+      "model": "Kazakh/Russian/English website → Unicode (UTF-8): ASCII cannot store Ә, Қ, Ө; Unicode displays all languages. Sensor sending \"T=21.5C\" over a slow link → ASCII: all characters are in ASCII, 1 byte each, smaller messages, less battery. Chat app with emoji → Unicode, emoji exist only in Unicode (4 bytes)."
+    }
+  ]
+}
