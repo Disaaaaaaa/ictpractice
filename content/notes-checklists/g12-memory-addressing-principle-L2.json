@@ -1,0 +1,96 @@
+{
+  "topic": "g12-memory-addressing-principle",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Why memory must be organised; external fragmentation",
+      "must": "OS memory manager places programs, protects them; contiguous allocation → holes → external fragmentation.",
+      "weight": 2,
+      "model": "The OS memory manager decides where each program goes, keeps programs apart and uses free space well. Giving each program one contiguous block leaves holes as programs finish → a new program may not fit in any hole although total free space is enough = external fragmentation."
+    },
+    {
+      "title": "Logical vs physical address; MMU",
+      "must": "Logical address = as seen by the program; physical = real RAM address; MMU translates using tables.",
+      "weight": 2,
+      "model": "Logical (virtual) address = address used by the program (e.g. page + offset). Physical address = actual address in RAM. The memory management unit (MMU) translates logical → physical using the page/segment table."
+    },
+    {
+      "title": "Paging: pages, frames, page table",
+      "must": "RAM divided into fixed-size frames; program into pages of the same size (e.g. 4 KiB); any page in any free frame; page table maps page → frame; pages need not be contiguous.",
+      "weight": 3,
+      "model": "Paging: physical memory divided into fixed-size frames; program divided into pages of the same size (e.g. 4 KiB). Any page can go into any free frame. Page table (one per process) maps page number → frame number (+ valid bit). Pages need not be contiguous or in order."
+    },
+    {
+      "title": "Translating an address with paging",
+      "must": "page = address div page size; offset = address mod page size; frame from page table; physical = frame × page size + offset; invalid page → error. Example 8 200 → page 2 offset 8 → frame 1 → 4 104.",
+      "weight": 3,
+      "model": "Page = logical address div page size; offset = address mod page size; look up the frame in the page table; physical address = frame × page size + offset. E.g. page size 4 096, address 8 200 → page 2, offset 8; page 2 in frame 1 → 4 096 + 8 = 4 104. Page not in the table → error (protection)."
+    },
+    {
+      "title": "Pages needed and internal fragmentation",
+      "must": "Round up: 18 KiB / 4 KiB → 5 pages, 2 KiB wasted = internal fragmentation.",
+      "weight": 2,
+      "model": "Number of pages = program size ÷ page size, rounded UP. 18 KiB ÷ 4 KiB = 4.5 → 5 pages = 20 KiB → 2 KiB unused in the last page = internal fragmentation."
+    },
+    {
+      "title": "Advantages and disadvantages of paging",
+      "must": "Adv: non-contiguous, no external fragmentation, easy allocation, protection, enables virtual memory. Disadv: internal fragmentation, page tables use memory, look-up time (TLB), ignores logical structure.",
+      "weight": 2,
+      "model": "Advantages: any free frame can be used (not contiguous); no external fragmentation; simple allocation; each process protected; makes virtual memory easy. Disadvantages: internal fragmentation; page tables use memory; extra look-up per access (sped up by TLB); pages split logical units."
+    },
+    {
+      "title": "Segmentation, segment table, base and limit",
+      "must": "Variable-size logical segments (code, data, stack, modules); address = segment + offset; segment table stores base and limit.",
+      "weight": 3,
+      "model": "Segmentation: program divided into variable-size logical blocks (segments) — code, data, stack, modules. Address = segment number + offset. Segment table stores for each segment its base (start address in RAM) and limit (length)."
+    },
+    {
+      "title": "Translating an address with segmentation",
+      "must": "Check offset < limit, else segmentation fault; physical = base + offset; examples (1, 250) → 3 250; (2, 600) error.",
+      "weight": 3,
+      "model": "Find segment's base and limit; check offset < limit (otherwise error / segmentation fault); physical address = base + offset. Table: 0 code base 1000 limit 400; 1 data 3000/1200; 2 stack 6000/500. (1, 250) → 3 250; (0, 399) → 1 399; (2, 600) → error."
+    },
+    {
+      "title": "Strengths and weaknesses of segmentation",
+      "must": "Protection per segment (read-only code), sharing code segments, segments can grow, no internal fragmentation; external fragmentation, compaction, harder allocation; combined segmentation with paging.",
+      "weight": 2,
+      "model": "Strengths: each segment protected separately (code read-only), whole segments shared (one copy of editor code for many users), segments can grow, no internal fragmentation. Weaknesses: external fragmentation (holes), compaction needed, must search for a big enough hole. Real systems often combine segmentation with paging."
+    },
+    {
+      "title": "Paging vs segmentation comparison",
+      "must": "Fixed vs variable; physical vs logical; invisible vs visible; page table vs segment table; internal vs external fragmentation; sharing/protection.",
+      "weight": 3,
+      "model": "Paging: fixed size, by physical size, invisible to programmer, page + offset, page table (page→frame), internal fragmentation. Segmentation: variable size, by logical structure, visible, segment + offset, segment table (base, limit), external fragmentation, easier sharing and protection."
+    },
+    {
+      "title": "Virtual memory and page faults",
+      "must": "Secondary storage used as extension of RAM; pages not in use paged out to swap file; page fault → OS loads page (removing LRU victim), updates table, restarts instruction.",
+      "weight": 3,
+      "model": "Virtual memory = part of secondary storage (swap/page file) used as an extension of RAM; unused pages paged out to disk, paged back in when needed. Page fault = page not in RAM → OS finds free frame (or removes least recently used page), loads page from disk, updates page table, restarts instruction."
+    },
+    {
+      "title": "Benefits of virtual memory and disk thrashing",
+      "must": "Programs larger than RAM, more programs open; disk slower; thrashing = more time swapping than working when RAM too small; fix: more RAM, close programs.",
+      "weight": 2,
+      "model": "Benefits: programs larger than RAM can run; more programs open at once. Drawbacks: disk much slower than RAM; disk thrashing — RAM too small, computer spends more time swapping pages than doing work. Fix: add RAM, close programs."
+    },
+    {
+      "title": "Virtual machine: host, guest, hypervisor",
+      "must": "VM = software emulating a complete computer so an OS/program runs as if on its own hardware, sharing the host's resources; host, guest, hypervisor (VirtualBox, VMware, Hyper-V).",
+      "weight": 3,
+      "model": "Virtual machine = software that emulates a complete computer (processor, memory, storage, devices) so an OS or program runs as if on its own hardware while sharing the resources of the host. Host = the real computer. Guest = OS/program inside the VM. Hypervisor = software that creates/runs VMs and shares hardware (VirtualBox, VMware, Hyper-V, KVM)."
+    },
+    {
+      "title": "System VM vs process VM",
+      "must": "System VM emulates whole computer, runs a guest OS (Linux in Windows, cloud servers); process VM runs one program, platform independent: Java → bytecode → JVM on each OS; also .NET CLR, Python VM.",
+      "weight": 2,
+      "model": "System VM: emulates a whole computer, a complete guest OS runs inside — Linux in VirtualBox on Windows, many virtual servers on one physical server (cloud). Process VM: runs one program in a platform-independent environment — Java compiled to bytecode, JVM on each OS runs it ('write once, run anywhere'); .NET CLR, Python VM, Android Runtime."
+    },
+    {
+      "title": "Advantages and disadvantages of VMs",
+      "must": "Adv: several OSs, isolation, safe testing/snapshots, easy backup/moving, server consolidation, platform independence. Disadv: slower, needs RAM/CPU/storage, limited hardware access, licences, host failure stops all VMs.",
+      "weight": 3,
+      "model": "Advantages: several OSs on one computer; isolation — crash/malware in a VM does not harm the host; safe testing, snapshots; easy backup/copy/move; many VMs share one server (cloud). Disadvantages: slower than real hardware; needs lots of RAM, CPU, storage; limited access to some hardware; licence per guest OS; if the host fails, all VMs fail."
+    }
+  ]
+}
