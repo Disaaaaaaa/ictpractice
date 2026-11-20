@@ -4,28 +4,41 @@
     {
       "key": "cpu-instruction-set",
       "title": "Instruction set",
-      "type": "short_answer",
+      "type": "mcq",
       "marks": 1,
       "difficulty": "easy",
       "command_word": "define",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.1"
       ],
       "practice": true,
-      "text": "Define the term **instruction set**.",
-      "content": {
-        "answer_lines": 2
-      },
+      "text": "What is meant by the **instruction set** of a processor?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The set of programs installed on the computer"
+        },
+        {
+          "key": "B",
+          "content": "The complete set of machine-code instructions that the processor can decode and execute"
+        },
+        {
+          "key": "C",
+          "content": "The list of registers inside the CPU"
+        },
+        {
+          "key": "D",
+          "content": "The high-level language used to write programs for the processor"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "The complete set of machine-code instructions that a processor can decode / execute (1)",
-        "points": [
-          {
-            "criterion": "All machine-code instructions a CPU can execute",
-            "marks": 1
-          }
-        ],
-        "model_answer": "The complete set of machine-code instructions that a particular processor can execute."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A program compiled for one instruction set cannot run directly on a processor with a different instruction set."
       }
     },
     {
@@ -113,36 +126,53 @@
     {
       "key": "cpu-cisc-describe",
       "title": "Describe CISC",
-      "type": "short_answer",
+      "type": "multiple_response",
       "marks": 3,
       "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.2"
       ],
       "practice": true,
-      "text": "Describe CISC architecture.",
-      "content": {
-        "answer_lines": 4
-      },
+      "text": "Select the **three** statements that describe CISC architecture.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "A large set of complex instructions"
+        },
+        {
+          "key": "B",
+          "content": "All instructions are the same length"
+        },
+        {
+          "key": "C",
+          "content": "One instruction can load data, calculate and store the result, taking several clock cycles"
+        },
+        {
+          "key": "D",
+          "content": "Only LOAD and STORE instructions may access memory"
+        },
+        {
+          "key": "E",
+          "content": "Instructions are of variable length and can operate directly on data in memory"
+        },
+        {
+          "key": "F",
+          "content": "It has a hard-wired control unit"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "Any three (1 each):\n- large set of instructions\n- complex instructions that carry out several operations\n- variable-length instructions / many addressing modes\n- instructions take several clock cycles\n- instructions can access memory directly\n- fewer instructions per program / shorter code\n- complex / microprogrammed hardware, more power",
-        "points": [
-          {
-            "criterion": "Point 1",
-            "marks": 1
-          },
-          {
-            "criterion": "Point 2",
-            "marks": 1
-          },
-          {
-            "criterion": "Point 3",
-            "marks": 1
-          }
-        ],
-        "model_answer": "CISC has a large set of complex, variable-length instructions; one instruction can load, calculate and store, taking several clock cycles, so programs contain fewer instructions."
+        "mark_scheme": "A, C, E (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ]
+        },
+        "explanation": "B, D and F describe RISC. CISC instructions are variable length, can use memory operands and are carried out by microcode."
       }
     },
     {
@@ -152,7 +182,7 @@
       "marks": 6,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.3"
       ],
@@ -260,7 +290,8 @@
               "✓"
             ]
           ]
-        }
+        },
+        "explanation": "RISC: pipelining, load/store, low power. CISC: many instructions, variable length, shorter programs."
       }
     },
     {
@@ -270,7 +301,7 @@
       "marks": 4,
       "difficulty": "easy",
       "command_word": "identify",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.1",
         "12.3.2.2"
@@ -351,7 +382,8 @@
               "✓"
             ]
           ]
-        }
+        },
+        "explanation": "ARM and RISC-V are RISC families; Intel and AMD x86 processors are CISC."
       }
     },
     {
@@ -415,179 +447,290 @@
     },
     {
       "key": "cpu-code-count",
-      "title": "Counting instructions",
-      "type": "code_analysis",
-      "marks": 3,
+      "title": "Which version is RISC?",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.3"
       ],
       "practice": true,
-      "text": "The code shows the same task written for two processors.\n\nState which version is for the RISC processor and explain **two** reasons for your answer.",
-      "content": {
-        "language": "assembly",
-        "starter_code": "; Version X\nADD 4:1, 6:3\n\n; Version Y\nLOAD  A, 4:1\nLOAD  B, 6:3\nADD   A, B\nSTORE 4:1, A",
-        "answer_lines": 4
-      },
+      "text": "The same task is written for two processors.\n\n```assembly\n; Version X\nADD 4:1, 6:3\n\n; Version Y\nLOAD  A, 4:1\nLOAD  B, 6:3\nADD   A, B\nSTORE 4:1, A\n```\n\nWhich statement is correct?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Version X is RISC, because it uses fewer instructions"
+        },
+        {
+          "key": "B",
+          "content": "Version Y is RISC, because it uses several simple instructions and only LOAD and STORE access memory"
+        },
+        {
+          "key": "C",
+          "content": "Version Y is CISC, because it uses more registers"
+        },
+        {
+          "key": "D",
+          "content": "Both versions are CISC, because both add two numbers"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Version Y is RISC (1)\n- uses several simple instructions instead of one complex one (1)\n- only LOAD/STORE access memory; ADD works on registers (1)",
-        "points": [
-          {
-            "criterion": "Y",
-            "marks": 1
-          },
-          {
-            "criterion": "Several simple instructions",
-            "marks": 1
-          },
-          {
-            "criterion": "Load/store, registers",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Version Y. It breaks the task into several simple instructions, and only LOAD and STORE access memory while ADD uses registers; Version X does it all in one complex instruction that accesses memory directly."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "In Y the addition works on registers and only LOAD/STORE touch memory (load/store architecture). X does everything in one complex instruction that uses memory operands — CISC."
       }
     },
     {
       "key": "cpu-pipelining",
       "title": "Pipelining",
-      "type": "short_answer",
-      "marks": 3,
+      "type": "fill_blank",
+      "marks": 4,
       "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.1",
         "12.3.2.3"
       ],
       "practice": true,
-      "text": "Explain what is meant by **pipelining** and why it is easier with RISC than with CISC.",
+      "text": "Complete the explanation.\n\nIn pipelining the processor works on several instructions at the same time, each at a different [[1]] of the fetch–decode–execute cycle: while one instruction is executed, the next one is [[2]]. RISC instructions have a [[3]] length and take one clock cycle, so every stage takes the same time. CISC instructions vary in length and number of cycles, so a long instruction makes the pipeline [[4]].",
+      "source": "original",
       "content": {
-        "answer_lines": 4
+        "blank_count": 4
       },
       "scheme": {
-        "mark_scheme": "- Several instructions are processed at the same time at different stages of fetch–decode–execute (1)\n- RISC instructions are the same length / take one cycle, so stages take equal time (1)\n- CISC instructions vary in length / cycles, so long instructions hold up the pipeline (1)",
-        "points": [
-          {
-            "criterion": "Definition",
-            "marks": 1
-          },
-          {
-            "criterion": "RISC reason",
-            "marks": 1
-          },
-          {
-            "criterion": "CISC problem",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Pipelining means fetching the next instruction while the current one is decoded and the previous one executed. RISC instructions are fixed length and take one cycle, so every stage takes the same time, whereas CISC instructions vary in length and cycles, so the pipeline stalls."
+        "mark_scheme": "(1) stage; (2) decoded; (3) fixed; (4) wait",
+        "accepted": {
+          "blanks": [
+            [
+              "stage",
+              "step"
+            ],
+            [
+              "decoded",
+              "being decoded",
+              "decode"
+            ],
+            [
+              "fixed",
+              "same",
+              "fixed-length"
+            ],
+            [
+              "wait",
+              "stall",
+              "stop",
+              "slow down",
+              "slower"
+            ]
+          ]
+        },
+        "explanation": "Once the pipeline is full, one instruction completes every clock cycle — this works best when all instructions take equal time."
       }
     },
     {
       "key": "cpu-phone",
       "title": "Smartphone processor",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.3"
       ],
       "practice": true,
-      "text": "Explain why most smartphones use RISC processors.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Which is the best explanation of why most smartphones use RISC processors?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "RISC processors have more instructions, so apps run faster"
+        },
+        {
+          "key": "B",
+          "content": "RISC processors have simpler circuits with fewer transistors, so they use less power and produce less heat, giving longer battery life without a fan"
+        },
+        {
+          "key": "C",
+          "content": "RISC programs need less RAM"
+        },
+        {
+          "key": "D",
+          "content": "RISC processors can run Windows software compiled for x86"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Simpler circuits / fewer transistors (1)\n- so less power / heat → longer battery life, no fan, smaller (1)",
-        "points": [
-          {
-            "criterion": "Simple hardware",
-            "marks": 1
-          },
-          {
-            "criterion": "Low power consequence",
-            "marks": 1
-          }
-        ],
-        "model_answer": "RISC chips have simpler circuits with fewer transistors, so they use less power and produce less heat, giving longer battery life without a cooling fan."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Phones run on batteries and have no fan, so low power and little heat matter most. RISC programs actually need more RAM, and x86 software needs CISC."
       }
     },
     {
       "key": "cpu-differences",
-      "title": "Two differences",
-      "type": "labelled_answers",
-      "marks": 2,
+      "title": "Fewer or more",
+      "type": "table_completion",
+      "marks": 6,
       "difficulty": "medium",
-      "command_word": "compare",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.3"
       ],
       "practice": true,
-      "text": "Give **two** differences between RISC and CISC.",
+      "text": "Tick (✓) the architecture that has **more** of each.",
+      "source": "original",
       "content": {
-        "fields": [
-          {
-            "key": "1",
-            "label": "1",
-            "lines": 2
-          },
-          {
-            "key": "2",
-            "label": "2",
-            "lines": 2
-          }
+        "columns": [
+          "Feature",
+          "RISC",
+          "CISC"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Instructions in the instruction set",
+            null,
+            null
+          ],
+          [
+            "Instructions in a compiled program",
+            null,
+            null
+          ],
+          [
+            "General-purpose registers",
+            null,
+            null
+          ],
+          [
+            "Clock cycles per instruction",
+            null,
+            null
+          ],
+          [
+            "Transistors on the chip",
+            null,
+            null
+          ],
+          [
+            "Work done by the compiler",
+            null,
+            null
+          ]
         ]
       },
       "scheme": {
-        "mark_scheme": "Any two, both sides (1 each): few vs many instructions; simple vs complex; fixed vs variable length; one vs several cycles; load/store vs direct memory access; many vs fewer registers; easy vs hard pipelining; more vs fewer instructions per program; low vs high power. Do NOT accept CISC has more registers.",
+        "mark_scheme": "1 CISC; 2 RISC; 3 RISC; 4 CISC; 5 CISC; 6 RISC (1 each)",
         "points": [
           {
-            "criterion": "First",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Second",
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
             "marks": 1
           }
         ],
-        "model_answer": "1 RISC has a small set of simple instructions, whereas CISC has a large set of complex instructions. 2 RISC instructions take one clock cycle, whereas CISC instructions take several."
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Careful: RISC has fewer instructions in its instruction set but needs more instructions in each program. RISC has more registers; CISC more cycles and transistors."
       }
     },
     {
       "key": "cpu-cisc-memory",
       "title": "CISC and memory",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.2"
       ],
       "practice": true,
-      "text": "Explain why a program compiled for a CISC processor usually takes **less memory** than the same program compiled for a RISC processor.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Why does a program compiled for a CISC processor usually take **less memory** than the same program compiled for RISC?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "CISC uses fewer registers"
+        },
+        {
+          "key": "B",
+          "content": "One CISC instruction can carry out several operations, so the program has fewer instructions and shorter machine code"
+        },
+        {
+          "key": "C",
+          "content": "CISC instructions are all 1 byte long"
+        },
+        {
+          "key": "D",
+          "content": "CISC processors compress the program"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- One CISC instruction carries out several operations (1)\n- so the program has fewer instructions / shorter machine code (1)",
-        "points": [
-          {
-            "criterion": "Complex instruction",
-            "marks": 1
-          },
-          {
-            "criterion": "Fewer instructions",
-            "marks": 1
-          }
-        ],
-        "model_answer": "A single CISC instruction can load, process and store data, so the program needs fewer instructions and its machine code is shorter."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Fewer, more powerful instructions → shorter code → less RAM. CISC instructions are variable length (1–15 bytes in x86)."
       }
     },
     {
@@ -597,7 +740,7 @@
       "marks": 2,
       "difficulty": "hard",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.1"
       ],
@@ -610,12 +753,8 @@
         "mark_scheme": "First instruction takes 3 cycles, then one more per instruction (1): 3 + 5 = 8 cycles (1). (Without pipelining 18.)",
         "points": [
           {
-            "criterion": "Method",
-            "marks": 1
-          },
-          {
             "criterion": "8",
-            "marks": 1
+            "marks": 2
           }
         ],
         "model_answer": "8",
@@ -624,121 +763,9 @@
             "8"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "First instruction takes 3 cycles, then one more per instruction (1): 3 + 5 = 8 cycles (1). (Without pipelining 18.)"
       }
-    },
-    {
-      "key": "cpu-structured",
-      "title": "Choosing a processor",
-      "type": "structured",
-      "marks": 6,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
-      "practice": true,
-      "text": "A company designs a **smartwatch** and a **gaming desktop PC**.",
-      "scheme": {
-        "mark_scheme": ""
-      },
-      "parts": [
-        {
-          "key": "cpu-str-a",
-          "part_label": "(a)",
-          "title": "Smartwatch",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.3"
-          ],
-          "practice": true,
-          "text": "State which architecture the smartwatch should use and justify your choice.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "RISC (1); low power / heat → long battery life in a small device without a fan (1)",
-            "points": [
-              {
-                "criterion": "RISC",
-                "marks": 1
-              },
-              {
-                "criterion": "Justification",
-                "marks": 1
-              }
-            ],
-            "model_answer": "RISC, because it uses little power and produces little heat, so the small battery lasts longer."
-          }
-        },
-        {
-          "key": "cpu-str-b",
-          "part_label": "(b)",
-          "title": "Desktop",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.3"
-          ],
-          "practice": true,
-          "text": "Most gaming PCs use CISC (x86) processors. Give **two** reasons why.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "Any two (1 each): compatibility with existing x86 games / software; mains power so power use is less important; space for cooling; powerful complex instructions; shorter programs",
-            "points": [
-              {
-                "criterion": "Reason 1",
-                "marks": 1
-              },
-              {
-                "criterion": "Reason 2",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Most PC games are compiled for x86, so CISC keeps compatibility; the PC runs on mains power with fans, so higher power use and heat are not a problem."
-          }
-        },
-        {
-          "key": "cpu-str-c",
-          "part_label": "(c)",
-          "title": "Disadvantage",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.1"
-          ],
-          "practice": true,
-          "text": "Explain **one** disadvantage of RISC.",
-          "content": {
-            "answer_lines": 2
-          },
-          "scheme": {
-            "mark_scheme": "Programs need more instructions (1) → longer machine code / more RAM / more work for the compiler (1)",
-            "points": [
-              {
-                "criterion": "More instructions",
-                "marks": 1
-              },
-              {
-                "criterion": "Consequence",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Complex tasks need many simple instructions, so programs are longer and take more memory."
-          }
-        }
-      ]
     },
     {
       "key": "cpu-exam-1",
@@ -2049,6 +2076,662 @@
           }
         }
       ]
+    },
+    {
+      "key": "cpu-terms-match",
+      "title": "Instruction terms",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1",
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Opcode"
+          },
+          {
+            "key": "L2",
+            "text": "Operand"
+          },
+          {
+            "key": "L3",
+            "text": "Clock cycle"
+          },
+          {
+            "key": "L4",
+            "text": "CPI"
+          },
+          {
+            "key": "L5",
+            "text": "Instruction format"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The part of an instruction that says what operation to perform"
+          },
+          {
+            "key": "R2",
+            "text": "The data, register or memory address an instruction uses"
+          },
+          {
+            "key": "R3",
+            "text": "One tick of the processor's clock"
+          },
+          {
+            "key": "R4",
+            "text": "The average number of clock cycles an instruction needs"
+          },
+          {
+            "key": "R5",
+            "text": "How the bits of an instruction are laid out in fields"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Opcode – The part of an instruction that says what operation to perform; Operand – The data, register or memory address an instruction uses; Clock cycle – One tick of the processor's clock; CPI – The average number of clock cycles an instruction needs; Instruction format – How the bits of an instruction are laid out in fields. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        },
+        "explanation": "ADD R1, R2, R3: ADD is the opcode, the registers are the operands."
+      }
+    },
+    {
+      "key": "cpu-perf-eq",
+      "title": "The performance equation",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1",
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "Complete the performance equation and what each design tries to reduce.\n\ntime for a program = number of instructions × [[1]] × time per cycle\n\nCISC tries to reduce the [[2]]; RISC tries to reduce the [[3]].",
+      "source": "original",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) cycles per instruction; (2) number of instructions; (3) cycles per instruction",
+        "accepted": {
+          "blanks": [
+            [
+              "cycles per instruction",
+              "CPI",
+              "clock cycles per instruction"
+            ],
+            [
+              "number of instructions",
+              "number of instructions in a program",
+              "instructions",
+              "instruction count"
+            ],
+            [
+              "cycles per instruction",
+              "CPI",
+              "clock cycles per instruction"
+            ]
+          ]
+        },
+        "explanation": "CISC: one powerful instruction does the work of several, so programs are shorter. RISC: simple one-cycle instructions that can be pipelined."
+      }
+    },
+    {
+      "key": "cpu-perf-time",
+      "title": "Program time",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "practice": true,
+      "text": "A program has **2 000 000** instructions with an average **CPI of 1.5** on a **1 GHz** processor (one cycle = 1 ns). Calculate the time in **milliseconds**.",
+      "source": "original",
+      "content": {
+        "unit": "ms"
+      },
+      "scheme": {
+        "mark_scheme": "2 000 000 × 1.5 = 3 000 000 cycles (1); × 1 ns = 3 000 000 ns = 3 ms (1)",
+        "points": [
+          {
+            "criterion": "3",
+            "marks": 2
+          }
+        ],
+        "model_answer": "3",
+        "accepted": {
+          "values": [
+            "3"
+          ],
+          "numeric": true
+        },
+        "explanation": "2 000 000 × 1.5 = 3 000 000 cycles (1); × 1 ns = 3 000 000 ns = 3 ms (1)"
+      }
+    },
+    {
+      "key": "cpu-perf-compare",
+      "title": "Which is faster?",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.3"
+      ],
+      "practice": true,
+      "text": "A task is compiled for two **2 GHz** processors (one cycle = 0.5 ns).\n\n- CISC: **800 000** instructions, average CPI **5**\n- RISC: **1 600 000** instructions, average CPI **1.25**\n\nCalculate how many times **faster** the RISC version is.",
+      "source": "original",
+      "content": {
+        "unit": "times"
+      },
+      "scheme": {
+        "mark_scheme": "CISC: 800 000 × 5 = 4 000 000 cycles = 2 ms (1); RISC: 1 600 000 × 1.25 = 2 000 000 cycles = 1 ms (1); 2 ÷ 1 = 2 times faster (1)",
+        "points": [
+          {
+            "criterion": "2",
+            "marks": 3
+          }
+        ],
+        "model_answer": "2",
+        "accepted": {
+          "values": [
+            "2"
+          ],
+          "numeric": true
+        },
+        "explanation": "CISC: 800 000 × 5 = 4 000 000 cycles = 2 ms (1); RISC: 1 600 000 × 1.25 = 2 000 000 cycles = 1 ms (1); 2 ÷ 1 = 2 times faster (1)"
+      }
+    },
+    {
+      "key": "cpu-control-unit",
+      "title": "Control units",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1",
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the type of control unit each statement describes.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "Hard-wired",
+          "Microprogrammed"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Fixed logic circuits turn each opcode directly into control signals",
+            null,
+            null
+          ],
+          [
+            "Each instruction runs a stored sequence of micro-instructions",
+            null,
+            null
+          ],
+          [
+            "The instruction set can be changed or updated more easily",
+            null,
+            null
+          ],
+          [
+            "Usually found in RISC processors",
+            null,
+            null
+          ],
+          [
+            "Suits a large number of complex instructions",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Hard-wired; 2 Microprogrammed; 3 Microprogrammed; 4 Hard-wired; 5 Microprogrammed (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Hard-wired = fast, few simple instructions (RISC). Microprogrammed = microcode, many complex instructions, slower (CISC)."
+      }
+    },
+    {
+      "key": "cpu-microcode-tf",
+      "title": "Where microcode is",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "Microcode is stored in main memory (RAM) and loaded by the program before it runs.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Microcode is stored inside the CPU's control unit; each complex machine-code instruction runs its own short microprogram."
+      }
+    },
+    {
+      "key": "cpu-loadstore",
+      "title": "Load/store architecture",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "practice": true,
+      "text": "In a **load/store** architecture, which instructions can access main memory?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "All instructions"
+        },
+        {
+          "key": "B",
+          "content": "Only arithmetic instructions"
+        },
+        {
+          "key": "C",
+          "content": "Only LOAD and STORE instructions"
+        },
+        {
+          "key": "D",
+          "content": "Only branch (jump) instructions"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Arithmetic and logic work only on registers; LOAD copies memory → register and STORE copies register → memory."
+      }
+    },
+    {
+      "key": "cpu-fixed-length",
+      "title": "Why fixed length helps",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "practice": true,
+      "text": "Why do **fixed-length** instructions make a RISC processor faster?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "They use less memory than variable-length instructions"
+        },
+        {
+          "key": "B",
+          "content": "The decoder always knows where each instruction ends and where the fields are, so decoding is simple and the next instruction can be fetched at once"
+        },
+        {
+          "key": "C",
+          "content": "They allow instructions to access memory directly"
+        },
+        {
+          "key": "D",
+          "content": "They need microcode"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "In CISC the decoder must first work out how long each instruction is (1–15 bytes in x86) before finding the next one."
+      }
+    },
+    {
+      "key": "cpu-pipeline-50",
+      "title": "Pipeline cycles",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "practice": true,
+      "text": "A processor has a **4-stage** pipeline; each stage takes one clock cycle. It runs **50** instructions.\n\nWithout pipelining: [[1]] cycles\n\nWith pipelining: [[2]] cycles",
+      "source": "original",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 200; (2) 53",
+        "accepted": {
+          "blanks": [
+            [
+              "200"
+            ],
+            [
+              "53"
+            ]
+          ],
+          "numeric": true
+        },
+        "explanation": "Without: n × k = 50 × 4 = 200. With: k + (n − 1) = 4 + 49 = 53."
+      }
+    },
+    {
+      "key": "cpu-pipeline-hazards",
+      "title": "What slows a pipeline",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1"
+      ],
+      "practice": true,
+      "text": "Select the **two** situations that make a pipeline wait or be emptied (flushed).",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "An instruction needs the result of the instruction just before it"
+        },
+        {
+          "key": "B",
+          "content": "A branch (jump) means the instructions already fetched are the wrong ones"
+        },
+        {
+          "key": "C",
+          "content": "All instructions are the same length"
+        },
+        {
+          "key": "D",
+          "content": "The processor has many general-purpose registers"
+        },
+        {
+          "key": "E",
+          "content": "Every stage takes one clock cycle"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "Equal-length, one-cycle instructions help the pipeline; data dependencies and branches stall or flush it."
+      }
+    },
+    {
+      "key": "cpu-program-length-tf",
+      "title": "Instructions per program",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.3"
+      ],
+      "practice": true,
+      "text": "Because RISC has fewer instructions in its instruction set, a RISC program contains fewer instructions than the same CISC program.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The opposite: RISC builds complex jobs from several simple instructions, so its programs contain more instructions and need more RAM."
+      }
+    },
+    {
+      "key": "cpu-emphasis",
+      "title": "Hardware or software",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.1",
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nCISC puts the emphasis on [[1]]: the processor splits a complex job into steps.\n\nRISC puts the emphasis on [[2]]: the compiler produces several simple instructions.",
+      "source": "original",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) hardware; (2) software",
+        "accepted": {
+          "blanks": [
+            [
+              "hardware",
+              "the hardware"
+            ],
+            [
+              "software",
+              "the software",
+              "the compiler",
+              "compiler"
+            ]
+          ]
+        },
+        "explanation": "In RISC the compiler does the work that the CISC hardware (microcode) does."
+      }
+    },
+    {
+      "key": "cpu-x86-inside",
+      "title": "Modern x86 processors",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "describe",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.2"
+      ],
+      "practice": true,
+      "text": "How do modern Intel and AMD (CISC) processors get many of the speed advantages of RISC?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "They no longer accept x86 instructions"
+        },
+        {
+          "key": "B",
+          "content": "They translate each complex x86 instruction into simple fixed-size micro-operations, which a pipelined core executes"
+        },
+        {
+          "key": "C",
+          "content": "They remove all registers"
+        },
+        {
+          "key": "D",
+          "content": "They run every instruction in exactly one cycle using microcode"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Old software still runs unchanged, but the extra translation hardware costs chip space and power."
+      }
+    },
+    {
+      "key": "cpu-desktop-why",
+      "title": "Why desktops use CISC",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.3"
+      ],
+      "practice": true,
+      "text": "What is the **main** reason most desktop PCs still use x86 (CISC) processors?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "CISC processors use less power"
+        },
+        {
+          "key": "B",
+          "content": "A huge amount of existing Windows software and games is compiled for x86, so CISC keeps backward compatibility"
+        },
+        {
+          "key": "C",
+          "content": "CISC processors have more registers"
+        },
+        {
+          "key": "D",
+          "content": "RISC processors cannot run operating systems"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Desktops run on mains power with room for fans, so power matters less than running existing x86 software."
+      }
+    },
+    {
+      "key": "cpu-apple-arm",
+      "title": "Apple and ARM",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.3"
+      ],
+      "practice": true,
+      "text": "In 2020 Apple moved its Mac computers from Intel (CISC) to ARM-based (RISC) chips. Which reason fits the theory?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "ARM chips have a larger instruction set"
+        },
+        {
+          "key": "B",
+          "content": "ARM chips gave high performance with much lower power use"
+        },
+        {
+          "key": "C",
+          "content": "ARM chips use microcode for every instruction"
+        },
+        {
+          "key": "D",
+          "content": "ARM programs need less RAM"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "RISC's simple hard-wired circuits use fewer transistors → less power and heat → longer battery life in laptops."
+      }
     }
   ],
   "summary": "RISC and CISC processor architectures — what an instruction set is, opcodes, operands and clock cycles, the characteristics of RISC (simple fixed-length instructions, load/store, many registers, hard-wired control, pipelining) and of CISC (complex variable-length instructions, memory operands, microcode), the same task on both, the performance equation, and a full comparison with uses, advantages, disadvantages and exam-style answers.",
@@ -2598,20 +3281,34 @@
       ],
       "questions": [
         "cpu-acronyms",
-        "cpu-registers-tf",
-        "cpu-cycles-mcq",
-        "cpu-risc-features",
-        "cpu-examples-match",
-        "cpu-tick",
         "cpu-instruction-set",
+        "cpu-terms-match",
+        "cpu-cycles-mcq",
+        "cpu-loadstore",
+        "cpu-emphasis",
+        "cpu-examples-match",
+        "cpu-risc-features",
+        "cpu-fixed-length",
+        "cpu-registers-tf",
         "cpu-cisc-describe",
+        "cpu-microcode-tf",
+        "cpu-control-unit",
+        "cpu-perf-eq",
+        "cpu-perf-time",
         "cpu-code-count",
+        "cpu-program-length-tf",
+        "cpu-cisc-memory",
         "cpu-pipelining",
         "cpu-pipeline-calc",
-        "cpu-phone",
-        "cpu-cisc-memory",
+        "cpu-pipeline-50",
+        "cpu-pipeline-hazards",
+        "cpu-tick",
         "cpu-differences",
-        "cpu-structured"
+        "cpu-phone",
+        "cpu-desktop-why",
+        "cpu-apple-arm",
+        "cpu-x86-inside",
+        "cpu-perf-compare"
       ]
     }
   ]
