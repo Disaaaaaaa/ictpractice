@@ -1,0 +1,90 @@
+{
+  "topic": "g11-sound-representation",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Sound wave: amplitude and frequency",
+      "must": "Sound = vibration travelling as a wave; amplitude = height → loudness; frequency = cycles per second in Hz → pitch; human hearing about 20 Hz–20 kHz.",
+      "weight": 2,
+      "model": "Sound = a vibration that travels through the air as a wave. Amplitude = height of the wave → loudness. Frequency = number of cycles per second, in hertz (Hz) → pitch. Humans hear about 20 Hz – 20 000 Hz."
+    },
+    {
+      "title": "Analogue vs digital signal",
+      "must": "Analogue = continuous, any value (sound wave, microphone voltage); digital = discrete values stored as binary; comparison (copying, editing, accuracy).",
+      "weight": 3,
+      "model": "Analogue signal = varies continuously and can take any value in a range (sound wave, microphone voltage). Digital signal = discrete separate values stored as binary numbers. Digital copies are identical and easy to edit; digital is an approximation of the wave."
+    },
+    {
+      "title": "Why analogue sound must be converted to binary",
+      "must": "Computer stores/processes only binary; analogue has infinitely many values → must be sampled to a finite set; once binary it can be edited, compressed, stored, transmitted; copies keep quality.",
+      "weight": 3,
+      "model": "1) A computer can only store and process binary data. 2) Analogue sound is continuous with infinitely many values, so it must be reduced to a finite number of samples. 3) Binary sound can be edited, compressed, stored and transmitted/streamed. 4) Digital copies are identical — no loss of quality."
+    },
+    {
+      "title": "ADC and DAC",
+      "must": "ADC (on the sound card) measures the analogue signal at regular intervals and converts to binary — for recording; DAC converts binary back to an analogue voltage for the speaker — for playback.",
+      "weight": 3,
+      "model": "ADC (analogue-to-digital converter), on the sound card: measures the analogue signal at regular intervals and converts each value to binary → needed to record. DAC (digital-to-analogue converter): turns binary values back into an analogue voltage → amplifier → speaker → needed to play."
+    },
+    {
+      "title": "Journey of a sound (diagram)",
+      "must": "Chain: sound wave → microphone → analogue voltage → ADC → binary file → DAC → amplifier → speaker; e.g. a voice message on a phone.",
+      "weight": 1,
+      "model": "Sound wave → microphone (analogue voltage) → ADC (sampling + quantisation) → binary samples in a file (stored, compressed, sent) → DAC → amplifier → speaker → sound wave. Example: a voice message recorded at 16 000 Hz, 16 bits."
+    },
+    {
+      "title": "Sampling",
+      "must": "Measuring the amplitude at regular time intervals, each measurement stored as a binary number = a sample; nothing recorded between samples.",
+      "weight": 3,
+      "model": "Sampling = measuring the amplitude of the sound wave at regular time intervals and storing each measurement as a binary number. Each measurement is a sample. Between samples nothing is recorded."
+    },
+    {
+      "title": "Sampling rate and the Nyquist rule",
+      "must": "Samples per second in Hz; higher rate → closer to wave, higher frequencies recorded; at least 2 samples per cycle → rate > 2 × highest frequency → CD 44 100 Hz, telephone 8 000 Hz; aliasing.",
+      "weight": 3,
+      "model": "Sampling rate = number of samples per second (Hz). Higher rate → samples closer together → digital wave closer to original, high frequencies kept. Nyquist: rate must be more than 2 × highest frequency → 2 × 20 000 = 40 000 → CD uses 44 100 Hz; telephone 8 000 Hz (speech only). Too low → aliasing (false lower sound)."
+    },
+    {
+      "title": "Sample resolution and number of levels",
+      "must": "Bits per sample; n bits → 2ⁿ levels (8 bits 256, 16 bits 65 536); each extra bit doubles the levels; table of typical resolutions.",
+      "weight": 3,
+      "model": "Sample resolution (bit depth) = number of bits used to store each sample. n bits → 2ⁿ levels: 4 bits = 16, 8 bits = 256, 16 bits = 65 536 (CD), 24 bits = 16 777 216 (studio). Each extra bit doubles the levels."
+    },
+    {
+      "title": "Quantisation and quantisation error",
+      "must": "Rounding each measurement to the nearest level; error = real − stored value, heard as hiss; more bits → smaller error, wider dynamic range; worked example 4-bit vs 12-bit.",
+      "weight": 2,
+      "model": "Quantisation = rounding each measured amplitude to the nearest available level. Quantisation error = difference between real and stored value → heard as hiss/noise. More bits → levels closer → smaller error, wider dynamic range. E.g. 0–3.2 V: 4 bits → steps of 0.2 V; 12 bits → steps of ≈0.00078 V."
+    },
+    {
+      "title": "Channels: mono, stereo, surround",
+      "must": "Mono = 1 channel; stereo = 2 (left/right) → twice the samples; surround 5.1 = 6 channels.",
+      "weight": 2,
+      "model": "Channel = a separate stream of samples. Mono = 1 channel (voice, podcast). Stereo = 2 channels, left and right → twice as many samples. Surround 5.1 = 6 channels (films)."
+    },
+    {
+      "title": "Effect of settings on quality and file size",
+      "must": "Higher rate / resolution / channels → better quality (more accurate, less noise, high frequencies) but larger file in proportion; trade-off: storage, bandwidth, download time; choose 'good enough' settings; typical settings table.",
+      "weight": 3,
+      "model": "Higher sampling rate → follows wave more closely in time, higher frequencies; higher resolution → each sample more accurate, less noise. Both increase file size in proportion. Bigger file = more storage, bandwidth, download time. Typical: phone 8 kHz/8-bit/mono; podcast 22.05 kHz/16-bit/mono; CD 44.1 kHz/16-bit/stereo; studio 96 kHz/24-bit."
+    },
+    {
+      "title": "Reducing file size: lossy and lossless compression",
+      "must": "Lower rate/resolution/mono/shorter; lossless (FLAC) ≈ ½, restored exactly; lossy (MP3, AAC) ≈ 1/10, removes sounds people can hardly hear, cannot be restored.",
+      "weight": 2,
+      "model": "Reduce size: lower sampling rate, lower resolution, mono, shorter. Lossless compression (FLAC): about ½ size, original restored exactly. Lossy compression (MP3, AAC): about 1/10 size, removes sounds people hardly hear (very high/masked), cannot be restored."
+    },
+    {
+      "title": "Audio file size formula and steps",
+      "must": "Bits = sampling rate × resolution × channels × duration (s); ÷ 8 bytes, ÷ 1024 KB, ÷ 1024 MB; convert minutes and kHz first.",
+      "weight": 3,
+      "model": "File size (bits) = sampling rate (Hz) × sample resolution (bits) × channels × duration (s). ÷ 8 → bytes; ÷ 1024 → KB; ÷ 1024 → MB. Convert minutes to seconds and kHz to Hz first; round only at the end."
+    },
+    {
+      "title": "Worked calculations including working backwards",
+      "must": "CD stereo 1 min ≈ 10.09 MB; working backwards (441 000 bytes, 16-bit mono 10 s → 22 050 Hz); recording time from free space; effect table (×2, ÷4).",
+      "weight": 2,
+      "model": "44 100 × 16 × 2 × 60 = 84 672 000 bits = 10 584 000 bytes ≈ 10.09 MB. Backwards: 441 000 × 8 = 3 528 000 ÷ (16 × 1 × 10) = 22 050 Hz. 30 MB at 16 000 Hz, 16-bit mono: 251 658 240 ÷ 256 000 ≈ 983 s ≈ 16.4 min. Double rate ×2; mono→stereo ×2; 44.1→22.05 kHz and stereo→mono ÷4."
+    }
+  ]
+}
