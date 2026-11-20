@@ -940,36 +940,40 @@
     {
       "key": "img-explain-bitmap",
       "title": "How a bitmap is stored",
-      "type": "short_answer",
-      "marks": 3,
+      "type": "fill_blank",
+      "marks": 4,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.5"
       ],
       "practice": true,
-      "text": "Explain how a bitmap image is represented in terms of the number of pixels, resolution and colour depth.",
+      "text": "Complete the description of a bitmap image.\n\nA bitmap image is a grid of [[1]], and the colour of each one is stored as a [[2]] number. The resolution is the number of pixels, written as width × [[3]]. The colour depth is the number of [[4]] used for each pixel.",
       "content": {
-        "answer_lines": 4
+        "blank_count": 4
       },
       "scheme": {
-        "mark_scheme": "- The image is a grid of pixels, each storing one colour as a binary code (1)\n- Resolution is the number of pixels (width × height); more pixels give more detail (1)\n- Colour depth is the number of bits per pixel; it determines the number of colours, 2ⁿ (1)",
-        "points": [
-          {
-            "criterion": "Pixels with binary codes",
-            "marks": 1
-          },
-          {
-            "criterion": "Resolution",
-            "marks": 1
-          },
-          {
-            "criterion": "Colour depth",
-            "marks": 1
-          }
-        ],
-        "model_answer": "A bitmap is a grid of pixels, and each pixel's colour is stored as a binary number. The resolution is the number of pixels in the image, such as 1920 × 1080; more pixels give more detail. The colour depth is the number of bits used for each pixel, so n bits allow 2ⁿ colours."
+        "mark_scheme": "(1) pixels (2) binary (3) height (4) bits",
+        "accepted": {
+          "blanks": [
+            [
+              "pixels",
+              "pixel"
+            ],
+            [
+              "binary"
+            ],
+            [
+              "height"
+            ],
+            [
+              "bits",
+              "bit"
+            ]
+          ]
+        },
+        "explanation": "Every pixel holds one colour as a binary code; resolution = width × height in pixels; colour depth = bits per pixel, giving 2ⁿ colours."
       }
     },
     {
@@ -979,7 +983,7 @@
       "marks": 4,
       "difficulty": "easy",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.5"
       ],
@@ -1050,7 +1054,8 @@
             ]
           ],
           "ignore_spaces": true
-        }
+        },
+        "explanation": "n bits give 2ⁿ colours: 2¹ = 2, 2⁴ = 16, 2⁸ = 256, 2¹⁶ = 65 536."
       }
     },
     {
@@ -1083,7 +1088,8 @@
             "5"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "2⁴ = 16 is too few; 2⁵ = 32 ≥ 30, so 5 bits."
       }
     },
     {
@@ -1110,32 +1116,48 @@
     {
       "key": "img-quality-effect",
       "title": "Effect of colour depth",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "multiple_response",
+      "marks": 3,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.5"
       ],
       "practice": true,
-      "text": "Explain the effect of increasing the colour depth of an image from 8 bits to 24 bits.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "The colour depth of a photo is increased from **8 bits** to **24 bits**, with the same resolution. Select the **three** correct effects.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The number of possible colours rises from 256 to about 16.7 million"
+        },
+        {
+          "key": "B",
+          "content": "The image gets more pixels, so it shows more detail"
+        },
+        {
+          "key": "C",
+          "content": "Shading is smoother, with less banding"
+        },
+        {
+          "key": "D",
+          "content": "The file size becomes three times larger"
+        },
+        {
+          "key": "E",
+          "content": "The file size becomes 256 times larger"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- More colours can be represented (256 → 16.7 million) — more realistic / smoother image (1)\n- the file size increases (three times) because each pixel needs more bits (1)",
-        "points": [
-          {
-            "criterion": "Quality",
-            "marks": 1
-          },
-          {
-            "criterion": "File size ×3",
-            "marks": 1
-          }
-        ],
-        "model_answer": "The image can use about 16.7 million colours instead of 256, so it looks more realistic, but each pixel needs three times as many bits, so the file becomes three times larger."
+        "mark_scheme": "A, C, D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        },
+        "explanation": "More bits per pixel → more colours (2²⁴) → more realistic shading. Detail comes from resolution, not colour depth. Size grows with the number of bits (24 ÷ 8 = 3), not with the number of colours."
       }
     },
     {
@@ -1173,7 +1195,8 @@
         "mark_scheme": "B",
         "accepted": {
           "correct": "B"
-        }
+        },
+        "explanation": "Pixelation: too few pixels for the display size, so each pixel is stretched and the squares become visible."
       }
     },
     {
@@ -1183,7 +1206,7 @@
       "marks": 2,
       "difficulty": "easy",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
@@ -1210,7 +1233,8 @@
             "625"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "100 × 50 × 1 = 5000 bits (1); ÷ 8 = 625 bytes (1)"
       }
     },
     {
@@ -1220,7 +1244,7 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
@@ -1252,7 +1276,8 @@
             "2764.8"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "1280 × 720 × 24 = 22 118 400 bits (1); ÷ 8 = 2 764 800 bytes (1); ÷ 1024 = 2700 KB (1). Accept 2764.8 KB if 1000 is used."
       }
     },
     {
@@ -1262,7 +1287,7 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
@@ -1295,7 +1320,8 @@
           ],
           "numeric": true,
           "tolerance": 0.01
-        }
+        },
+        "explanation": "1920 × 1080 × 24 = 49 766 400 bits (1); ÷ 8 = 6 220 800 bytes (1); ÷ 1024 ÷ 1024 = 5.93 MB (1). Accept 6.22 MB with 1000."
       }
     },
     {
@@ -1305,7 +1331,7 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
@@ -1338,7 +1364,8 @@
           ],
           "numeric": true,
           "tolerance": 0.01
-        }
+        },
+        "explanation": "256 colours → 8 bits (1); 800 × 600 × 8 = 3 840 000 bits → 480 000 bytes (1); ÷ 1024 = 468.75 KB (1). Accept 480 KB with 1000."
       }
     },
     {
@@ -1348,7 +1375,7 @@
       "marks": 2,
       "difficulty": "hard",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
@@ -1375,38 +1402,42 @@
             "16"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "600 × 1024 × 8 = 4 915 200 bits (1); ÷ (640 × 480 = 307 200) = 16 bits (1)"
       }
     },
     {
       "key": "img-double",
       "title": "Doubling the dimensions",
-      "type": "short_answer",
+      "type": "calculation",
       "marks": 2,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "calculate",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.6"
       ],
       "practice": true,
-      "text": "An image is 2 MB. Its width and height are both **doubled**, and the colour depth stays the same. Explain what happens to the file size.",
+      "text": "An image file is **2 MB**. Its width and height are both **doubled**, and the colour depth stays the same. Calculate the new file size in **MB**.",
       "content": {
-        "answer_lines": 2
+        "unit": "MB"
       },
       "scheme": {
-        "mark_scheme": "The number of pixels becomes 4 times larger (1); so the file becomes 8 MB (1)",
+        "mark_scheme": "Doubling both dimensions → 2 × 2 = 4 times as many pixels (1); 4 × 2 MB = 8 MB (1)",
         "points": [
           {
-            "criterion": "4 × pixels",
-            "marks": 1
-          },
-          {
-            "criterion": "8 MB",
-            "marks": 1
+            "criterion": "8",
+            "marks": 2
           }
         ],
-        "model_answer": "Doubling both dimensions gives four times as many pixels, so the file becomes 4 × 2 = 8 MB."
+        "model_answer": "8",
+        "accepted": {
+          "values": [
+            "8"
+          ],
+          "numeric": true
+        },
+        "explanation": "It is the number of pixels (the area) that matters: 2 × 2 = 4, so 2 MB × 4 = 8 MB."
       }
     },
     {
@@ -1447,171 +1478,1939 @@
             "A",
             "C"
           ]
-        }
+        },
+        "explanation": "Fewer pixels or fewer bits per pixel mean fewer bits to store."
       }
     },
     {
       "key": "img-bitmap-vector",
       "title": "Bitmap vs vector",
-      "type": "labelled_answers",
-      "marks": 2,
+      "type": "table_completion",
+      "marks": 6,
       "difficulty": "medium",
-      "command_word": "compare",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.1.1.5"
       ],
       "practice": true,
-      "text": "Give **two** differences between bitmap and vector images.",
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes a **bitmap** or a **vector** image.",
       "content": {
-        "fields": [
+        "columns": [
+          "Statement",
+          "Bitmap",
+          "Vector"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Stored as objects such as lines, circles and text with mathematical properties",
+            null,
+            null
+          ],
+          [
+            "Becomes pixelated when enlarged",
+            null,
+            null
+          ],
+          [
+            "File size depends on resolution and colour depth",
+            null,
+            null
+          ],
+          [
+            "Redrawn from instructions, so stays sharp at any size",
+            null,
+            null
+          ],
+          [
+            "Best for photographs",
+            null,
+            null
+          ],
+          [
+            "Best for a logo printed on a business card and a banner",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Vector; 2 Bitmap; 3 Bitmap; 4 Vector; 5 Bitmap; 6 Vector. One mark per correct row.",
+        "points": [
           {
-            "key": "1",
-            "label": "1",
-            "lines": 2
+            "criterion": "Row 1",
+            "marks": 1
           },
           {
-            "key": "2",
-            "label": "2",
-            "lines": 2
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Bitmap = grid of pixels (photos; pixelates). Vector = shapes described mathematically (logos, diagrams; sharp at any size)."
+      }
+    },
+    {
+      "key": "img-bitmap-def",
+      "title": "What is a bitmap image?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Which statement best describes a **bitmap** (raster) image?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A list of shapes described by coordinates and colours"
+        },
+        {
+          "key": "B",
+          "content": "A grid of pixels, each storing one colour as a binary code"
+        },
+        {
+          "key": "C",
+          "content": "A text file of character codes"
+        },
+        {
+          "key": "D",
+          "content": "A sound wave sampled at regular intervals"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A bitmap stores a colour for every pixel in a grid. A list of shapes is a vector graphic."
+      }
+    },
+    {
+      "key": "img-pixel-one-colour",
+      "title": "One colour per pixel",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A single pixel can show fine detail, such as two different colours, inside itself.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A pixel is the smallest single-coloured element: the whole square is one colour, so detail smaller than a pixel cannot be recorded."
+      }
+    },
+    {
+      "key": "img-metadata-items",
+      "title": "Metadata needed to display an image",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Select the **three** items of metadata that a computer **must** read from the file header to rebuild a bitmap image correctly.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Width in pixels"
+        },
+        {
+          "key": "B",
+          "content": "Name of the photographer"
+        },
+        {
+          "key": "C",
+          "content": "Height in pixels"
+        },
+        {
+          "key": "D",
+          "content": "Colour depth"
+        },
+        {
+          "key": "E",
+          "content": "GPS location where the photo was taken"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C, D. One mark each; a mark is lost for each incorrect option selected.",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        },
+        "explanation": "Width and height tell the computer how many pixels go in each row and how many rows there are; colour depth tells it how many bits belong to each pixel. Camera, date and GPS are optional metadata."
+      }
+    },
+    {
+      "key": "img-why-width",
+      "title": "Why store the width?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A file contains 24 bits of 1-bit pixel data but **no width or height**. Why can the computer not display it correctly?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It does not know how many colours each bit can show"
+        },
+        {
+          "key": "B",
+          "content": "It does not know how many pixels belong in each row, so the grid could be 6 × 4, 4 × 6, 8 × 3 …"
+        },
+        {
+          "key": "C",
+          "content": "24 bits is too small to be an image"
+        },
+        {
+          "key": "D",
+          "content": "It does not know the name of the file"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The same stream of bits forms completely different pictures for different widths, so width and height must be stored as metadata."
+      }
+    },
+    {
+      "key": "img-rebuild-count",
+      "title": "Rebuild the picture",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A file header says: width **5** pixels, height **4** pixels, colour depth **1 bit** (1 = black, 0 = white). The pixel data is:\n\n`01010 11111 01110 00100`\n\nHow many **black** pixels does the picture have?",
+      "content": {
+        "unit": "pixels"
+      },
+      "scheme": {
+        "mark_scheme": "Count the 1s in each 5-bit row: 2 + 5 + 3 + 1 = 11 (1)",
+        "points": [
+          {
+            "criterion": "11",
+            "marks": 1
+          }
+        ],
+        "model_answer": "11",
+        "accepted": {
+          "values": [
+            "11"
+          ],
+          "numeric": true
+        },
+        "explanation": "Count the 1s in each 5-bit row: 2 + 5 + 3 + 1 = 11 (1)"
+      }
+    },
+    {
+      "key": "img-total-pixels",
+      "title": "Total number of pixels",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "An image has a resolution of **1920 × 1080**. Calculate the total number of pixels.",
+      "content": {
+        "unit": "pixels"
+      },
+      "scheme": {
+        "mark_scheme": "1920 × 1080 = 2 073 600 pixels (1)",
+        "points": [
+          {
+            "criterion": "2073600",
+            "marks": 1
+          }
+        ],
+        "model_answer": "2073600",
+        "accepted": {
+          "values": [
+            "2073600"
+          ],
+          "numeric": true
+        },
+        "explanation": "1920 × 1080 = 2 073 600 pixels, about 2 megapixels."
+      }
+    },
+    {
+      "key": "img-pixelation-fill",
+      "title": "Pixelation",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nWhen a low-resolution image is enlarged, each pixel is stretched and the individual [[1]] become visible. This blocky effect is called [[2]]. It is caused by a resolution that is too [[3]] for the display or print size.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) pixels (2) pixelation (3) low",
+        "accepted": {
+          "blanks": [
+            [
+              "pixels",
+              "pixel",
+              "squares"
+            ],
+            [
+              "pixelation",
+              "pixelisation",
+              "pixellation"
+            ],
+            [
+              "low",
+              "small"
+            ]
+          ]
+        },
+        "explanation": "Pixelation = visible pixels when a bitmap is enlarged too much, because there are too few pixels."
+      }
+    },
+    {
+      "key": "img-enlarge-detail",
+      "title": "Enlarging in software",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Enlarging a low-resolution photo in an image editor adds the detail that the camera did not capture.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Software can only stretch the existing pixels or interpolate (invent in-between pixels by averaging). The result is bigger but blurry, not sharper."
+      }
+    },
+    {
+      "key": "img-res-meaning",
+      "title": "What higher resolution means",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A photo is taken again at a **higher resolution**. What has changed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Each pixel is bigger"
+        },
+        {
+          "key": "B",
+          "content": "Each pixel can show more colours"
+        },
+        {
+          "key": "C",
+          "content": "The same scene is divided into more, smaller pixels"
+        },
+        {
+          "key": "D",
+          "content": "The file uses lossy compression"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Higher resolution = more pixels in the same picture, so each pixel covers a smaller part of the scene. More colours per pixel would be colour depth."
+      }
+    },
+    {
+      "key": "img-print-width",
+      "title": "Printed width",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A photo is **1800** pixels wide. It is printed at **300 PPI** (pixels per inch). Calculate the printed width in **inches**.",
+      "content": {
+        "unit": "inches"
+      },
+      "scheme": {
+        "mark_scheme": "Printed width = pixels ÷ PPI = 1800 ÷ 300 = 6 inches (1)",
+        "points": [
+          {
+            "criterion": "6",
+            "marks": 1
+          }
+        ],
+        "model_answer": "6",
+        "accepted": {
+          "values": [
+            "6"
+          ],
+          "numeric": true
+        },
+        "explanation": "Printed width = pixels ÷ PPI = 1800 ÷ 300 = 6 inches (1)"
+      }
+    },
+    {
+      "key": "img-pixels-for-print",
+      "title": "Pixels needed for a print",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "The school wants to print a photo **12 inches** wide at **300 PPI** so it looks sharp. Calculate the minimum width of the photo in **pixels**.",
+      "content": {
+        "unit": "pixels"
+      },
+      "scheme": {
+        "mark_scheme": "12 × 300 = 3600 pixels (1)",
+        "points": [
+          {
+            "criterion": "3600",
+            "marks": 1
+          }
+        ],
+        "model_answer": "3600",
+        "accepted": {
+          "values": [
+            "3600"
+          ],
+          "numeric": true
+        },
+        "explanation": "Pixels needed = inches × PPI = 12 × 300 = 3600. A 1280-pixel-wide photo would give only about 107 PPI and look pixelated."
+      }
+    },
+    {
+      "key": "img-hi-lo-res",
+      "title": "High or low resolution",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes a **high-resolution** or a **low-resolution** version of the same image.",
+      "content": {
+        "columns": [
+          "Statement",
+          "High resolution",
+          "Low resolution"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Stays sharp when printed on a poster",
+            null,
+            null
+          ],
+          [
+            "Has a smaller file size",
+            null,
+            null
+          ],
+          [
+            "Loads faster on a web page",
+            null,
+            null
+          ],
+          [
+            "Records fine edges and small text",
+            null,
+            null
+          ],
+          [
+            "Needs more RAM and processing power to edit",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 High resolution; 2 Low resolution; 3 Low resolution; 4 High resolution; 5 High resolution. One mark per correct row.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "More pixels → more detail and sharper enlargements, but larger files that are slower to load and edit."
+      }
+    },
+    {
+      "key": "img-colours-6bit",
+      "title": "Colours from 6 bits",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "An image has a colour depth of **6 bits**. Calculate the maximum number of colours it can show.",
+      "content": {
+        "unit": "colours"
+      },
+      "scheme": {
+        "mark_scheme": "2⁶ = 64 (1)",
+        "points": [
+          {
+            "criterion": "64",
+            "marks": 1
+          }
+        ],
+        "model_answer": "64",
+        "accepted": {
+          "values": [
+            "64"
+          ],
+          "numeric": true
+        },
+        "explanation": "2⁶ = 64 (1)"
+      }
+    },
+    {
+      "key": "img-depth-needed-fill",
+      "title": "Minimum colour depth",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Complete the table of minimum colour depths.\n\n- 9 colours need [[1]] bits\n- 100 colours need [[2]] bits\n- 600 colours need [[3]] bits\n- 256 colours need [[4]] bits",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) 4 (2) 7 (3) 10 (4) 8",
+        "accepted": {
+          "blanks": [
+            [
+              "4"
+            ],
+            [
+              "7"
+            ],
+            [
+              "10"
+            ],
+            [
+              "8"
+            ]
+          ]
+        },
+        "explanation": "Find the smallest n with 2ⁿ ≥ colours: 2⁴ = 16 ≥ 9; 2⁷ = 128 ≥ 100; 2¹⁰ = 1024 ≥ 600; 2⁸ = 256 exactly. Always round up."
+      }
+    },
+    {
+      "key": "img-rgb-fill",
+      "title": "24-bit RGB colour",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Complete the sentences about 24-bit RGB colour.\n\nEach pixel stores the amounts of red, green and [[1]] light. Each channel uses [[2]] bits, so it can take values from 0 to [[3]]. The colour (0, 0, 0) is [[4]].",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) blue (2) 8 (3) 255 (4) black",
+        "accepted": {
+          "blanks": [
+            [
+              "blue"
+            ],
+            [
+              "8",
+              "eight"
+            ],
+            [
+              "255"
+            ],
+            [
+              "black"
+            ]
+          ]
+        },
+        "explanation": "24 bits = 3 × 8 bits; 2⁸ = 256 values (0–255) per channel; (0, 0, 0) is black, (255, 255, 255) is white."
+      }
+    },
+    {
+      "key": "img-hex-colour",
+      "title": "Hexadecimal colour code",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A web page uses the 24-bit colour **#00FF00**. Which colour is it?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Red"
+        },
+        {
+          "key": "B",
+          "content": "Green"
+        },
+        {
+          "key": "C",
+          "content": "Blue"
+        },
+        {
+          "key": "D",
+          "content": "White"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Two hex digits per channel: red 00 = 0, green FF = 255, blue 00 = 0 → pure green."
+      }
+    },
+    {
+      "key": "img-palette",
+      "title": "Palette codes",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A 4-bit image uses a **palette** of 16 colours numbered from 0. A pixel stores the code **0101**. Which colour is it painted with?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The 4th colour in the palette"
+        },
+        {
+          "key": "B",
+          "content": "The 5th colour in the palette"
+        },
+        {
+          "key": "C",
+          "content": "The 6th colour in the palette"
+        },
+        {
+          "key": "D",
+          "content": "The 101st colour in the palette"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "0101 = 5 in denary. Numbering starts at 0, so code 5 is the sixth colour in the list."
+      }
+    },
+    {
+      "key": "img-banding",
+      "title": "Stripes in the sky",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "In a saved photo, a blue sky shows **stripes of flat colour** instead of a smooth change from dark to light blue. What is the most likely cause?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The resolution is too high"
+        },
+        {
+          "key": "B",
+          "content": "The colour depth is too low"
+        },
+        {
+          "key": "C",
+          "content": "The image is a vector"
+        },
+        {
+          "key": "D",
+          "content": "The metadata is missing"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "With few bits per pixel, many similar real colours are forced into the same code — this is called banding (posterisation)."
+      }
+    },
+    {
+      "key": "img-depth-sharper",
+      "title": "Colour depth and sharpness",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Increasing the colour depth makes an image sharper and more detailed.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Sharpness and detail come from resolution. Colour depth gives more colours and smoother shading."
+      }
+    },
+    {
+      "key": "img-res-or-depth",
+      "title": "Resolution or colour depth?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show which property the statement is about.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Resolution",
+          "Colour depth"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Measured as width × height in pixels",
+            null,
+            null
+          ],
+          [
+            "Decides how many colours each pixel can be",
+            null,
+            null
+          ],
+          [
+            "Too low a value causes pixelation",
+            null,
+            null
+          ],
+          [
+            "Too low a value causes banding",
+            null,
+            null
+          ],
+          [
+            "Measured in bits per pixel",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Resolution; 2 Colour depth; 3 Resolution; 4 Colour depth; 5 Colour depth. One mark per correct row.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Resolution = how many pixels; colour depth = how many bits (colours) per pixel."
+      }
+    },
+    {
+      "key": "img-depth-factor",
+      "title": "How much larger?",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "The colour depth of an image is changed from **8 bits** to **24 bits**, with the same resolution. How many times larger is the file?",
+      "content": {
+        "unit": "times"
+      },
+      "scheme": {
+        "mark_scheme": "24 ÷ 8 = 3 (1)",
+        "points": [
+          {
+            "criterion": "3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "3",
+        "accepted": {
+          "values": [
+            "3"
+          ],
+          "numeric": true
+        },
+        "explanation": "Size grows with the number of bits per pixel (×3), not with the number of colours (256 → 16.7 million)."
+      }
+    },
+    {
+      "key": "img-scan-text",
+      "title": "Settings for scanning text",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.5"
+      ],
+      "practice": true,
+      "text": "A school scans hundreds of pages of **black printed text on white paper** for an archive. Which settings give sharp text with the smallest file?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Low resolution, 24-bit colour"
+        },
+        {
+          "key": "B",
+          "content": "High resolution, 1-bit colour"
+        },
+        {
+          "key": "C",
+          "content": "Low resolution, 1-bit colour"
+        },
+        {
+          "key": "D",
+          "content": "High resolution, 24-bit colour"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "High resolution keeps the letters sharp; only two colours (ink and paper) are needed, so 1 bit per pixel is enough."
+      }
+    },
+    {
+      "key": "img-formula-fill",
+      "title": "The file-size formula",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Complete the method for calculating the size of a bitmap image.\n\nFile size in bits = width × height × [[1]]. To change bits into bytes, divide by [[2]]. To change bytes into kilobytes, divide by [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) colour depth (2) 8 (3) 1024",
+        "accepted": {
+          "blanks": [
+            [
+              "colour depth",
+              "bit depth",
+              "bits per pixel"
+            ],
+            [
+              "8",
+              "eight"
+            ],
+            [
+              "1024"
+            ]
+          ]
+        },
+        "explanation": "Bits = pixels × bits per pixel; ÷ 8 → bytes; ÷ 1024 → KB; ÷ 1024 → MB."
+      }
+    },
+    {
+      "key": "img-units-match",
+      "title": "Units of storage",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Match each unit to its size.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "1 byte"
+          },
+          {
+            "key": "L2",
+            "text": "1 kilobyte (KB)"
+          },
+          {
+            "key": "L3",
+            "text": "1 megabyte (MB)"
+          },
+          {
+            "key": "L4",
+            "text": "1 gigabyte (GB)"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "8 bits"
+          },
+          {
+            "key": "R2",
+            "text": "1024 bytes"
+          },
+          {
+            "key": "R3",
+            "text": "1024 KB"
+          },
+          {
+            "key": "R4",
+            "text": "1024 MB"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "Any two (1 each): pixels vs shapes / mathematical descriptions; bitmap pixelates when enlarged vs vector stays sharp; bitmap size depends on resolution / colour depth vs number of shapes; photos vs logos / diagrams",
-        "points": [
-          {
-            "criterion": "First",
-            "marks": 1
-          },
-          {
-            "criterion": "Second",
-            "marks": 1
+        "mark_scheme": "1 byte – 8 bits; 1 kilobyte (KB) – 1024 bytes; 1 megabyte (MB) – 1024 KB; 1 gigabyte (GB) – 1024 MB. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
           }
-        ],
-        "model_answer": "1 A bitmap stores pixels, whereas a vector stores shapes as mathematical descriptions. 2 A bitmap becomes blocky when enlarged, whereas a vector stays sharp."
+        },
+        "explanation": "Bits → bytes is ÷ 8; every step after that is ÷ 1024."
       }
     },
     {
-      "key": "img-structured-camera",
-      "title": "A digital camera",
-      "type": "structured",
-      "marks": 6,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
+      "key": "img-bytes-to-mb",
+      "title": "Bytes to megabytes",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
       "practice": true,
-      "text": "A digital camera takes photos of **4000 × 3000** pixels with **24-bit** colour.",
-      "scheme": {
-        "mark_scheme": ""
+      "text": "Convert **3 145 728 bytes** into **MB**.",
+      "content": {
+        "unit": "MB"
       },
-      "parts": [
-        {
-          "key": "img-cam-a",
-          "part_label": "(a)",
-          "title": "Size",
-          "type": "calculation",
-          "marks": 3,
-          "difficulty": "exam",
-          "command_word": "calculate",
-          "grading": "HYBRID",
-          "objectives": [
-            "11.1.1.6"
+      "scheme": {
+        "mark_scheme": "3 145 728 ÷ 1024 = 3072 KB; ÷ 1024 = 3 MB (1)",
+        "points": [
+          {
+            "criterion": "3",
+            "marks": 1
+          }
+        ],
+        "model_answer": "3",
+        "accepted": {
+          "values": [
+            "3"
           ],
-          "practice": true,
-          "text": "Calculate the size of one photo in **MB**. Give your answer to 2 decimal places.",
-          "content": {
-            "unit": "MB"
+          "numeric": true
+        },
+        "explanation": "3 145 728 ÷ 1024 = 3072 KB; ÷ 1024 = 3 MB (1)"
+      }
+    },
+    {
+      "key": "img-size-16col",
+      "title": "16-colour image",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "An image of **200 × 100** pixels uses **16** colours. Calculate its file size in **bytes**.",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "16 colours → 4 bits (1); 200 × 100 × 4 = 80 000 bits ÷ 8 = 10 000 bytes (1)",
+        "points": [
+          {
+            "criterion": "10000",
+            "marks": 2
+          }
+        ],
+        "model_answer": "10000",
+        "accepted": {
+          "values": [
+            "10000"
+          ],
+          "numeric": true
+        },
+        "explanation": "First turn 16 colours into a colour depth: 2⁴ = 16, so 4 bits — not 16."
+      }
+    },
+    {
+      "key": "img-size-9mb",
+      "title": "2048 × 1536 photo",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Calculate the size in **MB** of a **2048 × 1536** image with **24-bit** colour.",
+      "content": {
+        "unit": "MB"
+      },
+      "scheme": {
+        "mark_scheme": "2048 × 1536 × 24 = 75 497 472 bits (1); ÷ 8 = 9 437 184 bytes (1); ÷ 1024 ÷ 1024 = 9 MB (1)",
+        "points": [
+          {
+            "criterion": "9",
+            "marks": 3
+          }
+        ],
+        "model_answer": "9",
+        "accepted": {
+          "values": [
+            "9"
+          ],
+          "numeric": true
+        },
+        "explanation": "2048 × 1536 × 24 = 75 497 472 bits (1); ÷ 8 = 9 437 184 bytes (1); ÷ 1024 ÷ 1024 = 9 MB (1)"
+      }
+    },
+    {
+      "key": "img-backwards-width",
+      "title": "Find the width",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "An image is **600** pixels high, uses **8-bit** colour and has a file size of **375 KB**. Calculate its width in pixels.",
+      "content": {
+        "unit": "pixels"
+      },
+      "scheme": {
+        "mark_scheme": "375 × 1024 × 8 = 3 072 000 bits (1); 8 bits per pixel → 384 000 pixels (1); 384 000 ÷ 600 = 640 pixels (1)",
+        "points": [
+          {
+            "criterion": "640",
+            "marks": 3
+          }
+        ],
+        "model_answer": "640",
+        "accepted": {
+          "values": [
+            "640"
+          ],
+          "numeric": true
+        },
+        "explanation": "375 × 1024 × 8 = 3 072 000 bits (1); 8 bits per pixel → 384 000 pixels (1); 384 000 ÷ 600 = 640 pixels (1)"
+      }
+    },
+    {
+      "key": "img-backwards-depth24",
+      "title": "Find the colour depth (2)",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "An **800 × 600** image has a file size of **1406.25 KB**. Calculate its colour depth in bits.",
+      "content": {
+        "unit": "bits"
+      },
+      "scheme": {
+        "mark_scheme": "1406.25 × 1024 × 8 = 11 520 000 bits (1); 800 × 600 = 480 000 pixels (1); 11 520 000 ÷ 480 000 = 24 bits (1)",
+        "points": [
+          {
+            "criterion": "24",
+            "marks": 3
+          }
+        ],
+        "model_answer": "24",
+        "accepted": {
+          "values": [
+            "24"
+          ],
+          "numeric": true
+        },
+        "explanation": "1406.25 × 1024 × 8 = 11 520 000 bits (1); 800 × 600 = 480 000 pixels (1); 11 520 000 ÷ 480 000 = 24 bits (1)"
+      }
+    },
+    {
+      "key": "img-card-count",
+      "title": "Photos on a memory card",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Each photo from a camera is **4.5 MB**. How many **whole** photos fit on an empty **2 GB** memory card? (1 GB = 1024 MB)",
+      "content": {
+        "unit": "photos"
+      },
+      "scheme": {
+        "mark_scheme": "2 × 1024 = 2048 MB (1); 2048 ÷ 4.5 = 455.1 → 455 photos (round down) (1)",
+        "points": [
+          {
+            "criterion": "455",
+            "marks": 2
+          }
+        ],
+        "model_answer": "455",
+        "accepted": {
+          "values": [
+            "455"
+          ],
+          "numeric": true
+        },
+        "explanation": "Round down: a half-stored photo is useless."
+      }
+    },
+    {
+      "key": "img-transfer-time",
+      "title": "Upload time",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "An uncompressed **1600 × 1200** image with **24-bit** colour is uploaded over a **8 Mbps** connection (8 000 000 bits per second). Calculate the time in **seconds**.",
+      "content": {
+        "unit": "seconds"
+      },
+      "scheme": {
+        "mark_scheme": "1600 × 1200 × 24 = 46 080 000 bits (1); 46 080 000 ÷ 8 000 000 = 5.76 s (1)",
+        "points": [
+          {
+            "criterion": "5.76",
+            "marks": 2
+          }
+        ],
+        "model_answer": "5.76",
+        "accepted": {
+          "values": [
+            "5.76"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        },
+        "explanation": "Network speeds are in bits per second, so keep the size in bits — do not divide by 8."
+      }
+    },
+    {
+      "key": "img-change-factor",
+      "title": "Predict the change",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Match each change to its effect on the file size (all other values unchanged).",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Width × 2 only"
           },
-          "scheme": {
-            "mark_scheme": "4000 × 3000 × 24 = 288 000 000 bits (1); ÷ 8 = 36 000 000 bytes (1); ÷ 1024 ÷ 1024 = 34.33 MB (1). Accept 36 MB with 1000.",
-            "points": [
-              {
-                "criterion": "Bits",
-                "marks": 1
-              },
-              {
-                "criterion": "Bytes",
-                "marks": 1
-              },
-              {
-                "criterion": "MB",
-                "marks": 1
-              }
-            ],
-            "model_answer": "34.33",
-            "accepted": {
-              "values": [
-                "34.33",
-                "36"
-              ],
-              "numeric": true,
-              "tolerance": 0.01
-            }
+          {
+            "key": "L2",
+            "text": "Width × 2 and height × 2"
+          },
+          {
+            "key": "L3",
+            "text": "Width ÷ 2 and height ÷ 2"
+          },
+          {
+            "key": "L4",
+            "text": "Colour depth 8 → 24 bits"
+          },
+          {
+            "key": "L5",
+            "text": "Colour depth 24 → 1 bit"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "× 2"
+          },
+          {
+            "key": "R2",
+            "text": "× 4"
+          },
+          {
+            "key": "R3",
+            "text": "÷ 4"
+          },
+          {
+            "key": "R4",
+            "text": "× 3"
+          },
+          {
+            "key": "R5",
+            "text": "÷ 24"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Width × 2 only – × 2; Width × 2 and height × 2 – × 4; Width ÷ 2 and height ÷ 2 – ÷ 4; Colour depth 8 → 24 bits – × 3; Colour depth 24 → 1 bit – ÷ 24. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
           }
         },
-        {
-          "key": "img-cam-b",
-          "part_label": "(b)",
-          "title": "Colours",
-          "type": "short_answer",
-          "marks": 1,
-          "difficulty": "exam",
-          "command_word": "state",
-          "grading": "AI",
-          "objectives": [
-            "11.1.1.5"
+        "explanation": "Size = width × height × depth, so each factor changes the size in proportion; doubling both sides multiplies the area by 4."
+      }
+    },
+    {
+      "key": "img-predict-two",
+      "title": "Two changes at once",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "An 8-bit image is **3 MB**. Its width and height are both **doubled** and its colour depth is changed to **16 bits**. Calculate the new file size in **MB**.",
+      "content": {
+        "unit": "MB"
+      },
+      "scheme": {
+        "mark_scheme": "Doubling width and height → × 4 = 12 MB (1); 8 → 16 bits → × 2 = 24 MB (1)",
+        "points": [
+          {
+            "criterion": "24",
+            "marks": 2
+          }
+        ],
+        "model_answer": "24",
+        "accepted": {
+          "values": [
+            "24"
           ],
-          "practice": true,
-          "text": "State how many colours 24-bit colour depth can represent.",
-          "content": {
-            "answer_lines": 1
+          "numeric": true
+        },
+        "explanation": "Doubling width and height → × 4 = 12 MB (1); 8 → 16 bits → × 2 = 24 MB (1)"
+      }
+    },
+    {
+      "key": "img-lossless-lossy",
+      "title": "Lossless or lossy?",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes **lossless** or **lossy** compression.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Lossless",
+          "Lossy"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "The original image can be rebuilt exactly",
+            null,
+            null
+          ],
+          [
+            "Permanently removes detail the eye is unlikely to notice",
+            null,
+            null
+          ],
+          [
+            "Used by JPEG photos",
+            null,
+            null
+          ],
+          [
+            "Run-length encoding is an example",
+            null,
+            null
+          ],
+          [
+            "Usually makes the file about 10 times smaller or more",
+            null,
+            null
+          ],
+          [
+            "Best for medical scans and screenshots",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Lossless; 2 Lossy; 3 Lossy; 4 Lossless; 5 Lossy; 6 Lossless. One mark per correct row.",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
           },
-          "scheme": {
-            "mark_scheme": "2²⁴ = 16 777 216 (1)",
-            "points": [
-              {
-                "criterion": "16 777 216",
-                "marks": 1
-              }
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
             ],
-            "model_answer": "16 777 216 (2²⁴)"
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Lossless (PNG, GIF, RLE) removes no data; lossy (JPEG) removes data for ever to get much smaller files."
+      }
+    },
+    {
+      "key": "img-rle-fill",
+      "title": "Run-length encoding",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "A row of a black-and-white image is: `W W W W W B B B B W W`\n\nComplete its run-length encoding: [[1]]W [[2]]B [[3]]W",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 5 (2) 4 (3) 2",
+        "accepted": {
+          "blanks": [
+            [
+              "5"
+            ],
+            [
+              "4"
+            ],
+            [
+              "2"
+            ]
+          ]
+        },
+        "explanation": "RLE stores how many times a colour repeats, then the colour: 5 white, 4 black, 2 white."
+      }
+    },
+    {
+      "key": "img-jpeg-restore",
+      "title": "Restoring a JPEG",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "A photo saved as a JPEG can be decompressed back to exactly the original pixels.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "JPEG is lossy: the removed data is gone for ever, and each re-save loses a little more."
+      }
+    },
+    {
+      "key": "img-format-match",
+      "title": "Choose the format",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Match each image to the most suitable file format.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "A holiday photo for a social-media post"
+          },
+          {
+            "key": "L2",
+            "text": "A screenshot of a program for a user guide"
+          },
+          {
+            "key": "L3",
+            "text": "A school logo for a letterhead and a large banner"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "JPEG (lossy bitmap)"
+          },
+          {
+            "key": "R2",
+            "text": "PNG (lossless bitmap)"
+          },
+          {
+            "key": "R3",
+            "text": "SVG (vector)"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "A holiday photo for a social-media post – JPEG (lossy bitmap); A screenshot of a program for a user guide – PNG (lossless bitmap); A school logo for a letterhead and a large banner – SVG (vector). One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
           }
         },
+        "explanation": "Photos → JPEG (small, small quality loss); flat-colour screenshots → PNG keeps text crisp; logos → vector, sharp at any size."
+      }
+    },
+    {
+      "key": "img-vector-size",
+      "title": "Vector file size",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "What does the file size of a **vector** graphic mainly depend on?",
+      "options": [
         {
-          "key": "img-cam-c",
-          "part_label": "(c)",
-          "title": "More photos",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "11.1.1.6"
-          ],
-          "practice": true,
-          "text": "Explain **one** way the user can store more photos on the memory card.",
-          "content": {
-            "answer_lines": 2
-          },
-          "scheme": {
-            "mark_scheme": "Method (1) + explanation (1): lower resolution — fewer pixels; compression (JPEG) — fewer bytes per photo; lower colour depth",
-            "points": [
-              {
-                "criterion": "Method",
-                "marks": 1
-              },
-              {
-                "criterion": "Explanation",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Choose a lower resolution, so each photo has fewer pixels and takes up less space."
-          }
+          "key": "A",
+          "content": "The resolution of the screen"
+        },
+        {
+          "key": "B",
+          "content": "The number and complexity of the objects"
+        },
+        {
+          "key": "C",
+          "content": "The colour depth of each pixel"
+        },
+        {
+          "key": "D",
+          "content": "The size at which it is printed"
         }
-      ]
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A vector stores drawing instructions, so more or more complex shapes mean a larger file; the display size does not matter."
+      }
+    },
+    {
+      "key": "img-vector-photo",
+      "title": "Why photos are bitmaps",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Why are photographs not normally stored as vector graphics?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Vectors cannot store colour"
+        },
+        {
+          "key": "B",
+          "content": "A photo has millions of slightly different colours with no simple shapes, so it would need an enormous number of objects"
+        },
+        {
+          "key": "C",
+          "content": "Vector files are always larger than bitmaps"
+        },
+        {
+          "key": "D",
+          "content": "Cameras cannot save SVG files because of copyright"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Vectors suit images made of a few shapes and flat colours; photos are full of irregular colour changes."
+      }
+    },
+    {
+      "key": "img-crop",
+      "title": "Reduce size without losing detail",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Which method makes an image file smaller **without losing any detail in the part of the image that is kept**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Reducing the resolution"
+        },
+        {
+          "key": "B",
+          "content": "Reducing the colour depth"
+        },
+        {
+          "key": "C",
+          "content": "Cropping away unwanted edges"
+        },
+        {
+          "key": "D",
+          "content": "Saving as a low-quality JPEG"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Cropping removes pixels that are not needed at all; the remaining pixels are unchanged."
+      }
+    },
+    {
+      "key": "img-header",
+      "title": "Adding a header",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "A **100 × 100** image uses **24-bit** colour. The file also has a **54-byte** header. Calculate the total file size in **bytes**.",
+      "content": {
+        "unit": "bytes"
+      },
+      "scheme": {
+        "mark_scheme": "100 × 100 × 24 ÷ 8 = 30 000 bytes (1); + 54 = 30 054 bytes (1)",
+        "points": [
+          {
+            "criterion": "30054",
+            "marks": 2
+          }
+        ],
+        "model_answer": "30054",
+        "accepted": {
+          "values": [
+            "30054"
+          ],
+          "numeric": true
+        },
+        "explanation": "Calculate the pixel data, then add the header in the same unit."
+      }
+    },
+    {
+      "key": "img-unit-mistake",
+      "title": "Spot the mistake",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "Aruzhan calculates 800 × 600 × 8 = 3 840 000 bits, then writes 3 840 000 ÷ 1024 = 3750 bytes. What is her mistake?",
+      "options": [
+        {
+          "key": "A",
+          "content": "She should have multiplied by 256 instead of 8"
+        },
+        {
+          "key": "B",
+          "content": "To change bits into bytes she must divide by 8, not 1024"
+        },
+        {
+          "key": "C",
+          "content": "She should have divided by 1000"
+        },
+        {
+          "key": "D",
+          "content": "There is no mistake"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Bits ÷ 8 = bytes (480 000 bytes); only after that divide by 1024 for KB (468.75 KB)."
+      }
+    },
+    {
+      "key": "img-website-ratio",
+      "title": "Resizing for the website",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.1.1.6"
+      ],
+      "practice": true,
+      "text": "A **4000 × 3000** photo is resized to **1000 × 750** for a web page (same colour depth). How many times smaller is the new file?",
+      "content": {
+        "unit": "times"
+      },
+      "scheme": {
+        "mark_scheme": "Width and height are each divided by 4 (1); 4 × 4 = 16 times smaller (1)",
+        "points": [
+          {
+            "criterion": "16",
+            "marks": 2
+          }
+        ],
+        "model_answer": "16",
+        "accepted": {
+          "values": [
+            "16"
+          ],
+          "numeric": true
+        },
+        "explanation": "Width and height are each divided by 4 (1); 4 × 4 = 16 times smaller (1)"
+      }
     },
     {
       "key": "img-exam-1",
@@ -3007,13 +4806,35 @@
         "Exam practice: pixels, resolution and colour depth"
       ],
       "questions": [
+        "img-bitmap-def",
+        "img-pixel-one-colour",
         "img-terms-match",
         "img-resolution-tf",
+        "img-res-meaning",
+        "img-total-pixels",
         "img-pixelated",
-        "img-bits-needed",
+        "img-pixelation-fill",
         "img-colours-table",
+        "img-colours-6bit",
+        "img-depth-sharper",
         "img-explain-bitmap",
-        "img-quality-effect"
+        "img-metadata-items",
+        "img-why-width",
+        "img-enlarge-detail",
+        "img-print-width",
+        "img-hi-lo-res",
+        "img-res-or-depth",
+        "img-bits-needed",
+        "img-depth-needed-fill",
+        "img-rgb-fill",
+        "img-palette",
+        "img-banding",
+        "img-quality-effect",
+        "img-depth-factor",
+        "img-rebuild-count",
+        "img-pixels-for-print",
+        "img-hex-colour",
+        "img-scan-text"
       ]
     },
     {
@@ -3025,15 +4846,35 @@
         "Exam practice: bitmap file size"
       ],
       "questions": [
+        "img-formula-fill",
+        "img-units-match",
+        "img-bytes-to-mb",
         "img-size-1",
+        "img-reduce-mr",
+        "img-jpeg-restore",
         "img-size-256",
+        "img-size-16col",
         "img-size-2",
         "img-size-3",
-        "img-backwards",
+        "img-size-9mb",
+        "img-unit-mistake",
         "img-double",
-        "img-reduce-mr",
+        "img-change-factor",
+        "img-crop",
+        "img-lossless-lossy",
+        "img-rle-fill",
         "img-bitmap-vector",
-        "img-structured-camera"
+        "img-format-match",
+        "img-vector-size",
+        "img-card-count",
+        "img-backwards",
+        "img-backwards-width",
+        "img-backwards-depth24",
+        "img-predict-two",
+        "img-website-ratio",
+        "img-transfer-time",
+        "img-header",
+        "img-vector-photo"
       ]
     }
   ]
