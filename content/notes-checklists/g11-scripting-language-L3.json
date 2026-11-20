@@ -1,0 +1,90 @@
+{
+  "topic": "g11-scripting-language",
+  "lesson": 3,
+  "points": [
+    {
+      "title": "Why a page needs a database",
+      "must": "Static vs dynamic; PHP as bridge between page and MySQL; procedural = function calls.",
+      "weight": 2,
+      "model": "Static HTML shows the same content until edited. Dynamic pages show current data and save user input → data kept in a DBMS (MySQL); a procedural PHP script connects, sends SQL, receives results, builds HTML."
+    },
+    {
+      "title": "Database connection and result set",
+      "must": "Definitions: connection (host, username, password, database); result set (rows of a SELECT read one at a time).",
+      "weight": 3,
+      "model": "Database connection = link opened by a script to a database server using server (host), username, password, database name; closed at the end. Result set = table of rows returned by SELECT, read one row at a time in a loop."
+    },
+    {
+      "title": "Five steps with functions",
+      "must": "Connect mysqli_connect, check die/mysqli_connect_error, query mysqli_query, process mysqli_fetch_assoc in a loop, close mysqli_close.",
+      "weight": 3,
+      "model": "1 Connect: $conn = mysqli_connect(\"localhost\", $user, $pass, \"library\"); 2 Check: if (!$conn) die(\"Connection failed: \" . mysqli_connect_error()); 3 Query: $result = mysqli_query($conn, $sql); 4 Process: while ($row = mysqli_fetch_assoc($result)) echo $row[\"Title\"]; 5 Close: mysqli_close($conn);"
+    },
+    {
+      "title": "Listing records code",
+      "must": "Full SELECT example; mysqli_num_rows; $row[\"Field\"]; null ends loop.",
+      "weight": 2,
+      "model": "$sql = \"SELECT Title, Author FROM Book ORDER BY Title\"; if (mysqli_num_rows($result) > 0) { while ($row = mysqli_fetch_assoc($result)) { echo $row[\"Title\"] . \" — \" . $row[\"Author\"] . \"<br>\"; } } else echo \"No books found\"; fetch_assoc returns null at the end → loop stops."
+    },
+    {
+      "title": "HTML table from a query",
+      "must": "Header before loop, one <tr> per row inside loop, </table> after.",
+      "weight": 1,
+      "model": "echo \"<table><tr><th>Student</th><th>Mark</th></tr>\"; while (row) echo \"<tr><td>…</td><td>…</td></tr>\"; echo \"</table>\"; WHERE Subject = 'Informatics' AND Mark >= 70 ORDER BY Mark DESC."
+    },
+    {
+      "title": "SQL injection",
+      "must": "Definition + example ' OR '1'='1 turning the query into all users.",
+      "weight": 3,
+      "model": "SQL injection = attack where the user enters SQL code into an input and the script joins it into the query, so the database runs unintended commands. \"… WHERE Login = '\" . $login . \"'\" with ' OR '1'='1 → WHERE Login = '' OR '1'='1' → all users returned."
+    },
+    {
+      "title": "Prepared statement",
+      "must": "Definition: placeholders ?, values sent separately as data; prepare, bind_param with types, execute.",
+      "weight": 3,
+      "model": "Prepared statement = SQL sent with placeholders (?); values sent separately and always treated as data → prevents SQL injection. $stmt = mysqli_prepare($conn, \"INSERT INTO Book (Title, Author, Year) VALUES (?, ?, ?)\"); mysqli_stmt_bind_param($stmt, \"ssi\", $title, $author, $year); mysqli_stmt_execute($stmt); s = string, i = integer, d = double."
+    },
+    {
+      "title": "UPDATE, DELETE and affected rows",
+      "must": "WHERE essential; mysqli_affected_rows; mysqli_insert_id.",
+      "weight": 1,
+      "model": "UPDATE Book SET OnLoan = 0 WHERE BookID = ?; DELETE FROM Reservation WHERE BookID = ?. Without WHERE every record changes. mysqli_affected_rows($conn) = rows changed; mysqli_insert_id($conn) = new AUTO_INCREMENT key."
+    },
+    {
+      "title": "Keeping it safe",
+      "must": "Credentials in config file outside web folder, minimal rights, htmlspecialchars against XSS.",
+      "weight": 1,
+      "model": "Credentials in config.php outside the public folder (require), never in JS. MySQL user with only needed rights (SELECT only for search). htmlspecialchars() on output so stored <script> is shown, not run (XSS)."
+    },
+    {
+      "title": "Search form example",
+      "must": "LIKE with %word%, bound parameter, length check, counter for no results.",
+      "weight": 1,
+      "model": "$word = $_GET[\"q\"]; if (strlen($word) < 2) die(…); SELECT Title, Author FROM Book WHERE Title LIKE ?; $pattern = \"%\" . $word . \"%\"; bind_param(\"s\", $pattern); count rows, if 0 echo \"No books match.\""
+    },
+    {
+      "title": "Event and event handler",
+      "must": "Definitions; addEventListener / onclick; why interactivity matters.",
+      "weight": 3,
+      "model": "Event = action detected by the browser (click, input, submit, load). Event handler = function that runs automatically when the event happens on an element: el.addEventListener(\"click\", f) or onclick=\"f()\". Benefits: instant feedback, fewer server requests, manageable layouts, accessibility."
+    },
+    {
+      "title": "Common events",
+      "must": "click, input, change, submit (preventDefault), mouseover/mouseout, keydown, load — when each happens.",
+      "weight": 2,
+      "model": "click – element clicked; input – value changes on each key; change – value changed and field left / option chosen; submit – form sent (event.preventDefault() cancels); mouseover/mouseout – pointer over/off; keydown – key pressed; load – page loaded."
+    },
+    {
+      "title": "DOM",
+      "must": "Definition: tree of objects; find, read, change elements; main methods/properties.",
+      "weight": 3,
+      "model": "DOM = representation of the page as a tree of objects (document → html → head, body → elements) that scripts can read and change without reloading. getElementById(\"out\"), el.value (string), el.textContent / innerHTML, el.style.color, el.classList.toggle(\"dark\")."
+    },
+    {
+      "title": "Interactivity example",
+      "must": "Event → handler → change DOM → redraw; live calculator or dark mode code.",
+      "weight": 2,
+      "model": "themeBtn.addEventListener(\"click\", function () { document.body.classList.toggle(\"dark\"); }); A+ button: if (size < 28) size += 4; text.style.fontSize = size + \"px\"; price input: addEventListener(\"input\", update) recalculates instantly."
+    }
+  ]
+}

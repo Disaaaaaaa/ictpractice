@@ -1,0 +1,90 @@
+{
+  "topic": "g11-scripting-language",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Iteration",
+      "must": "Definition; count-controlled vs condition-controlled.",
+      "weight": 3,
+      "model": "Iteration (loop) = structure that repeats a block of statements. Count-controlled (for): known number of times, uses a counter. Condition-controlled (while, do…while): repeats while/until a condition is met; number of repetitions not known in advance."
+    },
+    {
+      "title": "Parts of a for loop",
+      "must": "Initialisation (once), condition (before each pass), update (after each pass); counting the passes.",
+      "weight": 3,
+      "model": "for (let i = 1; i <= 5; i++) { … }: initialisation let i = 1 runs once; condition i <= 5 checked before every pass; update i++ after every pass. i = 1..5 → 5 passes; stops when i = 6. for (i = 10; i >= 0; i -= 4) → 10, 6, 2 → 3 passes."
+    },
+    {
+      "title": "while vs do … while",
+      "must": "Pre-condition: tested first, 0 or more times; post-condition: tested after, at least once; use for input validation.",
+      "weight": 3,
+      "model": "while = pre-condition loop: condition tested before the body → may run 0 times. do … while = post-condition loop: body first, then test → runs at least once. Input check: do { mark = Number(prompt(…)); } while (isNaN(mark) || mark < 0 || mark > 100);"
+    },
+    {
+      "title": "Choosing a loop",
+      "must": "Known count → for/foreach; unknown + at least once → do…while; otherwise while; comparison table PHP/JS.",
+      "weight": 2,
+      "model": "Known number → for (foreach / for…of for arrays: foreach ($marks as $m)). Unknown, must run at least once → do…while. Unknown, may be 0 times → while."
+    },
+    {
+      "title": "Totals and counters",
+      "must": "Initialise before the loop; total += value; counter++; PHP average example.",
+      "weight": 2,
+      "model": "Set total = 0 and count = 0 BEFORE the loop. $marks = [7, 9, 4, 10]; foreach: $total += $m → 30; average = 30 / count($marks) = 7.5."
+    },
+    {
+      "title": "break and infinite loops",
+      "must": "break leaves the loop; infinite loop when the condition variable never changes; 3-attempt PIN code.",
+      "weight": 2,
+      "model": "break = leave the loop at once; continue = skip to next pass. Infinite loop: condition never becomes false (e.g. attempts++ missing). PIN: while (attempts < 3) { pin = prompt(); attempts++; if (pin == \"1234\") { success = true; break; } } then if (success) … else \"Card blocked\"."
+    },
+    {
+      "title": "Trace table",
+      "must": "Method (column per variable, row per check) + example total of 1,3,5,7 = 16 and while loop until 150 000 ₸ = 4 years.",
+      "weight": 2,
+      "model": "Column for each variable + condition, one row per check. for (i = 1; i <= 7; i += 2) total += i: i 1,3,5,7 → total 1,4,9,16; i = 9 false → output 16. Savings 100 000 × 1.14 until ≥ 150 000 → 4 years."
+    },
+    {
+      "title": "Nested loops",
+      "must": "Inner loop runs fully for each outer pass; 3 × 4 = 12; rows and seats example.",
+      "weight": 1,
+      "model": "Inner loop completes for every outer iteration: 3 rows × 4 seats = 12 passes → A1 A2 A3 A4 B1 … Used for tables, 2D arrays."
+    },
+    {
+      "title": "Validation",
+      "must": "Definition: automatic check by the program that data is sensible / follows rules; cannot check correctness.",
+      "weight": 3,
+      "model": "Validation = automatic check by the program that data is reasonable/sensible and follows the rules before it is accepted. It checks data is allowed, not that it is correct (age 17 instead of 16 passes)."
+    },
+    {
+      "title": "Verification",
+      "must": "Definition: data entered/copied accurately, matches original; double entry, visual check; comparison with validation.",
+      "weight": 3,
+      "model": "Verification = check that data was entered/copied accurately and matches the original. Methods: double entry (type twice and compare: if (pass !== confirm)), visual check / proof-reading. Validation asks \"is it allowed?\", verification \"is it what was meant?\"."
+    },
+    {
+      "title": "Validation checks in code",
+      "must": "Presence, length, type, range, format, lookup with JS (and PHP) code; check digit.",
+      "weight": 3,
+      "model": "Presence: name === \"\"; Length: password.length < 8 / strlen(); Type: isNaN(age) / !is_numeric(); Range: age < 14 || age > 18; Format: /^\\d{6}$/.test(postcode), filter_var(email, FILTER_VALIDATE_EMAIL); Lookup: [\"A\",\"B\",\"C\"].includes(grade) / in_array(). Check digit: last digit calculated from the others (ISBN, card numbers). Type check before range check."
+    },
+    {
+      "title": "Validate on client and server",
+      "must": "Client: instant feedback, preventDefault; server: client checks can be bypassed; two-layer flow.",
+      "weight": 2,
+      "model": "JS (HTML required/min/max/pattern) → instant feedback, less server load; event.preventDefault() stops sending. PHP repeats every check because client-side checks can be switched off or bypassed (data sent directly)."
+    },
+    {
+      "title": "Olympiad form example and test data",
+      "must": "Check for each field + normal, boundary, erroneous test data.",
+      "weight": 1,
+      "model": "Surname presence; grade lookup 9/10/11; IIN format /^\\d{12}$/; year range 2006–2012; email typed twice = verification. Test: normal 2009, boundary 2006 & 2012 (accept), 2005 & 2013 (reject), erroneous \"two thousand\"."
+    },
+    {
+      "title": "Good programming style",
+      "must": "At least five rules: meaningful identifiers, indentation, comments, constants, functions, validation; why.",
+      "weight": 2,
+      "model": "Meaningful identifiers (totalCost not x); consistent naming (camelCase); indentation of if/loop bodies; one statement per line; comments explain why; constants instead of magic numbers (const MAX_ATTEMPTS = 3); functions with one job; validate input and handle errors. → easier to read, test, fix."
+    }
+  ]
+}

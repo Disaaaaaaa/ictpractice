@@ -1,0 +1,96 @@
+{
+  "topic": "g11-scripting-language",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Scripting language",
+      "must": "Definition: high-level, interpreted, automates tasks / adds behaviour; runs inside a host (browser, server); examples JavaScript, PHP.",
+      "weight": 3,
+      "model": "Scripting language = high-level, usually interpreted language used to automate tasks and add behaviour to applications and web pages. The script runs line by line in an interpreter inside a host program (browser → JavaScript, web server → PHP)."
+    },
+    {
+      "title": "Interpreted vs compiled",
+      "must": "At least three differences: line by line while running vs whole program before; source code distributed; errors found when the line is reached; slower but quick to edit.",
+      "weight": 2,
+      "model": "Compiled: whole program translated before running, executable distributed, all syntax errors at compile time, faster. Interpreted script: translated line by line while running, source code distributed (JS visible), error found only when that line is reached, slower, edit → run immediately."
+    },
+    {
+      "title": "Client-side script",
+      "must": "Definition + runs in browser, code visible, can be switched off; uses: interactivity, instant validation; JavaScript in <script>.",
+      "weight": 3,
+      "model": "Client-side script = downloaded with the page and run by the user's browser (JavaScript, in <script>…</script>). + instant response, less server load. − code visible, can be disabled/edited → cannot be trusted. Uses: interactivity, instant validation, changing the page without reloading."
+    },
+    {
+      "title": "Server-side script",
+      "must": "Definition + runs on web server, user receives only HTML, can access database; PHP in <?php ?>, file .php.",
+      "weight": 3,
+      "model": "Server-side script = runs on the web server before the page is sent (PHP between <?php and ?>, file .php). User receives only the resulting HTML. + secure, can use the database, works without JS. − every action needs a request to the server. Uses: form processing, logins, database access."
+    },
+    {
+      "title": "Request–response steps",
+      "must": "The numbered flow: request → PHP runs and queries DB → rows returned → HTML sent → JavaScript reacts in browser.",
+      "weight": 2,
+      "model": "1 browser requests marks.php → 2 server runs PHP, sends SQL to database → 3 database returns rows → 4 PHP builds HTML and sends HTML+CSS+JS (no PHP code) → 5 JavaScript reacts to clicks/typing in the browser without the server."
+    },
+    {
+      "title": "Choosing client or server (canteen example)",
+      "must": "Rule: instant → client; trusted / needs database → server; validation on both; with at least two examples.",
+      "weight": 2,
+      "model": "Running total shown as dishes ticked → client (JS). Empty ID check → both. Prices from database → server (otherwise the user could edit the price). Saving the order → server (PHP + SQL). Rule: instant → client, trusted or database → server."
+    },
+    {
+      "title": "Variable and constant",
+      "must": "Definitions; JS let/const, PHP $name; dynamic typing.",
+      "weight": 3,
+      "model": "Variable = named memory location whose value can change (identifier, value, data type). Constant = named value that cannot change (const VAT_RATE = 0.12;) → no magic numbers, change in one place. JS: let age = 16; PHP: $age = 16; Both dynamically typed."
+    },
+    {
+      "title": "Data types",
+      "must": "Integer, real, string, Boolean, array with examples and JS/PHP names.",
+      "weight": 1,
+      "model": "Integer 16 (JS number, PHP int); real 7.5 (number / float); string \"Aliya\"; Boolean true/false; array [7, 9, 4]; no value: undefined/null (JS), null (PHP)."
+    },
+    {
+      "title": "Input and output",
+      "must": "JS: prompt, element.value; alert, console.log, textContent. PHP: $_POST/$_GET; echo. Concatenation + vs .",
+      "weight": 2,
+      "model": "Input: JS prompt(\"Age:\") or document.getElementById(\"age\").value; PHP $_POST[\"age\"] / $_GET[\"age\"]. Output: JS alert(), console.log(), el.textContent = …; PHP echo. Join: JS \"Total: \" + total; PHP \"Total: \" . $total."
+    },
+    {
+      "title": "Input is a string",
+      "must": "\"5\" + \"3\" = \"53\"; convert with Number/parseInt/parseFloat; NaN; worked fuel example.",
+      "weight": 3,
+      "model": "prompt() and form fields return strings. \"5\" + \"3\" = \"53\" (+ joins strings). Fix: Number(a) + Number(b) = 8; parseInt, parseFloat. Number(\"abc\") = NaN. Fuel: 350 km, 8 l/100 km → 28 l × 270 ₸ = 7560 ₸."
+    },
+    {
+      "title": "Selection and condition",
+      "must": "Definitions of selection and condition; if/else if/else syntax in JS and PHP (elseif).",
+      "weight": 3,
+      "model": "Selection = structure that chooses which statements to run depending on whether a condition is true or false (if, else if/elseif, else, switch). Condition = Boolean expression (true/false). JS: if (mark >= 50) {…} else if (…) {…} else {…}; PHP: if ($mark >= 50) {…} elseif (…) {…} else {…}."
+    },
+    {
+      "title": "Comparison and logical operators",
+      "must": "== vs === vs =; <, >, <=, >=, !=; && || !; range written with &&.",
+      "weight": 2,
+      "model": "= assigns, == compares value, === compares value and type (\"5\" == 5 true, \"5\" === 5 false). != !== < > <= >=. AND &&, OR ||, NOT !. Range: age >= 14 && age <= 18 (not 14 <= age <= 18)."
+    },
+    {
+      "title": "Multi-way IF: order matters",
+      "must": "First true condition wins; test highest boundary first; PHP grade example.",
+      "weight": 2,
+      "model": "Conditions tested top to bottom, only the first true branch runs. Grades: if ($mark >= 90) A; elseif ($mark >= 75) B; elseif ($mark >= 50) C; else Fail. Mark 78 → B. If >= 50 came first, 95 would get C."
+    },
+    {
+      "title": "switch",
+      "must": "Syntax with case, break, default; fall-through; when to use vs if.",
+      "weight": 1,
+      "model": "switch (day) { case \"Sat\": case \"Sun\": message = \"Weekend\"; break; default: message = \"School day\"; } Use for equality with fixed values; if…else if for ranges/AND/OR. Forgotten break → fall-through."
+    },
+    {
+      "title": "Cinema ticket worked example",
+      "must": "Multi-way if for age + separate if for Wednesday; traced results.",
+      "weight": 1,
+      "model": "age < 7 → 0; else if age <= 17 → 1200; else 2000; then separate if (day === \"Wed\") price = price / 2. 12, Wed → 600; 30, Wed → 1000; 5, Mon → 0."
+    }
+  ]
+}
