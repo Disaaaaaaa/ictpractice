@@ -1,0 +1,90 @@
+{
+  "topic": "g12-boolean-logic",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Law of Boolean algebra; equivalent expressions",
+      "must": "Law = two expressions equal for every input combination; equivalent = same output on every row.",
+      "weight": 3,
+      "model": "Law of Boolean algebra = rule that two expressions are equal for every combination of input values, so one can replace the other. Equivalent expressions = same output on every row of the truth table. A letter in a law can stand for any expression."
+    },
+    {
+      "title": "Identity and null laws",
+      "must": "Both forms of each.",
+      "weight": 3,
+      "model": "Identity: A · 1 = A, A + 0 = A. Null (annulment): A · 0 = 0, A + 1 = 1."
+    },
+    {
+      "title": "Idempotent, complement, double negation",
+      "must": "Both forms of each.",
+      "weight": 3,
+      "model": "Idempotent: A · A = A, A + A = A. Complement (inverse): A · ¬A = 0, A + ¬A = 1. Double negation (involution): ¬(¬A) = A."
+    },
+    {
+      "title": "Commutative and associative laws",
+      "must": "Both forms of each.",
+      "weight": 2,
+      "model": "Commutative: A · B = B · A, A + B = B + A. Associative: (A · B) · C = A · (B · C), (A + B) + C = A + (B + C)."
+    },
+    {
+      "title": "Distributive law",
+      "must": "Both forms including A + B·C = (A + B)(A + C).",
+      "weight": 3,
+      "model": "A · (B + C) = A · B + A · C (AND over OR, like arithmetic; read backwards = factorising). A + B · C = (A + B) · (A + C) (OR over AND, no arithmetic equivalent)."
+    },
+    {
+      "title": "Absorption and redundancy",
+      "must": "Both forms of each and the difference.",
+      "weight": 3,
+      "model": "Absorption: A + A · B = A, A · (A + B) = A. Redundancy: A + ¬A · B = A + B, A · (¬A + B) = A · B. Proof: A + ¬A·B = (A + ¬A)(A + B) = 1 · (A + B) = A + B."
+    },
+    {
+      "title": "Duality principle",
+      "must": "Definition and an example dual.",
+      "weight": 2,
+      "model": "Duality: if an identity is true, swapping AND ↔ OR and 0 ↔ 1 (variables and NOTs unchanged) gives another true identity (the dual). Example: A · 1 = A ↔ A + 0 = A; A · ¬A = 0 ↔ A + ¬A = 1."
+    },
+    {
+      "title": "De Morgan's laws",
+      "must": "Both forms, in words, more variables.",
+      "weight": 3,
+      "model": "¬(A · B) = ¬A + ¬B; ¬(A + B) = ¬A · ¬B. 'Break the bar, change the sign.' NAND = OR with inverted inputs; NOR = AND with inverted inputs. ¬(A · B · C) = ¬A + ¬B + ¬C."
+    },
+    {
+      "title": "Proving a law with a truth table",
+      "must": "Method and an example.",
+      "weight": 3,
+      "model": "Columns for each part of the left and right side; the two final columns must be identical on every row, then state it. ¬(A·B): 1,1,1,0 and ¬A + ¬B: 1,1,1,0 → equal, law proved."
+    },
+    {
+      "title": "Distinguishing similar laws",
+      "must": "Three questions; identity vs null, absorption vs redundancy.",
+      "weight": 2,
+      "model": "Ask: constant 0/1? same variable twice? variable with its NOT? A + 0 = A identity; A + 1 = 1 null; A + A = A idempotent; A + ¬A = 1 complement; A + A·B = A absorption (table 0,0,1,1); A + ¬A·B = A + B redundancy (0,1,1,1)."
+    },
+    {
+      "title": "Why simplify",
+      "must": "Fewer gates → cost, speed, power, reliability.",
+      "weight": 3,
+      "model": "Simplification = rewriting as an equivalent expression with fewer operations/terms so fewer gates are needed. Benefits: cheaper (fewer transistors, smaller chip), faster (fewer gate levels, less propagation delay), less power and heat, more reliable, easier to test."
+    },
+    {
+      "title": "Simplification strategy",
+      "must": "Order of steps; one law per step, named.",
+      "weight": 2,
+      "model": "1 De Morgan + double negation; 2 multiply out (distributive); 3 remove A·¬A = 0 and A·A = A; 4 factor terms differing in one variable: X·B + X·¬B = X; 5 absorption/redundancy; 6 identity/null; check with a truth table."
+    },
+    {
+      "title": "Worked simplification",
+      "must": "A full example with named laws.",
+      "weight": 3,
+      "model": "L = A·B·C + A·B·¬C + A·¬B·C = A·B·(C + ¬C) + A·¬B·C (distributive) = A·B + A·¬B·C (complement, identity) = A·(B + ¬B·C) (distributive) = A·(B + C) (redundancy). Check: 1 only on rows 101, 110, 111."
+    },
+    {
+      "title": "Karnaugh map (intro)",
+      "must": "Grid in Gray code; loop adjacent 1s in 1, 2, 4, 8; changing variable eliminated.",
+      "weight": 1,
+      "model": "K-map = truth table as a grid, columns in Gray code 00, 01, 11, 10 (neighbours differ by one bit). Loop adjacent 1s in groups of 1, 2, 4, 8; the variable that changes inside a loop is removed; OR the loop terms."
+    }
+  ]
+}

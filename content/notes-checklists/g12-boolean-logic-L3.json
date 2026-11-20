@@ -1,0 +1,90 @@
+{
+  "topic": "g12-boolean-logic",
+  "lesson": 3,
+  "points": [
+    {
+      "title": "Literal, minterm, maxterm",
+      "must": "Definitions and how NOTs are chosen.",
+      "weight": 3,
+      "model": "Literal = a variable or its NOT. Minterm = AND of all variables, 1 on exactly one row (variable plain for 1, NOT for 0): row 101 → A · ¬B · C. Maxterm = OR of all variables, 0 on exactly one row (plain for 0, NOT for 1): row 101 → ¬A + B + ¬C."
+    },
+    {
+      "title": "SOP (DNF) and POS (CNF)",
+      "must": "Definitions, canonical form, NOT only on single variables.",
+      "weight": 3,
+      "model": "SOP / disjunctive normal form = OR of AND terms of literals, e.g. A·¬B + ¬A·B·C. POS / conjunctive normal form = AND of OR terms of literals, e.g. (A + B)·(¬A + C). Canonical (perfect) form: every term is a full minterm / maxterm. NOT only on single variables."
+    },
+    {
+      "title": "SOP and POS from a truth table",
+      "must": "Method using rows with 1 / rows with 0; majority example.",
+      "weight": 3,
+      "model": "SOP: OR the minterms of rows with output 1. POS: AND the maxterms of rows with output 0. Majority (1 on 011, 101, 110, 111): X = ¬A·B·C + A·¬B·C + A·B·¬C + A·B·C = A·B + B·C + A·C. POS = (A+B+C)(A+B+¬C)(A+¬B+C)(¬A+B+C)."
+    },
+    {
+      "title": "Implication and equivalence",
+      "must": "Meaning and truth tables.",
+      "weight": 2,
+      "model": "A → B is false only when A = 1 and B = 0 (table 1, 1, 0, 1). A ↔ B is 1 when A and B are equal (1, 0, 0, 1) = ¬(A ⊕ B)."
+    },
+    {
+      "title": "Rules of logical transformation",
+      "must": "→, ↔, ⊕, NAND, NOR in AND/OR/NOT.",
+      "weight": 3,
+      "model": "A → B = ¬A + B. A ↔ B = A·B + ¬A·¬B. A ⊕ B = A·¬B + ¬A·B. ¬(A · B) = ¬A + ¬B. ¬(A + B) = ¬A · ¬B. A + B·C = (A + B)(A + C) to get POS."
+    },
+    {
+      "title": "Procedure for reducing to normal form",
+      "must": "Five steps.",
+      "weight": 2,
+      "model": "1 Replace →, ↔, ⊕, NAND, NOR. 2 Push NOT inward with De Morgan. 3 Remove double NOTs. 4 Distribute (AND over OR for SOP, OR over AND for POS). 5 Tidy: complement, idempotent, identity, absorption."
+    },
+    {
+      "title": "Worked reduction",
+      "must": "An example with rules named.",
+      "weight": 2,
+      "model": "(A → B)·(B → A) = (¬A + B)(¬B + A) (implication; CNF) = ¬A·¬B + ¬A·A + B·¬B + A·B (distributive) = ¬A·¬B + A·B (complement, identity; DNF)."
+    },
+    {
+      "title": "Logic circuit; building from an expression",
+      "must": "Definition; inputs left, innermost first, last operation = output gate, label all.",
+      "weight": 3,
+      "model": "Logic circuit = gates connected by wires producing outputs from binary inputs. Method: inputs on the left (branch with a dot if used twice), NOT gates, innermost brackets first, last operation = output gate, label inputs and output. X = (¬A + B)·(B ⊕ C): NOT A, OR(¬A, B), XOR(B, C), AND → X."
+    },
+    {
+      "title": "From a problem or truth table to a circuit",
+      "must": "Write expression / SOP, simplify, draw; staircase light example.",
+      "weight": 2,
+      "model": "Problem → expression → simplify → draw. Server room: V = T·O + S (AND then OR). Table 0110 → X = ¬A·B + A·¬B: NOT layer, AND per term, OR — or one XOR gate."
+    },
+    {
+      "title": "NAND-only circuits",
+      "must": "AND–OR → NAND–NAND; proof.",
+      "weight": 2,
+      "model": "Any SOP two-level AND–OR circuit = same layout with all NAND gates. A·B + C·D = ¬(¬(A·B) · ¬(C·D)) by double negation and De Morgan. NOT = NAND with inputs joined. Single variable into the OR layer must be inverted first."
+    },
+    {
+      "title": "Half adder",
+      "must": "Definition, gates, truth table.",
+      "weight": 3,
+      "model": "Half adder adds two bits: S = A ⊕ B (XOR), C = A · B (AND). A B → C S: 00 → 0 0; 01 → 0 1; 10 → 0 1; 11 → 1 0. Full adder = 3 inputs (with carry-in), two half adders + OR."
+    },
+    {
+      "title": "Analysing a circuit",
+      "must": "Steps: label, expressions, combine, table, simplify, describe.",
+      "weight": 3,
+      "model": "1 Label each gate output P, Q, R. 2 Write each expression. 3 Combine into X. 4 Truth table with columns for inputs, P, Q, R, X. 5 Simplify and check. 6 Describe in words."
+    },
+    {
+      "title": "Worked analysis",
+      "must": "P = A NAND B, R = B OR C, X = P·R with table and description.",
+      "weight": 3,
+      "model": "X = ¬(A·B)·(B + C) = ¬A·B + ¬A·C + ¬B·C. Output for rows 000–111: 0,1,1,1,0,1,0,0. X = 1 when at least one of B, C is 1 but A and B are not both 1."
+    },
+    {
+      "title": "Describing a circuit's function",
+      "must": "Common patterns in words.",
+      "weight": 1,
+      "model": "Look at rows with output 1: all 1 → AND; any 1 → OR; different → XOR; equal → XNOR; at least two 1s → majority / full-adder carry; odd number of 1s → parity. Also spot redundant gates (C = A·¬B adds nothing to A ⊕ B)."
+    }
+  ]
+}
