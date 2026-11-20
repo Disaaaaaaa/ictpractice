@@ -1,0 +1,96 @@
+{
+  "topic": "g12-cpu-architectures",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Machine-code instruction, opcode and operand",
+      "must": "Instruction = binary command the CPU decodes and executes directly; opcode = what operation; operand = data / register / address; example.",
+      "weight": 2,
+      "model": "Machine-code instruction = a binary command the CPU can decode and execute directly. Opcode = the operation (e.g. ADD, LOAD). Operand = the data, register or memory address to use. E.g. ADD R1, R2, R3; LOAD R1, 2048."
+    },
+    {
+      "title": "Instruction set and architecture",
+      "must": "Instruction set = complete set of instructions a processor can decode and execute; architecture = design decisions (which instructions, complexity, length, data sources, control unit); programs for one set cannot run directly on another; two approaches RISC/CISC.",
+      "weight": 3,
+      "model": "Instruction set = the complete set of machine-code instructions a particular processor can decode and execute. Architecture (ISA) = which instructions, how complex, how long, where data comes from, how the control unit executes them. x86 software cannot run directly on ARM. Two approaches: RISC (Reduced) and CISC (Complex Instruction Set Computer)."
+    },
+    {
+      "title": "Fixed- and variable-length instruction formats",
+      "must": "RISC fixed length (e.g. 32 bits, fields in same place → fast decode); CISC variable 1–15 bytes → decoder must find the length first.",
+      "weight": 2,
+      "model": "RISC: every instruction the same length (e.g. 32 bits), opcode and register fields always in the same place → simple, fast decoding. CISC: variable length (x86 1–15 bytes) → the decoder must read the first bytes to find where the instruction ends → slower, more complex decoding."
+    },
+    {
+      "title": "Clock cycle, CPI and the performance equation",
+      "must": "Clock cycle definition and clock speed; CPI; time = instructions × CPI × time per cycle; CISC reduces instructions, RISC reduces CPI.",
+      "weight": 3,
+      "model": "Clock cycle = one tick of the CPU clock; clock speed = cycles per second (3 GHz = 3 × 10⁹). CPI = average cycles per instruction. Time = number of instructions × CPI × time per cycle. CISC reduces the number of instructions; RISC reduces the CPI (≈ 1)."
+    },
+    {
+      "title": "Hard-wired vs microprogrammed control unit",
+      "must": "Hard-wired = fixed logic circuits, fast, suits few simple instructions (RISC); microprogrammed = microcode stored in CU, each instruction runs micro-instructions, slower, suits many complex instructions, can be updated (CISC).",
+      "weight": 2,
+      "model": "Hard-wired: fixed logic circuits turn the opcode straight into control signals → fast, only practical for few simple instructions → RISC. Microprogrammed: microcode (stored micro-instructions) runs for each instruction → slower, allows many complex instructions, can be changed → CISC."
+    },
+    {
+      "title": "RISC definition",
+      "must": "Small set of simple instructions, fixed length, mostly one clock cycle, only LOAD/STORE access memory, many registers, complex tasks from several simple instructions, emphasis on software/compiler.",
+      "weight": 3,
+      "model": "RISC (Reduced Instruction Set Computer) = a small set of simple, fixed-length instructions that mostly execute in one clock cycle; only LOAD and STORE access memory; many general-purpose registers; complex tasks are built from several simple instructions, so the emphasis is on software (the compiler)."
+    },
+    {
+      "title": "RISC characteristics with reasons",
+      "must": "At least 5 with why: few simple instructions; one cycle each; fixed length → fast decode; load/store → other instructions short; many registers (≈32); few addressing modes; hard-wired, fewer transistors → low power/heat, cheap; more instructions per program → more RAM, compiler does more.",
+      "weight": 3,
+      "model": "Few simple instructions → small fast circuits. ~1 cycle each → predictable, good for pipelining. Fixed length → fast decoding. Load/store → only LOAD/STORE touch slow memory. Many registers (~32) → data stays in the CPU. Few addressing modes. Hard-wired CU, fewer transistors → low power, little heat, cheaper. But more instructions per program → longer code, more RAM, compiler does more work."
+    },
+    {
+      "title": "Pipelining",
+      "must": "Definition (several instructions at once, each at a different fetch–decode–execute stage; one finishes per cycle when full); n×k vs k+(n−1); why RISC suits it (same length, one cycle); hazards: dependencies, branches flush the pipeline.",
+      "weight": 3,
+      "model": "Pipelining = the CPU works on several instructions at once, each at a different stage: while instruction 1 executes, 2 is decoded and 3 is fetched; when full, one instruction completes every cycle. Cycles: without = n × k, with = k + (n − 1) (4 instructions, 3 stages: 12 vs 6). Suits RISC: same length, one cycle per stage. Slowed by dependent instructions and branches (pipeline flushed)."
+    },
+    {
+      "title": "RISC examples and uses",
+      "must": "ARM (smartphones, tablets, Raspberry Pi, Apple M-series, embedded/IoT), RISC-V, MIPS, PowerPC.",
+      "weight": 1,
+      "model": "RISC: ARM — almost all smartphones and tablets, Raspberry Pi, smart watches/TVs, embedded systems, Apple M-series Macs; RISC-V (open, IoT); MIPS; PowerPC."
+    },
+    {
+      "title": "CISC definition and why it was designed",
+      "must": "Large set of complex variable-length instructions; one instruction does several low-level operations (load, calculate, store) in several cycles; works directly on memory; emphasis on hardware; designed when memory was expensive and programs were written in assembly.",
+      "weight": 3,
+      "model": "CISC (Complex Instruction Set Computer) = a large set of complex, variable-length instructions; one instruction can do several low-level operations (load, calculate, store) and take several clock cycles; instructions can work directly on memory; emphasis on hardware. Designed when memory was expensive/slow and much code was written in assembly → fewer, more powerful instructions saved memory."
+    },
+    {
+      "title": "CISC characteristics with reasons",
+      "must": "At least 5: hundreds of instructions; multi-cycle, different CPI; variable length → complex decoding; memory operands → fewer registers (8–16); many addressing modes; microcode, more transistors → more power, heat, cost; fewer instructions per program → shorter code, less RAM, simpler compiler.",
+      "weight": 3,
+      "model": "Hundreds of instructions (incl. specialised ones). Several cycles each, different for each instruction. Variable length (1–15 bytes) → slower decoding. Memory operands → fewer registers (8–16). Many addressing modes. Microprogrammed CU, more transistors → more power, more heat, higher cost. Fewer instructions per program → shorter code, less RAM, simpler compiler, easier assembly."
+    },
+    {
+      "title": "CISC examples, uses and modern micro-operations",
+      "must": "Intel x86/x86-64 and AMD (PCs, laptops, servers, consoles); backward compatibility with x86 software; modern CISC translates instructions into RISC-like micro-operations to pipeline them.",
+      "weight": 1,
+      "model": "CISC: Intel x86/x86-64 (Core i3–i9, Xeon), AMD (Ryzen, EPYC) — desktop PCs, most laptops, servers, PS5/Xbox. Kept for backward compatibility with x86 software. Modern x86 chips translate each instruction into simple RISC-like micro-operations and pipeline them."
+    },
+    {
+      "title": "Same task on RISC and CISC",
+      "must": "MULT 2:3, 5:2 (1 instruction, several cycles) vs LOAD A, 2:3 / LOAD B, 5:2 / PROD A, B / STORE 2:3, A (4 instructions, ~1 cycle each); CISC less memory, hardware does work; RISC more memory, compiler does work, pipelined.",
+      "weight": 2,
+      "model": "CISC: MULT 2:3, 5:2 — 1 instruction, several cycles, complex hardware. RISC: LOAD A, 2:3; LOAD B, 5:2; PROD A, B; STORE 2:3, A — 4 instructions, ~1 cycle each, pipelined. CISC code needs less memory (hardware does the work); RISC code needs more memory (compiler does the work)."
+    },
+    {
+      "title": "RISC vs CISC comparison",
+      "must": "Both sides each point: set size, complexity, length, cycles, memory access, registers, control unit, pipelining, instructions per program/RAM, emphasis, power/heat/cost, uses and examples.",
+      "weight": 3,
+      "model": "RISC small set of simple instructions whereas CISC large set of complex ones. RISC fixed length, ~1 cycle whereas CISC variable length, several cycles. RISC only LOAD/STORE access memory, many registers whereas CISC memory operands, fewer registers. RISC hard-wired, easy pipelining whereas CISC microcode, harder pipelining. RISC more instructions per program/more RAM whereas CISC shorter code. RISC low power/heat/cost whereas CISC higher. RISC: ARM in phones; CISC: Intel/AMD in PCs."
+    },
+    {
+      "title": "Why phones use RISC and PCs use CISC",
+      "must": "Phone: battery, no fan → RISC fewer transistors → less power and heat, longer battery life, small and cheap. PC: mains power and fan; must run existing x86 software → CISC. Trend: Apple M-series, ARM servers.",
+      "weight": 2,
+      "model": "Phones: battery-powered, no fan → RISC (ARM) has simpler circuits/fewer transistors → less power and heat → longer battery life; also smaller and cheaper. Desktop PCs: mains power, fan; need to run existing Windows software compiled for x86 → CISC (Intel/AMD). Apple Macs moved to ARM in 2020 for performance per watt."
+    }
+  ]
+}
