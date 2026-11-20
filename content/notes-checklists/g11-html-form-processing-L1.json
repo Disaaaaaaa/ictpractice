@@ -1,0 +1,90 @@
+{
+  "topic": "g11-html-form-processing",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "HTML form",
+      "must": "Definition: part of a page made with <form> containing input controls that collect data from the user and send it to a script for processing.",
+      "weight": 3,
+      "model": "HTML form = part of a web page (<form> element) containing input controls (text boxes, radio buttons, checkboxes, lists, buttons) that collect data from the user and send it to a script for processing when submitted. The form collects; the script processes."
+    },
+    {
+      "title": "Request–response cycle",
+      "must": "The 5 steps: browser requests page → server sends HTML form → user submits, browser sends new HTTP request to action → script reads, validates, processes, outputs HTML → response displayed. Script runs once per request.",
+      "weight": 3,
+      "model": "1) Browser (client) sends HTTP request for the page. 2) Server sends HTML response with the form. 3) User clicks Submit → browser sends a new HTTP request with name=value pairs to the script in action. 4) Script reads → validates → processes (calculate / database) → outputs HTML. 5) Server sends this HTML back as the response; browser shows it. The script runs once per request, top to bottom."
+    },
+    {
+      "title": "action and method attributes",
+      "must": "action = address of the script that processes the data (missing → same page); method = how data is sent, get or post (missing → GET). Example opening tag.",
+      "weight": 3,
+      "model": "action = the script that receives the data, e.g. action=\"booking.php\" (left out → same page). method = how the data is sent: get or post (left out → GET). Example: <form action=\"booking.php\" method=\"post\">"
+    },
+    {
+      "title": "GET method and query string",
+      "must": "GET puts data in the URL as a query string: ?name=value&name=value; visible, bookmarkable, length-limited; example URL; use for searches.",
+      "weight": 3,
+      "model": "GET: data added to the URL as a query string: ? then name=value pairs separated by &, e.g. search.php?city=Astana&type=dental. Visible in address bar, history and logs; can be bookmarked/shared; limited length. Use for searches/filters that only read data. Read with $_GET[\"city\"]."
+    },
+    {
+      "title": "POST method and GET vs POST",
+      "must": "POST puts data in the request body: not in URL/history, no size limit, files, not bookmarkable, re-send warning; not encryption (needs HTTPS); use for logins, orders, uploads.",
+      "weight": 3,
+      "model": "POST: data in the body of the HTTP request — not shown in URL or history, no practical size limit, can upload files, cannot be bookmarked, browser warns before re-sending. Not encrypted — needs HTTPS. Use for logins, registrations, orders, uploads (requests that change data or are private). Read with $_POST[\"login\"]."
+    },
+    {
+      "title": "Input controls",
+      "must": "text, number, email, password, radio, checkbox, select, textarea, hidden, submit — what each is for and what it sends.",
+      "weight": 2,
+      "model": "text – one line; number – number with min/max; email – checks @; password – shown as dots; radio – choose exactly one of a group; checkbox – tick any number; select/option – drop-down list, sends option value; textarea – several lines; hidden – value not shown but sent (e.g. clinic_id=7); submit – sends the form."
+    },
+    {
+      "title": "Radio buttons and checkboxes",
+      "must": "Radio group shares one name, sends only the chosen value; unticked checkbox sends nothing (key missing) → check with isset or ??.",
+      "weight": 2,
+      "model": "Radio buttons of one question have the SAME name and different values; only the chosen value is sent (size=M). A checkbox sends its value only if ticked; an unticked checkbox sends nothing at all, so the script must check it with isset() or ??."
+    },
+    {
+      "title": "The name attribute",
+      "must": "name = the key under which the value is sent; the script reads it with that key; no name → not sent; must match exactly; id is not sent.",
+      "weight": 3,
+      "model": "name attribute = the key under which the control's value is sent; the script reads the value with it: name=\"quantity\" → $_POST[\"quantity\"] (JS: form.elements[\"quantity\"].value). A control without a name is not sent; the key must match exactly (case-sensitive); id is NOT sent."
+    },
+    {
+      "title": "Form data is text; HTML5 validation",
+      "must": "All values arrive as strings → convert with (int)/(float)/Number(); required, min, max, maxlength, type=email, pattern give browser checks but can be bypassed.",
+      "weight": 2,
+      "model": "All form values arrive as strings (\"2\", not 2) → convert: (int)$_POST[\"qty\"], (float)…, Number(…) in JS. HTML checks: required (presence), min/max (range), maxlength (length), type=\"email\", pattern=\"[0-9]{12}\" (format). They give instant feedback but can be bypassed, so the server must validate again."
+    },
+    {
+      "title": "$_GET and $_POST superglobals",
+      "must": "Built-in associative arrays available everywhere; keys = field names, values = what was entered.",
+      "weight": 3,
+      "model": "Superglobal = built-in PHP associative array available everywhere in a script. $_GET holds data sent in the URL (GET), $_POST data sent in the body (POST). Key = name of the control, value = what the user entered: $_POST[\"qty\"]."
+    },
+    {
+      "title": "isset() and empty()",
+      "must": "isset = key exists and not null (was it sent?); empty = missing or \"\", \"0\", 0, null (left blank?); empty(\"0\") trap; ?? default.",
+      "weight": 2,
+      "model": "isset($_POST[\"f\"]) – true if the field was sent (not null): form submitted? checkbox ticked? empty($_POST[\"f\"]) – true if missing or \"\", \"0\", 0, null → presence check for text boxes. Trap: empty(\"0\") is true. Default value: $extras = $_POST[\"extras\"] ?? [];"
+    },
+    {
+      "title": "Escaping output with htmlspecialchars()",
+      "must": "User could type HTML/JS that the browser runs (XSS); htmlspecialchars converts < > & \" into entities so it is shown as text; validate input, escape output.",
+      "weight": 3,
+      "model": "If user text is echoed directly, a user can type <script>…</script> which other browsers run = cross-site scripting (XSS). htmlspecialchars() converts < → &lt;, > → &gt;, & → &amp;, \" → &quot;, so the input is displayed as text, not run. Rule: validate input, escape output."
+    },
+    {
+      "title": "Steps of a PHP form handler",
+      "must": "Order: check submitted → read by name → convert → validate → process → output escaped; with a short code example.",
+      "weight": 2,
+      "model": "1 check submitted: if ($_SERVER[\"REQUEST_METHOD\"] === \"POST\") 2 read: $qty = (int)($_POST[\"qty\"] ?? 0); 3 validate: if ($qty < 1 || $qty > MAX_PIZZAS) error 4 process: $total = PRICES[$size] * $qty; 5 output: echo \"Thank you, \" . htmlspecialchars($customer);"
+    },
+    {
+      "title": "Server-side vs client-side processing",
+      "must": "PHP on server: trusted, cannot be bypassed, database access, needs a request; JS in browser: instant, can be bypassed, code visible. Rule: browser for convenience, server for security.",
+      "weight": 2,
+      "model": "Server-side (PHP): runs after submit, cannot be bypassed, can use the database and secret data, code hidden, needs a page reload → trusted validation, saving, prices. Client-side (JS): runs in the browser, instant feedback, can be switched off/edited, code visible → convenience checks, live totals. Check in the browser for convenience, on the server for security."
+    }
+  ]
+}

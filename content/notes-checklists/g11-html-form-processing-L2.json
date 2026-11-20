@@ -1,0 +1,90 @@
+{
+  "topic": "g11-html-form-processing",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Why arrays",
+      "must": "One identifier for many values; the index can be a variable, so one loop processes any number of elements.",
+      "weight": 2,
+      "model": "Instead of $mark1 … $mark30, one array Marks holds all 30 marks. The index can be a variable, so one loop (FOR i ← 1 TO 30) processes every element — the same code works for 30 or 3000 values."
+    },
+    {
+      "title": "Array and one-dimensional array",
+      "must": "Array = data structure, fixed number of elements of the same data type, one identifier, accessed by index; 1D = single row, one index.",
+      "weight": 3,
+      "model": "Array = a data structure that holds a fixed number of elements of the same data type under a single identifier; each element is accessed by its index. One-dimensional array = elements in a single row/list, each identified by one index, e.g. Marks[5]."
+    },
+    {
+      "title": "Array terms",
+      "must": "Identifier, element, index (subscript), lower bound, upper bound, length = upper − lower + 1, with an example.",
+      "weight": 3,
+      "model": "Identifier = name of the array (Marks). Element = one value stored (20). Index/subscript = integer position in [ ] (Marks[3]). Lower bound = smallest index. Upper bound = largest index. Length = number of elements = upper − lower + 1. Example ARRAY[1:5]: lower 1, upper 5, length 5."
+    },
+    {
+      "title": "0-based and 1-based indexing",
+      "must": "Pseudocode bounds chosen in the declaration (usually 1); JS/PHP always start at 0, upper bound = length − 1; always read the declaration.",
+      "weight": 3,
+      "model": "Pseudocode: bounds set in the declaration, usually ARRAY[1:30] → 1 to 30. JavaScript/PHP/Python: first index always 0 → 30 elements have indexes 0 to 29, upper bound = length − 1. marks = [17,12,20,9,15]: marks[2] = 20, upper bound 4. Always read the declaration."
+    },
+    {
+      "title": "Declaring in pseudocode",
+      "must": "DECLARE Name : ARRAY[l:u] OF TYPE; assigning elements; initialising in a FOR loop.",
+      "weight": 3,
+      "model": "DECLARE Marks : ARRAY[1:30] OF INTEGER\nCities[1] ← \"Astana\"\nFOR Index ← 1 TO 30\n    Marks[Index] ← 0\nNEXT Index"
+    },
+    {
+      "title": "Arrays in JavaScript and PHP",
+      "must": "Create with [..]; read/change by index; length / count(); add with push / $a[] =; dynamic vs static.",
+      "weight": 2,
+      "model": "JS: let cities = [\"Astana\", \"Almaty\"]; cities[0]; cities.length; cities.push(\"Turkistan\"). PHP: $cities = [\"Astana\", \"Almaty\"]; $cities[0]; count($cities); $cities[] = \"Turkistan\". JS/PHP arrays are dynamic (can grow); pseudocode arrays are static (fixed size)."
+    },
+    {
+      "title": "Traversing: for vs foreach",
+      "must": "Traverse = visit every element; for with index when the position is needed; foreach / for…of for values only, cannot go out of bounds.",
+      "weight": 2,
+      "model": "Traverse = visit every element in turn. for ($i = 0; $i < count($marks); $i++) { echo $marks[$i]; } – gives the index (position, can change elements). foreach ($marks as $mark) / for (const mark of marks) – gives each value, cannot go out of bounds; foreach ($a as $i => $v) gives both."
+    },
+    {
+      "title": "Total, average, count",
+      "must": "Total ← 0 before loop, add each element; average = total / number of elements after the loop; Count ← 0, +1 when condition true.",
+      "weight": 3,
+      "model": "Total ← 0; FOR i ← 1 TO 30: Total ← Total + Marks[i]; NEXT i; Average ← Total / 30 (after the loop). CountPass ← 0; inside the loop IF Marks[i] >= 50 THEN CountPass ← CountPass + 1."
+    },
+    {
+      "title": "Maximum / minimum with position",
+      "must": "Start Max with the first element (not 0), compare each, store value and index; why 0 fails.",
+      "weight": 3,
+      "model": "Max ← Marks[1]; MaxPos ← 1; FOR i ← 2 TO n: IF Marks[i] > Max THEN Max ← Marks[i]; MaxPos ← i. Start with the first element, not 0: with all negative values (−12, −18, −7…) Max = 0 would be wrong. Temps example → warmest −7 on day 3."
+    },
+    {
+      "title": "Linear search",
+      "must": "Definition; WHILE Found = FALSE AND i <= upper bound; output position or not found after the loop.",
+      "weight": 3,
+      "model": "Linear search = check each element in turn from the first until the target is found or every element has been checked. Found ← FALSE; i ← 1; WHILE Found = FALSE AND i <= 30: IF Names[i] = Target THEN Found ← TRUE ELSE i ← i + 1. After the loop: IF Found THEN OUTPUT position i ELSE OUTPUT \"not found\"."
+    },
+    {
+      "title": "Out-of-bounds and off-by-one errors",
+      "must": "Out of bounds = index below lower / above upper bound; off-by-one = loop one too many/few; example <= count().",
+      "weight": 3,
+      "model": "Out-of-bounds error = using an index below the lower bound or above the upper bound (marks[5] when upper bound is 4): PHP warning + null, JS undefined → NaN, pseudocode/Python run-time error. Off-by-one = loop runs one time too many/few, e.g. for ($i = 0; $i <= count($marks); $i++) – use <."
+    },
+    {
+      "title": "Arrays from forms",
+      "must": "name=\"subjects[]\" → $_POST[\"subjects\"] indexed array from 0; only ticked checkboxes; none ticked → key missing → ?? []; select multiple, mark[] boxes.",
+      "weight": 3,
+      "model": "Controls with name ending in [] (name=\"subjects[]\") arrive as one indexed array $_POST[\"subjects\"], indexes from 0. Checkboxes: only ticked values, e.g. [\"Physics\", \"Biology\", \"Informatics\"], count 3, bounds 0–2. None ticked → key missing → $subjects = $_POST[\"subjects\"] ?? []; Also <select name=\"days[]\" multiple> and several name=\"mark[]\" boxes."
+    },
+    {
+      "title": "Associative arrays",
+      "must": "Definition (key → value, accessed by key); PHP example with =>; foreach key => value; array_key_exists; $_POST is one; pseudocode uses parallel arrays.",
+      "weight": 3,
+      "model": "Associative array = elements stored as key → value pairs, accessed by key (usually a string). $prices = [\"coat\" => 28000, \"boots\" => 19500]; $prices[\"boots\"] → 19500; foreach ($prices as $item => $price); array_key_exists($item, $prices) for look-up validation. $_POST/$_GET are associative arrays. Pseudocode: parallel arrays Items[i], Prices[i]."
+    },
+    {
+      "title": "Worked example: test sections",
+      "must": "mark[] = 16, 12, 19, 8, 15 → total 70, 70%, weakest section 4 (8 marks), with the loop and trace.",
+      "weight": 1,
+      "model": "Marks from mark[]: 16, 12, 19, 8, 15 (out of 20 each). Loop i = 0…4: total += mark; if mark < minMark → minMark = mark, minSection = i + 1. Total 70; percentage 70 / (5 × 20) × 100 = 70%; weakest section 4 (8 marks)."
+    }
+  ]
+}

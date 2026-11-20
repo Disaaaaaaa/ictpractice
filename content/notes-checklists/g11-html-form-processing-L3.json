@@ -1,0 +1,96 @@
+{
+  "topic": "g11-html-form-processing",
+  "lesson": 3,
+  "points": [
+    {
+      "title": "Iterative algorithm",
+      "must": "Definition: uses a loop to repeat instructions a fixed number of times or until a condition is met, e.g. once for every element of form data.",
+      "weight": 3,
+      "model": "Iterative algorithm = an algorithm that uses iteration (a loop) to repeat a set of instructions, either a fixed number of times or until a condition is met — e.g. once for every field or element of form data."
+    },
+    {
+      "title": "Count-controlled vs condition-controlled loops",
+      "must": "Both definitions, syntax and a form use of each; infinite-loop risk.",
+      "weight": 3,
+      "model": "Count-controlled: repeats a fixed number of times known before it starts — FOR i ← 1 TO n, for, foreach; e.g. validate every required field, total every order line. Condition-controlled: repeats while/until a condition is true, number of repetitions unknown — WHILE…ENDWHILE (pre-condition), REPEAT…UNTIL (post-condition, at least once); e.g. ask until valid, search until found. Risk: infinite loop."
+    },
+    {
+      "title": "Errors array",
+      "must": "Initialise empty before checks, append a message for each failure, after all checks process only if empty, else show all messages.",
+      "weight": 3,
+      "model": "$errors = []; before validation. Each failed check: $errors[] = \"Grade must be from 7 to 12.\"; After ALL checks: if (count($errors) > 0) { foreach ($errors as $message) echo \"<li>\" . htmlspecialchars($message) . \"</li>\"; } else { process/save }. All problems are reported at once (better than die() at the first error)."
+    },
+    {
+      "title": "Validating every field with a loop",
+      "must": "Array of required field names; foreach with presence check; adding a field = one word.",
+      "weight": 2,
+      "model": "const REQUIRED = [\"first_name\", \"last_name\", \"grade\", \"email\"];\nforeach (REQUIRED as $field) {\n    if (trim($_POST[$field] ?? \"\") === \"\") {\n        $errors[] = \"Please fill in $field.\";\n    }\n}"
+    },
+    {
+      "title": "Sticky form",
+      "must": "Definition; value=\"<?php echo htmlspecialchars($name); ?>\"; checked / selected for radio, checkbox, select.",
+      "weight": 3,
+      "model": "Sticky form = a form that is shown again after a failed submission with the user's values still filled in. Text box: value=\"<?php echo htmlspecialchars($name); ?>\". Radio/checkbox: print checked for the chosen ones; select: print selected. Options can be generated with a loop: for ($g = MIN_GRADE; $g <= MAX_GRADE; $g++)."
+    },
+    {
+      "title": "Order-form totals",
+      "must": "qty[code] → associative array; loop, look up server price, skip 0, validate range, running total, discount after loop; canteen example result.",
+      "weight": 2,
+      "model": "name=\"qty[plov]\" → $_POST[\"qty\"] = [\"plov\" => \"1\", \"manti\" => \"0\", \"samsa\" => \"3\", \"tea\" => \"2\"]. foreach ($_POST[\"qty\"] as $code => $q): convert, check code in $prices and 0–10, skip 0, $total += $prices[$code] * $q. Prices from the server, never from the browser. Canteen: 1200 + 0 + 1200 + 300 = 2700 ₸ (< 5000, no 10% discount)."
+    },
+    {
+      "title": "Generating HTML from an array",
+      "must": "Opening tags before the loop, one row per iteration, closing tags after; code example; textContent in JS.",
+      "weight": 3,
+      "model": "echo \"<table><tr><th>Pupil</th><th>Score</th></tr>\";  (before)\nfor ($i = 0; $i < count($names); $i++) {\n    echo \"<tr><td>\" . htmlspecialchars($names[$i]) . \"</td><td>\" . $scores[$i] . \"</td></tr>\";\n}\necho \"</table>\";  (after)\nJS: create li elements in a for…of loop, use textContent (safe)."
+    },
+    {
+      "title": "Repeat until valid",
+      "must": "REPEAT…UNTIL valid and WHILE invalid versions; opposite conditions (AND/OR); JS do…while; PHP repeats by re-showing the form.",
+      "weight": 3,
+      "model": "REPEAT\n    INPUT Mark\nUNTIL Mark >= 0 AND Mark <= 100\n\nINPUT Mark\nWHILE Mark < 0 OR Mark > 100\n    INPUT Mark\nENDWHILE\nUNTIL = condition to stop (valid); WHILE = condition to continue (invalid). JS: do { … } while (invalid). PHP cannot wait for input: it shows the form again and runs on the next request."
+    },
+    {
+      "title": "Infinite loops",
+      "must": "Cause: nothing in the loop changes the condition (missing i ← i + 1, no input inside); effect; prevention.",
+      "weight": 1,
+      "model": "Infinite loop = a condition-controlled loop whose condition never becomes false because nothing inside it changes the condition (forgot i ← i + 1, input only before the loop). Freezes the browser / server stops the script. Always ask: what inside the loop makes the condition false?"
+    },
+    {
+      "title": "Programming style: definition and why",
+      "must": "Definition; code is read many times; easier to read, understand, debug, test, maintain by others.",
+      "weight": 3,
+      "model": "Programming style = rules and conventions for writing code (meaningful identifiers, indentation, comments, constants, subroutines) that make it easy to read, understand, debug and maintain by other programmers. Code is written once but read many times."
+    },
+    {
+      "title": "Identifiers and naming conventions",
+      "must": "Meaningful names; camelCase, snake_case, UPPER_CASE constants, PascalCase; consistency; booleans as questions, functions as verbs.",
+      "weight": 2,
+      "model": "Meaningful identifiers: $averageMark, $totalCost, not $x, $a2. camelCase (JS: totalCost), snake_case (PHP/form fields: first_name), UPPER_CASE for constants (MAX_PIZZAS), PascalCase in pseudocode (TotalCost). Use one convention consistently; same name in form, PHP and database. Booleans: $isPaid; functions: calculateTotal()."
+    },
+    {
+      "title": "Indentation, layout and comments",
+      "must": "Indent block bodies; one statement per line; spaces; blank lines; good comments explain why/purpose/inputs/outputs; bad comments repeat code or are out of date.",
+      "weight": 2,
+      "model": "Indentation: body of every IF/loop/function moved in (4 spaces) → structure visible. One statement per line, spaces around operators, blank lines between read/validate/process/output. Good comment: // Validate every required field and collect error messages; // price includes 12% VAT. Bad: $i = $i + 1; // add 1 to i; out-of-date comments."
+    },
+    {
+      "title": "Constants instead of magic numbers",
+      "must": "Magic number definition; constant definition and syntax; benefit: meaning clear, change in one place, cannot change accidentally.",
+      "weight": 3,
+      "model": "Magic number = unexplained literal in code (if ($qty > 10), $total * 0.9). Constant = named value set once, cannot change while the program runs: const MAX_PIZZAS = 10; pseudocode CONSTANT PassMark ← 50. Meaning is clear and the rule is changed in one place."
+    },
+    {
+      "title": "Subroutines (functions and procedures)",
+      "must": "Function returns a value, procedure does an action; benefits: reuse, readable main program, test separately, change in one place; one responsibility, parameters, verb name.",
+      "weight": 2,
+      "model": "Subroutine = named block doing one task, called when needed. Function returns a value (calculateTotal($price, $qty)); procedure does an action (showErrors($errors)). Benefits: reuse instead of copy, short readable main program, tested separately, changed in one place. One responsibility, data through parameters, verb name."
+    },
+    {
+      "title": "Refactoring example",
+      "must": "The bad discount script and the improved version: renamed, constants, function, validation, indentation; price 2000 × 6 → 11400.",
+      "weight": 1,
+      "model": "Bad: $a=$_POST[\"p\"];$b=$_POST[\"q\"];if($b>=5){$c=$a*$b*0.95;}… Improved: const BULK_QUANTITY = 5; const BULK_DISCOUNT = 0.05; const ORDER_LIMIT = 50000; function calculateTotal(float $price, int $quantity) with a comment; validate price > 0 and quantity > 0; indented. 2000 × 6 = 12000 → ×0.95 = 11400 tenge."
+    }
+  ]
+}
