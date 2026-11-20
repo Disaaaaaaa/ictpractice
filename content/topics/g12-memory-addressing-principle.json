@@ -4,32 +4,48 @@
     {
       "key": "mem-address-define",
       "title": "Memory address",
-      "type": "short_answer",
+      "type": "multiple_response",
       "marks": 2,
       "difficulty": "easy",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.1"
       ],
       "practice": true,
-      "text": "Explain the principle of memory addressing.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Select the **two** statements that explain the principle of memory addressing.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Main memory is divided into locations, each with its own unique address"
+        },
+        {
+          "key": "B",
+          "content": "The CPU places the address in the MAR and on the address bus to select the location to read or write"
+        },
+        {
+          "key": "C",
+          "content": "Each location's address is stored inside the location together with the data"
+        },
+        {
+          "key": "D",
+          "content": "Memory locations must be read in order, starting from address 0"
+        },
+        {
+          "key": "E",
+          "content": "The address of a location changes each time new data is written to it"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Memory is divided into locations, each with a unique address (1)\n- the CPU sends the address on the address bus / via the MAR to read or write that location (1)",
-        "points": [
-          {
-            "criterion": "Unique address per location",
-            "marks": 1
-          },
-          {
-            "criterion": "Address bus / MAR used to access",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Main memory is split into locations, each with its own unique address; the CPU places the address in the MAR and on the address bus to read or write that location."
+        "mark_scheme": "A, B (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "Address and contents are different things; any location can be reached directly (random access)."
       }
     },
     {
@@ -102,7 +118,7 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.1"
       ],
@@ -167,7 +183,8 @@
               "1 MiB||1 MB||1MB||1MiB||1048576 bytes||1 048 576 bytes"
             ]
           ]
-        }
+        },
+        "explanation": "65 536 (1); 64 KiB (1); 1 MiB (1)"
       }
     },
     {
@@ -177,7 +194,7 @@
       "marks": 2,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.1"
       ],
@@ -204,7 +221,8 @@
             "32"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "2²⁴ = 16 777 216 locations (1) × 2 = 33 554 432 bytes = 32 MiB (1)"
       }
     },
     {
@@ -253,7 +271,7 @@
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.1"
       ],
@@ -332,7 +350,8 @@
               "17"
             ]
           ]
-        }
+        },
+        "explanation": "Immediate: the value 50. Direct: contents of 50 = 64. Indirect: 50 holds 64, contents of 64 = 9. Indexed: 50 + 2 = 52, contents = 17."
       }
     },
     {
@@ -401,63 +420,88 @@
     {
       "key": "mem-indexed-use",
       "title": "Use of indexed addressing",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "hard",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.1"
       ],
       "practice": true,
-      "text": "Explain why indexed addressing is useful when processing an array.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Why is **indexed addressing** useful when processing an array?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The operand is the value itself, so no memory access is needed"
+        },
+        {
+          "key": "B",
+          "content": "The address is the base address plus the index register, so incrementing IX in a loop lets the same instruction access each element in turn"
+        },
+        {
+          "key": "C",
+          "content": "The operand holds the address of a pointer to the array"
+        },
+        {
+          "key": "D",
+          "content": "The address is worked out relative to the program counter, so the array can be moved"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Operand holds the start address of the array; IX holds the position (1)\n- incrementing IX in a loop accesses each element in turn with the same instruction (1)",
-        "points": [
-          {
-            "criterion": "Base + index",
-            "marks": 1
-          },
-          {
-            "criterion": "Loop through elements",
-            "marks": 1
-          }
-        ],
-        "model_answer": "The operand gives the base address of the array and IX the element number, so increasing IX in a loop lets the same instruction read every element in turn."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A is immediate, C is indirect, D is relative addressing."
       }
     },
     {
       "key": "mem-stored-program",
       "title": "Stored-program concept",
-      "type": "short_answer",
+      "type": "multiple_response",
       "marks": 2,
       "difficulty": "medium",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2"
       ],
       "practice": true,
-      "text": "Explain the principle of storing programs and data (the stored-program concept).",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Select the **two** statements that describe the stored-program (von Neumann) concept.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Program instructions and data are stored together in the same main memory, both in binary"
+        },
+        {
+          "key": "B",
+          "content": "Instructions and data are kept in separate memories with separate buses"
+        },
+        {
+          "key": "C",
+          "content": "The CPU fetches instructions one at a time, then decodes and executes them in sequence"
+        },
+        {
+          "key": "D",
+          "content": "To change the program, the computer must be rewired"
+        },
+        {
+          "key": "E",
+          "content": "Data is stored in memory but instructions are stored inside the CPU"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Instructions and data are stored together in the same main memory in binary (1)\n- instructions are fetched one at a time / in sequence and executed by the CPU (1)",
-        "points": [
-          {
-            "criterion": "Same memory",
-            "marks": 1
-          },
-          {
-            "criterion": "Fetched and executed in sequence",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Program instructions and data are both held in binary in the same main memory, and the CPU fetches the instructions one by one, decodes and executes them."
+        "mark_scheme": "A, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "B describes Harvard; D describes early computers such as ENIAC before the stored-program idea."
       }
     },
     {
@@ -467,7 +511,7 @@
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2"
       ],
@@ -547,7 +591,8 @@
               "✓"
             ]
           ]
-        }
+        },
+        "explanation": "Von Neumann: one shared memory and bus → bottleneck. Harvard: separate memories and buses → instruction and data fetched together; used in microcontrollers and DSPs."
       }
     },
     {
@@ -557,7 +602,7 @@
       "marks": 3,
       "difficulty": "hard",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2@paper"
       ],
@@ -589,7 +634,8 @@
           ],
           "numeric": true,
           "ignore_spaces": true
-        }
+        },
+        "explanation": "Page 1, offset 5000 − 4096 = 904 (1); 7 × 4096 = 28 672 (1); + 904 = 29 576 (1)"
       }
     },
     {
@@ -599,7 +645,7 @@
       "marks": 2,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2@paper"
       ],
@@ -626,7 +672,8 @@
             "2"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "18 ÷ 4 = 4.5 → 5 pages = 20 KiB (1); 20 − 18 = 2 KiB wasted (1)"
       }
     },
     {
@@ -636,7 +683,7 @@
       "marks": 3,
       "difficulty": "hard",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2@paper"
       ],
@@ -694,7 +741,8 @@
               "error||segmentation fault||invalid"
             ]
           ]
-        }
+        },
+        "explanation": "5100 (1); 2120 (1); error — 350 ≥ limit 300 (1)"
       }
     },
     {
@@ -721,109 +769,198 @@
     {
       "key": "mem-compare-ps",
       "title": "Paging vs segmentation",
-      "type": "labelled_answers",
-      "marks": 2,
+      "type": "table_completion",
+      "marks": 6,
       "difficulty": "medium",
-      "command_word": "compare",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2@paper"
       ],
       "practice": true,
-      "text": "Give **two** differences between paging and segmentation.",
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes paging or segmentation.",
+      "source": "original",
       "content": {
-        "fields": [
-          {
-            "key": "1",
-            "label": "1",
-            "lines": 2
-          },
-          {
-            "key": "2",
-            "label": "2",
-            "lines": 2
-          }
+        "columns": [
+          "Statement",
+          "Paging",
+          "Segmentation"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Blocks are of a fixed size, e.g. 4 KiB",
+            null,
+            null
+          ],
+          [
+            "Blocks follow the logical parts of the program (code, data, stack)",
+            null,
+            null
+          ],
+          [
+            "Causes internal fragmentation",
+            null,
+            null
+          ],
+          [
+            "Causes external fragmentation",
+            null,
+            null
+          ],
+          [
+            "Uses a table of base and limit for each block",
+            null,
+            null
+          ],
+          [
+            "Physical address = frame number × block size + offset",
+            null,
+            null
+          ]
         ]
       },
       "scheme": {
-        "mark_scheme": "Any two, both sides (1 each): fixed vs variable size; physical vs logical division; invisible vs visible to programmer; page table vs segment table (base/limit); internal vs external fragmentation",
+        "mark_scheme": "Blocks are of a fixed size, e.g. 4 KiB – Paging (1); Blocks follow the logical parts of the program (code, data, stack) – Segmentation (1); Causes internal fragmentation – Paging (1); Causes external fragmentation – Segmentation (1); Uses a table of base and limit for each block – Segmentation (1); Physical address = frame number × block size + offset – Paging (1)",
         "points": [
           {
-            "criterion": "First",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Second",
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
             "marks": 1
           }
         ],
-        "model_answer": "1 Pages are a fixed size, whereas segments vary in size. 2 Paging divides by physical size, whereas segmentation divides by the logical parts of the program."
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Paging: fixed, physical, page table, internal fragmentation. Segmentation: variable, logical, segment table (base, limit), external fragmentation."
       }
     },
     {
       "key": "mem-virtual-memory",
       "title": "Virtual memory",
-      "type": "short_answer",
+      "type": "fill_blank",
       "marks": 3,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "describe",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.2@paper"
       ],
       "practice": true,
-      "text": "Explain how virtual memory works and **one** problem it can cause.",
+      "text": "Complete the description of virtual memory.\n\nPart of [[1]] storage is used as an extension of RAM. Pages that are not needed are moved out to disk and brought back into a free [[2]] when they are needed. If RAM is far too small, the computer spends most of its time moving pages in and out; this is called disk [[3]].",
+      "source": "original",
       "content": {
-        "answer_lines": 4
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "- Part of secondary storage used as if it were RAM (1)\n- pages not needed are moved to disk and swapped back into RAM when needed (1)\n- problem: slower / disk thrashing — more time swapping than processing (1)",
-        "points": [
-          {
-            "criterion": "Disk as RAM",
-            "marks": 1
-          },
-          {
-            "criterion": "Swapping pages",
-            "marks": 1
-          },
-          {
-            "criterion": "Problem",
-            "marks": 1
-          }
-        ],
-        "model_answer": "When RAM is full, the OS uses part of the disk as extra memory, moving pages not in use to disk and back into RAM when needed. This is slow, and too much swapping causes disk thrashing."
+        "mark_scheme": "(1) secondary (2) frame (3) thrashing",
+        "accepted": {
+          "blanks": [
+            [
+              "secondary",
+              "backing"
+            ],
+            [
+              "frame",
+              "page frame"
+            ],
+            [
+              "thrashing"
+            ]
+          ]
+        },
+        "explanation": "Virtual memory relies on paging: single pages are swapped between RAM and the swap file on disk."
       }
     },
     {
       "key": "mem-vm-define",
       "title": "Virtual machine",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "easy",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "define",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.3"
       ],
       "practice": true,
-      "text": "Explain the concept of a **virtual machine**.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Which is the best description of a **virtual machine**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Using part of the hard disk as if it were extra RAM"
+        },
+        {
+          "key": "B",
+          "content": "Software that emulates a complete computer system, so a guest OS or program runs as if on its own hardware while sharing the host's resources"
+        },
+        {
+          "key": "C",
+          "content": "A computer with more than one CPU core"
+        },
+        {
+          "key": "D",
+          "content": "A program that translates high-level code into machine code before it runs"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Software that emulates a complete computer / hardware (1)\n- so a guest OS or program runs as if on its own machine, isolated, while sharing the host's resources (1)",
-        "points": [
-          {
-            "criterion": "Software emulation",
-            "marks": 1
-          },
-          {
-            "criterion": "Guest runs on host",
-            "marks": 1
-          }
-        ],
-        "model_answer": "A virtual machine is software that imitates a complete computer, so a guest operating system or program can run inside it, isolated, using the host computer's hardware."
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A describes virtual memory — a common confusion."
       }
     },
     {
@@ -871,61 +1008,121 @@
     {
       "key": "mem-vm-adv",
       "title": "VM advantages and disadvantages",
-      "type": "labelled_answers",
-      "marks": 4,
+      "type": "table_completion",
+      "marks": 6,
       "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "12.3.4.3"
       ],
       "practice": true,
-      "text": "A school's IT technician wants to test new software in a virtual machine before installing it on the school computers. Give **two** advantages and **two** disadvantages of using a virtual machine.",
+      "text": "A school's IT technician wants to test new software in a virtual machine before installing it on the school computers. Tick (✓) to show whether each point is an advantage or a disadvantage of using a VM.",
+      "source": "original",
       "content": {
-        "fields": [
-          {
-            "key": "a1",
-            "label": "Advantage 1",
-            "lines": 1
-          },
-          {
-            "key": "a2",
-            "label": "Advantage 2",
-            "lines": 1
-          },
-          {
-            "key": "d1",
-            "label": "Disadvantage 1",
-            "lines": 1
-          },
-          {
-            "key": "d2",
-            "label": "Disadvantage 2",
-            "lines": 1
-          }
+        "columns": [
+          "Point",
+          "Advantage",
+          "Disadvantage"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "A crash or malware in the VM does not harm the host computer",
+            null,
+            null
+          ],
+          [
+            "The VM can be restored quickly from a snapshot",
+            null,
+            null
+          ],
+          [
+            "Software runs more slowly than on the real hardware",
+            null,
+            null
+          ],
+          [
+            "The host needs a lot of RAM, CPU power and storage",
+            null,
+            null
+          ],
+          [
+            "Several operating systems can be tested on one computer",
+            null,
+            null
+          ],
+          [
+            "If the host fails, every VM on it fails",
+            null,
+            null
+          ]
         ]
       },
       "scheme": {
-        "mark_scheme": "Advantages (1 each): isolation — crash / malware does not affect host; snapshots / easy restore; several OSs on one computer; no extra hardware. Disadvantages (1 each): slower than real hardware; needs much RAM / CPU / storage; limited hardware access; licence cost; host failure stops all VMs",
+        "mark_scheme": "A crash or malware in the VM does not harm the host computer – Advantage (1); The VM can be restored quickly from a snapshot – Advantage (1); Software runs more slowly than on the real hardware – Disadvantage (1); The host needs a lot of RAM, CPU power and storage – Disadvantage (1); Several operating systems can be tested on one computer – Advantage (1); If the host fails, every VM on it fails – Disadvantage (1)",
         "points": [
           {
-            "criterion": "Adv 1",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Adv 2",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "Dis 1",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "Dis 2",
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
             "marks": 1
           }
         ],
-        "model_answer": "Advantages: a crash or virus in the VM does not harm the real computer; a snapshot lets him restore the VM quickly. Disadvantages: software runs slower; the VM needs a lot of RAM and storage."
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Benefits come from isolation, flexibility and sharing hardware; drawbacks from the extra hypervisor layer and shared resources."
       }
     },
     {
@@ -2251,6 +2448,1591 @@
           }
         }
       ]
+    },
+    {
+      "key": "mem-contents-tf",
+      "title": "Address or contents",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "In the statement \"location 30 holds 45\", the number 45 is the address of the location.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "30 is the address; 45 is the contents stored there."
+      }
+    },
+    {
+      "key": "mem-read-steps",
+      "title": "Memory read",
+      "type": "fill_blank",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Complete the steps of a memory read.\n\nThe CPU copies the address into the [[1]]. The address is placed on the [[2]] bus. The control unit sends a memory [[3]] signal on the control bus. Memory places the contents of the location on the [[4]] bus, and they arrive in the [[5]].",
+      "source": "original",
+      "content": {
+        "blank_count": 5
+      },
+      "scheme": {
+        "mark_scheme": "(1) MAR (2) address (3) read (4) data (5) MDR",
+        "accepted": {
+          "blanks": [
+            [
+              "MAR",
+              "memory address register"
+            ],
+            [
+              "address"
+            ],
+            [
+              "read"
+            ],
+            [
+              "data"
+            ],
+            [
+              "MDR",
+              "memory data register",
+              "MBR",
+              "memory buffer register"
+            ]
+          ]
+        },
+        "explanation": "The address travels CPU → memory on the one-way address bus; contents come back on the two-way data bus."
+      }
+    },
+    {
+      "key": "mem-write-mcq",
+      "title": "Writing to memory",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "The CPU writes the value 42 to address 6. What happens to the value that was stored at address 6 before?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "It moves to address 7"
+        },
+        {
+          "key": "B",
+          "content": "It is overwritten and lost"
+        },
+        {
+          "key": "C",
+          "content": "It is copied to the MAR"
+        },
+        {
+          "key": "D",
+          "content": "It is added to 42"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A memory write replaces the old contents of the location."
+      }
+    },
+    {
+      "key": "mem-oneway-mcq",
+      "title": "One-way bus",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Which bus is **one-way**, carrying signals only from the CPU to memory during a memory access?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Data bus"
+        },
+        {
+          "key": "B",
+          "content": "Address bus"
+        },
+        {
+          "key": "C",
+          "content": "Instruction bus"
+        },
+        {
+          "key": "D",
+          "content": "None — all buses are two-way"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Memory never sends addresses back; the data bus is two-way."
+      }
+    },
+    {
+      "key": "mem-line-tf",
+      "title": "One more address line",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Adding one more line to the address bus doubles the number of locations the CPU can address.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "n lines give 2ⁿ addresses, and 2ⁿ⁺¹ = 2 × 2ⁿ."
+      }
+    },
+    {
+      "key": "mem-lines-64",
+      "title": "Lines for 64 MiB",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "How many address lines are needed for **64 MiB** of byte-addressable memory? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "64 MiB = 2⁶ × 2²⁰ = 2²⁶ bytes → 26 lines.",
+        "accepted": {
+          "values": [
+            "26",
+            "26 lines"
+          ]
+        },
+        "explanation": "Write the size as a power of two: 1 MiB = 2²⁰."
+      }
+    },
+    {
+      "key": "mem-kib-calc",
+      "title": "16-bit bus, 4-byte words",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "A computer has a **16-bit** address bus and each location stores **4 bytes**. Calculate the maximum memory in **KiB**.",
+      "source": "original",
+      "content": {
+        "unit": "KiB"
+      },
+      "scheme": {
+        "mark_scheme": "2¹⁶ = 65 536 locations (1) × 4 = 262 144 bytes ÷ 1024 = 256 KiB (1)",
+        "model_answer": "256",
+        "accepted": {
+          "values": [
+            "256"
+          ],
+          "numeric": true
+        },
+        "explanation": "Maximum memory = 2ⁿ × size of each location."
+      }
+    },
+    {
+      "key": "mem-next-word",
+      "title": "Byte-addressable words",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "In byte-addressable memory, a **64-bit** word is stored starting at address **1000**. At which address does the **next** word start? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "64 bits = 8 bytes → addresses 1000–1007; the next word starts at 1008.",
+        "accepted": {
+          "values": [
+            "1008"
+          ]
+        },
+        "explanation": "Each byte has its own address, so an 8-byte word uses 8 consecutive addresses."
+      }
+    },
+    {
+      "key": "mem-4gb-mcq",
+      "title": "The 4 GB limit",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "A laptop has **8 GB** of RAM but runs a **32-bit** operating system, which can use only about 4 GB. Why?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Half of the RAM is reserved for the BIOS"
+        },
+        {
+          "key": "B",
+          "content": "32 address bits give only 2³² addresses (4 GiB), so the rest of the RAM has no address the system can form"
+        },
+        {
+          "key": "C",
+          "content": "The data bus is only 32 bits wide, so it can carry only 4 GB at a time"
+        },
+        {
+          "key": "D",
+          "content": "32-bit systems compress memory to save space"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Installing a 64-bit operating system solves the problem."
+      }
+    },
+    {
+      "key": "mem-mode-use",
+      "title": "Choose the addressing mode",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Match each task to the addressing mode most suited to it.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Set a counter to 0"
+          },
+          {
+            "key": "L2",
+            "text": "Load a simple variable stored at a fixed address"
+          },
+          {
+            "key": "L3",
+            "text": "Follow a pointer whose value can change while the program runs"
+          },
+          {
+            "key": "L4",
+            "text": "Step through the elements of an array in a loop"
+          },
+          {
+            "key": "L5",
+            "text": "Jump back 5 locations in code that may be loaded anywhere in memory"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Immediate"
+          },
+          {
+            "key": "R2",
+            "text": "Direct"
+          },
+          {
+            "key": "R3",
+            "text": "Indirect"
+          },
+          {
+            "key": "R4",
+            "text": "Indexed"
+          },
+          {
+            "key": "R5",
+            "text": "Relative"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Set a counter to 0 – Immediate; Load a simple variable stored at a fixed address – Direct; Follow a pointer whose value can change while the program runs – Indirect; Step through the elements of an array in a loop – Indexed; Jump back 5 locations in code that may be loaded anywhere in memory – Relative. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "mem-mode-accesses",
+      "title": "Memory accesses",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Complete the table to show how many memory accesses are needed to **get the data** (after the instruction has been fetched) in each addressing mode.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Addressing mode",
+          "Memory accesses for the data"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "Immediate",
+            null
+          ],
+          [
+            "Direct",
+            null
+          ],
+          [
+            "Indirect",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Immediate 0 (1); direct 1 (1); indirect 2 (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "0||zero||none"
+            ],
+            [
+              null,
+              "1||one"
+            ],
+            [
+              null,
+              "2||two"
+            ]
+          ]
+        },
+        "explanation": "Immediate: the value is in the instruction. Direct: read the address. Indirect: read the pointer, then the data — so it is the slowest."
+      }
+    },
+    {
+      "key": "mem-indirect-mcq",
+      "title": "Indirect trace",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Memory: address **40** → 70, address **41** → 22, address **70** → 15. What does `LDI 40` load into the accumulator?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "40"
+        },
+        {
+          "key": "B",
+          "content": "70"
+        },
+        {
+          "key": "C",
+          "content": "15"
+        },
+        {
+          "key": "D",
+          "content": "22"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Indirect: address 40 holds the address 70; the contents of 70 (15) are loaded. 70 would be direct addressing."
+      }
+    },
+    {
+      "key": "mem-relative-mcq",
+      "title": "Why relative addressing",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.1"
+      ],
+      "practice": true,
+      "text": "Why is **relative addressing** useful for jumps in a program?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "It is the fastest mode because no memory access is needed"
+        },
+        {
+          "key": "B",
+          "content": "No absolute address appears in the code, so the program still works when it is loaded at a different place in memory"
+        },
+        {
+          "key": "C",
+          "content": "It allows a pointer to be changed while the program runs"
+        },
+        {
+          "key": "D",
+          "content": "It can reach any address in memory, however far away"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The jump target is the program counter plus an offset; its limit is that it can only reach nearby addresses."
+      }
+    },
+    {
+      "key": "mem-instr-or-data",
+      "title": "Instruction or data?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "Memory itself does not know whether a word is an instruction or data. How does the CPU decide to treat a word as an **instruction**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Instructions are always stored at odd addresses"
+        },
+        {
+          "key": "B",
+          "content": "Instructions have a special flag bit set to 1"
+        },
+        {
+          "key": "C",
+          "content": "The program counter pointed to the word during the fetch stage"
+        },
+        {
+          "key": "D",
+          "content": "Instructions are stored in a separate memory"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "A word is data when an instruction uses its address as an operand. D describes Harvard, not von Neumann."
+      }
+    },
+    {
+      "key": "mem-pc-fill",
+      "title": "Sequential execution",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nInstructions are stored in consecutive addresses. After each fetch, the program [[1]] is incremented to the next address. Only a [[2]] instruction changes the order, by loading a new address into it.",
+      "source": "original",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) counter (2) jump / branch",
+        "accepted": {
+          "blanks": [
+            [
+              "counter",
+              "counter (PC)"
+            ],
+            [
+              "jump",
+              "branch",
+              "jump/branch"
+            ]
+          ]
+        },
+        "explanation": "Sequential execution is one of the principles of the stored-program concept."
+      }
+    },
+    {
+      "key": "mem-bottleneck",
+      "title": "Von Neumann bottleneck",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "What is the **von Neumann bottleneck**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The limit on speed caused by instructions and data sharing the same memory and bus, so they cannot be fetched at the same time"
+        },
+        {
+          "key": "B",
+          "content": "The maximum amount of memory set by the width of the address bus"
+        },
+        {
+          "key": "C",
+          "content": "The time taken to rewire a computer to change its program"
+        },
+        {
+          "key": "D",
+          "content": "A program that is too large to fit in RAM"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Harvard architecture removes it by giving instructions and data separate memories and buses."
+      }
+    },
+    {
+      "key": "mem-vn-separate-tf",
+      "title": "Separate memories?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "The von Neumann architecture keeps instructions and data in separate memories.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "That is Harvard architecture; von Neumann uses one shared memory."
+      }
+    },
+    {
+      "key": "mem-areas-match",
+      "title": "Areas of a program in memory",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2"
+      ],
+      "practice": true,
+      "text": "Match each area of a running program's memory to what it holds.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Code area"
+          },
+          {
+            "key": "L2",
+            "text": "Data area"
+          },
+          {
+            "key": "L3",
+            "text": "Stack"
+          },
+          {
+            "key": "L4",
+            "text": "Heap"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The machine-code instructions"
+          },
+          {
+            "key": "R2",
+            "text": "Global variables and constants"
+          },
+          {
+            "key": "R3",
+            "text": "Local variables, parameters and return addresses of subroutines"
+          },
+          {
+            "key": "R4",
+            "text": "Data created while the program runs, e.g. a list that grows"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Code area – The machine-code instructions; Data area – Global variables and constants; Stack – Local variables, parameters and return addresses of subroutines; Heap – Data created while the program runs, e.g. a list that grows. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "Keeping areas separate lets the OS mark the code area read-only; they are still in the same memory, so this is still von Neumann."
+      }
+    },
+    {
+      "key": "mem-mmu-terms",
+      "title": "Memory management terms",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Logical address"
+          },
+          {
+            "key": "L2",
+            "text": "Physical address"
+          },
+          {
+            "key": "L3",
+            "text": "MMU"
+          },
+          {
+            "key": "L4",
+            "text": "Frame"
+          },
+          {
+            "key": "L5",
+            "text": "Page table"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The address as seen by the program, e.g. page + offset"
+          },
+          {
+            "key": "R2",
+            "text": "The actual address of the location in RAM"
+          },
+          {
+            "key": "R3",
+            "text": "Hardware that translates logical addresses into physical ones"
+          },
+          {
+            "key": "R4",
+            "text": "A fixed-size block of physical memory"
+          },
+          {
+            "key": "R5",
+            "text": "Maps each page number to the frame that holds it"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Logical address – The address as seen by the program, e.g. page + offset; Physical address – The actual address of the location in RAM; MMU – Hardware that translates logical addresses into physical ones; Frame – A fixed-size block of physical memory; Page table – Maps each page number to the frame that holds it. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4",
+            "L5": "R5"
+          }
+        }
+      }
+    },
+    {
+      "key": "mem-page-offset",
+      "title": "Page and offset",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "The page size is **4 096 bytes**. Complete the page number and offset for each logical address.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Logical address",
+          "Page number",
+          "Offset"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "9 000",
+            null,
+            null
+          ],
+          [
+            "4 100",
+            null,
+            null
+          ],
+          [
+            "12 500",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "9 000: page 2, offset 808; 4 100: page 1, offset 4; 12 500: page 3, offset 212 (1 per row)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "2",
+              "808"
+            ],
+            [
+              null,
+              "1",
+              "4"
+            ],
+            [
+              null,
+              "3",
+              "212"
+            ]
+          ]
+        },
+        "explanation": "Page = address div 4 096; offset = address mod 4 096 (the remainder)."
+      }
+    },
+    {
+      "key": "mem-phys-small",
+      "title": "Physical address",
+      "type": "calculation",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "The page size is **1 024 bytes**. Page table: page 0 → frame 2, page 1 → frame 4, page 2 → frame 0. Calculate the physical address for logical address **2 100**.",
+      "source": "original",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "Page = 2 100 div 1 024 = 2, offset = 2 100 − 2 048 = 52 (1); page 2 → frame 0 (1); 0 × 1 024 + 52 = 52 (1)",
+        "model_answer": "52",
+        "accepted": {
+          "values": [
+            "52"
+          ],
+          "numeric": true
+        },
+        "explanation": "Physical address = frame × page size + offset; frame 0 starts at address 0."
+      }
+    },
+    {
+      "key": "mem-invalid-page",
+      "title": "Invalid page",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "A program has pages 0–3 and the page size is 4 KiB. It uses logical address **17 000** (page 4). What happens?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The address is translated using frame 4"
+        },
+        {
+          "key": "B",
+          "content": "The MMU raises an error and the OS stops the program"
+        },
+        {
+          "key": "C",
+          "content": "The program is given a fifth page automatically"
+        },
+        {
+          "key": "D",
+          "content": "The address wraps round to page 0"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "This is how paging provides memory protection: a program cannot reach pages it does not own."
+      }
+    },
+    {
+      "key": "mem-pages-30",
+      "title": "Pages for 30 KiB",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "A program needs **30 KiB** and the page size is **8 KiB**. How many pages does it need? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "30 ÷ 8 = 3.75 → round up to 4 pages.",
+        "accepted": {
+          "values": [
+            "4",
+            "4 pages",
+            "four"
+          ]
+        },
+        "explanation": "You cannot have part of a page, so always round up; the unused 2 KiB is internal fragmentation."
+      }
+    },
+    {
+      "key": "mem-seg-phys",
+      "title": "Segment translation",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Segment 3 has base **12 000** and limit **800**. Calculate the physical address for logical address **(3, 799)**.",
+      "source": "original",
+      "content": {
+        "unit": ""
+      },
+      "scheme": {
+        "mark_scheme": "799 < 800, so valid (1); 12 000 + 799 = 12 799 (1)",
+        "model_answer": "12799",
+        "accepted": {
+          "values": [
+            "12799"
+          ],
+          "numeric": true
+        },
+        "explanation": "Check offset < limit, then physical = base + offset."
+      }
+    },
+    {
+      "key": "mem-seg-limit-tf",
+      "title": "Offset equal to limit",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "A segment has limit 400. The logical address (segment, offset 400) is valid because the offset is not greater than the limit.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The offset must be **less than** the limit; offsets run 0–399, so 400 is one byte past the end → error."
+      }
+    },
+    {
+      "key": "mem-seg-benefits",
+      "title": "Benefits of segmentation",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Select the **three** advantages of segmentation.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The code segment can be marked read-only and executable"
+        },
+        {
+          "key": "B",
+          "content": "Whole segments, such as a shared library, can be shared between programs"
+        },
+        {
+          "key": "C",
+          "content": "Segments match the logical structure of the program"
+        },
+        {
+          "key": "D",
+          "content": "It causes no external fragmentation"
+        },
+        {
+          "key": "E",
+          "content": "Every segment is exactly 4 KiB, so allocation is simple"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Segmentation causes external fragmentation (holes between segments); fixed-size blocks describe paging."
+      }
+    },
+    {
+      "key": "mem-pagefault-fill",
+      "title": "Page fault",
+      "type": "fill_blank",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Complete the description of what happens on a page fault.\n\nThe program uses a page that is not in RAM, so a page [[1]] occurs. If no frame is free, the OS chooses a [[2]] page — usually the least recently used — and writes it to disk if it was changed. It reads the required page from the [[3]] into the frame, updates the page [[4]], and the instruction is [[5]].",
+      "source": "original",
+      "content": {
+        "blank_count": 5
+      },
+      "scheme": {
+        "mark_scheme": "(1) fault (2) victim (3) disk (4) table (5) restarted",
+        "accepted": {
+          "blanks": [
+            [
+              "fault"
+            ],
+            [
+              "victim"
+            ],
+            [
+              "disk",
+              "swap file",
+              "secondary storage",
+              "ssd"
+            ],
+            [
+              "table"
+            ],
+            [
+              "restarted",
+              "restarts",
+              "re-run",
+              "rerun",
+              "repeated"
+            ]
+          ]
+        },
+        "explanation": "A page fault is an interrupt handled by the OS; the program does not notice except for a short delay."
+      }
+    },
+    {
+      "key": "mem-thrashing",
+      "title": "Disk thrashing",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "What is **disk thrashing**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Damage to a hard disk caused by overheating"
+        },
+        {
+          "key": "B",
+          "content": "The computer spends most of its time moving pages between RAM and disk instead of running programs"
+        },
+        {
+          "key": "C",
+          "content": "Deleting the swap file to free disk space"
+        },
+        {
+          "key": "D",
+          "content": "Splitting a program into fixed-size pages"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "It happens when RAM is far too small for the programs that are open."
+      }
+    },
+    {
+      "key": "mem-thrash-fix",
+      "title": "Curing thrashing",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Select the **two** actions that reduce disk thrashing.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Add more RAM"
+        },
+        {
+          "key": "B",
+          "content": "Make the swap file larger"
+        },
+        {
+          "key": "C",
+          "content": "Close programs / run fewer programs at once"
+        },
+        {
+          "key": "D",
+          "content": "Use smaller pages"
+        },
+        {
+          "key": "E",
+          "content": "Defragment the hard disk"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "Thrashing is caused by too little RAM for the open programs; a bigger swap file only allows more swapping."
+      }
+    },
+    {
+      "key": "mem-vmem-benefits",
+      "title": "Benefits of virtual memory",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "Select the **two** benefits of virtual memory.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Programs larger than physical RAM can run"
+        },
+        {
+          "key": "B",
+          "content": "Disk access is faster than RAM access"
+        },
+        {
+          "key": "C",
+          "content": "More programs can be open at the same time"
+        },
+        {
+          "key": "D",
+          "content": "It removes the need for a page table"
+        },
+        {
+          "key": "E",
+          "content": "It makes the CPU's clock faster"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "Its drawback is speed: disk is thousands of times slower than RAM."
+      }
+    },
+    {
+      "key": "mem-vm-vs-vmem",
+      "title": "Two different ideas",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Virtual memory and a virtual machine are two names for the same thing.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Virtual memory uses disk as an extension of RAM; a virtual machine is software that imitates a whole computer."
+      }
+    },
+    {
+      "key": "mem-vm-roles",
+      "title": "Host, guest and hypervisor",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Host"
+          },
+          {
+            "key": "L2",
+            "text": "Guest"
+          },
+          {
+            "key": "L3",
+            "text": "Hypervisor"
+          },
+          {
+            "key": "L4",
+            "text": "Virtual disk"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The real, physical computer on which the VMs run"
+          },
+          {
+            "key": "R2",
+            "text": "The operating system or program running inside the VM"
+          },
+          {
+            "key": "R3",
+            "text": "Software that creates and runs VMs and shares the real hardware between them"
+          },
+          {
+            "key": "R4",
+            "text": "A large file on the host that the VM uses as its hard disk"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Host – The real, physical computer on which the VMs run; Guest – The operating system or program running inside the VM; Hypervisor – Software that creates and runs VMs and shares the real hardware between them; Virtual disk – A large file on the host that the VM uses as its hard disk. One mark per correct match.",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "Examples of hypervisors: VirtualBox, VMware, Hyper-V, KVM."
+      }
+    },
+    {
+      "key": "mem-jvm-fill",
+      "title": "The Java Virtual Machine",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nA Java program is compiled into an intermediate code called [[1]]. Each platform has its own [[2]], which translates this code into the [[3]] code of that computer while the program runs. So the same compiled program runs on any computer — this is called platform [[4]].",
+      "source": "original",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) bytecode (2) JVM (3) machine (4) independence",
+        "accepted": {
+          "blanks": [
+            [
+              "bytecode",
+              "byte code"
+            ],
+            [
+              "JVM",
+              "Java Virtual Machine",
+              "java vm"
+            ],
+            [
+              "machine"
+            ],
+            [
+              "independence"
+            ]
+          ]
+        },
+        "explanation": "The JVM is a process virtual machine: it runs one program, not a whole OS."
+      }
+    },
+    {
+      "key": "mem-vm-kinds",
+      "title": "System or process VM",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "Tick (✓) **one** box in each row to show whether the statement describes a system VM or a process VM.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "System VM",
+          "Process VM"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Emulates a complete computer so a whole guest OS can be installed",
+            null,
+            null
+          ],
+          [
+            "Runs a single application, e.g. Java bytecode",
+            null,
+            null
+          ],
+          [
+            "Starts when the program starts and ends when it ends",
+            null,
+            null
+          ],
+          [
+            "Used to run Linux inside Windows with VirtualBox",
+            null,
+            null
+          ],
+          [
+            "Main purpose is platform independence",
+            null,
+            null
+          ],
+          [
+            "Lets a data centre run dozens of virtual servers on one machine",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Emulates a complete computer so a whole guest OS can be installed – System VM (1); Runs a single application, e.g. Java bytecode – Process VM (1); Starts when the program starts and ends when it ends – Process VM (1); Used to run Linux inside Windows with VirtualBox – System VM (1); Main purpose is platform independence – Process VM (1); Lets a data centre run dozens of virtual servers on one machine – System VM (1)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 5",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 6",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "key": "mem-vm-sandbox",
+      "title": "Opening a suspicious file",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "A technician opens a suspicious email attachment inside a virtual machine. Which property of VMs protects the real computer?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Platform independence"
+        },
+        {
+          "key": "B",
+          "content": "Isolation — the guest cannot see or damage the host"
+        },
+        {
+          "key": "C",
+          "content": "Virtual memory"
+        },
+        {
+          "key": "D",
+          "content": "Relative addressing"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "If the file is malware, only the VM is affected; it can be deleted or restored from a snapshot."
+      }
+    },
+    {
+      "key": "mem-host-fail",
+      "title": "Host failure",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.3"
+      ],
+      "practice": true,
+      "text": "If the physical host computer fails, only one of the virtual machines running on it is affected.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "All VMs share the host, so if it fails every VM on it fails."
+      }
+    },
+    {
+      "key": "mem-offset-bits",
+      "title": "Offset bits",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.4.2@paper"
+      ],
+      "practice": true,
+      "text": "The page size is **4 KiB**. How many of the lowest bits of a logical address form the **offset**? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "4 KiB = 2¹² bytes → 12 bits.",
+        "accepted": {
+          "values": [
+            "12",
+            "12 bits",
+            "twelve"
+          ]
+        },
+        "explanation": "The remaining higher bits form the page number, so the split is very fast in hardware."
+      }
     }
   ],
   "summary": "How main memory is organised into addressed locations, how the address bus width sets the number of addresses, addressing modes (immediate, direct, indirect, indexed, relative), the stored-program (von Neumann) principle and Harvard architecture, memory organisation by pages and segments with address translation, virtual memory, and virtual machines.",
@@ -3217,16 +4999,34 @@
         "Exam practice: memory addressing and stored programs"
       ],
       "questions": [
-        "mem-buses-match",
-        "mem-lines-mcq",
+        "mem-contents-tf",
         "mem-address-define",
+        "mem-buses-match",
+        "mem-oneway-mcq",
+        "mem-read-steps",
+        "mem-write-mcq",
+        "mem-next-word",
+        "mem-line-tf",
         "mem-bus-calc",
+        "mem-lines-mcq",
+        "mem-lines-64",
         "mem-word-calc",
+        "mem-kib-calc",
+        "mem-4gb-mcq",
         "mem-modes-match",
+        "mem-mode-use",
+        "mem-mode-accesses",
         "mem-modes-table",
+        "mem-indirect-mcq",
         "mem-indexed-use",
-        "mem-harvard-tick",
-        "mem-stored-program"
+        "mem-relative-mcq",
+        "mem-stored-program",
+        "mem-vn-separate-tf",
+        "mem-pc-fill",
+        "mem-instr-or-data",
+        "mem-areas-match",
+        "mem-bottleneck",
+        "mem-harvard-tick"
       ]
     },
     {
@@ -3239,14 +5039,33 @@
         "Exam practice: memory organisation and virtual machines"
       ],
       "questions": [
+        "mem-mmu-terms",
         "mem-paging-tf",
-        "mem-vm-types",
+        "mem-pages-30",
         "mem-pages-needed",
+        "mem-page-offset",
+        "mem-offset-bits",
         "mem-paging-calc",
+        "mem-phys-small",
+        "mem-invalid-page",
+        "mem-seg-phys",
+        "mem-seg-limit-tf",
         "mem-seg-table",
+        "mem-seg-benefits",
         "mem-compare-ps",
+        "mem-vmem-benefits",
         "mem-virtual-memory",
+        "mem-pagefault-fill",
+        "mem-thrashing",
+        "mem-thrash-fix",
         "mem-vm-define",
+        "mem-vm-vs-vmem",
+        "mem-vm-roles",
+        "mem-vm-types",
+        "mem-vm-kinds",
+        "mem-jvm-fill",
+        "mem-vm-sandbox",
+        "mem-host-fail",
         "mem-vm-adv"
       ]
     }
