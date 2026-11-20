@@ -1,0 +1,84 @@
+{
+  "topic": "g12-system-buses",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Special-purpose register",
+      "must": "Definition: register with one fixed job in the cycle; vs general-purpose.",
+      "weight": 2,
+      "model": "Special-purpose register = register in the CPU with one fixed job in the fetch–decode–execute cycle (PC, MAR, MDR, CIR, ACC, SR). General-purpose register can hold any value the program uses."
+    },
+    {
+      "title": "PC",
+      "must": "Holds address of the next instruction; incremented each fetch; jump writes new address.",
+      "weight": 3,
+      "model": "PC (program counter) = holds the address of the NEXT instruction to be fetched. Incremented during each fetch. A jump/branch puts a new address into the PC."
+    },
+    {
+      "title": "MAR, MDR, CIR",
+      "must": "MAR = address to read/write (address bus); MDR = data/instruction read or to write (data bus); CIR = instruction being decoded/executed.",
+      "weight": 3,
+      "model": "MAR = address of the location to be read from / written to (connected to address bus). MDR/MBR = data or instruction just read or about to be written (connected to data bus). CIR = instruction currently being decoded and executed."
+    },
+    {
+      "title": "ACC, status register, IX",
+      "must": "ACC holds values and results of ALU; SR holds flags (zero, negative, carry, overflow, interrupt); IX for indexed addressing.",
+      "weight": 2,
+      "model": "ACC (accumulator) = holds values used in calculations and the ALU result. Status register = flags: zero, negative, carry, overflow, interrupt. IX (index register) = added to an address for indexed addressing (arrays)."
+    },
+    {
+      "title": "Register transfer notation",
+      "must": "← = copied into; [ ] = contents of; [[MAR]] = contents of memory location whose address is in MAR.",
+      "weight": 3,
+      "model": "← means 'is copied into'. [PC] = contents of PC. [[MAR]] = contents of the memory location whose address is in the MAR. MAR ← [PC] = copy contents of PC into MAR (PC keeps its value)."
+    },
+    {
+      "title": "Instruction cycle definition",
+      "must": "Fetch, decode, execute repeated for every instruction; stored-program concept.",
+      "weight": 3,
+      "model": "Instruction (fetch–decode–execute) cycle = sequence the CPU repeats for every instruction: fetch the next instruction from memory, decode it, execute it. Based on the stored-program concept: instructions stored in memory with data, executed one at a time in sequence."
+    },
+    {
+      "title": "Fetch stage in RTN",
+      "must": "MAR ← [PC]; PC ← [PC] + 1; MDR ← [[MAR]] (read signal, data bus); CIR ← [MDR].",
+      "weight": 3,
+      "model": "Fetch: MAR ← [PC] (address on address bus); PC ← [PC] + 1; MDR ← [[MAR]] (memory read on control bus, instruction comes on data bus); CIR ← [MDR]."
+    },
+    {
+      "title": "Decode stage",
+      "must": "CU examines instruction in CIR, splits into opcode and operand, works out addressing mode and signals needed.",
+      "weight": 3,
+      "model": "Decode: the control unit examines the instruction in the CIR and splits it into opcode (operation, e.g. LDD) and operand (data or address, e.g. 50); works out the addressing mode and the control signals needed."
+    },
+    {
+      "title": "Execute stage",
+      "must": "CU sends control signals; examples: load, store, ALU arithmetic into ACC, jump changes PC; then check interrupts.",
+      "weight": 3,
+      "model": "Execute: CU sends control signals to carry out the instruction — load (MAR ← operand, MDR ← [[MAR]], ACC ← [MDR]); store (memory write); ADD (ALU, result in ACC, flags set); jump (PC ← operand). Then check for interrupts and repeat."
+    },
+    {
+      "title": "Trace of LDD 50",
+      "must": "Worked trace: PC=20, LDD 50, address 50 holds 37 → MAR 20, PC 21, MDR/CIR LDD 50, MAR 50, MDR 37, ACC 37.",
+      "weight": 2,
+      "model": "PC=20: MAR ← 20; PC ← 21; MDR ← LDD 50; CIR ← LDD 50; decode: opcode LDD, operand 50; MAR ← 50; MDR ← 37; ACC ← 37."
+    },
+    {
+      "title": "Interrupt definition and types",
+      "must": "Signal that something needs attention; hardware, software, timer, hardware failure, with examples.",
+      "weight": 3,
+      "model": "Interrupt = signal from hardware or software telling the CPU something needs attention. Types: hardware (key pressed, printer out of paper), software (division by zero, OS request), timer (multitasking), hardware failure (power failure)."
+    },
+    {
+      "title": "Handling an interrupt",
+      "must": "Checked at end of cycle; priority; save registers/PC on stack; load ISR address into PC; run ISR; restore registers; continue.",
+      "weight": 3,
+      "model": "End of each cycle the CPU checks for interrupts; if higher priority: save registers (PC, ACC, flags) on the stack → load ISR address into PC → execute the ISR → restore registers → continue original program."
+    },
+    {
+      "title": "Polling vs interrupts",
+      "must": "Polling wastes CPU time checking devices; interrupts only when needed, faster response.",
+      "weight": 1,
+      "model": "Polling: CPU repeatedly checks devices — wastes time. Interrupts: device signals on the control bus only when it needs attention — CPU time saved, quick response, but needs ISRs, priorities and saving registers."
+    }
+  ]
+}

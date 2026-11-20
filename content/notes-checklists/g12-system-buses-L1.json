@@ -1,0 +1,90 @@
+{
+  "topic": "g12-system-buses",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "CPU and its job",
+      "must": "CPU = fetches, decodes, executes instructions; contains CU, ALU, registers, cache; connected by system bus.",
+      "weight": 3,
+      "model": "CPU = part of the computer that fetches, decodes and executes program instructions. Contains: control unit (CU), arithmetic logic unit (ALU), registers, cache. Connected to main memory and I/O by the system bus."
+    },
+    {
+      "title": "Control unit and ALU",
+      "must": "CU decodes and sends control signals, coordinates the cycle; ALU does arithmetic and logic, result in ACC, sets flags.",
+      "weight": 3,
+      "model": "CU: decodes instructions, sends control signals, coordinates the fetch–decode–execute cycle and use of the buses. ALU: arithmetic (add, subtract) and logic (AND, OR, NOT, compare, shift); result in the accumulator; sets flags."
+    },
+    {
+      "title": "Registers, clock, cache",
+      "must": "Register = small fast storage inside CPU; clock sends pulses that synchronise; cache = fast memory for frequently used data.",
+      "weight": 2,
+      "model": "Register = very small, very fast storage inside the CPU holding one value in use now. Clock = regular pulses that synchronise components (1 pulse = 1 clock cycle). Cache = small fast memory holding copies of frequently/recently used instructions and data."
+    },
+    {
+      "title": "System bus and bus width",
+      "must": "Definition of system bus (parallel lines connecting CPU, memory, I/O controllers; 1 bit per line); bus width = number of lines.",
+      "weight": 3,
+      "model": "System bus = set of parallel wires (lines) on the motherboard connecting the CPU, main memory and I/O controllers; each line carries 1 bit at a time; made of address, data and control buses. Bus width = number of lines = number of bits carried at the same time."
+    },
+    {
+      "title": "Shared bus: advantages and bottleneck",
+      "must": "Shared bus is simple, cheap, expandable, but only one transfer at a time → bottleneck.",
+      "weight": 2,
+      "model": "Shared bus: cheap, simple wiring, easy to add devices. But only one component can use it at a time → devices take turns → bottleneck (von Neumann bottleneck)."
+    },
+    {
+      "title": "Address bus",
+      "must": "Carries address of memory location / I/O port; one-way from CPU; n lines → 2ⁿ locations.",
+      "weight": 3,
+      "model": "Address bus: carries the address of the memory location or I/O port to be read/written. Unidirectional (CPU → memory/I/O). n lines → 2ⁿ addressable locations; one extra line doubles memory. 32 lines → 4 GiB."
+    },
+    {
+      "title": "Data bus",
+      "must": "Carries data and instructions; two-way; width = bits transferred at once.",
+      "weight": 3,
+      "model": "Data bus: carries data and instructions between CPU, memory and I/O. Bidirectional (read: into CPU, write: out of CPU). Width = number of bits transferred at once (64-bit bus = 8 bytes per transfer)."
+    },
+    {
+      "title": "Control bus and its signals",
+      "must": "Carries control/timing signals; both directions; examples: memory read, memory write, clock, interrupt request, bus request/grant, reset.",
+      "weight": 3,
+      "model": "Control bus: carries control and timing signals, both to and from the CPU. Signals: memory read, memory write, I/O read/write, clock, interrupt request, bus request / bus grant, reset."
+    },
+    {
+      "title": "Why address bus is one-way",
+      "must": "Only CPU chooses the location; data must go in both directions.",
+      "weight": 2,
+      "model": "Address bus one-way because only the CPU decides which location is used. Data bus two-way because data goes into the CPU (read) and out of it (write)."
+    },
+    {
+      "title": "Address bus calculation",
+      "must": "Worked example: 16-bit address bus → 65 536 locations = 64 KiB; 8-bit data bus → 4 reads for 4 bytes.",
+      "weight": 2,
+      "model": "16 address lines: 2¹⁶ = 65 536 locations × 1 byte = 64 KiB. 8-bit data bus: a 4-byte value needs 4 reads; a 32-bit data bus needs 1 read. More address lines → more memory, not faster transfers."
+    },
+    {
+      "title": "MAR and MDR",
+      "must": "MAR holds address, connected to address bus; MDR holds data, connected to data bus.",
+      "weight": 2,
+      "model": "MAR (memory address register): holds the address of the location to use, output to the address bus. MDR (memory data register): holds data read from / to be written to memory, connected to the data bus."
+    },
+    {
+      "title": "Memory read steps",
+      "must": "Address into MAR → address bus; read signal on control bus; memory puts contents on data bus; data into MDR.",
+      "weight": 3,
+      "model": "Memory read: 1) address placed in MAR and sent on address bus; 2) CU sends memory read signal on control bus; 3) memory puts contents of that location on data bus; 4) data copied into MDR. Memory keeps its value."
+    },
+    {
+      "title": "Memory write steps",
+      "must": "Address in MAR → address bus; data in MDR → data bus; write signal on control bus; memory stores data.",
+      "weight": 3,
+      "model": "Memory write: 1) address in MAR → address bus; 2) data in MDR → data bus; 3) CU sends memory write signal on control bus; 4) memory stores the data at that address (old value overwritten)."
+    },
+    {
+      "title": "I/O transfers and DMA",
+      "must": "I/O controllers have ports with addresses; same buses with I/O read/write; DMA moves blocks between device and memory without the CPU using bus request/grant and an interrupt.",
+      "weight": 2,
+      "model": "I/O: CPU puts port address on address bus, data on data bus, I/O read/write on control bus; controllers have buffers. DMA: device sends bus request, CPU gives bus grant, DMA controller copies a block directly device ↔ memory, then interrupts the CPU. Saves CPU time for large blocks."
+    }
+  ]
+}

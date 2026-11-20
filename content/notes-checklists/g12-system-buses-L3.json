@@ -1,0 +1,84 @@
+{
+  "topic": "g12-system-buses",
+  "lesson": 3,
+  "points": [
+    {
+      "title": "Clock speed definition",
+      "must": "Cycles per second in Hz; 1 GHz = 10⁹ cycles per second.",
+      "weight": 3,
+      "model": "Clock speed (clock rate) = number of clock cycles per second, measured in hertz. 1 GHz = 1 000 000 000 cycles per second. Each step of the cycle starts on a clock pulse."
+    },
+    {
+      "title": "Cycle time calculation",
+      "must": "t = 1/f; 3 GHz → 0.33 ns; 2.5 GHz → 0.4 ns; instructions/s = f ÷ cycles per instruction.",
+      "weight": 2,
+      "model": "Cycle time = 1 ÷ frequency: 3 GHz → 0.33 ns; 2.5 GHz → 0.4 ns. Instructions per second = clock speed ÷ cycles per instruction: 2.5 GHz ÷ 4 = 625 million per second."
+    },
+    {
+      "title": "Effect of higher clock speed",
+      "must": "More cycles per second → more instructions per second, faster cycle.",
+      "weight": 3,
+      "model": "Higher clock speed → more clock cycles per second → the fetch–decode–execute cycle happens more often → more instructions executed per second → programs finish sooner."
+    },
+    {
+      "title": "Limits of clock speed and overclocking",
+      "must": "Heat, power, waiting for memory, throttling; overclocking risks instability/damage.",
+      "weight": 2,
+      "model": "Limits: more heat (needs cooling, risk of damage, thermal throttling), more power (battery), no gain if waiting for memory. Overclocking = running above rated speed: faster but unstable, overheating, shorter life."
+    },
+    {
+      "title": "Word length definition",
+      "must": "Number of bits CPU processes as one unit (register / ALU size), e.g. 32 or 64.",
+      "weight": 3,
+      "model": "Word length = number of bits the CPU can process as a single unit in one operation (size of registers and ALU values), e.g. 32 or 64 bits."
+    },
+    {
+      "title": "Effect of word length",
+      "must": "Bigger numbers/more data per instruction → fewer instructions; example of adding 18-bit numbers on 8/16/32-bit CPU; cost.",
+      "weight": 3,
+      "model": "Longer word → larger numbers/more data processed in one operation → fewer instructions. 150 000 + 98 500 (18 bits): 8-bit CPU needs 3 additions, 16-bit 2, 32-bit 1. Cost: bigger, more expensive chip; software must be written for it."
+    },
+    {
+      "title": "Data bus width and performance",
+      "must": "More bits per transfer → fewer transfers; 16 bytes on 8/32/64-bit bus = 16/4/2 transfers.",
+      "weight": 3,
+      "model": "Data bus width = bits transferred at once. Wider → fewer transfers for the same data → CPU waits less. 16 bytes: 8-bit bus 16 transfers, 32-bit 4, 64-bit 2."
+    },
+    {
+      "title": "Bandwidth calculation",
+      "must": "Bandwidth = width in bytes × transfers per second; 64-bit at 100 MHz = 800 MB/s.",
+      "weight": 2,
+      "model": "Bandwidth = data bus width (bytes) × transfers per second. 64-bit bus at 100 MHz: 8 bytes × 100 000 000 = 800 MB/s; 32-bit: 400 MB/s."
+    },
+    {
+      "title": "Address bus width and performance",
+      "must": "More lines → more addressable memory (2ⁿ) → less virtual memory; not faster transfers.",
+      "weight": 2,
+      "model": "Address bus width → maximum memory (2ⁿ). More RAM available → less use of virtual memory / swapping to disk → indirectly faster. Does not change bits per transfer. 32 lines = 4 GiB."
+    },
+    {
+      "title": "Word length vs bus width",
+      "must": "Word length = bits processed; data bus width = bits transferred; address bus = memory size.",
+      "weight": 2,
+      "model": "Word length = bits PROCESSED at once. Data bus width = bits TRANSFERRED at once. Address bus width = how much memory can be addressed."
+    },
+    {
+      "title": "Cores",
+      "must": "Core = independent processing unit; parallel tasks; why doubling cores ≠ double speed.",
+      "weight": 3,
+      "model": "Core = independent processing unit (own CU, ALU, registers) that can fetch–decode–execute by itself. More cores → several tasks in parallel. Not double speed: some tasks cannot be split, software must use threads, cores share buses/memory and must communicate."
+    },
+    {
+      "title": "Cache",
+      "must": "Small fast memory near CPU; hit vs miss; levels L1–L3; larger cache → fewer slow RAM accesses; cost.",
+      "weight": 3,
+      "model": "Cache = small, very fast memory inside/near the CPU storing frequently/recently used instructions and data. Hit = found in cache (fast); miss = fetched from RAM over the bus (slow). Levels L1 (smallest, fastest), L2, L3 (shared). Bigger cache → more hits, less bus traffic; expensive."
+    },
+    {
+      "title": "Comparing processors",
+      "must": "Factors work together; compare all factors and the task; worked comparison X vs Y with conclusion.",
+      "weight": 2,
+      "model": "Balance factors: high clock wasted if bus too narrow. X 3.0 GHz/32-bit/2 cores/4 MB vs Y 3.0 GHz/64-bit/4 cores/8 MB → Y better for multitasking and data-heavy work, but not twice as fast; costs more, more power."
+    }
+  ]
+}
