@@ -1465,6 +1465,792 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "mem-nx-1",
+      "title": "Memory in a greenhouse controller",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A farm near Almaty uses a **microcontroller** to control the heating in its greenhouses. The microcontroller has **byte-addressable** main memory and an **18-bit address bus**. Its program stores the latest temperature reading at memory address **120**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-1a",
+          "part_label": "(a)",
+          "title": "Principle of memory addressing",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "Explain the principle of memory addressing.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- main memory is divided into (numbered) locations / cells, each storing a fixed number of bits, e.g. one byte (1)\n- each location has its own **unique address** (1)\n- the CPU puts the address in the **MAR** / on the **address bus** to select the location; the contents travel on the **data bus** (via the MDR) (1)\nAccept: any location can be accessed directly in the same time (random access) (1). (Max 3.)",
+            "points": [
+              {
+                "criterion": "Memory divided into locations of fixed size",
+                "marks": 1
+              },
+              {
+                "criterion": "Each location has a unique address",
+                "marks": 1
+              },
+              {
+                "criterion": "Address sent via MAR / address bus to select it; contents on data bus",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "The third mark needs the address being used (MAR / address bus) to select the location — 'every cell has a number' alone earns only the first two.",
+            "model_answer": "Main memory is divided into a large number of locations, each holding a fixed number of bits (here one byte). Every location has its own unique address. To use a location the CPU places its address in the MAR, which puts it on the address bus; memory selects that location, and its contents are transferred along the data bus to or from the MDR. Any location can be reached directly by its address."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-1b",
+          "part_label": "(b)",
+          "title": "Maximum memory",
+          "type": "calculation",
+          "marks": 2,
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "Calculate the maximum amount of memory, in **KiB**, that this microcontroller can address. Show your working.",
+          "content": {
+            "unit": "KiB",
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- 2¹⁸ = 262 144 addresses × 1 byte = 262 144 bytes (1)\n- ÷ 1024 = **256 KiB** (1)\nCorrect answer with no working: 2 marks.",
+            "points": [
+              {
+                "criterion": "2¹⁸ = 262 144 bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "256 KiB",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "256",
+                "256 KiB",
+                "256 KB",
+                "256KiB",
+                "256KB"
+              ],
+              "numeric": true
+            },
+            "model_answer": "18 address lines give 2¹⁸ = 262 144 different addresses. With one byte per location that is 262 144 bytes ÷ 1024 = 256 KiB."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-1c",
+          "part_label": "(c)",
+          "title": "Writing a value to memory",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "A new reading, **25**, must be stored at address **120**. Describe how the CPU writes this value to memory.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- address 120 is placed in the **MAR** and the data 25 in the **MDR** (1)\n- the address is sent on the **address bus** and the data on the **data bus** (1)\n- the control unit sends a **memory write** signal on the **control bus**; 25 is stored at address 120, overwriting the old contents (1)",
+            "points": [
+              {
+                "criterion": "120 → MAR and 25 → MDR",
+                "marks": 1
+              },
+              {
+                "criterion": "Address bus and data bus used",
+                "marks": 1
+              },
+              {
+                "criterion": "Memory write signal on control bus / old value overwritten",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The CPU copies the address 120 into the MAR and the value 25 into the MDR. The MAR puts 120 on the address bus and the MDR puts 25 on the data bus. The control unit sends a memory write signal on the control bus, and memory stores 25 in location 120, overwriting the previous reading."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "mem-nx-2",
+      "title": "Addressing modes",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Part of the microcontroller's memory is shown below. The **index register (IX)** contains **4**.\n\n| Address | Contents |\n|---|---|\n| 50 | 64 |\n| 51 | 19 |\n| 52 | 7 |\n| 54 | 33 |\n| 64 | 91 |\n\nThe instructions use these addressing modes: `LDM #n` immediate, `LDD n` direct, `LDI n` indirect, `LDX n` indexed. Each instruction loads a value into the accumulator (ACC).",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-2a",
+          "part_label": "(a)",
+          "title": "Values loaded",
+          "type": "table_completion",
+          "marks": 4,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "Complete the table to show the value in the ACC after each instruction is executed on its own.",
+          "content": {
+            "columns": [
+              "Instruction",
+              "Value in ACC"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "`LDM #50`",
+                null
+              ],
+              [
+                "`LDD 50`",
+                null
+              ],
+              [
+                "`LDI 50`",
+                null
+              ],
+              [
+                "`LDX 50`",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "LDM #50 → 50 (1)\nLDD 50 → 64 (1)\nLDI 50 → 91 (address 50 holds 64; contents of 64) (1)\nLDX 50 → 33 (50 + 4 = 54) (1)",
+            "points": [
+              {
+                "criterion": "50",
+                "marks": 1
+              },
+              {
+                "criterion": "64",
+                "marks": 1
+              },
+              {
+                "criterion": "91",
+                "marks": 1
+              },
+              {
+                "criterion": "33",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "50"
+                ],
+                [
+                  null,
+                  "64"
+                ],
+                [
+                  null,
+                  "91"
+                ],
+                [
+                  null,
+                  "33"
+                ]
+              ]
+            },
+            "model_answer": "LDM #50 loads the value 50 itself. LDD 50 loads the contents of address 50 = 64. LDI 50: address 50 holds 64, so the contents of address 64 = 91 are loaded. LDX 50: address 50 + IX (4) = 54, contents 33."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-2b",
+          "part_label": "(b)",
+          "title": "Indexed addressing for readings",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "The program stores **30** temperature readings in consecutive addresses starting at 200. Explain why indexed addressing is suitable for adding up all the readings.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- the address used is the base address (200) **+ the contents of the index register** (1)\n- IX is incremented each time round a loop, so the **same instruction** accesses each reading in turn / no need for 30 separate instructions (1)",
+            "points": [
+              {
+                "criterion": "Address = base + IX",
+                "marks": 1
+              },
+              {
+                "criterion": "Increment IX in a loop → same instruction reads each element",
+                "marks": 1
+              }
+            ],
+            "model_answer": "With indexed addressing the address is the operand (200) plus the contents of IX. Starting with IX = 0 and adding 1 to IX each time round a loop, the same instruction reads addresses 200, 201, 202 … 229, so all 30 readings are processed without writing 30 separate instructions."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-2c",
+          "part_label": "(c)",
+          "title": "Two memory accesses",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.4.1"
+          ],
+          "text": "Identify the instruction in part (a) that needs **two** memory accesses to fetch its data.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "LDI 50 (indirect addressing) (1)",
+            "points": [
+              {
+                "criterion": "LDI 50",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "LDI 50",
+                "LDI",
+                "LDI50",
+                "indirect",
+                "indirect addressing"
+              ]
+            },
+            "model_answer": "LDI 50 — it reads address 50 to find the address 64, then reads address 64."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "mem-nx-3",
+      "title": "Storing programs and data",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The microcontroller's program and its data are both held in the same main memory. Address **140** contains the bit pattern **0100 0001**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-3a",
+          "part_label": "(a)",
+          "title": "Stored-program concept",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2"
+          ],
+          "text": "Explain the **stored-program concept**.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- program instructions and data are stored **together in the same main memory**, both in binary (1)\n- instructions are **fetched** from memory one at a time, decoded and executed **in sequence** (PC incremented) (1)\n- the computer can run a different program by **loading it into memory**, without changing the hardware / rewiring (1)\nAccept: instructions and data use the same buses (1). (Max 3.)",
+            "points": [
+              {
+                "criterion": "Instructions and data in the same memory",
+                "marks": 1
+              },
+              {
+                "criterion": "Fetched, decoded, executed one at a time in sequence",
+                "marks": 1
+              },
+              {
+                "criterion": "Program changed by loading software, not rewiring / same buses",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In the stored-program (von Neumann) concept, program instructions and data are both stored in binary in the same main memory and use the same buses. The CPU fetches the instructions one at a time from consecutive addresses, decodes and executes them, incrementing the program counter after each fetch. To make the computer do a different job, a different program is simply loaded into memory — no rewiring is needed."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-3b",
+          "part_label": "(b)",
+          "title": "Instruction or data?",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2"
+          ],
+          "text": "Explain how the CPU decides whether the contents of address 140 are treated as an **instruction** or as **data**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- memory itself does not distinguish them; it depends on how the address is used / context (1)\n- if the **program counter** points to 140 during the **fetch** stage it is treated as an instruction; if 140 is used as an **operand** by an instruction it is treated as data (1)",
+            "points": [
+              {
+                "criterion": "Depends on context / memory cannot tell",
+                "marks": 1
+              },
+              {
+                "criterion": "PC fetch → instruction; used as operand → data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The bit pattern itself could be the letter A, the number 65 or an instruction — memory does not know which. If the program counter holds 140 during the fetch stage, the word is fetched into the CIR and treated as an instruction; if another instruction uses 140 as its operand, the word is treated as data."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-3c",
+          "part_label": "(c)",
+          "title": "Avoiding the bottleneck",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2"
+          ],
+          "text": "Some microcontrollers use the **Harvard architecture** instead. Explain how it avoids the **von Neumann bottleneck**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- in von Neumann, instructions and data share one memory and one bus, so they cannot be transferred at the same time / the CPU waits (1)\n- Harvard has **separate memories and separate buses** for instructions and data, so the next instruction can be fetched **at the same time** as data is read or written (1)",
+            "points": [
+              {
+                "criterion": "Bottleneck: shared memory/bus, cannot fetch both at once",
+                "marks": 1
+              },
+              {
+                "criterion": "Harvard: separate memories and buses → simultaneous access",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In the von Neumann architecture instructions and data share the same memory and bus, so an instruction and its data cannot be transferred at the same time and the CPU often waits. The Harvard architecture gives instructions and data separate memories with separate buses, so the next instruction can be fetched while data is being read or written, removing the bottleneck."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "mem-nx-4",
+      "title": "Paging and segmentation",
+      "type": "structured",
+      "marks": 10,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A school server's operating system manages memory. In one configuration it uses **paging** with a page size of **2 KiB (2 048 bytes)**. The page table of a process is:\n\n| Page | Frame |\n|---|---|\n| 0 | 4 |\n| 1 | 9 |\n| 2 | 6 |\n| 3 | 1 |\n\nIn another configuration it uses **segmentation**. The segment table of a process is:\n\n| Segment | Base | Limit |\n|---|---|---|\n| 0 (code) | 2 000 | 600 |\n| 1 (data) | 5 000 | 900 |\n| 2 (stack) | 8 200 | 300 |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-4a",
+          "part_label": "(a)",
+          "title": "Translating with paging",
+          "type": "calculation",
+          "marks": 3,
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "text": "Calculate the physical address for the logical address **5 000** using the page table. Show your working.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- page number = 5 000 div 2 048 = **2** (1)\n- offset = 5 000 − 2 × 2 048 = **904** (1)\n- page 2 → frame 6: 6 × 2 048 + 904 = **13 192** (1)\nFollow through from a wrong page or offset.",
+            "points": [
+              {
+                "criterion": "Page 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Offset 904",
+                "marks": 1
+              },
+              {
+                "criterion": "6 × 2048 + 904 = 13 192",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "13192",
+                "13 192",
+                "13,192"
+              ],
+              "numeric": true
+            },
+            "model_answer": "Page = 5 000 div 2 048 = 2; offset = 5 000 − 4 096 = 904. Page 2 is in frame 6, so the physical address = 6 × 2 048 + 904 = 12 288 + 904 = 13 192."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-4b",
+          "part_label": "(b)",
+          "title": "Pages for a program",
+          "type": "labelled_answers",
+          "marks": 2,
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "text": "A program needs **11 KiB** of memory and is loaded with the 2 KiB pages.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Number of pages needed",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Memory unused in the last page (KiB)",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "6 pages (11 ÷ 2 = 5.5, round up) (1)\n6 × 2 − 11 = 1 KiB unused (internal fragmentation) (1)",
+            "points": [
+              {
+                "criterion": "6 pages",
+                "marks": 1
+              },
+              {
+                "criterion": "1 KiB",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "fields": {
+                "1": [
+                  "6",
+                  "6 pages",
+                  "six"
+                ],
+                "2": [
+                  "1",
+                  "1 KiB",
+                  "1 KB",
+                  "1KiB",
+                  "1KB",
+                  "1024",
+                  "1024 bytes",
+                  "1 024 bytes"
+                ]
+              }
+            },
+            "model_answer": "11 ÷ 2 = 5.5, so 6 pages are needed (always round up). 6 pages give 12 KiB, so 12 − 11 = 1 KiB of the last page is unused."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-4c",
+          "part_label": "(c)",
+          "title": "Translating with segmentation",
+          "type": "table_completion",
+          "marks": 3,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "text": "Complete the table using the segment table. Write the physical address, or write **error** if the address is not valid.",
+          "content": {
+            "columns": [
+              "Logical address (segment, offset)",
+              "Physical address"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "(1, 450)",
+                null
+              ],
+              [
+                "(2, 300)",
+                null
+              ],
+              [
+                "(0, 599)",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "(1, 450): 450 < 900, 5 000 + 450 = 5 450 (1)\n(2, 300): 300 is not < 300 → error (1)\n(0, 599): 599 < 600, 2 000 + 599 = 2 599 (1)",
+            "points": [
+              {
+                "criterion": "5450",
+                "marks": 1
+              },
+              {
+                "criterion": "error",
+                "marks": 1
+              },
+              {
+                "criterion": "2599",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "5450||5 450||5,450"
+                ],
+                [
+                  null,
+                  "error||invalid||segmentation fault||not valid||fault"
+                ],
+                [
+                  null,
+                  "2599||2 599||2,599"
+                ]
+              ]
+            },
+            "model_answer": "(1, 450): 450 < 900, so 5 000 + 450 = 5 450. (2, 300): the offset must be less than the limit 300, so this is an error (segmentation fault). (0, 599): 599 < 600, so 2 000 + 599 = 2 599."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-4d",
+          "part_label": "(d)",
+          "title": "Paging vs segmentation",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "compare",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "text": "Give **two** differences between paging and segmentation.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Each difference must refer to both (one-sided: 0). Any two:\n- paging uses fixed-size pages whereas segments are variable size (1)\n- pages are based on physical size whereas segments follow the logical structure of the program (code, data, stack) (1)\n- paging causes internal fragmentation whereas segmentation causes external fragmentation (1)\n- page table maps page → frame whereas segment table stores base and limit (1)\n- paging is invisible to the programmer whereas segments are visible / easier to share and protect (1)\n(Max 2.)",
+            "points": [
+              {
+                "criterion": "Difference 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Difference 2",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Award a mark only for a point that states both sides.",
+            "model_answer": "Paging divides memory into fixed-size pages, whereas segmentation uses variable-size segments that follow the logical parts of the program. Paging suffers from internal fragmentation (part of the last page is unused), whereas segmentation suffers from external fragmentation (holes between segments)."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "mem-nx-5",
+      "title": "Virtual memory and virtual machines",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Aruzhan's laptop has **8 GB** of RAM. She often has a browser, a video editor and a programming environment open at the same time, which together need more than 8 GB. In the computer science lab she also uses **VirtualBox** to run **Linux** on a Windows PC, and she writes **Java** programs that her classmates run on macOS.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-5a",
+          "part_label": "(a)",
+          "title": "Virtual memory",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.2@paper"
+          ],
+          "text": "Explain how **virtual memory** allows Aruzhan to keep all three programs open, and one problem this may cause.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- part of **secondary storage** (disk / SSD) is used as an **extension of RAM** (1)\n- pages that are not currently needed are moved out to disk and paged back into a free frame when needed (page fault) (1)\n- problem: disk is much slower than RAM; if too much swapping happens the computer spends most of its time moving pages — **disk thrashing** — and slows down (1)",
+            "points": [
+              {
+                "criterion": "Secondary storage used as extra RAM",
+                "marks": 1
+              },
+              {
+                "criterion": "Unused pages swapped out / paged in when needed",
+                "marks": 1
+              },
+              {
+                "criterion": "Slower / disk thrashing",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Virtual memory uses part of the disk or SSD as an extension of main memory. Pages of the programs she is not using at that moment are moved out to the swap file on disk, and when a program needs one of them a page fault occurs and the page is loaded back into a free frame. Because the disk is much slower than RAM, switching between the programs may be slow, and if RAM is far too small the computer may spend most of its time swapping pages (disk thrashing)."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-5b",
+          "part_label": "(b)",
+          "title": "Concept of a virtual machine",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.3"
+          ],
+          "text": "Explain the concept of a **virtual machine**, using Aruzhan's use of VirtualBox as an example. Use the terms **host** and **guest**.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- software that **emulates a complete computer** (processor, memory, storage, devices) (1)\n- the real Windows PC is the **host**; Linux runs as the **guest** OS as if on its own hardware (1)\n- the **hypervisor** (VirtualBox) shares the host's hardware between VMs / the guest is **isolated**, so errors in Linux do not harm Windows (1)",
+            "points": [
+              {
+                "criterion": "Software emulating a complete computer",
+                "marks": 1
+              },
+              {
+                "criterion": "Host = Windows PC, guest = Linux",
+                "marks": 1
+              },
+              {
+                "criterion": "Hypervisor shares hardware / isolation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A virtual machine is software that emulates a complete computer — processor, memory, disk and devices. VirtualBox (the hypervisor) runs on the real Windows PC, the host, and gives the VM a share of its CPU time, RAM and a virtual disk file. Linux is installed as the guest operating system and runs as if it had its own hardware; it is isolated, so if Aruzhan breaks something in Linux the Windows host is not affected."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "mem-nx-5c",
+          "part_label": "(c)",
+          "title": "Java on another platform",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.4.3"
+          ],
+          "text": "Explain why Aruzhan's compiled Java program runs on her classmates' macOS computers without being recompiled.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- Java is compiled to **bytecode**, not to the machine code of one particular CPU / OS (1)\n- each platform has a **Java Virtual Machine** (process VM) that translates / runs the bytecode on that computer (1)",
+            "points": [
+              {
+                "criterion": "Compiled to bytecode",
+                "marks": 1
+              },
+              {
+                "criterion": "JVM on each platform runs the bytecode",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The Java compiler produces bytecode, an intermediate code that is not tied to any processor or operating system. Every platform has its own Java Virtual Machine — a process virtual machine — which translates and runs the same bytecode on that computer, so the program works on macOS without recompiling."
+          }
+        }
+      ]
     }
   ],
   "summary": "How main memory is organised into addressed locations, how the address bus width sets the number of addresses, addressing modes (immediate, direct, indirect, indexed, relative), the stored-program (von Neumann) principle and Harvard architecture, memory organisation by pages and segments with address translation, virtual memory, and virtual machines.",
@@ -2410,13 +3196,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 40,
     "title": "Memory addressing — Exam (Paper 1 style)",
-    "instructions": "Answer **all** questions. Show your working in calculations. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Show your working in calculations. Use 1 KiB = 1024 bytes. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "mem-exam-1",
-      "mem-exam-2",
-      "mem-exam-3"
+      "mem-nx-1",
+      "mem-nx-2",
+      "mem-nx-3",
+      "mem-nx-4",
+      "mem-nx-5"
     ]
   },
   "lessons": [
