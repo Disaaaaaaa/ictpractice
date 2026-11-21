@@ -28,7 +28,329 @@
               "method"
             ]
           ]
+        },
+        "explanation": "`action` gives the address of the script that receives the data; `method` says how it is sent (get or post)."
+      }
+    },
+    {
+      "key": "frm-l1-form-job",
+      "title": "The job of a form",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Which statement best describes an **HTML form**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "It collects data from the user and sends it to a script, which processes it"
+        },
+        {
+          "key": "B",
+          "content": "It checks the data, calculates the result and saves it in the database by itself"
+        },
+        {
+          "key": "C",
+          "content": "It encrypts the data so that nobody can read it"
+        },
+        {
+          "key": "D",
+          "content": "It is a script that runs on the web server"
         }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — It collects data from the user and sends it to a script, which processes it",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "HTML only describes the boxes and buttons. A form collects the data and sends it; the work (checking, calculating, saving) is done by a script."
+      }
+    },
+    {
+      "key": "frm-l1-default-method",
+      "title": "Method left out",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A form starts with `<form action=\"find.php\">` — it has no `method` attribute. How is the data sent when the form is submitted?",
+      "options": [
+        {
+          "key": "A",
+          "content": "With GET, in the query string of the URL"
+        },
+        {
+          "key": "B",
+          "content": "With POST, in the body of the request"
+        },
+        {
+          "key": "C",
+          "content": "It is not sent — a form without a method cannot be submitted"
+        },
+        {
+          "key": "D",
+          "content": "With both GET and POST"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — With GET, in the query string of the URL",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "If `method` is left out the browser uses **GET**, so the data appears in the URL, e.g. `find.php?city=Astana`."
+      }
+    },
+    {
+      "key": "frm-l1-script-once",
+      "title": "Does the script wait?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "After a PHP script has sent its output, it keeps running on the server and waits for the user to submit the form again.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "False. A PHP script runs **once per request**, from top to bottom, then finishes. If the form is submitted again, the script starts again from the beginning with the new data."
+      }
+    },
+    {
+      "key": "frm-l1-cycle-order",
+      "title": "The request–response cycle",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Put the events of the request–response cycle in order. Match each event to its position.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "The browser asks the web server for the page that contains the form"
+          },
+          {
+            "key": "L2",
+            "text": "The user clicks submit and the browser sends the form data to the address in `action`"
+          },
+          {
+            "key": "L3",
+            "text": "The script reads, validates and processes the data and outputs new HTML"
+          },
+          {
+            "key": "L4",
+            "text": "The server sends the new HTML back and the browser displays the result page"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "1st"
+          },
+          {
+            "key": "R2",
+            "text": "2nd"
+          },
+          {
+            "key": "R3",
+            "text": "3rd"
+          },
+          {
+            "key": "R4",
+            "text": "4th"
+          }
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "The browser asks the web server for the page that contains the form → 1st; The user clicks submit and the browser sends the form data to the address in `action` → 2nd; The script reads, validates and processes the data and outputs new HTML → 3rd; The server sends the new HTML back and the browser displays the result page → 4th",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "Request for the page → response with the form → user submits (new request with the data) → script runs and outputs HTML → response shown in the browser."
+      }
+    },
+    {
+      "key": "frm-l1-query-parts",
+      "title": "Parts of a query string",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "With the GET method the browser adds a **query string** to the URL, for example `search.php?city=Astana&type=dental`.\n\nThe query string starts with the character [[1]]. Each field is written as name[[2]]value, and the fields are separated by the character [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) ? (2) = (3) &",
+        "accepted": {
+          "blanks": [
+            [
+              "?",
+              "question mark",
+              "a question mark"
+            ],
+            [
+              "=",
+              "equals",
+              "equals sign",
+              "an equals sign"
+            ],
+            [
+              "&",
+              "ampersand",
+              "an ampersand"
+            ]
+          ]
+        },
+        "explanation": "`?` once after the script name, `name=value` for each field, `&` between the pairs."
+      }
+    },
+    {
+      "key": "frm-l1-controls",
+      "title": "Choose the control",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Match each requirement of a pizza order form to the most suitable control.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Choose exactly one of three sizes"
+          },
+          {
+            "key": "L2",
+            "text": "Tick any number of toppings"
+          },
+          {
+            "key": "L3",
+            "text": "Choose one of the 17 regions of Kazakhstan from a list"
+          },
+          {
+            "key": "L4",
+            "text": "Send the ID of the café branch without showing it to the user"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Radio buttons with the same name"
+          },
+          {
+            "key": "R2",
+            "text": "Checkboxes"
+          },
+          {
+            "key": "R3",
+            "text": "Drop-down list (`<select>`)"
+          },
+          {
+            "key": "R4",
+            "text": "Hidden field"
+          },
+          {
+            "key": "R5",
+            "text": "Text area"
+          },
+          {
+            "key": "R6",
+            "text": "Password box"
+          }
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Choose exactly one of three sizes → Radio buttons with the same name; Tick any number of toppings → Checkboxes; Choose one of the 17 regions of Kazakhstan from a list → Drop-down list (`<select>`); Send the ID of the café branch without showing it to the user → Hidden field",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "Radio buttons sharing one name allow exactly one choice; checkboxes are independent; `<select>` saves space for a long list; a hidden field carries a value the user does not need to see."
+      }
+    },
+    {
+      "key": "frm-get-url",
+      "title": "GET URL",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A form with `action=\"search.php\" method=\"get\"` has a field named **q**. The user types **robots**. Which URL is requested?",
+      "options": [
+        {
+          "key": "A",
+          "content": "search.php/robots"
+        },
+        {
+          "key": "B",
+          "content": "search.php?q=robots"
+        },
+        {
+          "key": "C",
+          "content": "search.php#q=robots"
+        },
+        {
+          "key": "D",
+          "content": "search.php — the data is in the request body"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B — search.php?q=robots",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "GET adds the data to the URL as a query string: `?` then `name=value`. Data in the request body is POST."
       }
     },
     {
@@ -38,7 +360,7 @@
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.4"
       ],
@@ -76,25 +398,7 @@
         ]
       },
       "scheme": {
-        "mark_scheme": "GET; POST; GET; POST (1 each)",
-        "points": [
-          {
-            "criterion": "Row 1",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 2",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 3",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 4",
-            "marks": 1
-          }
-        ],
+        "mark_scheme": "Data appears in the URL after a ? — GET; Should be used for a login form — POST; The results page can be bookmarked — GET; Can be used to upload a file — POST",
         "accepted": {
           "rows": [
             [
@@ -118,43 +422,204 @@
               "✓"
             ]
           ]
-        }
+        },
+        "explanation": "GET puts the data in the URL (visible, bookmarkable, limited length). POST puts it in the request body — used for passwords and files."
+      }
+    },
+    {
+      "key": "frm-l1-choose-method",
+      "title": "Choose the method",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A school website has six forms. Tick (✓) the method that should be used for each.",
+      "content": {
+        "columns": [
+          "Form",
+          "GET",
+          "POST"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Search the library catalogue by author",
+            null,
+            null
+          ],
+          [
+            "Log in to the e-journal",
+            null,
+            null
+          ],
+          [
+            "A teacher uploads a PDF of homework",
+            null,
+            null
+          ],
+          [
+            "Show the timetable of class 11B (pupils bookmark it)",
+            null,
+            null
+          ],
+          [
+            "Order lunch from the canteen",
+            null,
+            null
+          ],
+          [
+            "Go to page 3 of the search results",
+            null,
+            null
+          ]
+        ],
+        "hint": "Does the request only read data, or does it change something / contain private data?"
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Search the library catalogue by author — GET; Log in to the e-journal — POST; A teacher uploads a PDF of homework — POST; Show the timetable of class 11B (pupils bookmark it) — GET; Order lunch from the canteen — POST; Go to page 3 of the search results — GET",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Use **GET** when the request only fetches information and a bookmark is useful (search, timetable, page numbers). Use **POST** when it changes data on the server or is private (login, upload, order)."
+      }
+    },
+    {
+      "key": "frm-l1-query-string",
+      "title": "Write the GET URL",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A search form uses `method=\"get\"` and `action=\"find.php\"`. It has two text boxes: the first is named **city** and the second is named **type**. The user enters **Almaty** and **dental**.\n\nWrite the URL (starting with `find.php`) that the browser requests.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "find.php?city=Almaty&type=dental — ? and first pair (1); & and second pair (1)",
+        "accepted": {
+          "values": [
+            "find.php?city=Almaty&type=dental"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "`find.php?city=Almaty&type=dental` — `?` after the script name with the first pair, then `&` before the second pair. Never a second `?` or a comma."
+      }
+    },
+    {
+      "key": "frm-l1-post-encrypted",
+      "title": "Is POST encrypted?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Data sent with the POST method is encrypted, so nobody watching the network can read the password.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "False. POST only keeps the data out of the URL, history and logs. Anyone watching the traffic can read a POST body unless the site uses **HTTPS**, which does the encryption."
       }
     },
     {
       "key": "frm-name-attr",
       "title": "The name attribute",
-      "type": "short_answer",
+      "type": "multiple_response",
       "marks": 2,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.4"
       ],
       "practice": true,
-      "text": "Explain why every input field in a form needs a **name** attribute.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Which **two** statements explain why every input control in a form needs a `name` attribute?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The value is sent as a name = value pair; a control without a name is not sent at all"
+        },
+        {
+          "key": "B",
+          "content": "The script uses the name as the key to read the value, e.g. `$_POST[\"price\"]`"
+        },
+        {
+          "key": "C",
+          "content": "The name is the text the user sees next to the box"
+        },
+        {
+          "key": "D",
+          "content": "The name is used by CSS to style the control"
+        },
+        {
+          "key": "E",
+          "content": "A control with a name must be filled in before the form can be submitted"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- The value is sent as a name = value pair; fields without a name are not sent (1)\n- the script uses the name as the key to read the value, e.g. $_POST[\"price\"] (1)",
-        "points": [
-          {
-            "criterion": "Sent as name=value",
-            "marks": 1
-          },
-          {
-            "criterion": "Key in script",
-            "marks": 1
-          }
-        ],
-        "model_answer": "The browser sends each field as name=value, and the PHP script reads it using that name, e.g. $_POST[\"price\"]; a field with no name is not sent at all."
+        "mark_scheme": "A — The value is sent as a name = value pair; a control without a name is not sent at all; B — The script uses the name as the key to read the value, e.g. `$_POST[\"price\"]` (1 mark per correct option, −1 per wrong one)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "The `name` is the **key** that links the form to the script. The caption is a `<label>`, CSS and labels use `id`, and `required` makes a field compulsory."
       }
     },
     {
-      "key": "frm-get-url",
-      "title": "GET URL",
+      "key": "frm-l1-no-name",
+      "title": "The script gets nothing",
       "type": "mcq",
       "marks": 1,
       "difficulty": "medium",
@@ -164,101 +629,748 @@
         "11.5.4.4"
       ],
       "practice": true,
-      "text": "A form with `action=\"search.php\" method=\"get\"` has a field named **q**. The user types **robots**. Which URL is requested?",
+      "text": "```html\n<form action=\"total.php\" method=\"post\">\n  <input type=\"number\" id=\"qty\">\n  <input type=\"submit\" value=\"Send\">\n</form>\n```\n\nIn `total.php`, the line `$qty = $_POST[\"qty\"];` gives the warning *Undefined array key \"qty\"*. What is the most likely reason?",
       "options": [
         {
           "key": "A",
-          "content": "search.php/robots"
+          "content": "The input has no `name` attribute, so its value is not sent"
         },
         {
           "key": "B",
-          "content": "search.php?q=robots"
+          "content": "The `id` should be written with a capital letter: `Qty`"
         },
         {
           "key": "C",
-          "content": "search.php#q=robots"
+          "content": "Number inputs are never sent to a script"
         },
         {
           "key": "D",
-          "content": "search.php — the data is in the request body"
+          "content": "The form should use `method=\"get\"` to send numbers"
         }
       ],
+      "source": "original",
       "scheme": {
-        "mark_scheme": "B",
+        "mark_scheme": "A — The input has no `name` attribute, so its value is not sent",
         "accepted": {
-          "correct": "B"
+          "correct": "A"
+        },
+        "explanation": "Only controls with a `name` are sent. The `id` is used by labels, CSS and JavaScript, not by the request. Fix: `<input type=\"number\" id=\"qty\" name=\"qty\">`."
+      }
+    },
+    {
+      "key": "frm-l1-radio-names",
+      "title": "Radio buttons with different names",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```html\n<input type=\"radio\" name=\"small\" value=\"S\"> Small\n<input type=\"radio\" name=\"medium\" value=\"M\"> Medium\n<input type=\"radio\" name=\"large\" value=\"L\"> Large\n```\n\nThe user should choose exactly **one** size. What is wrong with this HTML?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Each button has a different name, so the user can select all three"
+        },
+        {
+          "key": "B",
+          "content": "Radio buttons must not have a value attribute"
+        },
+        {
+          "key": "C",
+          "content": "Nothing — only one radio button can ever be selected on a page"
+        },
+        {
+          "key": "D",
+          "content": "The values must be numbers"
         }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — Each button has a different name, so the user can select all three",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Radio buttons work as a group only when they share the **same name** (e.g. `name=\"size\"`). With different names the browser treats them as three separate questions."
+      }
+    },
+    {
+      "key": "frm-l1-wrong-line",
+      "title": "Find the error",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```php\n1   <form action=\"total.php\" method=\"get\">\n2     <input type=\"number\" name=\"price\">\n3     <input type=\"number\" name=\"qty\">\n4     <input type=\"submit\" value=\"Total\">\n5   </form>\n\n6   <?php   // total.php\n7   $price = (float)$_GET[\"price\"];\n8   $qty = (int)$_POST[\"qty\"];\n9   echo $price * $qty;\n10  ?>\n```\n\nState the **line number** that contains the error.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "8",
+        "accepted": {
+          "values": [
+            "8",
+            "line 8"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "The form uses `method=\"get\"`, so every value must be read from `$_GET`. Line 8 reads `$_POST[\"qty\"]`, which does not exist. Correct: `$qty = (int)$_GET[\"qty\"];`"
+      }
+    },
+    {
+      "key": "frm-l1-js-strings",
+      "title": "Form values are strings",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "The user types **2** into box `a` and **3** into box `b`.\n\n```javascript\nconst form = document.getElementById(\"calc\");\nconst a = form.elements[\"a\"].value;\nconst b = form.elements[\"b\"].value;\nconsole.log(a + b);                  // line X\nconsole.log(Number(a) + Number(b));  // line Y\n```\n\nLine X outputs [[1]] and line Y outputs [[2]].",
+      "content": {
+        "blank_count": 2
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 23 (2) 5",
+        "accepted": {
+          "blanks": [
+            [
+              "23",
+              "\"23\"",
+              "'23'"
+            ],
+            [
+              "5"
+            ]
+          ]
+        },
+        "explanation": "All form data arrives as **strings**. `\"2\" + \"3\"` joins the strings → `23`. After converting with `Number()` the values are added → `5`."
+      }
+    },
+    {
+      "key": "frm-l1-browser-check",
+      "title": "Browser validation is enough?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "If an input has the attributes `required` and `max=\"10\"`, the PHP script does not need to check the value again.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "False. Browser checks give instant feedback but can be switched off by editing the page or bypassed by sending a request directly. The **server must always check the data again**."
+      }
+    },
+    {
+      "key": "frm-l1-server-client",
+      "title": "Server-side or client-side",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each statement describes **server-side (PHP)** or **client-side (JavaScript)** processing of a form.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Server-side (PHP)",
+          "Client-side (JavaScript)"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Cannot be bypassed by the user",
+            null,
+            null
+          ],
+          [
+            "Gives instant feedback without reloading the page",
+            null,
+            null
+          ],
+          [
+            "Can read prices and passwords from the database",
+            null,
+            null
+          ],
+          [
+            "The user can see the code in the page source",
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Cannot be bypassed by the user — Server-side (PHP); Gives instant feedback without reloading the page — Client-side (JavaScript); Can read prices and passwords from the database — Server-side (PHP); The user can see the code in the page source — Client-side (JavaScript)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Check in the browser for **convenience** (instant, but visible and can be bypassed); check on the server for **security** (cannot be changed by the user, has access to the database)."
+      }
+    },
+    {
+      "key": "frm-l1-handler-order",
+      "title": "Order of steps in a form handler",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Which order of steps should a PHP form handler follow?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Check that data was sent → read each value by its name → convert numbers → validate → process → output (escaped)"
+        },
+        {
+          "key": "B",
+          "content": "Read each value → process → output → validate → check that data was sent"
+        },
+        {
+          "key": "C",
+          "content": "Validate → output → read each value → check that data was sent → process"
+        },
+        {
+          "key": "D",
+          "content": "Output → process → read each value → validate"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — Check that data was sent → read each value by its name → convert numbers → validate → process → output (escaped)",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Check → read → convert → validate → process → output. Data must be read and validated before it is used, and output comes last, escaped with `htmlspecialchars()`."
+      }
+    },
+    {
+      "key": "frm-l1-xss-name",
+      "title": "Name the attack",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "name",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A script prints back whatever the user typed in the **name** box. An attacker types `<script>…</script>` instead of a name, and the browser of everyone who views the page runs that code.\n\nName this type of attack.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "cross-site scripting",
+        "accepted": {
+          "values": [
+            "cross-site scripting",
+            "cross site scripting",
+            "xss",
+            "cross-site scripting (xss)",
+            "cross site scripting (xss)",
+            "xss attack",
+            "cross-site scripting attack",
+            "cross site scripting attack"
+          ]
+        },
+        "explanation": "This is **cross-site scripting (XSS)**. The defence is to escape output with `htmlspecialchars()`."
       }
     },
     {
       "key": "frm-read-php",
       "title": "Read and calculate",
-      "type": "code_completion",
+      "type": "fill_blank",
       "marks": 4,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.4"
       ],
       "practice": true,
-      "text": "A form sends the fields **price** and **quantity** using POST to **cost.php**. Write the PHP code in cost.php that reads both values, calculates the total, and outputs \"Total: … tenge\". If the quantity is **5 or more**, apply a **5%** discount.",
+      "text": "A form sends the fields **price** and **quantity** by POST to **cost.php**. If the quantity is **5 or more**, a **5%** discount is applied. Complete the PHP code.\n\n```php\n<?php\nif (isset($_POST[\"price\"], $_POST[\"quantity\"])) {\n    $price = [[1]]$_POST[\"price\"];       // convert to a decimal number\n    $quantity = (int)[[2]];\n    $total = $price * $quantity;\n    if ($quantity [[3]] 5) {\n        $total = $total * [[4]];\n    }\n    echo \"Total: \" . $total . \" tenge\";\n}\n?>\n```",
       "content": {
-        "language": "html",
-        "starter_code": "<?php\n\n?>"
+        "blank_count": 4
       },
       "scheme": {
-        "mark_scheme": "- reads $_POST[\"price\"] and $_POST[\"quantity\"] (1)\n- converts / calculates price × quantity (1)\n- if quantity >= 5 multiply by 0.95 (1)\n- echo with the total (1)",
-        "points": [
-          {
-            "criterion": "Reads POST",
-            "marks": 1
-          },
-          {
-            "criterion": "Total",
-            "marks": 1
-          },
-          {
-            "criterion": "Discount",
-            "marks": 1
-          },
-          {
-            "criterion": "Output",
-            "marks": 1
-          }
+        "mark_scheme": "(1) (float) (2) $_POST[\"quantity\"] (3) >= (4) 0.95",
+        "accepted": {
+          "blanks": [
+            [
+              "(float)",
+              "(double)",
+              "floatval"
+            ],
+            [
+              "$_POST[\"quantity\"]",
+              "$_POST['quantity']"
+            ],
+            [
+              ">="
+            ],
+            [
+              "0.95",
+              "(1-0.05)",
+              "(1-5/100)",
+              ".95"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "Convert the price with `(float)`, read the quantity with `$_POST[\"quantity\"]`, test `>= 5` (\"5 or more\"), and multiply by 0.95 (100% − 5%)."
+      }
+    },
+    {
+      "key": "frm-l1-what-sent",
+      "title": "What is sent?",
+      "type": "multiple_response",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```html\n<form action=\"order.php\" method=\"post\">\n  Name: <input type=\"text\" name=\"customer\">\n  Size: <input type=\"radio\" name=\"size\" value=\"S\"> S\n        <input type=\"radio\" name=\"size\" value=\"M\"> M\n  <input type=\"checkbox\" name=\"cheese\" value=\"yes\"> Cheese\n  <input type=\"checkbox\" name=\"olives\" value=\"yes\"> Olives\n  Comment: <textarea name=\"comment\"></textarea>\n  Promo code: <input type=\"text\" id=\"promo\">\n  <input type=\"submit\" value=\"Order\">\n</form>\n```\n\nDana types her name, chooses size **M**, ticks **Cheese** only, leaves the comment **empty** and types **SALE** as the promo code. Which **four** name = value pairs are sent?",
+      "options": [
+        {
+          "key": "A",
+          "content": "customer=Dana"
+        },
+        {
+          "key": "B",
+          "content": "size=S"
+        },
+        {
+          "key": "C",
+          "content": "size=M"
+        },
+        {
+          "key": "D",
+          "content": "cheese=yes"
+        },
+        {
+          "key": "E",
+          "content": "olives=no"
+        },
+        {
+          "key": "F",
+          "content": "comment= (an empty value)"
+        },
+        {
+          "key": "G",
+          "content": "promo=SALE"
+        }
+      ],
+      "content": {
+        "hint": "A control is sent only if it has a name, and radio buttons / checkboxes only if they are selected."
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — customer=Dana; C — size=M; D — cheese=yes; F — comment= (an empty value) (1 mark per correct option, −1 per wrong one)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D",
+            "F"
+          ]
+        },
+        "explanation": "Only the **chosen** radio button is sent (size=M). An unticked checkbox sends **nothing**, not \"no\". An empty text area is still sent with an empty value. The promo box has only an `id`, no `name`, so it is not sent."
+      }
+    },
+    {
+      "key": "frm-l1-isset-empty",
+      "title": "isset() or empty()",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Complete the table with **true** or **false** for each situation.",
+      "content": {
+        "columns": [
+          "Situation",
+          "isset($_POST[\"f\"])",
+          "empty($_POST[\"f\"])"
         ],
-        "model_answer": "```php\n<?php\n$price = (float)$_POST[\"price\"];\n$quantity = (int)$_POST[\"quantity\"];\n$total = $price * $quantity;\nif ($quantity >= 5) {\n    $total = $total * 0.95;\n}\necho \"Total: $total tenge\";\n?>\n```"
+        "rows": 4,
+        "prefill": [
+          [
+            "Field not sent (a checkbox that was not ticked)",
+            null,
+            null
+          ],
+          [
+            "Text box left blank, so \"\" is sent",
+            null,
+            null
+          ],
+          [
+            "The user typed 0",
+            null,
+            null
+          ],
+          [
+            "The user typed Dana",
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "not sent: false / true; \"\": true / true; 0: true / true; Dana: true / false (1 mark per row)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "false||f",
+              "true||t"
+            ],
+            [
+              null,
+              "true||t",
+              "true||t"
+            ],
+            [
+              null,
+              "true||t",
+              "true||t"
+            ],
+            [
+              null,
+              "true||t",
+              "false||f"
+            ]
+          ]
+        },
+        "explanation": "`isset()` asks \"was this field sent?\"; `empty()` is true when the field is missing **or** its value is \"\", \"0\", 0, null or false. That is why `empty()` is a trap when 0 is a valid answer."
+      }
+    },
+    {
+      "key": "frm-l1-empty-zero",
+      "title": "The empty() trap",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```php\n$absences = $_POST[\"absences\"] ?? \"\";\nif (empty($absences)) {\n    echo \"Please enter the number of absences.\";\n} else {\n    echo \"Absences: \" . (int)$absences;\n}\n```\n\nA pupil who has never been absent types **0** and submits the form. What is output?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Please enter the number of absences."
+        },
+        {
+          "key": "B",
+          "content": "Absences: 0"
+        },
+        {
+          "key": "C",
+          "content": "Nothing is output"
+        },
+        {
+          "key": "D",
+          "content": "An Undefined array key warning"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — Please enter the number of absences.",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "`empty(\"0\")` is **true**, so a valid answer of 0 is treated as blank. For fields where 0 is valid, use `isset($x) && trim($x) !== \"\"` instead."
       }
     },
     {
       "key": "frm-htmlspecialchars",
-      "title": "Untrusted input",
+      "title": "Escaping output",
       "type": "short_answer",
       "marks": 2,
       "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "State exactly what this line sends to the browser.\n\n```php\necho htmlspecialchars(\"<b>Hi</b>\");\n```",
+      "content": {
+        "answer_lines": 1,
+        "hint": "Which HTML entities replace < and >?"
+      },
+      "scheme": {
+        "mark_scheme": "&lt;b&gt;Hi&lt;/b&gt; — both < converted to &lt; (1); both > converted to &gt; (1)",
+        "accepted": {
+          "values": [
+            "&lt;b&gt;Hi&lt;/b&gt;"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "`<` becomes `&lt;` and `>` becomes `&gt;`, so the browser **shows** the text `<b>Hi</b>` instead of making \"Hi\" bold. This stops user input from being run as HTML or JavaScript (cross-site scripting)."
+      }
+    },
+    {
+      "key": "frm-l1-self-processing",
+      "title": "A self-processing page",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.4"
       ],
       "practice": true,
-      "text": "Explain why a PHP script should use `htmlspecialchars()` before displaying a name the user typed into a form.",
+      "text": "Complete the code.\n\n```php\n<?php\n// order.php shows the form and also processes it\nif ($_SERVER[\"REQUEST_METHOD\"] === \"[[1]]\") {\n    $comment = $_POST[\"comment\"] [[2]] \"\";    // \"\" if the field is missing\n    // … process the order …\n}\n?>\n```\n\n```javascript\n// in the browser: stop the form from being sent when there are errors\nform.addEventListener(\"submit\", function (event) {\n  if (hasErrors) {\n    event.[[3]]();\n  }\n});\n```",
       "content": {
-        "answer_lines": 3
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) POST (2) ?? (3) preventDefault",
+        "accepted": {
+          "blanks": [
+            [
+              "POST"
+            ],
+            [
+              "??"
+            ],
+            [
+              "preventDefault"
+            ]
+          ]
+        },
+        "explanation": "`$_SERVER[\"REQUEST_METHOD\"] === \"POST\"` detects that the form was submitted; the null coalescing operator `??` gives a default when a key is missing; `event.preventDefault()` stops the browser sending the form."
+      }
+    },
+    {
+      "key": "frm-l2-why-arrays",
+      "title": "Why use an array?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A teacher stores the marks of 30 pupils. What is the main advantage of an array `Marks[1:30]` over 30 separate variables `Mark1` … `Mark30`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "All the marks are under one identifier, so one loop using the index can process every mark"
+        },
+        {
+          "key": "B",
+          "content": "An array uses no memory"
+        },
+        {
+          "key": "C",
+          "content": "An array sorts the marks automatically"
+        },
+        {
+          "key": "D",
+          "content": "An array can only hold 30 values, so mistakes are impossible"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — All the marks are under one identifier, so one loop using the index can process every mark",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Because the index can be a variable, a single loop (\"for i from 1 to 30\") visits every element — the same short code works for 30 or 3000 values."
+      }
+    },
+    {
+      "key": "frm-array-define",
+      "title": "Define an array",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Complete the definition.\n\nAn **array** is a data structure that holds a fixed number of elements of the same [[1]] under a single [[2]]. Each element is accessed using its [[3]]. In a **one-dimensional** array the elements form a single list, so each element is identified by [[4]] index.",
+      "content": {
+        "blank_count": 4
       },
       "scheme": {
-        "mark_scheme": "- The user could type HTML / JavaScript code instead of a name (1)\n- htmlspecialchars converts < > etc. so it is shown as text and not run (prevents cross-site scripting) (1)",
-        "points": [
+        "mark_scheme": "(1) data type (2) identifier (3) index (4) one",
+        "accepted": {
+          "blanks": [
+            [
+              "data type",
+              "type",
+              "datatype"
+            ],
+            [
+              "identifier",
+              "name",
+              "variable name"
+            ],
+            [
+              "index",
+              "subscript",
+              "position",
+              "index number"
+            ],
+            [
+              "one",
+              "1",
+              "a single",
+              "single",
+              "only one"
+            ]
+          ]
+        },
+        "explanation": "Array: same data type, one identifier, elements accessed by index. One-dimensional: a single row, one index, e.g. `Marks[5]`."
+      }
+    },
+    {
+      "key": "frm-l2-terms",
+      "title": "Array terms",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Match each term to its meaning.",
+      "content": {
+        "left": [
           {
-            "criterion": "Malicious code",
-            "marks": 1
+            "key": "L1",
+            "text": "Element"
           },
           {
-            "criterion": "Shown as text",
-            "marks": 1
+            "key": "L2",
+            "text": "Index"
+          },
+          {
+            "key": "L3",
+            "text": "Lower bound"
+          },
+          {
+            "key": "L4",
+            "text": "Upper bound"
           }
         ],
-        "model_answer": "A user might enter a <script> tag; htmlspecialchars turns the special characters into harmless text, so the code is displayed instead of being executed."
+        "right": [
+          {
+            "key": "R1",
+            "text": "One item of data stored in the array"
+          },
+          {
+            "key": "R2",
+            "text": "The integer position of an element"
+          },
+          {
+            "key": "R3",
+            "text": "The smallest valid index"
+          },
+          {
+            "key": "R4",
+            "text": "The largest valid index"
+          },
+          {
+            "key": "R5",
+            "text": "The number of elements in the array"
+          },
+          {
+            "key": "R6",
+            "text": "The name of the whole array"
+          }
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Element → One item of data stored in the array; Index → The integer position of an element; Lower bound → The smallest valid index; Upper bound → The largest valid index",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "Element = a value; index = its position; lower/upper bound = smallest/largest valid index. The number of elements is the length; the name is the identifier."
       }
     },
     {
@@ -268,7 +1380,7 @@
       "marks": 4,
       "difficulty": "easy",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
@@ -301,24 +1413,6 @@
       },
       "scheme": {
         "mark_scheme": "0 (1); 4 (1); 5 (1); Shymkent (1)",
-        "points": [
-          {
-            "criterion": "0",
-            "marks": 1
-          },
-          {
-            "criterion": "4",
-            "marks": 1
-          },
-          {
-            "criterion": "5",
-            "marks": 1
-          },
-          {
-            "criterion": "Shymkent",
-            "marks": 1
-          }
-        ],
         "accepted": {
           "rows": [
             [
@@ -338,38 +1432,221 @@
               "Shymkent||\"Shymkent\""
             ]
           ]
-        }
+        },
+        "explanation": "PHP arrays start at index 0, so the upper bound is length − 1 = 4. Index 2 is the **third** element, Shymkent."
       }
     },
     {
-      "key": "frm-array-define",
-      "title": "Define an array",
-      "type": "short_answer",
-      "marks": 2,
+      "key": "frm-l2-declare",
+      "title": "Declare an array in pseudocode",
+      "type": "fill_blank",
+      "marks": 3,
       "difficulty": "easy",
-      "command_word": "define",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
       "practice": true,
-      "text": "Define the term **one-dimensional array**.",
+      "text": "Complete the pseudocode declaration of an array that holds the **names** of the **25** pupils of class 11A, numbered from 1.\n\n```pseudocode\nDECLARE Pupils : [[1]][1:[[2]]] OF [[3]]\n```",
       "content": {
-        "answer_lines": 2
+        "blank_count": 3
       },
+      "source": "original",
       "scheme": {
-        "mark_scheme": "- A data structure storing several values of the same data type under one identifier (1)\n- elements in a single list, each accessed by one index (1)",
-        "points": [
-          {
-            "criterion": "Same type, one name",
-            "marks": 1
-          },
-          {
-            "criterion": "One index",
-            "marks": 1
-          }
+        "mark_scheme": "(1) ARRAY (2) 25 (3) STRING",
+        "accepted": {
+          "blanks": [
+            [
+              "ARRAY"
+            ],
+            [
+              "25"
+            ],
+            [
+              "STRING"
+            ]
+          ]
+        },
+        "explanation": "`DECLARE Pupils : ARRAY[1:25] OF STRING` — the keyword ARRAY, the bounds 1 and 25, and the data type of the elements."
+      }
+    },
+    {
+      "key": "frm-l2-bounds",
+      "title": "Bounds and length",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Complete the lower bound, upper bound and length of each array.",
+      "content": {
+        "columns": [
+          "Array",
+          "Lower bound",
+          "Upper bound",
+          "Length"
         ],
-        "model_answer": "A data structure that holds a list of values of the same type under one name, where each element is accessed using a single index."
+        "rows": 3,
+        "prefill": [
+          [
+            "`DECLARE Cities : ARRAY[0:3] OF STRING`",
+            null,
+            null,
+            null
+          ],
+          [
+            "`DECLARE Marks : ARRAY[1:30] OF INTEGER`",
+            null,
+            null,
+            null
+          ],
+          [
+            "JavaScript: `let rain = [12, 0, 7, 3, 9, 15];`",
+            null,
+            null,
+            null
+          ]
+        ],
+        "hint": "Length = upper bound − lower bound + 1."
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Cities 0, 3, 4; Marks 1, 30, 30; rain 0, 5, 6 (1 mark per row)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "0",
+              "3",
+              "4"
+            ],
+            [
+              null,
+              "1",
+              "30",
+              "30"
+            ],
+            [
+              null,
+              "0",
+              "5",
+              "6"
+            ]
+          ]
+        },
+        "explanation": "In pseudocode read the bounds from the declaration (`[0:3]` starts at 0!). JavaScript always starts at 0, so the upper bound is length − 1. Length = upper − lower + 1."
+      }
+    },
+    {
+      "key": "frm-l2-length",
+      "title": "Calculate the length",
+      "type": "calculation",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```pseudocode\nDECLARE Readings : ARRAY[5:20] OF REAL\n```\n\nCalculate the number of elements in `Readings`.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "16",
+        "accepted": {
+          "values": [
+            "16"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        },
+        "explanation": "Length = upper bound − lower bound + 1 = 20 − 5 + 1 = **16**. (20 − 5 = 15 forgets that both bounds are valid indexes.)"
+      }
+    },
+    {
+      "key": "frm-l2-js-subjects",
+      "title": "A JavaScript array",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```javascript\nconst subjects = [\"Maths\", \"Physics\", \"Biology\", \"History\", \"Informatics\"];\n```\n\n`subjects.length` is [[1]]. The upper bound of the array is [[2]]. `subjects[3]` is [[3]]. `subjects[subjects.length - 1]` is [[4]].",
+      "content": {
+        "blank_count": 4
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 5 (2) 4 (3) History (4) Informatics",
+        "accepted": {
+          "blanks": [
+            [
+              "5"
+            ],
+            [
+              "4"
+            ],
+            [
+              "History",
+              "\"History\"",
+              "'History'"
+            ],
+            [
+              "Informatics",
+              "\"Informatics\"",
+              "'Informatics'"
+            ]
+          ]
+        },
+        "explanation": "5 elements, indexes 0 to 4. Index 3 is the fourth element (History); `length - 1` is always the last element (Informatics)."
+      }
+    },
+    {
+      "key": "frm-l2-js-output",
+      "title": "Change and grow an array",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```javascript\nlet cities = [\"Astana\", \"Almaty\", \"Shymkent\"];\ncities[1] = \"Taraz\";\ncities.push(\"Aktobe\");\nconsole.log(cities.length);              // line 4\nconsole.log(cities[1]);                  // line 5\nconsole.log(cities[cities.length - 1]);  // line 6\n```\n\nLine 4 outputs [[1]], line 5 outputs [[2]] and line 6 outputs [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 4 (2) Taraz (3) Aktobe",
+        "accepted": {
+          "blanks": [
+            [
+              "4"
+            ],
+            [
+              "Taraz",
+              "\"Taraz\"",
+              "'Taraz'"
+            ],
+            [
+              "Aktobe",
+              "\"Aktobe\"",
+              "'Aktobe'"
+            ]
+          ]
+        },
+        "explanation": "`cities[1] = \"Taraz\"` replaces Almaty; `push` adds Aktobe to the end, so the length becomes 4 and the last element (index 3) is Aktobe."
       }
     },
     {
@@ -379,12 +1656,12 @@
       "marks": 3,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
       "practice": true,
-      "text": "```php\n$a = [3, 8, 5];\n$a[1] = 4;\n$a[] = 9;\nsort($a);\n```\n\nWrite the elements of `$a` (index 0 to 3) after the code has run.",
+      "text": "```php\n$a = [7, 8, 5];\n$a[1] = 4;\n$a[] = $a[0] + $a[2];\n```\n\nWrite the elements of `$a` (index 0 to 3) after the code has run.",
       "content": {
         "columns": [
           "$a[0]",
@@ -395,73 +1672,251 @@
         "rows": 1
       },
       "scheme": {
-        "mark_scheme": "3 4 5 9 — after [3,4,5] add 9, sort. (3 marks: all four correct; scaled)",
-        "points": [
-          {
-            "criterion": "All elements",
-            "marks": 3
-          }
-        ],
-        "model_answer": "| $a[0] | $a[1] | $a[2] | $a[3] |\n|---|---|---|---|\n| 3 | 4 | 5 | 9 |",
+        "mark_scheme": "7 4 5 12 (all four correct)",
         "accepted": {
           "rows": [
             [
-              "3",
+              "7",
               "4",
               "5",
-              "9"
+              "12"
             ]
           ]
-        }
+        },
+        "explanation": "`$a[1] = 4` replaces 8. `$a[] = …` adds a new element at the end (index 3): 7 + 5 = 12."
       }
     },
     {
-      "key": "frm-out-of-range",
-      "title": "Out of range",
-      "type": "code_analysis",
-      "marks": 2,
+      "key": "frm-l2-parallel",
+      "title": "Parallel arrays",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
       "practice": true,
-      "text": "The code should output every mark. Explain the error and how to correct it.",
-      "content": {
-        "language": "html",
-        "starter_code": "<?php\n$marks = [6, 8, 7];\nfor ($i = 0; $i <= count($marks); $i++) {\n    echo $marks[$i] . \"<br>\";\n}\n?>",
-        "answer_lines": 3
-      },
+      "text": "```pseudocode\nItems[1] ← \"coat\"     Prices[1] ← 28000\nItems[2] ← \"boots\"    Prices[2] ← 19500\nItems[3] ← \"scarf\"    Prices[3] ← 4500\n```\n\n`Items` and `Prices` are parallel arrays. Which statement outputs the price of the boots?",
+      "options": [
+        {
+          "key": "A",
+          "content": "OUTPUT Prices[2]"
+        },
+        {
+          "key": "B",
+          "content": "OUTPUT Prices[1]"
+        },
+        {
+          "key": "C",
+          "content": "OUTPUT Items[2]"
+        },
+        {
+          "key": "D",
+          "content": "OUTPUT Prices[\"boots\"]"
+        }
+      ],
+      "source": "original",
       "scheme": {
-        "mark_scheme": "- The loop runs for i = 3, which is beyond the upper bound 2 / index out of range (1)\n- change <= to < (or count($marks) - 1) (1)",
-        "points": [
-          {
-            "criterion": "Out of range",
-            "marks": 1
-          },
-          {
-            "criterion": "Fix",
-            "marks": 1
-          }
+        "mark_scheme": "A — OUTPUT Prices[2]",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "In parallel arrays `Prices[i]` is the price of `Items[i]`. Boots are at index 2, so the price is `Prices[2]` = 19500. Pseudocode arrays have integer indexes, not string keys."
+      }
+    },
+    {
+      "key": "frm-l2-foreach-output",
+      "title": "foreach with the index",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$marks = [17, 12, 20, 9, 15];\nforeach ($marks as $i => $mark) {\n    if ($mark > 14) {\n        echo $i;\n    }\n}\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1,
+        "hint": "foreach ($marks as $i => $mark) gives the index in $i and the element in $mark."
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "024",
+        "accepted": {
+          "values": [
+            "024",
+            "0 2 4",
+            "0,2,4",
+            "0, 2, 4"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "`$i` is the **index**, not the mark. Marks greater than 14 are 17 (index 0), 20 (index 2) and 15 (index 4), so `024` is output."
+      }
+    },
+    {
+      "key": "frm-l2-count-code",
+      "title": "Count the frosty days",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`Temps[1:7]` holds the midday temperatures for a week. Complete the algorithm so that it outputs how many days were **below zero**.\n\n```pseudocode\nCount ← [[1]]\nFOR i ← 1 TO 7\n    IF Temps[i] [[2]] 0 THEN\n        Count ← [[3]]\n    ENDIF\nNEXT i\nOUTPUT Count\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 0 (2) < (3) Count + 1",
+        "accepted": {
+          "blanks": [
+            [
+              "0"
+            ],
+            [
+              "<"
+            ],
+            [
+              "Count + 1",
+              "Count+1",
+              "1 + Count"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "Counting pattern: set the counter to 0 before the loop, add 1 inside an IF when the element meets the condition (below zero → `< 0`), output after the loop."
+      }
+    },
+    {
+      "key": "frm-l2-total-trace",
+      "title": "Trace a total and count",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`Marks[1:4]` holds 45, 72, 50, 38.\n\n```pseudocode\nTotal ← 0\nCountPass ← 0\nFOR i ← 1 TO 4\n    Total ← Total + Marks[i]\n    IF Marks[i] >= 50 THEN\n        CountPass ← CountPass + 1\n    ENDIF\nNEXT i\n```\n\nComplete the trace table with the values at the **end** of each iteration.",
+      "content": {
+        "columns": [
+          "i",
+          "Marks[i]",
+          "Total",
+          "CountPass"
         ],
-        "model_answer": "When i = 3 the code tries to read $marks[3], but the upper bound is 2. Use $i < count($marks)."
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null,
+            null,
+            null
+          ],
+          [
+            "2",
+            null,
+            null,
+            null
+          ],
+          [
+            "3",
+            null,
+            null,
+            null
+          ],
+          [
+            "4",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "1: 45 45 0; 2: 72 117 1; 3: 50 167 2; 4: 38 205 2 (1 mark per row)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "45",
+              "45",
+              "0"
+            ],
+            [
+              null,
+              "72",
+              "117",
+              "1"
+            ],
+            [
+              null,
+              "50",
+              "167",
+              "2"
+            ],
+            [
+              null,
+              "38",
+              "205",
+              "2"
+            ]
+          ]
+        },
+        "explanation": "Total grows by each mark: 45, 117, 167, 205. 50 counts as a pass because the test is `>=`."
+      }
+    },
+    {
+      "key": "frm-l2-average",
+      "title": "Calculate the average",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$scores = [14, 18, 9, 17];\n$total = 0;\nforeach ($scores as $score) {\n    $total = $total + $score;\n}\n$average = $total / count($scores);\necho $average;\n```\n\nState the value that is output.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "total 58 (1); 58 / 4 = 14.5 (1)",
+        "accepted": {
+          "values": [
+            "14.5"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        },
+        "explanation": "Total = 14 + 18 + 9 + 17 = 58; `count($scores)` = 4; 58 / 4 = **14.5**. The division is done once, after the loop."
       }
     },
     {
       "key": "frm-trace-marks",
-      "title": "Trace the marks script",
+      "title": "Trace the temperatures script",
       "type": "trace_table",
       "marks": 4,
       "difficulty": "hard",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
-        "11.5.4.4",
         "11.5.2.1"
       ],
       "practice": true,
-      "text": "```php\n$temps = [12, -3, 8, -1];\n$total = 0;\n$min = $temps[0];\nfor ($i = 0; $i < count($temps); $i++) {\n    $total += $temps[$i];\n    if ($temps[$i] < $min) $min = $temps[$i];\n}\n```\n\nComplete the trace table showing `$total` and `$min` at the end of each iteration.",
+      "text": "```php\n$temps = [12, -3, 8, -1];\n$total = 0;\n$min = $temps[0];\nfor ($i = 0; $i < count($temps); $i++) {\n    $total += $temps[$i];\n    if ($temps[$i] < $min) $min = $temps[$i];\n}\n```\n\nComplete the trace table showing `$i`, `$total` and `$min` at the end of each iteration. Type negative numbers with a minus sign, e.g. -3.",
       "content": {
         "columns": [
           "$i",
@@ -472,25 +1927,6 @@
       },
       "scheme": {
         "mark_scheme": "0 12 12; 1 9 -3; 2 17 -3; 3 16 -3 (1 per row)",
-        "points": [
-          {
-            "criterion": "Row 1",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 2",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 3",
-            "marks": 1
-          },
-          {
-            "criterion": "Row 4",
-            "marks": 1
-          }
-        ],
-        "model_answer": "| $i | $total | $min |\n|---|---|---|\n| 0 | 12 | 12 |\n| 1 | 9 | -3 |\n| 2 | 17 | -3 |\n| 3 | 16 | -3 |",
         "accepted": {
           "rows": [
             [
@@ -514,83 +1950,264 @@
               "-3"
             ]
           ]
-        }
-      }
-    },
-    {
-      "key": "frm-average-code",
-      "title": "Average and count",
-      "type": "code_completion",
-      "marks": 5,
-      "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.5.4.4",
-        "11.5.2.1"
-      ],
-      "practice": true,
-      "text": "A form sends several fields named **score[]**. Write PHP code that outputs the **average** score and the **number of scores of 50 or more**.",
-      "content": {
-        "language": "html",
-        "starter_code": "<?php\n$scores = $_POST[\"score\"];\n\n?>"
-      },
-      "scheme": {
-        "mark_scheme": "- total and counter initialised to 0 (1)\n- loop through every element (1)\n- add each score to total (1)\n- if score >= 50 increment counter (1)\n- average = total / count($scores) and both values output (1)",
-        "points": [
-          {
-            "criterion": "Initialise",
-            "marks": 1
-          },
-          {
-            "criterion": "Loop",
-            "marks": 1
-          },
-          {
-            "criterion": "Total",
-            "marks": 1
-          },
-          {
-            "criterion": "Count",
-            "marks": 1
-          },
-          {
-            "criterion": "Average + output",
-            "marks": 1
-          }
-        ],
-        "model_answer": "```php\n<?php\n$scores = $_POST[\"score\"];\n$total = 0;\n$passed = 0;\nforeach ($scores as $s) {\n    $total += (int)$s;\n    if ((int)$s >= 50) $passed++;\n}\n$average = $total / count($scores);\necho \"Average: $average<br>Scores of 50 or more: $passed\";\n?>\n```"
+        },
+        "explanation": "`$i` runs from 0 to 3 (the PHP bounds). The total goes 12, 9, 17, 16. `$min` starts at the first element (12) and becomes −3 at index 1; −1 is not smaller than −3."
       }
     },
     {
       "key": "frm-max-start",
       "title": "Starting value for maximum",
-      "type": "short_answer",
+      "type": "fill_blank",
       "marks": 2,
-      "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
       "practice": true,
-      "text": "A programmer finds the highest temperature by starting with `$max = 0`. Explain why this may give a wrong answer and how to fix it.",
+      "text": "A programmer finds the highest temperature like this:\n\n```php\n$temps = [-12, -18, -7, -15];   // midday temperatures in January\n$max = 0;\nfor ($i = 0; $i < count($temps); $i++) {\n    if ($temps[$i] > $max) {\n        $max = $temps[$i];\n    }\n}\necho $max;\n```\n\nThe code outputs [[1]]. If the line `$max = 0;` is replaced by `$max = $temps[0];`, it outputs [[2]].",
       "content": {
-        "answer_lines": 3
+        "blank_count": 2
       },
       "scheme": {
-        "mark_scheme": "- If all temperatures are negative, no value is greater than 0, so 0 is output (1)\n- start with the first element: $max = $temps[0] (1)",
-        "points": [
-          {
-            "criterion": "Negative values",
-            "marks": 1
-          },
-          {
-            "criterion": "Use first element",
-            "marks": 1
-          }
+        "mark_scheme": "(1) 0 (2) -7",
+        "accepted": {
+          "blanks": [
+            [
+              "0"
+            ],
+            [
+              "-7",
+              "−7"
+            ]
+          ]
+        },
+        "explanation": "No temperature is greater than 0, so `$max` stays 0 — a value that is not even in the data. A maximum must start from the **first element**; then the warmest day, −7, is found."
+      }
+    },
+    {
+      "key": "frm-l2-max-trace",
+      "title": "Trace the warmest day",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`Temps[1:5]` holds -5, -9, -2, -1, -1.\n\n```pseudocode\nMax ← Temps[1]\nDay ← 1\nFOR i ← 2 TO 5\n    IF Temps[i] > Max THEN\n        Max ← Temps[i]\n        Day ← i\n    ENDIF\nNEXT i\nOUTPUT Max, Day\n```\n\nBefore the loop `Max` = -5 and `Day` = 1. Complete the trace table for each iteration. Type negative numbers with a minus sign.",
+      "content": {
+        "columns": [
+          "i",
+          "Temps[i]",
+          "Max",
+          "Day"
         ],
-        "model_answer": "If every temperature is below zero, none is bigger than 0, so the result is 0, which is not in the data. Start with $max = $temps[0]."
+        "rows": 4,
+        "prefill": [
+          [
+            "2",
+            null,
+            null,
+            null
+          ],
+          [
+            "3",
+            null,
+            null,
+            null
+          ],
+          [
+            "4",
+            null,
+            null,
+            null
+          ],
+          [
+            "5",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "2: -9 -5 1; 3: -2 -2 3; 4: -1 -1 4; 5: -1 -1 4 (1 per row)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "-9",
+              "-5",
+              "1"
+            ],
+            [
+              null,
+              "-2",
+              "-2",
+              "3"
+            ],
+            [
+              null,
+              "-1",
+              "-1",
+              "4"
+            ],
+            [
+              null,
+              "-1",
+              "-1",
+              "4"
+            ]
+          ]
+        },
+        "explanation": "−9 is not greater than −5; −2 and then −1 are. At i = 5, −1 is **equal** to Max, not greater, so Day stays 4 — with `>` the first of two equal maxima is kept."
+      }
+    },
+    {
+      "key": "frm-l2-loop-choice",
+      "title": "A loop that stays in bounds",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`$marks` is a PHP array with 5 elements. Which loop visits **every** element exactly once without going out of bounds?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`for ($i = 0; $i < count($marks); $i++)`"
+        },
+        {
+          "key": "B",
+          "content": "`for ($i = 0; $i <= count($marks); $i++)`"
+        },
+        {
+          "key": "C",
+          "content": "`for ($i = 1; $i <= count($marks); $i++)`"
+        },
+        {
+          "key": "D",
+          "content": "`for ($i = 1; $i < count($marks); $i++)`"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — `for ($i = 0; $i < count($marks); $i++)`",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Indexes are 0 to count − 1. B reads index 5 (past the upper bound); C misses index 0 and reads index 5; D misses index 0. These are off-by-one errors."
+      }
+    },
+    {
+      "key": "frm-out-of-range",
+      "title": "Out of range",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "The code should output every mark, but it gives the warning *Undefined array key 3*.\n\n```php\n$marks = [6, 8, 7];\nfor ($i = 0; $i <= count($marks); $i++) {\n    echo $marks[$i] . \"<br>\";\n}\n```\n\nThe error happens when `$i` = [[1]], because the upper bound of `$marks` is [[2]]. To correct the loop, the operator `<=` must be changed to [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) 2 (3) <",
+        "accepted": {
+          "blanks": [
+            [
+              "3"
+            ],
+            [
+              "2"
+            ],
+            [
+              "<",
+              "$i<count($marks)"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "With `<=` the last iteration uses `$i = count($marks)` = 3, an index above the upper bound 2 — an out-of-bounds (off-by-one) error. `$i < count($marks)` stops at 2."
+      }
+    },
+    {
+      "key": "frm-l2-nan",
+      "title": "A total that was never set",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```javascript\nconst marks = [6, 8, 7];\nlet total;\nfor (let i = 0; i < marks.length; i++) {\n  total = total + marks[i];\n}\nconsole.log(total);\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "NaN",
+        "accepted": {
+          "values": [
+            "NaN"
+          ]
+        },
+        "explanation": "`total` was never initialised, so it starts as `undefined`; `undefined + 6` is `NaN`, and NaN stays NaN. A running total must start at 0: `let total = 0;`."
+      }
+    },
+    {
+      "key": "frm-l2-search",
+      "title": "Linear search",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "`Names[1:5]` holds \"Aruzhan\", \"Dias\", \"Madina\", \"Timur\", \"Dana\".\n\n```pseudocode\nFound ← FALSE\ni ← 1\nWHILE Found = FALSE AND i <= 5\n    IF Names[i] = Target THEN\n        Found ← TRUE\n    ELSE\n        i ← i + 1\n    ENDIF\nENDWHILE\n```\n\nWhen `Target` is \"Madina\", the comparison `Names[i] = Target` is made [[1]] times.\n\nWhen `Target` is \"Ali\", the comparison is made [[2]] times and the value of `i` when the loop ends is [[3]].",
+      "content": {
+        "blank_count": 3,
+        "hint": "i only increases when the name does not match."
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) 5 (3) 6",
+        "accepted": {
+          "blanks": [
+            [
+              "3",
+              "three"
+            ],
+            [
+              "5",
+              "five"
+            ],
+            [
+              "6",
+              "six"
+            ]
+          ]
+        },
+        "explanation": "Madina is found at the 3rd comparison and the loop stops early. Ali is never found: all 5 elements are checked, `i` is increased after the 5th check to 6, and `i <= 5` becomes false."
       }
     },
     {
@@ -602,7 +2219,8 @@
       "command_word": "identify",
       "grading": "AUTO",
       "objectives": [
-        "11.5.4.4"
+        "11.5.4.4",
+        "11.5.2.1"
       ],
       "practice": true,
       "text": "When a form has checkboxes named `club[]`, PHP receives an array containing **only the ticked** checkboxes' values.",
@@ -610,7 +2228,87 @@
         "mark_scheme": "True.",
         "accepted": {
           "correct": true
+        },
+        "explanation": "True. Unticked checkboxes send nothing, so `$_POST[\"club\"]` holds only the ticked values, with indexes from 0."
+      }
+    },
+    {
+      "key": "frm-l2-checkbox-array",
+      "title": "Checkboxes into an array",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```html\n<form action=\"electives.php\" method=\"post\">\n  <input type=\"checkbox\" name=\"subjects[]\" value=\"Physics\"> Physics\n  <input type=\"checkbox\" name=\"subjects[]\" value=\"Chemistry\"> Chemistry\n  <input type=\"checkbox\" name=\"subjects[]\" value=\"Biology\"> Biology\n  <input type=\"checkbox\" name=\"subjects[]\" value=\"History\"> History\n  <input type=\"checkbox\" name=\"subjects[]\" value=\"Informatics\"> Informatics\n  <button type=\"submit\">Send</button>\n</form>\n```\n\nA pupil ticks **Physics**, **Biology** and **Informatics**. In `electives.php`:\n\n`count($_POST[\"subjects\"])` is [[1]], `$_POST[\"subjects\"][1]` is [[2]] and the upper bound of `$_POST[\"subjects\"]` is [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) Biology (3) 2",
+        "accepted": {
+          "blanks": [
+            [
+              "3"
+            ],
+            [
+              "Biology",
+              "\"Biology\"",
+              "'Biology'"
+            ],
+            [
+              "2"
+            ]
+          ]
+        },
+        "explanation": "Only the ticked boxes are sent, in form order, into one indexed array: [0] Physics, [1] Biology, [2] Informatics. Count 3, upper bound 2."
+      }
+    },
+    {
+      "key": "frm-l2-none-ticked",
+      "title": "No box ticked",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A form has five checkboxes named `subjects[]`. A pupil submits it **without ticking any box**. What is the value of `$subjects` after this line?\n\n```php\n$subjects = $_POST[\"subjects\"] ?? [];\n```",
+      "options": [
+        {
+          "key": "A",
+          "content": "An empty array, so `count($subjects)` is 0"
+        },
+        {
+          "key": "B",
+          "content": "An array of five empty strings"
+        },
+        {
+          "key": "C",
+          "content": "An array of five values \"off\""
+        },
+        {
+          "key": "D",
+          "content": "The string \"subjects\""
         }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — An empty array, so `count($subjects)` is 0",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "If no box is ticked the key `subjects` does not exist at all. `?? []` replaces the missing value with an empty array, so a loop over it simply runs 0 times instead of causing an *Undefined array key* warning."
       }
     },
     {
@@ -620,35 +2318,124 @@
       "marks": 2,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.2.1"
       ],
       "practice": true,
       "text": "```php\n$prices = [\"coat\" => 20000, \"boots\" => 15000, \"jacket\" => 12000];\n$item = \"boots\";\n$qty = 3;\necho $prices[$item] * $qty;\n```\n\nState the output.",
-      "content": {
-        "unit": ""
-      },
       "scheme": {
         "mark_scheme": "$prices[\"boots\"] = 15000 (1); × 3 = 45000 (1)",
-        "points": [
-          {
-            "criterion": "15000",
-            "marks": 1
-          },
-          {
-            "criterion": "45000",
-            "marks": 1
-          }
-        ],
-        "model_answer": "45000",
         "accepted": {
           "values": [
             "45000"
           ],
           "numeric": true,
-          "ignore_spaces": true
-        }
+          "tolerance": 0.01
+        },
+        "explanation": "`$prices[\"boots\"]` looks up the key boots → 15000; 15000 × 3 = **45000**."
+      }
+    },
+    {
+      "key": "frm-l2-indexed-assoc",
+      "title": "Indexed or associative?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each PHP array is **indexed** or **associative**.",
+      "content": {
+        "columns": [
+          "Array",
+          "Indexed",
+          "Associative"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "`$marks = [17, 12, 20];`",
+            null,
+            null
+          ],
+          [
+            "`$prices = [\"coat\" => 28000, \"boots\" => 19500];`",
+            null,
+            null
+          ],
+          [
+            "`$_POST` (keys are the names of the form fields)",
+            null,
+            null
+          ],
+          [
+            "`$_POST[\"subjects\"]` from checkboxes named `subjects[]`",
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "`$marks = [17, 12, 20];` — Indexed; `$prices = [\"coat\" => 28000, \"boots\" => 19500];` — Associative; `$_POST` (keys are the names of the form fields) — Associative; `$_POST[\"subjects\"]` from checkboxes named `subjects[]` — Indexed",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Indexed arrays use integer positions from 0; associative arrays use keys, usually strings. `$_POST` is associative (keys = field names), but the checkbox array inside it is an indexed list of the ticked values."
+      }
+    },
+    {
+      "key": "frm-l2-assoc-output",
+      "title": "Hospital beds",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "```php\n$beds = [\"surgery\" => 24, \"cardiology\" => 18, \"children\" => 30];\n$beds[\"cardiology\"] = $beds[\"cardiology\"] + 4;\n$total = 0;\nforeach ($beds as $ward => $count) {\n    $total = $total + $count;\n}\necho $beds[\"cardiology\"] . \" \" . $total;\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "22 76",
+        "accepted": {
+          "values": [
+            "22 76"
+          ]
+        },
+        "explanation": "Cardiology becomes 18 + 4 = 22. The `foreach` adds every value: 24 + 22 + 30 = 76. Output: `22 76`."
       }
     },
     {
@@ -703,7 +2490,7 @@
         ]
       },
       "scheme": {
-        "mark_scheme": "L1–R1, L2–R2, L3–R3, L4–R4.",
+        "mark_scheme": "$averageMark instead of $x → Meaningful identifiers; const VAT = 0.12; → Constants instead of magic numbers; // Returns the selling price of an item → Comments; function sellingPrice($price) { … } → Subroutines with one task",
         "accepted": {
           "pairs": {
             "L1": "R1",
@@ -711,74 +2498,1190 @@
             "L3": "R3",
             "L4": "R4"
           }
+        },
+        "explanation": "A meaningful name says what the value holds; a constant names a fixed value; a comment explains purpose; a function puts one task in a named, reusable block."
+      }
+    },
+    {
+      "key": "frm-l3-loop-types",
+      "title": "Kinds of loop",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Match each loop to its description.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`FOR i ← 1 TO 30 … NEXT i`"
+          },
+          {
+            "key": "L2",
+            "text": "`WHILE … ENDWHILE`"
+          },
+          {
+            "key": "L3",
+            "text": "`REPEAT … UNTIL …`"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Count-controlled: repeats a fixed number of times known before the loop starts"
+          },
+          {
+            "key": "R2",
+            "text": "Condition-controlled, condition tested at the start (pre-condition)"
+          },
+          {
+            "key": "R3",
+            "text": "Condition-controlled, condition tested at the end (post-condition): always runs at least once"
+          },
+          {
+            "key": "R4",
+            "text": "A loop that can never stop"
+          }
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "`FOR i ← 1 TO 30 … NEXT i` → Count-controlled: repeats a fixed number of times known before the loop starts; `WHILE … ENDWHILE` → Condition-controlled, condition tested at the start (pre-condition); `REPEAT … UNTIL …` → Condition-controlled, condition tested at the end (post-condition): always runs at least once",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3"
+          }
+        },
+        "explanation": "FOR is count-controlled. WHILE and REPEAT … UNTIL are condition-controlled: WHILE tests first (may run zero times), REPEAT tests at the end (runs at least once)."
+      }
+    },
+    {
+      "key": "frm-l3-repeat-once",
+      "title": "REPEAT … UNTIL",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A `REPEAT … UNTIL` loop always runs at least once.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "True. The condition is tested at the **end** (post-condition), so the body runs before the first test — ideal for \"ask until valid\", because the user must be asked at least once."
+      }
+    },
+    {
+      "key": "frm-l3-naming",
+      "title": "Naming conventions",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Match each identifier to the naming convention it uses.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "`totalCost`"
+          },
+          {
+            "key": "L2",
+            "text": "`first_name`"
+          },
+          {
+            "key": "L3",
+            "text": "`MAX_PIZZAS`"
+          },
+          {
+            "key": "L4",
+            "text": "`TotalCost`"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "camelCase"
+          },
+          {
+            "key": "R2",
+            "text": "snake_case"
+          },
+          {
+            "key": "R3",
+            "text": "UPPER_CASE (used for constants)"
+          },
+          {
+            "key": "R4",
+            "text": "PascalCase"
+          }
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "`totalCost` → camelCase; `first_name` → snake_case; `MAX_PIZZAS` → UPPER_CASE (used for constants); `TotalCost` → PascalCase",
+        "accepted": {
+          "pairs": {
+            "L1": "R1",
+            "L2": "R2",
+            "L3": "R3",
+            "L4": "R4"
+          }
+        },
+        "explanation": "camelCase is usual in JavaScript, snake_case in PHP form fields and databases, UPPER_CASE for constants, PascalCase in Cambridge pseudocode. Use one convention consistently."
+      }
+    },
+    {
+      "key": "frm-l3-comment",
+      "title": "A useful comment",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Which comment is the most useful above a 30-line loop in `register.php`?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`// loop`"
+        },
+        {
+          "key": "B",
+          "content": "`// add 1 to i`"
+        },
+        {
+          "key": "C",
+          "content": "`// Validate every required field and collect the error messages`"
+        },
+        {
+          "key": "D",
+          "content": "`// discount 5%` (the code now gives 10%)"
         }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "C — `// Validate every required field and collect the error messages`",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Good comments explain the **purpose** of a block. A and B say nothing new; D is out of date, which is worse than no comment."
+      }
+    },
+    {
+      "key": "frm-l3-constant",
+      "title": "Replace a magic number",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Rewrite `if ($qty > 10)` using a constant. Complete the code.\n\n```php\n[[1]] MAX_QTY = 10;   // largest number of pizzas in one order\n\n// … later in the script …\nif ($qty > [[2]]) {\n    $errors[] = \"You can order at most \" . MAX_QTY . \" pizzas.\";\n}\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) const (2) MAX_QTY",
+        "accepted": {
+          "blanks": [
+            [
+              "const"
+            ],
+            [
+              "MAX_QTY"
+            ]
+          ]
+        },
+        "explanation": "`const MAX_QTY = 10;` names the value once at the top. The condition then uses the name, so a rule change means editing one line."
+      }
+    },
+    {
+      "key": "frm-l3-loop-choice",
+      "title": "Which kind of loop?",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the kind of loop that is best for each form-processing task.",
+      "content": {
+        "columns": [
+          "Task",
+          "Count-controlled",
+          "Condition-controlled"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "Check that all 8 required fields are filled in",
+            null,
+            null
+          ],
+          [
+            "Keep asking until a valid number of tickets is typed",
+            null,
+            null
+          ],
+          [
+            "Output every message in the errors array",
+            null,
+            null
+          ],
+          [
+            "Find a pupil's name in an array, stopping when it is found",
+            null,
+            null
+          ],
+          [
+            "Build a `<select>` with the grades 7 to 12",
+            null,
+            null
+          ],
+          [
+            "Read the rows of a database result while there are more",
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "Check that all 8 required fields are filled in — Count-controlled; Keep asking until a valid number of tickets is typed — Condition-controlled; Output every message in the errors array — Count-controlled; Find a pupil's name in an array, stopping when it is found — Condition-controlled; Build a `<select>` with the grades 7 to 12 — Count-controlled; Read the rows of a database result while there are more — Condition-controlled",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Count-controlled when the number of repetitions is known before the loop (a list of fields, an array, a fixed range). Condition-controlled when it depends on the data or the user (until valid, until found, while more rows)."
+      }
+    },
+    {
+      "key": "frm-l3-errors-array",
+      "title": "The errors array",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Complete the code so that **every** empty required field is reported at once.\n\n```php\nconst REQUIRED = [\"first_name\", \"last_name\", \"grade\", \"email\"];\n$errors = [[1]];\nforeach (REQUIRED as $field) {\n    if (trim($_POST[$field] ?? \"\") === \"\") {\n        $errors[[2]] = \"Please fill in \" . $field . \".\";\n    }\n}\nif (count($errors) [[3]] 0) {\n    foreach ($errors as $message) {\n        echo \"<li>\" . htmlspecialchars($message) . \"</li>\";\n    }\n} else {\n    echo \"<p>Registration saved.</p>\";\n}\n```",
+      "content": {
+        "blank_count": 3,
+        "hint": "The gap after $errors in the loop is the PHP way to add an element to the end of an array."
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) [] (2) [] (3) >",
+        "accepted": {
+          "blanks": [
+            [
+              "[]",
+              "array()"
+            ],
+            [
+              "[]"
+            ],
+            [
+              ">",
+              "!=",
+              "!==",
+              "<>"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "Initialise the errors array **empty** before the checks, append with `$errors[] = …` for every failed check, and after the loop show the errors if `count($errors) > 0`, otherwise process the data."
+      }
+    },
+    {
+      "key": "frm-l3-sticky",
+      "title": "A sticky form",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "A **sticky form** keeps the user's values after a failed submission.\n\n```php\n<input type=\"text\" name=\"first_name\"\n       value=\"<?php echo [[1]]($name); ?>\">\n```\n\nThe function in gap (1) escapes the user's text before it is placed into the HTML. For a drop-down list the script prints the attribute [[2]] in the chosen `<option>`, and for the chosen radio button or checkbox it prints [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) htmlspecialchars (2) selected (3) checked",
+        "accepted": {
+          "blanks": [
+            [
+              "htmlspecialchars"
+            ],
+            [
+              "selected"
+            ],
+            [
+              "checked"
+            ]
+          ]
+        },
+        "explanation": "The submitted value is printed back into `value`, escaped with `htmlspecialchars()` because it is user data in HTML. Options get `selected`; radio buttons and checkboxes get `checked`."
+      }
+    },
+    {
+      "key": "frm-l3-table-tags",
+      "title": "Tags inside the loop",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "```php\nfor ($i = 0; $i < count($names); $i++) {\n    echo \"<table>\";\n    echo \"<tr><td>\" . htmlspecialchars($names[$i]) . \"</td></tr>\";\n    echo \"</table>\";\n}\n```\n\nWhat is wrong with this code?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A separate table is made for every pupil; `<table>` should be output before the loop and `</table>` after it"
+        },
+        {
+          "key": "B",
+          "content": "The loop goes past the upper bound of `$names`"
+        },
+        {
+          "key": "C",
+          "content": "`htmlspecialchars()` cannot be used inside a loop"
+        },
+        {
+          "key": "D",
+          "content": "Nothing — this is the correct way to build a table"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — A separate table is made for every pupil; `<table>` should be output before the loop and `</table>` after it",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Opening tags go **before** the loop, one row per iteration **inside** it, closing tags **after** it."
+      }
+    },
+    {
+      "key": "frm-l3-table-output",
+      "title": "Build a results table",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```php\nconst PASS_MARK = 50;\n$names  = [\"Aigerim\", \"Bauyrzhan\", \"Dias\", \"Madina\", \"Timur\"];\n$scores = [62, 49, 50, 38, 75];\n\necho \"<table>\";\necho \"<tr><th>No.</th><th>Pupil</th><th>Score</th><th>Result</th></tr>\";\nfor ($i = 0; $i < count($names); $i++) {\n    $result = ($scores[$i] >= PASS_MARK) ? \"Pass\" : \"Retake\";\n    echo \"<tr><td>\" . ($i + 1) . \"</td><td>\" . htmlspecialchars($names[$i]) .\n         \"</td><td>\" . $scores[$i] . \"</td><td>\" . $result . \"</td></tr>\";\n}\necho \"</table>\";\n```\n\nIn total the script outputs [[1]] `<tr>` rows. The word Retake appears [[2]] times. The Result for Dias is [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 6 (2) 2 (3) Pass",
+        "accepted": {
+          "blanks": [
+            [
+              "6",
+              "six"
+            ],
+            [
+              "2",
+              "two"
+            ],
+            [
+              "Pass",
+              "\"Pass\""
+            ]
+          ]
+        },
+        "explanation": "One header row plus one row per pupil = 1 + 5 = 6. Retake for 49 and 38. Dias has 50, and `50 >= 50` is true, so Pass."
+      }
+    },
+    {
+      "key": "frm-l3-textcontent",
+      "title": "Safe output in JavaScript",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "A JavaScript function adds each subject the user typed to a list on the page. Which property should be set so that the user's text is **shown as text and never run as code**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`item.textContent`"
+        },
+        {
+          "key": "B",
+          "content": "`item.innerHTML`"
+        },
+        {
+          "key": "C",
+          "content": "`item.id`"
+        },
+        {
+          "key": "D",
+          "content": "`item.name`"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — `item.textContent`",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "`textContent` is the JavaScript equivalent of `htmlspecialchars()`: the text is displayed, never interpreted as HTML. `innerHTML` would run any tags the user typed."
+      }
+    },
+    {
+      "key": "frm-l3-until",
+      "title": "Repeat until valid",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "Complete the pseudocode so that it keeps asking until a whole number **from 1 to 20** is entered.\n\n```pseudocode\nREPEAT\n    OUTPUT \"Enter quantity 1-20\"\n    INPUT Quantity\nUNTIL Quantity [[1]] 1 [[2]] Quantity [[3]] 20\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) >= (2) AND (3) <=",
+        "accepted": {
+          "blanks": [
+            [
+              ">=",
+              "≥"
+            ],
+            [
+              "AND"
+            ],
+            [
+              "<=",
+              "≤"
+            ]
+          ]
+        },
+        "explanation": "`UNTIL` gives the condition to **stop**, i.e. the input is valid: `Quantity >= 1 AND Quantity <= 20`."
+      }
+    },
+    {
+      "key": "frm-l3-infinite",
+      "title": "A loop that never ends",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```pseudocode\ni ← 1\nWHILE i <= 5\n    OUTPUT Names[i]\nENDWHILE\n```\n\nWhat happens when this runs?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Names[1] is output again and again forever, because nothing inside the loop changes i"
+        },
+        {
+          "key": "B",
+          "content": "All five names are output once"
+        },
+        {
+          "key": "C",
+          "content": "An out-of-bounds error happens when i = 6"
+        },
+        {
+          "key": "D",
+          "content": "The loop body never runs"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — Names[1] is output again and again forever, because nothing inside the loop changes i",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "An **infinite loop**: the condition `i <= 5` never becomes false because `i ← i + 1` is missing. Ask: what inside this loop makes the condition false eventually?"
+      }
+    },
+    {
+      "key": "frm-l3-average-output",
+      "title": "Average from a form",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A form sends four fields named `score[]` with the values **40, 75, 50** and **63**.\n\n```php\n$scores = $_POST[\"score\"] ?? [];\n$total = 0;\n$countHigh = 0;\nforeach ($scores as $score) {\n    $total += (int)$score;\n    if ((int)$score >= 50) {\n        $countHigh++;\n    }\n}\necho \"Average: \" . $total / count($scores) . \"<br>\";\necho \"50 or more: \" . $countHigh;\n```\n\nThe output is *Average:* [[1]] and *50 or more:* [[2]].",
+      "content": {
+        "blank_count": 2
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 57 (2) 3",
+        "accepted": {
+          "blanks": [
+            [
+              "57"
+            ],
+            [
+              "3",
+              "three"
+            ]
+          ]
+        },
+        "explanation": "Total = 40 + 75 + 50 + 63 = 228; 228 / 4 = 57. Scores of 50 or more: 75, 50, 63 → 3 (50 counts because of `>=`)."
       }
     },
     {
       "key": "frm-style-why",
       "title": "Why good style",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "multiple_response",
+      "marks": 3,
       "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.9"
       ],
       "practice": true,
-      "text": "Explain **two** benefits of writing code in a good programming style.",
-      "content": {
-        "answer_lines": 3
-      },
+      "text": "Which **three** are benefits of writing code in a good programming style?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Other programmers can read and understand the code more easily"
+        },
+        {
+          "key": "B",
+          "content": "Errors are easier to find and fix"
+        },
+        {
+          "key": "C",
+          "content": "The code is easier to change and maintain later"
+        },
+        {
+          "key": "D",
+          "content": "The program runs faster"
+        },
+        {
+          "key": "E",
+          "content": "The program uses less memory"
+        },
+        {
+          "key": "F",
+          "content": "The interpreter ignores syntax errors"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "Any two (1 each): easier to read / understand; easier to debug / find errors; easier to maintain / change later; other programmers can work on it; reusable functions",
-        "points": [
-          {
-            "criterion": "Benefit 1",
-            "marks": 1
-          },
-          {
-            "criterion": "Benefit 2",
-            "marks": 1
-          }
+        "mark_scheme": "A — Other programmers can read and understand the code more easily; B — Errors are easier to find and fix; C — The code is easier to change and maintain later (1 mark per correct option, −1 per wrong one)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Style is for **humans**: readable, easier to debug, test and maintain. The computer does not care about names, indentation or comments, so speed and memory do not change."
+      }
+    },
+    {
+      "key": "frm-l3-magic",
+      "title": "Spot the magic numbers",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Which **two** lines contain a **magic number**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "`if ($qty > 10) {`"
+        },
+        {
+          "key": "B",
+          "content": "`$total = $total * 0.9;`"
+        },
+        {
+          "key": "C",
+          "content": "`const MAX_QTY = 10;`"
+        },
+        {
+          "key": "D",
+          "content": "`if ($mark >= PASS_MARK) {`"
+        },
+        {
+          "key": "E",
+          "content": "`$errors = [];`"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — `if ($qty > 10) {`; B — `$total = $total * 0.9;` (1 mark per correct option, −1 per wrong one)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "A magic number is an unexplained literal in the code (what are 10 and 0.9?). Defining a constant (C) and using its name (D) is the cure."
+      }
+    },
+    {
+      "key": "frm-l3-func-proc",
+      "title": "Function or procedure?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "Tick (✓) to show whether each subroutine is a **function** or a **procedure**.",
+      "content": {
+        "columns": [
+          "Subroutine",
+          "Function",
+          "Procedure"
         ],
-        "model_answer": "Other programmers can read and understand it quickly, and errors are easier to find and fix when the code is changed later."
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "`calculateTotal($prices, $qty)` — returns the order total",
+            null,
+            null
+          ],
+          [
+            "`showErrors($errors)` — outputs the error messages as a list",
+            null,
+            null
+          ],
+          [
+            "`isValidEmail($email)` — returns true or false",
+            null,
+            null
+          ],
+          [
+            "`printReceipt($order)` — outputs a receipt table and returns nothing",
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "`calculateTotal($prices, $qty)` — returns the order total — Function; `showErrors($errors)` — outputs the error messages as a list — Procedure; `isValidEmail($email)` — returns true or false — Function; `printReceipt($order)` — outputs a receipt table and returns nothing — Procedure",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "A **function** returns a value; a **procedure** performs an action (such as output) and returns nothing."
       }
     },
     {
       "key": "frm-improve-style",
       "title": "Improve the style",
-      "type": "code_completion",
+      "type": "multiple_response",
       "marks": 3,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.9"
       ],
       "practice": true,
-      "text": "Rewrite the code in a good programming style. It adds 12% VAT to a price from a form.",
+      "text": "This code adds 12% VAT to a price from a form:\n\n```php\n<?php $p=$_POST[\"p\"];$t=$p+$p*0.12;echo $t; ?>\n```\n\nWhich **three** changes would improve its programming style?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Rename `$p` and `$t` to `$price` and `$totalPrice` (and the field to `price`)"
+        },
+        {
+          "key": "B",
+          "content": "Replace 0.12 with a constant `VAT_RATE = 0.12` defined at the top"
+        },
+        {
+          "key": "C",
+          "content": "Put each statement on its own line, with spaces around the operators"
+        },
+        {
+          "key": "D",
+          "content": "Rename the variables to `$a` and `$b` so that they are shorter"
+        },
+        {
+          "key": "E",
+          "content": "Add the comment `// multiply` after `$p*0.12`"
+        },
+        {
+          "key": "F",
+          "content": "Remove the remaining spaces so the code is shorter"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A — Rename `$p` and `$t` to `$price` and `$totalPrice` (and the field to `price`); B — Replace 0.12 with a constant `VAT_RATE = 0.12` defined at the top; C — Put each statement on its own line, with spaces around the operators (1 mark per correct option, −1 per wrong one)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Meaningful identifiers, a constant instead of a magic number and a clear layout make the code readable. A comment that repeats the code adds nothing."
+      }
+    },
+    {
+      "key": "frm-l3-refactor",
+      "title": "Check the refactored script",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.9"
+      ],
+      "practice": true,
+      "text": "```php\nconst BULK_QUANTITY = 5;       // from 5 items a bulk discount applies\nconst BULK_DISCOUNT = 0.05;    // 5%\n\n// Returns the cost of $quantity items at $price each, with the bulk discount.\nfunction calculateTotal(float $price, int $quantity): float {\n    $total = $price * $quantity;\n    if ($quantity >= BULK_QUANTITY) {\n        $total = $total * (1 - BULK_DISCOUNT);\n    }\n    return $total;\n}\n\necho \"Total: \" . calculateTotal(3000, 5) . \" tenge\";\n```\n\nCalculate the total that is output (in tenge).",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "15000 (1); × 0.95 = 14250 (1)",
+        "accepted": {
+          "values": [
+            "14250"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        },
+        "explanation": "3000 × 5 = 15000. The quantity 5 is `>= BULK_QUANTITY`, so 15000 × (1 − 0.05) = **14250**."
+      }
+    },
+    {
+      "key": "frm-l3-errors-count",
+      "title": "How many errors?",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```php\nconst REQUIRED = [\"first_name\", \"last_name\", \"grade\", \"email\"];\nconst MIN_GRADE = 7;\nconst MAX_GRADE = 12;\n$errors = [];\nforeach (REQUIRED as $field) {\n    if (trim($_POST[$field] ?? \"\") === \"\") {\n        $errors[] = \"Please fill in \" . $field . \".\";\n    }\n}\n$grade = (int)($_POST[\"grade\"] ?? 0);\nif ($grade < MIN_GRADE || $grade > MAX_GRADE) {\n    $errors[] = \"Grade must be from \" . MIN_GRADE . \" to \" . MAX_GRADE . \".\";\n}\necho count($errors);\n```\n\nThe form sends `first_name` = \"Aigerim\", `last_name` = \"   \" (three spaces) and `grade` = \"15\". The `email` field is **not sent**. State the output.",
       "content": {
-        "language": "html",
-        "starter_code": "<?php $p=$_POST[\"p\"];$t=$p+$p*0.12;echo $t; ?>"
+        "answer_lines": 1,
+        "hint": "What does trim() do to \"   \"? What does ?? give for a missing field?"
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "3",
+        "accepted": {
+          "values": [
+            "3",
+            "three"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "last_name is only spaces, so `trim()` makes it \"\" → error 1. email is missing, so `?? \"\"` gives \"\" → error 2. grade 15 is greater than 12 → error 3. Output: **3**."
+      }
+    },
+    {
+      "key": "frm-l3-canteen-trace",
+      "title": "Trace the canteen order",
+      "type": "trace_table",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "Pupil Timur orders plov **3**, manti **1**, samsa **0** and tea **2**.\n\n```php\n$prices = [\"plov\" => 1200, \"manti\" => 1500, \"samsa\" => 400, \"tea\" => 150];\n// $_POST[\"qty\"] = [\"plov\" => \"3\", \"manti\" => \"1\", \"samsa\" => \"0\", \"tea\" => \"2\"]\n$total = 0;\nforeach ($_POST[\"qty\"] ?? [] as $code => $qtyText) {\n    $qty = (int)$qtyText;\n    if ($qty === 0) {\n        continue;                     // nothing ordered: skip this line\n    }\n    $lineCost = $prices[$code] * $qty;\n    $total += $lineCost;\n}\n```\n\nComplete the trace table with the values at the end of each iteration. For the skipped line leave `$lineCost` empty.",
+      "content": {
+        "columns": [
+          "$code",
+          "$qty",
+          "$lineCost",
+          "$total"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "plov",
+            null,
+            null,
+            null
+          ],
+          [
+            "manti",
+            null,
+            null,
+            null
+          ],
+          [
+            "samsa",
+            null,
+            null,
+            null
+          ],
+          [
+            "tea",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "plov 3 3600 3600; manti 1 1500 5100; samsa 0 (skipped) 5100; tea 2 300 5400 (1 per row)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "3",
+              "3600",
+              "3600"
+            ],
+            [
+              null,
+              "1",
+              "1500",
+              "5100"
+            ],
+            [
+              null,
+              "0",
+              null,
+              "5100"
+            ],
+            [
+              null,
+              "2",
+              "300",
+              "5400"
+            ]
+          ]
+        },
+        "explanation": "Each line cost is the server's price × quantity. Samsa has quantity 0, so `continue` skips it and the total stays 5100."
+      }
+    },
+    {
+      "key": "frm-l3-canteen-pay",
+      "title": "Apply the discount",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "After the loop over Timur's order, `$total` is **5400**. The script then runs:\n\n```php\nconst DISCOUNT_LIMIT = 5000;    // tenge\nconst DISCOUNT_RATE = 0.10;\nif ($total >= DISCOUNT_LIMIT) {\n    $total = $total * (1 - DISCOUNT_RATE);\n}\necho \"To pay: $total tenge\";\n```\n\nCalculate the amount that is output (in tenge).",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "discount applies because 5400 >= 5000 (1); 4860 (1)",
+        "accepted": {
+          "values": [
+            "4860"
+          ],
+          "numeric": true,
+          "tolerance": 0.01
+        },
+        "explanation": "5400 ≥ 5000, so the 10% discount applies: 5400 × (1 − 0.10) = 5400 × 0.9 = **4860**."
+      }
+    },
+    {
+      "key": "frm-l3-while-negate",
+      "title": "The opposite condition",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "This WHILE loop must keep asking **while the mark is invalid** (a valid mark is from 0 to 100). Which condition completes it?\n\n```pseudocode\nOUTPUT \"Enter a mark from 0 to 100\"\nINPUT Mark\nWHILE ____________\n    OUTPUT \"Invalid. Enter a mark from 0 to 100\"\n    INPUT Mark\nENDWHILE\n```",
+      "options": [
+        {
+          "key": "A",
+          "content": "`Mark < 0 OR Mark > 100`"
+        },
+        {
+          "key": "B",
+          "content": "`Mark < 0 AND Mark > 100`"
+        },
+        {
+          "key": "C",
+          "content": "`Mark >= 0 AND Mark <= 100`"
+        },
+        {
+          "key": "D",
+          "content": "`Mark >= 0 OR Mark <= 100`"
+        }
+      ],
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "A — `Mark < 0 OR Mark > 100`",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "WHILE gives the condition to **continue** (invalid input). The opposite of `Mark >= 0 AND Mark <= 100` is `Mark < 0 OR Mark > 100` — AND becomes OR. B can never be true; C would loop on valid marks."
+      }
+    },
+    {
+      "key": "frm-l3-repeat-trace",
+      "title": "Dry-run a REPEAT loop",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "```pseudocode\nAttempts ← 0\nREPEAT\n    INPUT Mark\n    Attempts ← Attempts + 1\nUNTIL Mark >= 0 AND Mark <= 100\nOUTPUT Attempts\n```\n\nThe user would type these values in order: **120, -5, 45, 80**.\n\nThe INPUT statement is executed [[1]] times, the value output is [[2]], and the value that is never read is [[3]].",
+      "content": {
+        "blank_count": 3
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "(1) 3 (2) 3 (3) 80",
+        "accepted": {
+          "blanks": [
+            [
+              "3",
+              "three"
+            ],
+            [
+              "3",
+              "three"
+            ],
+            [
+              "80"
+            ]
+          ]
+        },
+        "explanation": "120 → invalid, −5 → invalid, 45 → valid, so the loop stops after 3 inputs and outputs 3. The value 80 is never read."
+      }
+    },
+    {
+      "key": "frm-l3-do-while",
+      "title": "JavaScript do … while",
+      "type": "short_answer",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "The array `typed` stands for what a user types into `prompt()` boxes, in order.\n\n```javascript\nconst MAX_TICKETS = 6;\nconst typed = [\"0\", \"9\", \"abc\", \"4\", \"2\"];\nlet k = 0;\nlet tickets;\ndo {\n  tickets = Number(typed[k]);\n  k++;\n} while (!Number.isInteger(tickets) || tickets < 1 || tickets > MAX_TICKETS);\nconsole.log(k + \" \" + tickets);\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1
+      },
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "4 4",
+        "accepted": {
+          "values": [
+            "4 4"
+          ]
+        },
+        "explanation": "0 is below 1, 9 is above 6, `Number(\"abc\")` is NaN (not an integer), and 4 is valid, so the loop stops after 4 values: `k` = 4 and `tickets` = 4 → `4 4`."
+      }
+    },
+    {
+      "key": "frm-l3-server-repeat",
+      "title": "Repeat until valid on the server",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "text": "A PHP script on the server can use a `do … while` loop to wait for the user to type a new value into the form until the value is valid.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "False. A PHP script runs once per request and cannot wait for the user. On the server, \"repeat until valid\" is made of **requests**: show the form with errors (sticky), the user corrects it and submits again, and the script runs again."
+      }
+    },
+    {
+      "key": "frm-average-code",
+      "title": "Average and count",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.2.1"
+      ],
+      "practice": true,
+      "text": "A form sends several fields named **score[]**. Complete the PHP code so that it outputs the **average** score and the **number of scores of 50 or more**.\n\n```php\n<?php\n$scores = $_POST[\"score\"] ?? [];\n$total = [[1]];\n$countHigh = 0;\nforeach ($scores [[2]] $score) {\n    $total += (int)$score;\n    if ((int)$score >= 50) {\n        [[3]];\n    }\n}\necho \"Average: \" . $total / [[4]] . \"<br>\";\necho \"50 or more: \" . $countHigh;\n?>\n```",
+      "content": {
+        "blank_count": 4
       },
       "scheme": {
-        "mark_scheme": "Any three (1 each): meaningful identifiers; constant for 0.12; comment; indentation / one statement per line; conversion / validation of input",
-        "points": [
-          {
-            "criterion": "1",
-            "marks": 1
-          },
-          {
-            "criterion": "2",
-            "marks": 1
-          },
-          {
-            "criterion": "3",
-            "marks": 1
-          }
-        ],
-        "model_answer": "```php\n<?php\nconst VAT_RATE = 0.12;   // 12% value added tax\n\n$price = (float)$_POST[\"price\"];\n$totalPrice = $price + $price * VAT_RATE;\necho \"Price with VAT: \" . $totalPrice;\n?>\n```"
+        "mark_scheme": "(1) 0 (2) as (3) $countHigh++ (4) count($scores)",
+        "accepted": {
+          "blanks": [
+            [
+              "0"
+            ],
+            [
+              "as"
+            ],
+            [
+              "$countHigh++",
+              "++$countHigh",
+              "$countHigh+=1",
+              "$countHigh=$countHigh+1",
+              "$countHigh=1+$countHigh"
+            ],
+            [
+              "count($scores)",
+              "sizeof($scores)"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "Total starts at 0; `foreach ($scores as $score)` visits every element; the counter is increased inside the IF; the average divides by `count($scores)` once, after the loop — never by a fixed number, because the form decides how many scores arrive."
       }
     },
     {
@@ -3704,11 +6607,32 @@
       ],
       "questions": [
         "frm-attributes",
+        "frm-l1-form-job",
+        "frm-l1-default-method",
+        "frm-l1-script-once",
+        "frm-l1-cycle-order",
+        "frm-l1-query-parts",
+        "frm-l1-controls",
         "frm-get-url",
-        "frm-name-attr",
         "frm-get-post",
+        "frm-l1-choose-method",
+        "frm-l1-query-string",
+        "frm-l1-post-encrypted",
+        "frm-name-attr",
+        "frm-l1-no-name",
+        "frm-l1-radio-names",
+        "frm-l1-wrong-line",
+        "frm-l1-js-strings",
+        "frm-l1-browser-check",
+        "frm-l1-server-client",
+        "frm-l1-handler-order",
+        "frm-l1-xss-name",
         "frm-read-php",
-        "frm-htmlspecialchars"
+        "frm-l1-what-sent",
+        "frm-l1-isset-empty",
+        "frm-l1-empty-zero",
+        "frm-htmlspecialchars",
+        "frm-l1-self-processing"
       ]
     },
     {
@@ -3720,14 +6644,34 @@
         "Exam practice: one-dimensional arrays"
       ],
       "questions": [
+        "frm-l2-why-arrays",
         "frm-array-define",
+        "frm-l2-terms",
         "frm-array-terms",
+        "frm-l2-declare",
+        "frm-l2-bounds",
+        "frm-l2-length",
+        "frm-l2-js-subjects",
+        "frm-l2-js-output",
         "frm-array-ops",
-        "frm-out-of-range",
+        "frm-l2-parallel",
+        "frm-l2-foreach-output",
+        "frm-l2-count-code",
+        "frm-l2-total-trace",
+        "frm-l2-average",
         "frm-trace-marks",
         "frm-max-start",
+        "frm-l2-max-trace",
+        "frm-l2-loop-choice",
+        "frm-out-of-range",
+        "frm-l2-nan",
+        "frm-l2-search",
         "frm-checkbox",
-        "frm-assoc"
+        "frm-l2-checkbox-array",
+        "frm-l2-none-ticked",
+        "frm-assoc",
+        "frm-l2-indexed-assoc",
+        "frm-l2-assoc-output"
       ]
     },
     {
@@ -3739,10 +6683,34 @@
         "Exam practice: processing form data and programming style"
       ],
       "questions": [
-        "frm-average-code",
         "frm-style-match",
+        "frm-l3-loop-types",
+        "frm-l3-repeat-once",
+        "frm-l3-naming",
+        "frm-l3-comment",
+        "frm-l3-constant",
+        "frm-l3-loop-choice",
+        "frm-l3-errors-array",
+        "frm-l3-sticky",
+        "frm-l3-table-tags",
+        "frm-l3-table-output",
+        "frm-l3-textcontent",
+        "frm-l3-until",
+        "frm-l3-infinite",
+        "frm-l3-average-output",
         "frm-style-why",
-        "frm-improve-style"
+        "frm-l3-magic",
+        "frm-l3-func-proc",
+        "frm-improve-style",
+        "frm-l3-refactor",
+        "frm-l3-errors-count",
+        "frm-l3-canteen-trace",
+        "frm-l3-canteen-pay",
+        "frm-l3-while-negate",
+        "frm-l3-repeat-trace",
+        "frm-l3-do-while",
+        "frm-l3-server-repeat",
+        "frm-average-code"
       ]
     }
   ]
