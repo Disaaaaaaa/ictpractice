@@ -1573,6 +1573,804 @@
           }
         }
       ]
+    },
+    {
+      "key": "bar-nx-1",
+      "title": "Canteen till",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A school canteen till in Pavlodar stores amounts as **8-bit unsigned binary integers**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-nx-1a",
+          "part_label": "(a)",
+          "title": "Binary addition",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Add the binary numbers **01101011** and **00111101**. Show your working and give the answer as an 8-bit binary number.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Column addition with the carries shown (1); 10101000 (1)",
+            "points": [
+              {
+                "criterion": "Working with carries",
+                "marks": 1
+              },
+              {
+                "criterion": "10101000",
+                "marks": 1
+              }
+            ],
+            "model_answer": "01101011 + 00111101 = 10101000 (107 + 61 = 168)",
+            "accepted": {
+              "values": [
+                "10101000"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-1b",
+          "part_label": "(b)",
+          "title": "Overflow in addition",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The till adds **10110110** and **01011100** in 8 bits. Give the 8-bit result and explain why it is not the correct total.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "8-bit result 00010010 (1); the true total is 274 / needs 9 bits — the carry out of the most significant bit is lost (1); 274 is greater than 255, the largest 8-bit unsigned value, so overflow has occurred (1)",
+            "points": [
+              {
+                "criterion": "Result 00010010",
+                "marks": 1
+              },
+              {
+                "criterion": "Carry out of MSB lost / 9 bits needed (274)",
+                "marks": 1
+              },
+              {
+                "criterion": "Overflow: greater than 255",
+                "marks": 1
+              }
+            ],
+            "model_answer": "182 + 92 = 274. The 8-bit result is 00010010 (18) because the final carry (worth 256) does not fit. 274 is larger than 255, the largest value in 8 unsigned bits, so overflow has occurred."
+          }
+        },
+        {
+          "key": "bar-nx-1c",
+          "part_label": "(c)",
+          "title": "Binary multiplication",
+          "type": "calculation",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.3"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The till multiplies the price **1101** by the quantity **110**. Multiply the binary numbers using shift and add. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Partial products 0000, 11010 (1101 shifted one place), 110100 (shifted two places) (1); added 11010 + 110100 (1); 1001110 (1)",
+            "points": [
+              {
+                "criterion": "Correct shifted partial products",
+                "marks": 1
+              },
+              {
+                "criterion": "Partial products added",
+                "marks": 1
+              },
+              {
+                "criterion": "1001110",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1101 × 110: partial products 0000, 11010, 110100. 11010 + 110100 = 1001110 (13 × 6 = 78)",
+            "accepted": {
+              "values": [
+                "1001110",
+                "01001110"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-nx-2",
+      "title": "Temperature sensor",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A weather station in Astana stores temperatures as **8-bit two's complement integers**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-nx-2a",
+          "part_label": "(a)",
+          "title": "Range",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the **smallest** and the **largest** temperature that can be stored.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Smallest (denary)",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Largest (denary)",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "−128 (1); +127 (1)",
+            "points": [
+              {
+                "criterion": "−128",
+                "marks": 1
+              },
+              {
+                "criterion": "127",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Smallest −128, largest +127",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "-128",
+                  "−128"
+                ],
+                "2": [
+                  "127",
+                  "+127"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "bar-nx-2b",
+          "part_label": "(b)",
+          "title": "Denary to two's complement",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Represent the temperature **−46** in 8-bit two's complement. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "+46 = 00101110 and inverted to 11010001 (1); add 1 → 11010010 (1)",
+            "points": [
+              {
+                "criterion": "+46 in binary and inverted",
+                "marks": 1
+              },
+              {
+                "criterion": "11010010",
+                "marks": 1
+              }
+            ],
+            "model_answer": "+46 = 00101110; invert → 11010001; add 1 → 11010010",
+            "accepted": {
+              "values": [
+                "11010010"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-2c",
+          "part_label": "(c)",
+          "title": "Two's complement to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert the stored value **10110101** to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "MSB has place value −128: −128 + 32 + 16 + 4 + 1 (1); −75 (1)",
+            "points": [
+              {
+                "criterion": "Method with −128",
+                "marks": 1
+              },
+              {
+                "criterion": "−75",
+                "marks": 1
+              }
+            ],
+            "model_answer": "−128 + 32 + 16 + 4 + 1 = −75",
+            "accepted": {
+              "values": [
+                "-75",
+                "−75"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-2d",
+          "part_label": "(d)",
+          "title": "Sign extension",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.4"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "An older sensor stored **−6** as the 4-bit two's complement number **1010**. Write this value as an 8-bit two's complement number and explain how you did it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Sign extension: the sign bit (MSB) 1 is copied into the four new left-hand bits (1); 11111010 (1)",
+            "points": [
+              {
+                "criterion": "Sign bit copied into the new left-hand bits",
+                "marks": 1
+              },
+              {
+                "criterion": "11111010",
+                "marks": 1
+              }
+            ],
+            "model_answer": "11111010 — sign extension: the sign bit 1 is copied into the four new bits on the left, so the value stays −6 (−128 + 64 + 32 + 16 + 8 + 2 = −6)."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-nx-3",
+      "title": "Bank account changes",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A program records changes to a student's savings account using **8-bit two's complement** arithmetic.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-nx-3a",
+          "part_label": "(a)",
+          "title": "Complement subtraction",
+          "type": "calculation",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Use two's complement to calculate **37 − 92**. Show your working and give the answer in binary and in denary.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "37 = 00100101 and 92 = 01011100 (1); −92: invert 10100011, add 1 → 10100100 (1); 00100101 + 10100100 = 11001001 (1); MSB 1 → negative: −128 + 64 + 8 + 1 = −55 (1)",
+            "points": [
+              {
+                "criterion": "37 and 92 in 8-bit binary",
+                "marks": 1
+              },
+              {
+                "criterion": "−92 = 10100100",
+                "marks": 1
+              },
+              {
+                "criterion": "Sum 11001001",
+                "marks": 1
+              },
+              {
+                "criterion": "−55",
+                "marks": 1
+              }
+            ],
+            "model_answer": "37 = 00100101; 92 = 01011100 → invert 10100011 + 1 = 10100100; 00100101 + 10100100 = 11001001 = −128 + 64 + 8 + 1 = −55",
+            "accepted": {
+              "values": [
+                "11001001 -55",
+                "11001001 = -55",
+                "-55",
+                "11001001"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-3b",
+          "part_label": "(b)",
+          "title": "Overflow in signed addition",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.5"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The program adds two deposits, **01001011** and **00111100**. Give the 8-bit result, its denary value as a two's complement number, and explain why it is wrong.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Result 10000111 (1); read as two's complement = −121 (1); the true total 75 + 60 = 135 is greater than +127, the largest 8-bit two's complement value / two positive numbers gave a negative result, so overflow has occurred (1)",
+            "points": [
+              {
+                "criterion": "10000111",
+                "marks": 1
+              },
+              {
+                "criterion": "−121",
+                "marks": 1
+              },
+              {
+                "criterion": "Overflow: 135 > 127 / positive + positive gave negative",
+                "marks": 1
+              }
+            ],
+            "model_answer": "01001011 + 00111100 = 10000111. As two's complement this is −128 + 4 + 2 + 1 = −121. The real answer 75 + 60 = 135 is bigger than +127, the largest value in 8-bit two's complement, so the result overflowed into the sign bit: two positive numbers gave a negative result."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-nx-4",
+      "title": "Data logger",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A science-lab data logger stores temperatures as **8-bit two's complement fixed-point** numbers with **4 integer bits and 4 fraction bits** (place values −8, 4, 2, 1 . ½, ¼, ⅛, 1/16).",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-nx-4a",
+          "part_label": "(a)",
+          "title": "Fixed point to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert the stored value **0101.0110** to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "4 + 1 + 0.25 + 0.125 (1); 5.375 (1)",
+            "points": [
+              {
+                "criterion": "Place values added",
+                "marks": 1
+              },
+              {
+                "criterion": "5.375",
+                "marks": 1
+              }
+            ],
+            "model_answer": "4 + 1 + 0.25 + 0.125 = 5.375",
+            "accepted": {
+              "values": [
+                "5.375"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-4b",
+          "part_label": "(b)",
+          "title": "Negative fixed point",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Represent **−5.625** in this format. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "+5.625 = 0101.1010 (1); invert 1010.0101 and add 1 to the last bit → 1010.0110 (1)",
+            "points": [
+              {
+                "criterion": "+5.625 = 0101.1010",
+                "marks": 1
+              },
+              {
+                "criterion": "1010.0110",
+                "marks": 1
+              }
+            ],
+            "model_answer": "+5.625 = 0101.1010; invert → 1010.0101; add 1 → 1010.0110 (check −8 + 2 + 0.25 + 0.125 = −5.625)",
+            "accepted": {
+              "values": [
+                "1010.0110",
+                "10100110"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-4c",
+          "part_label": "(c)",
+          "title": "Range of the format",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the **largest** and the **smallest** (most negative) values that can be stored in this format, in denary.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Largest",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Smallest",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "0111.1111 = 7.9375 (1); 1000.0000 = −8 (1)",
+            "points": [
+              {
+                "criterion": "7.9375",
+                "marks": 1
+              },
+              {
+                "criterion": "−8",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Largest 0111.1111 = 7.9375; smallest 1000.0000 = −8",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "7.9375",
+                  "+7.9375"
+                ],
+                "2": [
+                  "-8",
+                  "−8",
+                  "-8.0",
+                  "−8.0"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "bar-nx-4d",
+          "part_label": "(d)",
+          "title": "Rounding error",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.6"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A reading of **2.3** °C is stored by cutting off (truncating) the bits that do not fit. Explain why 2.3 cannot be stored exactly and state the value that is stored.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "0.3 is a recurring fraction in binary / cannot be made from ½, ¼, ⅛, 1/16 in 4 fraction bits, so there is a rounding (truncation) error (1); stored 0010.0100 = 2.25 (1)",
+            "points": [
+              {
+                "criterion": "0.3 is recurring / not a sum of the 4 fraction place values",
+                "marks": 1
+              },
+              {
+                "criterion": "2.25 (0010.0100)",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0.3 × 2 = 0.6 → 0, 1.2 → 1, 0.4 → 0, 0.8 → 0 … the bits keep repeating, so 0.3 needs infinitely many bits. With only 4 fraction bits the value 0010.0100 = 2.25 is stored — a rounding error of 0.05."
+          }
+        }
+      ]
+    },
+    {
+      "key": "bar-nx-5",
+      "title": "Scientific calculator",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A calculator stores real numbers in floating point with an **8-bit mantissa** followed by a **4-bit exponent**, both in **two's complement**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "bar-nx-5a",
+          "part_label": "(a)",
+          "title": "Floating point to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert the number with mantissa **01011000** and exponent **0011** to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Exponent +3 and mantissa 0.1011 / point moved 3 places right → 101.1 (1); 5.5 (1)",
+            "points": [
+              {
+                "criterion": "Exponent 3 and point moved / 0.6875 × 8",
+                "marks": 1
+              },
+              {
+                "criterion": "5.5",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Exponent = 3; 0.1011000 → 0101.1000 = 4 + 1 + 0.5 = 5.5",
+            "accepted": {
+              "values": [
+                "5.5"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "bar-nx-5b",
+          "part_label": "(b)",
+          "title": "Denary to normalised floating point",
+          "type": "short_answer",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Represent **−9.5** as a normalised floating-point number in this format. Show your working and give the mantissa and the exponent.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "9.5 = 1001.1 = 0.10011 × 2⁴ / positive mantissa 01001100 (1); two's complement of the mantissa: 10110100 (1); exponent 4 = 0100 (1)",
+            "points": [
+              {
+                "criterion": "+9.5 = 0.10011 × 2⁴ / 01001100",
+                "marks": 1
+              },
+              {
+                "criterion": "Mantissa 10110100",
+                "marks": 1
+              },
+              {
+                "criterion": "Exponent 0100",
+                "marks": 1
+              }
+            ],
+            "model_answer": "9.5 = 1001.1 = 0.10011 × 2⁴. Positive mantissa 01001100; invert → 10110011; add 1 → mantissa 10110100. Exponent 4 → 0100. Check: (−1 + 0.25 + 0.125 + 0.03125) × 16 = −0.59375 × 16 = −9.5."
+          }
+        },
+        {
+          "key": "bar-nx-5c",
+          "part_label": "(c)",
+          "title": "Normalising",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The number with mantissa **00010110** and exponent **0110** is not normalised. Write its normalised mantissa and exponent.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Mantissa",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Exponent",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Shift left 2 places: 01011000 (1); exponent 6 − 2 = 4: 0100 (1)",
+            "points": [
+              {
+                "criterion": "01011000",
+                "marks": 1
+              },
+              {
+                "criterion": "0100",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Mantissa 01011000, exponent 0100 (value 11 unchanged)",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "01011000"
+                ],
+                "2": [
+                  "0100"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "bar-nx-5d",
+          "part_label": "(d)",
+          "title": "Normalisation, range and precision",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.7"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **one** reason why floating-point numbers are normalised, and the effect of using a **6-bit mantissa and a 6-bit exponent** instead of the current format.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any one reason (1): gives maximum precision — no redundant leading bits, all mantissa bits are significant / each number has only one (unique) representation, making comparison easier. Effect (1): greater range (much larger / smaller numbers) but less precision (fewer significant bits)",
+            "points": [
+              {
+                "criterion": "Reason: maximum precision / unique representation",
+                "marks": 1
+              },
+              {
+                "criterion": "More range but less precision",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Normalising removes redundant leading 0s or 1s so that every mantissa bit is significant — the number is stored with the greatest possible precision (and each value has one unique form). With a 6-bit mantissa and 6-bit exponent the range increases (exponent −32 to +31) but the precision decreases, because only 6 mantissa bits hold significant bits."
+          }
+        }
+      ]
     }
   ],
   "summary": "Binary addition with carries and overflow, binary multiplication by shift-and-add, representing negative integers in two's complement, subtraction by adding the two's complement, fixed-point binary fractions, and normalised floating-point numbers (mantissa and exponent) — converting in both directions, with range and precision.",
@@ -2748,13 +3546,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 40,
     "title": "Binary arithmetic — Exam (Paper 1 style)",
-    "instructions": "Answer **all** questions. Show your working. Negative numbers, mantissas and exponents are in two's complement unless stated otherwise. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Show your working. Negative numbers, mantissas and exponents are in two's complement unless stated otherwise. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "bar-exam-1",
-      "bar-exam-2",
-      "bar-exam-3"
+      "bar-nx-1",
+      "bar-nx-2",
+      "bar-nx-3",
+      "bar-nx-4",
+      "bar-nx-5"
     ]
   },
   "lessons": [
