@@ -1482,6 +1482,748 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bus-nx-1",
+      "title": "Self-checkout terminal",
+      "type": "structured",
+      "marks": 9,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A supermarket in Astana installs **self-checkout terminals**. Each terminal has a CPU, byte-addressable main memory, a barcode scanner and a receipt printer, all connected by a **system bus**. The CPU has a **24-bit address bus** and a **32-bit data bus**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-1a",
+          "part_label": "(a)",
+          "title": "Naming the buses",
+          "type": "labelled_answers",
+          "marks": 3,
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "text": "Identify the bus that carries each of the following.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "The address of the memory location the CPU wants to use",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "The price of a product read from memory into the CPU",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "The memory read signal and the clock signal",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 address bus (1)\n2 data bus (1)\n3 control bus (1)",
+            "points": [
+              {
+                "criterion": "Address bus",
+                "marks": 1
+              },
+              {
+                "criterion": "Data bus",
+                "marks": 1
+              },
+              {
+                "criterion": "Control bus",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "fields": {
+                "1": [
+                  "address bus",
+                  "address",
+                  "the address bus"
+                ],
+                "2": [
+                  "data bus",
+                  "data",
+                  "the data bus"
+                ],
+                "3": [
+                  "control bus",
+                  "control",
+                  "the control bus"
+                ]
+              }
+            },
+            "model_answer": "1 address bus; 2 data bus; 3 control bus."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-1b",
+          "part_label": "(b)",
+          "title": "Reading from memory",
+          "type": "short_answer",
+          "marks": 4,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "text": "The price of a product is stored at memory address **4000**. Describe how the CPU reads this price from main memory. Refer to the registers and buses used.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "- the address 4000 is placed in the **MAR** (1)\n- the MAR puts the address on the **address bus**, which carries it (one way) from the CPU to memory (1)\n- the control unit sends a **memory read** signal on the **control bus** (1)\n- the contents of location 4000 are sent along the **data bus** to the **MDR** (1)",
+            "points": [
+              {
+                "criterion": "Address in MAR",
+                "marks": 1
+              },
+              {
+                "criterion": "Address bus to memory",
+                "marks": 1
+              },
+              {
+                "criterion": "Read signal on control bus",
+                "marks": 1
+              },
+              {
+                "criterion": "Data bus to MDR",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "The four points may appear in any wording but must be in a sensible order; 'the data goes to the CPU' without the MDR or the data bus loses the last mark.",
+            "model_answer": "The CPU copies the address 4000 into the MAR. The MAR places 4000 on the address bus, which carries it from the CPU to memory. The control unit sends a memory read signal on the control bus. Memory finds location 4000 and puts its contents — the price — on the data bus, which carries it back to the CPU into the MDR."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-1c",
+          "part_label": "(c)",
+          "title": "Maximum memory",
+          "type": "calculation",
+          "marks": 2,
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "text": "Calculate the maximum amount of main memory, in **MiB**, that the CPU can address. Show your working.",
+          "content": {
+            "unit": "MiB",
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- 2²⁴ = 16 777 216 locations × 1 byte = 16 777 216 bytes (1)\n- ÷ 1024 ÷ 1024 = **16 MiB** (1)\nCorrect answer with no working: 2 marks.",
+            "points": [
+              {
+                "criterion": "2²⁴ = 16 777 216 bytes",
+                "marks": 1
+              },
+              {
+                "criterion": "16 MiB",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "16",
+                "16 MiB",
+                "16MiB",
+                "16 MB",
+                "16MB"
+              ],
+              "numeric": true
+            },
+            "model_answer": "A 24-bit address bus gives 2²⁴ = 16 777 216 different addresses, one byte each: 16 777 216 ÷ 1024 ÷ 1024 = 16 MiB."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bus-nx-2",
+      "title": "Scanner interrupts and price updates",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The terminal's **barcode scanner** sends an **interrupt** each time it has read a barcode. Every night the terminal also downloads a **40 MB** file of new prices from the network into main memory.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-2a",
+          "part_label": "(a)",
+          "title": "Handling the interrupt",
+          "type": "short_answer",
+          "marks": 4,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.5",
+            "12.3.2.4"
+          ],
+          "text": "Explain how the CPU deals with the interrupt from the barcode scanner.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "- the scanner sends an interrupt signal on the **control bus** / a flag is set in the status (interrupt) register (1)\n- the CPU checks for interrupts at the **end of the current fetch–decode–execute cycle**, and services it if its **priority** is higher than the current task (1)\n- the contents of the registers / the **PC** are **saved on the stack** (1)\n- the address of the **interrupt service routine** is loaded into the PC and the ISR runs (reads the barcode); afterwards the registers are **restored** and the original program continues (1)",
+            "points": [
+              {
+                "criterion": "Signal on control bus / flag set",
+                "marks": 1
+              },
+              {
+                "criterion": "Checked at end of cycle, priority",
+                "marks": 1
+              },
+              {
+                "criterion": "Registers / PC saved on stack",
+                "marks": 1
+              },
+              {
+                "criterion": "ISR address to PC, then restore and resume",
+                "marks": 1
+              }
+            ],
+            "model_answer": "When the scanner has read a barcode it sends an interrupt request on the control bus, which sets a flag in the interrupt register. At the end of the current fetch–decode–execute cycle the CPU checks for interrupts; because the scanner's interrupt has a higher priority than the current task it is serviced. The CPU saves its registers, including the PC, on the stack, then loads the address of the scanner's interrupt service routine into the PC. The normal cycle now fetches and executes the ISR, which reads the barcode. When it finishes, the saved values are restored from the stack and the interrupted program continues where it stopped."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-2b",
+          "part_label": "(b)",
+          "title": "Direct memory access",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.4"
+          ],
+          "text": "The 40 MB price file is copied into memory using **direct memory access (DMA)**. Explain how DMA uses the system bus and why it is better than passing every byte through the CPU for this file.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "- the DMA controller sends a **bus request** on the control bus and the CPU replies with **bus grant** (1)\n- the DMA controller then puts addresses and data on the address and data buses itself and copies the block **directly between the device and memory**, not through the CPU registers (1)\n- for a large 40 MB block the CPU would otherwise have to execute instructions for millions of transfers; with DMA it is **free to do other work** and only handles **one interrupt** at the end (1)",
+            "points": [
+              {
+                "criterion": "Bus request / bus grant",
+                "marks": 1
+              },
+              {
+                "criterion": "Data copied device ↔ memory directly",
+                "marks": 1
+              },
+              {
+                "criterion": "CPU time saved for a large block",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The network card's DMA controller sends a bus request on the control bus; when the CPU finishes its current bus operation it replies with a bus grant. The DMA controller then becomes bus master: it places memory addresses on the address bus and the bytes of the file on the data bus, copying the block straight into memory without passing through the CPU. The file is 40 MB, so moving it byte by byte through the CPU would occupy the CPU with millions of transfers; with DMA the CPU can carry on with other work and only has to handle one interrupt when the transfer is complete."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bus-nx-3",
+      "title": "Executing a program",
+      "type": "structured",
+      "marks": 11,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "Part of the terminal's program is stored in main memory as shown. Before the cycle starts, the **PC** contains **200**.\n\n| Address | Contents |\n|---|---|\n| 200 | LDD 350 |\n| 201 | ADD 351 |\n| … | … |\n| 350 | 1200 |\n| 351 | 300 |\n\n`LDD 350` loads the contents of address 350 into the accumulator (ACC). `ADD 351` adds the contents of address 351 to the ACC.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-3a",
+          "part_label": "(a)",
+          "title": "PC and CIR",
+          "type": "labelled_answers",
+          "marks": 2,
+          "command_word": "state",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "text": "State the purpose of each register.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Program Counter (PC)",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "Current Instruction Register (CIR)",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "PC: holds the **address** of the **next instruction** to be fetched (1)\nCIR: holds the instruction that is **currently being decoded / executed** (1)",
+            "points": [
+              {
+                "criterion": "PC",
+                "marks": 1
+              },
+              {
+                "criterion": "CIR",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "'The PC holds the current instruction' earns no mark — it must be an address of the next instruction.",
+            "model_answer": "PC: holds the address of the next instruction to be fetched from memory. CIR: holds the instruction currently being decoded and executed."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-3b",
+          "part_label": "(b)",
+          "title": "Tracing the fetch",
+          "type": "table_completion",
+          "marks": 4,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "text": "The fetch stage of the first instruction is written in register transfer notation. Complete the table with the value held by the register on the **left** of each step **after** that step.",
+          "content": {
+            "columns": [
+              "Step",
+              "Register transfer notation",
+              "Value after the step"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "1",
+                "MAR ← [PC]",
+                null
+              ],
+              [
+                "2",
+                "PC ← [PC] + 1",
+                null
+              ],
+              [
+                "3",
+                "MDR ← [[MAR]]",
+                null
+              ],
+              [
+                "4",
+                "CIR ← [MDR]",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "1 MAR = 200 (1)\n2 PC = 201 (1)\n3 MDR = LDD 350 (1)\n4 CIR = LDD 350 (1)",
+            "points": [
+              {
+                "criterion": "200",
+                "marks": 1
+              },
+              {
+                "criterion": "201",
+                "marks": 1
+              },
+              {
+                "criterion": "LDD 350",
+                "marks": 1
+              },
+              {
+                "criterion": "LDD 350",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "200"
+                ],
+                [
+                  null,
+                  null,
+                  "201"
+                ],
+                [
+                  null,
+                  null,
+                  "LDD 350||LDD350"
+                ],
+                [
+                  null,
+                  null,
+                  "LDD 350||LDD350"
+                ]
+              ]
+            },
+            "model_answer": "| Step | RTN | Value |\n|---|---|---|\n| 1 | MAR ← [PC] | 200 |\n| 2 | PC ← [PC] + 1 | 201 |\n| 3 | MDR ← [[MAR]] | LDD 350 |\n| 4 | CIR ← [MDR] | LDD 350 |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-3c",
+          "part_label": "(c)",
+          "title": "Decode and execute",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "text": "Describe what happens during the **decode** and **execute** stages of `LDD 350`.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "- decode: the **control unit** examines the instruction in the CIR and splits it into the **opcode** LDD (load direct) and the **operand** 350 (1)\n- execute: the operand **350 is copied into the MAR** / MAR ← 350, and a memory read is performed so that MDR ← [[MAR]] = 1200 (1)\n- the value 1200 is copied from the MDR into the **ACC** (ACC ← [MDR]) (1)",
+            "points": [
+              {
+                "criterion": "CU splits CIR into opcode and operand",
+                "marks": 1
+              },
+              {
+                "criterion": "350 → MAR and memory read to MDR",
+                "marks": 1
+              },
+              {
+                "criterion": "MDR → ACC = 1200",
+                "marks": 1
+              }
+            ],
+            "model_answer": "In the decode stage the control unit examines the instruction in the CIR and splits it into the opcode LDD, meaning load direct, and the operand 350, the address of the data. In the execute stage 350 is copied into the MAR, a memory read signal is sent, and the contents of address 350 — 1200 — travel on the data bus into the MDR. Finally the value is copied from the MDR into the accumulator, so ACC = 1200."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-3d",
+          "part_label": "(d)",
+          "title": "After the next instruction",
+          "type": "labelled_answers",
+          "marks": 2,
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "12.3.2.5"
+          ],
+          "text": "The CPU then fetches and executes the next instruction. State the values in the ACC and the PC after it has been executed.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "ACC",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "PC",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "ACC = 1200 + 300 = **1500** (1)\nPC = **202** (1)",
+            "points": [
+              {
+                "criterion": "ACC 1500",
+                "marks": 1
+              },
+              {
+                "criterion": "PC 202",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "fields": {
+                "1": [
+                  "1500",
+                  "1 500"
+                ],
+                "2": [
+                  "202"
+                ]
+              }
+            },
+            "model_answer": "The next instruction is ADD 351 at address 201. During its fetch the PC becomes 202; executing it adds the contents of address 351 (300) to the ACC: 1200 + 300 = 1500."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bus-nx-4",
+      "title": "Choosing a processor for a design studio",
+      "type": "structured",
+      "marks": 13,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A design studio in Almaty needs new computers for **rendering 3D animations**. The rendering software splits each frame into many parts that can be processed **at the same time**. Two processors are considered:\n\n| | Processor X | Processor Y |\n|---|---|---|\n| Clock speed | 3.2 GHz | 4.0 GHz |\n| Cores | 8 | 2 |\n| Word length | 64-bit | 64-bit |\n| Data bus width | 64-bit | 32-bit |\n| Cache | 16 MB | 4 MB |",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-4a",
+          "part_label": "(a)",
+          "title": "Clock speed",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "text": "Explain how the clock speed affects the performance of a processor, and why it cannot simply be increased without limit.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "- clock speed = the number of **clock cycles per second** (Hz) (1)\n- a higher clock speed means more cycles, so **more instructions are fetched and executed per second** / each step takes less time (1)\n- limit: more **heat** is produced and more power used / components may become unstable / memory and buses cannot keep up, so the CPU waits (1)",
+            "points": [
+              {
+                "criterion": "Cycles per second",
+                "marks": 1
+              },
+              {
+                "criterion": "More instructions per second",
+                "marks": 1
+              },
+              {
+                "criterion": "Heat / power / memory limit",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The clock speed is the number of clock cycles the CPU performs each second, measured in hertz. Each step of the fetch–decode–execute cycle takes one or more clock cycles, so a higher clock speed means more instructions are fetched, decoded and executed per second. It cannot be raised without limit, because a faster clock makes the chip use more power and produce more heat, which can make it unstable, and the memory and buses cannot supply data any faster, so the CPU would spend more cycles waiting."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-4b",
+          "part_label": "(b)",
+          "title": "Instructions per second",
+          "type": "calculation",
+          "marks": 2,
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "text": "One core of Processor X needs on average **4 clock cycles** per instruction. Calculate the number of instructions this core can execute per second. Show your working.",
+          "content": {
+            "unit": "instructions per second",
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- 3.2 GHz = 3 200 000 000 cycles per second (1)\n- ÷ 4 = **800 000 000** instructions per second (800 million) (1)",
+            "points": [
+              {
+                "criterion": "3.2 × 10⁹ cycles per second",
+                "marks": 1
+              },
+              {
+                "criterion": "800 000 000",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "800000000",
+                "800 000 000",
+                "800,000,000",
+                "800 million",
+                "8 x 10^8",
+                "8×10^8",
+                "8*10^8",
+                "800000000 instructions per second"
+              ],
+              "numeric": true
+            },
+            "model_answer": "3.2 GHz = 3.2 × 10⁹ = 3 200 000 000 cycles per second. 3 200 000 000 ÷ 4 = 800 000 000 instructions per second."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-4c",
+          "part_label": "(c)",
+          "title": "Data bus bandwidth",
+          "type": "calculation",
+          "marks": 2,
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "text": "Processor X's **64-bit** data bus transfers one word per cycle at **200 MHz**. Calculate its bandwidth in **MB/s** (1 MB = 1 000 000 bytes). Show your working.",
+          "content": {
+            "unit": "MB/s",
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- 64 bits = 8 bytes per transfer (1)\n- 8 × 200 000 000 = 1 600 000 000 bytes/s = **1600 MB/s** (1)",
+            "points": [
+              {
+                "criterion": "8 bytes per transfer",
+                "marks": 1
+              },
+              {
+                "criterion": "1600 MB/s",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "1600",
+                "1600 MB/s",
+                "1 600",
+                "1 600 MB/s",
+                "1600MB/s",
+                "1.6 GB/s"
+              ],
+              "numeric": true
+            },
+            "model_answer": "64 ÷ 8 = 8 bytes per transfer; 200 MHz = 200 000 000 transfers per second; 8 × 200 000 000 = 1 600 000 000 bytes/s = 1600 MB/s."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-4d",
+          "part_label": "(d)",
+          "title": "Data bus width",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "text": "Explain how the **width of the data bus** affects performance, using Processors X and Y as an example.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- a wider data bus carries **more bits in each transfer** / per clock cycle (1)\n- X's 64-bit bus moves a 64-bit word in **one** transfer, but Y's 32-bit bus needs **two** transfers, so data reaches the CPU more slowly and Y may wait for memory (1)",
+            "points": [
+              {
+                "criterion": "More bits per transfer",
+                "marks": 1
+              },
+              {
+                "criterion": "Applied to X and Y",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A wider data bus carries more bits at the same time, so more data is moved in each clock cycle. Processor X can transfer a whole 64-bit word in one operation, while Processor Y's 32-bit bus needs two transfers for each 64-bit word, so Y spends more time waiting for data even though its word length is the same."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bus-nx-4e",
+          "part_label": "(e)",
+          "title": "Recommendation",
+          "type": "extended",
+          "marks": 4,
+          "command_word": "discuss",
+          "grading": "AI",
+          "objectives": [
+            "12.3.2.6"
+          ],
+          "text": "Discuss which processor is more suitable for the studio's rendering computers. Refer to the specifications in the table.",
+          "content": {
+            "answer_lines": 8
+          },
+          "scheme": {
+            "mark_scheme": "Up to 4 marks:\n- Y has the higher clock speed (4.0 vs 3.2 GHz), so a **single** task / one core runs faster (1)\n- X has **8 cores**, so many parts of a frame can be processed **in parallel** — rendering is split into parts that run at the same time (1)\n- X's larger **cache** (16 MB) keeps more data close to the cores, so fewer slow memory accesses / X's 64-bit data bus moves more data per transfer (1)\n- justified conclusion: X is more suitable, because the rendering software can use all the cores, which outweighs Y's higher clock speed (1)",
+            "points": [
+              {
+                "criterion": "Clock speed point",
+                "marks": 1
+              },
+              {
+                "criterion": "Cores / parallel processing linked to rendering",
+                "marks": 1
+              },
+              {
+                "criterion": "Cache or bus width point",
+                "marks": 1
+              },
+              {
+                "criterion": "Justified conclusion",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "A conclusion for Y can score at most 3 marks unless it is justified convincingly with the scenario. Without any reference to the table values, maximum 2 marks.",
+            "model_answer": "Processor Y has the higher clock speed, 4.0 GHz against 3.2 GHz, so a single sequence of instructions would run faster on it. However, the rendering software splits each frame into many parts that can be processed at the same time, so Processor X's 8 cores can work on eight parts in parallel while Y can only work on two. X also has a 16 MB cache, so more of the frame data is kept close to the cores and fewer slow trips to main memory are needed, and its 64-bit data bus moves twice as much data per transfer. Overall X is more suitable, because its cores, cache and wider bus outweigh Y's higher clock speed for this parallel task."
+          }
+        }
+      ]
     }
   ],
   "summary": "The components of the CPU and how data is transferred between the CPU, main memory and input/output devices through the address, data and control buses; the registers and steps of the fetch–decode–execute cycle in register transfer notation; interrupts; and how clock speed, word length, bus width, cores and cache affect performance.",
@@ -2813,13 +3555,14 @@
     }
   ],
   "topic_exam": {
-    "duration": 40,
     "title": "System buses and the instruction cycle — Exam (Paper 1 style)",
-    "instructions": "Answer **all** questions. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 40 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Show your working in calculations. Use 1 KiB = 1024 bytes and 1 MiB = 1024 KiB. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "bus-exam-1",
-      "bus-exam-2",
-      "bus-exam-3"
+      "bus-nx-1",
+      "bus-nx-2",
+      "bus-nx-3",
+      "bus-nx-4"
     ]
   },
   "lessons": [
