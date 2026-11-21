@@ -2,44 +2,13 @@
   "topic": "g12-system-buses",
   "questions": [
     {
-      "key": "bus-define",
-      "title": "System bus",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "easy",
-      "command_word": "define",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.4"
-      ],
-      "practice": true,
-      "text": "Define the term **system bus** and name the components it connects.",
-      "content": {
-        "answer_lines": 2
-      },
-      "scheme": {
-        "mark_scheme": "- Set of parallel wires / lines that transfer signals / data (1)\n- connecting the CPU, main memory and I/O controllers (1)",
-        "points": [
-          {
-            "criterion": "Parallel wires",
-            "marks": 1
-          },
-          {
-            "criterion": "CPU, memory, I/O",
-            "marks": 1
-          }
-        ],
-        "model_answer": "A set of parallel wires on the motherboard that carries data, addresses and control signals between the CPU, main memory and I/O controllers."
-      }
-    },
-    {
       "key": "bus-tick",
       "title": "Which bus?",
       "type": "table_completion",
       "marks": 5,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.4"
       ],
@@ -144,89 +113,8 @@
               "✓"
             ]
           ]
-        }
-      }
-    },
-    {
-      "key": "bus-purposes",
-      "title": "Purposes of the buses",
-      "type": "labelled_answers",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.4"
-      ],
-      "practice": true,
-      "text": "Describe the purpose of each bus.",
-      "content": {
-        "fields": [
-          {
-            "key": "data",
-            "label": "Data bus",
-            "lines": 2
-          },
-          {
-            "key": "address",
-            "label": "Address bus",
-            "lines": 2
-          },
-          {
-            "key": "control",
-            "label": "Control bus",
-            "lines": 2
-          }
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "Data: carries data / instructions between CPU, memory and I/O in both directions (1). Address: carries the address of the location to read from / write to, from the CPU (1). Control: carries control / timing signals e.g. read, write, clock, interrupt (1)",
-        "points": [
-          {
-            "criterion": "Data",
-            "marks": 1
-          },
-          {
-            "criterion": "Address",
-            "marks": 1
-          },
-          {
-            "criterion": "Control",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Data bus: moves data and instructions between components in both directions. Address bus: carries the address of the memory location being used. Control bus: carries signals such as memory read, memory write and the clock."
-      }
-    },
-    {
-      "key": "bus-direction",
-      "title": "Direction of the address bus",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.4"
-      ],
-      "practice": true,
-      "text": "Explain why the address bus is unidirectional but the data bus is bidirectional.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- Only the CPU sends addresses / chooses the location, so addresses go one way (1)\n- data must go into the CPU when reading and out when writing (1)",
-        "points": [
-          {
-            "criterion": "Address only from CPU",
-            "marks": 1
-          },
-          {
-            "criterion": "Data read and write",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Only the CPU decides which location to access, so addresses travel only from the CPU; data has to move into the CPU when reading and out of it when writing."
+        },
+        "explanation": "Read/write and clock/interrupt signals are on the control bus; the address bus is one-way and its width sets the memory size; instructions travel on the data bus."
       }
     },
     {
@@ -236,7 +124,7 @@
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.4"
       ],
@@ -306,7 +194,8 @@
               "C"
             ]
           ]
-        }
+        },
+        "explanation": "Address on the address bus, then the memory read signal, then memory puts the contents on the data bus and they arrive in the MDR."
       }
     },
     {
@@ -388,7 +277,7 @@
       "marks": 3,
       "difficulty": "hard",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.5"
       ],
@@ -445,12 +334,12 @@
             [
               null,
               null,
-              "MAR ← [PC]||MAR <- [PC]||MAR←[PC]||MAR <- PC||MAR ← PC"
+              "MAR ← [PC]||MAR <- [PC]||MAR←[PC]||MAR<-[PC]"
             ],
             [
               null,
               null,
-              "PC ← [PC] + 1||PC <- [PC] + 1||PC←[PC]+1||PC ← [PC]+1||PC <- [PC]+1"
+              "PC ← [PC] + 1||PC <- [PC] + 1||PC←[PC]+1||PC ← [PC]+1||PC <- [PC]+1||PC<-[PC]+1"
             ],
             [
               null,
@@ -460,87 +349,11 @@
             [
               null,
               null,
-              "CIR ← [MDR]||CIR <- [MDR]||CIR←[MDR]||CIR <- MDR||CIR ← MDR"
+              "CIR ← [MDR]||CIR <- [MDR]||CIR←[MDR]||CIR<-[MDR]"
             ]
           ]
-        }
-      }
-    },
-    {
-      "key": "bus-fetch",
-      "title": "The fetch stage",
-      "type": "short_answer",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.5"
-      ],
-      "practice": true,
-      "text": "Describe what happens during the **fetch** stage of the instruction cycle.",
-      "content": {
-        "answer_lines": 4
-      },
-      "scheme": {
-        "mark_scheme": "- Address in PC copied to MAR / sent on address bus (1)\n- PC incremented (1)\n- instruction at that address copied to MDR (via data bus) then to CIR (1)",
-        "points": [
-          {
-            "criterion": "PC → MAR",
-            "marks": 1
-          },
-          {
-            "criterion": "PC + 1",
-            "marks": 1
-          },
-          {
-            "criterion": "MDR → CIR",
-            "marks": 1
-          }
-        ],
-        "model_answer": "The address in the PC is copied to the MAR, the PC is incremented, and the instruction stored at that address is read into the MDR and copied into the CIR."
-      }
-    },
-    {
-      "key": "bus-decode-execute",
-      "title": "Decode and execute",
-      "type": "labelled_answers",
-      "marks": 2,
-      "difficulty": "medium",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.5"
-      ],
-      "practice": true,
-      "text": "Explain what happens in the **decode** and **execute** stages.",
-      "content": {
-        "fields": [
-          {
-            "key": "decode",
-            "label": "Decode",
-            "lines": 2
-          },
-          {
-            "key": "execute",
-            "label": "Execute",
-            "lines": 2
-          }
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "Decode: the control unit interprets the instruction / splits into opcode and operand (1). Execute: the instruction is carried out, e.g. ALU performs calculation / data moved / PC changed (1)",
-        "points": [
-          {
-            "criterion": "Decode",
-            "marks": 1
-          },
-          {
-            "criterion": "Execute",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Decode: the control unit splits the instruction in the CIR into opcode and operand and works out what to do. Execute: the instruction is carried out, e.g. the ALU adds or data is loaded."
+        },
+        "explanation": "The PC's value goes to the MAR, the PC is incremented by 1, and the CIR receives the instruction from the MDR. Type ← or <-."
       }
     },
     {
@@ -550,7 +363,7 @@
       "marks": 4,
       "difficulty": "hard",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.5"
       ],
@@ -648,128 +461,8 @@
               "12"
             ]
           ]
-        }
-      }
-    },
-    {
-      "key": "bus-interrupt",
-      "title": "Interrupts",
-      "type": "short_answer",
-      "marks": 3,
-      "difficulty": "hard",
-      "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.5"
-      ],
-      "practice": true,
-      "text": "Explain what an interrupt is and how the CPU deals with it during the instruction cycle.",
-      "content": {
-        "answer_lines": 4
-      },
-      "scheme": {
-        "mark_scheme": "- Signal from a device / program that needs the CPU's attention (1)\n- CPU checks for interrupts at the end of each cycle (1)\n- saves registers / current state, runs the interrupt service routine, then restores and continues (1)",
-        "points": [
-          {
-            "criterion": "Definition",
-            "marks": 1
-          },
-          {
-            "criterion": "Checked each cycle",
-            "marks": 1
-          },
-          {
-            "criterion": "Save, ISR, restore",
-            "marks": 1
-          }
-        ],
-        "model_answer": "An interrupt is a signal that a device or program needs attention. At the end of each fetch–decode–execute cycle the CPU checks for one; if found, it saves its registers, runs the interrupt service routine and then restores the registers and carries on."
-      }
-    },
-    {
-      "key": "bus-factors-table",
-      "title": "Performance factors",
-      "type": "labelled_answers",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "define",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.6"
-      ],
-      "practice": true,
-      "text": "Define each factor that affects the performance of the CPU.",
-      "content": {
-        "fields": [
-          {
-            "key": "clock",
-            "label": "Clock speed",
-            "lines": 2
-          },
-          {
-            "key": "word",
-            "label": "Word length",
-            "lines": 2
-          },
-          {
-            "key": "bus",
-            "label": "Bus width",
-            "lines": 2
-          }
-        ]
-      },
-      "scheme": {
-        "mark_scheme": "Clock speed: number of cycles the CPU performs per second (1). Word length: number of bits the CPU can process as one unit at a time (1). Bus width: number of bits a bus can carry at one time / number of lines (1)",
-        "points": [
-          {
-            "criterion": "Clock",
-            "marks": 1
-          },
-          {
-            "criterion": "Word",
-            "marks": 1
-          },
-          {
-            "criterion": "Bus",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Clock speed: the number of clock cycles per second. Word length: the number of bits processed by the CPU in one operation. Bus width: the number of bits a bus can transfer at once."
-      }
-    },
-    {
-      "key": "bus-clock-effect",
-      "title": "Clock speed",
-      "type": "short_answer",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "describe",
-      "grading": "AI",
-      "objectives": [
-        "12.3.2.6"
-      ],
-      "practice": true,
-      "text": "Describe the effect of increasing the clock speed of a processor.",
-      "content": {
-        "answer_lines": 4
-      },
-      "scheme": {
-        "mark_scheme": "- More cycles per second, so instructions are executed faster (1)\n- fetch–decode–execute cycle happens more times per second (1)\n- more heat produced → overheating / malfunction / need cooling (1)",
-        "points": [
-          {
-            "criterion": "Faster execution",
-            "marks": 1
-          },
-          {
-            "criterion": "More cycles",
-            "marks": 1
-          },
-          {
-            "criterion": "Heat",
-            "marks": 1
-          }
-        ],
-        "model_answer": "More cycles happen each second, so more fetch–decode–execute cycles complete and programs run faster, but the CPU produces more heat and may overheat."
+        },
+        "explanation": "The PC is incremented during the fetch; the operand 75 goes into the MAR to load the data, which ends up in the ACC."
       }
     },
     {
@@ -800,7 +493,7 @@
       "marks": 2,
       "difficulty": "medium",
       "command_word": "calculate",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "12.3.2.6"
       ],
@@ -827,7 +520,8 @@
             "800"
           ],
           "numeric": true
-        }
+        },
+        "explanation": "64 bits = 8 bytes per transfer; 8 × 100 000 000 = 800 MB/s."
       }
     },
     {
@@ -867,115 +561,6 @@
           "correct": "A"
         }
       }
-    },
-    {
-      "key": "bus-structured",
-      "title": "Choosing a processor",
-      "type": "structured",
-      "marks": 5,
-      "difficulty": "exam",
-      "command_word": null,
-      "grading": "AI",
-      "objectives": [],
-      "practice": true,
-      "text": "Processor X: 3.0 GHz, 32-bit word, 32-bit data bus. Processor Y: 3.0 GHz, 64-bit word, 64-bit data bus.",
-      "scheme": {
-        "mark_scheme": ""
-      },
-      "parts": [
-        {
-          "key": "bus-str-a",
-          "part_label": "(a)",
-          "title": "Word length",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.6"
-          ],
-          "practice": true,
-          "text": "Explain how the larger word length of processor Y improves performance.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "Processes 64 bits in one operation instead of 32 (1); larger numbers / more data per instruction so fewer instructions / cycles needed (1)",
-            "points": [
-              {
-                "criterion": "More bits per operation",
-                "marks": 1
-              },
-              {
-                "criterion": "Fewer instructions",
-                "marks": 1
-              }
-            ],
-            "model_answer": "Y can process 64 bits in one operation, so large numbers and more data are handled with fewer instructions."
-          }
-        },
-        {
-          "key": "bus-str-b",
-          "part_label": "(b)",
-          "title": "Data bus",
-          "type": "short_answer",
-          "marks": 2,
-          "difficulty": "exam",
-          "command_word": "explain",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.6"
-          ],
-          "practice": true,
-          "text": "Explain how the wider data bus of processor Y improves performance.",
-          "content": {
-            "answer_lines": 3
-          },
-          "scheme": {
-            "mark_scheme": "8 bytes transferred at once instead of 4 (1); fewer transfers / half the time to move data between memory and CPU (1)",
-            "points": [
-              {
-                "criterion": "More per transfer",
-                "marks": 1
-              },
-              {
-                "criterion": "Fewer transfers",
-                "marks": 1
-              }
-            ],
-            "model_answer": "It carries 64 bits (8 bytes) per transfer instead of 32, so about half as many transfers are needed to move the same data."
-          }
-        },
-        {
-          "key": "bus-str-c",
-          "part_label": "(c)",
-          "title": "Same clock",
-          "type": "short_answer",
-          "marks": 1,
-          "difficulty": "exam",
-          "command_word": "state",
-          "grading": "AI",
-          "objectives": [
-            "12.3.2.6"
-          ],
-          "practice": true,
-          "text": "State what the clock speed of 3.0 GHz means.",
-          "content": {
-            "answer_lines": 1
-          },
-          "scheme": {
-            "mark_scheme": "3 000 000 000 / 3 billion clock cycles per second (1)",
-            "points": [
-              {
-                "criterion": "3 billion cycles/s",
-                "marks": 1
-              }
-            ],
-            "model_answer": "The clock makes 3 billion cycles every second."
-          }
-        }
-      ]
     },
     {
       "key": "bus-exam-1",
@@ -2224,6 +1809,3166 @@
           }
         }
       ]
+    },
+    {
+      "key": "bus-cpu-parts-match",
+      "title": "Parts of the CPU",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Match each part of the CPU to its job.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Control unit (CU)"
+          },
+          {
+            "key": "L2",
+            "text": "Arithmetic logic unit (ALU)"
+          },
+          {
+            "key": "L3",
+            "text": "Registers"
+          },
+          {
+            "key": "L4",
+            "text": "Clock"
+          },
+          {
+            "key": "L5",
+            "text": "Cache"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Very small, very fast storage locations inside the CPU holding the values in use right now"
+          },
+          {
+            "key": "R2",
+            "text": "Decodes instructions and sends control signals to the other components"
+          },
+          {
+            "key": "R3",
+            "text": "Holds copies of recently and frequently used instructions and data so RAM is used less"
+          },
+          {
+            "key": "R4",
+            "text": "Performs arithmetic and logical operations such as ADD, AND and comparisons"
+          },
+          {
+            "key": "R5",
+            "text": "Sends regular pulses that keep all components synchronised"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Control unit (CU) – Decodes instructions and sends control signals to the other components; Arithmetic logic unit (ALU) – Performs arithmetic and logical operations such as ADD, AND and comparisons; Registers – Very small, very fast storage locations inside the CPU holding the values in use right now; Clock – Sends regular pulses that keep all components synchronised; Cache – Holds copies of recently and frequently used instructions and data so RAM is used less (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R4",
+            "L3": "R1",
+            "L4": "R5",
+            "L5": "R3"
+          }
+        },
+        "explanation": "The CU manages, the ALU computes, registers hold the current values, the clock times every step and cache sits between the registers and RAM."
+      }
+    },
+    {
+      "key": "bus-system-define",
+      "title": "What is the system bus?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Which statement best defines the **system bus**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "A cable that connects the computer to the printer and other external devices"
+        },
+        {
+          "key": "B",
+          "content": "A set of parallel lines on the motherboard that connects the CPU, main memory and I/O controllers"
+        },
+        {
+          "key": "C",
+          "content": "A register inside the CPU that holds the address of the next instruction"
+        },
+        {
+          "key": "D",
+          "content": "The part of the CPU that carries out arithmetic and logic"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The system bus is made of the address, data and control buses and links the CPU, main memory and the I/O controllers."
+      }
+    },
+    {
+      "key": "bus-line-one-bit",
+      "title": "One line, one bit",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Each line (wire) of a bus can carry **one bit** at a time, so a 16-line bus can carry a 16-bit value in one go.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "The bits travel side by side at the same moment — parallel transmission. The number of lines is the bus width."
+      }
+    },
+    {
+      "key": "bus-three-buses-fill",
+      "title": "The three buses",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe [[1]] bus carries the location (memory address or I/O port) to be used. The [[2]] bus carries the value or instruction being transferred. The [[3]] bus carries signals such as memory read, memory write, clock and interrupt request.",
+      "source": "original",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) address (2) data (3) control",
+        "accepted": {
+          "blanks": [
+            [
+              "address"
+            ],
+            [
+              "data"
+            ],
+            [
+              "control"
+            ]
+          ]
+        },
+        "explanation": "Where → address bus, what → data bus, how/when → control bus."
+      }
+    },
+    {
+      "key": "bus-address-oneway",
+      "title": "Direction of the address bus",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "The address bus is **bidirectional**: addresses travel both to and from the CPU.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The address bus is unidirectional — only the CPU decides which location to use, so addresses travel only from the CPU to memory and I/O."
+      }
+    },
+    {
+      "key": "bus-connects-mr",
+      "title": "What the system bus connects",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Select the **three** groups of components that are connected by the system bus.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The CPU"
+        },
+        {
+          "key": "B",
+          "content": "Main memory (RAM and ROM)"
+        },
+        {
+          "key": "C",
+          "content": "Input/output (I/O) controllers"
+        },
+        {
+          "key": "D",
+          "content": "The individual pixels of the monitor"
+        },
+        {
+          "key": "E",
+          "content": "The power socket in the wall"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "The CPU talks to devices through their controllers (keyboard, graphics, disk, network, USB controllers), not to the devices' parts directly."
+      }
+    },
+    {
+      "key": "bus-bidirectional-mr",
+      "title": "Two-way buses",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Select the **two** buses on which signals travel both to and from the CPU.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Address bus"
+        },
+        {
+          "key": "B",
+          "content": "Data bus"
+        },
+        {
+          "key": "C",
+          "content": "Control bus"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Data goes into the CPU on a read and out of it on a write; on the control bus the CPU sends read/write/clock signals and devices send interrupt and bus requests back. The address bus is one-way."
+      }
+    },
+    {
+      "key": "bus-wide-address-faster",
+      "title": "Wider address bus",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Making the **address** bus wider makes each data transfer faster.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A wider address bus increases how much memory can be addressed (2ⁿ locations). The number of bits moved per transfer depends on the data bus width."
+      }
+    },
+    {
+      "key": "bus-one-more-line",
+      "title": "One extra address line",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "A computer's address bus is increased from **n** lines to **n + 1** lines. What happens to the number of memory locations that can be addressed?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "It increases by 1"
+        },
+        {
+          "key": "B",
+          "content": "It doubles"
+        },
+        {
+          "key": "C",
+          "content": "It increases by 8"
+        },
+        {
+          "key": "D",
+          "content": "It stays the same, only transfers get faster"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "2ⁿ⁺¹ = 2 × 2ⁿ, so each extra line doubles the number of addresses."
+      }
+    },
+    {
+      "key": "bus-address-20-calc",
+      "title": "Locations for 20 lines",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "An address bus has **20** lines. Calculate how many different memory locations it can address. Give the number.",
+      "source": "original",
+      "content": {
+        "unit": "locations"
+      },
+      "scheme": {
+        "mark_scheme": "2²⁰ (1) = 1 048 576 locations (1)",
+        "model_answer": "1048576",
+        "accepted": {
+          "values": [
+            "1048576"
+          ],
+          "numeric": true
+        },
+        "explanation": "2²⁰ (1) = 1 048 576 locations (1)"
+      }
+    },
+    {
+      "key": "bus-address-table",
+      "title": "Address bus and memory",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Each memory location holds **1 byte**. Complete the table (use KiB, MiB or GiB).",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Address lines",
+          "Number of locations",
+          "Maximum memory"
+        ],
+        "rows": 3,
+        "prefill": [
+          [
+            "10",
+            "1024",
+            null
+          ],
+          [
+            "24",
+            "16 777 216",
+            null
+          ],
+          [
+            "32",
+            "4 294 967 296",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 KiB (1); 16 MiB (1); 4 GiB (1)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              null,
+              "1 KiB||1 KB||1KiB||1KB||1024 bytes"
+            ],
+            [
+              null,
+              null,
+              "16 MiB||16 MB||16MiB||16MB"
+            ],
+            [
+              null,
+              null,
+              "4 GiB||4 GB||4GiB||4GB"
+            ]
+          ]
+        },
+        "explanation": "2¹⁰ bytes = 1 KiB, 2²⁴ bytes = 16 MiB, 2³² bytes = 4 GiB — the reason a 32-bit system could not use more than 4 GiB of RAM."
+      }
+    },
+    {
+      "key": "bus-lines-for-4gib",
+      "title": "Lines needed",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "How many address lines are needed to address **4 GiB** of memory if each location holds 1 byte? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "4 GiB = 2² × 2³⁰ = 2³² bytes → 32 lines.",
+        "accepted": {
+          "values": [
+            "32"
+          ],
+          "numeric": true
+        },
+        "explanation": "4 GiB = 2² × 2³⁰ = 2³² bytes → 32 lines."
+      }
+    },
+    {
+      "key": "bus-data-reads-calc",
+      "title": "Reads on an 8-bit bus",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "A microcontroller has an **8-bit data bus**. Calculate how many separate reads are needed to load one **64-bit** value from memory.",
+      "source": "original",
+      "content": {
+        "unit": "reads"
+      },
+      "scheme": {
+        "mark_scheme": "64-bit value = 8 bytes (1); 1 byte per read → 8 reads (1)",
+        "model_answer": "8",
+        "accepted": {
+          "values": [
+            "8"
+          ],
+          "numeric": true
+        },
+        "explanation": "64-bit value = 8 bytes (1); 1 byte per read → 8 reads (1)"
+      }
+    },
+    {
+      "key": "bus-widen-data",
+      "title": "Widening the data bus",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "A robot's microcontroller has a 16-bit address bus and an 8-bit data bus. The designers widen the **data** bus to 32 bits and change nothing else. Which statement is correct?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "A 32-bit value now needs 1 read instead of 4, and the maximum memory stays 64 KiB"
+        },
+        {
+          "key": "B",
+          "content": "A 32-bit value now needs 1 read instead of 4, and the maximum memory grows to 4 GiB"
+        },
+        {
+          "key": "C",
+          "content": "A 32-bit value still needs 4 reads, but the maximum memory grows to 4 GiB"
+        },
+        {
+          "key": "D",
+          "content": "Nothing changes, because only the address bus affects transfers"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Data bus width sets the bits per transfer; the address bus (still 16 lines → 2¹⁶ = 64 KiB) sets the maximum memory."
+      }
+    },
+    {
+      "key": "bus-control-signals-match",
+      "title": "Control bus signals",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Match each control bus signal to its purpose.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Memory read"
+          },
+          {
+            "key": "L2",
+            "text": "Memory write"
+          },
+          {
+            "key": "L3",
+            "text": "Clock"
+          },
+          {
+            "key": "L4",
+            "text": "Interrupt request"
+          },
+          {
+            "key": "L5",
+            "text": "Bus request"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "A device tells the CPU that it needs attention"
+          },
+          {
+            "key": "R2",
+            "text": "Tells memory to store the value on the data bus at the addressed location"
+          },
+          {
+            "key": "R3",
+            "text": "A device asks to take control of the bus, e.g. for DMA"
+          },
+          {
+            "key": "R4",
+            "text": "Tells memory to put the contents of the addressed location on the data bus"
+          },
+          {
+            "key": "R5",
+            "text": "Synchronises the operations of all components"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Memory read – Tells memory to put the contents of the addressed location on the data bus; Memory write – Tells memory to store the value on the data bus at the addressed location; Clock – Synchronises the operations of all components; Interrupt request – A device tells the CPU that it needs attention; Bus request – A device asks to take control of the bus, e.g. for DMA (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R2",
+            "L3": "R5",
+            "L4": "R1",
+            "L5": "R3"
+          }
+        },
+        "explanation": "Each control line has its own meaning; together they say how and when the address and data buses are used."
+      }
+    },
+    {
+      "key": "bus-signal-direction",
+      "title": "Direction of control signals",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the direction in which each control signal travels.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "From the CPU",
+          "To the CPU"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Memory read",
+            null,
+            null
+          ],
+          [
+            "Interrupt request",
+            null,
+            null
+          ],
+          [
+            "Memory write",
+            null,
+            null
+          ],
+          [
+            "Bus request",
+            null,
+            null
+          ],
+          [
+            "Bus grant",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Memory read: From the CPU; Interrupt request: To the CPU; Memory write: From the CPU; Bus request: To the CPU; Bus grant: From the CPU (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Read, write and bus grant are sent by the CPU; devices send interrupt requests and bus requests to the CPU."
+      }
+    },
+    {
+      "key": "bus-write-order",
+      "title": "Writing to memory",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "The steps for **writing** the value 57 to address 201 are in the wrong order:\n\n- **A** Memory stores the value from the data bus at that address, overwriting the old contents\n- **B** The address 201 is placed in the MAR and sent along the address bus\n- **C** The control unit sends a memory write signal along the control bus\n- **D** The value 57 is placed in the MDR and sent along the data bus\n\nWrite the letters in the correct order.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Order",
+          "Step letter"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "B, D, C, A (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "B"
+            ],
+            [
+              null,
+              "D"
+            ],
+            [
+              null,
+              "C"
+            ],
+            [
+              null,
+              "A"
+            ]
+          ]
+        },
+        "explanation": "Address (MAR → address bus), data (MDR → data bus), memory write signal, then memory stores the value."
+      }
+    },
+    {
+      "key": "bus-read-copies",
+      "title": "Is a read a copy?",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "After a memory read, the memory location still holds the same value it held before the read.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "A read copies the contents into the MDR; the location keeps its value. Only a write replaces the contents."
+      }
+    },
+    {
+      "key": "bus-mar-mdr-fill",
+      "title": "MAR and MDR",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nThe output of the [[1]] is connected to the address bus. The [[2]] is connected to the data bus and holds the value that has just been read or is about to be written. Before a write, the value is placed in the [[3]].",
+      "source": "original",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) MAR (2) MDR (3) MDR",
+        "accepted": {
+          "blanks": [
+            [
+              "MAR",
+              "memory address register"
+            ],
+            [
+              "MDR",
+              "memory data register",
+              "MBR",
+              "memory buffer register"
+            ],
+            [
+              "MDR",
+              "memory data register",
+              "MBR",
+              "memory buffer register"
+            ]
+          ]
+        },
+        "explanation": "Every value that enters or leaves the CPU through memory passes through the MAR (address) and the MDR (data)."
+      }
+    },
+    {
+      "key": "bus-printer-port",
+      "title": "Sending a byte to the printer",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "The CPU sends one byte to the printer. What does it place on the **address bus**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The byte that is being printed"
+        },
+        {
+          "key": "B",
+          "content": "The port address of the printer controller"
+        },
+        {
+          "key": "C",
+          "content": "An I/O write signal"
+        },
+        {
+          "key": "D",
+          "content": "The address of the next instruction in the program"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Port address on the address bus, the byte on the data bus and an I/O write signal on the control bus."
+      }
+    },
+    {
+      "key": "bus-memory-mapped",
+      "title": "Memory-mapped I/O",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "In memory-mapped I/O, device ports are given addresses inside the normal memory address range, so the CPU can use ordinary memory read and write instructions to talk to devices.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "The same address, data and control buses are used for both memory and devices."
+      }
+    },
+    {
+      "key": "bus-dma-fill",
+      "title": "Direct memory access",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "describe",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Complete the description of direct memory access (DMA).\n\nA disk controller needs to copy a large file into RAM. It sends a bus [[1]] signal on the control bus. The CPU finishes its current bus operation and replies with bus [[2]]. The DMA controller then copies the block straight between the device and [[3]] without passing through the CPU. When it has finished it sends an [[4]] to tell the CPU the data is ready.",
+      "source": "original",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) request (2) grant (3) memory (4) interrupt",
+        "accepted": {
+          "blanks": [
+            [
+              "request"
+            ],
+            [
+              "grant"
+            ],
+            [
+              "memory",
+              "main memory",
+              "RAM"
+            ],
+            [
+              "interrupt",
+              "interrupt request"
+            ]
+          ]
+        },
+        "explanation": "With DMA the CPU only sets up the transfer and handles one interrupt at the end, so it is free for other work."
+      }
+    },
+    {
+      "key": "bus-dma-vs-pio",
+      "title": "DMA or programmed I/O?",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the method each statement describes.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "Programmed I/O",
+          "DMA"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "Every word passes through a CPU register on its way to memory",
+            null,
+            null
+          ],
+          [
+            "Suitable for loading a 50 MB file from disk",
+            null,
+            null
+          ],
+          [
+            "The CPU executes instructions for every word moved",
+            null,
+            null
+          ],
+          [
+            "Uses bus request and bus grant signals",
+            null,
+            null
+          ],
+          [
+            "Suitable for reading a single key press",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Every word passes through a CPU register on its way to memory: Programmed I/O; Suitable for loading a 50 MB file from disk: DMA; The CPU executes instructions for every word moved: Programmed I/O; Uses bus request and bus grant signals: DMA; Suitable for reading a single key press: Programmed I/O (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Programmed I/O suits small amounts of data; DMA moves large blocks directly between the device and memory."
+      }
+    },
+    {
+      "key": "bus-shared-adv",
+      "title": "Why a shared bus?",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "Select the **two** advantages of a shared system bus compared with separate point-to-point links between every pair of components.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Simple, cheap wiring: one set of lines for everything"
+        },
+        {
+          "key": "B",
+          "content": "Several pairs of components can transfer data at the same time"
+        },
+        {
+          "key": "C",
+          "content": "A new device is easy to add by connecting it to the existing bus"
+        },
+        {
+          "key": "D",
+          "content": "The bus can never become a bottleneck"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "The shared bus allows only one transfer at a time, so it can become a bottleneck (the von Neumann bottleneck)."
+      }
+    },
+    {
+      "key": "bus-bottleneck",
+      "title": "The von Neumann bottleneck",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.4"
+      ],
+      "practice": true,
+      "text": "What is meant by the **von Neumann bottleneck**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The CPU cannot hold more than one program in memory"
+        },
+        {
+          "key": "B",
+          "content": "All traffic between the CPU and memory must pass through the shared bus, which limits how fast the whole computer can work"
+        },
+        {
+          "key": "C",
+          "content": "The address bus is one-way, so memory cannot send addresses to the CPU"
+        },
+        {
+          "key": "D",
+          "content": "The clock cannot run faster than 5 GHz"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Because instructions and data share the same bus, its width and speed set an upper limit on performance — reduced by cache, wider buses and faster clocks."
+      }
+    },
+    {
+      "key": "bus-pc-holds",
+      "title": "Program counter",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "What does the **program counter (PC)** hold?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The instruction currently being executed"
+        },
+        {
+          "key": "B",
+          "content": "The address of the next instruction to be fetched"
+        },
+        {
+          "key": "C",
+          "content": "The result of the last calculation"
+        },
+        {
+          "key": "D",
+          "content": "The data just read from memory"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The PC holds an address — the address of the next instruction. The current instruction is in the CIR."
+      }
+    },
+    {
+      "key": "bus-cir-holds",
+      "title": "Current instruction register",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "The CIR holds the **address** of the instruction that is currently being executed.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "The CIR holds the instruction itself. Addresses are held in the PC (next instruction) and the MAR (location to be accessed)."
+      }
+    },
+    {
+      "key": "bus-mbr-name",
+      "title": "Another name for the MDR",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "The memory data register (MDR) is also known by another name. State it (abbreviation or full name).",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "MBR — memory buffer register.",
+        "accepted": {
+          "values": [
+            "MBR",
+            "memory buffer register"
+          ]
+        },
+        "explanation": "MBR — memory buffer register."
+      }
+    },
+    {
+      "key": "bus-special-purpose",
+      "title": "Special-purpose registers",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "A special-purpose register such as the PC can be used by a program to hold any value it is working on.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A special-purpose register has one fixed job in the cycle. General-purpose registers can hold any value."
+      }
+    },
+    {
+      "key": "bus-opcode-operand",
+      "title": "Opcode and operand",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "In the instruction **ADD 52**, ADD is the [[1]] and 52 is the [[2]].",
+      "source": "original",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) opcode (2) operand",
+        "accepted": {
+          "blanks": [
+            [
+              "opcode",
+              "op code",
+              "operation code"
+            ],
+            [
+              "operand"
+            ]
+          ]
+        },
+        "explanation": "The opcode says what to do; the operand gives the data or, as here, the address of the data."
+      }
+    },
+    {
+      "key": "bus-flags-mr",
+      "title": "Status register flags",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Select the **three** flags that are held in the status register.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Zero flag"
+        },
+        {
+          "key": "B",
+          "content": "Carry flag"
+        },
+        {
+          "key": "C",
+          "content": "Fetch flag"
+        },
+        {
+          "key": "D",
+          "content": "Overflow flag"
+        },
+        {
+          "key": "E",
+          "content": "Opcode flag"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, D (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "D"
+          ]
+        },
+        "explanation": "Flags record facts about the last operation: zero, negative, carry, overflow, interrupt. Conditional jumps look at them."
+      }
+    },
+    {
+      "key": "bus-rtn-match",
+      "title": "Register transfer notation",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Match each piece of register transfer notation to its meaning.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "←"
+          },
+          {
+            "key": "L2",
+            "text": "[PC]"
+          },
+          {
+            "key": "L3",
+            "text": "[[MAR]]"
+          },
+          {
+            "key": "L4",
+            "text": "PC ← [PC] + 1"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "The contents of the memory location whose address is in the MAR"
+          },
+          {
+            "key": "R2",
+            "text": "Is copied into"
+          },
+          {
+            "key": "R3",
+            "text": "The PC is incremented"
+          },
+          {
+            "key": "R4",
+            "text": "The contents of the program counter"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "← – Is copied into; [PC] – The contents of the program counter; [[MAR]] – The contents of the memory location whose address is in the MAR; PC ← [PC] + 1 – The PC is incremented (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R4",
+            "L3": "R1",
+            "L4": "R3"
+          }
+        },
+        "explanation": "Square brackets mean 'the contents of'; double brackets mean the contents of the memory location addressed by the register."
+      }
+    },
+    {
+      "key": "bus-rtn-read",
+      "title": "Reading MDR ← [[MAR]]",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "What does **MDR ← [[MAR]]** mean?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The address in the MAR is copied into the MDR"
+        },
+        {
+          "key": "B",
+          "content": "The contents of the MDR are copied into memory at the address in the MAR"
+        },
+        {
+          "key": "C",
+          "content": "The contents of the memory location whose address is in the MAR are copied into the MDR"
+        },
+        {
+          "key": "D",
+          "content": "The MAR and MDR swap their contents"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "It is a memory read: the address in the MAR selects the location, and its contents travel along the data bus into the MDR."
+      }
+    },
+    {
+      "key": "bus-fetch-fill",
+      "title": "The fetch stage",
+      "type": "fill_blank",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Complete the description of the fetch stage.\n\nThe address held in the [[1]] is copied into the [[2]]. The PC is then [[3]] so that it points to the following instruction. The instruction at the address is read along the data bus into the [[4]] and then copied into the [[5]] ready for decoding.",
+      "source": "original",
+      "content": {
+        "blank_count": 5
+      },
+      "scheme": {
+        "mark_scheme": "(1) PC (2) MAR (3) incremented (4) MDR (5) CIR",
+        "accepted": {
+          "blanks": [
+            [
+              "PC",
+              "program counter"
+            ],
+            [
+              "MAR",
+              "memory address register"
+            ],
+            [
+              "incremented",
+              "increased",
+              "increased by 1",
+              "incremented by 1"
+            ],
+            [
+              "MDR",
+              "memory data register",
+              "MBR",
+              "memory buffer register"
+            ],
+            [
+              "CIR",
+              "current instruction register"
+            ]
+          ]
+        },
+        "explanation": "MAR ← [PC]; PC ← [PC] + 1; MDR ← [[MAR]]; CIR ← [MDR]."
+      }
+    },
+    {
+      "key": "bus-fetch-order",
+      "title": "Fetch steps in order",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "The steps of the fetch stage are written in register transfer notation, in the wrong order:\n\n- **A** CIR ← [MDR]\n- **B** MAR ← [PC]\n- **C** MDR ← [[MAR]]\n- **D** PC ← [PC] + 1\n\nWrite the letters in the correct order.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Order",
+          "Step letter"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "B, D, C, A (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "B"
+            ],
+            [
+              null,
+              "D"
+            ],
+            [
+              null,
+              "C"
+            ],
+            [
+              null,
+              "A"
+            ]
+          ]
+        },
+        "explanation": "MAR ← [PC] first; the PC is incremented while the slower memory read happens; the instruction arrives in the MDR and is copied into the CIR."
+      }
+    },
+    {
+      "key": "bus-decode-who",
+      "title": "Who decodes?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Which component **decodes** the instruction held in the CIR?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The arithmetic logic unit (ALU)"
+        },
+        {
+          "key": "B",
+          "content": "The control unit (CU)"
+        },
+        {
+          "key": "C",
+          "content": "The memory data register (MDR)"
+        },
+        {
+          "key": "D",
+          "content": "The clock"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "The control unit's instruction decoder splits the instruction into opcode and operand and works out which control signals to send. The ALU only calculates."
+      }
+    },
+    {
+      "key": "bus-stage-tick",
+      "title": "Fetch, decode or execute?",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the stage in which each action happens.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "Fetch",
+          "Decode",
+          "Execute"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "The PC is incremented",
+            null,
+            null,
+            null
+          ],
+          [
+            "The opcode and operand are separated",
+            null,
+            null,
+            null
+          ],
+          [
+            "The ALU adds a value to the ACC",
+            null,
+            null,
+            null
+          ],
+          [
+            "The instruction is copied from the MDR into the CIR",
+            null,
+            null,
+            null
+          ],
+          [
+            "A jump instruction writes a new address into the PC",
+            null,
+            null,
+            null
+          ],
+          [
+            "The control unit works out the addressing mode",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The PC is incremented: Fetch; The opcode and operand are separated: Decode; The ALU adds a value to the ACC: Execute; The instruction is copied from the MDR into the CIR: Fetch; A jump instruction writes a new address into the PC: Execute; The control unit works out the addressing mode: Decode (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Fetch uses PC, MAR, MDR and CIR; decode happens inside the control unit; execute carries the instruction out."
+      }
+    },
+    {
+      "key": "bus-execute-match",
+      "title": "What does execute do?",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Match each instruction to what happens in its **execute** stage.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "LDD 50"
+          },
+          {
+            "key": "L2",
+            "text": "STO 51"
+          },
+          {
+            "key": "L3",
+            "text": "ADD 52"
+          },
+          {
+            "key": "L4",
+            "text": "JMP 10"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "10 is copied into the PC so the next fetch comes from address 10"
+          },
+          {
+            "key": "R2",
+            "text": "50 goes into the MAR, a memory read is done and the value is copied from the MDR into the ACC"
+          },
+          {
+            "key": "R3",
+            "text": "The value from address 52 is added to the ACC by the ALU and the flags are updated"
+          },
+          {
+            "key": "R4",
+            "text": "51 goes into the MAR, the ACC's value goes into the MDR and a memory write signal is sent"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "LDD 50 – 50 goes into the MAR, a memory read is done and the value is copied from the MDR into the ACC; STO 51 – 51 goes into the MAR, the ACC's value goes into the MDR and a memory write signal is sent; ADD 52 – The value from address 52 is added to the ACC by the ALU and the flags are updated; JMP 10 – 10 is copied into the PC so the next fetch comes from address 10 (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R4",
+            "L3": "R3",
+            "L4": "R1"
+          }
+        },
+        "explanation": "Load reads memory, store writes memory, arithmetic uses the ALU and a jump changes the PC."
+      }
+    },
+    {
+      "key": "bus-sto-signal",
+      "title": "Signal for a store",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "When the instruction **STO 51** is executed, a **memory read** signal is sent on the control bus.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "STO copies the ACC into memory, so it needs a memory write signal."
+      }
+    },
+    {
+      "key": "bus-pc-after-fetch",
+      "title": "PC after a fetch",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Before a fetch, PC = **63**. Each instruction takes one memory location. State the value in the PC at the end of the fetch stage.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "PC ← [PC] + 1, so the PC is 64 — it already points to the next instruction before the current one is executed.",
+        "accepted": {
+          "values": [
+            "64"
+          ],
+          "numeric": true
+        },
+        "explanation": "PC ← [PC] + 1, so the PC is 64 — it already points to the next instruction before the current one is executed."
+      }
+    },
+    {
+      "key": "bus-pc-after-jump",
+      "title": "PC after a jump",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "PC = **120**. The instruction at address 120 is **JMP 10**. State the value in the PC after this instruction has been **executed**.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "The fetch increments the PC to 121, but executing JMP 10 overwrites the PC with 10.",
+        "accepted": {
+          "values": [
+            "10"
+          ],
+          "numeric": true
+        },
+        "explanation": "The fetch increments the PC to 121, but executing JMP 10 overwrites the PC with 10."
+      }
+    },
+    {
+      "key": "bus-trace-add",
+      "title": "Trace ADD",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "PC = **30** and ACC = **15**. Memory address 30 contains the instruction **ADD 60**, and address 60 contains **8**.\n\nComplete the table to show the contents of the registers after each step.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Step",
+          "PC",
+          "MAR",
+          "MDR",
+          "ACC"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "MAR ← [PC]; PC ← [PC] + 1",
+            null,
+            null,
+            "",
+            "15"
+          ],
+          [
+            "MDR ← [[MAR]]; CIR ← [MDR]",
+            "31",
+            "30",
+            null,
+            "15"
+          ],
+          [
+            "MAR ← 60; MDR ← [[MAR]]",
+            "31",
+            null,
+            null,
+            "15"
+          ],
+          [
+            "ACC ← [ACC] + [MDR]",
+            "31",
+            "60",
+            "8",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Row 1: PC 31, MAR 30 (1). Row 2: MDR ADD 60 (1). Row 3: MAR 60, MDR 8 (1). Row 4: ACC 23 (1)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "31",
+              "30",
+              null,
+              null
+            ],
+            [
+              null,
+              null,
+              null,
+              "ADD 60||ADD60",
+              null
+            ],
+            [
+              null,
+              null,
+              "60",
+              "8",
+              null
+            ],
+            [
+              null,
+              null,
+              null,
+              null,
+              "23"
+            ]
+          ]
+        },
+        "explanation": "The PC is incremented during the fetch; the operand 60 then goes into the MAR to read the data, and the ALU adds 8 to 15 giving 23 in the ACC."
+      }
+    },
+    {
+      "key": "bus-rtn-wrong",
+      "title": "Spot the error",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Which line of register transfer notation for the fetch stage is **wrong**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "MAR ← [PC]"
+        },
+        {
+          "key": "B",
+          "content": "PC ← [PC] + 1"
+        },
+        {
+          "key": "C",
+          "content": "MDR ← [PC]"
+        },
+        {
+          "key": "D",
+          "content": "CIR ← [MDR]"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "The PC's value goes to the MAR, not the MDR. The MDR receives the memory contents: MDR ← [[MAR]]."
+      }
+    },
+    {
+      "key": "bus-interrupt-define",
+      "title": "What is an interrupt?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Which statement defines an **interrupt**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "A signal from hardware or software telling the CPU that something needs attention"
+        },
+        {
+          "key": "B",
+          "content": "An instruction that stops the computer permanently"
+        },
+        {
+          "key": "C",
+          "content": "A register that holds the address of the next instruction"
+        },
+        {
+          "key": "D",
+          "content": "The CPU repeatedly checking every device to see if it needs anything"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Option D describes polling, which interrupts replace."
+      }
+    },
+    {
+      "key": "bus-interrupt-types",
+      "title": "Types of interrupt",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the type of each interrupt.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "Hardware",
+          "Software",
+          "Timer"
+        ],
+        "rows": 5,
+        "tick": true,
+        "prefill": [
+          [
+            "A key is pressed on the keyboard",
+            null,
+            null,
+            null
+          ],
+          [
+            "A program tries to divide by zero",
+            null,
+            null,
+            null
+          ],
+          [
+            "The printer runs out of paper",
+            null,
+            null,
+            null
+          ],
+          [
+            "The operating system switches to another program at regular intervals",
+            null,
+            null,
+            null
+          ],
+          [
+            "A program asks the operating system to open a file",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "A key is pressed on the keyboard: Hardware; A program tries to divide by zero: Software; The printer runs out of paper: Hardware; The operating system switches to another program at regular intervals: Timer; A program asks the operating system to open a file: Software (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Hardware interrupts come from device controllers on the control bus; software interrupts from the running program or OS; timer interrupts from the timer chip."
+      }
+    },
+    {
+      "key": "bus-interrupt-when",
+      "title": "When are interrupts checked?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "When does the CPU check whether an interrupt is waiting?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "In the middle of decoding each instruction"
+        },
+        {
+          "key": "B",
+          "content": "At the end of each fetch–decode–execute cycle"
+        },
+        {
+          "key": "C",
+          "content": "Only when the program has finished"
+        },
+        {
+          "key": "D",
+          "content": "Only when the PC reaches address 0"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Checking at the end of the cycle guarantees that no instruction is left half-done."
+      }
+    },
+    {
+      "key": "bus-interrupt-order",
+      "title": "Handling an interrupt",
+      "type": "table_completion",
+      "marks": 5,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "The steps the CPU takes to deal with an interrupt are in the wrong order:\n\n- **A** The interrupt service routine (ISR) is fetched and executed\n- **B** The saved values are restored and the original program continues\n- **C** At the end of the current cycle the CPU checks for interrupts and finds one of higher priority\n- **D** The contents of the registers, including the PC, are saved on the stack\n- **E** The address of the ISR is loaded into the PC\n\nWrite the letters in the correct order.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Order",
+          "Step letter"
+        ],
+        "rows": 5,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "2",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "4",
+            null
+          ],
+          [
+            "5",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "C, D, E, A, B (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "C"
+            ],
+            [
+              null,
+              "D"
+            ],
+            [
+              null,
+              "E"
+            ],
+            [
+              null,
+              "A"
+            ],
+            [
+              null,
+              "B"
+            ]
+          ]
+        },
+        "explanation": "Check → save registers → load ISR address into PC → run the ISR → restore and continue."
+      }
+    },
+    {
+      "key": "bus-return-address",
+      "title": "Where does the program continue?",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "A program is running and the PC holds **512** when a keyboard interrupt is serviced. The ISR starts at address **9000**. After the ISR has finished and the registers are restored, from which address is the next instruction fetched?",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "PC = 512 was saved on the stack before the ISR and restored afterwards, so the program continues at 512.",
+        "accepted": {
+          "values": [
+            "512"
+          ],
+          "numeric": true
+        },
+        "explanation": "PC = 512 was saved on the stack before the ISR and restored afterwards, so the program continues at 512."
+      }
+    },
+    {
+      "key": "bus-interrupt-adv",
+      "title": "Interrupts vs polling",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.5"
+      ],
+      "practice": true,
+      "text": "Select the **two** advantages of using interrupts instead of polling.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "CPU time is not wasted checking devices that have nothing to report"
+        },
+        {
+          "key": "B",
+          "content": "Interrupts are simpler: no registers need to be saved"
+        },
+        {
+          "key": "C",
+          "content": "A device gets attention quickly — at the end of the current cycle"
+        },
+        {
+          "key": "D",
+          "content": "Interrupts never need priorities"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C"
+          ]
+        },
+        "explanation": "Interrupts are more complex than polling: they need saving/restoring registers, ISRs and priorities."
+      }
+    },
+    {
+      "key": "bus-clock-define",
+      "title": "Clock speed",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "What is the **clock speed** of a CPU?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The number of instructions stored in memory"
+        },
+        {
+          "key": "B",
+          "content": "The number of clock cycles the CPU's clock produces per second, measured in hertz"
+        },
+        {
+          "key": "C",
+          "content": "The number of bits processed in one operation"
+        },
+        {
+          "key": "D",
+          "content": "The number of cores on the chip"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "3.5 GHz = 3.5 billion cycles per second. Each step of the fetch–decode–execute cycle starts on a clock pulse."
+      }
+    },
+    {
+      "key": "bus-ghz-fill",
+      "title": "Gigahertz",
+      "type": "fill_blank",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "1 GHz = [[1]] clock cycles per second.",
+      "source": "original",
+      "content": {
+        "blank_count": 1
+      },
+      "scheme": {
+        "mark_scheme": "(1) 1000000000",
+        "accepted": {
+          "blanks": [
+            [
+              "1000000000",
+              "1 000 000 000",
+              "1,000,000,000",
+              "one billion",
+              "a billion",
+              "10^9"
+            ]
+          ]
+        },
+        "explanation": "Giga = 10⁹."
+      }
+    },
+    {
+      "key": "bus-cycle-2ghz",
+      "title": "Cycle time at 2 GHz",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A CPU's clock runs at **2 GHz**. Calculate the time for one clock cycle in **nanoseconds**.",
+      "source": "original",
+      "content": {
+        "unit": "ns"
+      },
+      "scheme": {
+        "mark_scheme": "1 ÷ (2 × 10⁹) (1) = 0.5 × 10⁻⁹ s = 0.5 ns (1)",
+        "model_answer": "0.5",
+        "accepted": {
+          "values": [
+            "0.5"
+          ],
+          "numeric": true
+        },
+        "explanation": "1 ÷ (2 × 10⁹) (1) = 0.5 × 10⁻⁹ s = 0.5 ns (1)"
+      }
+    },
+    {
+      "key": "bus-ips-calc",
+      "title": "Instructions per second",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A CPU runs at **3 GHz** and each instruction takes on average **4 clock cycles**. Calculate how many **million** instructions per second it can execute.",
+      "source": "original",
+      "content": {
+        "unit": "million instructions per second"
+      },
+      "scheme": {
+        "mark_scheme": "3 × 10⁹ cycles per second (1) ÷ 4 = 750 million instructions per second (1)",
+        "model_answer": "750",
+        "accepted": {
+          "values": [
+            "750"
+          ],
+          "numeric": true
+        },
+        "explanation": "3 × 10⁹ cycles per second (1) ÷ 4 = 750 million instructions per second (1)"
+      }
+    },
+    {
+      "key": "bus-program-time",
+      "title": "Time to run a program",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A program needs **1.6 × 10⁹** instructions. The CPU runs at **3.2 GHz** and each instruction takes on average **4** cycles. Calculate the time the program takes in **seconds**.",
+      "source": "original",
+      "content": {
+        "unit": "s"
+      },
+      "scheme": {
+        "mark_scheme": "3.2 × 10⁹ ÷ 4 = 0.8 × 10⁹ instructions per second (1); 1.6 × 10⁹ ÷ 0.8 × 10⁹ = 2 s (1)",
+        "model_answer": "2",
+        "accepted": {
+          "values": [
+            "2"
+          ],
+          "numeric": true
+        },
+        "explanation": "3.2 × 10⁹ ÷ 4 = 0.8 × 10⁹ instructions per second (1); 1.6 × 10⁹ ÷ 0.8 × 10⁹ = 2 s (1)"
+      }
+    },
+    {
+      "key": "bus-clock-disadv",
+      "title": "Raising the clock speed",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Select the **three** disadvantages or limits of raising a CPU's clock speed.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "More heat is produced, so better cooling is needed"
+        },
+        {
+          "key": "B",
+          "content": "Less memory can be addressed"
+        },
+        {
+          "key": "C",
+          "content": "More power is used, so a laptop's battery runs down faster"
+        },
+        {
+          "key": "D",
+          "content": "Software must be rewritten for every new clock speed"
+        },
+        {
+          "key": "E",
+          "content": "The gain is small if the CPU has to wait for data from memory"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C, E (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ]
+        },
+        "explanation": "Clock speed does not affect addressable memory, and no software changes are needed."
+      }
+    },
+    {
+      "key": "bus-throttling",
+      "title": "Thermal throttling",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Thermal throttling means that a CPU automatically **lowers** its clock speed when it gets too hot.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "It protects the chip from overheating and damage."
+      }
+    },
+    {
+      "key": "bus-overclock",
+      "title": "Overclocking",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A gamer **overclocks** a CPU above its rated clock speed. Which is a likely disadvantage?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The address bus becomes narrower"
+        },
+        {
+          "key": "B",
+          "content": "The system may become unstable and crash, because more heat is produced"
+        },
+        {
+          "key": "C",
+          "content": "The word length is reduced to 32 bits"
+        },
+        {
+          "key": "D",
+          "content": "Cache memory is switched off"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Overclocking gives extra speed but increases heat and power, may cause random crashes and can shorten the life of the CPU."
+      }
+    },
+    {
+      "key": "bus-word-define",
+      "title": "Word length",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "What is the **word length** of a CPU?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "The number of bits the CPU can process as a single unit in one operation"
+        },
+        {
+          "key": "B",
+          "content": "The number of lines in the address bus"
+        },
+        {
+          "key": "C",
+          "content": "The number of characters in an instruction"
+        },
+        {
+          "key": "D",
+          "content": "The number of clock cycles per second"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "It is the size of the registers and of the values the ALU handles, e.g. 32 or 64 bits."
+      }
+    },
+    {
+      "key": "bus-8bit-adds",
+      "title": "Adding on an 8-bit CPU",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "An **8-bit** CPU adds two **32-bit** numbers. How many separate byte additions are needed at least? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Each 32-bit number is split into 4 bytes; the bytes are added one pair at a time, passing the carry on — 4 additions instead of 1 on a 32-bit CPU.",
+        "accepted": {
+          "values": [
+            "4"
+          ],
+          "numeric": true
+        },
+        "explanation": "Each 32-bit number is split into 4 bytes; the bytes are added one pair at a time, passing the carry on — 4 additions instead of 1 on a 32-bit CPU."
+      }
+    },
+    {
+      "key": "bus-32bit-program",
+      "title": "32-bit software on a 64-bit CPU",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A program compiled for 32 bits gets the full benefit of the longer word length when it runs on a 64-bit processor.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "A longer word length only helps if the software is written (compiled) for that word length."
+      }
+    },
+    {
+      "key": "bus-bandwidth-250",
+      "title": "Bandwidth of a 32-bit bus",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A **32-bit** data bus runs at **250 MHz** and transfers one word per cycle. Calculate the bandwidth in **MB/s** (1 MB = 1 000 000 bytes).",
+      "source": "original",
+      "content": {
+        "unit": "MB/s"
+      },
+      "scheme": {
+        "mark_scheme": "32 ÷ 8 = 4 bytes per transfer (1); 4 × 250 000 000 = 1 000 000 000 bytes/s = 1000 MB/s (1)",
+        "model_answer": "1000",
+        "accepted": {
+          "values": [
+            "1000"
+          ],
+          "numeric": true
+        },
+        "explanation": "32 ÷ 8 = 4 bytes per transfer (1); 4 × 250 000 000 = 1 000 000 000 bytes/s = 1000 MB/s (1)"
+      }
+    },
+    {
+      "key": "bus-transfer-time",
+      "title": "Time to load a file",
+      "type": "calculation",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A **64-bit** data bus runs at **400 MHz** and transfers one word per cycle. Calculate how long it takes to transfer a **1600 MB** file, in **seconds** (1 MB = 1 000 000 bytes).",
+      "source": "original",
+      "content": {
+        "unit": "s"
+      },
+      "scheme": {
+        "mark_scheme": "8 bytes × 400 000 000 = 3200 MB/s (1); 1600 ÷ 3200 = 0.5 s (1)",
+        "model_answer": "0.5",
+        "accepted": {
+          "values": [
+            "0.5"
+          ],
+          "numeric": true
+        },
+        "explanation": "8 bytes × 400 000 000 = 3200 MB/s (1); 1600 ÷ 3200 = 0.5 s (1)"
+      }
+    },
+    {
+      "key": "bus-width-tick",
+      "title": "Word length or bus width?",
+      "type": "table_completion",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Tick (✓) the factor that each statement describes.",
+      "source": "original",
+      "content": {
+        "columns": [
+          "Statement",
+          "Word length",
+          "Data bus width",
+          "Address bus width"
+        ],
+        "rows": 6,
+        "tick": true,
+        "prefill": [
+          [
+            "The number of bits the CPU processes in one operation",
+            null,
+            null,
+            null
+          ],
+          [
+            "The number of bits transferred at once between the CPU and memory",
+            null,
+            null,
+            null
+          ],
+          [
+            "Decides how many memory locations can be used",
+            null,
+            null,
+            null
+          ],
+          [
+            "Increasing it means fewer transfers to move a block of data",
+            null,
+            null,
+            null
+          ],
+          [
+            "Increasing it means fewer instructions to add large numbers",
+            null,
+            null,
+            null
+          ],
+          [
+            "Increasing it means less use of virtual memory",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The number of bits the CPU processes in one operation: Word length; The number of bits transferred at once between the CPU and memory: Data bus width; Decides how many memory locations can be used: Address bus width; Increasing it means fewer transfers to move a block of data: Data bus width; Increasing it means fewer instructions to add large numbers: Word length; Increasing it means less use of virtual memory: Address bus width (1 each)",
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Word length = bits processed; data bus width = bits transferred; address bus width = memory that can be addressed."
+      }
+    },
+    {
+      "key": "bus-33-lines",
+      "title": "One more line",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A computer with a **32-line** address bus can address 4 GiB. How many **GiB** can it address with **33** lines? Give the number only.",
+      "source": "original",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "Each extra address line doubles the memory: 2³³ bytes = 8 GiB.",
+        "accepted": {
+          "values": [
+            "8"
+          ],
+          "numeric": true
+        },
+        "explanation": "Each extra address line doubles the memory: 2³³ bytes = 8 GiB."
+      }
+    },
+    {
+      "key": "bus-core-define",
+      "title": "What is a core?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "define",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "What is a **core**?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "A small, very fast memory that stores recently used data"
+        },
+        {
+          "key": "B",
+          "content": "An independent processing unit within a CPU that can fetch, decode and execute instructions on its own"
+        },
+        {
+          "key": "C",
+          "content": "The wire that carries the clock signal"
+        },
+        {
+          "key": "D",
+          "content": "The register that holds the result of a calculation"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A multi-core processor can execute several streams of instructions at the same time."
+      }
+    },
+    {
+      "key": "bus-cores-limits",
+      "title": "Limits of more cores",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Select the **three** reasons why going from 2 to 4 cores rarely doubles performance.",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Some tasks cannot be split, because each step needs the result of the step before"
+        },
+        {
+          "key": "B",
+          "content": "Each extra core halves the clock speed of the others"
+        },
+        {
+          "key": "C",
+          "content": "Many programs are not written to divide their work into parallel threads"
+        },
+        {
+          "key": "D",
+          "content": "Cores share the buses and cache and spend time communicating"
+        },
+        {
+          "key": "E",
+          "content": "Extra cores reduce the amount of RAM"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, C, D (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "C",
+            "D"
+          ]
+        },
+        "explanation": "More cores also add traffic on the same shared memory bus."
+      }
+    },
+    {
+      "key": "bus-cache-fill",
+      "title": "Cache hits and misses",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Complete the sentences.\n\nWhen the CPU finds the value it needs in cache, this is called a cache [[1]]. If the value is not there, it is a cache [[2]], and the value must be fetched from [[3]] over the system bus, which takes much longer.",
+      "source": "original",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) hit (2) miss (3) main memory",
+        "accepted": {
+          "blanks": [
+            [
+              "hit"
+            ],
+            [
+              "miss"
+            ],
+            [
+              "main memory",
+              "RAM",
+              "memory",
+              "the main memory"
+            ]
+          ]
+        },
+        "explanation": "A larger cache gives more hits and fewer slow trips across the bus."
+      }
+    },
+    {
+      "key": "bus-cache-levels",
+      "title": "Cache levels",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Match each cache level to its description.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "L1 cache"
+          },
+          {
+            "key": "L2",
+            "text": "L2 cache"
+          },
+          {
+            "key": "L3",
+            "text": "L3 cache"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Several MB, shared by all the cores"
+          },
+          {
+            "key": "R2",
+            "text": "Smallest and fastest; tens of KB per core"
+          },
+          {
+            "key": "R3",
+            "text": "Larger and slightly slower than L1"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "L1 cache – Smallest and fastest; tens of KB per core; L2 cache – Larger and slightly slower than L1; L3 cache – Several MB, shared by all the cores (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R3",
+            "L3": "R1"
+          }
+        },
+        "explanation": "Each level is bigger but slower than the one before it."
+      }
+    },
+    {
+      "key": "bus-cache-cheap",
+      "title": "Size of cache",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Cache is usually made very large because it is cheaper per bit than main memory.",
+      "source": "original",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Cache uses much more chip area per bit than main memory, so it is expensive and kept small."
+      }
+    },
+    {
+      "key": "bus-factor-effects",
+      "title": "Effects of each factor",
+      "type": "matching",
+      "marks": 6,
+      "difficulty": "medium",
+      "command_word": "describe",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Match each factor to the effect of increasing it.",
+      "source": "original",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "Clock speed"
+          },
+          {
+            "key": "L2",
+            "text": "Word length"
+          },
+          {
+            "key": "L3",
+            "text": "Data bus width"
+          },
+          {
+            "key": "L4",
+            "text": "Address bus width"
+          },
+          {
+            "key": "L5",
+            "text": "Number of cores"
+          },
+          {
+            "key": "L6",
+            "text": "Cache size"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Several tasks processed in parallel"
+          },
+          {
+            "key": "R2",
+            "text": "More data per transfer, so fewer transfers"
+          },
+          {
+            "key": "R3",
+            "text": "More instructions executed per second"
+          },
+          {
+            "key": "R4",
+            "text": "Fewer slow accesses to main memory"
+          },
+          {
+            "key": "R5",
+            "text": "More memory locations can be addressed"
+          },
+          {
+            "key": "R6",
+            "text": "More data processed in one operation, so fewer instructions"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Clock speed – More instructions executed per second; Word length – More data processed in one operation, so fewer instructions; Data bus width – More data per transfer, so fewer transfers; Address bus width – More memory locations can be addressed; Number of cores – Several tasks processed in parallel; Cache size – Fewer slow accesses to main memory (1 each)",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R6",
+            "L3": "R2",
+            "L4": "R5",
+            "L5": "R1",
+            "L6": "R4"
+          }
+        },
+        "explanation": "Always link a factor to why it helps: more cycles per second, fewer transfers, fewer instructions, fewer RAM accesses."
+      }
+    },
+    {
+      "key": "bus-game-upgrade",
+      "title": "Best upgrade for a game",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "evaluate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "A game runs on **one thread** only. Which change to the CPU is most likely to make it run faster?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "More cores at the same clock speed"
+        },
+        {
+          "key": "B",
+          "content": "A higher clock speed and a larger cache"
+        },
+        {
+          "key": "C",
+          "content": "A wider address bus"
+        },
+        {
+          "key": "D",
+          "content": "A longer word length with no software change"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "A single-threaded task can use only one core, so it benefits most from more cycles per second and fewer waits for RAM."
+      }
+    },
+    {
+      "key": "bus-video-upgrade",
+      "title": "Processor for rendering",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "evaluate",
+      "grading": "AUTO",
+      "objectives": [
+        "12.3.2.6"
+      ],
+      "practice": true,
+      "text": "Processor X: 3.0 GHz, 32-bit word, 2 cores, 4 MB cache. Processor Y: 3.0 GHz, 64-bit word, 4 cores, 8 MB cache. Which statement is correct?",
+      "source": "original",
+      "options": [
+        {
+          "key": "A",
+          "content": "Y will be exactly twice as fast as X for every task"
+        },
+        {
+          "key": "B",
+          "content": "X will be faster because it has fewer cores to coordinate"
+        },
+        {
+          "key": "C",
+          "content": "Y should perform better, especially for multitasking and data-heavy work, but not exactly twice as fast"
+        },
+        {
+          "key": "D",
+          "content": "They perform the same because their clock speeds are equal"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Y has a longer word, more cores and more cache, but not all tasks use 4 cores and both share the memory bus."
+      }
     }
   ],
   "summary": "The components of the CPU and how data is transferred between the CPU, main memory and input/output devices through the address, data and control buses; the registers and steps of the fetch–decode–execute cycle in register transfer notation; interrupts; and how clock speed, word length, bus width, cores and cache affect performance.",
@@ -3575,11 +6320,33 @@
         "Exam practice: the system bus and data transfer"
       ],
       "questions": [
-        "bus-define",
+        "bus-cpu-parts-match",
+        "bus-system-define",
+        "bus-line-one-bit",
+        "bus-three-buses-fill",
+        "bus-address-oneway",
+        "bus-connects-mr",
         "bus-tick",
-        "bus-purposes",
-        "bus-direction",
-        "bus-read-order"
+        "bus-read-order",
+        "bus-bidirectional-mr",
+        "bus-wide-address-faster",
+        "bus-one-more-line",
+        "bus-address-20-calc",
+        "bus-address-table",
+        "bus-data-reads-calc",
+        "bus-control-signals-match",
+        "bus-signal-direction",
+        "bus-write-order",
+        "bus-read-copies",
+        "bus-mar-mdr-fill",
+        "bus-printer-port",
+        "bus-memory-mapped",
+        "bus-lines-for-4gib",
+        "bus-widen-data",
+        "bus-dma-fill",
+        "bus-dma-vs-pio",
+        "bus-shared-adv",
+        "bus-bottleneck"
       ]
     },
     {
@@ -3592,11 +6359,32 @@
       ],
       "questions": [
         "bus-registers-match",
+        "bus-pc-holds",
+        "bus-cir-holds",
+        "bus-mbr-name",
+        "bus-special-purpose",
+        "bus-opcode-operand",
+        "bus-interrupt-define",
+        "bus-flags-mr",
+        "bus-rtn-match",
+        "bus-rtn-read",
+        "bus-fetch-fill",
+        "bus-fetch-order",
+        "bus-decode-who",
+        "bus-stage-tick",
+        "bus-execute-match",
+        "bus-sto-signal",
+        "bus-pc-after-fetch",
+        "bus-interrupt-types",
+        "bus-interrupt-when",
         "bus-rtn-errors",
-        "bus-fetch",
-        "bus-decode-execute",
         "bus-trace-ldd",
-        "bus-interrupt"
+        "bus-pc-after-jump",
+        "bus-trace-add",
+        "bus-rtn-wrong",
+        "bus-interrupt-order",
+        "bus-return-address",
+        "bus-interrupt-adv"
       ]
     },
     {
@@ -3608,12 +6396,32 @@
         "Exam practice: CPU performance"
       ],
       "questions": [
-        "bus-factors-table",
-        "bus-clock-effect",
+        "bus-clock-define",
+        "bus-ghz-fill",
+        "bus-word-define",
+        "bus-core-define",
         "bus-data-width-tf",
         "bus-cycle-time",
         "bus-cores-mcq",
-        "bus-structured"
+        "bus-cycle-2ghz",
+        "bus-ips-calc",
+        "bus-clock-disadv",
+        "bus-throttling",
+        "bus-overclock",
+        "bus-32bit-program",
+        "bus-bandwidth-250",
+        "bus-width-tick",
+        "bus-33-lines",
+        "bus-cache-fill",
+        "bus-cache-levels",
+        "bus-cache-cheap",
+        "bus-factor-effects",
+        "bus-program-time",
+        "bus-8bit-adds",
+        "bus-transfer-time",
+        "bus-cores-limits",
+        "bus-game-upgrade",
+        "bus-video-upgrade"
       ]
     }
   ]
