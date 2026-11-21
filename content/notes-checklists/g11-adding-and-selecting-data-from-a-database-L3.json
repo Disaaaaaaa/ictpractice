@@ -1,0 +1,96 @@
+{
+  "topic": "g11-adding-and-selecting-data-from-a-database",
+  "lesson": 3,
+  "points": [
+    {
+      "title": "Array and 2D array",
+      "must": "Definitions: array = fixed number of elements of one type under one identifier, accessed by index; 2D array = array of arrays in rows and columns, two indexes [row][column].",
+      "weight": 3,
+      "model": "Array = data structure storing a fixed number of elements of the same data type under one identifier; each element accessed by its index.\n2D array = array of arrays: elements in rows and columns like a table; each element accessed with two indexes [row][column]."
+    },
+    {
+      "title": "Why a 2D array instead of several 1D arrays",
+      "must": "One identifier, loops can reach all elements by changing indexes; separate arrays cannot be looped over.",
+      "weight": 2,
+      "model": "marks1, marks2, marks3 = separate identifiers: the code must be repeated and a loop cannot move from one to the next. A 2D array keeps all 12 marks under one name and nested loops reach every element by changing the indexes."
+    },
+    {
+      "title": "Terms",
+      "must": "Identifier, element, index, row, column, dimension, lower bound, upper bound, size, with values for the marks array.",
+      "weight": 3,
+      "model": "marks = [[7,8,6,9],[10,9,9,8],[5,6,7,6]] (3 pupils × 4 tests).\nIdentifier marks; element = one value; index [1][2] → 9; first index = row, second = column; dimension 2; lower bound 0 (pseudocode often 1); upper bound rows 2, columns 3; size 3 × 4 = 12.\nNumber of elements in a dimension = upper − lower + 1. Index outside the bounds → error."
+    },
+    {
+      "title": "Uses of 2D arrays",
+      "must": "Examples of data with two coordinates: images, spreadsheets, timetables, game boards, distance tables.",
+      "weight": 1,
+      "model": "Image pixels image[row][col]; spreadsheet cells; timetable[day][lesson]; chess 8×8, noughts and crosses 3×3; distance table dist[i][j] between cities."
+    },
+    {
+      "title": "Accessing an element",
+      "must": "marks[2] = whole row (1D array), then [1] picks the element; assigning; jagged arrays use count($a[$r]).",
+      "weight": 2,
+      "model": "marks[2] = [5, 6, 7, 6] (a 1D array); marks[2][1] = 6. $marks[2][1] = 8; changes only that element. Jagged array = rows of different lengths → inner loop uses count($a[$r])."
+    },
+    {
+      "title": "Declaring and initialising",
+      "must": "Pseudocode DECLARE … ARRAY[1:3, 1:4] OF INTEGER; PHP/Python/JS list of lists; same element with different bases; zero-filled array with nested loops; Python trap.",
+      "weight": 3,
+      "model": "Pseudocode: DECLARE Marks : ARRAY[1:3, 1:4] OF INTEGER; Marks[2, 3] ← 9 (= PHP $marks[1][2]).\nPHP: $marks = [[7, 8, 6, 9], [10, 9, 9, 8], [5, 6, 7, 6]];\nPython: marks = [[7, 8, 6, 9], ...]\n5 × 7 zeros: for ($w = 0; $w < 5; $w++) for ($d = 0; $d < 7; $d++) $rain[$w][$d] = 0;\nPython: [[0] * 7 for w in range(5)] — not [[0] * 7] * 5 (same row 5 times)."
+    },
+    {
+      "title": "Cinema seating example",
+      "must": "seats[5][8] of 'F'/'B', 40 elements; convert seat numbers to indexes with −1; check bounds before use.",
+      "weight": 1,
+      "model": "5 rows × 8 seats → $seats[5][8], 40 elements. Row 3 seat 5 → $seats[2][4]; if ($seats[2][4] == \"F\") $seats[2][4] = \"B\"; else \"Seat taken\". Check 0 ≤ r ≤ 4 and 0 ≤ c ≤ 7 first."
+    },
+    {
+      "title": "Nested loop",
+      "must": "Definition; outer = rows, inner = columns; inner body runs rows × columns times; row-by-row visiting order.",
+      "weight": 3,
+      "model": "Nested loop = a loop inside another loop; for each outer iteration the inner loop runs all its iterations → inner body runs outer × inner times (3 × 4 = 12).\nfor r ← 0 to 2 (rows) / for c ← 0 to 3 (columns) / visit a[r][c]. Order: [0][0], [0][1] … [0][3], [1][0] …"
+    },
+    {
+      "title": "Row totals",
+      "must": "Code with $sum = 0 inside the outer loop; results 30, 36, 24.",
+      "weight": 3,
+      "model": "for ($r = 0; $r < count($marks); $r++) { $sum = 0; for ($c = 0; $c < count($marks[$r]); $c++) { $sum += $marks[$r][$c]; } echo $sum / count($marks[$r]); }\nTotals 30, 36, 24; averages 7.5, 9, 6. Reset inside the outer loop or totals keep growing."
+    },
+    {
+      "title": "Column totals",
+      "must": "Swap the loops: outer over columns count($marks[0]), inner over rows; results 22, 23, 22, 23; pseudocode with grand total 90.",
+      "weight": 2,
+      "model": "for ($c = 0; $c < count($marks[0]); $c++) { $sum = 0; for ($r = 0; $r < count($marks); $r++) $sum += $marks[$r][$c]; echo $sum; } → 22, 23, 22, 23.\nPseudocode: FOR Row ← 1 TO 3 / Total ← 0 / FOR Col ← 1 TO 4 / Total ← Total + Marks[Row, Col] / NEXT Col … Grand total 90."
+    },
+    {
+      "title": "Steps to write 2D-array code",
+      "must": "Meaning of rows/columns → loop order → where to initialise → inner-body action → where to output → check bounds and trace.",
+      "weight": 1,
+      "model": "1) What rows/columns mean and bounds. 2) Per row → outer over rows; per column → outer over columns. 3) Whole-array result: initialise before both loops; per row/column: inside the outer loop. 4) One action in the inner body. 5) Output after inner loop (per row) or after both. 6) Check bounds, trace."
+    },
+    {
+      "title": "Standard algorithms",
+      "must": "Grand total, count, maximum with position (start at first element), linear search with stopping early, one row/column/diagonal with a single loop.",
+      "weight": 2,
+      "model": "Total 90; count marks ≥ 8 → 6; max: $max = $a[0][0]; if ($a[$r][$c] > $max) {$max=…; $mr=$r; $mc=$c;} → 10 at [1][0] (pupil 2, test 1); start at first element so negatives work. Search: flag Found, stop early (break 2 / WHILE NOT Found). One row: fix the row index; one column: fix the column index; diagonal $a[$i][$i]."
+    },
+    {
+      "title": "Choosing 1D or 2D",
+      "must": "One value per item → 1D; several values of the same type / grid → 2D; different types → records / associative arrays; justification names size, type, meaning of rows and columns, processing.",
+      "weight": 3,
+      "model": "Names of 25 pupils → 1D [25]. Marks of 30 pupils in 5 tests → 2D [30][5]. Cinema 12×20, board 3×3, shop × day sales → 2D. Name, grade, birth date → array of records / associative arrays (or 2D of strings).\nGood justification: 'A 2D array of integers, 30 rows (pupils) × 6 columns (tests), because each pupil has six marks of the same type and totals per pupil and per test are needed.' Parallel arrays are harder to keep in step."
+    },
+    {
+      "title": "Database rows in a 2D array",
+      "must": "while ($row = mysqli_fetch_row($result)) $students[] = $row; row = record, column = field in SELECT order; fetch_all; associative rows; reasons.",
+      "weight": 3,
+      "model": "$students = []; while ($row = mysqli_fetch_row($result)) { $students[] = $row; }\n$students[0][0] = \"Aruzhan\", $students[4][2] = \"Shymkent\", count($students) = 5 rows, count($students[0]) = 3 columns. fetch_all($result, MYSQLI_ASSOC) → $rows[2][\"City\"]. Lets the program use the rows several times (display, totals, sort with usort) without running the query again."
+    },
+    {
+      "title": "Printing a 2D array as an HTML table",
+      "must": "<tr> opens in the outer loop before the inner loop and closes after it; one <td> per element in the inner loop.",
+      "weight": 2,
+      "model": "echo \"<table>\"; for ($r = 0; $r < count($d); $r++) { echo \"<tr>\"; for ($c = 0; $c < count($d[$r]); $c++) echo \"<td>\" . htmlspecialchars($d[$r][$c]) . \"</td>\"; echo \"</tr>\"; } echo \"</table>\";\nCanteen example: $grid[3][5], $grid[$row[\"Canteen\"] - 1][$row[\"Day\"] - 1] += $row[\"Amount\"]; row totals 705, 480, 350; grand total 1535."
+    }
+  ]
+}

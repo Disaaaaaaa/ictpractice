@@ -1,0 +1,96 @@
+{
+  "topic": "g11-adding-and-selecting-data-from-a-database",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "SELECT query and result set",
+      "must": "Definitions: SELECT extracts data without changing tables; result set = rows and columns returned (many, one or none).",
+      "weight": 3,
+      "model": "SELECT query = SQL statement that extracts data from tables without changing them: SELECT fields FROM table WHERE condition ORDER BY field;\nResult set = the table of rows and columns returned — only the chosen fields of the records that meet the condition; may have many rows, one or none."
+    },
+    {
+      "title": "Clauses of SELECT",
+      "must": "SELECT (fields), FROM (table), WHERE (records), GROUP BY, ORDER BY ASC/DESC, LIMIT, in that order; SELECT = columns, WHERE = rows.",
+      "weight": 3,
+      "model": "SELECT Name, Grade — which fields (* = all); FROM Student — which table; WHERE Grade = 11 — which records; GROUP BY City; ORDER BY Name ASC / DESC; LIMIT 10. SELECT chooses columns, WHERE chooses rows. Example: SELECT Name, City FROM Student WHERE Grade = 11 ORDER BY Name → Aigerim Almaty, Aruzhan Astana."
+    },
+    {
+      "title": "Named fields vs SELECT *",
+      "must": "Reasons to name fields in program code; building a query with optional conditions using placeholders.",
+      "weight": 1,
+      "model": "Named fields: clear code, less data sent, works if fields are added, fixes column order (needed for numeric indexes). SELECT * for quick tests. Optional filters: start WHERE 1 = 1 and add \" AND Grade = ?\" — values still bound."
+    },
+    {
+      "title": "WHERE operators",
+      "must": "=, <>, <, >, BETWEEN, IN, LIKE with % and _, IS NULL, AND/OR/NOT; AND before OR, use brackets.",
+      "weight": 2,
+      "model": "City <> 'Astana'; Grade >= 12; Grade BETWEEN 10 AND 11; City IN ('Almaty','Shymkent'); Name LIKE 'A%' (starts with A), '%ar%' (contains ar); City IS NULL. AND is evaluated before OR: WHERE (City = 'Astana' OR City = 'Almaty') AND Grade = 12 → Daniyar."
+    },
+    {
+      "title": "Aggregate functions and GROUP BY",
+      "must": "Definition; COUNT, SUM, AVG, MAX, MIN; GROUP BY one value per group; AS alias.",
+      "weight": 2,
+      "model": "Aggregate function = calculates one value from many records: COUNT, SUM, AVG, MAX, MIN. SELECT COUNT(*) FROM Student WHERE City = 'Almaty' → 2. SELECT City, COUNT(*) AS Pupils FROM Student GROUP BY City → one row per city; alias read as $row[\"Pupils\"]."
+    },
+    {
+      "title": "Joining two tables",
+      "must": "INNER JOIN … ON matching primary/foreign key; missing join condition pairs every row with every row.",
+      "weight": 2,
+      "model": "SELECT Student.Name, Mark.Subject, Mark.Score FROM Student INNER JOIN Mark ON Student.StudentID = Mark.StudentID WHERE Mark.Subject = 'Computer Science' ORDER BY Mark.Score DESC;\nOr FROM Student, Mark WHERE Student.StudentID = Mark.StudentID. Without the join condition: 5 students × 20 marks = 100 meaningless rows."
+    },
+    {
+      "title": "Predicting the result of a query",
+      "must": "Method: FROM → WHERE → GROUP → SELECT columns → ORDER BY, with a worked result.",
+      "weight": 1,
+      "model": "Apply clauses in order: table → keep rows passing WHERE → group → keep SELECT columns → sort. SELECT Grade, COUNT(*) FROM Student GROUP BY Grade ORDER BY Grade DESC → 12: 2, 11: 2, 10: 1."
+    },
+    {
+      "title": "Running a SELECT and the fetch loop",
+      "must": "mysqli_query returns a result object (false on error); mysqli_num_rows; while ($row = mysqli_fetch_assoc($result)) runs once per row and stops at null.",
+      "weight": 3,
+      "model": "$result = mysqli_query($conn, \"SELECT StudentID, Name, City FROM Student WHERE Grade = 11 ORDER BY Name\");\nif (!$result) die(mysqli_error($conn));\nwhile ($row = mysqli_fetch_assoc($result)) { echo $row[\"Name\"] . \"<br>\"; }\nFetching = reading the next row as an array; the pointer moves one row each call; after the last row it returns null → condition false → loop ends. 2 rows → 2 iterations."
+    },
+    {
+      "title": "Fetch functions",
+      "must": "fetch_assoc (field names), fetch_row (numeric, SELECT order), fetch_array (both), fetch_all (all rows = 2D array).",
+      "weight": 2,
+      "model": "mysqli_fetch_assoc → $row[\"Name\"]; mysqli_fetch_row → $row[1] (index in SELECT order); mysqli_fetch_array → both; mysqli_fetch_all($result, MYSQLI_ASSOC) → all rows at once, $rows[0][\"Name\"]. fetch_assoc preferred: indexes do not break if the SELECT changes."
+    },
+    {
+      "title": "Prepared SELECT",
+      "must": "Input in the condition needs a prepared statement: prepare, bind, execute, mysqli_stmt_get_result, then fetch loop.",
+      "weight": 3,
+      "model": "$stmt = mysqli_prepare($conn, \"SELECT Name, City FROM Student WHERE Grade = ? ORDER BY Name\");\nmysqli_stmt_bind_param($stmt, \"i\", $grade);\nmysqli_stmt_execute($stmt);\n$result = mysqli_stmt_get_result($stmt);\nwhile ($row = mysqli_fetch_assoc($result)) ... ' OR '1'='1 would otherwise show the whole table."
+    },
+    {
+      "title": "Empty result vs failed query",
+      "must": "False = SQL error; result with num_rows 0 = no match → show 'No records found'.",
+      "weight": 2,
+      "model": "SQL error (wrong field, lost connection) → mysqli_query returns false → show error. Valid query, no match → result object, mysqli_num_rows = 0 → show \"No pupils found\". Matches → show rows."
+    },
+    {
+      "title": "Result set as an HTML table",
+      "must": "Header row once before the loop, one <tr> per row inside the loop, </table> once after; htmlspecialchars.",
+      "weight": 2,
+      "model": "echo \"<table><tr><th>ID</th><th>Name</th><th>City</th></tr>\"; // once\nwhile ($row = mysqli_fetch_assoc($result)) { echo \"<tr><td>\" . $row[\"StudentID\"] . \"</td><td>\" . htmlspecialchars($row[\"Name\"]) . \"</td><td>\" . htmlspecialchars($row[\"City\"]) . \"</td></tr>\"; }\necho \"</table>\"; // once"
+    },
+    {
+      "title": "Search page with LIKE",
+      "must": "GET form; % added to the bound value, not around ?; (Title LIKE ? OR Author LIKE ?) AND Copies > 0; worked result.",
+      "weight": 2,
+      "model": "$pattern = \"%\" . trim($_GET[\"q\"]) . \"%\";\nSELECT Title, Author, Year FROM Book WHERE (Title LIKE ? OR Author LIKE ?) AND Copies > 0 ORDER BY Year DESC\nmysqli_stmt_bind_param($stmt, \"ss\", $pattern, $pattern);\nFor 'abai': Abai Zholy (1942), The Book of Words (1890); the book with 0 copies is not shown."
+    },
+    {
+      "title": "Details page and drop-down list",
+      "must": "ID passed in the link, (int), WHERE StudentID = ?, one fetch without a loop; <option> per row with SELECT DISTINCT.",
+      "weight": 1,
+      "model": "<a href='student.php?id=3'> → $id = (int)$_GET[\"id\"]; SELECT * FROM Student WHERE StudentID = ? → one row or none; $row = mysqli_fetch_assoc($result); if null → \"not found\". Drop-down: SELECT DISTINCT City FROM Student ORDER BY City; echo \"<option value='$c'>$c</option>\" in the loop."
+    },
+    {
+      "title": "Totals in SQL or in a loop",
+      "must": "Compare aggregate vs loop; loop algorithm for count, total, best, passed with check count > 0.",
+      "weight": 2,
+      "model": "SQL AVG(): one value sent, faster for big tables. Loop: rows shown anyway, any calculation (best and who, number passed).\n$count = 0; $total = 0; $best = -1; while (...) { $count++; $total += $row[\"Score\"]; if ($row[\"Score\"] > $best) { $best = $row[\"Score\"]; $bestName = $row[\"Name\"]; } }\nif ($count > 0) echo round($total / $count, 1); → 31, 36, 22: average 29.7, best Aruzhan 36."
+    }
+  ]
+}

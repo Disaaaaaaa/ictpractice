@@ -1,0 +1,96 @@
+{
+  "topic": "g11-adding-and-selecting-data-from-a-database",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Why programs use a database",
+      "must": "States that script variables are lost after each run, so data is kept in a database to persist and be shared, searched and updated.",
+      "weight": 2,
+      "model": "A script's variables disappear when it finishes (it runs once per request). To keep data between requests, users and days, the program stores it in a database and reads it back. Database = organised, persistent collection of related data in tables (records, fields)."
+    },
+    {
+      "title": "DBMS",
+      "must": "Definition: software that stores/manages the database and runs the SQL sent to it; examples.",
+      "weight": 2,
+      "model": "DBMS = software that stores and manages the database and runs the SQL statements sent to it, e.g. MySQL, MariaDB, PostgreSQL, SQLite. The program never edits the data files directly — it sends SQL to the DBMS."
+    },
+    {
+      "title": "Three tiers",
+      "must": "Browser (form, pages) → web server script (reads, validates, builds SQL, outputs HTML) → database server (tables). Only the script talks to the DB.",
+      "weight": 3,
+      "model": "1) Browser (client): shows pages and forms. 2) Web server: runs the script (PHP) — reads form data, validates, builds and sends SQL, checks result, outputs HTML. 3) Database server (DBMS): holds the tables, runs SQL, returns true/false or rows. The browser never talks to the database directly; the DB password stays on the server."
+    },
+    {
+      "title": "Table Student and data types",
+      "must": "The example table with fields, types and the auto-increment primary key; text in quotes, numbers without, DATE as 'YYYY-MM-DD'.",
+      "weight": 1,
+      "model": "Student(StudentID INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50), Grade INT, City VARCHAR(30), BirthDate DATE). Primary key = unique value identifying each record; AUTO_INCREMENT → the DBMS creates it, so INSERT leaves it out."
+    },
+    {
+      "title": "Connecting to the database",
+      "must": "mysqli_connect(server, user, password, database); if it fails stop with die() and mysqli_connect_error(); set charset; connect.php included with require.",
+      "weight": 3,
+      "model": "$conn = mysqli_connect(\"localhost\", \"school_user\", \"secret\", \"school_db\");\nif (!$conn) { die(\"Connection failed: \" . mysqli_connect_error()); }\nmysqli_set_charset($conn, \"utf8mb4\");\nConnection = link between program and DBMS (server, user, password, database); all SQL is sent through it; closed at the end. Kept in connect.php and included with require."
+    },
+    {
+      "title": "Five steps of a database script",
+      "must": "Connect → prepare SQL → run/execute → check/process result → close.",
+      "weight": 3,
+      "model": "1) Connect (stop with error if it fails). 2) Prepare the SQL (INSERT to add, SELECT to extract) using the input values. 3) Run/execute it (mysqli_query or a prepared statement). 4) Check/process the result (success/error message; loop through rows). 5) Close: mysqli_close($conn)."
+    },
+    {
+      "title": "Same steps in Python",
+      "must": "Comparison PHP mysqli vs Python sqlite3, including conn.commit() / transaction.",
+      "weight": 1,
+      "model": "Python: conn = sqlite3.connect(\"school.db\"); conn.execute(\"INSERT INTO Student (Name, Grade) VALUES (?, ?)\", (n, g)); conn.commit(); cur.lastrowid; conn.close(). commit() saves a transaction (group of changes saved together or not at all); MySQL autocommits."
+    },
+    {
+      "title": "INSERT statement and its forms",
+      "must": "Definition and the three forms: all fields in order, named fields (recommended), several records; field count = value count; unlisted fields get default/NULL.",
+      "weight": 3,
+      "model": "INSERT adds new records: INSERT INTO table (field1, field2) VALUES (value1, value2); values in the same order as the fields.\nAll fields: INSERT INTO Student VALUES (6, 'Nursultan', 11, 'Astana', '2009-09-01');\nNamed fields (recommended): INSERT INTO Student (Name, Grade, City) VALUES ('Nursultan', 11, 'Astana');\nSeveral: INSERT INTO Student (Name, Grade) VALUES ('Ali', 10), ('Dana', 12);\nNumber of fields must equal number of values."
+    },
+    {
+      "title": "Writing values in SQL",
+      "must": "Text and dates in single quotes, numbers without, date 'YYYY-MM-DD', NULL without quotes; apostrophe problem.",
+      "weight": 2,
+      "model": "Text: 'Astana'. Number: 11, 1250.50 (no quotes). Date: '2009-03-14'. Boolean: TRUE/FALSE. No value: NULL. An apostrophe inside text (O'Brien) ends the text early and breaks the SQL."
+    },
+    {
+      "title": "Building the SQL from variables and checking the result",
+      "must": "Double-quoted string with '$name' and $grade; echo $sql to debug; mysqli_query true/false; mysqli_insert_id, mysqli_affected_rows, mysqli_error.",
+      "weight": 2,
+      "model": "$sql = \"INSERT INTO Student (Name, Grade, City) VALUES ('$name', $grade, '$city')\";\nif (mysqli_query($conn, $sql)) echo \"Added, ID \" . mysqli_insert_id($conn); else echo \"Error: \" . mysqli_error($conn);\nmysqli_query → true/false; mysqli_insert_id → new auto-increment ID (e.g. order number, foreign key for order lines); mysqli_affected_rows → number of records added/changed."
+    },
+    {
+      "title": "Form field → variable → column",
+      "must": "name attribute → $_POST key → variable (trim, (int)) → column in INSERT; values arrive as text.",
+      "weight": 2,
+      "model": "<input name=\"year\"> → $_POST[\"year\"] (\"2008\", text) → $year = (int)$_POST[\"year\"] → column Year (INT). The same name links each step; a spelling mistake breaks the chain. Example: INSERT INTO Book (Title, Author, Year, Copies) VALUES ('Abai Zholy', 'Mukhtar Auezov', 1942, 5)."
+    },
+    {
+      "title": "UPDATE and DELETE need WHERE",
+      "must": "UPDATE … SET … WHERE and DELETE FROM … WHERE; without WHERE every record changes.",
+      "weight": 1,
+      "model": "UPDATE Student SET City = 'Almaty' WHERE StudentID = 4;\nDELETE FROM Student WHERE StudentID = 4;\nWithout WHERE every record in the table is changed / deleted."
+    },
+    {
+      "title": "Validation before INSERT",
+      "must": "Definition; checks presence, type, range, length, format, lookup with examples; collect errors in an array; server-side is compulsory because client-side can be bypassed.",
+      "weight": 3,
+      "model": "Validation = automatic check that data is sensible (present, right type, in range, right length/format) before it is stored; it cannot prove data is correct.\nPresence $name !== \"\"; type is_numeric(); range 7–12; length strlen($name) <= 50; format preg_match('/^\\+7\\d{10}$/'); lookup in_array($city, [...]).\nClient-side (HTML required/min/max, JS) is instant but can be bypassed; server-side validation in the script protects the database."
+    },
+    {
+      "title": "SQL injection",
+      "must": "Definition and how it works: input joined into the SQL string, quote closes text, extra statement, -- comments out the rest.",
+      "weight": 3,
+      "model": "SQL injection = the user types SQL code into an input; when the program joins the input into its SQL string, the code becomes part of the statement and is executed.\nInput x', 0); DELETE FROM Student; -- gives\nINSERT INTO Student (Name, Grade) VALUES ('x', 0); DELETE FROM Student; --', 11)\nCause: data and code mixed in one string."
+    },
+    {
+      "title": "Prepared statements",
+      "must": "Definition; prepare → bind (type letters s, i, d, b) → execute; input always treated as data; full safe code; htmlspecialchars on output.",
+      "weight": 3,
+      "model": "Prepared statement = SQL sent with placeholders ? and compiled first; values bound and sent separately, so input is always data, never code.\n$stmt = mysqli_prepare($conn, \"INSERT INTO Student (Name, Grade, City) VALUES (?, ?, ?)\");\nmysqli_stmt_bind_param($stmt, \"sis\", $name, $grade, $city);\nmysqli_stmt_execute($stmt);\ns = string (also dates), i = integer, d = double, b = blob. Validation does NOT stop injection — placeholders do. Output: htmlspecialchars() against XSS."
+    }
+  ]
+}
