@@ -2026,6 +2026,1165 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bool-nx-1",
+      "title": "Greenhouse irrigation",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A greenhouse in Turkistan has an automatic water pump **P**. It uses three inputs:\n\n| Input | 1 means | 0 means |\n|---|---|---|\n| S | the soil is dry | the soil is wet |\n| M | the manual button is pressed | the button is not pressed |\n| W | the water tank is empty | the tank has water |\n\nThe pump is switched on (**P = 1**) when the tank is **not** empty and **either** the soil is dry **or** the manual button is pressed.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-1a",
+          "part_label": "(a)",
+          "title": "Writing the expression",
+          "type": "boolean_expression",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.3.3.3@paper",
+            "12.3.3.4"
+          ],
+          "text": "Write a Boolean expression for **P**.",
+          "content": {
+            "inputs": [
+              "S",
+              "M",
+              "W"
+            ],
+            "output": "P"
+          },
+          "scheme": {
+            "mark_scheme": "- (S + M) (1)\n- AND with ¬W: P = (S + M) · ¬W (1)",
+            "points": [
+              {
+                "criterion": "S + M",
+                "marks": 1
+              },
+              {
+                "criterion": "· ¬W",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "(S OR M) AND NOT W"
+            },
+            "ai_instructions": "Any expression with the same truth table scores full marks, e.g. S·¬W + M·¬W. Missing brackets, S + M·¬W, is a different expression and earns 1 mark at most.",
+            "model_answer": "P = (S + M) · ¬W"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-1b",
+          "part_label": "(b)",
+          "title": "Truth table",
+          "type": "table_completion",
+          "marks": 3,
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.3.3.3@paper"
+          ],
+          "text": "Complete the truth table for P.",
+          "content": {
+            "columns": [
+              "S",
+              "M",
+              "W",
+              "S + M",
+              "¬W",
+              "P"
+            ],
+            "rows": 8,
+            "prefill": [
+              [
+                "0",
+                "0",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "0",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                "1",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "S + M: 0 0 1 1 1 1 1 1 (1)\n¬W: 1 0 1 0 1 0 1 0 (1)\nP: 0 0 1 0 1 0 1 0 (1)",
+            "points": [
+              {
+                "criterion": "S + M column",
+                "marks": 1
+              },
+              {
+                "criterion": "¬W column",
+                "marks": 1
+              },
+              {
+                "criterion": "P column",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  null,
+                  "0",
+                  "1",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "model_answer": "| S | M | W | S + M | ¬W | P |\n|---|---|---|---|---|---|\n| 0 | 0 | 0 | 0 | 1 | 0 |\n| 0 | 0 | 1 | 0 | 0 | 0 |\n| 0 | 1 | 0 | 1 | 1 | 1 |\n| 0 | 1 | 1 | 1 | 0 | 0 |\n| 1 | 0 | 0 | 1 | 1 | 1 |\n| 1 | 0 | 1 | 1 | 0 | 0 |\n| 1 | 1 | 0 | 1 | 1 | 1 |\n| 1 | 1 | 1 | 1 | 0 | 0 |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-1c",
+          "part_label": "(c)",
+          "title": "Drawing the circuit",
+          "type": "logic_circuit",
+          "marks": 3,
+          "command_word": "draw",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.3.2"
+          ],
+          "text": "Draw the logic circuit for P. Use only AND, OR and NOT gates.",
+          "content": {
+            "inputs": [
+              "S",
+              "M",
+              "W"
+            ],
+            "output": "P",
+            "gates": [
+              "and",
+              "or",
+              "not"
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "- OR gate with inputs S and M (1)\n- NOT gate on W (1)\n- AND gate whose inputs are the OR output and ¬W, giving P (1)",
+            "points": [
+              {
+                "criterion": "OR gate S, M",
+                "marks": 1
+              },
+              {
+                "criterion": "NOT gate on W",
+                "marks": 1
+              },
+              {
+                "criterion": "AND gate giving P",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "(S OR M) AND NOT W"
+            },
+            "ai_instructions": "An equivalent circuit (e.g. two AND gates with ¬W and an OR) earns full marks if it implements the same truth table.",
+            "model_answer": "S and M → OR; W → NOT; OR output and ¬W → AND → P."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bool-nx-2",
+      "title": "Laws of Boolean algebra",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "An engineer simplifying the control circuit of a lift in Astana uses several laws of Boolean algebra.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-2a",
+          "part_label": "(a)",
+          "title": "Naming the laws",
+          "type": "table_completion",
+          "marks": 4,
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.3.3.1@paper"
+          ],
+          "text": "Complete the table by naming the law that each identity shows.",
+          "content": {
+            "columns": [
+              "Identity",
+              "Law"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "(A · B) · C = A · (B · C)",
+                null
+              ],
+              [
+                "A + 1 = 1",
+                null
+              ],
+              [
+                "¬(¬A) = A",
+                null
+              ],
+              [
+                "A + ¬A · B = A + B",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "(A · B) · C = A · (B · C): associative (1)\nA + 1 = 1: null / annulment (1)\n¬(¬A) = A: double negation / involution (1)\nA + ¬A · B = A + B: redundancy (1)",
+            "points": [
+              {
+                "criterion": "Associative",
+                "marks": 1
+              },
+              {
+                "criterion": "Null / annulment",
+                "marks": 1
+              },
+              {
+                "criterion": "Double negation",
+                "marks": 1
+              },
+              {
+                "criterion": "Redundancy",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "associative||associative law||association"
+                ],
+                [
+                  null,
+                  "null||null law||annulment||annulment law||dominance||domination"
+                ],
+                [
+                  null,
+                  "double negation||double negation law||involution||involution law||double complement"
+                ],
+                [
+                  null,
+                  "redundancy||redundancy law"
+                ]
+              ]
+            },
+            "model_answer": "Associative; null (annulment); double negation (involution); redundancy."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-2b",
+          "part_label": "(b)",
+          "title": "Absorption or redundancy",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.3.3.1@paper"
+          ],
+          "text": "A pupil says that **A + A · B** and **A + ¬A · B** simplify to the same result. Explain why the pupil is wrong, naming the law used for each expression.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- A + A · B = A by the **absorption** law (1)\n- A + ¬A · B = A + B by the **redundancy** law, so the results differ, e.g. when A = 0, B = 1 the first is 0 and the second is 1 (1)",
+            "points": [
+              {
+                "criterion": "Absorption → A",
+                "marks": 1
+              },
+              {
+                "criterion": "Redundancy → A + B, so different",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A + A·B = A by the absorption law, but A + ¬A·B = A + B by the redundancy law. They are different: for A = 0 and B = 1 the first expression gives 0 and the second gives 1."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-2c",
+          "part_label": "(c)",
+          "title": "Proving a law",
+          "type": "table_completion",
+          "marks": 2,
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.3.3.1@paper",
+            "11.3.3.3@paper"
+          ],
+          "text": "Complete the truth table to show that **A · (¬A + B) = A · B**.",
+          "content": {
+            "columns": [
+              "A",
+              "B",
+              "¬A",
+              "¬A + B",
+              "A · (¬A + B)",
+              "A · B"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "0",
+                "0",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                null,
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                null,
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "¬A and ¬A + B columns: 1 1 0 0 and 1 1 0 1 (1)\nA · (¬A + B) and A · B columns both 0 0 0 1 — identical, so the law is proved (1)",
+            "points": [
+              {
+                "criterion": "¬A and ¬A + B columns",
+                "marks": 1
+              },
+              {
+                "criterion": "Both result columns 0 0 0 1",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  "0",
+                  "1",
+                  "1",
+                  "1"
+                ]
+              ]
+            },
+            "model_answer": "| A | B | ¬A | ¬A + B | A · (¬A + B) | A · B |\n|---|---|---|---|---|---|\n| 0 | 0 | 1 | 1 | 0 | 0 |\n| 0 | 1 | 1 | 1 | 0 | 0 |\n| 1 | 0 | 0 | 0 | 0 | 0 |\n| 1 | 1 | 0 | 1 | 1 | 1 |\n\nThe last two columns are identical, so the expressions are equal."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bool-nx-3",
+      "title": "Simplifying a control circuit",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A ticket barrier in a metro station in Almaty is controlled by logic circuits. The designer wants to use as few gates as possible.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-3a",
+          "part_label": "(a)",
+          "title": "First simplification",
+          "type": "boolean_expression",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.3",
+            "11.3.3.1@paper"
+          ],
+          "text": "Simplify **X = ¬(¬A + B) + A · B + ¬A · ¬B**. Show your working and name the law used in each step.",
+          "content": {
+            "inputs": [
+              "A",
+              "B"
+            ],
+            "output": "X"
+          },
+          "scheme": {
+            "mark_scheme": "- ¬(¬A + B) = ¬¬A · ¬B = A · ¬B — De Morgan and double negation (1)\n- A · ¬B + A · B = A · (¬B + B) = A · 1 = A — distributive, complement, identity (1)\n- X = A + ¬A · ¬B (1)\n- = **A + ¬B** — redundancy (1)",
+            "points": [
+              {
+                "criterion": "De Morgan + double negation → A·¬B",
+                "marks": 1
+              },
+              {
+                "criterion": "A·¬B + A·B = A with laws",
+                "marks": 1
+              },
+              {
+                "criterion": "A + ¬A·¬B",
+                "marks": 1
+              },
+              {
+                "criterion": "Redundancy → A + ¬B",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "A OR NOT B"
+            },
+            "ai_instructions": "Award marks for valid steps with correctly named laws; a correct final answer A + ¬B with no working earns 1 mark. A different but valid route earns full marks.",
+            "model_answer": "X = ¬(¬A + B) + A·B + ¬A·¬B\n= ¬¬A·¬B + A·B + ¬A·¬B   De Morgan\n= A·¬B + A·B + ¬A·¬B     double negation\n= A·(¬B + B) + ¬A·¬B     distributive\n= A·1 + ¬A·¬B            complement\n= A + ¬A·¬B              identity\n= A + ¬B                 redundancy"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-3b",
+          "part_label": "(b)",
+          "title": "Second simplification",
+          "type": "boolean_expression",
+          "marks": 3,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.3"
+          ],
+          "text": "Simplify **Y = A · B · C + A · B · ¬C + A · ¬B · C**. Show your working.",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "Y"
+          },
+          "scheme": {
+            "mark_scheme": "- A · B · (C + ¬C) = A · B — distributive, complement, identity (1)\n- Y = A · B + A · ¬B · C = A · (B + ¬B · C) — distributive (1)\n- = **A · (B + C)** — redundancy (accept A · B + A · C) (1)",
+            "points": [
+              {
+                "criterion": "A·B·C + A·B·¬C = A·B",
+                "marks": 1
+              },
+              {
+                "criterion": "Factor A",
+                "marks": 1
+              },
+              {
+                "criterion": "A·(B + C)",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "A AND (B OR C)"
+            },
+            "ai_instructions": "Accept A·B + A·C as the final answer. A correct final answer without working earns 1 mark.",
+            "model_answer": "Y = A·B·(C + ¬C) + A·¬B·C   distributive\n= A·B·1 + A·¬B·C           complement\n= A·B + A·¬B·C             identity\n= A·(B + ¬B·C)             distributive\n= A·(B + C)                redundancy"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bool-nx-4",
+      "title": "Talent show judges",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "At a school talent show in Pavlodar three judges press a button to vote YES (1) or NO (0): the head judge **A** and two judges **B** and **C**. A performer goes through (**X = 1**) when the head judge votes YES **and** at least one of the other judges votes YES. So X = 1 only for the input rows **A B C = 101, 110 and 111**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-4a",
+          "part_label": "(a)",
+          "title": "Minterm and maxterm",
+          "type": "labelled_answers",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.1"
+          ],
+          "text": "For the row **A = 0, B = 1, C = 1**, write the minterm and the maxterm.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Minterm",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Maxterm",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Minterm: ¬A · B · C (1)\nMaxterm: A + ¬B + ¬C (1)",
+            "points": [
+              {
+                "criterion": "¬A·B·C",
+                "marks": 1
+              },
+              {
+                "criterion": "A + ¬B + ¬C",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept A′BC / NOT A AND B AND C notation. The maxterm needs every variable exactly once with the opposite complements of the minterm.",
+            "model_answer": "Minterm ¬A · B · C; maxterm A + ¬B + ¬C."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-4b",
+          "part_label": "(b)",
+          "title": "Sum of products",
+          "type": "boolean_expression",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.3.1"
+          ],
+          "text": "Write X in canonical **sum-of-products** (disjunctive normal) form.",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "X"
+          },
+          "scheme": {
+            "mark_scheme": "X = A · ¬B · C + A · B · ¬C + A · B · C\n- two minterms correct (1)\n- all three correct and joined by OR (1)",
+            "points": [
+              {
+                "criterion": "Two correct minterms",
+                "marks": 1
+              },
+              {
+                "criterion": "All three, OR-ed",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "A AND (B OR C)"
+            },
+            "ai_instructions": "The answer must be a sum of full minterms (every variable in every term). A simplified expression such as A·(B + C) is correct but is not canonical SOP: award 1 mark.",
+            "model_answer": "X = A·¬B·C + A·B·¬C + A·B·C"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-4c",
+          "part_label": "(c)",
+          "title": "Simplifying the vote",
+          "type": "boolean_expression",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.3",
+            "12.3.3.1"
+          ],
+          "text": "Simplify your answer to (b). Show your working.",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "X"
+          },
+          "scheme": {
+            "mark_scheme": "- A·B·¬C + A·B·C = A·B (distributive, complement, identity) (1)\n- A·B + A·¬B·C = A·(B + ¬B·C) = **A·(B + C)** (redundancy) (1)",
+            "points": [
+              {
+                "criterion": "Combine to A·B",
+                "marks": 1
+              },
+              {
+                "criterion": "A·(B + C)",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "A AND (B OR C)"
+            },
+            "ai_instructions": "Accept A·B + A·C. A correct answer without working earns 1 mark.",
+            "model_answer": "X = A·¬B·C + A·B·(¬C + C)\n= A·¬B·C + A·B\n= A·(B + ¬B·C)\n= A·(B + C)"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-4d",
+          "part_label": "(d)",
+          "title": "Logical transformation",
+          "type": "boolean_expression",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.1"
+          ],
+          "text": "The rule for a replay is **F = ¬(A · B) · (A → C)**. Reduce F to sum-of-products form, with NOT applied only to single variables. Show your working.",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "F"
+          },
+          "scheme": {
+            "mark_scheme": "- De Morgan ¬(A·B) = ¬A + ¬B and implication A → C = ¬A + C, so F = (¬A + ¬B) · (¬A + C) (1)\n- distributive (OR over AND): F = **¬A + ¬B · C** (1)",
+            "points": [
+              {
+                "criterion": "De Morgan + implication rule",
+                "marks": 1
+              },
+              {
+                "criterion": "¬A + ¬B·C",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "NOT A OR (NOT B AND C)"
+            },
+            "ai_instructions": "Any SOP with the same truth table is acceptable for the second mark, e.g. ¬A + ¬A·C + ¬B·C (expanded and not yet absorbed) — but NOT must not stand over a bracket.",
+            "model_answer": "F = ¬(A·B)·(A → C)\n= (¬A + ¬B)·(¬A + C)   De Morgan, implication rule\n= ¬A + ¬B·C            distributive law (X + Y·Z = (X + Y)·(X + Z))"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "bool-nx-5",
+      "title": "Bank vault circuit",
+      "type": "structured",
+      "marks": 9,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The door of a bank vault in Atyrau is controlled by a logic circuit with three inputs: the manager's key **A**, the cashier's key **B** and the time lock **C** (1 = turned / open).\n\n- A and B enter a **NAND** gate with output **P**.\n- C enters a **NOT** gate with output **Q**.\n- P and Q enter a **NOR** gate with output **X**, which opens the door.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-5a",
+          "part_label": "(a)",
+          "title": "Expression from the circuit",
+          "type": "boolean_expression",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.3.4"
+          ],
+          "text": "Write the Boolean expression for X directly from the circuit (do not simplify).",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "X"
+          },
+          "scheme": {
+            "mark_scheme": "- P = ¬(A · B) and Q = ¬C (1)\n- X = ¬(¬(A · B) + ¬C) (1)",
+            "points": [
+              {
+                "criterion": "P and Q correct",
+                "marks": 1
+              },
+              {
+                "criterion": "NOR of P and Q",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "NOT (NOT (A AND B) OR NOT C)"
+            },
+            "model_answer": "X = ¬(¬(A · B) + ¬C)"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-5b",
+          "part_label": "(b)",
+          "title": "Truth table",
+          "type": "table_completion",
+          "marks": 3,
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.3.4",
+            "11.3.3.3@paper"
+          ],
+          "text": "Complete the truth table for the circuit.",
+          "content": {
+            "columns": [
+              "A",
+              "B",
+              "C",
+              "P",
+              "Q",
+              "X"
+            ],
+            "rows": 8,
+            "prefill": [
+              [
+                "0",
+                "0",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "0",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "0",
+                "1",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "0",
+                "1",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                null,
+                null,
+                null
+              ],
+              [
+                "1",
+                "1",
+                "1",
+                null,
+                null,
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "P: 1 1 1 1 1 1 0 0 (1)\nQ: 1 0 1 0 1 0 1 0 (1)\nX: 0 0 0 0 0 0 0 1 (1)",
+            "points": [
+              {
+                "criterion": "P column",
+                "marks": 1
+              },
+              {
+                "criterion": "Q column",
+                "marks": 1
+              },
+              {
+                "criterion": "X column",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "1",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "0",
+                  "1",
+                  "0"
+                ],
+                [
+                  null,
+                  null,
+                  null,
+                  "0",
+                  "0",
+                  "1"
+                ]
+              ]
+            },
+            "model_answer": "| A | B | C | P | Q | X |\n|---|---|---|---|---|---|\n| 0 | 0 | 0 | 1 | 1 | 0 |\n| 0 | 0 | 1 | 1 | 0 | 0 |\n| 0 | 1 | 0 | 1 | 1 | 0 |\n| 0 | 1 | 1 | 1 | 0 | 0 |\n| 1 | 0 | 0 | 1 | 1 | 0 |\n| 1 | 0 | 1 | 1 | 0 | 0 |\n| 1 | 1 | 0 | 0 | 1 | 0 |\n| 1 | 1 | 1 | 0 | 0 | 1 |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-5c",
+          "part_label": "(c)",
+          "title": "What the circuit does",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "12.3.3.4"
+          ],
+          "text": "Describe, in words, when the vault door opens.",
+          "content": {
+            "answer_lines": 2
+          },
+          "scheme": {
+            "mark_scheme": "Only when **both keys are turned and the time lock is open** / all three inputs are 1 — the circuit works as a 3-input AND (X = A · B · C) (1)",
+            "points": [
+              {
+                "criterion": "Only when all three inputs are 1",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Repeating the expression without words does not earn the mark.",
+            "model_answer": "The door opens only when the manager's key, the cashier's key and the time lock are all 1 — the circuit behaves like a three-input AND gate, X = A · B · C."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "bool-nx-5d",
+          "part_label": "(d)",
+          "title": "NAND-only alarm",
+          "type": "logic_circuit",
+          "marks": 3,
+          "command_word": "draw",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.3.3.2"
+          ],
+          "text": "The bank also needs an alarm **Y** that sounds when **both** keys are turned outside working hours, or when the panic button is pressed: **Y = A · B + C**. Draw a circuit for Y using **NAND gates only**.",
+          "content": {
+            "inputs": [
+              "A",
+              "B",
+              "C"
+            ],
+            "output": "Y",
+            "gates": [
+              "nand"
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "- a NAND gate with inputs A and B (1)\n- C inverted by a NAND gate with both inputs connected to C (1)\n- a final NAND gate whose inputs are the two NAND outputs, giving Y (1)\n(Y = ¬(¬(A·B) · ¬C) by De Morgan and double negation.)",
+            "points": [
+              {
+                "criterion": "NAND of A and B",
+                "marks": 1
+              },
+              {
+                "criterion": "NAND used as NOT on C",
+                "marks": 1
+              },
+              {
+                "criterion": "Final NAND gives Y",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "expression": "(A AND B) OR C"
+            },
+            "ai_instructions": "Any NAND-only circuit with the same truth table earns full marks.",
+            "model_answer": "A, B → NAND 1; C, C → NAND 2 (= ¬C); NAND 1 and NAND 2 → NAND 3 → Y. By De Morgan, ¬(¬(A·B) · ¬C) = A·B + C."
+          }
+        }
+      ]
     }
   ],
   "summary": "Logic gates (NOT, AND, OR, NAND, NOR, XOR) and their truth tables, writing Boolean expressions from problems, the laws of Boolean algebra and step-by-step simplification, reducing formulas to normal form (SOP and POS), building logic circuits from expressions, problems and truth tables, and analysing circuits with truth tables.",
@@ -3785,13 +4944,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 30,
     "title": "Boolean logic — Exam (Paper 2 style)",
-    "instructions": "Answer **all** questions. Show your working when simplifying, naming the law used in each step. You may write NOT as ¬ or ′, AND as · and OR as +. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 30 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Show your working when simplifying, naming the law used in each step. You may write NOT as ¬ or ′, AND as · and OR as +. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "bool-exam-1",
-      "bool-exam-2",
-      "bool-exam-3"
+      "bool-nx-1",
+      "bool-nx-2",
+      "bool-nx-3",
+      "bool-nx-4",
+      "bool-nx-5"
     ]
   },
   "lessons": [
