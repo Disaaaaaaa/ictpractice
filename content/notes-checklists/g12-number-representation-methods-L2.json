@@ -1,0 +1,90 @@
+{
+  "topic": "g12-number-representation-methods",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Why 1 hex digit = 4 bits",
+      "must": "4 bits have 2⁴ = 16 patterns and hex has 16 digits, so each nibble is one hex digit; a byte = exactly 2 hex digits; denary has no such link.",
+      "weight": 3,
+      "model": "4 bits → 2⁴ = 16 patterns; hex has 16 digits (0–F) → one hex digit = exactly one nibble. One byte = 2 hex digits (00–FF). 10 is not a power of 2, so denary digits do not match groups of bits."
+    },
+    {
+      "title": "Nibble table",
+      "must": "The 16 nibbles 0000–1111 with hex and denary; work out with 8 4 2 1.",
+      "weight": 2,
+      "model": "0000=0 … 1001=9, 1010=A(10), 1011=B(11), 1100=C(12), 1101=D(13), 1110=E(14), 1111=F(15). Use 8 4 2 1: 1011 = 8+2+1 = 11 = B."
+    },
+    {
+      "title": "Binary → hex",
+      "must": "Steps: groups of 4 from the right, pad left, each group → digit; example 1111101001 = 3E9.",
+      "weight": 3,
+      "model": "Group in 4s from the right, pad the left group with zeros, replace each group. 1111101001 → 0011 1110 1001 → 3E9₁₆. 1011 0111 → B7; 101 1011 → 0101 1011 → 5B; keep middle zeros: 0001 0000 0110 → 106."
+    },
+    {
+      "title": "Hex → binary",
+      "must": "Each digit → exactly 4 bits including leading zeros inside; example 2F = 0010 1111, A0 = 1010 0000.",
+      "weight": 3,
+      "model": "Replace each hex digit with 4 bits. 2F → 0010 1111. A0 → 1010 0000 (the 0000 must stay). 1A3 → 0001 1010 0011."
+    },
+    {
+      "title": "Octal vs hex grouping",
+      "must": "3 bits vs 4 bits; byte = 2 hex digits but not a whole number of octal digits; octal ↔ hex via binary (755₈ = 1ED₁₆).",
+      "weight": 2,
+      "model": "Octal: 3 bits per digit; hex: 4 bits per digit. Bytes/words are multiples of 4 → whole hex digits. 755₈ → 111 101 101 → 0001 1110 1101 → 1ED₁₆ (= 493)."
+    },
+    {
+      "title": "Hex is a representation for humans",
+      "must": "Computer stores and processes only binary; hex changes how values are shown, not stored.",
+      "weight": 3,
+      "model": "Hexadecimal is a way of displaying binary to people. Inside the computer everything is binary. Hex does NOT save memory and does NOT make processing faster."
+    },
+    {
+      "title": "Advantage: shorter",
+      "must": "4 times shorter than binary; byte = 2 digits not 8; 32-bit address = 8 digits; shorter than denary for big values.",
+      "weight": 3,
+      "model": "Each hex digit replaces 4 bits → 4× shorter. 1 byte: 2 hex digits vs 8 bits. 32-bit address: 8 hex digits. FFFFFFFF vs 4 294 967 295."
+    },
+    {
+      "title": "Advantage: easier to read, fewer errors",
+      "must": "Chain: shorter → easier to read/remember/copy → fewer human errors; example 0111111111101001 vs 7FE9.",
+      "weight": 3,
+      "model": "Shorter → easier for people to read, remember and copy → fewer mistakes (skipping/swapping bits). 0111111111101001₂ = 7FE9₁₆."
+    },
+    {
+      "title": "Advantage: easy conversion and fits bytes",
+      "must": "Direct 4-bit mapping (no division as with denary), shows which bits are set (0x80, 0x0F); bytes and words are whole numbers of hex digits.",
+      "weight": 2,
+      "model": "Conversion hex ↔ binary is a look-up of 16 patterns, unlike denary which needs division. You can see the bits: 0x80 = only top bit set, 0x0F = low 4 bits set. Bytes/16/32/64-bit words = 2/4/8/16 hex digits."
+    },
+    {
+      "title": "Colour codes",
+      "must": "#RRGGBB: 3 bytes = 24 bits; example #1F4FD8 = R 31, G 79, B 216; #000000 black, #FFFFFF white.",
+      "weight": 3,
+      "model": "Colour = #RRGGBB, each pair one byte 00–FF (0–255), total 24 bits = 6 hex digits. #1F4FD8: red 1F = 31, green 4F = 79, blue D8 = 216. #FF0000 red, #000000 black, #FFFFFF white."
+    },
+    {
+      "title": "Memory addresses, dumps, machine code, error codes",
+      "must": "Definitions of memory address and memory dump; examples 0x7FFE4A10, B8 04 00 CD 21, 0x80070005.",
+      "weight": 2,
+      "model": "Memory address = unique binary number identifying a memory location, shown in hex (0x7FFE4A10). Memory dump = memory contents shown as hex byte pairs (B8 04 00 CD 21) for debugging. Error codes such as 0x80070005 are compact to report."
+    },
+    {
+      "title": "MAC and IPv6 addresses",
+      "must": "MAC = 48 bits = 12 hex digits in 6 pairs (3C:52:82:1A:9F:04); IPv6 = 128 bits = 32 hex digits in 8 groups.",
+      "weight": 2,
+      "model": "MAC address = 48-bit physical address of a network card, 12 hex digits: 3C:52:82:1A:9F:04. IPv6 = 128 bits written as 8 groups of 4 hex digits: 2001:0db8:0000:0000:0000:ff00:0042:8329."
+    },
+    {
+      "title": "Character codes",
+      "must": "Unicode code points in hex: A = U+0041, Ә = U+04D8; HTML &#x04D8;.",
+      "weight": 1,
+      "model": "Character code points are listed in hex: A = U+0041 (65), Kazakh Ә = U+04D8. In HTML: &#x04D8;."
+    },
+    {
+      "title": "Common mistakes",
+      "must": "At least three: hex saves memory/faster (wrong); grouping from the left; MAC = 12 bits; advantage without explanation.",
+      "weight": 1,
+      "model": "Wrong: 'hex uses less memory / is faster'. Group bits from the RIGHT. MAC = 12 hex digits = 48 bits. For 'explain' give the advantage AND why (shorter → fewer errors)."
+    }
+  ]
+}

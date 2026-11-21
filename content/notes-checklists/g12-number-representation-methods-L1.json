@@ -1,0 +1,96 @@
+{
+  "topic": "g12-number-representation-methods",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Number system and base",
+      "must": "Definition: a way of writing numbers with a fixed set of digits; base = number of different digits (denary 10, binary 2, octal 8, hex 16).",
+      "weight": 3,
+      "model": "Number system = a way of writing numbers using a fixed set of digits. Base (radix) = the number of different digits: denary 10 (0–9), binary 2 (0, 1), octal 8 (0–7), hexadecimal 16 (0–9, A–F). Every digit must be smaller than the base."
+    },
+    {
+      "title": "Place value",
+      "must": "Definition and rule: each place = base × the place to its right; rightmost place = 1; value = digit × place value, added up.",
+      "weight": 3,
+      "model": "Place value = the value of a position. Each place is worth base × the place to its right; the rightmost place is base⁰ = 1. Value of a number = sum of (digit × place value). Binary 128 64 32 16 8 4 2 1; octal 512 64 8 1; denary 1000 100 10 1; hex 4096 256 16 1."
+    },
+    {
+      "title": "The four systems and their uses",
+      "must": "Table of the four systems: base, digits, example, use (binary = storage in computers, octal = Linux permissions, hex = short way to write binary).",
+      "weight": 2,
+      "model": "Denary base 10, 0–9, everyday counting. Binary base 2, 0/1, how computers store and process all data. Octal base 8, 0–7, Linux file permissions (chmod 755). Hexadecimal base 16, 0–9 and A–F, short readable way to write binary. 183₁₀ = 10110111₂ = 267₈ = B7₁₆."
+    },
+    {
+      "title": "Hex digits A–F",
+      "must": "A=10, B=11, C=12, D=13, E=14, F=15; each letter is ONE digit.",
+      "weight": 2,
+      "model": "A = 10, B = 11, C = 12, D = 13, E = 14, F = 15. A letter is a single digit: F = 15, but hex 15 = 1×16 + 5 = 21."
+    },
+    {
+      "title": "Writing the base",
+      "must": "Subscript (101₂, B7₁₆) and prefixes 0b, 0o, 0x, # for colours.",
+      "weight": 1,
+      "model": "Show the base: subscript 10110111₂, 267₈, 183₁₀, B7₁₆; in code 0b10110111, 0o267, 0xB7; HTML colours #B7…"
+    },
+    {
+      "title": "Bit, nibble, byte",
+      "must": "Definitions: bit = one binary digit; nibble = 4 bits; byte = 8 bits.",
+      "weight": 2,
+      "model": "Bit = a single binary digit (0 or 1). Nibble = 4 bits. Byte = 8 bits = 2 nibbles."
+    },
+    {
+      "title": "Range of n bits",
+      "must": "2ⁿ values, from 0 to 2ⁿ − 1; examples 8 bits 0–255, 16 bits 0–65 535; worked example of bits needed.",
+      "weight": 3,
+      "model": "n bits give 2ⁿ different values, from 0 to 2ⁿ − 1. 8 bits: 256 values, 0–255. 16 bits: 65 536 values, 0–65 535. Example: 900 students need IDs → 2⁹ = 512 too few, 2¹⁰ = 1024 enough → 10 bits."
+    },
+    {
+      "title": "Binary → denary",
+      "must": "Method: place values above the bits aligned from the right, add place values of the 1s; example 1011011₂ = 91.",
+      "weight": 3,
+      "model": "Write place values above the bits (1 at the right) and add those under a 1. 1011011₂: 64 + 16 + 8 + 2 + 1 = 91₁₀. Odd numbers end in 1."
+    },
+    {
+      "title": "Denary → binary by subtraction",
+      "must": "Method: subtract largest power of 2 that fits, write 1/0; example 183 = 10110111.",
+      "weight": 3,
+      "model": "Take away the largest place value that fits, write 1; write 0 where it does not fit; repeat. 183 − 128 = 55, − 32 = 23, − 16 = 7, − 4 = 3, − 2 = 1, − 1 = 0 → 10110111₂."
+    },
+    {
+      "title": "Denary → binary by repeated division",
+      "must": "Method: divide by 2 until quotient 0, read remainders bottom up; example 92 = 1011100; first remainder = LSB.",
+      "weight": 3,
+      "model": "Divide by 2, write the remainder, divide the quotient again until it is 0; read remainders bottom up. 92 → r 0,0,1,1,1,0,1 → 1011100₂. First remainder = LSB, last = MSB."
+    },
+    {
+      "title": "MSB, LSB and leading zeros",
+      "must": "MSB = leftmost/largest, LSB = rightmost (odd/even); leading zeros pad on the left to 8 bits without changing the value.",
+      "weight": 1,
+      "model": "MSB = leftmost bit (largest place value); LSB = rightmost bit (1s place, shows odd/even). Pad on the left with leading zeros: 92 in a byte = 01011100. Zeros on the right change the value (10111000 = 184)."
+    },
+    {
+      "title": "Octal / hex → denary",
+      "must": "Method: digit × place value, add; convert letters first; examples 267₈ = 183, 1A3₁₆ = 419, 3E9₁₆ = 1001.",
+      "weight": 3,
+      "model": "Multiply each digit by its place value and add (A–F → 10–15 first). 267₈ = 2×64 + 6×8 + 7 = 183. 1A3₁₆ = 1×256 + 10×16 + 3 = 419. 3E9₁₆ = 768 + 224 + 9 = 1001."
+    },
+    {
+      "title": "Denary → octal / hex by repeated division",
+      "must": "Method: divide by 8 or 16, remainders bottom up, 10–15 as A–F; example 1991 = 7C7₁₆ = 3707₈; quick method for ≤255.",
+      "weight": 3,
+      "model": "Divide by the base until quotient 0, remainders bottom up; remainders 10–15 written A–F. 1991 ÷ 16 = 124 r 7; 124 ÷ 16 = 7 r 12 (C); 7 ÷ 16 = 0 r 7 → 7C7₁₆. 1991 ÷ 8 → r 7, 0, 7, 3 → 3707₈. Up to 255: 183 ÷ 16 = 11 r 7 → B7."
+    },
+    {
+      "title": "Binary ↔ octal and choosing a route",
+      "must": "Groups of 3 bits from the right; chmod 755 = 111 101 101; between two non-denary bases go via binary.",
+      "weight": 2,
+      "model": "Octal digit = 3 bits (8 = 2³). 10110111 → 010 110 111 → 267₈. chmod 755 = 111 101 101 = rwx r-x r-x. Octal ↔ hex: go via binary (or denary)."
+    },
+    {
+      "title": "Common mistakes",
+      "must": "At least three: range 0–255 not 256; digits too big for the base; remainders read top down; 12 instead of C.",
+      "weight": 1,
+      "model": "Largest 8-bit value is 255 (256 values). No digit ≥ base (no 8 in octal). Read remainders bottom up. Write remainder 12 as C. Align bits from the right. Show working and the base."
+    }
+  ]
+}
