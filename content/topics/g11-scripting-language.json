@@ -1420,6 +1420,711 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "scr-nx-1",
+      "title": "Swimming pool ticket price",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A sports centre in Karaganda adds a ticket-price calculator to its website. The script is written in **JavaScript** and is embedded in the HTML page:\n\n```html\n<script>\n  let age = prompt(\"Enter your age:\");\n  let day = prompt(\"Enter the day (Mon, Tue, Wed, Thu, Fri, Sat or Sun):\");\n  // price calculation goes here\n</script>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-1a",
+          "part_label": "(a)",
+          "title": "Client-side script",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.1",
+            "11.5.3.8@paper"
+          ],
+          "text": "State whether this script runs on the **client** or on the **server**, and explain why this is suitable for a price calculator.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- client-side / runs in the user's web browser (1)\n- suitable because the price is shown **instantly** without sending a request to the server / reduces load on the server / no data needs to be stored or kept secret (1)",
+            "points": [
+              {
+                "criterion": "Client side / in the browser",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason linked to the calculator",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It is a client-side script: it is downloaded with the page and interpreted by the user's browser. This suits a price calculator because the price can be shown immediately, without a round trip to the server, and the calculation uses no secret data or database, so it does not need to run on the server."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-1b",
+          "part_label": "(b)",
+          "title": "Input is a string",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.1"
+          ],
+          "text": "A customer enters **15** for the age. The programmer writes `alert(age + 1);` to test the code and sees **151** instead of 16. Explain why this happens and write a corrected statement.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- `prompt()` always returns a **string**, so `+` **joins / concatenates** \"15\" and 1 to give \"151\" (1)\n- correction converts the input to a number before adding, e.g. `alert(Number(age) + 1);` / `parseInt(age)` / `age = Number(prompt(…))` (1)",
+            "points": [
+              {
+                "criterion": "prompt returns a string, + concatenates",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct conversion",
+                "marks": 1
+              }
+            ],
+            "model_answer": "prompt() returns the text the user typed as a string, so age holds \"15\" and the + operator joins the two values as text, giving \"151\". The input must be converted to a number first: alert(Number(age) + 1); which shows 16."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-1c",
+          "part_label": "(c)",
+          "title": "Calculating the price",
+          "type": "code_completion",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.1"
+          ],
+          "text": "Write the code that replaces the comment. It must:\n- set the price to **0** for a customer **under 7**, **1500** ₸ for ages **7 to 17** and **2500** ₸ for **18 or over**;\n- add **500** ₸ to the price on **Sat** or **Sun**, but only for customers who pay;\n- display the final price.",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- converts age to a number (1)\n- IF … ELSE IF … ELSE in a correct order with correct boundaries (< 7, ≤ 17 / < 18) giving 0, 1500, 2500 (1)\n- weekend condition using a logical operator: day == \"Sat\" || day == \"Sun\" (1)\n- surcharge only when price > 0 (&& price > 0 or nested IF) **and** the price is output with alert / document.write / console.log (1)",
+            "points": [
+              {
+                "criterion": "Age converted to a number",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct age selection and boundaries",
+                "marks": 1
+              },
+              {
+                "criterion": "Weekend condition with OR",
+                "marks": 1
+              },
+              {
+                "criterion": "Surcharge only for paying customers and output",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept PHP or pseudocode with equivalent logic, and a switch on the day. Without conversion to a number, the first mark is lost but the selection marks can still be awarded. Overlapping or wrong boundaries (e.g. age > 7 for the 1500 band) lose the second mark.",
+            "model_answer": "```javascript\nage = Number(age);\nlet price;\nif (age < 7) {\n  price = 0;\n} else if (age <= 17) {\n  price = 1500;\n} else {\n  price = 2500;\n}\nif ((day == \"Sat\" || day == \"Sun\") && price > 0) {\n  price = price + 500;\n}\nalert(\"Price: \" + price + \" ₸\");\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "scr-nx-2",
+      "title": "Weather station readings",
+      "type": "structured",
+      "marks": 10,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A school weather club in Kostanay records the temperature every morning. Its web page uses this script:\n\n```javascript\nlet temps = [4, -2, 7, -5, 3];\nlet total = 0;\nlet frost = 0;\nfor (let i = 0; i < temps.length; i++) {\n  total = total + temps[i];\n  if (temps[i] < 0) {\n    frost = frost + 1;\n  }\n}\nconsole.log(total, frost);\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-2a",
+          "part_label": "(a)",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 3,
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "Complete the trace table to show the values of `i`, `temps[i]`, `total` and `frost` at the **end** of each iteration of the loop.",
+          "content": {
+            "columns": [
+              "i",
+              "temps[i]",
+              "total",
+              "frost"
+            ],
+            "rows": 5
+          },
+          "scheme": {
+            "mark_scheme": "Rows: 0, 4, 4, 0 / 1, −2, 2, 1 / 2, 7, 9, 1 / 3, −5, 4, 2 / 4, 3, 7, 2.\n- i and temps[i] columns correct (1)\n- total column correct: 4, 2, 9, 4, 7 (1)\n- frost column correct: 0, 1, 1, 2, 2 (1)\n(Marks scaled from the number of fully correct rows.)",
+            "points": [
+              {
+                "criterion": "i and temps[i] correct",
+                "marks": 1
+              },
+              {
+                "criterion": "total correct",
+                "marks": 1
+              },
+              {
+                "criterion": "frost correct",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  "0",
+                  "4",
+                  "4",
+                  "0"
+                ],
+                [
+                  "1",
+                  "-2",
+                  "2",
+                  "1"
+                ],
+                [
+                  "2",
+                  "7",
+                  "9",
+                  "1"
+                ],
+                [
+                  "3",
+                  "-5",
+                  "4",
+                  "2"
+                ],
+                [
+                  "4",
+                  "3",
+                  "7",
+                  "2"
+                ]
+              ]
+            },
+            "ai_instructions": "Accept the Unicode minus sign (−2, −5) as well as -2, -5.",
+            "model_answer": "| i | temps[i] | total | frost |\n|---|---|---|---|\n| 0 | 4 | 4 | 0 |\n| 1 | -2 | 2 | 1 |\n| 2 | 7 | 9 | 1 |\n| 3 | -5 | 4 | 2 |\n| 4 | 3 | 7 | 2 |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-2b",
+          "part_label": "(b)",
+          "title": "Output",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "State the output of the script.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "7 2 (1)",
+            "points": [
+              {
+                "criterion": "7 2",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "7 2",
+                "7, 2",
+                "7,2",
+                "7  2",
+                "total 7 frost 2"
+              ]
+            },
+            "model_answer": "7 2"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-2c",
+          "part_label": "(c)",
+          "title": "Loop choice and style",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4",
+            "11.5.4.1"
+          ],
+          "text": "Explain why a **count-controlled** loop is suitable here, and why the condition uses `temps.length` instead of the number **5**.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- the number of repetitions is **known before the loop starts** (one per element of the array) (1)\n- `temps.length` adapts automatically when readings are added or removed / avoids a magic number / the loop cannot go past the end of the array — good, robust style (1)",
+            "points": [
+              {
+                "criterion": "Number of repetitions known in advance",
+                "marks": 1
+              },
+              {
+                "criterion": "length avoids a magic number / adapts to the array",
+                "marks": 1
+              }
+            ],
+            "model_answer": "A count-controlled for loop suits this task because the number of repetitions is known before the loop starts: exactly one per value in the array. Using temps.length instead of 5 is good style: if the club adds a sixth reading, the loop still visits every element without the code being changed, and it can never go past the end of the array."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-2d",
+          "part_label": "(d)",
+          "title": "Condition-controlled loop",
+          "type": "code_completion",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "The club wants a new version. Write JavaScript that keeps asking the user to enter a temperature until the user types **stop**, then displays **how many** temperatures were entered and the **highest** one.",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- condition-controlled loop (while / do … while) that ends when the input is \"stop\" (1)\n- input requested inside the loop so that the loop can end / no infinite loop (1)\n- count incremented for every temperature but **not** for \"stop\" (1)\n- input converted with Number() and compared with the current highest, which is initialised sensibly (first value / -Infinity, not 0); count and highest output after the loop (1)",
+            "points": [
+              {
+                "criterion": "while / do-while ending on stop",
+                "marks": 1
+              },
+              {
+                "criterion": "Input inside the loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct count",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct highest and output",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept PHP or pseudocode. Initialising highest to 0 loses the last mark only if it would give a wrong answer for all-negative readings — mention this in feedback and do not award the last mark. A for loop with a fixed count earns no marks for the first point.",
+            "model_answer": "```javascript\nlet count = 0;\nlet highest = -Infinity;\nlet entry = prompt(\"Temperature (or stop):\");\nwhile (entry != \"stop\") {\n  let t = Number(entry);\n  count = count + 1;\n  if (t > highest) {\n    highest = t;\n  }\n  entry = prompt(\"Temperature (or stop):\");\n}\nalert(\"Readings: \" + count + \", highest: \" + highest);\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "scr-nx-3",
+      "title": "Chess club application form",
+      "type": "structured",
+      "marks": 9,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A youth chess club in Pavlodar has an online application form with the fields **name**, **iin** (a 12-digit identification number), **grade** (7 to 11), **email** and **email2** (the e-mail address typed again). The JavaScript that checks the form contains these lines:\n\n```javascript\n1  if (name.trim() === \"\") errors.push(\"Enter your name\");\n2  if (!/^\\d{12}$/.test(iin)) errors.push(\"IIN must be 12 digits\");\n3  if (grade < 7 || grade > 11) errors.push(\"Grade must be 7 to 11\");\n4  if (email !== email2) errors.push(\"E-mail addresses do not match\");\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-3a",
+          "part_label": "(a)",
+          "title": "Types of check",
+          "type": "table_completion",
+          "marks": 4,
+          "command_word": "identify",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "text": "Identify the type of check carried out by each line of the code.",
+          "content": {
+            "columns": [
+              "Line",
+              "Type of check"
+            ],
+            "rows": 4,
+            "prefill": [
+              [
+                "1",
+                null
+              ],
+              [
+                "2",
+                null
+              ],
+              [
+                "3",
+                null
+              ],
+              [
+                "4",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Line 1 presence check (1)\nLine 2 format check (accept length check) (1)\nLine 3 range check (1)\nLine 4 double entry / verification (1)",
+            "points": [
+              {
+                "criterion": "Presence",
+                "marks": 1
+              },
+              {
+                "criterion": "Format",
+                "marks": 1
+              },
+              {
+                "criterion": "Range",
+                "marks": 1
+              },
+              {
+                "criterion": "Double entry",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "presence||presence check"
+                ],
+                [
+                  null,
+                  "format||format check||pattern||pattern check||length||length check"
+                ],
+                [
+                  null,
+                  "range||range check"
+                ],
+                [
+                  null,
+                  "double entry||double-entry||double entry check||double-entry verification||double entry verification||verification||verification check"
+                ]
+              ]
+            },
+            "model_answer": "Line 1: presence check. Line 2: format check (the pattern also fixes the length of 12 digits). Line 3: range check. Line 4: double entry — a verification check."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-3b",
+          "part_label": "(b)",
+          "title": "Verification",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "text": "Explain why line **4** is a **verification** check rather than a validation check, and state **one** limitation of it.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- it checks that the e-mail has been **typed / entered accurately** — the two copies match what the user intended — rather than that the data is reasonable / follows a rule (1)\n- limitation: the user could make **the same mistake** in both fields / it does not check that the address is sensible or in the right format / it does not prove the address exists (1)",
+            "points": [
+              {
+                "criterion": "Checks accurate entry, not reasonableness",
+                "marks": 1
+              },
+              {
+                "criterion": "Valid limitation",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Line 4 does not check that the address is sensible or follows a rule; it only checks that the address has been entered accurately, by comparing two copies typed by the user — that is verification (double entry). Its limitation is that if the user makes the same typing mistake in both fields, the check is passed and the wrong address is stored."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-3c",
+          "part_label": "(c)",
+          "title": "Server-side check",
+          "type": "code_completion",
+          "marks": 3,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.3"
+          ],
+          "text": "The same checks must be repeated on the server. Write **PHP** that reads `grade` from the form (sent with POST) and displays a suitable message if it is **missing**, **not a number**, or **outside 7 to 11**; otherwise it displays **Accepted**.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads $_POST[\"grade\"] and tests presence (isset / empty / trim === \"\") (1)\n- type check with is_numeric **before** the range check (elseif) (1)\n- range check < 7 || > 11 with messages and \"Accepted\" in the final else (1)",
+            "points": [
+              {
+                "criterion": "Presence check on $_POST",
+                "marks": 1
+              },
+              {
+                "criterion": "Type check before range",
+                "marks": 1
+              },
+              {
+                "criterion": "Range check and Accepted",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept equivalent PHP (e.g. filter_var with FILTER_VALIDATE_INT and options). If the range is tested before the type with separate ifs so that several messages can appear for one value, the second mark is lost.",
+            "model_answer": "```php\n<?php\n$grade = trim($_POST[\"grade\"] ?? \"\");\nif ($grade === \"\") {\n    echo \"Enter your grade\";\n} elseif (!is_numeric($grade)) {\n    echo \"Grade must be a number\";\n} elseif ($grade < 7 || $grade > 11) {\n    echo \"Grade must be from 7 to 11\";\n} else {\n    echo \"Accepted\";\n}\n?>\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "scr-nx-4",
+      "title": "School canteen menu",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A school canteen in Semey shows its menu on the school website. The MySQL database **canteen** runs on the same computer as the web server and has a table **Dish** with the fields **DishID**, **Name**, **Price** and **Available** (1 = on sale today, 0 = not on sale). The script connects with the username **canteen_app** and the password **Kz2026**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-4a",
+          "part_label": "(a)",
+          "title": "Displaying the menu",
+          "type": "code_completion",
+          "marks": 5,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.5"
+          ],
+          "text": "Write a PHP script that connects to the database, stops with an error message if the connection fails, displays the **Name** and **Price** of every dish that is on sale today in order of price (cheapest first), one dish per line, and then closes the connection.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- mysqli_connect(\"localhost\", \"canteen_app\", \"Kz2026\", \"canteen\") with the parameters in the correct order (1)\n- connection checked: if (!$conn) die(… mysqli_connect_error()) (1)\n- SQL: SELECT Name, Price FROM Dish WHERE Available = 1 ORDER BY Price (ASC) sent with mysqli_query (1)\n- while ($row = mysqli_fetch_assoc($result)) echo $row[\"Name\"] … $row[\"Price\"] … <br> (1)\n- mysqli_close($conn) at the end (1)",
+            "points": [
+              {
+                "criterion": "Connect with correct parameters",
+                "marks": 1
+              },
+              {
+                "criterion": "Connection checked",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct SQL sent",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop through result and output",
+                "marks": 1
+              },
+              {
+                "criterion": "Close",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept the object-oriented mysqli style (new mysqli, $conn->query, $result->fetch_assoc()) and PDO. mysqli_fetch_row with $row[0], $row[1] is acceptable for the loop mark.",
+            "model_answer": "```php\n<?php\n$conn = mysqli_connect(\"localhost\", \"canteen_app\", \"Kz2026\", \"canteen\");\nif (!$conn) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$sql = \"SELECT Name, Price FROM Dish WHERE Available = 1 ORDER BY Price ASC\";\n$result = mysqli_query($conn, $sql);\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"Name\"] . \" — \" . $row[\"Price\"] . \" ₸<br>\";\n}\nmysqli_close($conn);\n?>\n```"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-4b",
+          "part_label": "(b)",
+          "title": "Searching safely",
+          "type": "short_answer",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.5"
+          ],
+          "text": "A search box sends a dish name to the server. The programmer writes:\n\n```php\n$sql = \"SELECT * FROM Dish WHERE Name = '\" . $_GET[\"name\"] . \"'\";\n```\n\nExplain the risk in this line and how a **prepared statement** removes it.",
+          "content": {
+            "answer_lines": 5
+          },
+          "scheme": {
+            "mark_scheme": "- the user's input is joined directly into the SQL, so it can contain SQL code — **SQL injection** (1)\n- e.g. entering ' OR '1'='1 makes the condition always true and returns / exposes every row, or extra commands could change / delete data (1)\n- a prepared statement sends the SQL **with a placeholder ?** first and the value **separately** (mysqli_prepare, bind_param, execute), so the input is always treated as **data, never as SQL code** (1)",
+            "points": [
+              {
+                "criterion": "Input joined into SQL → SQL injection",
+                "marks": 1
+              },
+              {
+                "criterion": "Consequence / example",
+                "marks": 1
+              },
+              {
+                "criterion": "Placeholder, value sent separately as data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The text typed in the search box is concatenated straight into the SQL statement, so a user can type SQL instead of a name — SQL injection. For example ' OR '1'='1 turns the condition into one that is always true, so every row is returned, and other input could change or delete data. A prepared statement sends the query template WHERE Name = ? first, and the value is bound separately with mysqli_stmt_bind_param; the database then treats it only as a value to compare, never as part of the SQL command."
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "scr-nx-5",
+      "title": "Interactive order page",
+      "type": "structured",
+      "marks": 5,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The canteen also has an order page. Each portion of plov costs **850** ₸. The page contains:\n\n```html\n<label>Portions: <input id=\"qty\" type=\"number\" value=\"1\"></label>\n<p id=\"total\"></p>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-5a",
+          "part_label": "(a)",
+          "title": "Events and the DOM",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.8@paper"
+          ],
+          "text": "Explain how a script can make this page **interactive**. Refer to **events** and the **DOM** in your answer.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- an event (e.g. input / change / click) on an element triggers an **event handler** function attached with addEventListener / onclick, without loading a new page (1)\n- the function uses the **DOM** (e.g. getElementById) to read the value and change the content / style of elements on the page, e.g. textContent of the paragraph (1)",
+            "points": [
+              {
+                "criterion": "Event triggers a handler function",
+                "marks": 1
+              },
+              {
+                "criterion": "DOM used to read / change elements",
+                "marks": 1
+              }
+            ],
+            "model_answer": "When the user does something, such as changing the number of portions, the browser fires an event. A function attached to that element as an event handler (with addEventListener) runs at once. The function uses the DOM — the page represented as objects — to find elements by id, read the value in the input and change the text of the paragraph, so the page updates without a new page being loaded."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "scr-nx-5b",
+          "part_label": "(b)",
+          "title": "Live total",
+          "type": "code_completion",
+          "marks": 3,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.3.8@paper",
+            "11.5.4.1"
+          ],
+          "text": "Write JavaScript so that **every time** the number of portions changes, the paragraph **total** shows the cost (portions × 850). If more than **10** portions are entered, the paragraph must show **Maximum 10 portions** instead.",
+          "content": {
+            "language": "javascript",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- input element found with document.getElementById(\"qty\") and its value converted to a number (1)\n- event handler attached for input / change with addEventListener (or oninput) (1)\n- selection: > 10 shows \"Maximum 10 portions\", otherwise qty × 850 written into the total paragraph with textContent / innerHTML (1)",
+            "points": [
+              {
+                "criterion": "getElementById and conversion",
+                "marks": 1
+              },
+              {
+                "criterion": "Event listener on input / change",
+                "marks": 1
+              },
+              {
+                "criterion": "Selection and output to #total",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Multiplication works on the string value in JavaScript, so do not withhold the first mark only because Number() is missing if getElementById is used correctly; mention conversion in feedback. A button with a click event is acceptable for the event mark but mention that the task asked for every change.",
+            "model_answer": "```html\n<script>\n  const qty = document.getElementById(\"qty\");\n  const out = document.getElementById(\"total\");\n  function update() {\n    const n = Number(qty.value);\n    if (n > 10) {\n      out.textContent = \"Maximum 10 portions\";\n    } else {\n      out.textContent = \"Total: \" + n * 850 + \" ₸\";\n    }\n  }\n  qty.addEventListener(\"input\", update);\n  update();\n</script>\n```"
+          }
+        }
+      ]
     }
   ],
   "summary": "What a scripting language is (client-side JavaScript and server-side PHP), how scripts are interpreted and embedded in web pages, variables, data types, input and output, selection with if, else if, switch and logical operators, count- and condition-controlled loops and how to trace them, the difference between validation and verification and how to code each check, good programming style, connecting to a MySQL database from PHP with safe prepared statements, and using JavaScript events and the DOM to make pages interactive.",
@@ -2986,13 +3691,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 50,
     "title": "Scripting language — Exam (Paper 3 style)",
-    "instructions": "Answer **all** questions. You may write code in JavaScript, PHP or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. You may write code in JavaScript, PHP or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "scr-exam-1",
-      "scr-exam-2",
-      "scr-exam-3"
+      "scr-nx-1",
+      "scr-nx-2",
+      "scr-nx-3",
+      "scr-nx-4",
+      "scr-nx-5"
     ]
   },
   "lessons": [
