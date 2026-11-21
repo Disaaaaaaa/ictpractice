@@ -1,0 +1,96 @@
+{
+  "topic": "g12-addition-and-multiplication-of-binary-numbers",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Rules of binary addition",
+      "must": "The four column rules with sum bit and carry, including 1 + 1 + 1.",
+      "weight": 3,
+      "model": "0 + 0 = 0 carry 0; 0 + 1 = 1 carry 0; 1 + 1 = 10 → write 0, carry 1; 1 + 1 + 1 = 11 → write 1, carry 1. Sum bit = digit written in the column; carry = 1 passed to the next column on the left."
+    },
+    {
+      "title": "Column method with a worked example",
+      "must": "Steps (line up on the right, add right to left, write carries, check in denary) and one example with carries shown.",
+      "weight": 2,
+      "model": "Line up on the right, same number of bits; add from right to left with carries written above; check in denary. 01101101 (109) + 00110110 (54) = 10100011 (163); carries into the 8s, 16s, 32s, 64s and 128s columns."
+    },
+    {
+      "title": "Adding three numbers",
+      "must": "Add the first two, then add the third to the result; example.",
+      "weight": 1,
+      "model": "Add two numbers first, then add the third to the result (avoids column totals of 4 or 5). 0101 + 0110 = 1011 (11); 1011 + 0011 = 1110 = 14 = 5 + 6 + 3."
+    },
+    {
+      "title": "Overflow",
+      "must": "Definition, example in 8 bits, why it matters (overflow flag / more bits).",
+      "weight": 3,
+      "model": "Overflow = the result is too large to fit in the number of bits available; the carry out of the MSB is lost so the stored result is wrong. 8-bit maximum = 255: 10101010 (170) + 10111001 (185) = 355 = 101100011 (9 bits) → stored 01100011 = 99. The CPU sets an overflow/carry flag; programs must check it or use more bits."
+    },
+    {
+      "title": "Long multiplication (shift and add)",
+      "must": "Partial product definition, steps, worked example 1011 × 1101.",
+      "weight": 3,
+      "model": "Partial product = multiplicand × one bit of the multiplier, shifted left by that bit's position. Bit 1 → copy the multiplicand, bit 0 → zeros; shift each row one more place left; add the rows. 1011 × 1101: 1011 + 00000 + 101100 + 1011000 = 10001111 = 143 (11 × 13)."
+    },
+    {
+      "title": "Logical shift = multiply by powers of 2",
+      "must": "Definition of logical shift; shift left n places = × 2ⁿ, right = ÷ 2; example.",
+      "weight": 2,
+      "model": "Logical shift = move all bits left or right, filling empty places with 0; bits shifted out are lost. Shift left 1 = × 2, 2 places = × 4, 3 places = × 8; shift right = ÷ 2. 00010110 (22) shifted left 2 → 01011000 (88)."
+    },
+    {
+      "title": "Size of a product",
+      "must": "n-bit × m-bit can need n + m bits; example 15 × 15.",
+      "weight": 1,
+      "model": "Addition of two n-bit numbers needs at most n + 1 bits; n-bit × m-bit needs up to n + m bits. 1111 × 1111 = 15 × 15 = 225 = 11100001 (8 bits)."
+    },
+    {
+      "title": "Sign and magnitude vs one's vs two's complement",
+      "must": "How −5 is written in each, number of zeros, range, which is used and why.",
+      "weight": 2,
+      "model": "−5 in 8 bits: sign and magnitude 10000101; one's complement 11111010; two's complement 11111011. S&M and one's complement have two zeros and range −127 to +127; two's complement has one zero, range −128 to +127, and works with an ordinary adder — used for integers in CPUs."
+    },
+    {
+      "title": "Two's complement definition and place values",
+      "must": "Definition: MSB has negative place value −2ⁿ⁻¹; 8-bit place values; MSB 0 = positive, 1 = negative; example.",
+      "weight": 3,
+      "model": "Two's complement = signed integer representation where the MSB has a negative place value (−128 in 8 bits) and the other bits are positive. Place values −128 64 32 16 8 4 2 1. 10110001 = −128 + 32 + 16 + 1 = −79 (unsigned it would be 177)."
+    },
+    {
+      "title": "Denary → two's complement",
+      "must": "Invert-and-add-1 steps with an example (and/or the −128 method, shortcut).",
+      "weight": 3,
+      "model": "Write +45 = 00101101; invert → 11010010; add 1 → 11010011 = −45. Check: −128 + 64 + 16 + 2 + 1 = −45. Or: −128 + 83 = −45, 83 = 1010011 → 11010011. Shortcut: copy bits from the right up to the first 1, invert the rest. −15 = 11110001, −56 = 11001000, −100 = 10011100."
+    },
+    {
+      "title": "Two's complement → denary",
+      "must": "Add place values with −128 (or invert and add 1); examples.",
+      "weight": 2,
+      "model": "MSB 1 → add place values including −128: 11100110 = −128 + 64 + 32 + 4 + 2 = −26; 10011011 = −101; 10000000 = −128; 11111111 = −1. Or invert and add 1 to find the size, then put a minus sign."
+    },
+    {
+      "title": "Range in n bits and why two's complement is used",
+      "must": "Range formula and values for 4, 8, 16 bits; two reasons (one zero, same adder / subtraction by addition).",
+      "weight": 3,
+      "model": "Range −2ⁿ⁻¹ to 2ⁿ⁻¹ − 1: 4 bits −8 to +7, 8 bits −128 to +127, 16 bits −32 768 to +32 767 (unsigned 8 bits 0–255). Used because there is only one zero and positive/negative numbers are added with the same adder, so subtraction = addition and the ALU is simpler."
+    },
+    {
+      "title": "Sign extension",
+      "must": "Copy the sign bit when moving to more bits; example.",
+      "weight": 1,
+      "model": "To move a two's complement number to more bits copy the MSB into the new places: −5 = 1011 (4 bits) → 11111011 (8 bits); +5 = 0101 → 00000101."
+    },
+    {
+      "title": "Two's complement subtraction",
+      "must": "Definition A − B = A + (−B), steps, discard the carry, worked examples with positive and negative answers.",
+      "weight": 3,
+      "model": "A − B = A + two's complement of B; discard any carry out of the MSB. 73 − 39: −39 = 11011001; 01001001 + 11011001 = 1 00100010 → 00100010 = 34. 58 − 91: −91 = 10100101; 00111010 + 10100101 = 11011111 = −33 (MSB 1, negative)."
+    },
+    {
+      "title": "Overflow in signed arithmetic",
+      "must": "Rule: same signs in, opposite sign out; examples; positive + negative never overflows.",
+      "weight": 2,
+      "model": "Overflow when two numbers of the same sign give a result of the opposite sign. 100 + 50 = 01100100 + 00110010 = 10010110 = −106 (150 > 127). −100 + −50 = 10011100 + 11001110 → 01101010 = +106 (−150 < −128). Positive + negative never overflows; the discarded carry in subtraction is not overflow."
+    }
+  ]
+}

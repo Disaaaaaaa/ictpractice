@@ -1,0 +1,96 @@
+{
+  "topic": "g12-addition-and-multiplication-of-binary-numbers",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Binary point and fractional place values",
+      "must": "Binary point separates integer and fraction parts; place values after the point are ½, ¼, ⅛, 1/16 (0.5, 0.25, 0.125, 0.0625), each half of the one on its left.",
+      "weight": 3,
+      "model": "Binary point = separates the integer part from the fractional part. Left: 8 4 2 1; right: ½ ¼ ⅛ 1/16 = 0.5 0.25 0.125 0.0625 (each place is half the place on its left). Example: 10.11₂ = 2 + 0.5 + 0.25 = 2.75."
+    },
+    {
+      "title": "Fixed-point representation",
+      "must": "Definition: fixed number of bits for the integer part and for the fraction part, point always in the same position and not stored; example format 4.4.",
+      "weight": 3,
+      "model": "Fixed point = a fixed number of bits for the integer part and a fixed number for the fractional part; the binary point is always in the same place and is not stored. 4.4 format: 0110.1010 = 4 + 2 + 0.5 + 0.125 = 6.625."
+    },
+    {
+      "title": "Fixed point → denary (worked example)",
+      "must": "Method (place values, add under each 1) with an example, e.g. 10110001 with 5 integer and 3 fraction bits = 22.125.",
+      "weight": 2,
+      "model": "Write place values (including fractions), add the values under each 1. 10110001 with 5.3 bits → 10110.001 = 16 + 4 + 2 + 0.125 = 22.125. 0101.1100 = 4 + 1 + 0.5 + 0.25 = 5.75."
+    },
+    {
+      "title": "Denary → fixed point by repeated ×2",
+      "must": "Integer part as usual; fraction multiplied by 2 repeatedly, the digit before the point is the next bit, read top to bottom; pad to the given bits. Example 9.375 → 1001.0110.",
+      "weight": 3,
+      "model": "9.375 in 4.4: 9 = 1001. 0.375×2 = 0.75 → 0; 0.75×2 = 1.5 → 1; 0.5×2 = 1.0 → 1; stop. Read top to bottom: .011 → pad → .0110. Answer 1001.0110 (check 8 + 1 + 0.25 + 0.125)."
+    },
+    {
+      "title": "Rounding error and 0.1",
+      "must": "Some fractions (0.1, 0.2, ⅓) are recurring in binary and cannot be stored exactly; definition of rounding error; 0.1 stored as 0.00011001 = 0.09765625 in 8 fraction bits; errors add up.",
+      "weight": 2,
+      "model": "Rounding error = difference between a number and the value stored, because the number needs more bits than available (or recurs). 0.1 = 0.000110011…₂ (recurring); with 8 fraction bits stored as 0.00011001 = 0.09765625 (error 0.00234375). Errors add up, so money is often stored as whole tiyn/cents."
+    },
+    {
+      "title": "Range and precision in fixed point",
+      "must": "Definitions of range and precision; trade-off: more integer bits = more range, more fraction bits = more precision; example 4.4 (max 15.9375, step 0.0625) vs 6.2 (max 63.75, step 0.25).",
+      "weight": 3,
+      "model": "Range = span from smallest to largest value that can be stored. Precision = how accurately a value is stored (smallest step). Unsigned 4.4: max 1111.1111 = 15.9375, step 0.0625. 6.2: max 63.75, step 0.25. More integer bits → more range, less precision; more fraction bits → more precision, less range."
+    },
+    {
+      "title": "Negative fixed point in two's complement",
+      "must": "MSB negative (−8 in 4.4); range −8 to 7.9375; store by writing the positive value, inverting and adding 1 to the rightmost bit; example −2.75 → 1101.0100 with check.",
+      "weight": 2,
+      "model": "Signed 4.4 place values: −8 4 2 1 . ½ ¼ ⅛ 1/16; range −8 to 7.9375. −2.75: +2.75 = 0010.1100 → invert 1101.0011 → add 1 → 1101.0100. Check −8 + 4 + 1 + 0.25 = −2.75. 1110.1000 = −8 + 4 + 2 + 0.5 = −1.5."
+    },
+    {
+      "title": "Floating point, mantissa and exponent",
+      "must": "Definitions: value = mantissa × 2^exponent; mantissa = significant bits, two's complement fraction with implied point after the sign bit (first bit worth −1); exponent = two's complement integer, power of 2; 8-bit mantissa + 4-bit exponent (exponent −8 to +7).",
+      "weight": 3,
+      "model": "Floating point = mantissa × 2^exponent (binary standard form). Mantissa = significant bits, two's complement, point after the first bit: place values −1 . ½ ¼ ⅛ 1/16 1/32 1/64 1/128. Exponent = two's complement integer (4 bits: −8 4 2 1, range −8 to +7); positive → move point right, negative → left."
+    },
+    {
+      "title": "Floating point → denary (worked examples)",
+      "must": "Steps: convert exponent, move the point (right if positive, left if negative), convert. Examples 01101000/0011 = 6.5 and 10011000/0100 = −13 (or 01001000/1110 = 0.140625).",
+      "weight": 3,
+      "model": "1) Exponent to denary. 2) Mantissa 0.xxx or 1.xxx, move the point. 3) Convert. 01101000/0011: exp 3, 0.1101 → 110.1 = 6.5. 01001000/1110: exp −2, 0.1001 → 0.001001 = 0.140625. 10011000/0100: exp 4, 1.0011 → 10011 = −16 + 3 = −13 (or −0.8125 × 16)."
+    },
+    {
+      "title": "Denary → floating point, positive and negative",
+      "must": "Steps: fixed point, move the point to get 0.1…, places moved = exponent, pad mantissa, exponent in two's complement; negative: two's complement of the whole mantissa. Examples 5.75 → 01011100/0011, −6.75 → 10010100/0011.",
+      "weight": 3,
+      "model": "5.75 = 101.11 = 0.10111 × 2³ → mantissa 01011100, exponent 0011. −6.75: 6.75 = 110.11 = 0.11011 × 2³ → 01101100 → invert 10010011 → +1 → mantissa 10010100, exponent 0011. 0.1875 = 0.0011 = 0.11 × 2⁻² → 01100000, exponent 1110."
+    },
+    {
+      "title": "Normalisation and why",
+      "must": "Definition: first two mantissa bits differ — positive starts 0.1, negative starts 1.0; reasons: maximum precision (no redundant leading bits) and a unique representation.",
+      "weight": 3,
+      "model": "Normalised = no redundant leading bits: positive mantissa starts 0.1, negative starts 1.0. Why: 1) maximum precision — all mantissa bits are significant; 2) unique representation of each number — easier comparison and arithmetic."
+    },
+    {
+      "title": "How to normalise (worked example)",
+      "must": "Shift mantissa left until the first two bits differ; subtract 1 from the exponent per place shifted; examples 00110100/0100 → 01101000/0011 and 11100110/0101 → 10011000/0011 (both 6.5 / −6.5).",
+      "weight": 2,
+      "model": "Shift left n places → exponent − n (value unchanged). 00110100, exp 0100 → shift 1 → 01101000, exp 0011 (6.5). 11100110, exp 0101 → shift 2 → 10011000, exp 0011 (−6.5)."
+    },
+    {
+      "title": "Mantissa vs exponent bits; range of 8+4 format",
+      "must": "More mantissa bits = precision, more exponent bits = range (fixed total = trade-off); largest 127, most negative −128, smallest positive normalised 0.001953125 for 8+4.",
+      "weight": 2,
+      "model": "Mantissa → precision; exponent → range; with a fixed total, gaining one loses the other. 8-bit mantissa + 4-bit exponent: largest 01111111/0111 = 127; most negative 10000000/0111 = −128; smallest positive normalised 01000000/1000 = 0.5 × 2⁻⁸ = 0.001953125."
+    },
+    {
+      "title": "Overflow and underflow",
+      "must": "Overflow = result too large, exponent above its maximum; underflow = result too close to zero, exponent below its minimum, stored as 0.",
+      "weight": 1,
+      "model": "Overflow: the number is too large — exponent would need to be above +7 (4-bit) → cannot be stored / error. Underflow: the number is too close to zero — exponent below −8 → stored as 0."
+    },
+    {
+      "title": "Fixed point vs floating point",
+      "must": "Comparison: range, precision, speed/hardware, exactness, uses (fixed: money as integers, simple sensors/embedded; floating: science, graphics, most real numbers).",
+      "weight": 2,
+      "model": "Fixed: point fixed, small range, same step everywhere, faster/simpler hardware; used in simple sensors (thermometer 35–42 °C), embedded devices, audio; money as whole tiyn. Floating: point set by exponent, very large range, relative precision, slower (needs FPU); used in science, engineering, 3D graphics, spreadsheets."
+    }
+  ]
+}
