@@ -4,233 +4,1629 @@ summary: What a computer network is and why networks are used, LAN, WAN and othe
 # What is a computer network?
 @lo 11.6.1.1
 
-:::definition Computer network
-Two or more computers or devices **connected together** so that they can **communicate** and **share resources** — data, files, printers, software and an Internet connection.
-:::
+Almost every computer you use today is part of a **network**. When you log on to a school computer and see your own documents, when you print to a printer in another room, when you send a message to a friend or open a web page, data is travelling from one device to another along cables or through the air. A single computer that is not connected to anything is called a **standalone** computer: it can only use its own files, its own printer and its own software. As soon as two computers are connected so that they can exchange data, we have a network. This lesson explains what a network is, why organisations build networks, and how the two most important kinds of network — the **LAN** and the **WAN** — differ in what they can do.
 
-:::cards
-### Advantages of networking
-- **Share resources** — one printer, scanner or Internet connection for many users.
-- **Share files and data** — work on the same documents; central databases.
-- **Communication** — e-mail, messaging, video calls.
-- **Central management** — software installed, updated and backed up from one place.
-- **Users can log on from any computer** and see their own files.
-### Disadvantages of networking
-- **Cost** of cables, switches, servers and a network manager.
-- **Security risks** — viruses and hackers can spread through the network.
-- If a **server or key device fails**, many users are affected.
-- Needs specialist **maintenance**; the network can become **slow** with heavy traffic.
+:::definition Computer network
+Two or more computers or other devices that are **connected together** (by cable or wirelessly) so that they can **communicate** and **share resources** — data, files, printers, software and an Internet connection.
 :::
 
 :::definition Node
-Any device connected to a network that can send or receive data — a computer, printer, phone, server, switch or router.
+Any device connected to a network that can **send or receive data** — a computer, laptop, phone, printer, server, switch or router.
+:::
+
+:::definition Standalone computer
+A computer that is **not connected** to any network; it can use only its own storage, software and peripherals.
+:::
+
+## Why networks are used
+
+Organisations do not build networks for fun: cables, switches and servers cost money and need a technician to look after them. They build networks because sharing saves money and makes work easier. Each benefit below is something the examiner expects you to be able to **explain**, not only name.
+
+- **Sharing hardware.** One laser printer, scanner or plotter can serve a whole floor of an office. Without a network every computer would need its own printer. A school with 300 computers and 10 network printers saves the cost of 290 printers, their ink and their maintenance.
+- **Sharing one Internet connection.** A single fast connection from an Internet service provider (ISP) can be shared by every device in a building, instead of buying a connection for each computer.
+- **Sharing files and data.** Several people can work with the **same** copy of a file or database. A clinic's receptionist, doctor and pharmacist all see the same patient record, so nobody works with an out-of-date copy. Data is entered once, which reduces errors and duplication.
+- **Sharing software.** Software can be installed once on a server, or licensed for the whole site, and pushed out to every computer. Updates are installed centrally instead of walking to each machine.
+- **Communication.** E-mail, instant messaging, video calls and shared calendars all depend on networks. Teachers can send homework to a whole class in seconds.
+- **Users can log on from any computer.** Because files are stored on the network, a student can log on in any classroom and see their own documents and settings.
+- **Central management, security and backup.** A network manager can create user accounts, set permissions, install antivirus software and back up everybody's work from one place, every night, automatically.
+
+Networks also bring problems. A good exam answer gives **balanced** points, so you must also know the disadvantages:
+
+- **Cost.** Cables, switches, routers, servers and network software must be bought, and a qualified network manager must be paid.
+- **Security risks.** Malware that enters one computer can **spread** to others across the network, and hackers who get in can reach the data of many users. Firewalls, antivirus software and passwords are needed.
+- **Dependence on key devices.** If a central server or switch fails, many users lose access to their files, printing or the Internet at the same time.
+- **Performance.** When many users send large files or stream video at once, the network becomes **congested** and slow.
+- **Maintenance and skills.** Networks need specialist knowledge to set up, monitor and repair.
+
+:::compare Standalone computers vs networked computers
+| | Standalone computers | Networked computers |
+|---|---|---|
+| **Sharing hardware** | Each computer needs its own printer and Internet connection | One printer or connection is shared by many users |
+| **Files** | Files stay on one machine; copied by USB stick | Files are shared; everyone uses the same up-to-date copy |
+| **Logging on** | You must use the same computer to find your work | You can log on anywhere and see your files |
+| **Backup** | Each user must remember to back up | Central, automatic backup |
+| **Security** | Viruses spread only by removable media | Malware and hackers can reach every connected device |
+| **Cost** | No network equipment to buy | Cables, switches, servers and a network manager |
+| **Failure** | One broken computer affects one user | A failed server or switch can affect everyone |
+:::
+
+## How data moves across a network
+
+Every node needs some way of joining the network. Inside each computer there is a **network interface card (NIC)** — today usually built into the motherboard — which turns data into signals that can travel along a cable or through the air, and turns incoming signals back into data. Each NIC has a unique hardware address (the **MAC address**) so that data can be delivered to the correct device.
+
+The signals travel along a **transmission medium**: copper cable, fibre-optic cable or radio waves (Wi-Fi). Inside a building the cables usually meet at a **switch**, a device that passes data from the sender to the device it is addressed to. To leave the building and reach other networks, data goes through a **router**, which forwards it towards its destination. You will study these devices in detail in the topic *Network devices*; for now remember that **the switch connects devices inside one network** and **the router connects one network to other networks**.
+
+Data is not sent as one long stream. It is split into small **packets**. Each packet carries part of the data plus the address of the sender and the receiver, so packets from many users can share the same cables without getting mixed up. The rules that every device follows to format, address and send packets are called **protocols** (for example Ethernet inside a LAN and TCP/IP on the Internet).
+
+:::svg How a file travels from a laptop to a printer and to the Internet
+<svg class="cn1" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A school LAN. A laptop with a network interface card sends packets along a cable to a central switch. The switch passes them to a printer or a file server in the same building. A router joins the switch to the Internet, which is outside the building.">
+  <style>
+    svg.cn1 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn1 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn1 .pb{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn1 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+    svg.cn1 .wn{fill:var(--surface-2);stroke:var(--warning);stroke-width:1.5;stroke-dasharray:6 4}
+    svg.cn1 .ln{stroke:var(--primary);stroke-width:2.5;fill:none}
+    svg.cn1 .pk{fill:var(--warning)}
+  </style>
+  <rect class="wn" x="10" y="20" width="520" height="265" rx="12"/>
+  <text class="h" x="24" y="44">School building = one LAN</text>
+  <rect class="bx" x="30" y="120" width="120" height="60" rx="8"/>
+  <text class="t" x="90" y="146" text-anchor="middle">Laptop</text>
+  <text class="s" x="90" y="164" text-anchor="middle">NIC + MAC address</text>
+  <rect class="pb" x="230" y="120" width="110" height="60" rx="8"/>
+  <text class="t" x="285" y="146" text-anchor="middle">Switch</text>
+  <text class="s" x="285" y="164" text-anchor="middle">inside the LAN</text>
+  <rect class="bx" x="400" y="60" width="110" height="50" rx="8"/>
+  <text class="t" x="455" y="90" text-anchor="middle">Printer</text>
+  <rect class="bx" x="400" y="190" width="110" height="50" rx="8"/>
+  <text class="t" x="455" y="220" text-anchor="middle">File server</text>
+  <path class="ln" d="M150 150 H230"/>
+  <path class="ln" d="M340 140 L400 85"/>
+  <path class="ln" d="M340 160 L400 215"/>
+  <rect class="pk" x="172" y="141" width="14" height="10" rx="2"/>
+  <rect class="pk" x="196" y="141" width="14" height="10" rx="2"/>
+  <text class="s" x="190" y="134" text-anchor="middle">packets</text>
+  <rect class="pb" x="230" y="225" width="110" height="45" rx="8"/>
+  <text class="t" x="285" y="252" text-anchor="middle">Router</text>
+  <path class="ln" d="M285 180 V225"/>
+  <path class="ln" d="M340 248 H580"/>
+  <ellipse class="ok" cx="660" cy="200" rx="90" ry="60"/>
+  <text class="h" x="660" y="196" text-anchor="middle">Internet</text>
+  <text class="s" x="660" y="216" text-anchor="middle">(the largest WAN)</text>
+  <text class="s" x="560" y="40">Switch: joins devices</text>
+  <text class="s" x="560" y="58">in one network.</text>
+  <text class="s" x="560" y="84">Router: joins this</text>
+  <text class="s" x="560" y="102">network to others.</text>
+</svg>
+:::
+
+:::example A small dental clinic decides to network its computers
+**Situation.** A clinic in Karaganda has four standalone computers: reception, two dentists' rooms and the office. Each has its own inkjet printer, patient records are kept in separate spreadsheets and copied on a USB stick.
+
+**Step 1 — Identify the problems.** Records are duplicated and often out of date; four printers cost money in ink; the USB stick could be lost, exposing patient data; there is no regular backup.
+
+**Step 2 — What the network gives.** The four computers are connected by cables to a switch, and one laser printer is shared. Patient records move into one database on a small server, so the dentist sees the appointment the receptionist has just entered. A nightly backup copies the database automatically.
+
+**Step 3 — What new risks appear.** If the server fails, nobody can see records, so the clinic keeps a backup copy and a maintenance contract. Because all computers are connected, antivirus software and individual passwords are needed so that malware or an unauthorised person cannot reach every record.
+
+**Conclusion.** Networking brings shared hardware, shared up-to-date data and central backup, at the cost of equipment, maintenance and stronger security.
 :::
 
 # LAN and WAN
 @lo 11.6.1.1
 
-:::compare LAN vs WAN
-| | LAN — Local Area Network | WAN — Wide Area Network |
-|---|---|---|
-| **Geographical area** | **Small**: one building or site (school, office, home) | **Large**: cities, countries, the whole world |
-| **Ownership** | Usually owned and managed by **one organisation** | Uses infrastructure **rented** from telecom companies (leased lines, satellites) |
-| **Speed (bandwidth)** | **High** (100 Mbit/s – 10 Gbit/s) | Usually **lower**, more **delay** (latency) |
-| **Errors** | Few | More errors over long distances |
-| **Cost** | Low to set up | **Expensive** to set up and rent |
-| **Media** | Ethernet cable, Wi-Fi | Fibre-optic cables, telephone lines, satellite, microwave |
-| **Example** | School computer network | The **Internet**; a bank linking all its branches across Kazakhstan |
+Networks are classified by the **size of the geographical area** they cover. This matters because area decides almost everything else about a network: what cables can be used, who owns them, how fast data travels and how much it costs. The two types you must know well are the **local area network (LAN)** and the **wide area network (WAN)**.
+
+:::definition LAN — Local Area Network
+A network that covers a **small geographical area**, such as a single building or a site (a school, office, hospital or home), and whose hardware is usually **owned and managed by one organisation**.
 :::
 
-:::compare Other network sizes
-| Network | Area | Example |
-|---|---|---|
-| **PAN** — Personal Area Network | A few metres around one person | Phone + wireless earbuds + smartwatch by Bluetooth |
-| **LAN** | A building or site | School network |
-| **WLAN** — Wireless LAN | A building, without cables | Home Wi-Fi |
-| **MAN** — Metropolitan Area Network | A city | A city-wide network of libraries or CCTV |
-| **WAN** | Countries / the world | The Internet |
+:::definition WAN — Wide Area Network
+A network that covers a **large geographical area** — a region, several cities, countries or the whole world — usually by **connecting LANs together** using communication links **leased or rented** from telecommunications companies.
 :::
 
-:::tip Comparing in an exam
-"Compare" needs a point that mentions **both** sides: "A LAN covers a **small geographical area** such as one building, **whereas** a WAN covers a **large area** such as several countries."
+## The local area network
+
+A LAN is the network in your school. All the classrooms, the library and the staff room are on one site, so the school can run its own cables through the walls. The school **owns** the cables, switches and servers and decides who may use them. Because cables are short (an Ethernet copper cable can be up to about 100 metres) the signals arrive quickly and with very few errors, so a LAN is **fast** — typically 1 Gbit/s to each computer today. Other examples are the network in a bank branch, a hospital ward, a shopping mall's offices, or the Wi-Fi network in your flat.
+
+## The wide area network
+
+A WAN is needed when an organisation's sites are too far apart to run its own cables. A bank with branches in Astana, Almaty, Shymkent and Aktobe cannot dig a trench across the steppe; instead it **rents** links from a telecommunications company — fibre-optic lines, leased telephone lines, satellite or microwave links — and uses them to join the LAN in every branch. The bank's WAN is therefore made of **many LANs connected by public or rented links**. Data travels thousands of kilometres and passes through many devices, so it takes longer to arrive (more **latency**) and the bank pays monthly fees for the links.
+
+:::definition Router
+A network device that **connects one network to other networks** (for example a LAN to a WAN or to the Internet) and forwards packets towards their destination.
+:::
+
+Every LAN that is part of a WAN joins it through a **router**. The router sits at the edge of the LAN, looks at the destination address of each packet and, if the packet is for a device outside the building, sends it out over the WAN link. Packets addressed to a device inside the same LAN stay inside and never touch the expensive WAN link.
+
+## The Internet — the largest WAN
+
+The **Internet** is a WAN that covers the whole planet. It is not owned by any single organisation: it is a network of networks, made from millions of LANs and smaller WANs owned by ISPs, universities, companies and governments, all agreeing to use the same protocols (TCP/IP). Your home router joins your home LAN to your ISP's network, which is linked to other ISPs' networks by fibre-optic cables — including undersea cables between continents — and so to every other network on the Internet. The Internet is covered more fully in the next lesson; for now it is the best example of a WAN.
+
+:::svg LANs joined by a WAN: a bank with branches across Kazakhstan
+<svg class="cn1" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three bank branch LANs in Almaty, Astana and Shymkent, each with computers connected to a switch and a router. The routers are joined by long rented links from a telecom company, forming a WAN. A head-office data centre is also joined to the WAN.">
+  <style>
+    svg.cn1 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn1 .lan{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn1 .rt{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+    svg.cn1 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn1 .wan{stroke:var(--warning);stroke-width:3;fill:none;stroke-dasharray:10 6}
+    svg.cn1 .ln{stroke:var(--primary);stroke-width:2;fill:none}
+  </style>
+  <rect class="lan" x="20" y="30" width="200" height="110" rx="12"/>
+  <text class="h" x="120" y="54" text-anchor="middle">Almaty branch LAN</text>
+  <rect class="bx" x="40" y="70" width="44" height="30" rx="4"/><rect class="bx" x="98" y="70" width="44" height="30" rx="4"/><rect class="bx" x="156" y="70" width="44" height="30" rx="4"/>
+  <text class="s" x="120" y="126" text-anchor="middle">PCs + switch, owned by the bank</text>
+  <rect class="lan" x="540" y="30" width="200" height="110" rx="12"/>
+  <text class="h" x="640" y="54" text-anchor="middle">Astana branch LAN</text>
+  <rect class="bx" x="560" y="70" width="44" height="30" rx="4"/><rect class="bx" x="618" y="70" width="44" height="30" rx="4"/><rect class="bx" x="676" y="70" width="44" height="30" rx="4"/>
+  <text class="s" x="640" y="126" text-anchor="middle">PCs + switch, owned by the bank</text>
+  <rect class="lan" x="20" y="200" width="200" height="110" rx="12"/>
+  <text class="h" x="120" y="224" text-anchor="middle">Shymkent branch LAN</text>
+  <rect class="bx" x="40" y="240" width="44" height="30" rx="4"/><rect class="bx" x="98" y="240" width="44" height="30" rx="4"/><rect class="bx" x="156" y="240" width="44" height="30" rx="4"/>
+  <text class="s" x="120" y="296" text-anchor="middle">PCs + switch, owned by the bank</text>
+  <rect class="lan" x="540" y="200" width="200" height="110" rx="12"/>
+  <text class="h" x="640" y="224" text-anchor="middle">Head office data centre</text>
+  <text class="s" x="640" y="256" text-anchor="middle">servers: accounts database</text>
+  <circle class="rt" cx="250" cy="85" r="18"/><text class="s" x="250" y="89" text-anchor="middle">R</text>
+  <circle class="rt" cx="510" cy="85" r="18"/><text class="s" x="510" y="89" text-anchor="middle">R</text>
+  <circle class="rt" cx="250" cy="255" r="18"/><text class="s" x="250" y="259" text-anchor="middle">R</text>
+  <circle class="rt" cx="510" cy="255" r="18"/><text class="s" x="510" y="259" text-anchor="middle">R</text>
+  <path class="ln" d="M220 85 H232 M528 85 H540 M220 255 H232 M528 255 H540"/>
+  <path class="wan" d="M268 85 C380 140 380 140 492 85 M268 255 C380 200 380 200 492 255 M250 103 V237 M510 103 V237 M268 92 L492 248"/>
+  <text class="h" x="380" y="160" text-anchor="middle">WAN</text>
+  <text class="s" x="380" y="178" text-anchor="middle">links rented from a telecom company</text>
+  <text class="s" x="380" y="320" text-anchor="middle">R = router: joins each LAN to the WAN</text>
+</svg>
+:::
+
+## Other network sizes
+
+LAN and WAN are the two types in the learning objective, but you should recognise the others, because exam questions sometimes give a scenario and ask which type it is.
+
+- A **PAN (personal area network)** covers a few metres around one person: a phone connected by Bluetooth to wireless earbuds, a smartwatch and a car's audio system. It is usually set up automatically by the user and carries small amounts of data.
+- A **WLAN (wireless LAN)** is a LAN in which devices connect by **radio waves** (Wi-Fi) instead of cables. It still covers a small area and is owned by one organisation, so it is a kind of LAN.
+- A **MAN (metropolitan area network)** covers one **city** — for example a city council linking its libraries, schools and traffic cameras with its own fibre network. It is bigger than a LAN but smaller than a WAN.
+
+:::compare Network sizes from smallest to largest
+| Network | Typical area | Owned by | Example |
+|---|---|---|---|
+| **PAN** | A few metres around one person | The user | Phone + earbuds + smartwatch by Bluetooth |
+| **LAN** | One building or site | One organisation | School computer network |
+| **WLAN** | One building or site, without cables | One organisation | Home or café Wi-Fi |
+| **MAN** | One city | A city authority or a company | City network of libraries or CCTV cameras |
+| **WAN** | Regions, countries, the world | Links leased from telecom companies | A bank's branches; the Internet |
+:::
+
+:::tip Is it a LAN or a WAN?
+Ask two questions: **How far apart are the devices?** (one site → LAN; different cities → WAN) and **Who owns the links?** (the organisation's own cables → LAN; rented telecom links → WAN). A school's Wi-Fi is a LAN even though it has no cables; two schools in different towns joined over the Internet form a WAN.
+:::
+
+# Comparing the capabilities of LAN and WAN
+@lo 11.6.1.1
+
+The learning objective asks you to **compare the capabilities** of a LAN and a WAN — what each one can and cannot do, and why. In an exam "compare" means that **every point must mention both networks** and say how they are different (or similar). Simply listing facts about one of them earns no marks. Below, each feature is explained with its reason; the reason is what turns a 1-mark statement into an "explain" answer.
+
+## Geographical area
+
+A LAN covers a **small area** — one building or one site. A WAN covers a **large area** — towns, countries or the whole world. Area is the starting point of the comparison because it causes most of the other differences: longer distances need different media, rented links, more devices on the way and therefore more delay and more cost.
+
+## Ownership and management
+
+The hardware of a LAN is normally **owned by one organisation**, which runs its own cables inside its own buildings and employs its own technician. The organisation can therefore decide how the network is laid out, which devices may join and when to upgrade it. A WAN crosses public land, roads and borders, so the organisation cannot lay its own cables; it **leases** lines from telecommunications companies or uses the public Internet. The WAN links are managed by those companies, so the organisation depends on another business for repairs and speed. The Internet itself has **no single owner** at all.
+
+## Speed (bandwidth) and latency
+
+**Bandwidth** is the amount of data that can be sent per second (measured in Mbit/s or Gbit/s). LANs usually have **high bandwidth** — 1 Gbit/s or 10 Gbit/s — because cables are short, the organisation owns the whole bandwidth and only its own users share it. WAN links usually provide **lower bandwidth per user**, because long-distance links are expensive to rent and are shared between many sites or customers.
+
+**Latency** is the delay between sending a packet and its arrival. In a LAN latency is tiny (well under a millisecond). In a WAN, data travels long distances and passes through many routers, each of which reads and forwards the packet, so latency is **higher** — tens or hundreds of milliseconds, especially by satellite. This is why a video call to another country can lag while copying a file to the school server is almost instant.
+
+## Errors and reliability
+
+Short cables in one building pick up little **interference**, so LANs have **few transmission errors**. Over long distances signals weaken, pass through more equipment and are more exposed to interference and to faults in the telecom company's network, so a WAN has **more errors** and packets must be re-sent more often. A WAN also has more points that can fail — a cable cut by road works hundreds of kilometres away can disconnect a branch, and the organisation can do nothing except wait for the provider to repair it.
+
+## Cost
+
+A LAN is relatively **cheap to set up**: the organisation buys cables, switches and Wi-Fi access points once, and there are no running fees for the links. A WAN is **expensive**: as well as routers at each site, the organisation pays **monthly rental** for leased lines, and long-distance fibre or satellite capacity is costly. The further apart the sites and the higher the bandwidth needed, the higher the bill.
+
+## Transmission media
+
+A LAN uses **twisted-pair Ethernet cable**, short fibre-optic links between floors and **Wi-Fi**. A WAN uses media that can carry signals a long way: **fibre-optic cables** (including undersea cables), telephone lines, **microwave** links between towers and **satellite** links for remote places such as oil fields or villages far from a city.
+
+## Security
+
+Because a LAN is inside the organisation's own building, it is **easier to control**: only people who can physically reach a socket, or who know the Wi-Fi key, can connect, and a firewall can guard the single router to the outside. A WAN carries data over **links owned by other companies** or across the public Internet, where it could be intercepted, so WAN traffic between sites is usually **encrypted** (for example in a virtual private network, VPN). More sites also mean more places where an attacker can try to get in.
+
+:::compare Capabilities of a LAN and a WAN
+| Feature | LAN — Local Area Network | WAN — Wide Area Network | Why they differ |
+|---|---|---|---|
+| **Geographical area** | **Small**: one building or site | **Large**: cities, countries, the world | Definition of the two types |
+| **Ownership** | Usually owned and managed by **one organisation** | Links **leased** from telecom companies; the Internet has no single owner | An organisation cannot lay cables across public land |
+| **Speed (bandwidth)** | **High** — typically 1–10 Gbit/s | Usually **lower** per user | Long-distance capacity is costly and shared |
+| **Latency (delay)** | Very **low** | **Higher** | Longer distance, many routers on the way |
+| **Errors** | **Few** | **More** | Long links pick up more interference and pass more devices |
+| **Cost** | **Low** to set up, no rental | **High** — equipment plus monthly rental | Rented long-distance links |
+| **Media** | Ethernet cable, Wi-Fi, short fibre | Fibre-optic, telephone lines, microwave, satellite | Media must carry signals far |
+| **Security** | Easier to control physically | Data crosses other companies' links — needs encryption (VPN) | Who controls the links |
+| **Example** | School network; home Wi-Fi | A bank's branch network; the Internet | |
+:::
+
+:::svg Area, speed and cost: as a network covers a larger area, speed falls and cost and delay rise
+<svg class="cn1" viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A scale from left to right showing PAN, LAN, MAN and WAN as the area grows from a few metres to the whole world. An arrow under the scale shows that bandwidth per user generally falls, and another shows that latency, error rate and cost rise as the area grows. Ownership changes from one person or organisation on the left to telecom companies on the right.">
+  <style>
+    svg.cn1 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn1 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn1 .b1{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn1 .b2{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+    svg.cn1 .b3{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.5}
+    svg.cn1 .ar{stroke:var(--foreground);stroke-width:2;fill:none}
+    svg.cn1 .ah{fill:var(--foreground)}
+  </style>
+  <rect class="b1" x="20" y="30" width="160" height="60" rx="8"/><text class="h" x="100" y="56" text-anchor="middle">PAN</text><text class="s" x="100" y="76" text-anchor="middle">a few metres</text>
+  <rect class="b1" x="200" y="30" width="160" height="60" rx="8"/><text class="h" x="280" y="56" text-anchor="middle">LAN</text><text class="s" x="280" y="76" text-anchor="middle">a building or site</text>
+  <rect class="b2" x="380" y="30" width="160" height="60" rx="8"/><text class="h" x="460" y="56" text-anchor="middle">MAN</text><text class="s" x="460" y="76" text-anchor="middle">a city</text>
+  <rect class="b3" x="560" y="30" width="180" height="60" rx="8"/><text class="h" x="650" y="56" text-anchor="middle">WAN</text><text class="s" x="650" y="76" text-anchor="middle">countries / the world</text>
+  <path class="ar" d="M20 125 H730"/><path class="ah" d="M740 125 l-12 -6 v12z"/>
+  <text class="t" x="20" y="115">Geographical area grows →</text>
+  <path class="ar" d="M730 165 H20"/><path class="ah" d="M10 165 l12 -6 v12z"/>
+  <text class="t" x="740" y="155" text-anchor="end">← Bandwidth per user is higher</text>
+  <path class="ar" d="M20 205 H730"/><path class="ah" d="M740 205 l-12 -6 v12z"/>
+  <text class="t" x="20" y="195">Latency, errors and cost rise →</text>
+  <text class="s" x="20" y="245">Own cables, one owner (person or organisation)</text>
+  <text class="s" x="740" y="245" text-anchor="end">Links leased from telecom companies</text>
+</svg>
+:::
+
+## Choosing between a LAN and a WAN
+
+Organisations do not really "choose" between a LAN and a WAN: the location of the users decides. Users in one building are joined by a LAN; sites in different places must be joined by a WAN. What the organisation does choose is **what to keep inside the LAN** and **what to send over the WAN**. Because LAN bandwidth is cheap and fast while WAN bandwidth is expensive and slower, large files and frequent traffic are kept local where possible — for example each branch might have its own print server and local file storage — and only the data that really must travel, such as transactions to the central accounts database, goes over the WAN.
+
+:::example Comparing the network of a school and of a bank
+**Scenario A — a school in Pavlodar.** 400 computers in one three-storey building and a sports hall next door. The school runs Cat6 cables to every classroom and installs Wi-Fi access points. **This is a LAN**: small area, owned by the school, 1 Gbit/s to each desk, almost no delay, cheap to run once installed. The technician controls which devices can join.
+
+**Scenario B — a bank with 60 branches across Kazakhstan.** Each branch has its own LAN of cashiers' computers. The branches must all read and update the central accounts database in the head office in Almaty. The bank leases fibre links from a telecom operator, and uses satellite for two branches in remote towns. **This is a WAN**: huge area, links rented from another company, monthly fees, lower bandwidth per branch, more delay (especially over satellite), and all traffic between branches is encrypted in a VPN.
+
+**Step-by-step comparison (as in a 6-mark answer).**
+1. *Area*: the school network covers one site, whereas the bank's network covers the whole country.
+2. *Ownership*: the school owns all its cabling, whereas the bank rents the long-distance links from a telecom company.
+3. *Speed*: the school gets 1 Gbit/s between any two classrooms, whereas a branch link may only give 100 Mbit/s shared by the whole branch.
+4. *Latency*: a file opens from the school server almost instantly, whereas a transaction to Almaty takes longer, especially from the satellite branches.
+5. *Cost*: the school paid once for cables, whereas the bank pays every month for the leased lines.
+6. *Security*: the school can control physical access to its sockets, whereas the bank must encrypt data that crosses other companies' links.
+:::
+
+:::example Which type of network? A regional clinic
+A clinic chain has one clinic in Kostanay and a laboratory 3 km away in the same city, plus a hospital partner in Astana. Inside the Kostanay clinic, the reception, consulting rooms and pharmacy are joined by cables to a switch — that part is a **LAN**. The laboratory in another part of the city is joined by a fibre link rented from the city's provider; the two sites together could be called a **MAN**. Sending scans to the Astana hospital, 700 km away, uses leased links or the Internet — that is a **WAN**. A doctor's phone paired with a Bluetooth headset during a video consultation is a **PAN**. One organisation can therefore use several types of network at the same time, each chosen by the distance involved.
+:::
+
+:::warning Common mistakes when comparing LAN and WAN
+- Writing "a LAN is small and a WAN is big" — say **geographical area**: a LAN covers a small geographical area such as one building.
+- Writing about only **one** network in a "compare" question. Each point must say "…, **whereas** a WAN …".
+- Saying a WAN is **always** slower. A modern fibre WAN link can be very fast; say WAN bandwidth is **usually lower per user** and its **latency is higher**.
+- Thinking a Wi-Fi network is a WAN because it is wireless. Wireless describes the **medium**, not the area: home Wi-Fi is a **WLAN**, a type of LAN.
+- Saying "the Internet is owned by the government" — the Internet has **no single owner**.
+- Confusing a **switch** (joins devices inside a LAN) with a **router** (joins the LAN to other networks such as a WAN).
+:::
+
+# Exam practice: networks, LAN and WAN
+@lo 11.6.1.1
+
+:::example Exam-style questions with model answers
+**Q: Define the term *computer network*. [1]**
+Two or more computers/devices connected together so that they can communicate and share resources (1).
+
+**Q: Give two advantages and one disadvantage for a school of connecting its computers in a network. [3]**
+Hardware such as printers and one Internet connection can be shared (1); students can log on at any computer and access their files / files are backed up centrally (1). Disadvantage: a virus can spread to all computers / if the server fails nobody can work / cost of equipment and a technician (1).
+
+**Q: Compare a LAN and a WAN. [4]**
+A LAN covers a small geographical area such as one building, whereas a WAN covers a large area such as several countries (1). A LAN is usually owned by one organisation, whereas a WAN uses links leased from telecom companies (1). A LAN usually has higher bandwidth/lower latency, whereas a WAN is slower with more delay (1). A LAN is cheaper to set up with no rental, whereas a WAN is expensive because the links are rented (1).
+
+**Q: A supermarket chain has shops in five cities. Each shop has six checkout computers. State the type of network inside one shop and the type that joins the shops, and name the device that connects a shop to the other shops. [3]**
+LAN inside a shop (1); WAN joins the shops (1); router (1).
+
+**Q: Explain why a WAN usually has a higher latency than a LAN. [2]**
+Data travels a much longer distance (1) and passes through many routers/devices, each of which must process and forward the packet (1).
+
+**Q: A company is deciding whether to connect two offices 1 km apart on the same site using its own cables, or two offices in different countries. Explain why the second network will cost more to run. [2]**
+Offices in different countries cannot be linked with the company's own cables, so links must be leased from telecom companies (1), which charge monthly rental that increases with distance and bandwidth (1).
+:::
+
+:::warning Common mistakes in exam answers
+- "LAN is small, WAN is big" with no mention of **area** — no mark.
+- Giving the same idea twice, e.g. "WAN is slower" and "LAN is faster".
+- In "compare", describing only the LAN — always write **whereas** and both sides.
+- Calling the Internet a LAN, or saying home Wi-Fi is a WAN.
+:::
+
+:::steps Check yourself
+- Define computer network and node.
+- Give three advantages and two disadvantages of networking.
+- What is the difference between a switch and a router?
+- Define LAN and WAN in exam wording.
+- Put PAN, LAN, MAN and WAN in order of area and give an example of each.
+- Compare a LAN and a WAN in five ways (area, ownership, speed, cost, security).
+- Explain why WAN latency is higher than LAN latency.
+- Why is the Internet called the largest WAN?
 :::
 
 # The Internet, intranets and extranets
 @lo 11.6.1.2
 
+In the previous lesson we described networks by their **size**: a LAN covers one building or site, and a WAN links sites across a city, a country or the world. In this lesson we look at networks from two other angles. First, **who is allowed to use a network** and what it is for: the public **Internet**, a private **intranet** and a partly opened **extranet**. Second, **how the computers on a network share the work**: the **client-server** model and the **peer-to-peer** model. Exam questions on this part of the topic usually ask you to "distinguish between" two things, which means you must give a feature of **one** and the matching feature of the **other**, in the same sentence.
+
+## The Internet
+
 :::definition Internet
-A **global public network of interconnected networks** (a WAN) that communicate using the **TCP/IP** protocols. Services that run on it include the **World Wide Web**, e-mail, file transfer, online games and video calls.
+A **global, public network of interconnected networks** (a WAN of WANs) that communicate using the **TCP/IP** protocols. Anyone with a connection from an Internet Service Provider (ISP) can use it.
 :::
+
+The word Internet comes from "inter-network": a network that joins other networks together. Your home Wi-Fi is a small LAN. The school network is a bigger LAN. Each of them is connected through a **router** to an ISP such as Kazakhtelecom, Beeline or Tele2, and the ISP is connected to other ISPs in Kazakhstan and abroad by fibre-optic cables, undersea cables and satellite links. Millions of these networks, joined together, form the Internet. No single company or government owns the whole Internet: each organisation owns and pays for its own part, and they agree to pass each other's data.
+
+What makes this huge collection of different networks work as one is a shared set of rules, the **TCP/IP protocol suite**. A protocol is an agreed set of rules for communication. **IP** (Internet Protocol) gives every connected device an **IP address** and decides how **packets** of data are addressed and routed from network to network. **TCP** (Transmission Control Protocol) splits a message into packets, numbers them, checks that they all arrive and puts them back in the right order. Because every device follows the same rules, a phone in Kyzylorda can load a web page from a server in Germany without either side knowing what kind of hardware the other uses.
+
+The Internet is **public**. That has three consequences that matter in exam answers. Anyone can **connect** to it. Anyone can **publish** on it, so information on the Internet may be **inaccurate, out of date or biased**, and its reliability must be checked. And anyone can **attack** it, so data travelling over the Internet must be protected with encryption, firewalls and strong authentication.
+
+:::definition World Wide Web (WWW)
+A **service that runs on the Internet**: a collection of linked **web pages and websites**, stored on web servers and viewed in a **browser** using the **HTTP/HTTPS** protocol and addressed by **URLs**.
+:::
+
+Students often use "the Internet" and "the Web" as if they meant the same thing. They do not. The **Internet is the network** — the cables, routers and protocols that carry data. The **World Wide Web is one of the services** that use that network, just as a bus route is one of the services that uses a road. E-mail (SMTP/IMAP), file transfer (FTP), online games, video calls, cloud storage and messaging apps all use the Internet without being "the Web". If an exam asks for a feature of the Internet, "it contains websites" is a weak answer; "it is a **global public network of networks** that uses **TCP/IP**" is a strong one.
+
+## The intranet
 
 :::definition Intranet
-A **private network** belonging to **one organisation**, which uses **Internet technologies** (web pages, browsers, TCP/IP) but can only be accessed by **authorised members** — for example a school portal with timetables and homework.
+A **private network** that belongs to **one organisation** and uses **Internet technologies** (web pages, browsers, TCP/IP, e-mail) but can only be accessed by **authorised members** of that organisation, usually after logging in.
 :::
 
-:::compare Internet vs intranet
-| | Internet | Intranet |
-|---|---|---|
-| Access | **Public** — anyone with a connection | **Private** — only employees / students with a login, often only inside the organisation |
-| Size | Global | One organisation |
-| Content | Public information from millions of sources | **Internal** information: timetables, policies, forms, news, staff directory |
-| Security | Lower — content and users not controlled | **Higher** — behind a **firewall**, logins required |
-| Reliability of information | Varies; anyone can publish | Controlled by the organisation, usually reliable and up to date |
-| Speed | Depends on the connection | Usually fast (on the local network) |
+An intranet looks and feels like a small private Internet. Staff open it in an ordinary **web browser**; it has web pages, links, search boxes, forms and documents. The difference is **who is allowed in**. An intranet is protected from the outside world by a **firewall**, and users must **log in** with a username and password that the organisation gave them. In many organisations the intranet can only be reached from computers **inside** the building, or from outside through a secure **VPN** (virtual private network) connection.
+
+Why would an organisation build its own private "Internet" instead of simply putting information on a public website? Because much of its information is **internal**: it is useful only to its own members, or it is **confidential**. Typical intranet content includes:
+
+- **School:** timetables, homework, lesson materials, room bookings, staff notices, the internal e-journal where teachers enter marks, forms for ordering equipment.
+- **Company:** the staff directory, HR policies, holiday request forms, payslips, internal news, project documents, training videos.
+- **Hospital or clinic:** duty rotas, procedures and clinical guidelines, internal phone lists, booking of operating theatres.
+
+Using Internet technologies for a private network has clear benefits. Staff already know how to use a browser, so little **training** is needed. Pages and forms can be updated in one place and everyone sees the new version **immediately**, which replaces printed notices and e-mails with attachments. Software is cheap because the same web servers and browsers are used. And because the organisation decides who may publish, the information is **controlled, reliable and up to date** — a timetable on the intranet is the official one.
+
+An intranet is not automatically safe. If a member's password is stolen, an attacker gets the same access as that member, and a disgruntled employee is already inside the firewall. That is why intranets also use **access levels**: a student may see the timetable and their own marks, but only teachers can enter marks and only the administration can see staff salaries.
+
+:::definition Extranet
+The part of an organisation's intranet that is made available to **selected outsiders** — such as parents, suppliers, customers or partner organisations — through a **secure login**, usually over the Internet.
 :::
 
-:::callout info Extranet
-Part of an intranet made available to **selected outsiders** — for example parents, suppliers or partner schools — through a **secure login**. Parents checking marks in an e-journal use an extranet.
+An **extranet** sits between the two. It is still private and controlled, but it lets chosen people from **outside** the organisation in. Parents logging in to the school's e-journal from home to check their child's marks and attendance are using an extranet. A supermarket that lets its suppliers see stock levels so that they know when to deliver, or a car factory that shares delivery schedules with parts manufacturers, are also using extranets. Each outside user sees only the part that concerns them: a parent sees only their own child.
+
+:::svg Internet, intranet and extranet: who can get in
+<svg class="cn2" viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A large outer area labelled Internet: public, global, anyone can connect. Inside it a school building protected by a firewall contains the intranet: timetables, marks entry, staff notices, used by teachers and students who log in. A gate in the firewall labelled secure login lets parents and suppliers from the Internet reach a smaller extranet area showing their child's marks or orders. A member of the public on the Internet is blocked by the firewall.">
+  <style>
+    svg.cn2 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn2 .net{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn2 .in{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.cn2 .ex{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.cn2 .fw{fill:none;stroke:var(--danger);stroke-width:4;stroke-dasharray:10 5}
+    svg.cn2 .ln{stroke:var(--muted);stroke-width:2;fill:none}
+    svg.cn2 .no{stroke:var(--danger);stroke-width:2.5;fill:none}
+    svg.cn2 .ok{stroke:var(--success);stroke-width:2.5;fill:none}
+  </style>
+  <rect class="net" x="10" y="10" width="740" height="340" rx="16"/>
+  <text class="h" x="30" y="38">Internet — public, global, anyone can connect</text>
+  <rect class="in" x="300" y="70" width="430" height="260" rx="12"/>
+  <rect class="fw" x="292" y="62" width="446" height="276" rx="14"/>
+  <text class="h" x="320" y="96">School intranet (behind the firewall)</text>
+  <text class="t" x="320" y="120">Users: teachers, students, staff — must log in</text>
+  <text class="t" x="320" y="144">• timetables, homework, lesson materials</text>
+  <text class="t" x="320" y="166">• marks entry in the e-journal (teachers only)</text>
+  <text class="t" x="320" y="188">• staff notices, room bookings, forms</text>
+  <rect class="ex" x="320" y="212" width="390" height="100" rx="10"/>
+  <text class="h" x="336" y="236">Extranet (part opened to selected outsiders)</text>
+  <text class="t" x="336" y="260">• parents see only their own child's marks</text>
+  <text class="t" x="336" y="282">• suppliers see orders and delivery dates</text>
+  <text class="s" x="336" y="302">access through a secure login over the Internet</text>
+  <circle cx="90" cy="120" r="16" class="net"/>
+  <text class="t" x="40" y="160">Member of the public</text>
+  <path class="no" d="M110 120 L285 120"/>
+  <text class="s" x="140" y="110">blocked by firewall</text>
+  <path class="no" d="M270 110 L290 130 M290 110 L270 130"/>
+  <circle cx="90" cy="262" r="16" class="ex"/>
+  <text class="t" x="40" y="302">Parent / supplier</text>
+  <path class="ok" d="M110 262 L315 262"/>
+  <text class="s" x="140" y="252">secure login</text>
+</svg>
 :::
 
-# Client-server and peer-to-peer networks
+## Comparing the Internet and an intranet feature by feature
+
+The learning objective asks you to **distinguish** between the features of an intranet and the Internet. The table below lists the features examiners expect, and the paragraphs after it explain **why** each difference exists — which is what turns a 1-mark point into an "explain" answer.
+
+:::compare Internet vs intranet vs extranet
+| Feature | Internet | Intranet | Extranet |
+|---|---|---|---|
+| **Access** | **Public** — anyone with a connection | **Private** — only members of the organisation, with a login | Members **plus selected outsiders** with a login |
+| **Size / scope** | **Global** network of networks | **One organisation** (one site or several) | One organisation and its partners |
+| **Ownership** | Nobody owns all of it | **Owned and managed** by the organisation | Owned by the organisation |
+| **Content** | Public information from millions of publishers | **Internal** information: timetables, policies, forms, staff news | Information shared with partners: marks for parents, orders for suppliers |
+| **Who publishes** | Anyone | Only authorised staff | The organisation |
+| **Reliability of information** | Varies — must be checked | **Controlled**, official and up to date | Controlled |
+| **Security** | Lower — users and content not controlled | **Higher** — firewall, logins, access levels | High, but more exposed than the intranet because it is reachable from outside |
+| **Speed** | Depends on ISP and distance | Usually **fast** — mostly on the local network | Depends on the outsider's Internet connection |
+| **Technologies** | TCP/IP, web, e-mail | **The same** TCP/IP, web, e-mail | The same |
+:::
+
+**Access and security.** The most important difference is access. The Internet is designed to be open: any device that follows TCP/IP can join. An intranet is designed to be closed: the **firewall** checks traffic between the organisation's network and the Internet and blocks requests from outside, and every user must **authenticate**. This is why confidential data — student records, medical files, salaries — is put on an intranet, never on a public website.
+
+**Content and reliability.** On the Internet anyone can publish, so a student researching for a project must check the author, date and other sources. On an intranet only authorised people can publish, so the information is the **organisation's official version**: if the head teacher changes the exam timetable on the intranet, that page is correct. The organisation also removes old pages, so information stays **up to date**.
+
+**Scope and speed.** The Internet is global; an intranet serves one organisation. Because most intranet users are on the same LAN as the intranet server, pages load quickly and do not use the organisation's Internet bandwidth. Users at home or at another branch reach the intranet through a VPN, which is slower.
+
+**Same technologies.** It is a common mistake to say that an intranet "does not use the Internet's technology". It does: browsers, web servers, HTML pages and TCP/IP. The difference is **who can reach it**, not **how it works**. Many intranets are not connected to the Internet at all; others are connected but hidden behind a firewall.
+
+:::example Worked example: should the school put it on the website or the intranet?
+**Scenario.** NIS Kyzylorda wants to publish five kinds of information: (1) the admission rules for new students, (2) the weekly lesson timetable, (3) students' term marks, (4) the teachers' meeting minutes, (5) the canteen menu.
+
+**Step 1 — ask who needs it.** Admission rules are needed by families who are **not yet members** of the school → public **website on the Internet**. The timetable and canteen menu are needed by students and staff → **intranet** (the menu could also be public; it is not confidential).
+
+**Step 2 — ask whether it is confidential.** Term marks are personal data → **not** on the public Internet. Students see them on the **intranet**; their **parents**, who are outsiders, see only their own child's marks through the **extranet** (the e-journal login).
+
+**Step 3 — ask who may see it inside.** Meeting minutes are for staff only → intranet with an **access level** that allows teachers but not students.
+
+**Conclusion.** Public → Internet website; internal → intranet; internal but shared with selected outsiders → extranet; and inside the intranet, access levels decide who sees what.
+:::
+
+# Client-server networks
 @lo 11.6.1.3
 
-:::cards
-### Client-server
-- One or more powerful **servers** provide **services** — files, e-mail, web pages, printing, logins, databases.
-- **Clients** (users' computers) **request** these services.
-- Management, **security** and **backup** are **central**.
-### Peer-to-peer (P2P)
-- All computers are **equal** (peers): each can share its own files and resources and use those of others.
-- There is **no central server**; each peer is both client and server.
+Every network has to answer a practical question: **where are the shared files, programs and services kept, and who controls them?** There are two answers, called **network models**. In a **client-server** network, the services are kept on special computers called **servers**, and users' computers, called **clients**, ask the servers for them. In a **peer-to-peer** network there are no servers: every computer shares its own resources with the others. The model describes the **roles** of the computers, not the cables, so a client-server network can have any topology and can be wired or wireless.
+
+:::definition Server
+A computer (or program) that **provides a service** — files, printing, web pages, e-mail, logins or a database — to **other computers on the network**. Servers are usually powerful, run all the time and are managed centrally.
 :::
 
-:::mermaid Client-server: clients send requests, the server sends responses
-flowchart TB
-  S[Server: files, logins, backup]
-  C1[Client 1] -- request --> S
-  C2[Client 2] -- request --> S
-  C3[Client 3] -- request --> S
-  S -. response .-> C1
-  S -. response .-> C2
-  S -. response .-> C3
+:::definition Client
+A computer or device that **requests and uses services** provided by a server — for example a student's laptop that opens a file stored on the file server.
 :::
+
+## How client-server works: request and response
+
+All communication in this model follows the same pattern. The **client sends a request** across the network to the server — "send me the file Homework.docx", "check this username and password", "give me the page /timetable". The **server processes the request**: it checks that the user is allowed to do this, finds the data, perhaps runs a database query. Then it **sends a response** back — the file, "login accepted", the web page, or an error such as "access denied". The client never needs to know where on the server's disks the data is kept; it only needs to know how to ask.
+
+One server serves **many clients at the same time**. A school file server may answer requests from 300 computers during a lesson. This is why servers have fast processors, a lot of RAM, large and fast storage (often several disks in a RAID array, so that one failed disk loses no data), redundant power supplies and fast network connections. They are usually kept in a locked, air-conditioned **server room** and run 24 hours a day.
+
+:::svg Client-server: clients send requests, the server checks and responds
+<svg class="cn2" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A server in the centre labelled school server with file storage, user accounts, backup and antivirus. Three clients, a student laptop, a teacher PC and a tablet, are connected to it. Arrows from each client to the server are labelled request, for example open Homework.docx, log in, print. Arrows back from the server are labelled response: the file, login accepted, access denied. A note says the server checks permissions before answering and backs up all files every night.">
+  <style>
+    svg.cn2 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn2 .sv{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.cn2 .cl{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn2 .rq{stroke:var(--primary);stroke-width:2;fill:none}
+    svg.cn2 .rs{stroke:var(--success);stroke-width:2;fill:none;stroke-dasharray:6 4}
+  </style>
+  <rect class="sv" x="280" y="110" width="200" height="120" rx="10"/>
+  <text class="h" x="380" y="136" text-anchor="middle">School server</text>
+  <text class="t" x="380" y="160" text-anchor="middle">files · user accounts</text>
+  <text class="t" x="380" y="180" text-anchor="middle">backup · antivirus</text>
+  <text class="s" x="380" y="202" text-anchor="middle">checks permissions first</text>
+  <rect class="cl" x="20" y="30" width="170" height="60" rx="8"/>
+  <text class="h" x="105" y="56" text-anchor="middle">Client 1</text>
+  <text class="s" x="105" y="76" text-anchor="middle">student laptop</text>
+  <rect class="cl" x="20" y="250" width="170" height="60" rx="8"/>
+  <text class="h" x="105" y="276" text-anchor="middle">Client 2</text>
+  <text class="s" x="105" y="296" text-anchor="middle">teacher PC</text>
+  <rect class="cl" x="570" y="140" width="170" height="60" rx="8"/>
+  <text class="h" x="655" y="166" text-anchor="middle">Client 3</text>
+  <text class="s" x="655" y="186" text-anchor="middle">tablet</text>
+  <path class="rq" d="M190 60 L290 115"/>
+  <path class="rs" d="M280 135 L180 85"/>
+  <text class="t" x="200" y="50">request: open Homework.docx</text>
+  <text class="s" x="140" y="118">response: the file</text>
+  <path class="rq" d="M190 270 L290 225"/>
+  <path class="rs" d="M280 210 L185 255"/>
+  <text class="t" x="200" y="300">request: log in</text>
+  <text class="s" x="150" y="238">response: login accepted</text>
+  <path class="rq" d="M570 160 L480 160"/>
+  <path class="rs" d="M480 185 L570 185"/>
+  <text class="t" x="490" y="150">request: print</text>
+  <text class="s" x="486" y="208">response: denied</text>
+  <text class="s" x="380" y="320" text-anchor="middle">solid arrows = requests from clients · dashed arrows = responses from the server</text>
+</svg>
+:::
+
+## Types of server
+
+In a small organisation one physical server may do every job. In a larger one each service has its own server, so that a busy service does not slow down the others and so that one failure does not stop everything. The most common types are:
+
+:::cards
+### File server
+Stores users' files and **shared folders** in one central place. A student can log on at any computer in the school and see their own "My Documents", because the files are on the server, not on the local disk.
+### Print server
+Manages the **print queue** for shared printers: it receives print jobs from clients, puts them in order and sends them to the printer. It can also count pages per user and limit printing.
+### Web server
+Stores websites and sends **web pages** to browsers that request them using HTTP/HTTPS. The school website and the intranet both run on web servers.
+### Mail server
+Sends, receives and stores **e-mail** for the organisation's users (using SMTP, IMAP/POP3) and filters spam and viruses.
+### Authentication server
+Holds the **user accounts** and passwords, checks every **login** and decides what each user is allowed to do (their **access rights**). In schools this is often a "domain controller".
+### Database server
+Stores a **database** and answers **queries** from client programs — for example the e-journal with every student's marks, or a shop's stock database.
+:::
+
+Other examples are **application servers** (run software for clients), **proxy servers** (fetch web pages on behalf of clients and filter content) and **game servers** (keep the state of an online game and send it to every player).
+
+## Central management: security, backup and updates
+
+The great strength of client-server is that **everything important happens in one place** and is controlled by trained staff — the network manager. This shows up in three ways that examiners ask about.
+
+**Security.** Each user has an **account** on the authentication server. The network manager sets **access rights**: students can read lesson materials but not change them; only teachers can open the marks folder; only the accountant can see salaries. Antivirus software and firewalls are run and updated centrally. Activity can be **logged**, so the manager can see who opened or deleted a file. Because the rules are set once on the server, they apply on every computer, whoever is using it.
+
+**Backup.** All important data is on the servers, so the manager only has to back up the servers — automatically, every night, to tape, another disk or the cloud. If a student's laptop is stolen or a hard disk fails, no work is lost, because it was saved on the server. In a network where data is spread over every computer, backing up would mean visiting every machine.
+
+**Updates and software.** Software can be installed, licensed and updated **from the server** to every client at once. New security patches reach all 300 school computers overnight instead of someone installing them by hand.
+
+## Advantages and disadvantages of client-server
+
+:::compare Client-server: advantages and disadvantages explained
+| Advantage | Why it is true |
+|---|---|
+| **Better security** | Accounts, passwords and access rights are controlled centrally on the server; users cannot change the rules |
+| **Central, automatic backup** | Data is stored on the server, so one backup protects everyone's files |
+| **Easy to manage and update** | Software and updates are installed from the server to all clients at once |
+| **Users can log on anywhere** | Files and settings are stored on the server, not on one computer |
+| **Good performance for many users** | Powerful servers are designed to handle hundreds of requests |
+| **Disadvantage** | **Why it is true** |
+| **Expensive** | Servers, server software, licences and a server room cost a lot |
+| **Needs a specialist** | A trained network manager is needed to set up and run the servers |
+| **Single point of failure** | If the server fails, every client loses that service (e.g. no one can log in) |
+| **Server can become a bottleneck** | If too many clients send requests at once, the server or its link slows down |
+:::
+
+The server as a **single point of failure** is the disadvantage examiners like most. Organisations reduce it with **redundancy**: a second server that takes over, backup power (UPS), several disks in RAID. These cost even more money, which links back to the first disadvantage.
+
+:::warning Common mistakes about client-server
+- Saying a server is "a big computer that stores everything". A server is defined by its **role** — it **provides a service to clients**. A small computer can be a print server.
+- Saying client-server is "more secure" without **why**: always add "because accounts, access rights and antivirus are **managed centrally** on the server".
+- Forgetting that the **server is a single point of failure** — "client-server has no single point of failure" is wrong; that is a feature of P2P.
+- Confusing client-server (the **model**: who provides services) with star (the **topology**: how the cables are laid out).
+:::
+
+# Peer-to-peer networks and choosing a model
+@lo 11.6.1.3
+
+:::definition Peer-to-peer (P2P) network
+A network model in which **all computers have equal status** (they are **peers**): there is **no central server**, and **each computer can act as both a client and a server**, sharing its own files and resources and using those of the others.
+:::
+
+## How peer-to-peer works
+
+In a P2P network the word "server" describes a **job**, not a machine, and every computer can do that job. When Aliya's computer opens a folder on Daniyar's computer, Daniyar's computer is acting as a server and Aliya's as a client. A minute later Daniyar may print on the printer connected to Aliya's computer, and the roles swap. Each user decides **what to share** from their own computer — a folder, a printer, an Internet connection — and sets the permissions for it themselves.
+
+Because there is no server, there is nothing extra to buy and no special software: every modern operating system (Windows, macOS, Linux) has file and printer sharing built in. Setting up a P2P network can be as simple as connecting a few computers to the same switch or Wi-Fi router and switching sharing on. This makes P2P ideal for **homes and very small offices** with a handful of computers.
+
+The same feature creates the weaknesses. With no central control, **security depends on each user**: if one person shares their whole disk without a password, or never updates their antivirus, the whole network is at risk. There is **no central backup**, so each user must back up their own computer, and many do not. **Files are spread** over many computers and may exist in several versions, so it is hard to know which copy is the latest. And a shared file is only available while the computer that holds it is **switched on** — if Daniyar goes home and turns his computer off, his folder disappears from the network. Every peer is also doing its owner's work at the same time as serving others, so a computer that is heavily used by others becomes **slow** for its own user.
+
+:::svg Peer-to-peer: every computer is both client and server
+<svg class="cn2" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four equal computers labelled Aliya, Daniyar, Madina and Timur, each connected to every other. Each computer has a label showing what it shares: Aliya shares a printer, Daniyar shares a Projects folder, Madina shares photos, Timur shares nothing and is switched off, shown faded. Arrows show Aliya opening Daniyar's folder, so Daniyar acts as server, and Daniyar printing on Aliya's printer, so Aliya acts as server. A note says there is no central server, each peer sets its own security and backs up its own files.">
+  <style>
+    svg.cn2 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn2 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn2 .pc{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.cn2 .off{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5;stroke-dasharray:5 4}
+    svg.cn2 .ln{stroke:var(--border);stroke-width:2;fill:none}
+    svg.cn2 .ar{stroke:var(--success);stroke-width:2.5;fill:none}
+    svg.cn2 .wa{stroke:var(--warning);stroke-width:2.5;fill:none}
+  </style>
+  <path class="ln" d="M170 70 L590 70 M170 70 L170 230 M170 70 L590 230 M590 70 L590 230 M590 70 L170 230 M170 230 L590 230"/>
+  <rect class="pc" x="70" y="40" width="200" height="60" rx="8"/>
+  <text class="h" x="170" y="64" text-anchor="middle">Aliya</text>
+  <text class="s" x="170" y="84" text-anchor="middle">shares: printer</text>
+  <rect class="pc" x="490" y="40" width="200" height="60" rx="8"/>
+  <text class="h" x="590" y="64" text-anchor="middle">Daniyar</text>
+  <text class="s" x="590" y="84" text-anchor="middle">shares: Projects folder</text>
+  <rect class="pc" x="70" y="200" width="200" height="60" rx="8"/>
+  <text class="h" x="170" y="224" text-anchor="middle">Madina</text>
+  <text class="s" x="170" y="244" text-anchor="middle">shares: photos</text>
+  <rect class="off" x="490" y="200" width="200" height="60" rx="8"/>
+  <text class="h" x="590" y="224" text-anchor="middle">Timur</text>
+  <text class="s" x="590" y="244" text-anchor="middle">switched off — files unavailable</text>
+  <path class="ar" d="M275 55 L485 55"/>
+  <text class="t" x="290" y="30">Aliya opens Daniyar's folder → Daniyar = server</text>
+  <path class="wa" d="M485 90 L275 90"/>
+  <text class="t" x="290" y="120">Daniyar prints on Aliya's printer → Aliya = server</text>
+  <text class="s" x="380" y="300" text-anchor="middle">no central server · each peer sets its own sharing, security and backup</text>
+</svg>
+:::
+
+## Where peer-to-peer is used
+
+- **Homes and small offices.** A family sharing a printer and photos, or a small shop with three computers, does not need the cost of a server and a network manager.
+- **P2P file sharing.** Programs that use the BitTorrent protocol download a large file — for example a Linux installation image or a game update — in small pieces **from many peers at once**, and upload pieces to others at the same time. The more people share a file, the faster it downloads, and there is no single server to overload. (Sharing copyrighted films or music this way is illegal; the technology itself is not.)
+- **Blockchain and cryptocurrencies.** A blockchain is stored as a copy on **thousands of peers**. There is no central bank server: peers check and agree on new transactions together, so no single computer can be switched off or changed to cheat the system.
+- **Some messaging and video-call apps** send audio and video directly between the two users' devices, which reduces delay and the load on the company's servers.
+- **Local sharing** between phones, such as AirDrop or Nearby Share, connects two devices directly without any server.
+
+Notice that large P2P systems turn the "no central server" property into an advantage: there is **no single point of failure**, and adding users adds capacity because each new peer also serves others.
+
+## Client-server vs peer-to-peer
 
 :::compare Client-server vs peer-to-peer
-| | Client-server | Peer-to-peer |
+| Feature | Client-server | Peer-to-peer |
 |---|---|---|
-| Control and security | **Central** — accounts, permissions and antivirus managed on the server | Each user manages their own computer; **weaker** security |
-| Backup | **Central**, automatic | Each computer separately — data can be lost |
-| Cost | **Expensive** — servers and a network manager | **Cheap**, easy to set up |
-| Reliability | **Server failure** stops services for everyone | No single point of failure, but a peer that is switched off cannot share its files |
-| Performance | Good for **many** users | Slows down as more users share resources |
-| Finding files | Files stored in one place | Files spread over many computers |
-| Suitable for | Schools, companies, websites, online games | Homes, small offices, file sharing (torrents), some video calls |
+| **Roles of computers** | Servers provide services; clients request them | All peers are **equal**; each is both client and server |
+| **Central server** | **Yes** — one or more dedicated servers | **No** |
+| **Control and security** | **Central** — accounts, access rights, antivirus managed on the server | Each user manages their own computer — **weaker**, inconsistent security |
+| **Backup** | **Central**, automatic | Each computer separately — data more easily lost |
+| **Where files are stored** | In one place on the server; one official copy | Spread over many computers; several versions possible |
+| **Cost** | **Expensive** — servers, licences, network manager | **Cheap** — no server; uses the computers already there |
+| **Set-up and skills** | Needs a specialist | **Easy** to set up; no specialist needed |
+| **Failure** | **Server is a single point of failure** | **No single point of failure**, but files on a switched-off peer are unavailable |
+| **Performance** | Good for **many** users | Fine for a few users; peers slow down when others use their resources |
+| **Typical use** | Schools, companies, hospitals, websites, online games | Homes, small offices, torrents, blockchain |
 :::
 
-# Wired and wireless connections
-@lo 11.6.1.4
+## How to choose a model for a scenario
 
-:::compare Wired transmission media
-| Medium | How it works | Features |
-|---|---|---|
-| **Twisted-pair copper** (Ethernet, Cat5e/Cat6) | Electrical signals in pairs of twisted wires | Cheap, common in LANs, up to 100 m, 1–10 Gbit/s |
-| **Coaxial cable** | Copper core with a metal shield | Better shielding; cable TV / old networks |
-| **Fibre-optic cable** | **Pulses of light** in glass fibres | **Very fast**, very long distances (km), no electrical interference, hard to tap; more expensive |
+Exam questions often describe an organisation and ask you to **recommend** a model and **justify** it. Work through these questions in order, and use the scenario's own words in your answer.
+
+:::steps Choosing between client-server and peer-to-peer
+- **How many users and computers?** A handful (about 2–10) → P2P is possible. Dozens or hundreds → client-server.
+- **How sensitive is the data?** Personal, medical or financial data must be protected with central accounts and access rights → client-server.
+- **Must data be backed up reliably?** If losing data would be serious → client-server with central backup.
+- **Do users move between computers?** If they must log on anywhere and see their own files → client-server.
+- **What is the budget and who will manage it?** No money for a server and no technical staff → P2P.
+- **Write the answer:** recommendation + at least two reasons linked to the scenario + (for more marks) one drawback and how it is managed.
 :::
 
-:::compare Wireless transmission
-| Technology | Range | Use |
-|---|---|---|
-| **Wi-Fi** (radio waves) | ~30–50 m indoors | Wireless LANs at home, school, cafés |
-| **Bluetooth** | ~10 m | PANs — headphones, keyboards, smartwatches |
-| **Mobile data** (4G / 5G) | Kilometres from a mast | Phones and tablets on the move |
-| **Satellite** | Global | Remote areas, ships, aircraft |
-| **Microwave / infrared** | Line of sight | Links between buildings; remote controls |
+:::example Worked example: a school and a family bakery
+**Scenario A.** A school has 400 students, 60 teachers and 350 computers. Students use different computer rooms every day. Marks and personal data must be kept confidential.
+
+**Recommendation:** client-server.
+- Students move between rooms, and their files are stored on the **file server**, so they can **log on at any computer** and find their work.
+- Personal data and marks are protected because **accounts and access rights are managed centrally** on the authentication server — students cannot open the marks database.
+- All files are on the servers, so they are **backed up automatically** every night; a broken computer loses no work.
+- Drawback: the servers and a network manager are expensive, and if the server fails nobody can log in — the school reduces this with a backup server.
+
+**Scenario B.** A family bakery in Aral has three computers: one for orders, one for accounts, one in the kitchen with the recipe files. They share one printer. There is no IT specialist.
+
+**Recommendation:** peer-to-peer.
+- There are only **three computers**, so a server would be an unnecessary **cost**.
+- P2P is **easy to set up** with the sharing built into the operating system — no specialist is needed.
+- The owner can share the printer from one computer and the recipes folder from another.
+- Drawback: there is no central backup, so the owner must back up the accounts computer to an external disk or the cloud regularly.
 :::
 
-:::compare Wired vs wireless
-| | Wired (Ethernet, fibre) | Wireless (Wi-Fi, Bluetooth, mobile data) |
-|---|---|---|
-| **Speed** | **Faster** and constant | Slower; varies with **distance** and **obstacles** |
-| **Reliability** | Stable, little **interference** | **Interference** from walls, microwaves and other networks |
-| **Security** | Harder to intercept — **physical access** needed | Signals can be **intercepted** from outside — needs encryption (**WPA2/WPA3**) and strong passwords |
-| **Mobility** | Devices fixed to a socket | Users **move freely**; phones and tablets connect |
-| **Installation and cost** | Cables are costly to lay and hard to move; **trip hazard** | **Easy** to add devices, no cables; cheaper in old buildings |
-| **Range** | Up to ~100 m per copper cable (fibre much more) | Limited by router range; needs extra access points |
-| **Number of devices** | Limited by switch ports | Many devices, but each gets less bandwidth |
+:::tip Writing "distinguish" answers
+Each mark needs a **matched pair**: "In a client-server network files are backed up **centrally** on the server, **whereas** in a peer-to-peer network **each computer** must be backed up separately." Two separate facts about one model ("client-server is secure; client-server is expensive") do not distinguish anything.
 :::
 
-# Network topologies
-@lo 11.6.1.5
+# Exam practice: intranets and network models
+@lo 11.6.1.2, 11.6.1.3
 
-:::definition Topology
-The **layout** of a network — how its **nodes** are **connected** to each other and how data travels between them.
+:::example Exam-style questions with model answers
+**Q: State two differences between the Internet and an intranet. [2]**
+The Internet is **public** and anyone can access it, whereas an intranet is **private** and can only be accessed by authorised members of one organisation with a login (1). Internet content comes from anyone and may be unreliable, whereas intranet content is **controlled by the organisation** and is official / up to date (1). (Also accept: global vs one organisation; lower vs higher security behind a firewall.)
+
+**Q: A school lets parents log in from home to see their child's marks. State the name of this type of network and explain why it is used. [3]**
+An **extranet** (1). It gives selected **outsiders** (parents) access to part of the school's private network (1) through a **secure login**, so each parent sees only their own child's marks while the rest of the intranet stays private (1).
+
+**Q: Describe how a client and a server communicate when a student opens a file stored on the school network. [3]**
+The client sends a **request** for the file to the file server (1). The server **checks** that the student's account has permission to open it (1) and sends the file back as a **response** (or an "access denied" message) (1).
+
+**Q: State three types of server and the service each provides. [3]**
+File server — stores users' files and shared folders (1). Print server — manages the print queue for shared printers (1). Authentication server — checks logins and access rights (1). (Also: web, mail, database server.)
+
+**Q: Distinguish between client-server and peer-to-peer networks. [4]**
+Client-server has one or more **central servers** that provide services, whereas in P2P all computers are **equal** and each is both client and server (1). Client-server security is **managed centrally**, whereas in P2P each user secures their own computer (1). Client-server data is **backed up centrally**, whereas in P2P each computer must be backed up separately (1). Client-server is **expensive** and needs a specialist, whereas P2P is **cheap and easy** to set up (1).
+
+**Q: A medical clinic with 40 staff stores patient records. Recommend a network model and justify your choice. [6]**
+**Client-server** (1). Patient records are confidential, so user **accounts and access rights** can be managed centrally — doctors see records, reception staff only appointments (1). The records are stored on a **database server**, so there is one up-to-date copy (1) that is **backed up automatically**, so no records are lost if a PC fails (1). Staff can **log on at any computer** in the clinic and reach the records (1). Although servers and a network manager are expensive and the server is a single point of failure, a backup server reduces the risk, and P2P would not protect the data well enough (1).
 :::
 
-:::html The basic topologies | 520
-<div class="g"><figure><svg viewBox="0 0 200 150" width="100%" style="max-width:240px"><line x1="15" y1="75" x2="185" y2="75" stroke="#1f2937" stroke-width="4"/><rect x="8" y="68" width="7" height="14" fill="#ef4444"/><rect x="185" y="68" width="7" height="14" fill="#ef4444"/><line x1="40" y1="75" x2="40" y2="45" stroke="#1f2937" stroke-width="2" /><rect x="26" y="25" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="40" y="39" font-size="11" text-anchor="middle">A</text><line x1="80" y1="75" x2="80" y2="105" stroke="#1f2937" stroke-width="2" /><rect x="66" y="105" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="80" y="119" font-size="11" text-anchor="middle">B</text><line x1="120" y1="75" x2="120" y2="45" stroke="#1f2937" stroke-width="2" /><rect x="106" y="25" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="120" y="39" font-size="11" text-anchor="middle">C</text><line x1="160" y1="75" x2="160" y2="105" stroke="#1f2937" stroke-width="2" /><rect x="146" y="105" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="160" y="119" font-size="11" text-anchor="middle">D</text><text x="120" y="92" font-size="10" text-anchor="middle">backbone</text><text x="100" y="145" font-size="9" text-anchor="middle" fill="#b91c1c">■ terminators</text></svg><figcaption>Bus</figcaption></figure><figure><svg viewBox="0 0 200 150" width="100%" style="max-width:240px"><line x1="100.0" y1="25.0" x2="152.30810839623345" y2="59.54915028125263" stroke="#1f2937" stroke-width="2" /><line x1="152.30810839623345" y1="59.54915028125263" x2="132.32818887608602" y2="115.45084971874738" stroke="#1f2937" stroke-width="2" /><line x1="132.32818887608602" y1="115.45084971874738" x2="67.67181112391398" y2="115.45084971874738" stroke="#1f2937" stroke-width="2" /><line x1="67.67181112391398" y1="115.45084971874738" x2="47.69189160376655" y2="59.549150281252636" stroke="#1f2937" stroke-width="2" /><line x1="47.69189160376655" y1="59.549150281252636" x2="100.0" y2="25.0" stroke="#1f2937" stroke-width="2" /><rect x="86.0" y="15.0" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="100.0" y="29.0" font-size="11" text-anchor="middle">A</text><rect x="138.30810839623345" y="49.54915028125263" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="152.30810839623345" y="63.54915028125263" font-size="11" text-anchor="middle">B</text><rect x="118.32818887608602" y="105.45084971874738" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="132.32818887608602" y="119.45084971874738" font-size="11" text-anchor="middle">C</text><rect x="53.67181112391398" y="105.45084971874738" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="67.67181112391398" y="119.45084971874738" font-size="11" text-anchor="middle">D</text><rect x="33.69189160376655" y="49.549150281252636" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="47.69189160376655" y="63.549150281252636" font-size="11" text-anchor="middle">E</text></svg><figcaption>Ring</figcaption></figure><figure><svg viewBox="0 0 200 150" width="100%" style="max-width:240px"><line x1="100" y1="75" x2="100.0" y2="23.0" stroke="#1f2937" stroke-width="2" /><line x1="100" y1="75" x2="157.06339097770922" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><line x1="100" y1="75" x2="135.2671151375484" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="100" y1="75" x2="64.73288486245161" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="100" y1="75" x2="42.93660902229078" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><rect x="76" y="64" width="48" height="22" rx="4" fill="#fde68a" stroke="#1f2937" stroke-width="2"/><text x="100" y="79" font-size="10" text-anchor="middle">Switch</text><rect x="86.0" y="13.0" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="100.0" y="27.0" font-size="11" text-anchor="middle">A</text><rect x="143.06339097770922" y="48.931116292502736" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="157.06339097770922" y="62.931116292502736" font-size="11" text-anchor="middle">B</text><rect x="121.26711513754839" y="107.06888370749726" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="135.2671151375484" y="121.06888370749726" font-size="11" text-anchor="middle">C</text><rect x="50.73288486245161" y="107.06888370749726" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="64.73288486245161" y="121.06888370749726" font-size="11" text-anchor="middle">D</text><rect x="28.93660902229078" y="48.931116292502736" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="42.93660902229078" y="62.931116292502736" font-size="11" text-anchor="middle">E</text></svg><figcaption>Star</figcaption></figure><figure><svg viewBox="0 0 200 150" width="100%" style="max-width:240px"><line x1="100.0" y1="23.0" x2="157.06339097770922" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><line x1="100.0" y1="23.0" x2="135.2671151375484" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="100.0" y1="23.0" x2="64.73288486245161" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="100.0" y1="23.0" x2="42.93660902229078" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><line x1="157.06339097770922" y1="58.931116292502736" x2="135.2671151375484" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="157.06339097770922" y1="58.931116292502736" x2="64.73288486245161" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="157.06339097770922" y1="58.931116292502736" x2="42.93660902229078" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><line x1="135.2671151375484" y1="117.06888370749726" x2="64.73288486245161" y2="117.06888370749726" stroke="#1f2937" stroke-width="2" /><line x1="135.2671151375484" y1="117.06888370749726" x2="42.93660902229078" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><line x1="64.73288486245161" y1="117.06888370749726" x2="42.93660902229078" y2="58.931116292502736" stroke="#1f2937" stroke-width="2" /><rect x="86.0" y="13.0" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="100.0" y="27.0" font-size="11" text-anchor="middle">A</text><rect x="143.06339097770922" y="48.931116292502736" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="157.06339097770922" y="62.931116292502736" font-size="11" text-anchor="middle">B</text><rect x="121.26711513754839" y="107.06888370749726" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="135.2671151375484" y="121.06888370749726" font-size="11" text-anchor="middle">C</text><rect x="50.73288486245161" y="107.06888370749726" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="64.73288486245161" y="121.06888370749726" font-size="11" text-anchor="middle">D</text><rect x="28.93660902229078" y="48.931116292502736" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="42.93660902229078" y="62.931116292502736" font-size="11" text-anchor="middle">E</text></svg><figcaption>Mesh (full)</figcaption></figure><figure><svg viewBox="0 0 300 150" width="100%" style="max-width:340px"><line x1="20" y1="40" x2="280" y2="40" stroke="#1f2937" stroke-width="4"/><line x1="70" y1="40" x2="70" y2="75" stroke="#1f2937" stroke-width="2" /><line x1="70" y1="75" x2="25" y2="125" stroke="#1f2937" stroke-width="2" /><line x1="70" y1="75" x2="70" y2="125" stroke="#1f2937" stroke-width="2" /><line x1="70" y1="75" x2="115" y2="125" stroke="#1f2937" stroke-width="2" /><rect x="46" y="64" width="48" height="22" rx="4" fill="#fde68a" stroke="#1f2937" stroke-width="2"/><text x="70" y="79" font-size="10" text-anchor="middle">Switch</text><rect x="11" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="25" y="129" font-size="11" text-anchor="middle"></text><rect x="56" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="70" y="129" font-size="11" text-anchor="middle"></text><rect x="101" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="115" y="129" font-size="11" text-anchor="middle"></text><line x1="230" y1="40" x2="230" y2="75" stroke="#1f2937" stroke-width="2" /><line x1="230" y1="75" x2="185" y2="125" stroke="#1f2937" stroke-width="2" /><line x1="230" y1="75" x2="230" y2="125" stroke="#1f2937" stroke-width="2" /><line x1="230" y1="75" x2="275" y2="125" stroke="#1f2937" stroke-width="2" /><rect x="206" y="64" width="48" height="22" rx="4" fill="#fde68a" stroke="#1f2937" stroke-width="2"/><text x="230" y="79" font-size="10" text-anchor="middle">Switch</text><rect x="171" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="185" y="129" font-size="11" text-anchor="middle"></text><rect x="216" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="230" y="129" font-size="11" text-anchor="middle"></text><rect x="261" y="115" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="275" y="129" font-size="11" text-anchor="middle"></text><rect x="136" y="5" width="28" height="20" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/><text x="150" y="19" font-size="11" text-anchor="middle">Srv</text><line x1="150" y1="25" x2="150" y2="40" stroke="#1f2937" stroke-width="2" /><text x="150" y="58" font-size="10" text-anchor="middle">bus backbone</text></svg><figcaption>Mixed (hybrid): stars on a bus</figcaption></figure></div>
----css---
-body { font-family: Arial, sans-serif; margin: 0; padding: 6px; background: #fff; }
-.g { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-figure { margin: 0; text-align: center; }
-figcaption { font-weight: bold; font-size: 14px; margin-top: 2px; }
-:::
-
-:::cards
-### Bus
-- All devices are connected to **one main cable (backbone)** with a **terminator** at each end.
-- Data is sent along the backbone and **every** device receives it; only the addressed device keeps it.
-- Two devices sending at once cause a **collision**.
-### Ring
-- Each device is connected to **exactly two others**, forming a **loop**.
-- Data travels **in one direction**, passing through each device until it reaches the destination (often using a **token** that gives permission to send).
-### Star
-- Every device has its **own cable** to a **central switch** (or hub).
-- The switch sends data **only to the destination** device.
-- The most common topology for school and home LANs.
-### Mesh
-- Devices are connected to **many** (partial mesh) or **all** (full mesh) other devices.
-- Data can take **several routes**; if one link fails, another is used.
-- The **Internet** is a partial mesh of routers.
-### Mixed (hybrid)
-- A combination of two or more topologies — e.g. several **star** networks in different classrooms joined by a **bus** or **mesh** backbone.
-:::
-
-:::compare Advantages and disadvantages
-| Topology | Advantages | Disadvantages |
-|---|---|---|
-| **Bus** | **Cheap** — needs the least cable; easy to add a device; no central device needed | If the **backbone fails**, the whole network stops; **collisions** → slow with many devices; hard to find faults; low security (all devices see the data) |
-| **Ring** | **No collisions** — one device sends at a time; performs well under heavy load; **equal (fair) access** for every device | One broken link or device can **stop the whole network**; adding or removing a device **disrupts** the network; data passes through other devices |
-| **Star** | A failed cable or device affects **only that device**; **easy to add** devices; fast and secure with a **switch** (no collisions); easy to find faults | **Central switch** is a **single point of failure**; needs **more cable** than bus; the switch costs money |
-| **Mesh** | **Very reliable** — many routes, no single point of failure; can carry a lot of traffic; data can be rerouted | **Expensive** — many cables / links; **complex** to set up and manage; much redundant cabling |
-| **Mixed** | Flexible — combines the strengths of each part; easy to **expand** | Complex to design and manage; a failure in the backbone affects several parts |
-:::
-
-:::example Choosing a topology
-- A **small school computer room** of 30 PCs → **star**: if one cable breaks only one PC is affected, and new PCs are easy to add.
-- A **bank's data centres** that must never go offline → **mesh**: many routes, so one failed link does not stop transactions.
-- A **school with several buildings** → **mixed**: a star in each building, connected by a fibre backbone.
-:::
-
-# Exam practice and summary
-@lo 11.6.1.1 11.6.1.2 11.6.1.3 11.6.1.4 11.6.1.5
-
-:::example Exam-style answers
-**Q: Compare a LAN and a WAN. [2]**
-A LAN covers a **small area** such as a school, **whereas** a WAN covers a **large area** such as a country (1). A LAN is usually **owned** by one organisation, **whereas** a WAN uses **rented** telecom links (1).
-
-**Q: Give two differences between an intranet and the Internet. [2]**
-An intranet is **private** to one organisation and needs a **login**, whereas the Internet is **public** (1); intranet content is **controlled** by the organisation, whereas Internet content comes from anyone (1).
-
-**Q: Give one advantage of a star topology and one disadvantage of a bus topology. [2]**
-Star: if one cable fails, **only that device** is affected (1). Bus: if the **backbone** fails, the **whole network** stops (1).
-
-**Q: Explain why a school uses a client-server network rather than peer-to-peer. [2]**
-Security and backup are **managed centrally** on the server (1), so student files are backed up automatically and access can be controlled with **user accounts** (1).
-:::
-
-:::warning Common mistakes
-- Saying a LAN is "small" and a WAN is "big" without saying **area**.
-- Confusing the **Internet** (the network) with the **World Wide Web** (web pages that use it).
-- Saying star "has no single point of failure" — the **switch** is one.
-- Writing an advantage that is only the opposite of a disadvantage you already gave.
+:::warning Common mistakes in exam answers
+- Writing "the Internet is the WWW" — the Web is only **one service** on the Internet.
+- Saying an intranet "does not use Internet technology" — it uses the **same** technologies; the difference is **access**.
+- Describing only one side in a "distinguish/compare" question — write **matched pairs** with "whereas".
+- Calling an extranet "a public intranet" — it is still private; only **selected** outsiders can log in.
+- Saying P2P "has no server, so it is not secure" without explaining that **each user controls their own security**.
+- Recommending a model without linking reasons to the **scenario** (number of users, sensitive data, budget).
 :::
 
 :::steps Check yourself
-- Give three advantages and two disadvantages of networking.
-- Compare LAN and WAN in three ways.
-- What is an intranet? An extranet?
-- Compare client-server and peer-to-peer in terms of security, cost and backup.
-- Give two advantages of wired and two of wireless connections.
-- Draw bus, ring, star and mesh topologies and give one advantage and one disadvantage of each.
+- Define the Internet and explain why it is not the same as the World Wide Web.
+- Define an intranet and give three things a school puts on it.
+- What is an extranet? Give two examples.
+- Give four differences between the Internet and an intranet.
+- Describe the request–response cycle in a client-server network.
+- Name five types of server and what each does.
+- Explain how client-server improves security and backup.
+- Define a peer-to-peer network and give three uses.
+- Compare client-server and P2P in terms of cost, security, backup and failure.
+- Recommend a model for a library with 50 public computers, with reasons.
 :::
+
+# Wired connections
+@lo 11.6.1.4
+
+Every network needs a way to carry data from one device to another. The physical path that the signals travel along is called the **transmission medium**. There are two big families of media. **Wired** (or *guided*) media send signals along a cable: electricity along copper wires or light along glass fibres. **Wireless** (or *unguided*) media send signals through the air as electromagnetic waves: radio waves, microwaves or infrared. A real school or office network almost always uses both, so the exam question is rarely "which one is better?" but "which one is better **for this situation**, and **why**?". This lesson first explains how each kind of connection works, and then compares them feature by feature.
+
+:::definition Transmission medium
+The **physical path** along which data signals travel between devices in a network — for example a **copper cable**, a **fibre-optic cable** or **radio waves** through the air.
+:::
+
+:::definition Bandwidth
+The **maximum amount of data** that can be sent along a connection **per second**, measured in bits per second (bit/s, Mbit/s, Gbit/s). Higher bandwidth means more data can be transferred in the same time.
+:::
+
+Bandwidth is the most important number when we compare connections. A 1 Gbit/s Ethernet cable can carry up to one thousand million bits every second; a typical classroom Wi-Fi connection shared by thirty students may give each of them only a few tens of megabits per second. Bandwidth is not the same as **latency**, which is the **delay** before data starts to arrive. A satellite link can have a high bandwidth but a long latency, because the signal must travel about 36 000 km up to the satellite and back down again. For video calls and online games a low latency matters as much as a high bandwidth.
+
+Two more ideas appear in almost every comparison. **Interference** is unwanted signals that corrupt the data — for example electrical noise from motors, lifts or fluorescent lights affecting a copper cable, or other Wi-Fi networks and microwave ovens affecting a wireless signal. When data is corrupted it has to be sent again (**retransmitted**), so interference makes a connection slower and less reliable. **Attenuation** is the weakening of a signal as it travels further. Every medium has a maximum distance before the signal becomes too weak to read; after that a device such as a switch or repeater must regenerate it.
+
+## Twisted-pair copper cable
+
+**Twisted-pair cable** is the cable you see plugged into desktop computers, printers and wall sockets in a school. Inside the outer plastic jacket there are **eight copper wires arranged in four pairs**, and the two wires of each pair are **twisted around each other**. Data is sent as **electrical signals** (changes in voltage). The twisting is not decoration: when the wires are twisted, any outside electrical noise affects both wires of a pair almost equally, and the receiving device looks only at the *difference* between the two wires, so most of the noise cancels out. This is why twisted pair can be used cheaply in ordinary buildings.
+
+There are two main kinds. **UTP** (unshielded twisted pair) has no metal shielding; it is cheap, thin and flexible and is used in almost all offices and homes. **STP** (shielded twisted pair) has a thin metal foil or braid around the pairs, which gives extra protection against interference; it is used in places with a lot of electrical noise, such as factories or next to lift motors, but it costs more and is harder to bend. Cables are sold in **categories**: **Cat5e** supports up to 1 Gbit/s, **Cat6** supports 1 Gbit/s easily and 10 Gbit/s over shorter runs, and Cat6a supports 10 Gbit/s over the full length. The ends of the cable have an **RJ45** connector that clicks into a network card, a switch port or a wall socket. The standard that defines this kind of wired LAN is called **Ethernet**, so people often say "Ethernet cable".
+
+The big limit of twisted pair is distance: one cable run should be **no longer than about 100 metres**. Beyond that, attenuation makes the signal unreliable. This is why a large school puts a switch in each building or on each floor: no computer is more than 100 m of cable from its switch.
+
+## Coaxial cable
+
+**Coaxial cable** has a single **copper core** in the centre, surrounded by a layer of plastic insulation, then a **woven metal shield**, then an outer jacket. Because the core and the shield share the same centre (axis), the cable is called *co-axial*. The metal shield protects the signal very well against interference, so coaxial cable can carry signals further than unshielded copper. It was used in old bus-topology LANs and is still used for **cable television**, satellite dishes and some cable broadband connections to homes. In modern LANs it has been replaced by twisted pair and fibre, because coaxial cable is thicker, stiffer and more expensive to install than twisted pair, and slower than fibre.
+
+## Fibre-optic cable
+
+**Fibre-optic cable** carries data as **pulses of light** instead of electricity. Each fibre is a very thin strand of extremely pure **glass** (or plastic), about the thickness of a human hair. A laser or LED at one end switches on and off billions of times per second: light on can mean 1 and light off 0. The light stays inside the fibre because of **total internal reflection** — the core is surrounded by a layer called the *cladding*, and when the light hits the boundary at a shallow angle it is reflected back into the core instead of escaping. The light therefore "bounces" along the fibre even when the cable bends.
+
+There are two types. **Multi-mode fibre** has a wider core, so light takes many slightly different paths; it is cheaper and is used for distances up to a few hundred metres, for example between buildings on a school campus. **Single-mode fibre** has a very narrow core so the light travels almost straight; it is more expensive but carries data for **tens of kilometres** without regeneration, so it is used for the long-distance links of WANs, the cables between cities and the undersea cables that join continents.
+
+Fibre has important advantages. It has a **very high bandwidth** (tens or hundreds of Gbit/s and more). Signals travel **very long distances** with little attenuation. Light is **not affected by electromagnetic interference**, so fibre can run next to power cables, motors or in thunderstorms without errors. Because no electrical signal leaks out, it is **very hard to tap** without being noticed, which makes it more secure. Fibre is also thinner and lighter than copper. The disadvantages are **cost** — the cable, the special connectors and especially the network cards and switches that convert between light and electricity are more expensive — and that fibre is **fragile**: it must not be bent sharply, and joining (splicing) two fibres needs special equipment and trained technicians.
+
+:::svg Inside the three wired media
+<svg class="cn3" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three cables drawn side by side. Twisted pair: four pairs of copper wires twisted together, carrying electrical signals, cheap, up to 100 metres. Coaxial: one copper core, insulation, a metal shield and an outer jacket, well shielded, used for cable TV. Fibre-optic: a glass core and cladding; a light ray zig-zags along the core by total internal reflection, very fast, kilometres, immune to interference.">
+  <style>
+    svg.cn3 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn3 .jk{fill:var(--surface-2);stroke:var(--border);stroke-width:2}
+    svg.cn3 .cu{fill:none;stroke:var(--warning);stroke-width:3}
+    svg.cn3 .cu2{fill:none;stroke:var(--primary);stroke-width:3}
+    svg.cn3 .sh{fill:none;stroke:var(--muted);stroke-width:4;stroke-dasharray:4 3}
+    svg.cn3 .core{fill:var(--warning)}
+    svg.cn3 .gl{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn3 .ray{fill:none;stroke:var(--danger);stroke-width:2.5}
+  </style>
+  <text class="h" x="20" y="30">Twisted pair (UTP / STP)</text>
+  <rect class="jk" x="20" y="45" width="460" height="60" rx="28"/>
+  <path class="cu" d="M40 65 C70 85 100 45 130 65 S190 85 220 65 S280 45 310 65 S370 85 400 65 S460 45 470 60"/>
+  <path class="cu2" d="M40 85 C70 65 100 105 130 85 S190 65 220 85 S280 105 310 85 S370 65 400 85 S460 105 470 90"/>
+  <text class="t" x="500" y="65">Electrical signals in copper</text>
+  <text class="s" x="500" y="85">Twists cancel noise · cheap</text>
+  <text class="s" x="500" y="102">RJ45 · up to ~100 m · 1–10 Gbit/s</text>
+
+  <text class="h" x="20" y="140">Coaxial</text>
+  <rect class="jk" x="20" y="152" width="460" height="56" rx="26"/>
+  <rect x="40" y="162" width="420" height="36" rx="18" class="sh"/>
+  <rect x="50" y="170" width="400" height="20" rx="10" fill="var(--surface-2)" stroke="var(--border)"/>
+  <rect class="core" x="60" y="176" width="380" height="8" rx="4"/>
+  <text class="t" x="500" y="172">Copper core + metal shield</text>
+  <text class="s" x="500" y="192">Well shielded · cable TV, old LANs</text>
+
+  <text class="h" x="20" y="245">Fibre-optic</text>
+  <rect class="jk" x="20" y="258" width="460" height="56" rx="26"/>
+  <rect class="gl" x="40" y="268" width="420" height="36" rx="6"/>
+  <polyline class="ray" points="45,286 95,270 145,302 195,270 245,302 295,270 345,302 395,270 445,302 458,296"/>
+  <text class="s" x="45" y="326">glass core inside cladding: light reflects back in (total internal reflection)</text>
+  <text class="t" x="500" y="278">Pulses of light in glass</text>
+  <text class="s" x="500" y="298">Very fast · km distances</text>
+  <text class="s" x="500" y="315">No interference · hard to tap</text>
+</svg>
+:::
+
+:::compare Wired transmission media
+| | Twisted pair (Cat5e / Cat6) | Coaxial | Fibre-optic |
+|---|---|---|---|
+| **Signal** | Electrical, in four twisted copper pairs | Electrical, in one shielded copper core | **Pulses of light** in glass fibres |
+| **Typical bandwidth** | 1–10 Gbit/s | Up to about 1 Gbit/s (cable broadband) | 10–100+ Gbit/s |
+| **Maximum distance** | About **100 m** per run | A few hundred metres | Hundreds of metres (multi-mode) to **tens of km** (single-mode) |
+| **Interference** | Some; reduced by twisting, less with STP | Low — the shield protects it | **None** — light is not affected by electrical noise |
+| **Security** | Can be tapped with physical access | Can be tapped | **Very hard to tap** without detection |
+| **Cost and installation** | **Cheapest**, flexible, easy to fit RJ45 plugs | Thicker and stiffer | **Most expensive**; fragile; special tools to join |
+| **Typical use** | Computers to switches in a LAN | Cable TV, satellite dishes | **Backbones** between buildings, WAN links, undersea cables |
+:::
+
+:::example Cabling a new school building
+A school in Kostanay builds a new two-floor science block 300 m from the main building. The IT technician must decide what cable to use.
+
+1. **Classrooms to the switch on each floor.** Each classroom is less than 60 m from the switch cupboard, so **Cat6 twisted pair** is chosen: it is cheap, gives 1 Gbit/s to each computer and its RJ45 plugs are easy to fit.
+2. **Physics laboratory.** One lab has large electric motors and power supplies, which cause electrical interference. Here the technician uses **STP** (shielded) cable so the noise does not corrupt data.
+3. **Link between the science block and the main building.** The distance is 300 m — too far for twisted pair (limit about 100 m). The cable also runs under the yard next to power cables. **Multi-mode fibre-optic cable** is chosen: it covers the distance, is not affected by interference from the power cables and has enough bandwidth (10 Gbit/s) for every computer in the block to share.
+4. **Result.** The cheaper copper cable is used where distances are short, and the more expensive fibre only where its advantages are needed. This is how almost every real network is built.
+:::
+
+# Wireless connections
+@lo 11.6.1.4
+
+A **wireless** connection sends data through the air as **electromagnetic waves**, with no cable between the devices. Each device has a **wireless network interface** with an aerial (antenna) that changes digital data into a radio signal and back again. Most wireless networking uses **radio waves**; some links use **microwaves** (a higher-frequency kind of radio) or **infrared** light. The waves spread out from the transmitter in many directions, so any device within range can receive them. This is the reason for both the greatest advantage of wireless — freedom to move — and its greatest disadvantage — anyone nearby can pick up the signal.
+
+## Wi-Fi
+
+**Wi-Fi** is the common name for wireless LAN technology (the IEEE 802.11 standards). In a home, one box usually contains a router, a switch and a **wireless access point**. In a school, many separate **access points** are fixed to the ceilings of classrooms and corridors and connected by cable to the wired network.
+
+:::definition Wireless access point (WAP)
+A device that **connects wireless devices to a wired network**: it sends and receives radio signals to and from laptops, tablets and phones and passes the data on to the wired LAN through a cable.
+:::
+
+Each Wi-Fi network has a name called the **SSID** (Service Set Identifier) — the name you choose from the list on your phone, such as "NIS-Students". A typical access point covers about **30–50 m indoors**; walls, floors, metal cupboards and even people absorb the signal, so a large school needs dozens of access points to cover every room. As a device moves away from an access point the signal gets weaker, the data rate drops and more data must be re-sent.
+
+Wi-Fi uses two main frequency bands, and there is a **trade-off** between them. The **2.4 GHz** band has a **longer range** and passes through walls better, but it is slower and **crowded**: it has only a few non-overlapping channels and it is also used by Bluetooth, cordless phones, baby monitors and **microwave ovens**, so it suffers more interference. The **5 GHz** band is **faster** and has many more channels, so there is less interference, but its **range is shorter** and it is weakened more by walls. Modern access points use both bands, and the newest Wi-Fi 6E and Wi-Fi 7 also use a 6 GHz band. A school might connect classroom laptops on 5 GHz for speed, while devices in a far corner of the building stay on 2.4 GHz for range.
+
+All devices connected to one access point **share its bandwidth**. If an access point offers 600 Mbit/s and thirty students are streaming video, each gets much less. This is why wireless performance falls when many devices are connected, and why schools put an access point in every classroom instead of one per floor.
+
+## Wireless security
+
+Because radio waves pass through walls and can be received by anyone in range, someone sitting in a car outside the school could try to read the data or use the network. Wireless networks therefore need security measures. The most important is **encryption**: the data is scrambled using a key so that an interceptor who captures the signal cannot read it. On Wi-Fi this is done by the **WPA2** or the newer, stronger **WPA3** protocol; the old WEP protocol is easily broken and must not be used. Users must enter a strong **password** (or, in schools and companies, their own username and password) to join. Other measures are changing the router's default admin password, keeping firmware updated, using a separate **guest network** for visitors so they cannot reach school computers, and hiding the SSID or filtering MAC addresses (these last two give only weak protection).
+
+:::definition Encryption (in wireless networks)
+Scrambling data with a **key** before it is transmitted, so that anyone who **intercepts** the radio signal **cannot understand** it without the key. Wi-Fi uses **WPA2** or **WPA3** encryption.
+:::
+
+## Other wireless technologies
+
+**Bluetooth** is a short-range radio technology (about **10 m**) with low power use. It connects devices to one person — wireless headphones, a keyboard, a smartwatch, a phone to a car — forming a **PAN** (personal area network). It is slow compared with Wi-Fi but uses very little battery, which is why it suits small devices.
+
+**Mobile data** (**4G** and **5G**) uses radio signals between a phone or a mobile router and a **mast** (base station) operated by a mobile network company such as Kcell or Beeline. A mast covers several kilometres, so users stay connected while they travel. 5G gives speeds similar to or higher than home broadband and very low latency, but the user pays for a data plan and coverage is weaker in rural areas.
+
+**Satellite** connections send signals to satellites in orbit. They work almost **anywhere on Earth** — remote villages in the steppe, ships, aircraft, oil fields — but traditional geostationary satellites give a long **latency** (about 0.5 s for a round trip) and are affected by heavy rain or snow; newer low-orbit satellite systems reduce the delay.
+
+**Microwave links** use dish aerials to send a narrow beam between two points that can "see" each other (**line of sight**), for example between two buildings on opposite sides of a road or between towers many kilometres apart. They avoid digging trenches for cable but stop working if something blocks the line of sight. **Infrared** also needs line of sight and works only over a few metres; it is used in TV remote controls and is rarely used for networking today.
+
+:::svg Wi-Fi coverage: range, walls and two frequency bands
+<svg class="cn3" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An access point on the left connected by cable to a switch. Two coverage circles spread from it: a larger circle for 2.4 GHz with longer range but more interference, and a smaller circle for 5 GHz with higher speed but shorter range. A wall reduces the signal; a laptop near the access point gets a strong signal, a phone behind the wall gets a weak signal, and an intruder outside the building can still receive the signal, so encryption with WPA2 or WPA3 is needed.">
+  <style>
+    svg.cn3 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn3 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn3 .ap{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.cn3 .r24{fill:none;stroke:var(--warning);stroke-width:2;stroke-dasharray:6 4}
+    svg.cn3 .r5{fill:none;stroke:var(--success);stroke-width:2;stroke-dasharray:6 4}
+    svg.cn3 .wall{fill:var(--border)}
+    svg.cn3 .bad{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.5}
+    svg.cn3 .ln{stroke:var(--foreground);stroke-width:2}
+  </style>
+  <rect class="bx" x="20" y="130" width="80" height="40" rx="6"/>
+  <text class="t" x="60" y="155" text-anchor="middle">Switch</text>
+  <line class="ln" x1="100" y1="150" x2="170" y2="150"/>
+  <text class="s" x="105" y="142">cable</text>
+  <circle class="r24" cx="200" cy="150" r="140"/>
+  <circle class="r5" cx="200" cy="150" r="85"/>
+  <rect class="ap" x="175" y="135" width="50" height="30" rx="6"/>
+  <text class="t" x="200" y="155" text-anchor="middle">AP</text>
+  <rect class="bx" x="240" y="100" width="70" height="30" rx="4"/>
+  <text class="s" x="275" y="120" text-anchor="middle">Laptop</text>
+  <text class="s" x="240" y="95">strong signal</text>
+  <rect class="wall" x="318" y="40" width="10" height="220"/>
+  <text class="s" x="300" y="34">wall</text>
+  <rect class="bx" x="335" y="170" width="60" height="30" rx="4"/>
+  <text class="s" x="365" y="190" text-anchor="middle">Phone</text>
+  <text class="s" x="335" y="215">weak signal</text>
+  <rect class="bad" x="420" y="240" width="90" height="34" rx="4"/>
+  <text class="s" x="465" y="261" text-anchor="middle">Intruder</text>
+  <text class="h" x="540" y="60">Key</text>
+  <line class="r5" x1="540" y1="85" x2="575" y2="85"/>
+  <text class="s" x="582" y="89">5 GHz: faster, shorter range</text>
+  <line class="r24" x1="540" y1="115" x2="575" y2="115"/>
+  <text class="s" x="582" y="119">2.4 GHz: longer range,</text>
+  <text class="s" x="582" y="135">more interference</text>
+  <text class="s" x="540" y="175">Walls and distance weaken</text>
+  <text class="s" x="540" y="191">the signal and the speed.</text>
+  <text class="s" x="540" y="225">Signals leave the building:</text>
+  <text class="s" x="540" y="241">use WPA2/WPA3 encryption</text>
+  <text class="s" x="540" y="257">and strong passwords.</text>
+</svg>
+:::
+
+:::compare Wireless technologies
+| Technology | Range | Speed | Typical use |
+|---|---|---|---|
+| **Wi-Fi** (radio, 2.4 / 5 GHz) | About 30–50 m indoors per access point | Hundreds of Mbit/s, **shared** by all users of the access point | Wireless LANs at home, school, cafés, airports |
+| **Bluetooth** (radio) | About **10 m** | Low (a few Mbit/s) | PANs — headphones, keyboards, smartwatches; very low power |
+| **Mobile data 4G / 5G** | Kilometres from a mast | Tens to hundreds of Mbit/s (5G faster, low latency) | Phones and tablets on the move; pay for a data plan |
+| **Satellite** | Almost the whole Earth | Medium; **high latency** with geostationary satellites | Remote areas, ships, aircraft |
+| **Microwave link** | Kilometres, **line of sight** | High | Links between buildings or towers without digging for cable |
+| **Infrared** | A few metres, **line of sight** | Low | TV remote controls; rarely networks |
+:::
+
+:::warning Common mistakes about wireless
+- Writing "wireless is not secure" — it **can** be secured; the point is that the signal **can be intercepted** by anyone in range, so it **needs encryption** (WPA2/WPA3) and passwords.
+- Saying Wi-Fi and the Internet are the same thing. Wi-Fi only connects a device to the **local network**; the Internet connection comes through the router.
+- Saying 5 GHz is "better" in every way — it is faster but has a **shorter range**.
+- Forgetting that wireless bandwidth is **shared**: more devices on one access point means less speed for each.
+:::
+
+# Choosing wired or wireless
+@lo 11.6.1.4
+
+Now that we know how both kinds of connection work, we can compare them. In an exam, a good comparison point always (1) names the **feature** being compared, (2) says what is true for **both** sides and (3) gives the **reason**. "Wired is faster" is a weak answer; "A wired connection usually has a **higher and more constant bandwidth**, **whereas** wireless bandwidth is **shared** between devices and falls with **distance and obstacles**" is a full-mark answer.
+
+## Speed and reliability
+
+Wired connections are usually **faster**. A Cat6 cable gives each computer its own 1 Gbit/s link to a switch port, and fibre gives much more. The speed stays **constant** because the cable is not shared and the signal is protected inside the cable. Wireless speed depends on the distance from the access point, the walls in between, interference and the number of users sharing the same access point; it can change from minute to minute. For the same reason wired connections are more **reliable**: there are fewer dropped connections and fewer errors that need re-sending. This matters for servers, for streaming lessons to a projector, for online exams and for large file transfers such as backups.
+
+## Interference
+
+Copper cables can suffer from electrical interference, but twisting and shielding reduce it, and fibre is not affected at all. Wireless signals suffer far more: other Wi-Fi networks on the same channel, Bluetooth devices, microwave ovens, thick concrete walls, metal and even rain (for satellite and microwave links) all weaken or corrupt the signal. In a block of flats with fifty neighbouring Wi-Fi networks, the 2.4 GHz band can become very slow.
+
+## Security
+
+To intercept data on a wired network, an attacker needs **physical access** — they must get into the building and plug into a socket or cut into a cable — so wired networks are more secure, and fibre is the hardest of all to tap. Wireless signals spread beyond the walls, so an attacker can try to intercept them or join the network from outside without entering the building. Wireless networks are only safe when they use strong **encryption** (WPA2/WPA3), strong passwords and user accounts. Even then, a wired connection is chosen for the most sensitive systems, such as a school's server room or a bank's computers.
+
+## Mobility and convenience
+
+Here wireless wins clearly. Users can **move freely** — a teacher walks around the classroom with a tablet, students take laptops from room to room, visitors join a guest network in seconds. Many modern devices (phones, tablets, thin laptops, smart boards, sensors) have **no network socket at all** and can only connect wirelessly. A wired device is **fixed** to the place where the socket is.
+
+## Cost and installation
+
+Installing cables is **expensive and disruptive**: cables must be run through walls, ceilings and floors, often by an electrician; adding a new computer may need a new cable and a new switch port; moving a classroom means re-cabling. In old or historic buildings drilling may not even be allowed. Wireless is **cheaper and quicker to install** for many devices: fix a few access points to the ceiling and every device in range can connect, and new devices can be added without any new cable. However, wired networks have lower ongoing problems, while a large wireless network needs careful planning of access points and channels.
+
+## Range and number of devices
+
+A single twisted-pair cable reaches about 100 m, and fibre many kilometres. One Wi-Fi access point covers only about 30–50 m indoors, so a large building needs many access points (each still connected to the wired network by a cable). A switch has a fixed number of ports (for example 24 or 48), which limits how many wired devices can connect; a wireless access point can accept many devices, but every extra device reduces the bandwidth available to the others.
+
+## Health and safety
+
+Cables lying on the floor are a **trip hazard**, and many cables behind desks can be a fire risk if they are damaged; they must be fixed into trunking or under the floor. Wireless removes these cables. Some people worry about the health effects of radio waves, but Wi-Fi uses very low power and there is no scientific evidence of harm at these levels — in an exam, the trip hazard is the safety point to make.
+
+:::compare Wired vs wireless — feature by feature
+| Feature | Wired (twisted pair, fibre) | Wireless (Wi-Fi, Bluetooth, mobile data) | Why |
+|---|---|---|---|
+| **Speed** | **Faster** and **constant** | Slower; varies with distance, walls and users | Each cable is a dedicated link; radio bandwidth is shared and weakened by obstacles |
+| **Reliability** | Stable, few dropped connections | Signal can drop; more errors and re-sending | Cable protects the signal; radio waves are absorbed and reflected |
+| **Interference** | Little (fibre: none) | **More** — other networks, microwaves, walls | Radio bands are shared by many devices |
+| **Security** | **More secure** — attacker needs physical access | Signals can be **intercepted** from outside; needs WPA2/WPA3 and passwords | Radio waves pass through walls |
+| **Mobility** | Devices fixed to a socket | Users **move freely**; phones and tablets connect | No cable to tie the device down |
+| **Installation and cost** | Expensive and disruptive to lay cable; hard to move | **Cheaper and quicker** to add devices; good in old buildings | No drilling or cable runs for each device |
+| **Range** | About 100 m per copper run; fibre km | About 30–50 m per access point | Attenuation of radio in air and walls |
+| **Number of devices** | Limited by switch ports | Many devices, each gets less bandwidth | Ports are physical; radio capacity is shared |
+| **Safety** | Cables can be a **trip hazard** | No cables on the floor | — |
+:::
+
+## Combined networks
+
+In practice almost every organisation uses a **combination**. The **backbone** — the links between switches, buildings and the server room — is wired (often fibre), because it must carry the traffic of hundreds of users quickly and reliably. Desktop computers in computer rooms, servers, network printers and access points themselves are connected by cable. **Wireless** is added on top for laptops, tablets, phones, visitors and places where cabling is difficult. The access points are really the edge of the wired network: data travels wirelessly only for the last few metres between a device and the nearest access point, and then continues along cables.
+
+:::svg A combined school network: wired backbone, wireless at the edge
+<svg class="cn3" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A server room with servers connected by fibre-optic backbone to a switch in Building A and a switch in Building B. In Building A a computer room has desktop PCs connected by Cat6 cable. Each building also has a wireless access point connected by cable to its switch; laptops, tablets and phones connect to the access points wirelessly. Wired is used for the backbone, servers and desktops; wireless for mobile devices.">
+  <style>
+    svg.cn3 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn3 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn3 .bx{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn3 .pb{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn3 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+    svg.cn3 .fib{stroke:var(--primary);stroke-width:4;fill:none}
+    svg.cn3 .cat{stroke:var(--foreground);stroke-width:2;fill:none}
+    svg.cn3 .wl{stroke:var(--success);stroke-width:2;fill:none;stroke-dasharray:5 4}
+  </style>
+  <rect class="pb" x="300" y="20" width="160" height="46" rx="6"/>
+  <text class="t" x="380" y="40" text-anchor="middle">Server room</text>
+  <text class="s" x="380" y="57" text-anchor="middle">servers + core switch</text>
+  <path class="fib" d="M330 66 L170 120"/>
+  <path class="fib" d="M430 66 L590 120"/>
+  <text class="s" x="200" y="88">fibre backbone</text>
+  <text class="s" x="500" y="88">fibre backbone</text>
+  <rect class="bx" x="110" y="120" width="120" height="36" rx="6"/>
+  <text class="t" x="170" y="143" text-anchor="middle">Switch A</text>
+  <rect class="bx" x="530" y="120" width="120" height="36" rx="6"/>
+  <text class="t" x="590" y="143" text-anchor="middle">Switch B</text>
+  <path class="cat" d="M130 156 L60 210 M160 156 L130 210 M190 156 L200 210"/>
+  <rect class="bx" x="35" y="210" width="50" height="28" rx="4"/><text class="s" x="60" y="229" text-anchor="middle">PC</text>
+  <rect class="bx" x="105" y="210" width="50" height="28" rx="4"/><text class="s" x="130" y="229" text-anchor="middle">PC</text>
+  <rect class="bx" x="175" y="210" width="50" height="28" rx="4"/><text class="s" x="200" y="229" text-anchor="middle">PC</text>
+  <text class="s" x="40" y="262">computer room: Cat6 cable</text>
+  <path class="cat" d="M220 145 L300 190"/>
+  <rect class="ok" x="285" y="190" width="60" height="28" rx="4"/><text class="s" x="315" y="209" text-anchor="middle">AP</text>
+  <path class="wl" d="M345 204 L400 240"/>
+  <rect class="bx" x="395" y="240" width="60" height="26" rx="4"/><text class="s" x="425" y="258" text-anchor="middle">Laptop</text>
+  <path class="cat" d="M590 156 L590 190"/>
+  <rect class="ok" x="560" y="190" width="60" height="28" rx="4"/><text class="s" x="590" y="209" text-anchor="middle">AP</text>
+  <path class="wl" d="M570 218 L530 250 M610 218 L650 250"/>
+  <rect class="bx" x="490" y="250" width="70" height="26" rx="4"/><text class="s" x="525" y="268" text-anchor="middle">Tablet</text>
+  <rect class="bx" x="625" y="250" width="70" height="26" rx="4"/><text class="s" x="660" y="268" text-anchor="middle">Phone</text>
+  <text class="s" x="560" y="292">wireless only for the last few metres</text>
+</svg>
+:::
+
+:::steps How to decide between wired and wireless in a scenario
+- Read the scenario and list the **devices**: do they move (phones, tablets, laptops carried around) or stay in one place (servers, desktops, printers)?
+- Check the **data**: is it large or time-critical (video, backups, exams), or is it light browsing?
+- Check **security** needs: is the data sensitive (medical records, bank data, exam results)?
+- Check the **building**: distances, thick walls, old or historic building, sources of interference.
+- Check **cost and time**: is there money and time to lay cable, or must the network be set up quickly or temporarily?
+- Choose for each part of the network, and justify each choice with a reason from the scenario.
+:::
+
+:::example Choosing connections for a small clinic in Shymkent
+A private clinic has a reception desk, five doctors' offices, a server holding patients' medical records, and a waiting room where patients would like Internet access. The manager asks whether to use wired or wireless connections.
+
+1. **Server and reception computers → wired.** The server holds **confidential medical records**. A wired connection cannot be intercepted from the car park, and it gives a fast, constant link so records open quickly. Reception computers never move, so mobility is not needed.
+2. **Doctors' computers → wired, plus a staff Wi-Fi.** Doctors view X-ray images, which are large files; a wired link is faster and more reliable. A separate **staff Wi-Fi** protected by **WPA3** and staff accounts lets doctors use a tablet when they visit patients in other rooms.
+3. **Waiting room → wireless guest network.** Patients bring their own phones, which have no network socket, so the only option is wireless. The guest network is **separate** from the staff network, so a patient cannot reach the medical records.
+4. **Conclusion.** A combined network: wired where speed, reliability and security matter most, wireless where mobility and convenience matter most. A full answer gives a **reason linked to the scenario** for each decision.
+:::
+
+:::example Temporary exam centre in a sports hall
+A school runs online mock exams for 120 students in the sports hall for one week. There are no network sockets in the hall.
+
+- **Option A — wireless:** set up four Wi-Fi access points on stands. Quick and cheap, no cables across the floor (no **trip hazard** for 120 students), easy to remove after the week. But 120 devices sharing four access points means about 30 per access point; if all students submit at once the network may slow down, and the signal must be encrypted so answers cannot be intercepted.
+- **Option B — wired:** run temporary cables and switches to every desk. Fast and reliable, and more secure, but expensive and slow to set up for one week, and the cables on the floor are a trip hazard.
+- **Decision:** wireless with enough access points, **WPA2/WPA3** encryption and a separate exam SSID, because the setup is temporary, mobility of furniture is needed and the exam data (text answers) is small. The exam server itself stays on the wired network.
+:::
+
+:::definition Backbone
+The **main, high-capacity part** of a network that connects switches, buildings and servers together; it carries the combined traffic of many users and is normally **wired**, often with fibre-optic cable.
+:::
+
+# Exam practice: wired and wireless connections
+@lo 11.6.1.4
+
+:::example Exam-style questions with model answers
+**Q: State two advantages of a wireless connection compared with a wired connection. [2]**
+Users can **move around** freely while staying connected / mobile devices without sockets (phones, tablets) can connect (1); it is **cheaper and quicker to install** — no cables to lay through walls, easy to add new devices (1). (Also: no trip hazard from cables.)
+
+**Q: Explain two reasons why a bank uses wired connections for the computers that process customer payments. [4]**
+Wired connections are **more secure** (1) because an attacker needs **physical access** to the cable, whereas wireless signals can be intercepted from outside the building (1). Wired connections are **more reliable / faster and constant** (1) because there is **little interference** and the bandwidth is not shared, so payments are not delayed or lost (1).
+
+**Q: Describe how data is transmitted in a fibre-optic cable and give two advantages of fibre over twisted-pair copper cable. [3]**
+Data is sent as **pulses of light** through a thin glass fibre, kept inside by **total internal reflection** (1). Advantages: **higher bandwidth / faster** (1); **longer distances** without the signal weakening / **not affected by electrical interference** / harder to tap (1).
+
+**Q: A school wants Wi-Fi in its library. Explain why the network manager might choose the 5 GHz band instead of 2.4 GHz, and one drawback of this choice. [3]**
+5 GHz gives **higher speed** (1) and has **more channels / less interference** from other devices such as Bluetooth and microwave ovens (1). Drawback: a **shorter range** / weakened more by walls, so **more access points** are needed (1).
+
+**Q: A café owner is setting up a network for customers and for the till. Compare wired and wireless connections for this café. [6]**
+Wireless lets **customers connect their own phones and laptops**, which often have no socket (1), and they can sit anywhere / move (1). Wireless is **cheaper and quicker** to set up — no cables to every table, no trip hazard for customers (1). However wireless is **less secure** because signals can be intercepted, so it needs **WPA2/WPA3** encryption and a **separate guest network** (1). The **till** should be **wired** because payment data must be secure and the connection must be **reliable** (1). Wireless speed is **shared**, so when many customers are connected each gets less bandwidth, whereas a wired till keeps a **constant** speed (1). (Max 6; points must compare both sides.)
+:::
+
+:::warning Common mistakes in exam answers
+- Writing one-sided points ("wireless is slow") — a **compare** question needs both sides, joined with **whereas**.
+- Giving the same point twice as an advantage of one and a disadvantage of the other ("wired is fast; wireless is slow") — it usually earns only one mark.
+- Saying "wired is more secure" without the **reason**: physical access is needed / wireless signals travel through walls.
+- Writing "fibre uses electricity" — fibre uses **light**.
+- Mixing up bandwidth (**amount of data per second**) and range (**distance**).
+:::
+
+:::steps Check yourself
+- Define transmission medium, bandwidth, interference and attenuation.
+- Describe twisted pair, coaxial and fibre-optic cable: how each carries data and one use of each.
+- Why is twisted-pair cable twisted? What is the maximum length of one run?
+- Give three advantages and two disadvantages of fibre-optic cable.
+- What is a wireless access point? What is an SSID?
+- Compare the 2.4 GHz and 5 GHz Wi-Fi bands.
+- Name three ways to make a Wi-Fi network secure.
+- Compare wired and wireless in terms of speed, security, mobility and cost — with reasons.
+- Explain why most organisations use a combined network.
+:::
+
+# Bus and ring topologies
+@lo 11.6.1.5
+
+When a school, an office or a bank builds a network, it has to decide how the devices will be joined together. Will every computer be plugged into one long cable? Will the computers be joined in a circle? Will every computer have its own cable to a box in the middle of the room? This decision is called the **topology** of the network. The topology affects how much cable is needed, how much the network costs, how fast data moves, what happens when a cable breaks and how easy it is to add a new computer. In this lesson we study the four basic topologies named in the curriculum — **bus, ring, star and mesh** — and the **mixed (hybrid)** networks that combine them. For each one you must be able to describe how it is built, explain how data travels, and give its advantages and disadvantages with a reason.
+
+:::definition Topology
+The **layout** of a network — how its **nodes** (computers, printers, servers, switches) are **connected** to each other and how data travels between them.
+:::
+
+:::definition Node
+Any device connected to a network that can send, receive or pass on data — a computer, laptop, printer, server, switch or router.
+:::
+
+## Physical and logical topology
+
+There are two ways of looking at a topology. The **physical topology** is the way the cables and devices are actually laid out — what you would see if you followed the wires around the building. The **logical topology** is the way **data** travels between the nodes, which can be different from the physical layout. For example, an old network built with a central **hub** looks like a star physically (every computer has its own cable to the hub), but a hub copies every signal to every port, so logically it behaves like a bus: every computer receives every message. In the exam, "topology" normally means the physical layout, but understanding the difference helps you explain why a star with a **switch** performs better than a star with a hub.
+
+## Bus topology
+
+In a **bus topology** all devices are connected to **one main cable**, called the **backbone** (or bus). Each computer joins the backbone with a short connector. At each end of the backbone there is a **terminator** — a small device that **absorbs the signal** when it reaches the end of the cable. Without terminators the signal would **bounce back** along the cable and interfere with new data, so the network would not work.
+
+:::definition Bus topology
+A topology in which all nodes are connected to a **single shared cable (backbone)** with a **terminator** at each end; data sent by one node travels along the backbone and **reaches every node**.
+:::
+
+### How data travels on a bus
+
+When a computer sends data, the signal travels along the backbone **in both directions** and reaches **every** device on the cable. This is called a **broadcast**. Every device reads the **destination address** in the data; only the device whose address matches keeps the data, and all the others ignore it. Because the backbone is shared, **only one device can send at a time**. If two devices start sending at the same moment, their signals meet on the cable and are destroyed — this is a **collision**. Both devices must wait a random short time and send again. With a few devices collisions are rare, but as more devices are added and traffic grows, collisions happen more often, data must be resent again and again, and the whole network becomes **slow**.
+
+:::definition Collision
+When **two devices transmit at the same time** on a shared medium, their signals interfere and the data is **corrupted**, so both must **resend** it.
+:::
+
+:::svg Bus topology: one backbone, a terminator at each end
+<svg class="cn4" viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bus topology. A long horizontal backbone cable with a terminator at each end. Five computers, labelled PC1 to PC4 and a printer, hang from the backbone by short drop cables. PC1 sends data; arrows show the signal travelling in both directions along the backbone to every device. A red cross marks a break in the backbone, which would stop the whole network.">
+  <style>
+    svg.cn4 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .nd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn4 .ct{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn4 .bb{stroke:var(--foreground);stroke-width:5}
+    svg.cn4 .dr{stroke:var(--muted);stroke-width:2}
+    svg.cn4 .tm{fill:var(--warning);stroke:var(--foreground);stroke-width:1}
+    svg.cn4 .ar{stroke:var(--success);stroke-width:2.5;fill:none}
+    svg.cn4 .ar2{fill:var(--success)}
+    svg.cn4 .x{stroke:var(--danger);stroke-width:3}
+  </style>
+  <text class="h" x="380" y="24" text-anchor="middle">Bus: every device shares one backbone cable</text>
+  <line class="bb" x1="60" y1="140" x2="700" y2="140"/>
+  <rect class="tm" x="40" y="128" width="20" height="24" rx="3"/>
+  <rect class="tm" x="700" y="128" width="20" height="24" rx="3"/>
+  <text class="s" x="50" y="175" text-anchor="middle">terminator</text>
+  <text class="s" x="710" y="175" text-anchor="middle">terminator</text>
+  <g>
+    <line class="dr" x1="140" y1="90" x2="140" y2="140"/><rect class="nd" x="105" y="55" width="70" height="35" rx="5"/><text class="t" x="140" y="77" text-anchor="middle">PC1</text>
+    <line class="dr" x1="260" y1="140" x2="260" y2="190"/><rect class="nd" x="225" y="190" width="70" height="35" rx="5"/><text class="t" x="260" y="212" text-anchor="middle">PC2</text>
+    <line class="dr" x1="380" y1="90" x2="380" y2="140"/><rect class="nd" x="345" y="55" width="70" height="35" rx="5"/><text class="t" x="380" y="77" text-anchor="middle">PC3</text>
+    <line class="dr" x1="500" y1="140" x2="500" y2="190"/><rect class="nd" x="465" y="190" width="70" height="35" rx="5"/><text class="t" x="500" y="212" text-anchor="middle">PC4</text>
+    <line class="dr" x1="620" y1="90" x2="620" y2="140"/><rect class="ct" x="580" y="55" width="80" height="35" rx="5"/><text class="t" x="620" y="77" text-anchor="middle">Printer</text>
+  </g>
+  <path class="ar" d="M150 128 H320"/><polygon class="ar2" points="320,122 332,128 320,134"/>
+  <path class="ar" d="M130 128 H80"/><polygon class="ar2" points="80,122 68,128 80,134"/>
+  <text class="s" x="235" y="118" text-anchor="middle">signal from PC1 reaches every device</text>
+  <line class="x" x1="430" y1="128" x2="446" y2="152"/><line class="x" x1="446" y1="128" x2="430" y2="152"/>
+  <text class="s" x="438" y="244" text-anchor="middle">a break in the backbone stops the whole network</text>
+</svg>
+:::
+
+### Advantages of a bus
+
+- **Cheap to install.** A bus uses the **least cable** of all the topologies: one backbone and short drop cables. It needs **no central device** such as a switch, so there is no extra hardware to buy.
+- **Easy to add a device** in the short term: a new computer is simply connected to the backbone at any point, without running a long cable back to a central room.
+- **Simple** to understand and suitable for a **small, temporary** network with few users and light traffic, for example a few computers set up for a weekend exhibition.
+
+### Disadvantages of a bus
+
+- **The backbone is a single point of failure.** If the main cable is cut or a terminator is removed, the signal can no longer travel along it, so **the whole network stops**, not just one computer.
+- **Collisions make it slow.** All devices share the same cable and only one can send at a time, so **performance falls** as more devices are added and traffic increases.
+- **Fault finding is difficult.** A break somewhere along a long backbone does not tell you where it is; a technician must test the cable section by section.
+- **Low security.** Every message is broadcast to **every** device, so any computer on the bus can capture data meant for others.
+- **Limited length and number of devices**, because the signal weakens along a long cable.
+
+Bus networks were common in the 1980s and 1990s with coaxial cable. Today they are rarely built as LANs, but the idea still matters: the backbone that joins several parts of a mixed network often works like a bus.
+
+## Ring topology
+
+In a **ring topology** every device is connected to **exactly two neighbours**, so the cables form a **closed loop**. There are no ends, so there are no terminators. Data travels around the ring **in one direction** (for example clockwise). Each device receives the data from its neighbour, checks the destination address and, if the data is not for it, **regenerates and passes it on** to the next device. The data keeps moving round the loop until it reaches the destination.
+
+:::definition Ring topology
+A topology in which each node is connected to **two other nodes**, forming a **closed loop**; data travels **in one direction**, passing **through each node** until it reaches its destination.
+:::
+
+### Token passing
+
+Many ring networks control access with a **token**. A token is a small special message that circulates round the ring. A device may only send data when it **holds the token**: it takes the token, attaches its data and the destination address, and sends it round. When the data has been delivered, the token is released again for the next device. Because there is only **one token**, only one device can send at a time, so **collisions cannot happen**. Every device gets the token in turn, so access is **fair and predictable** — no device can take all the bandwidth.
+
+:::definition Token passing
+A method of controlling access to a network in which a special message (**token**) circulates; only the node **holding the token** is allowed to transmit, so there are **no collisions**.
+:::
+
+### Dual ring
+
+The weakness of a simple ring is that one broken cable or one failed computer breaks the loop and stops everything. A **dual ring** solves this with **two rings** that carry data in **opposite directions**. If one link fails, the devices on both sides of the break **wrap** the data onto the second ring, and the network keeps working. Dual rings were used for backbones in universities and in city networks (for example FDDI fibre rings) where reliability was important. The price is twice as much cable and more complex equipment.
+
+:::svg Ring topology: data travels one way round the loop, passing through each node
+<svg class="cn4" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ring topology. Six computers labelled A to F are placed in a circle; each is connected only to its two neighbours, forming a closed loop. Arrows on the loop show data travelling clockwise. A token symbol sits next to computer A, showing that only the node holding the token may send. Data from A to D passes through B and C on the way.">
+  <style>
+    svg.cn4 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .nd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn4 .rg{stroke:var(--foreground);stroke-width:3;fill:none}
+    svg.cn4 .tk{fill:var(--warning);stroke:var(--foreground);stroke-width:1}
+    svg.cn4 .ar2{fill:var(--success)}
+    svg.cn4 .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+  </style>
+  <text class="h" x="380" y="24" text-anchor="middle">Ring: each node connected to exactly two neighbours</text>
+  <circle class="rg" cx="260" cy="180" r="110"/>
+  <g>
+    <rect class="nd" x="230" y="52" width="60" height="32" rx="5"/><text class="t" x="260" y="73" text-anchor="middle">A</text>
+    <rect class="nd" x="325" y="105" width="60" height="32" rx="5"/><text class="t" x="355" y="126" text-anchor="middle">B</text>
+    <rect class="nd" x="325" y="222" width="60" height="32" rx="5"/><text class="t" x="355" y="243" text-anchor="middle">C</text>
+    <rect class="nd" x="230" y="275" width="60" height="32" rx="5"/><text class="t" x="260" y="296" text-anchor="middle">D</text>
+    <rect class="nd" x="135" y="222" width="60" height="32" rx="5"/><text class="t" x="165" y="243" text-anchor="middle">E</text>
+    <rect class="nd" x="135" y="105" width="60" height="32" rx="5"/><text class="t" x="165" y="126" text-anchor="middle">F</text>
+  </g>
+  <polygon class="ar2" points="318,84 330,96 314,98"/>
+  <polygon class="ar2" points="372,172 370,190 362,176"/>
+  <polygon class="ar2" points="318,276 302,282 310,268"/>
+  <polygon class="ar2" points="200,276 190,264 206,266"/>
+  <polygon class="ar2" points="150,190 150,172 158,186"/>
+  <polygon class="ar2" points="200,84 214,78 208,92"/>
+  <circle class="tk" cx="305" cy="58" r="10"/><text class="s" x="322" y="50">token</text>
+  <rect class="ok" x="440" y="70" width="300" height="200" rx="8"/>
+  <text class="t" x="455" y="98">A wants to send to D:</text>
+  <text class="t" x="455" y="124">1. A waits until it holds the token.</text>
+  <text class="t" x="455" y="150">2. A sends the data clockwise to B.</text>
+  <text class="t" x="455" y="176">3. B and C check the address and</text>
+  <text class="t" x="470" y="196">pass the data on.</text>
+  <text class="t" x="455" y="222">4. D keeps the data.</text>
+  <text class="t" x="455" y="248">5. The token is released for the next node.</text>
+</svg>
+:::
+
+### Advantages of a ring
+
+- **No collisions.** Only the node holding the token can send, so data is never destroyed by two devices sending at once.
+- **Good performance under heavy load.** Because there are no collisions, a ring does not slow down sharply when traffic increases the way a bus does; every node gets its turn.
+- **Fair, equal access.** Each node receives the token in turn, so the time a node must wait before sending is predictable.
+- **No central device** is needed, and each node **regenerates** the signal, so a ring can cover a larger distance than a single bus cable.
+
+### Disadvantages of a ring
+
+- **One failure can stop the whole network.** In a single ring, if one cable or one node fails, the loop is broken and data can no longer go round (unless a dual ring is used).
+- **Adding or removing a device disrupts the network.** The ring must be **opened** to insert a new node, so the network is down while the change is made.
+- **Data passes through other nodes**, which adds a small delay at every node and means other nodes handle data that is not theirs.
+- **Fault finding can be slow**, because a fault anywhere stops the whole loop.
+
+:::compare Bus vs ring
+| | Bus | Ring |
+|---|---|---|
+| **Layout** | One backbone cable, devices attached along it, **terminators** at both ends | Closed loop, each node joined to **two** neighbours, no ends |
+| **How data travels** | **Broadcast** in both directions to every node | **One direction**, passed **through** each node in turn |
+| **Access control** | Any node may send — **collisions** happen | **Token passing** — **no collisions** |
+| **Performance under heavy traffic** | Falls sharply as collisions increase | Stays steady; each node waits its turn |
+| **Effect of one cable failure** | Backbone break stops **all** devices | Break in the loop stops **all** devices (unless dual ring) |
+| **Adding a device** | Easy — connect to the backbone | Disrupts the network — the ring must be opened |
+| **Cost / cable** | Least cable, cheapest | Little cable, no central device |
+:::
+
+:::warning Common mistakes about bus and ring
+- Saying a bus has "no single point of failure" because it has no central device — the **backbone** is the single point of failure.
+- Forgetting the **terminators** when you describe or draw a bus.
+- Writing that in a ring "data goes straight to the destination" — it passes **through each node** on the way.
+- Saying ring networks are slow because of collisions — token passing means rings have **no collisions**.
+:::
+
+# Star and mesh topologies
+@lo 11.6.1.5
+
+The star is the topology you will find in almost every school, office and home network today, and the mesh is the topology that keeps the Internet and banking systems running when links fail. Both are built with more cable or more links than a bus or ring, and both buy something important with that extra cost: a star buys **isolation of faults** and **easy expansion**, and a mesh buys **redundancy** — more than one route between devices.
+
+## Star topology
+
+In a **star topology** every device has its **own cable** to a **central device**, normally a **switch** (in older networks a **hub**). The devices are not connected to each other directly: all data goes from the sender to the central device, and from there to the receiver.
+
+:::definition Star topology
+A topology in which **each node** is connected by its **own cable** to a **central device** (switch or hub), and all data between nodes passes through that central device.
+:::
+
+### Switch or hub?
+
+The central device makes a big difference to how a star performs.
+
+- A **hub** is a simple device that receives a signal on one port and **copies it to every other port**. Every computer therefore receives every message, as on a bus; the hub cannot tell where data should go. Collisions can happen and security is low.
+- A **switch** is an intelligent device. It reads the **destination MAC address** of every frame and keeps a table of which device is connected to which port, so it sends the data **only to the port of the destination**. Several pairs of devices can communicate at the same time, there are no collisions between them, and other computers never see data that is not for them.
+
+That is why modern star networks use switches: they are **faster** and **more secure** than hubs. A switch costs more than a hub, but switches are now cheap enough to be used in homes.
+
+:::svg Star topology: every device has its own cable to the central switch
+<svg class="cn4" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Star topology. A switch sits in the centre. Six devices — five computers and a printer — each have their own cable to the switch. The cable to PC5 has a red cross: only PC5 loses its connection while the others keep working. A note says that if the switch itself fails, all devices lose the network.">
+  <style>
+    svg.cn4 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .nd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn4 .ct{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn4 .sw{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.cn4 .ln{stroke:var(--muted);stroke-width:2.5}
+    svg.cn4 .x{stroke:var(--danger);stroke-width:3}
+    svg.cn4 .wn{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.5}
+  </style>
+  <text class="h" x="380" y="24" text-anchor="middle">Star: a failed cable affects only one device</text>
+  <g>
+    <line class="ln" x1="300" y1="170" x2="150" y2="70"/>
+    <line class="ln" x1="300" y1="170" x2="300" y2="62"/>
+    <line class="ln" x1="300" y1="170" x2="450" y2="70"/>
+    <line class="ln" x1="300" y1="170" x2="150" y2="270"/>
+    <line class="ln" x1="300" y1="170" x2="300" y2="280"/>
+    <line class="ln" x1="300" y1="170" x2="450" y2="270"/>
+  </g>
+  <rect class="sw" x="255" y="150" width="90" height="40" rx="6"/><text class="t" x="300" y="175" text-anchor="middle">Switch</text>
+  <rect class="nd" x="115" y="45" width="70" height="32" rx="5"/><text class="t" x="150" y="66" text-anchor="middle">PC1</text>
+  <rect class="nd" x="265" y="38" width="70" height="32" rx="5"/><text class="t" x="300" y="59" text-anchor="middle">PC2</text>
+  <rect class="nd" x="415" y="45" width="70" height="32" rx="5"/><text class="t" x="450" y="66" text-anchor="middle">PC3</text>
+  <rect class="nd" x="115" y="262" width="70" height="32" rx="5"/><text class="t" x="150" y="283" text-anchor="middle">PC4</text>
+  <rect class="nd" x="265" y="272" width="70" height="32" rx="5"/><text class="t" x="300" y="293" text-anchor="middle">PC5</text>
+  <rect class="ct" x="410" y="262" width="80" height="32" rx="5"/><text class="t" x="450" y="283" text-anchor="middle">Printer</text>
+  <line class="x" x1="290" y1="222" x2="310" y2="242"/><line class="x" x1="310" y1="222" x2="290" y2="242"/>
+  <rect class="ct" x="520" y="90" width="225" height="70" rx="6"/>
+  <text class="t" x="532" y="115">Cable to PC5 cut:</text>
+  <text class="t" x="532" y="138">only PC5 is offline.</text>
+  <rect class="wn" x="520" y="185" width="225" height="70" rx="6"/>
+  <text class="t" x="532" y="210">Switch fails:</text>
+  <text class="t" x="532" y="233">every device is offline.</text>
+</svg>
+:::
+
+### Advantages of a star
+
+- **A failed cable or device affects only that device.** Each node has its own cable, so if one cable is cut or one computer breaks, the rest of the network carries on working. In a school this means one broken PC does not stop a whole lesson.
+- **Easy to add or remove devices.** A new computer is plugged into a free port on the switch **without disrupting** the other users.
+- **Fast and few collisions** (with a switch). The switch sends data only to the destination and lets several conversations happen at once, so performance stays good even with many users.
+- **More secure** (with a switch). Data goes only to the device it is addressed to, so other users cannot easily read it.
+- **Easy to find faults.** The switch shows a light for each port; a device with no light has a cable or card problem, so the technician knows exactly where to look.
+
+### Disadvantages of a star
+
+- **The central switch is a single point of failure.** If the switch fails or loses power, **every** device connected to it loses the network. Organisations reduce this risk with a backup switch or an uninterruptible power supply.
+- **More cable** than a bus or ring: every device needs its own cable all the way back to the switch, which costs money and takes time to install, especially in a large building.
+- **Extra hardware cost**: the switch must be bought, and the number of devices is limited by the number of **ports** on it (more switches must be added for more devices).
+
+## Mesh topology
+
+In a **mesh topology** devices are connected to **several** other devices, so there is **more than one route** between them. If one link fails, data can travel by another route.
+
+:::definition Mesh topology
+A topology in which each node is connected to **many (partial mesh)** or **all (full mesh)** other nodes, so data can take **more than one route** between two nodes.
+:::
+
+### Full mesh and partial mesh
+
+In a **full mesh** every node has a direct link to **every other node**. The number of links grows very quickly: with **n** nodes a full mesh needs
+
+$$\frac{n(n-1)}{2}$$ | links in a full mesh of n nodes
+
+links. Four nodes need 4 × 3 ÷ 2 = **6** links; five nodes need 5 × 4 ÷ 2 = **10**; ten nodes need 10 × 9 ÷ 2 = **45**; and 50 nodes would need **1225**. Each node also needs n − 1 network connections. This is why a full mesh is only used for a **small number of very important nodes**, such as the core routers of a bank or a data centre.
+
+In a **partial mesh** only some nodes have several links — usually the important ones — while others have only one or two. A partial mesh gives most of the reliability of a full mesh at much lower cost. The **Internet** is the best example: it is a huge partial mesh of **routers**. Each router is joined to several others, and when a link or router fails, the routers **find another path** and send packets around the fault.
+
+### Routing and redundancy
+
+Because there are several paths, data in a mesh must be **routed**: each node (usually a router) decides which link to send data on next. If a link is broken or busy, the data is sent another way. This spare capacity is called **redundancy** — extra links that are not strictly needed while everything works, but that keep the network running when something fails. Redundancy is exactly what a bank, a hospital or an air-traffic control system needs, because even a few minutes of network failure can stop payments or put people in danger.
+
+:::definition Redundancy
+Extra links or devices that provide **alternative routes**, so that the network **keeps working** when one link or device fails.
+:::
+
+### Wireless mesh
+
+A mesh does not always need cables. In a **wireless mesh** several wireless access points (often sold as "mesh Wi-Fi" for homes) talk to **each other by radio**. Only one of them needs to be connected to the Internet; the others pass data between themselves to cover the whole building. If one access point is switched off, the others find a new path. Wireless mesh networks are also used in cities, at large events and after disasters, because they can be set up without laying any cable.
+
+:::svg Full mesh and partial mesh
+<svg class="cn4" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two diagrams side by side. Left: a full mesh of five routers, every router joined to every other router by a line, ten links in total. Right: a partial mesh of six routers where only some routers are joined to several others. One link in the partial mesh is broken, shown with a red cross, and a green dashed path shows data being rerouted around the break.">
+  <style>
+    svg.cn4 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .nd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn4 .ln{stroke:var(--muted);stroke-width:2}
+    svg.cn4 .x{stroke:var(--danger);stroke-width:3}
+    svg.cn4 .rr{stroke:var(--success);stroke-width:3;fill:none;stroke-dasharray:7 5}
+  </style>
+  <text class="h" x="190" y="26" text-anchor="middle">Full mesh: 5 nodes, 10 links</text>
+  <text class="h" x="570" y="26" text-anchor="middle">Partial mesh: data rerouted</text>
+  <g>
+    <line class="ln" x1="190" y1="70" x2="300" y2="150"/><line class="ln" x1="190" y1="70" x2="260" y2="260"/>
+    <line class="ln" x1="190" y1="70" x2="120" y2="260"/><line class="ln" x1="190" y1="70" x2="80" y2="150"/>
+    <line class="ln" x1="300" y1="150" x2="260" y2="260"/><line class="ln" x1="300" y1="150" x2="120" y2="260"/>
+    <line class="ln" x1="300" y1="150" x2="80" y2="150"/><line class="ln" x1="260" y1="260" x2="120" y2="260"/>
+    <line class="ln" x1="260" y1="260" x2="80" y2="150"/><line class="ln" x1="120" y1="260" x2="80" y2="150"/>
+    <circle class="nd" cx="190" cy="70" r="20"/><text class="t" x="190" y="75" text-anchor="middle">R1</text>
+    <circle class="nd" cx="300" cy="150" r="20"/><text class="t" x="300" y="155" text-anchor="middle">R2</text>
+    <circle class="nd" cx="260" cy="260" r="20"/><text class="t" x="260" y="265" text-anchor="middle">R3</text>
+    <circle class="nd" cx="120" cy="260" r="20"/><text class="t" x="120" y="265" text-anchor="middle">R4</text>
+    <circle class="nd" cx="80" cy="150" r="20"/><text class="t" x="80" y="155" text-anchor="middle">R5</text>
+  </g>
+  <g>
+    <line class="ln" x1="440" y1="100" x2="570" y2="80"/><line class="ln" x1="570" y1="80" x2="700" y2="110"/>
+    <line class="ln" x1="440" y1="100" x2="500" y2="230"/><line class="ln" x1="570" y1="80" x2="640" y2="240"/>
+    <line class="ln" x1="500" y1="230" x2="640" y2="240"/><line class="ln" x1="700" y1="110" x2="640" y2="240"/>
+    <line class="ln" x1="570" y1="80" x2="500" y2="230"/>
+    <line class="x" x1="597" y1="152" x2="613" y2="170"/><line class="x" x1="613" y1="152" x2="597" y2="170"/>
+    <path class="rr" d="M570 102 L510 212 L620 238"/>
+    <circle class="nd" cx="440" cy="100" r="20"/><text class="t" x="440" y="105" text-anchor="middle">A</text>
+    <circle class="nd" cx="570" cy="80" r="20"/><text class="t" x="570" y="85" text-anchor="middle">B</text>
+    <circle class="nd" cx="700" cy="110" r="20"/><text class="t" x="700" y="115" text-anchor="middle">C</text>
+    <circle class="nd" cx="500" cy="230" r="20"/><text class="t" x="500" y="235" text-anchor="middle">D</text>
+    <circle class="nd" cx="640" cy="240" r="20"/><text class="t" x="640" y="245" text-anchor="middle">E</text>
+    <text class="s" x="570" y="285" text-anchor="middle">link B–E broken: data B → D → E instead</text>
+  </g>
+</svg>
+:::
+
+### Advantages of a mesh
+
+- **Very reliable — no single point of failure.** If one link or node fails, data takes another route, so the network keeps working. This is the main reason a mesh is chosen.
+- **Can carry a lot of traffic.** Traffic is spread over many links, and in a full mesh two nodes have their own dedicated link, so there is less congestion.
+- **Data can be rerouted** around busy or broken links, and dedicated links between nodes can make it harder for others to intercept data.
+
+### Disadvantages of a mesh
+
+- **Very expensive.** A full mesh needs n(n − 1)/2 links and many network connections on every node; for a large network the cable and hardware cost is enormous.
+- **Complex to set up and manage.** Routing must be configured, and the many links must be installed, labelled and maintained.
+- **Much redundant cabling**: most links are idle most of the time; they are paid for "just in case".
+
+:::compare Star vs mesh
+| | Star | Mesh |
+|---|---|---|
+| **Layout** | Every node has its own cable to a **central switch** | Nodes joined to **many** or **all** other nodes |
+| **Routes between two nodes** | One route, always through the switch | **Several** routes |
+| **Single point of failure** | **Yes — the central switch** | **No** — data is rerouted |
+| **Effect of one cable failure** | Only that device is affected | Nothing visible — another route is used |
+| **Cable and cost** | More than bus, but moderate | **Highest** — n(n−1)/2 links for full mesh |
+| **Setting up and managing** | Simple; faults easy to find | **Complex**; routing must be managed |
+| **Typical use** | School, office and home LANs | Internet routers, bank and data-centre cores, wireless mesh |
+:::
+
+:::example Counting links in a full mesh
+A bank in Kazakhstan wants its **6 regional data centres** (Astana, Almaty, Shymkent, Aktobe, Karaganda, Kyzylorda) joined in a **full mesh**.
+- Each centre must be linked to the other 6 − 1 = **5** centres.
+- Each link joins two centres, so we must not count it twice: links = 6 × 5 ÷ 2 = **15**.
+- If the bank later adds a 7th centre, it needs 6 **more** links (7 × 6 ÷ 2 = 21 in total).
+- Conclusion: a full mesh gives the bank no single point of failure, but the number of leased lines grows quickly, which is why a bank with 200 branches uses a **partial mesh** for its core and **star** links to the branches.
+:::
+
+# Mixed topologies and choosing a topology
+@lo 11.6.1.5
+
+Real networks are rarely a single pure topology. A school, a hospital or a company has several rooms, floors or buildings, and each part may need something different. The network designer therefore **combines** topologies so that each part of the network gets the strengths it needs. Knowing the advantages and disadvantages of every topology is what allows you to justify such a design in an exam answer.
+
+## Mixed (hybrid) topology
+
+:::definition Mixed (hybrid) topology
+A network that **combines two or more different topologies**, for example several **star** networks joined together by a **bus** or **mesh** backbone.
+:::
+
+Common mixed layouts are:
+
+- **Star-bus.** Each room or floor has its own **star** network around a switch, and the switches are connected to **one backbone cable**. This was common in older office buildings.
+- **Tree (star of stars, hierarchical star).** A **core switch** in the server room is connected to a switch on each floor or in each building, and each of those switches is the centre of a star of computers. This is how most school and university networks are built today. It looks like a tree turned upside down: the core switch is the root, floor switches are the branches and computers are the leaves.
+- **Star-mesh.** The most important devices — the core switches or routers — are connected in a **mesh** for reliability, and ordinary computers are connected in **stars** to the nearest switch. Banks, hospitals and Internet service providers use this design.
+
+:::svg A mixed topology: stars in each building joined by a backbone
+<svg class="cn4" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mixed topology for a school with three buildings. In the centre is a core switch in the server room, connected to a file server. Fibre backbone links join the core switch to a switch in each of three buildings: main building, science block and sports hall. Each building switch is the centre of a small star of computers. Two of the building switches also have a link to each other, giving a second route.">
+  <style>
+    svg.cn4 .t{font:13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .s{font:12px system-ui,sans-serif;fill:var(--muted)}
+    svg.cn4 .h{font:700 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.cn4 .nd{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.cn4 .sw{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.cn4 .ct{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.cn4 .ln{stroke:var(--muted);stroke-width:2}
+    svg.cn4 .fb{stroke:var(--primary);stroke-width:4}
+    svg.cn4 .rd{stroke:var(--warning);stroke-width:3;stroke-dasharray:8 5}
+  </style>
+  <text class="h" x="380" y="24" text-anchor="middle">School network: star in each building + fibre backbone</text>
+  <line class="fb" x1="380" y1="90" x2="130" y2="190"/>
+  <line class="fb" x1="380" y1="90" x2="380" y2="190"/>
+  <line class="fb" x1="380" y1="90" x2="630" y2="190"/>
+  <line class="rd" x1="160" y1="205" x2="350" y2="205"/>
+  <line class="ln" x1="430" y1="70" x2="520" y2="70"/>
+  <rect class="sw" x="320" y="50" width="120" height="40" rx="6"/><text class="t" x="380" y="75" text-anchor="middle">Core switch</text>
+  <rect class="ct" x="520" y="52" width="100" height="36" rx="6"/><text class="t" x="570" y="75" text-anchor="middle">File server</text>
+  <g>
+    <rect class="sw" x="90" y="190" width="80" height="32" rx="6"/><text class="t" x="130" y="211" text-anchor="middle">Switch</text>
+    <line class="ln" x1="130" y1="222" x2="60" y2="270"/><line class="ln" x1="130" y1="222" x2="130" y2="270"/><line class="ln" x1="130" y1="222" x2="200" y2="270"/>
+    <rect class="nd" x="35" y="270" width="50" height="26" rx="4"/><rect class="nd" x="105" y="270" width="50" height="26" rx="4"/><rect class="nd" x="175" y="270" width="50" height="26" rx="4"/>
+    <text class="s" x="130" y="314" text-anchor="middle">Main building</text>
+  </g>
+  <g>
+    <rect class="sw" x="340" y="190" width="80" height="32" rx="6"/><text class="t" x="380" y="211" text-anchor="middle">Switch</text>
+    <line class="ln" x1="380" y1="222" x2="310" y2="270"/><line class="ln" x1="380" y1="222" x2="380" y2="270"/><line class="ln" x1="380" y1="222" x2="450" y2="270"/>
+    <rect class="nd" x="285" y="270" width="50" height="26" rx="4"/><rect class="nd" x="355" y="270" width="50" height="26" rx="4"/><rect class="nd" x="425" y="270" width="50" height="26" rx="4"/>
+    <text class="s" x="380" y="314" text-anchor="middle">Science block</text>
+  </g>
+  <g>
+    <rect class="sw" x="590" y="190" width="80" height="32" rx="6"/><text class="t" x="630" y="211" text-anchor="middle">Switch</text>
+    <line class="ln" x1="630" y1="222" x2="560" y2="270"/><line class="ln" x1="630" y1="222" x2="630" y2="270"/><line class="ln" x1="630" y1="222" x2="700" y2="270"/>
+    <rect class="nd" x="535" y="270" width="50" height="26" rx="4"/><rect class="nd" x="605" y="270" width="50" height="26" rx="4"/><rect class="nd" x="675" y="270" width="50" height="26" rx="4"/>
+    <text class="s" x="630" y="314" text-anchor="middle">Sports hall</text>
+  </g>
+  <text class="s" x="230" y="135">fibre backbone</text>
+  <text class="s" x="255" y="198" text-anchor="middle">spare link (mesh)</text>
+</svg>
+:::
+
+### Advantages and disadvantages of a mixed topology
+
+The main advantage is **flexibility**: each part of the network can use the topology that suits it best. Computers in classrooms get the fault isolation and easy expansion of a **star**, while the links between buildings can be made reliable with a **mesh** or kept cheap with a single **backbone**. A mixed network is also easy to **expand** — a new building gets its own switch and one link to the core, without changing anything else — and a fault in one star affects only that part of the network.
+
+The disadvantages are **complexity** and **cost of design**: a mixed network must be planned carefully, documented and managed by skilled staff, and faults can be harder to trace because they may be in any of several parts. If the **backbone** or the **core switch** fails and there is no spare link, **several parts** of the network are cut off at once.
+
+## Comparing all the topologies
+
+:::compare The topologies compared
+| | Bus | Ring | Star | Mesh | Mixed |
+|---|---|---|---|---|---|
+| **Cost to install** | **Lowest** | Low | Medium (switch + cables) | **Highest** | Medium–high |
+| **Amount of cable** | Least | Little | More — one cable per device | Most | Depends on design |
+| **Reliability** | Backbone failure stops all | One break stops all (single ring) | Only the **switch** stops all | **Very high** — no single point of failure | Good if the backbone has spare links |
+| **Performance with many users** | Poor — collisions | Steady — token, no collisions | **Good** with a switch | **Very good** — many routes | Good |
+| **Adding devices** | Easy, but slows the network | Disrupts the ring | **Easy** — plug into the switch | Hard — many new links | Easy — add a star |
+| **Fault finding** | Hard | Hard | **Easy** — one cable per port | Complex | Medium |
+| **Security** | Low — data broadcast to all | Data passes through other nodes | **Good** with a switch | Good — direct links | Depends on the parts |
+:::
+
+## How to justify a choice of topology
+
+Exam questions often give a scenario and ask you to **recommend** or **justify** a topology. A good answer follows three steps:
+
+:::steps How to justify a topology for a scenario
+- **Read the requirements** in the scenario: how many devices, how far apart, how important is it that the network never stops, how much money is available, will more devices be added later?
+- **Choose the topology** whose advantages match the most important requirement: never-stop → mesh; many users and easy expansion → star; several buildings → mixed; tiny temporary network on a low budget → bus.
+- **Explain each point with a reason linked to the scenario**: not just "a star is reliable" but "if one PC's cable is damaged, only that PC loses its connection, so the rest of the class can continue the lesson".
+- **Mention a disadvantage and how it can be managed** if the question asks you to evaluate — for example "the switch is a single point of failure, so the school should keep a spare switch".
+:::
+
+:::example Recommending a topology for a new computer room
+**Scenario.** A school in Kyzylorda is opening a computer room with 28 student PCs, a teacher PC and a printer. More PCs may be added next year. The budget is limited, and lessons must not stop because of one faulty computer.
+1. Requirements: about 30 devices in one room; expansion planned; failure of one device must not stop the lesson; moderate budget.
+2. Bus: cheapest, but a backbone failure stops all 30 devices and collisions slow the network — **rejected**.
+3. Ring: no collisions, but one faulty PC breaks the loop and adding PCs disrupts the network — **rejected**.
+4. Mesh: very reliable, but a full mesh of 30 devices needs 30 × 29 ÷ 2 = **435** links — far too expensive — **rejected**.
+5. **Star with a switch** — **chosen**: each PC has its own cable, so a faulty PC or cable affects only that PC; new PCs are plugged into free switch ports next year without disturbing lessons; the switch sends data only to the destination, so the room stays fast.
+6. Risk: the switch is a single point of failure, so the school keeps a **spare switch** and connects the switch to a UPS.
+:::
+
+:::example Choosing topologies for different organisations
+- A **small school computer room** of 30 PCs → **star**: if one cable breaks only one PC is affected, and new PCs are easy to add.
+- A **bank's data centres** that must never go offline → **mesh** (full or partial): many routes, so one failed link does not stop card payments.
+- A **school or hospital with several buildings** → **mixed (tree / star-mesh)**: a star in each building, joined to a core switch by a fibre backbone, with a spare link between buildings for reliability.
+- A **few laptops set up for one day** at a science fair, with almost no budget → a simple layout with the least cable, such as a **bus** (today usually just a small switch, which is a star).
+:::
+
+:::warning Common mistakes when choosing a topology
+- Giving advantages that are **not linked to the scenario** — the mark scheme usually needs the reason **applied** to the organisation.
+- Recommending a **full mesh** for a large number of ordinary PCs — the number of links n(n−1)/2 makes it unrealistic.
+- Saying a star has **no** single point of failure — the central **switch** is one.
+- Writing the same point twice: "a star is easy to add devices to" and "a bus is hard to add devices to" in an advantages-of-star answer count as one idea.
+:::
+
+# Exam practice: network topologies
+@lo 11.6.1.5
+
+:::example Exam-style questions with model answers
+**Q: Describe a bus topology. [2]**
+All devices are connected to **one main cable / backbone** (1); there is a **terminator** at each end / data sent is received by **every** device on the backbone (1).
+
+**Q: Explain one advantage and one disadvantage of a ring topology. [4]**
+Advantage: **no collisions** (1) because only the device holding the **token** can send data (1). Disadvantage: if **one cable or device fails** the **whole network stops** (1) because data travels round the loop **through every device** and the loop is broken (1).
+
+**Q: A school connects every PC in a classroom to a switch. Explain two advantages of this topology for the school. [4]**
+If one PC or its cable fails, **only that PC** is affected (1), so the rest of the class can continue working (1). New PCs can be **added easily** by plugging them into the switch (1) **without disrupting** the other users (1). / The switch sends data **only to the destination** (1), so the network is faster / more secure (1).
+
+**Q: Calculate the number of links needed to connect 8 routers in a full mesh. Show your working. [2]**
+n(n − 1) ÷ 2 = 8 × 7 ÷ 2 (1) = **28 links** (1).
+
+**Q: A bank needs a network between its main offices that keeps working if a link fails. Justify the choice of a mesh topology. [3]**
+In a mesh, each office is connected to **several** others, so there is **more than one route** (1); if one link fails, data is **rerouted** along another link (1), so there is **no single point of failure** and transactions are not interrupted (1).
+
+**Q: Compare a star topology and a mesh topology. [4]**
+A star connects every device to a **central switch**, whereas a mesh connects devices to **many other devices** (1). In a star the **switch is a single point of failure**, whereas a mesh has **no single point of failure** (1). A star needs **less cable** and is **cheaper**, whereas a mesh is **expensive** because of the many links (1). A star is **easy to set up and manage**, whereas a mesh is **complex** (1).
+:::
+
+:::warning Common mistakes in exam answers
+- Describing a topology by drawing it only, without words, when the question says **describe**.
+- Giving a disadvantage that is just the **opposite** of an advantage you already gave.
+- In "compare" questions, writing about only **one** topology — each point must mention **both** (use "whereas").
+- Saying a bus is slow "because the cable is long" — it is slow because of **collisions** on the shared cable.
+- Forgetting to divide by 2 in n(n − 1)/2.
+:::
+
+:::steps Check yourself
+- Define topology and node.
+- Draw a bus with terminators and explain what happens when two devices send at once.
+- Explain how token passing prevents collisions in a ring.
+- Explain why a star with a switch is faster and more secure than a star with a hub.
+- State what happens in a star when (a) one cable fails (b) the switch fails.
+- Calculate the links in a full mesh of 7 nodes.
+- Give two advantages and two disadvantages of a mesh.
+- Describe a mixed (tree) topology for a school with three buildings and justify it.
+:::
+
