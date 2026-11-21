@@ -1,0 +1,90 @@
+{
+  "topic": "g11-domain-name-system",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "IP address",
+      "must": "Definition of an IP address (unique numerical address that identifies a device and lets data be routed to it) with an IPv4 example and the bit length of IPv4 and IPv6.",
+      "weight": 2,
+      "model": "IP address = a unique numerical address given to every device on a network that uses the Internet Protocol; it identifies the device and lets packets be routed to it. IPv4: 32 bits, e.g. 185.22.66.10. IPv6: 128 bits, e.g. 2001:db8::10."
+    },
+    {
+      "title": "Domain name",
+      "must": "Definition of a domain name as an easy-to-remember text name that stands for the IP address of a server, with examples.",
+      "weight": 3,
+      "model": "Domain name = an easy-to-remember text name that identifies a server on the Internet and stands for its IP address, e.g. nis.edu.kz, egov.kz, google.com."
+    },
+    {
+      "title": "DNS and name resolution",
+      "must": "Definition of DNS in exam wording: distributed, hierarchical system of servers that translates domain names into IP addresses; the term name resolution.",
+      "weight": 3,
+      "model": "DNS (Domain Name System) = a distributed, hierarchical system of servers that translates (resolves) domain names into IP addresses, so people use names while computers use numbers. The translation is called name resolution."
+    },
+    {
+      "title": "Purpose of DNS",
+      "must": "At least four benefits: names easy to remember; name stays the same when the IP changes; one name can lead to many servers (load balancing); one server can host many names; also finds mail servers.",
+      "weight": 3,
+      "model": "1) Names are easier to remember than numbers. 2) If a site moves to a new server only the DNS record changes — users keep the same name and bookmarks. 3) One name can point to several IP addresses (load balancing, nearest server). 4) One server IP can host many domain names. 5) DNS also finds other services, e.g. the mail server (MX)."
+    },
+    {
+      "title": "Relationship between IP address and domain name",
+      "must": "One-sentence relationship (name is a label that DNS links to the numerical identifier) plus the cases one name → many IPs, many names → one IP, IPv4 + IPv6.",
+      "weight": 3,
+      "model": "The domain name is a text label that DNS converts into the IP address (numerical identifier) of the server. Not always one-to-one: google.com → many IP addresses; one hosting IP → school1.kz, myblog.kz…; one name can have an IPv4 (A) and an IPv6 (AAAA) address; the owner can change the IP behind a name."
+    },
+    {
+      "title": "IP address vs domain name table",
+      "must": "Comparison: what it is, who uses it, easy to remember or not, whether it changes, whether it is needed for communication.",
+      "weight": 1,
+      "model": "IP address: number, used by routers/computers, hard to remember, changes when the server changes, needed in every packet. Domain name: text, used by people, easy to remember, usually stays the same, not needed — a site can be opened by IP alone."
+    },
+    {
+      "title": "Why DNS is distributed",
+      "must": "The old central HOSTS file and its problems; at least three advantages of a distributed DNS (scale, no single point of failure, speed, local control).",
+      "weight": 2,
+      "model": "Before 1983 one central HOSTS file listed every name — too big, always out of date, one office for every change. DNS splits the database over millions of servers: it can store hundreds of millions of names (scale); no single point of failure (at least two name servers per domain); resolvers near users and caching make it fast; each organisation manages its own records."
+    },
+    {
+      "title": "Reading a domain name and its levels",
+      "must": "Labels separated by dots, read right to left from general to specific, invisible root; levels of www.sk.nis.edu.kz named (root, TLD kz, second edu, third nis, fourth sk, host www).",
+      "weight": 3,
+      "model": "A domain name is made of labels separated by dots, read from right to left (general → specific); the root is an invisible dot at the end. www.sk.nis.edu.kz: root '.' → kz = top-level (1st) → edu = second level → nis = third level → sk = fourth level (subdomain) → www = host name (web server)."
+    },
+    {
+      "title": "TLD, second-level domain, subdomain",
+      "must": "Definitions of top-level domain, second-level domain and subdomain with examples; note that the level comes from counting labels, not from meaning (google.com vs nis.edu.kz).",
+      "weight": 3,
+      "model": "TLD = last (right-most) part of a domain name, below the root: .kz, .com, .org. Second-level domain = the label directly left of the TLD: edu in nis.edu.kz, google in google.com. Subdomain = a domain inside a larger domain, written to its left, e.g. sk.nis.edu.kz; the owner creates it without registering again."
+    },
+    {
+      "title": "Types of TLD",
+      "must": "Generic TLDs and country-code TLDs with examples and the difference; new gTLDs; IDN such as .қаз.",
+      "weight": 2,
+      "model": "gTLD (generic) shows the type of organisation: .com, .org, .net, .edu, .gov, .info; new gTLDs since 2013: .app, .shop, .online. ccTLD (country code) has two letters and shows a country: .kz, .ru, .uk, .de, .jp. IDN = non-Latin names, e.g. Kazakhstan's Cyrillic .қаз."
+    },
+    {
+      "title": "Who manages domain names",
+      "must": "Roles of ICANN, the registry (KazNIC for .kz), the registrar, the owner (registration for a period, renewal, choosing name servers).",
+      "weight": 2,
+      "model": "ICANN coordinates the whole system and manages the root zone. Registry keeps the list of all names in one TLD and runs its servers (.kz/.қаз: KazNIC). Registrar = company that sells names to customers. The owner registers a unique name for a period (usually 1 year), must renew it, and chooses the name servers that hold its records."
+    },
+    {
+      "title": "Zones, delegation and authoritative server",
+      "must": "Zone = part of the tree managed by one organisation; delegation (TLD stores only a pointer to the domain's name servers); definition of an authoritative name server.",
+      "weight": 2,
+      "model": "Zone = the part of the domain tree that one organisation manages (root zone, kz zone, nis.edu.kz zone). Delegation: the kz zone does not store www.nis.edu.kz, only 'for nis.edu.kz ask ns1.nis.edu.kz'. Authoritative name server = a DNS server that holds the official records for a domain and gives the final answer."
+    },
+    {
+      "title": "The four types of DNS server",
+      "must": "Resolver, root, TLD, authoritative servers: where each is and what each stores / answers.",
+      "weight": 3,
+      "model": "Resolver (recursive server, ISP or school, e.g. 8.8.8.8): receives the request from the user's computer, does all the searching, caches answers. Root servers (13 named identities, >1000 copies): know the servers of every TLD, answer with a referral. TLD servers (e.g. .kz by KazNIC): know the name servers of every domain in the TLD, answer with a referral. Authoritative servers: hold the real records (A, MX…), give the final IP address."
+    },
+    {
+      "title": "Who knows what — example",
+      "must": "The worked example for www.nis.edu.kz: root refers to .kz, .kz refers to ns1.nis.edu.kz, authoritative server returns 185.22.66.10; no server stores everything.",
+      "weight": 1,
+      "model": "Root: 'ends in .kz — ask the .kz servers'. .kz server: 'nis.edu.kz is delegated — ask ns1.nis.edu.kz'. ns1.nis.edu.kz: 'www → 185.22.66.10'. Each level only knows where the next level is, so no server must store the whole Internet."
+    }
+  ]
+}

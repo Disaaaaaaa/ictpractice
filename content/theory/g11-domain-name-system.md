@@ -1,205 +1,669 @@
 ---
-summary: Why the Domain Name System is needed, the relationship between domain names and IP addresses, the hierarchy of domain names and DNS servers, how a domain name is resolved step by step (with caching), common DNS records and risks, and the structure of a URL.
+summary: Why the Internet needs the Domain Name System, how IP addresses and domain names are related, how domain names are organised into levels and zones, which DNS servers exist and who manages them, how a name is resolved step by step with caching, the main DNS records and risks, and the structure and parts of a URL.
 ---
-# Why we need DNS
+# Why the Internet needs names
 @lo 11.6.2.4
 
-Every device on the Internet is identified by an **IP address** such as `185.22.66.10`. Computers use these numbers to send data, but people find them **hard to remember**. Instead we type **domain names** such as `nis.edu.kz`.
+Every device that sends or receives data on the Internet — a web server, a laptop, a phone, a smart TV — is identified by an **IP address**. An IPv4 address is a 32-bit number written as four decimal numbers separated by dots, for example `185.22.66.10`; an IPv6 address is a 128-bit number written in hexadecimal, for example `2001:db8:85a3::8a2e:370:7334`. Routers use these numbers to decide where each packet goes, in the same way that a postal service uses a postcode and a house number. Computers are very good at working with numbers like this, but people are not. Nobody wants to remember that the school website is at `185.22.66.10`, the online diary is at `91.201.214.5` and a video site is at `142.250.74.46`.
+
+To solve this problem, the Internet gives servers **names** as well as numbers. We type `nis.edu.kz` or `google.com` into the browser, and somewhere in the background the name is changed into the IP address that the computer actually needs. The system that does this translation for the whole Internet is the **Domain Name System (DNS)**.
+
+:::definition IP address
+A **unique numerical address** given to every device on a network that uses the Internet Protocol. It **identifies the device** and lets data be **routed** to it (IPv4: 32 bits, e.g. 185.22.66.10; IPv6: 128 bits).
+:::
 
 :::definition Domain name
-An **easy-to-remember text name** that represents the **IP address** of a server (or group of servers), e.g. `nis.edu.kz`, `google.com`.
+An **easy-to-remember text name** that identifies a server (or a group of servers) on the Internet and **stands for its IP address**, e.g. `nis.edu.kz`, `egov.kz`, `google.com`.
 :::
 
 :::definition Domain Name System (DNS)
-A **distributed, hierarchical** system of **servers** that **translates domain names into IP addresses** (this is called **name resolution**), so that people can use names while computers use numbers.
+A **distributed, hierarchical** system of **servers** (a database spread across many computers) that **translates domain names into IP addresses**, so that people can use names while computers use numbers. The translation is called **name resolution**.
 :::
 
-:::cards
-### Relationship between IP address and domain name
-- The IP address is the **numerical identifier** behind the domain name.
-- One domain name can point to **several** IP addresses (large sites use many servers), and one server IP can host **many** domain names.
-- If a website moves to a new server, only the **DNS record** changes — users keep typing the same name.
-### Why DNS is distributed
-- No single server could store **billions** of names or answer every request.
-- Data is spread across **millions** of servers worldwide, so the system is **fast** and has **no single point of failure**.
-- Each organisation manages the records for **its own** domain.
+## The purpose of DNS
+
+The main purpose of DNS is **name resolution**: when a program is given a domain name, DNS finds the matching IP address. This one job brings several important benefits, and an exam answer that "describes the purpose of DNS" should mention more than just "it changes names into numbers".
+
+1. **Names are easier to remember than numbers.** People can remember `kaspi.kz` after seeing it once. A meaningful name also tells the user something about the site — the organisation, the country, the type of service.
+2. **Names stay the same when numbers change.** A company may move its website to a new hosting provider, or a school may replace its server. The new server has a new IP address, but the organisation simply **updates the DNS record**. Users keep typing the same name, bookmarks still work and links in old e-mails still work. Without DNS, every move would mean telling every user a new number.
+3. **One name can lead to many servers.** Large services such as YouTube or a national e-government portal cannot run on one computer. DNS can return **different IP addresses** for the same name, sending users to the nearest or least busy server (this is called **load balancing**).
+4. **One server can host many names.** A small hosting company may run hundreds of websites on one physical server with one IP address. Each site has its own domain name; the web server looks at the name in the request to decide which site to show.
+5. **DNS finds other services, not only websites.** The same system tells an e-mail server where to deliver mail for `@nis.edu.kz` (an MX record), and tells other computers which servers are responsible for a domain.
+
+:::svg DNS translates a name that people remember into a number that routers use
+<svg class="dn" viewBox="0 0 760 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A student types nis.edu.kz into a browser, the DNS server answers with the IP address 185.22.66.10, and the browser then connects to the web server at that address">
+  <style>
+    svg.dn .t{font:600 15px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .box{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dn .srv{fill:var(--surface-2);stroke:var(--border);stroke-width:2}
+    svg.dn .ar{stroke:var(--foreground);stroke-width:2;fill:none}
+    svg.dn .ar2{stroke:var(--success);stroke-width:2;fill:none}
+  </style>
+  <rect class="box" x="20" y="80" width="170" height="80" rx="10"/>
+  <text class="t" x="105" y="112" text-anchor="middle">Student's browser</text>
+  <text class="s" x="105" y="136" text-anchor="middle">types nis.edu.kz</text>
+  <rect class="srv" x="300" y="20" width="170" height="80" rx="10"/>
+  <text class="t" x="385" y="52" text-anchor="middle">DNS server</text>
+  <text class="s" x="385" y="76" text-anchor="middle">name → IP address</text>
+  <rect class="ok" x="560" y="140" width="180" height="80" rx="10"/>
+  <text class="t" x="650" y="172" text-anchor="middle">Web server</text>
+  <text class="s" x="650" y="196" text-anchor="middle">185.22.66.10</text>
+  <path class="ar" d="M190 100 L292 62 M282 60 L292 62 L286 71"/>
+  <text class="s" x="150" y="58">1 "IP of nis.edu.kz?"</text>
+  <path class="ar2" d="M300 88 L198 124 M208 125 L198 124 L204 115"/>
+  <text class="s" x="230" y="140">2 "185.22.66.10"</text>
+  <path class="ar" d="M190 150 L552 180 M543 175 L552 180 L543 186"/>
+  <text class="s" x="200" y="240">3 request the page from 185.22.66.10 (HTTP/HTTPS)</text>
+</svg>
 :::
 
-:::example IP address vs domain name
-| Domain name | Example IP address |
-|---|---|
-| `nis.edu.kz` | 185.22.66.10 (example) |
-| `google.com` | 142.250.74.46 |
-| `localhost` | 127.0.0.1 (your own computer) |
+## The relationship between an IP address and a domain name
+
+The domain name and the IP address are two ways of identifying the **same server**. The IP address is the **real, numerical identifier** that is used for routing; the domain name is a **label for people** that DNS links to that number. It is helpful to compare this with a phone's contact list: you tap "Mum", but the phone actually dials a number. The contact list is the "DNS" of your phone.
+
+The relationship is **not always one-to-one**:
+
+- **One name → several IP addresses.** `google.com` has many addresses around the world; DNS may give a user in Almaty a different address from a user in London.
+- **Several names → one IP address.** A hosting server at one IP address may hold `school1.kz`, `bakery-astana.kz` and `myblog.kz`.
+- **One name → IPv4 and IPv6 addresses.** The same name can have a 32-bit (IPv4) and a 128-bit (IPv6) address at the same time.
+- **The link can change.** The owner can point the name at a new IP address at any time by changing the DNS record.
+
+:::compare IP address vs domain name
+| | IP address | Domain name |
+|---|---|---|
+| What it is | A number, e.g. `185.22.66.10` | Text, e.g. `nis.edu.kz` |
+| Used by | Computers and **routers** to deliver packets | **People** typing or reading addresses |
+| Easy to remember? | No — a string of digits | Yes — meaningful words |
+| Structure | Network part + host part (by bits) | Levels separated by dots, read right to left |
+| Can change? | Changes if the server or provider changes | Usually stays the same for years |
+| Needed for communication? | **Yes** — every packet needs one | No — a site can be reached by IP alone |
 :::
 
-# Organisation of domain names
+:::example Opening the school website by name and by number
+A student types `nis.edu.kz` into Chrome. DNS returns the address `185.22.66.10` (example value) and the page opens. The student then types `http://185.22.66.10` directly. On a simple server the same page may open, which shows that the **name was only a label for the number**. On a server that hosts many sites, typing the bare IP may show an error or a default page, because the web server uses the **name** in the request to choose which of its sites to send. This is why we say one IP address can serve several domain names.
+:::
+
+:::tip What the exam wants
+"Describe the relationship between an IP address and a domain name [1]" — a good one-line answer: **the domain name is a text name that DNS converts into the IP address (the numerical identifier) of the server**.
+:::
+
+## Why DNS is distributed
+
+In the early days of the Internet (the 1970s), every computer kept a single text file called **HOSTS** that listed every name and its address. A central office updated the file and everyone downloaded a new copy. This worked for a few hundred computers but broke down as the network grew: the file became huge, it was always out of date, and every new name had to go through one office. DNS was designed in 1983 to replace it, and its key idea is that the database is **distributed** — split into pieces that are stored on **millions of servers** around the world.
+
+Distribution brings clear advantages:
+
+- **Scale.** There are hundreds of millions of registered domain names and billions of look-ups every day. No single computer could store all the records or answer all the requests.
+- **No single point of failure.** If one DNS server breaks, others hold copies of the same data (every domain must have at least two name servers) and the system keeps working.
+- **Speed.** Resolvers are placed close to users (in the ISP or the school network), and answers are cached, so most look-ups are answered in a few milliseconds.
+- **Local control.** Each organisation manages the records for **its own** domain. NIS updates the records of `nis.edu.kz` without asking anyone else; Kaspi updates `kaspi.kz`.
+
+:::compare Central HOSTS file vs distributed DNS
+| | One central HOSTS file | Distributed DNS |
+|---|---|---|
+| Where the data is | One file copied to every computer | Split across millions of servers |
+| Updating a record | Wait for the central office and a new copy of the file | Owner changes its own server; change spreads within hours |
+| Size limit | File grows with every name on the Internet | Each server holds only its own part |
+| Failure | If the central office fails, no updates | Many copies; no single point of failure |
+| Suitable for | A small private network | The whole Internet |
+:::
+
+:::callout info The hosts file still exists
+Your computer still has a small `hosts` file (on Windows in `C:\Windows\System32\drivers\etc\hosts`). It is checked **before** DNS. A school technician can use it to block a site by pointing its name to `127.0.0.1` — and malware sometimes edits it to redirect users to fake sites.
+:::
+
+# How domain names are organised
 @lo 11.6.2.4
 
-Domain names are **hierarchical** and are read **from right to left**, from the most **general** level to the most **specific**, separated by dots.
+The second part of the objective is the **organisation** of DNS. Domain names are not just random words: every name has a fixed **structure**, and that structure matches the way the servers are organised. Understanding the structure lets you answer questions such as "state the top-level domain of …" or "state the second-level domain of …", which appear often in Paper 1.
 
-:::compare www.sk.nis.edu.kz
-| Part | Level | Meaning |
+## Levels of a domain name
+
+A domain name is made of **labels** separated by **dots**. Each label is one **level** of the hierarchy. The name is read **from right to left**: the label on the far right is the most **general** level, and each label to its left is more **specific**. At the very top, to the right of the last label, there is an invisible **root**, written as a single dot. The full name `www.nis.edu.kz.` really ends with that dot, although we never type it.
+
+:::definition Top-level domain (TLD)
+The **last (right-most) part** of a domain name, directly below the root, e.g. `.kz`, `.com`, `.org`. It shows the **country** or the **type of organisation**.
+:::
+
+:::definition Second-level domain
+The part of the name **directly to the left of the TLD**, e.g. `edu` in `nis.edu.kz` or `google` in `google.com`. It is usually the name of the **organisation** or, in some countries, a **category** (edu, gov, com).
+:::
+
+:::definition Subdomain
+Any domain that is **part of a larger domain** and is written to its left, e.g. `sk.nis.edu.kz` is a subdomain of `nis.edu.kz`. The owner of a domain can create subdomains **without registering** them again.
+:::
+
+:::compare The levels of www.sk.nis.edu.kz
+| Label | Level | Meaning |
 |---|---|---|
-| `kz` | **Top-level domain (TLD)** — 1st level | Country: Kazakhstan |
-| `edu` | **Second-level domain** | Education |
-| `nis` | Third level | The organisation (Nazarbayev Intellectual Schools) |
-| `sk` | Fourth level (subdomain) | A particular school of the network |
-| `www` | **Host name** | The web server |
+| (root) `.` | Root — level 0 | The top of the whole hierarchy |
+| `kz` | **Top-level domain (TLD)** — 1st level | Country code: Kazakhstan |
+| `edu` | **Second-level domain** | Category: education |
+| `nis` | Third-level domain | The organisation (Nazarbayev Intellectual Schools) |
+| `sk` | Fourth level (subdomain) | One school of the network |
+| `www` | **Host name** | The web server inside that domain |
 :::
 
-:::ascii The domain name hierarchy (a tree)
-                         . (root)
-          ┌───────────┬────┴─────┬───────────┐
-         com         org         kz          ru        ← top-level domains
-          │                  ┌────┴────┐
-        google              edu       gov              ← second level
-                             │
-                            nis                         ← third level
-                        ┌────┴────┐
-                        sk       ast                    ← subdomains
-                        │
-                       www                              ← host
+Notice that in `google.com` the second-level domain is `google` (the organisation), while in `nis.edu.kz` it is `edu` (a category) and the organisation is at the third level. Both are correct: the level number always comes from **counting labels from the right**, not from what the label means. Many country-code domains, such as `.kz`, `.uk` and `.jp`, have category second-level domains (`edu.kz`, `gov.kz`, `co.uk`, `ac.jp`), while others are used directly (`kaspi.kz`, `egov.kz`).
+
+:::svg The domain name space is an upside-down tree with the root at the top
+<svg class="dn" viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A tree with the root at the top, top-level domains com, org, kz and ru below it, second-level domains google, wikipedia, edu, gov and kaspi below those, then nis under edu, sk and ast under nis, and www under sk">
+  <style>
+    svg.dn .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .root{fill:var(--warning);stroke:var(--warning);stroke-width:2}
+    svg.dn .tld{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .sld{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dn .low{fill:var(--surface-2);stroke:var(--border);stroke-width:2}
+    svg.dn .ln{stroke:var(--border);stroke-width:2}
+    svg.dn .hl{stroke:var(--danger);stroke-width:3}
+  </style>
+  <line class="ln" x1="330" y1="40" x2="90" y2="100"/><line class="ln" x1="330" y1="40" x2="230" y2="100"/>
+  <line class="hl" x1="330" y1="40" x2="390" y2="100"/><line class="ln" x1="330" y1="40" x2="540" y2="100"/>
+  <line class="ln" x1="90" y1="100" x2="90" y2="160"/><line class="ln" x1="230" y1="100" x2="230" y2="160"/>
+  <line class="hl" x1="390" y1="100" x2="340" y2="160"/><line class="ln" x1="390" y1="100" x2="430" y2="160"/><line class="ln" x1="390" y1="100" x2="520" y2="160"/>
+  <line class="hl" x1="340" y1="160" x2="340" y2="220"/>
+  <line class="hl" x1="340" y1="220" x2="290" y2="280"/><line class="ln" x1="340" y1="220" x2="390" y2="280"/>
+  <circle class="root" cx="330" cy="40" r="16"/><text class="t" x="356" y="45">root "."</text>
+  <rect class="tld" x="62" y="88" width="56" height="26" rx="6"/><text class="t" x="90" y="106" text-anchor="middle">com</text>
+  <rect class="tld" x="202" y="88" width="56" height="26" rx="6"/><text class="t" x="230" y="106" text-anchor="middle">org</text>
+  <rect class="tld" x="362" y="88" width="56" height="26" rx="6"/><text class="t" x="390" y="106" text-anchor="middle">kz</text>
+  <rect class="tld" x="512" y="88" width="56" height="26" rx="6"/><text class="t" x="540" y="106" text-anchor="middle">ru</text>
+  <rect class="sld" x="52" y="148" width="76" height="26" rx="6"/><text class="t" x="90" y="166" text-anchor="middle">google</text>
+  <rect class="sld" x="186" y="148" width="88" height="26" rx="6"/><text class="t" x="230" y="166" text-anchor="middle">wikipedia</text>
+  <rect class="sld" x="312" y="148" width="56" height="26" rx="6"/><text class="t" x="340" y="166" text-anchor="middle">edu</text>
+  <rect class="sld" x="402" y="148" width="56" height="26" rx="6"/><text class="t" x="430" y="166" text-anchor="middle">gov</text>
+  <rect class="sld" x="488" y="148" width="64" height="26" rx="6"/><text class="t" x="520" y="166" text-anchor="middle">kaspi</text>
+  <rect class="low" x="312" y="208" width="56" height="26" rx="6"/><text class="t" x="340" y="226" text-anchor="middle">nis</text>
+  <rect class="low" x="262" y="268" width="56" height="26" rx="6"/><text class="t" x="290" y="286" text-anchor="middle">sk</text>
+  <rect class="low" x="362" y="268" width="56" height="26" rx="6"/><text class="t" x="390" y="286" text-anchor="middle">ast</text>
+  <text class="s" x="600" y="106">← top-level (1st)</text>
+  <text class="s" x="600" y="166">← second level</text>
+  <text class="s" x="600" y="226">← third level</text>
+  <text class="s" x="600" y="286">← fourth level</text>
+  <text class="s" x="20" y="326">Red path: reading sk.nis.edu.kz from the root downwards = reading the name from right to left</text>
+</svg>
 :::
 
-:::compare Types of top-level domains
-| Type | Examples | Meaning |
+## Types of top-level domain
+
+Top-level domains are divided into groups. The two groups that every student must know are **generic** TLDs and **country-code** TLDs.
+
+- **Generic TLDs (gTLDs)** describe the **type of organisation**: `.com` (commercial), `.org` (non-profit organisations), `.net` (network providers), `.edu` (US universities), `.gov` (US government), `.info` (information). Since 2013 hundreds of **new gTLDs** have been added, such as `.app`, `.shop`, `.online`, `.bank`.
+- **Country-code TLDs (ccTLDs)** have **two letters** and belong to a **country or territory**: `.kz` (Kazakhstan), `.ru` (Russia), `.uk` (United Kingdom), `.de` (Germany), `.cn` (China). Each country decides its own rules — for example, some `.kz` names require the server to be located in Kazakhstan.
+- **Internationalised domain names (IDN)** allow letters that are not Latin. Kazakhstan has the Cyrillic ccTLD `.қаз`, so a name can be written fully in Kazakh.
+
+:::compare Generic vs country-code top-level domains
+| | Generic TLD (gTLD) | Country-code TLD (ccTLD) |
 |---|---|---|
-| **Generic (gTLD)** | `.com`, `.org`, `.net`, `.edu`, `.gov`, `.info` | Type of organisation |
-| **Country code (ccTLD)** | `.kz`, `.қаз`, `.ru`, `.uk`, `.de`, `.jp` | Country or territory |
-| **New gTLDs** | `.app`, `.shop`, `.online` | Introduced since 2013 |
+| Shows | Type of organisation or purpose | Country or territory |
+| Length | Three or more letters | Exactly two letters (plus IDN forms) |
+| Examples | `.com`, `.org`, `.net`, `.edu`, `.gov`, `.app` | `.kz`, `.ru`, `.uk`, `.de`, `.jp`, `.қаз` |
+| Managed by | A registry company chosen by ICANN | A national organisation (for `.kz`: KazNIC) |
+| Rules | Usually anyone can register | Set by the country (may require local presence) |
 :::
 
-:::callout info Who manages names?
-**ICANN** coordinates the root and the TLDs worldwide. Names in `.kz` are registered through accredited **registrars**; the owner pays to register a name for a period (usually a year) and chooses which **DNS servers** hold its records.
+## Who manages domain names
+
+Because names must be **unique** — there can only be one `nis.edu.kz` in the world — someone must keep order. Management is also hierarchical:
+
+- **ICANN** (Internet Corporation for Assigned Names and Numbers) coordinates the whole system: it manages the **root zone** and decides which TLDs exist.
+- Each TLD has a **registry** that keeps the list of all names in that TLD and runs its servers. The `.kz` and `.қаз` registry is run by **KazNIC** (the Kazakhstan Network Information Centre).
+- Organisations and people buy names through **registrars** — companies accredited to sell names (for example, a hosting provider). The owner pays to **register** the name for a period, usually one year, and must renew it, otherwise it becomes free for someone else.
+- The owner then decides which **name servers** hold the records for the domain, and can create any subdomains inside it.
+
+:::example Registering a domain for a bakery in Astana
+Aigerim opens a bakery called "Nan House" and wants the site `nanhouse.kz`. (1) She checks with a registrar that the name is **free** — it must be unique in the `.kz` zone. (2) She pays the registrar for one year; the registrar sends her details to the **KazNIC registry**, which adds `nanhouse.kz` to the `.kz` zone. (3) She chooses a hosting company; its name servers `ns1.host.kz` and `ns2.host.kz` are written into the registry, so the `.kz` servers now know **where to send questions** about her domain. (4) On those name servers the hosting company creates an **A record** `nanhouse.kz → 89.218.10.20` (example) and a subdomain `shop.nanhouse.kz` for the online shop — no new registration is needed for a subdomain. (5) Next year she must **renew** the name, or it will be released.
 :::
 
-:::tip Counting levels
-"State the **second-level** domain of www.sk.nis.edu.kz" → **edu**. Count from the **right**: kz = top (1st) level, edu = 2nd, nis = 3rd.
+:::tip Counting levels in the exam
+"State the **second-level** domain of www.sk.nis.edu.kz" → **edu**. Always count from the **right**: kz = top (1st) level, edu = 2nd, nis = 3rd, sk = 4th; `www` is the host. "State the **TLD**" → **kz**.
+:::
+
+# DNS servers and zones
+@lo 11.6.2.4
+
+The tree of names would be useless without computers that store it and answer questions about it. These computers are **DNS servers** (also called **name servers**). Their organisation **mirrors** the tree of names: there are servers for the root, servers for each top-level domain and servers for each organisation's domain.
+
+## Zones and authority
+
+The tree of names is cut into pieces called **zones**. A zone is the part of the tree that one organisation manages. The root zone is managed for ICANN; the `kz` zone is managed by KazNIC; the `nis.edu.kz` zone is managed by NIS. A server that holds the **original, official records** for a zone is called **authoritative** for that zone. When the owner of a zone wants another organisation to manage a part of its tree, it **delegates** that part: the `kz` zone does not store the address of `www.nis.edu.kz`; it only stores a pointer saying "for anything ending in `nis.edu.kz`, ask these name servers". This idea — each level only knows **where to find the next level** — is what makes DNS scale to the whole Internet.
+
+:::definition Authoritative name server
+A DNS server that holds the **official records** for a domain (zone) and gives the **final answer** about it, e.g. the server that stores the IP address of `www.nis.edu.kz`.
+:::
+
+:::definition DNS resolver (recursive DNS server)
+A DNS server, usually run by the **ISP** or the **school network**, that receives a request from a user's computer and **does all the searching** — asking other DNS servers — until it can return the IP address.
+:::
+
+## The four types of DNS server
+
+:::cards
+### Resolver (recursive server)
+- The **first** DNS server the computer talks to; its address is set automatically by the router (DHCP) or by hand (e.g. 8.8.8.8, 1.1.1.1).
+- Does the work **for** the user and **caches** answers so the next user gets them instantly.
+### Root name servers
+- At the **top** of the hierarchy. They do not know any website addresses; they know the servers of **every TLD**.
+- There are 13 named root server identities (a.root-servers.net … m.root-servers.net), copied to more than a thousand machines worldwide.
+### TLD name servers
+- One set for each top-level domain, e.g. the `.kz` servers run by KazNIC.
+- They know which **authoritative servers** hold each domain in their TLD.
+### Authoritative name servers
+- Hold the actual **records** (A, MX, CNAME …) for a domain.
+- Run by the organisation itself or by its hosting company; at least **two** for reliability.
+:::
+
+:::svg DNS servers are organised in the same hierarchy as the names
+<svg class="dn" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Server hierarchy: root servers at the top point to TLD servers for com and kz; the kz servers point to authoritative servers for nis.edu.kz and kaspi.kz; a resolver at the ISP sits beside the hierarchy and asks each level in turn">
+  <style>
+    svg.dn .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .root{fill:var(--warning);stroke:var(--warning);stroke-width:2;fill-opacity:.25}
+    svg.dn .tld{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .auth{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dn .res{fill:var(--surface-2);stroke:var(--foreground);stroke-width:2;stroke-dasharray:6 4}
+    svg.dn .ln{stroke:var(--border);stroke-width:2}
+    svg.dn .ask{stroke:var(--danger);stroke-width:2;fill:none;stroke-dasharray:4 4}
+  </style>
+  <rect class="root" x="260" y="20" width="220" height="50" rx="10"/>
+  <text class="t" x="370" y="42" text-anchor="middle">Root servers</text>
+  <text class="s" x="370" y="60" text-anchor="middle">know every TLD server</text>
+  <line class="ln" x1="320" y1="70" x2="230" y2="120"/><line class="ln" x1="420" y1="70" x2="500" y2="120"/>
+  <rect class="tld" x="140" y="120" width="180" height="50" rx="10"/>
+  <text class="t" x="230" y="142" text-anchor="middle">.com TLD servers</text>
+  <text class="s" x="230" y="160" text-anchor="middle">know all .com domains</text>
+  <rect class="tld" x="410" y="120" width="180" height="50" rx="10"/>
+  <text class="t" x="500" y="142" text-anchor="middle">.kz TLD servers</text>
+  <text class="s" x="500" y="160" text-anchor="middle">run by KazNIC</text>
+  <line class="ln" x1="470" y1="170" x2="420" y2="220"/><line class="ln" x1="540" y1="170" x2="620" y2="220"/>
+  <rect class="auth" x="330" y="220" width="180" height="56" rx="10"/>
+  <text class="t" x="420" y="243" text-anchor="middle">ns1.nis.edu.kz</text>
+  <text class="s" x="420" y="263" text-anchor="middle">records of nis.edu.kz</text>
+  <rect class="auth" x="540" y="220" width="180" height="56" rx="10"/>
+  <text class="t" x="630" y="243" text-anchor="middle">ns.kaspi.kz</text>
+  <text class="s" x="630" y="263" text-anchor="middle">records of kaspi.kz</text>
+  <rect class="res" x="20" y="200" width="160" height="70" rx="10"/>
+  <text class="t" x="100" y="228" text-anchor="middle">Resolver (ISP)</text>
+  <text class="s" x="100" y="250" text-anchor="middle">asks each level</text>
+  <path class="ask" d="M100 200 C100 80 180 45 258 45"/>
+  <path class="ask" d="M180 220 C300 200 380 190 410 160"/>
+  <path class="ask" d="M180 250 C250 260 290 250 328 248"/>
+  <text class="s" x="20" y="312">Each level only knows where the next level is — no server needs to know every name.</text>
+</svg>
+:::
+
+## How the hierarchy of servers divides the work
+
+The beauty of this design is that **no server needs to know everything**. A root server knows only about 1 500 TLDs. A `.kz` server knows the name servers of every `.kz` domain, but not the addresses of the computers inside them. The NIS name server knows every computer in `nis.edu.kz`, but nothing about `kaspi.kz`. When a question arrives, each server either **answers** it (if it is authoritative) or gives a **referral** — "I don't know, but ask that server, which is one level closer to the answer". A resolver follows the referrals down the tree until it reaches the authoritative server. This process is studied step by step in the next lesson.
+
+:::compare The four types of DNS server
+| Server | Position | Stores | Answers a request with |
+|---|---|---|---|
+| **Resolver** | Near the user (ISP, school, public 8.8.8.8) | A cache of recent answers | The IP address (after searching) |
+| **Root server** | Top of the hierarchy | Addresses of all TLD servers | A referral to the TLD server |
+| **TLD server** | Below the root (one set per TLD) | Name servers of every domain in the TLD | A referral to the authoritative server |
+| **Authoritative server** | Bottom (per domain) | The real records: A, AAAA, MX, CNAME… | The final answer: the IP address |
+:::
+
+:::example Who knows what about www.nis.edu.kz?
+- The **root server** is asked "where is www.nis.edu.kz?" It does not know, but it sees the name ends in `.kz` and answers: "ask the `.kz` servers, here are their addresses".
+- The **`.kz` TLD server** does not know either, but its zone contains a delegation for `nis.edu.kz` and it answers: "ask `ns1.nis.edu.kz`".
+- The **authoritative server `ns1.nis.edu.kz`** holds the record `www → 185.22.66.10` and gives the final answer.
+- Three servers, three short answers — and none of them had to store the whole Internet.
+:::
+
+:::warning Common mistakes about the organisation of DNS
+- Saying DNS is **one big server** or "a website". DNS is a **distributed** system of many servers organised in a hierarchy.
+- Saying DNS **stores web pages**. It stores **names and the matching IP addresses** (and other records); pages are stored on **web servers**.
+- Counting domain levels from the **left**. Levels are counted from the **right**: the TLD is the right-most label.
+- Thinking `www` is a domain level that every site must have. `www` is just a **host name**; many sites work without it.
+- Confusing the **registrar** (sells the name) with the **registry** (keeps the list for the whole TLD) and with **ICANN** (coordinates everything).
+:::
+
+# Exam practice: domain names and DNS
+@lo 11.6.2.4
+
+:::example Exam-style answers
+**Q: Describe the purpose of the Domain Name System. [2]**
+DNS **translates / resolves domain names into IP addresses** (1) so that users can use **easy-to-remember names** instead of numerical addresses / the IP address can change without users noticing (1).
+
+**Q: Describe the relationship between an IP address and a domain name. [1]**
+The domain name is a text label that DNS links to the **IP address (numerical identifier)** of the server (1).
+
+**Q: State the second-level domain and the top-level domain of www.ast.nis.edu.kz. [2]**
+Second-level: **edu** (1). Top-level: **kz** (1).
+
+**Q: Explain why DNS is a distributed system rather than one central database. [3]**
+There are **too many names / requests** for one server to store or answer (1); if one server fails the others still work — **no single point of failure** (1); each organisation can **manage its own records** / servers close to users make look-ups **faster** (1).
+
+**Q: Describe the role of a root server and of an authoritative server. [2]**
+A root server knows the addresses of the **TLD servers** and refers the request to the correct one (1). An authoritative server holds the **actual records** for a domain and returns the **final IP address** (1).
+
+**Q: Give one difference between a gTLD and a ccTLD, with an example of each. [2]**
+A gTLD shows the **type of organisation**, e.g. `.org` (1); a ccTLD has two letters and shows the **country**, e.g. `.kz` (1).
+:::
+
+:::warning Common mistakes in exam answers
+- Answering "the purpose of DNS" with only "it is a system of names" — always say it **converts names into IP addresses**.
+- Writing `.edu` as the TLD of `nis.edu.kz` — the TLD is the **last** label, `kz`.
+- Describing a root server as "the server that has all addresses" — it only knows the **TLD servers**.
+:::
+
+:::steps Check yourself
+- Why do people use domain names while computers use IP addresses?
+- Give two situations where one domain name does not match exactly one IP address.
+- Name every level of www.sk.nis.edu.kz.
+- What does ICANN do, and what does KazNIC do?
+- What is a zone, and what does it mean to delegate a subdomain?
+- List the four types of DNS server and what each one stores.
 :::
 
 # How a domain name is resolved
 @lo 11.6.2.4
 
-:::cards
-### Types of DNS server
-- **Resolver (recursive DNS server)** — usually run by the **ISP** or the school; does the searching for the user's computer.
-- **Root servers** — know the servers of every **TLD**.
-- **TLD servers** — e.g. the `.kz` server knows which servers hold each `.kz` domain.
-- **Authoritative server** — stores the actual **records** for one domain, e.g. `nis.edu.kz`.
-### Caching
-- Answers are **stored (cached)** for a time (the **TTL**, time to live) by the browser, the operating system and the resolver.
-- Repeat visits are **much faster** and DNS traffic is reduced.
+In the first lesson we saw **what** DNS is and how names and servers are **organised**. Now we follow a single request from the moment a student presses Enter in the browser to the moment the page starts to load. This process is called **name resolution** or a **DNS lookup**, and "explain how a domain name is used to access a website" is one of the most common long questions on this topic.
+
+:::definition Name resolution (DNS lookup)
+The process of **finding the IP address** that matches a domain name by **querying DNS servers** (and caches), so that the computer can connect to the correct server.
 :::
 
-:::ascii Resolving www.nis.edu.kz
-  Browser ──1──► Resolver (ISP)          1  "What is the IP of www.nis.edu.kz?"
-                   │  ▲
-                   2  3                  2/3 Root server: "ask the .kz TLD server"
-                   │  │
-                   ├──┴──► Root server
-                   4  5                  4/5 .kz server: "ask the nis.edu.kz server"
-                   ├──┴──► .kz TLD server
-                   6  7                  6/7 Authoritative server: "185.22.66.10"
-                   └──┴──► nis.edu.kz authoritative server
-  Browser ◄──8── Resolver                8  IP address returned (and cached)
-  Browser ──9──► Web server 185.22.66.10 9  Page requested with HTTP/HTTPS
+## Step by step: resolving www.nis.edu.kz
+
+Suppose a student in Shymkent types `https://www.nis.edu.kz/en/news.html` into the browser for the first time today. Before any web page can be requested, the computer needs the IP address of `www.nis.edu.kz`.
+
+:::steps The full DNS lookup
+- **Browser cache.** The browser checks whether it has recently looked up `www.nis.edu.kz`. If the IP address is in its cache and has not expired, it uses it at once and skips every step below.
+- **Operating system.** The browser asks the operating system. The OS checks the **hosts file** and its own **DNS cache** (shared by all programs on the computer).
+- **Query to the resolver.** If the address is still not found, the computer sends a **DNS query** to the **resolver** configured on the network — usually the ISP's or the school's DNS server. The query asks: "What is the A record of www.nis.edu.kz?"
+- **Resolver cache.** The resolver checks its own cache. Because it serves thousands of users, a popular name is often already there and the answer is returned immediately.
+- **Root server.** If not cached, the resolver asks a **root server**. The root server replies with a **referral**: the addresses of the `.kz` TLD servers.
+- **TLD server.** The resolver asks a `.kz` server. It replies with a referral to the **authoritative servers** for `nis.edu.kz` (e.g. `ns1.nis.edu.kz`).
+- **Authoritative server.** The resolver asks `ns1.nis.edu.kz`, which looks in its zone and returns the **A record**: `www.nis.edu.kz → 185.22.66.10`, together with a **TTL** (how long the answer may be cached).
+- **Answer returned and cached.** The resolver **stores** the answer in its cache and sends it back to the computer, which also caches it.
+- **Connection to the web server.** The browser now opens a connection to **185.22.66.10** (port 443 for HTTPS) and sends an HTTP request for `/en/news.html`. DNS's job is finished.
+- **If the name does not exist**, the authoritative or TLD server replies "no such domain" (NXDOMAIN) and the browser shows an error such as "This site can't be reached — server IP address could not be found".
 :::
 
-:::steps DNS lookup in words
-- The user types a **URL**; the browser first checks its own **cache** (and the computer's **hosts file**) for the IP address.
-- If it is not found, the computer sends the request to the **DNS resolver** of the ISP.
-- The resolver checks **its** cache; if not found, it asks a **root server**, which refers it to the **TLD server** (`.kz`).
-- The TLD server refers it to the **authoritative server** for the domain.
-- That server returns the **IP address**; the resolver **caches** it and sends it to the browser.
-- The browser connects to the **web server** using the IP address and requests the page.
-- If the name does not exist, an **error** is returned ("server not found").
+:::svg A first-time lookup: the resolver follows referrals down the hierarchy
+<svg class="dn" viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Numbered arrows: the computer asks the resolver (1); the resolver asks the root server (2) and gets a referral (3); asks the kz TLD server (4) and gets a referral (5); asks the authoritative server (6) and gets the IP address (7); returns it to the computer (8); the computer connects to the web server (9)">
+  <style>
+    svg.dn .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .n{font:700 13px system-ui,sans-serif;fill:var(--danger)}
+    svg.dn .pc{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .res{fill:var(--surface-2);stroke:var(--foreground);stroke-width:2}
+    svg.dn .srv{fill:var(--warning);fill-opacity:.2;stroke:var(--warning);stroke-width:2}
+    svg.dn .auth{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dn .q{stroke:var(--foreground);stroke-width:2;fill:none}
+    svg.dn .a{stroke:var(--success);stroke-width:2;fill:none;stroke-dasharray:6 4}
+  </style>
+  <rect class="pc" x="20" y="150" width="140" height="60" rx="10"/><text class="t" x="90" y="176" text-anchor="middle">Computer</text><text class="s" x="90" y="196" text-anchor="middle">browser + OS cache</text>
+  <rect class="res" x="250" y="150" width="150" height="60" rx="10"/><text class="t" x="325" y="176" text-anchor="middle">Resolver (ISP)</text><text class="s" x="325" y="196" text-anchor="middle">cache</text>
+  <rect class="srv" x="540" y="20" width="200" height="50" rx="10"/><text class="t" x="640" y="50" text-anchor="middle">Root server</text>
+  <rect class="srv" x="540" y="130" width="200" height="50" rx="10"/><text class="t" x="640" y="160" text-anchor="middle">.kz TLD server</text>
+  <rect class="auth" x="540" y="240" width="200" height="50" rx="10"/><text class="t" x="640" y="262" text-anchor="middle">ns1.nis.edu.kz</text><text class="s" x="640" y="280" text-anchor="middle">authoritative</text>
+  <rect class="auth" x="250" y="290" width="150" height="56" rx="10"/><text class="t" x="325" y="314" text-anchor="middle">Web server</text><text class="s" x="325" y="333" text-anchor="middle">185.22.66.10</text>
+  <path class="q" d="M160 165 H242 M234 159 L242 165 L234 171"/><text class="n" x="195" y="158">1</text>
+  <path class="a" d="M250 195 H168 M176 189 L168 195 L176 201"/><text class="n" x="195" y="215">8</text>
+  <path class="q" d="M400 160 L532 52 M522 54 L532 52 L528 62"/><text class="n" x="455" y="92">2</text>
+  <path class="a" d="M540 62 L410 170"/><text class="n" x="488" y="128">3</text>
+  <path class="q" d="M400 172 H532 M524 166 L532 172 L524 178"/><text class="n" x="465" y="166">4</text>
+  <path class="a" d="M540 176 L408 186"/><text class="n" x="470" y="196">5</text>
+  <path class="q" d="M400 196 L532 256 M521 256 L532 256 L525 247"/><text class="n" x="455" y="236">6</text>
+  <path class="a" d="M540 280 L404 205"/><text class="n" x="490" y="268">7</text>
+  <path class="q" d="M90 210 V318 H242 M234 312 L242 318 L234 324"/><text class="n" x="100" y="300">9 HTTP request</text>
+  <text class="s" x="20" y="40">Solid = question, dashed = answer</text>
+  <text class="s" x="20" y="60">3, 5 = referrals ("ask this server")</text>
+  <text class="s" x="20" y="80">7 = the IP address, 8 = cached and returned</text>
+</svg>
 :::
+
+## Recursive and iterative queries
+
+There are two styles of DNS query in the process above, and they explain why the resolver is called a "recursive" server.
+
+- The query from the **computer to the resolver** is **recursive**: the computer says "give me the final answer, do whatever you need to do". The computer then simply waits.
+- The queries from the **resolver to the root, TLD and authoritative servers** are **iterative**: each of those servers gives the best answer it has — often only a referral — and the resolver must ask the next server itself.
+
+This division of work keeps the root and TLD servers simple and fast: they never have to search on anyone's behalf; they just answer from their own zone. The hard work and the memory (cache) sit in the resolvers, which are close to the users.
+
+:::compare Recursive vs iterative DNS query
+| | Recursive query | Iterative query |
+|---|---|---|
+| Who sends it | User's computer → resolver | Resolver → root / TLD / authoritative servers |
+| What is asked | "Give me the **final** IP address" | "Tell me the answer **or** who to ask next" |
+| Reply | The IP address (or an error) | The IP address **or a referral** |
+| Who does the searching | The server that receives it (the resolver) | The server that sent it (the resolver) |
+| Load | Heavy work for the resolver | Light work for the root and TLD servers |
+:::
+
+## Caching and TTL
+
+If every look-up went all the way to the root servers, the root servers would receive billions of requests an hour and every page would load slowly. DNS avoids this with **caching**: every answer is **stored** for a while by the resolver, the operating system and the browser. The owner of the domain decides **how long** an answer may be stored by setting the **TTL (time to live)** in the record, in seconds. A TTL of 3600 means "you may keep this answer for one hour".
+
+:::definition DNS cache
+A temporary store of **recent DNS answers** (names and IP addresses) kept by the browser, the operating system and the resolver, so that repeated look-ups can be answered **without asking other DNS servers**.
+:::
+
+:::definition TTL (time to live)
+The number of **seconds** a DNS answer may be **kept in a cache** before it must be looked up again; it is set by the owner of the domain in each record.
+:::
+
+Caching has clear benefits: **repeat visits are much faster** (a cached answer takes under a millisecond instead of tens of milliseconds), **less traffic** crosses the Internet, and the root and TLD servers are protected from overload. It also has a cost: when the owner **changes** a record, users may still be sent to the **old IP address** until the cached copies expire. This is why technicians lower the TTL a day before moving a website to a new server.
+
+:::svg Three layers of cache are checked before any other DNS server is asked
+<svg class="dn" viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three boxes in a row: browser cache, operating system cache and hosts file, resolver cache. If any of them holds a valid answer the IP address is returned; only on a miss in all three does the resolver query root, TLD and authoritative servers">
+  <style>
+    svg.dn .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .c{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .far{fill:var(--surface-2);stroke:var(--border);stroke-width:2}
+    svg.dn .hit{stroke:var(--success);stroke-width:2;fill:none}
+    svg.dn .ht{font:600 13px system-ui,sans-serif;fill:var(--success)}
+    svg.dn .miss{stroke:var(--danger);stroke-width:2;fill:none}
+    svg.dn .mt{font:600 13px system-ui,sans-serif;fill:var(--danger)}
+  </style>
+  <rect class="c" x="20" y="60" width="150" height="70" rx="10"/><text class="t" x="95" y="90" text-anchor="middle">Browser cache</text><text class="s" x="95" y="112" text-anchor="middle">seconds–minutes</text>
+  <rect class="c" x="220" y="60" width="160" height="70" rx="10"/><text class="t" x="300" y="90" text-anchor="middle">OS cache + hosts</text><text class="s" x="300" y="112" text-anchor="middle">all programs</text>
+  <rect class="c" x="430" y="60" width="150" height="70" rx="10"/><text class="t" x="505" y="90" text-anchor="middle">Resolver cache</text><text class="s" x="505" y="112" text-anchor="middle">shared by all users</text>
+  <rect class="far" x="620" y="50" width="125" height="90" rx="10"/><text class="t" x="682" y="82" text-anchor="middle">Root → TLD</text><text class="t" x="682" y="102" text-anchor="middle">→ authoritative</text><text class="s" x="682" y="124" text-anchor="middle">slowest</text>
+  <path class="miss" d="M170 95 H212 M204 89 L212 95 L204 101"/><text class="mt" x="176" y="85">miss</text>
+  <path class="miss" d="M380 95 H422 M414 89 L422 95 L414 101"/><text class="mt" x="386" y="85">miss</text>
+  <path class="miss" d="M580 95 H612 M604 89 L612 95 L604 101"/><text class="mt" x="582" y="85">miss</text>
+  <path class="hit" d="M95 130 V180 H600 M95 130 V170"/><path class="hit" d="M300 130 V180 M505 130 V180"/>
+  <text class="ht" x="230" y="205">hit at any layer → IP address returned immediately, no further queries</text>
+</svg>
+:::
+
+:::example Why the second visit is faster — and why a changed site may not appear at once
+At 09:00 the first student in a class opens `bilimland.kz`. The school's resolver has nothing cached, so it queries the root, the `.kz` server and the authoritative server: the look-up takes about 80 ms. The answer has a **TTL of 3600 s**, so the resolver keeps it until 10:00. At 09:01 twenty-five more students open the same site: the resolver answers each of them from its **cache** in about 1 ms, and no requests leave the school. At 09:30 the site owner moves the website to a new server and changes the A record. Students in the school still reach the **old** address until **10:00**, when the cached answer expires and the resolver looks the name up again. Clearing the browser and OS cache (for example `ipconfig /flushdns` on Windows) does not help if the **resolver** still has the old answer.
+:::
+
+# DNS records and security
+@lo 11.6.2.4
+
+## Resource records
+
+An authoritative server does not only store "name → IP address". Its zone contains several kinds of **resource records**, each holding a different type of information about the domain. The most important are listed below; you are expected to know A and MX, and the others help you understand how e-mail and aliases work.
 
 :::compare Common DNS records
-| Record | Holds | Example |
-|---|---|---|
-| **A** | IPv4 address of a name | `nis.edu.kz → 185.22.66.10` |
-| **AAAA** | IPv6 address | `→ 2001:db8::10` |
-| **MX** | Mail server for the domain | `mail.nis.edu.kz` |
-| **CNAME** | Alias of another name | `www → nis.edu.kz` |
-| **NS** | Name servers that are authoritative | `ns1.nis.edu.kz` |
+| Record | Holds | Example in the nis.edu.kz zone | Used when |
+|---|---|---|---|
+| **A** | IPv4 address of a name | `www.nis.edu.kz → 185.22.66.10` | Opening a website |
+| **AAAA** | IPv6 address of a name | `www.nis.edu.kz → 2001:db8::10` | Opening a site over IPv6 |
+| **MX** (mail exchange) | Mail server for the domain | `nis.edu.kz → mail.nis.edu.kz` | Sending e-mail to `@nis.edu.kz` |
+| **CNAME** (canonical name) | An alias — another name to look up | `portal.nis.edu.kz → www.nis.edu.kz` | Several names for one server |
+| **NS** (name server) | The authoritative servers of the domain | `nis.edu.kz → ns1.nis.edu.kz` | Delegation from the TLD |
+| **TXT** | Free text, e.g. anti-spam settings | `"v=spf1 …"` | Checking that mail is genuine |
 :::
 
-:::warning DNS risks
-- **DNS spoofing / cache poisoning** — an attacker puts a **false IP address** into a DNS cache, sending users to a **fake website** (pharming).
-- If DNS servers **fail** or are attacked (DDoS), websites cannot be reached by name even though they are working.
-- Protection: **DNSSEC** (digitally signed records), HTTPS certificates, using trusted resolvers.
+:::example How e-mail uses DNS
+A parent sends an e-mail to `teacher@nis.edu.kz` from Gmail. Gmail's server does not need a web page; it needs to know **which server accepts mail** for `nis.edu.kz`. It asks DNS for the **MX record** of `nis.edu.kz` and receives `mail.nis.edu.kz`. It then asks for the **A record** of `mail.nis.edu.kz` and receives its IP address, for example `185.22.66.25`. Only then does it connect and deliver the message. If the MX record were missing or wrong, the e-mail would bounce even though the website `www.nis.edu.kz` worked perfectly — a clear sign that DNS is about **services and addresses**, not about web pages.
+:::
+
+## Risks to DNS and how they are reduced
+
+Because almost every Internet action begins with a DNS look-up, DNS is an attractive target for attackers. If DNS fails, websites that are working perfectly **cannot be reached by name**; if DNS lies, users are sent to the **wrong server** without noticing.
+
+- **DNS spoofing / cache poisoning.** An attacker tricks a resolver into storing a **false IP address** for a real name, for example `kaspi.kz → attacker's server`. Every user of that resolver is then sent to a **fake website** that looks like the real one and steals their passwords. This attack is called **pharming**. Because the answer is cached, the damage lasts for the whole TTL.
+- **Hosts-file attacks.** Malware edits the computer's hosts file, which is checked before DNS, to redirect names on that one computer.
+- **DDoS on DNS servers.** Flooding a DNS provider with requests can make thousands of websites unreachable at the same time, as happened in a large attack on a DNS provider in 2016.
+- **Hijacking the domain.** If an attacker steals the owner's registrar password, they can change the NS records and take control of the whole domain.
+
+:::compare DNS threats and protection
+| Threat | What happens | Protection |
+|---|---|---|
+| Cache poisoning / spoofing | Resolver stores a false IP; users go to a fake site | **DNSSEC** (digitally signed records); random query IDs |
+| Pharming via hosts file | One PC is redirected by malware | Anti-malware; restrict admin rights |
+| DDoS on DNS | Names cannot be resolved; sites unreachable | Many servers in many places; anycast; filtering |
+| Domain hijacking | Attacker changes the domain's records | Strong password and 2FA at the registrar; registry lock |
+| Fake site after redirection | User enters data on a copy of the site | **HTTPS** certificate check — browser warns if the certificate does not match |
+:::
+
+:::warning Common mistakes about DNS look-ups
+- Leaving out **caching** in a "describe the steps" answer — the browser, OS and resolver caches are checked **first**.
+- Saying that the **root server** returns the IP address — it only refers the resolver to the **TLD** server; the **authoritative** server gives the final answer.
+- Thinking the browser downloads the page **from the DNS server** — DNS only returns the address; the page comes from the **web server**.
+- Mixing up **phishing** (a fake link in a message) with **pharming** (a correct name redirected by poisoned DNS).
+- Writing that TTL is the time a **packet** lives — in DNS, TTL is how long an **answer** can stay in a cache.
 :::
 
 # The structure of a URL
 @lo 11.6.2.5
 
+A domain name tells the browser **which server** to contact. But a server holds thousands of resources — pages, pictures, PDF files, videos — and the browser also needs to know **how** to talk to the server. All this is given by a **URL**.
+
 :::definition URL (Uniform Resource Locator)
-The full **address of a resource** (web page, file, image, video) on the Internet. It tells the browser **which protocol** to use, **which server** to contact and **where the resource is** on that server.
+The full **address of a resource** (web page, file, image, video) on the Internet. It states the **protocol** to use, the **server** (domain name or IP address) to contact and the **location of the resource** on that server.
 :::
 
-```text | Parts of a URL
-https://www.nis.edu.kz:443/en/students/timetable.html?class=11A#monday
-└─┬─┘   └──────┬──────┘└┬┘└───────────┬───────────────┘└───┬───┘└──┬──┘
-protocol    domain    port         path / file            query   fragment
-```
+## The parts of a URL
+
+:::svg Parts of a URL
+<svg class="dn" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The URL https://www.nis.edu.kz:443/en/students/timetable.html?class=11A#monday split into coloured parts: protocol https, domain name www.nis.edu.kz, port 443, path /en/students/, file name timetable.html, query class=11A and fragment monday">
+  <style>
+    svg.dn .u{font:600 13px ui-monospace,monospace;fill:var(--foreground)}
+    svg.dn .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.dn .l{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.dn .p1{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.dn .p2{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.dn .p3{fill:var(--warning);fill-opacity:.2;stroke:var(--warning);stroke-width:2}
+    svg.dn .p4{fill:var(--danger-soft);stroke:var(--danger);stroke-width:2}
+    svg.dn .p5{fill:var(--surface-2);stroke:var(--border);stroke-width:2}
+  </style>
+  <rect class="p1" x="10" y="60" width="70" height="34" rx="6"/><text class="u" x="45" y="83" text-anchor="middle">https</text>
+  <text class="u" x="88" y="83">://</text>
+  <rect class="p2" x="118" y="60" width="150" height="34" rx="6"/><text class="u" x="193" y="83" text-anchor="middle">www.nis.edu.kz</text>
+  <rect class="p5" x="272" y="60" width="50" height="34" rx="6"/><text class="u" x="297" y="83" text-anchor="middle">:443</text>
+  <rect class="p3" x="326" y="60" width="140" height="34" rx="6"/><text class="u" x="396" y="83" text-anchor="middle">/en/students/</text>
+  <rect class="p3" x="470" y="60" width="140" height="34" rx="6"/><text class="u" x="540" y="83" text-anchor="middle">timetable.html</text>
+  <rect class="p4" x="614" y="60" width="96" height="34" rx="6"/><text class="u" x="662" y="83" text-anchor="middle">?class=11A</text>
+  <rect class="p5" x="680" y="120" width="76" height="34" rx="6"/><text class="u" x="718" y="143" text-anchor="middle">#monday</text>
+  <text class="l" x="45" y="120" text-anchor="middle">protocol</text><text class="s" x="45" y="138" text-anchor="middle">how</text>
+  <text class="l" x="193" y="120" text-anchor="middle">domain name (host)</text><text class="s" x="193" y="138" text-anchor="middle">which server → DNS</text>
+  <text class="l" x="297" y="120" text-anchor="middle">port</text><text class="s" x="297" y="138" text-anchor="middle">optional</text>
+  <text class="l" x="396" y="120" text-anchor="middle">path</text><text class="s" x="396" y="138" text-anchor="middle">folders</text>
+  <text class="l" x="540" y="120" text-anchor="middle">file name</text><text class="s" x="540" y="138" text-anchor="middle">the resource</text>
+  <text class="l" x="640" y="120" text-anchor="middle">query</text>
+  <text class="l" x="718" y="175" text-anchor="middle">fragment</text>
+  <text class="s" x="10" y="30">One URL = how to fetch (protocol) + from where (server) + what (path and file) + extra details (query, fragment)</text>
+  <text class="s" x="10" y="205">Only the protocol and the domain name are needed for a home page, e.g. https://www.nis.edu.kz</text>
+</svg>
+:::
+
+### Protocol (scheme)
+The first part, ending with `://`, tells the browser **which set of rules** to use to fetch the resource. `http` is the Hypertext Transfer Protocol; `https` is HTTP **secured with encryption** (TLS), shown by a padlock; `ftp` is the File Transfer Protocol; `mailto:` opens an e-mail program. The protocol matters because the same server may offer different services, and because only `https` protects passwords and personal data on the way.
+
+### Domain name (host name)
+After `://` comes the **domain name** of the server, such as `www.nis.edu.kz`. This is the part that is passed to **DNS** to find the IP address — so this is where the two objectives of the topic meet. An IP address can be written here instead (`http://192.168.1.1` for a home router), and `localhost` means the user's own computer.
+
+### Port (optional)
+A colon and a number after the domain name choose the **service** on the server. Port **80** is the default for HTTP and **443** for HTTPS, so they are normally **left out**. A port is written only when a non-standard one is used, e.g. `http://localhost:3000` for a website being developed on your own laptop.
+
+### Path and file name
+After the domain comes the **path**: the folders on the server, separated by forward slashes `/`, and usually the **file name** of the resource with its extension, such as `/en/students/timetable.html`. The path works like the folders on your own disk. Modern sites often hide file names (`/news/2026/` instead of `/news/2026/index.php`), but the path still identifies the resource.
+
+### Query string (optional)
+A question mark `?` starts **parameters** sent to the server, written as `name=value` pairs joined with `&`, for example `?class=11A&day=mon`. A search engine uses it to send the search words (`?q=binary+tree`), and an HTML form with the GET method puts its fields here. The server reads these values and builds the page.
+
+### Fragment (optional)
+A hash `#` followed by a name points to a **position inside the page**, such as a heading. The fragment is **not sent to the server**; the browser uses it to scroll to the right place after the page has loaded.
 
 :::compare Parts of a URL
-| Part | Example | Purpose |
-|---|---|---|
-| **Protocol (scheme)** | `https` | **How** to transfer the resource (HTTP, HTTPS, FTP) |
-| **Domain name (host name)** | `www.nis.edu.kz` | **Which server**; converted to an IP address by **DNS** |
-| Port (optional) | `443` | Service on the server (80 = HTTP, 443 = HTTPS) — usually omitted |
-| **Path** | `/en/students/` | **Folders** on the server |
-| **File name** | `timetable.html` | The resource itself |
-| Query string | `?class=11A` | Parameters sent to the server (`name=value`, joined with `&`) |
-| Fragment | `#monday` | A position inside the page |
+| Part | Example | Purpose | Required? |
+|---|---|---|---|
+| **Protocol (scheme)** | `https` | **How** to transfer the resource (HTTP, HTTPS, FTP) | Yes |
+| **Domain name (host name)** | `www.nis.edu.kz` | **Which server**; converted to an IP address by **DNS** | Yes |
+| Port | `:443` | Service on the server (80 = HTTP, 443 = HTTPS) | No — usually omitted |
+| **Path** | `/en/students/` | **Folders** on the server | No (home page = `/`) |
+| **File name** | `timetable.html` | The resource itself | No |
+| Query string | `?class=11A` | Parameters sent to the server (`name=value`, joined with `&`) | No |
+| Fragment | `#monday` | A position inside the page (not sent to the server) | No |
 :::
 
-:::example More URLs
-- `http://commons.wikimedia.org/wiki/George.jpg` — protocol **http**, host name **commons.wikimedia.org**, file location **/wiki/George.jpg**.
-- `ftp://files.school.kz/homework/task1.pdf` — protocol **ftp** (file transfer).
-- `https://www.google.com/search?q=binary+tree` — query **q=binary+tree**.
+## How the browser uses each part
+
+When the user presses Enter, the browser takes the URL apart from left to right. It reads the **protocol** and decides to use HTTPS. It reads the **domain name** and asks DNS for its IP address (the look-up from the previous section). It reads the **port** — or uses 443 because none is written — and opens a connection to that IP address and port. It then sends a request that contains the **path, file name and query**, for example `GET /en/students/timetable.html?class=11A`. The server finds the file, runs any program that needs the query values, and sends back the page. Finally the browser looks at the **fragment** and scrolls to the "monday" heading. In this way one line of text contains everything the browser needs: **how**, **where**, **what** and **which part**.
+
+:::example Taking apart three real-style URLs
+- `http://commons.wikimedia.org/wiki/George.jpg` — protocol **http**; host name **commons.wikimedia.org** (TLD `org`, second level `wikimedia`, subdomain `commons`); file location **/wiki/George.jpg** (folder `wiki`, file `George.jpg`).
+- `ftp://files.school.kz/homework/task1.pdf` — protocol **ftp** (file transfer, not a web page); host **files.school.kz**; path `/homework/`; file `task1.pdf`.
+- `https://shop.kz:8080/catalog/phones.php?brand=samsung&sort=price#reviews` — protocol **https**; host **shop.kz**; port **8080** (non-standard, so it must be written); path `/catalog/`; file `phones.php` (a server-side script); query with **two** parameters `brand=samsung` and `sort=price`; fragment `reviews`.
 :::
 
 :::compare URL vs domain name vs IP address
-| | Example | What it identifies |
-|---|---|---|
-| IP address | `185.22.66.10` | A device on the network (numbers) |
-| Domain name | `nis.edu.kz` | A server, by an easy name |
-| URL | `https://nis.edu.kz/en/news.html` | One **resource** on that server, with the protocol |
+| | Example | What it identifies | Who uses it |
+|---|---|---|---|
+| IP address | `185.22.66.10` | A **device** on the network (numbers) | Routers, computers |
+| Domain name | `nis.edu.kz` | A **server**, by an easy name | People; DNS converts it |
+| URL | `https://nis.edu.kz/en/news.html` | One **resource** on that server, with the protocol | Browsers, links, bookmarks |
 :::
 
-# Exam practice and summary
+:::warning Common mistakes about URLs
+- Calling the whole URL "the domain name". The domain name is **only one part** of the URL.
+- Using back slashes `\` in a path — URLs use **forward slashes** `/`.
+- Saying the fragment `#…` is sent to the server — it is used only by the **browser**.
+- Thinking `https` is a different website from `http` — it is the **same** server reached with a **secure protocol**.
+- Forgetting that a port is written only when it is **not the default**.
+:::
+
+# Exam practice: DNS look-up and URLs
 @lo 11.6.2.4 11.6.2.5
 
 :::example Exam-style answers
 **Q: Explain how the domain name is used to access a website, including the role of DNS servers. [5]**
-The user types the URL / domain name into the browser (1). The browser checks its **cache** for the IP address (1). If not found, a request is sent to the **DNS server (resolver)**, which holds / looks up a list of domain names and their **IP addresses** (1). If that server does not know it, the request is passed to **other DNS servers** up the hierarchy — root, TLD, authoritative (1). The **IP address is returned** to the browser (and cached), which uses it to **connect to the web server** and request the page (1).
+The user types the URL / domain name into the browser (1). The browser / OS checks its **cache** for the IP address (1). If not found, a request is sent to the **DNS server (resolver)**, which looks up the domain name in its records / cache to find the **IP address** (1). If that server does not know it, the request is passed to **other DNS servers** up the hierarchy — root, TLD, authoritative (1). The **IP address is returned** to the browser (and cached), which uses it to **connect to the web server** and request the page (1).
 
-**Q: Describe the relationship between the IP address and the domain name. [1]**
-The IP address is the **numerical identifier** of the server that the domain name stands for (1).
+**Q: State what is meant by the TTL of a DNS record. [1]**
+The time (in seconds) for which the answer may be **kept in a cache** before it must be looked up again (1).
+
+**Q: Explain one advantage and one disadvantage of DNS caching. [2]**
+Advantage: repeated look-ups are **faster** / less DNS traffic, because the answer is taken from the cache (1). Disadvantage: after a record changes, users may be sent to the **old IP address** until the cached answer expires (1).
 
 **Q: Give one example of a URL indicating protocol, host name and file location. [1]**
 `https://www.nis.edu.kz/en/timetable.html` (1).
 
-**Q: State a second-level domain name of www.sk.nis.edu.kz. [1]**
-**edu** (1).
+**Q: For the URL `https://edu.gov.kz/ru/docs/plan.pdf?year=2026`, identify the protocol, the domain name, the path, the file name and the query. [3]**
+Protocol **https**, domain **edu.gov.kz** (1); path **/ru/docs/**, file name **plan.pdf** (1); query **year=2026** (1).
+
+**Q: Describe how DNS cache poisoning can lead to pharming. [2]**
+An attacker puts a **false IP address** for a real domain name into a DNS cache (1), so users who type the correct name are sent to a **fake website** that collects their data (1).
 :::
 
-:::warning Common mistakes
-- Saying DNS "stores websites" — it stores **names and IP addresses**, not pages.
-- Reading domain levels from the **left** — read from the **right**.
-- Confusing a **URL** (full address of a resource) with a **domain name** (one part of it).
-- Forgetting the **cache** step in a DNS explanation.
+:::warning Common mistakes in exam answers
+- Writing only "DNS finds the website" in a 5-mark answer — give each **step**: cache, resolver, other servers, IP returned, connection to the web server.
+- Writing `www.nis.edu.kz/en` as the domain name — the path is **not** part of the domain name.
+- Calling the query string "the file" — the file name ends before `?`.
 :::
 
 :::steps Check yourself
-- Why do we use domain names instead of IP addresses?
-- Name the levels of www.ast.nis.edu.kz.
-- Describe the steps of a DNS lookup, including caching.
-- What do A and MX records store?
+- Describe every step of a first-time DNS look-up, starting from the browser cache.
+- What is the difference between a recursive and an iterative query?
+- What does an MX record store, and when is it used?
+- What happens to a cached answer when the TTL runs out?
 - Label every part of https://shop.kz:8080/catalog/phones.php?brand=x#top.
-- What is DNS cache poisoning?
+- Explain the difference between a URL, a domain name and an IP address.
 :::

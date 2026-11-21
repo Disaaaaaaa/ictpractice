@@ -1,0 +1,96 @@
+{
+  "topic": "g11-domain-name-system",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Name resolution (DNS lookup)",
+      "must": "Definition: finding the IP address that matches a domain name by querying DNS servers and caches.",
+      "weight": 2,
+      "model": "Name resolution (DNS lookup) = the process of finding the IP address that matches a domain name by querying DNS servers (and caches), so the computer can connect to the correct server."
+    },
+    {
+      "title": "Steps of a DNS lookup",
+      "must": "All steps in order: browser cache → OS cache and hosts file → query to resolver → resolver cache → root (referral) → TLD (referral) → authoritative (A record + TTL) → answer cached and returned → browser connects to the web server; NXDOMAIN error if the name does not exist.",
+      "weight": 3,
+      "model": "1) Browser checks its cache. 2) OS checks hosts file and its DNS cache. 3) Query sent to the resolver (ISP/school). 4) Resolver checks its cache. 5) Resolver asks a root server → referral to the .kz TLD servers. 6) Asks the .kz server → referral to ns1.nis.edu.kz. 7) Authoritative server returns the A record www.nis.edu.kz → 185.22.66.10 with a TTL. 8) Resolver caches it and returns it; the computer caches it. 9) Browser connects to 185.22.66.10 (port 443) and requests the page. If the name does not exist → 'no such domain' error."
+    },
+    {
+      "title": "DNS returns the address, not the page",
+      "must": "Clear statement that the page is requested from the web server after DNS returns the IP address.",
+      "weight": 2,
+      "model": "DNS only returns the IP address. The browser then sends an HTTP/HTTPS request to the web server at that address, and the page comes from the web server, not from DNS."
+    },
+    {
+      "title": "Recursive vs iterative queries",
+      "must": "Who sends each, what is asked, what the reply is, who does the searching.",
+      "weight": 2,
+      "model": "Recursive query: computer → resolver, 'give me the final IP address'; the resolver does the searching and replies with the IP or an error. Iterative query: resolver → root/TLD/authoritative, 'answer or tell me who to ask'; reply is the IP or a referral; keeps root and TLD servers simple and fast."
+    },
+    {
+      "title": "DNS cache and TTL",
+      "must": "Definitions of DNS cache and TTL; the three layers of cache (browser, OS, resolver).",
+      "weight": 3,
+      "model": "DNS cache = temporary store of recent DNS answers kept by the browser, the operating system and the resolver, so repeated look-ups need no queries to other servers. TTL (time to live) = number of seconds an answer may be kept in a cache before it must be looked up again; set by the domain owner (3600 = 1 hour)."
+    },
+    {
+      "title": "Advantages and disadvantage of caching",
+      "must": "Faster repeat visits, less traffic, root/TLD servers protected; disadvantage: old IP used until the cache expires; lowering the TTL before moving a site.",
+      "weight": 2,
+      "model": "Advantages: repeat look-ups take ~1 ms instead of tens of ms; less traffic on the Internet; root and TLD servers are not overloaded. Disadvantage: after a record changes, users may still go to the old IP until the cached answer expires — technicians lower the TTL before moving a site."
+    },
+    {
+      "title": "Caching example",
+      "must": "The school example: first lookup ~80 ms, TTL 3600 s, other students answered from cache, record changed at 09:30 but old address used until 10:00; flushing the PC cache does not clear the resolver.",
+      "weight": 1,
+      "model": "09:00 first student opens bilimland.kz: full lookup ~80 ms, TTL 3600 s → cached until 10:00. 09:01 25 students answered from the resolver cache in ~1 ms. 09:30 owner changes the A record → students still reach the old address until 10:00. ipconfig /flushdns clears only the PC cache, not the resolver's."
+    },
+    {
+      "title": "DNS records",
+      "must": "A, AAAA, MX, CNAME, NS (and TXT) — what each holds with an example.",
+      "weight": 3,
+      "model": "A = IPv4 address of a name (www.nis.edu.kz → 185.22.66.10). AAAA = IPv6 address. MX = mail server for the domain (nis.edu.kz → mail.nis.edu.kz). CNAME = alias to another name (portal → www). NS = authoritative name servers of the domain (ns1.nis.edu.kz). TXT = free text, e.g. anti-spam settings."
+    },
+    {
+      "title": "How e-mail uses DNS",
+      "must": "Mail server looks up the MX record of the domain, then the A record of the mail server, then delivers.",
+      "weight": 1,
+      "model": "To send to teacher@nis.edu.kz, Gmail asks DNS for the MX record of nis.edu.kz → mail.nis.edu.kz, then the A record of mail.nis.edu.kz → its IP, then connects and delivers. A missing MX record makes mail bounce even if the website works."
+    },
+    {
+      "title": "DNS risks and protection",
+      "must": "Cache poisoning / spoofing leading to pharming, hosts-file attacks, DDoS on DNS, domain hijacking — with protection (DNSSEC, HTTPS, anti-malware, many servers, 2FA at the registrar).",
+      "weight": 2,
+      "model": "Cache poisoning/DNS spoofing: a false IP for a real name is stored in a resolver cache → users sent to a fake site (pharming) for the whole TTL; protection DNSSEC (signed records), HTTPS certificate warnings. Malware edits the hosts file → anti-malware. DDoS on DNS servers → names cannot be resolved; many servers/anycast. Domain hijacking via stolen registrar password → strong password, 2FA, registry lock."
+    },
+    {
+      "title": "URL definition",
+      "must": "URL defined as the full address of a resource, stating protocol, server and location of the resource.",
+      "weight": 3,
+      "model": "URL (Uniform Resource Locator) = the full address of a resource (page, file, image, video) on the Internet; it states the protocol to use, the server (domain name or IP) to contact and the location of the resource on that server."
+    },
+    {
+      "title": "Parts of a URL",
+      "must": "The example https://www.nis.edu.kz:443/en/students/timetable.html?class=11A#monday labelled: protocol, domain name, port, path, file name, query, fragment — with the purpose of each and which are optional.",
+      "weight": 3,
+      "model": "https = protocol (how: HTTP, HTTPS, FTP). www.nis.edu.kz = domain/host name (which server, sent to DNS). :443 = port (optional; 80 HTTP, 443 HTTPS). /en/students/ = path (folders, forward slashes). timetable.html = file name. ?class=11A = query string (name=value pairs joined with &, sent to the server). #monday = fragment (position in the page, not sent to the server)."
+    },
+    {
+      "title": "How the browser uses a URL",
+      "must": "Order: protocol chosen → domain name sent to DNS → port (default if missing) → connection → request with path, file and query → fragment used to scroll.",
+      "weight": 2,
+      "model": "Browser reads the protocol (HTTPS), asks DNS for the IP of the domain name, uses the port (443 if none), connects, sends GET /en/students/timetable.html?class=11A, receives the page and scrolls to #monday."
+    },
+    {
+      "title": "URL examples",
+      "must": "At least two URLs taken apart, including one with ftp or a non-standard port and a query with two parameters.",
+      "weight": 1,
+      "model": "http://commons.wikimedia.org/wiki/George.jpg → protocol http, host commons.wikimedia.org, file location /wiki/George.jpg. https://shop.kz:8080/catalog/phones.php?brand=samsung&sort=price#reviews → https, host shop.kz, port 8080, path /catalog/, file phones.php, query brand=samsung and sort=price, fragment reviews."
+    },
+    {
+      "title": "URL vs domain name vs IP address",
+      "must": "What each identifies with an example.",
+      "weight": 2,
+      "model": "IP address 185.22.66.10 identifies a device (numbers, used by routers). Domain name nis.edu.kz identifies a server by an easy name (DNS converts it). URL https://nis.edu.kz/en/news.html identifies one resource on that server together with the protocol."
+    }
+  ]
+}
