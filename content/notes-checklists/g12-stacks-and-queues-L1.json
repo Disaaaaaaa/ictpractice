@@ -1,0 +1,90 @@
+{
+  "topic": "g12-stacks-and-queues",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Abstract data type and data structure",
+      "must": "Definition of an ADT (defined by its operations, not by how it is stored) and of a data structure; stack and queue named as ADTs.",
+      "weight": 3,
+      "model": "ADT = a data type defined by the operations that can be carried out on it and how they behave, not by how it is stored. Data structure = a way of organising and storing data in memory (array, record, stack, queue) — the implementation of an ADT. A stack and a queue are ADTs: push/enqueue work the same whether an array or a linked list is used inside."
+    },
+    {
+      "title": "LIFO and FIFO",
+      "must": "Meaning of LIFO (stack, one end) and FIFO (queue, two ends) with an everyday example of each.",
+      "weight": 2,
+      "model": "Stack = LIFO (last in, first out): items added and removed at the same end, the top — like a pile of plates. Queue = FIFO (first in, first out): added at the rear, removed from the front — like a line at a bus stop."
+    },
+    {
+      "title": "Static vs dynamic implementation",
+      "must": "Definitions of static and dynamic data structures and at least two differences (size, memory, checks needed).",
+      "weight": 2,
+      "model": "Static (array): fixed size, can become full, memory reserved in advance (may be wasted), needs is_full and is_empty. Dynamic (linked list): grows and shrinks while the program runs, uses only the memory needed plus a pointer per item, full only when the heap runs out."
+    },
+    {
+      "title": "Definition of a stack",
+      "must": "Stack defined in exam wording: items pushed and popped at the same end (top); last item added is the first removed.",
+      "weight": 3,
+      "model": "Stack = an ADT in which items are added (pushed) and removed (popped) at the same end, the top, so the last item added is the first item removed (LIFO). You cannot add or remove an item in the middle."
+    },
+    {
+      "title": "Stack operations",
+      "must": "push, pop, peek, is_empty, is_full (size) with what each does; pop vs peek difference.",
+      "weight": 3,
+      "model": "push(data) – adds to the top; pop() – removes and returns the top item; peek() – returns a copy of the top item without removing it; is_empty() – TRUE if no items; is_full() – TRUE if at maximum capacity; size() – number of items. Pop removes the item, peek does not change the stack."
+    },
+    {
+      "title": "Stack pointer",
+      "must": "Top pointer: holds the position of the top item, +1 on push, −1 on pop, 0 (or −1 if indexed from 0) when empty.",
+      "weight": 2,
+      "model": "Stack (top) pointer = variable holding the index of the top item. Push: Top + 1; pop: Top − 1. Empty: Top = 0 (array 1..N) or −1 (array 0..N−1). One pointer is enough because items enter and leave at the same end."
+    },
+    {
+      "title": "Overflow and underflow",
+      "must": "Both terms defined with when they happen in an array of 10; why checks are needed.",
+      "weight": 3,
+      "model": "Stack overflow = trying to push onto a full stack (Top = 10 for ARRAY[1:10]). Stack underflow = trying to pop from an empty stack (Top = 0). Always check is_full before push and is_empty before pop, otherwise data outside the array is overwritten or rubbish is read."
+    },
+    {
+      "title": "Stack trace",
+      "must": "A trace table (operation, stack bottom→top, returned, Top) for a sequence including pop and peek.",
+      "weight": 2,
+      "model": "push(5), push(8), push(2) → 5,8,2 Top=3; pop() returns 2, Top=2; push(7) → 5,8,7 Top=3; peek() returns 7, Top stays 3; pop() returns 7 → 5,8 Top=2. Items come out in reverse order."
+    },
+    {
+      "title": "From one state to another",
+      "must": "Operations to change Java, Python, Kotlin into Java, C#, C++ and why items in the middle cannot be reached directly.",
+      "weight": 1,
+      "model": "pop() (Kotlin), pop() (Python), push(\"C#\"), push(\"C++\"). Only the top item is accessible, so everything above Java must be removed first; strings in quotes."
+    },
+    {
+      "title": "Push and pop algorithms",
+      "must": "Steps of push (check full, Top+1, store) and pop (check empty, read, Top−1) with the correct order, and pseudocode.",
+      "weight": 3,
+      "model": "Push: IF Top = MaxSize THEN overflow ELSE Top ← Top + 1; Stack[Top] ← Item. Pop: IF Top = 0 THEN underflow ELSE Item ← Stack[Top]; Top ← Top − 1; RETURN Item. Push moves the pointer before storing; pop reads before moving the pointer."
+    },
+    {
+      "title": "Pop does not erase / boundary values",
+      "must": "Pop only moves the pointer; stack = positions 1..Top; boundary values for 1-based and 0-based arrays.",
+      "weight": 1,
+      "model": "After pop the old value stays in the array until the next push overwrites it; only positions 1 to Top are the stack. 1..10: empty Top=0, full Top=10, items = Top. 0..9: empty Top=−1, full Top=9, items = Top+1."
+    },
+    {
+      "title": "Call stack",
+      "must": "What is pushed on a subroutine call (return address, parameters, local variables), popped on return; link to recursion and stack overflow.",
+      "weight": 2,
+      "model": "Call stack stores a stack frame for each active subroutine: return address, parameters, local variables. Pushed on call, popped on return — the last subroutine called finishes first. Recursion pushes a frame per call; without a base case the stack overflows."
+    },
+    {
+      "title": "Undo, Back and bracket checking",
+      "must": "Why undo/back use a stack; bracket-checking algorithm with one balanced and one unbalanced example.",
+      "weight": 2,
+      "model": "Undo: each action pushed; Undo pops the most recent action (LIFO). Back button: visited pages pushed. Brackets: push every opening bracket; on a closing bracket pop and check it matches; balanced if all match and the stack is empty at the end. ( [ ] ( ) ) balanced; ( [ ) ] mismatch."
+    },
+    {
+      "title": "RPN, reversing and backtracking",
+      "must": "Evaluating an RPN expression with a stack (example), reversing a word, backtracking / depth-first search.",
+      "weight": 1,
+      "model": "RPN: push numbers; on an operator pop two, apply, push the result. 3 4 + 2 × → 7 then 14. Reversing: push A,S,T,A,N,A then pop → ANATSA. Backtracking (maze, DFS): push each junction, at a dead end pop back to the most recent one."
+    }
+  ]
+}

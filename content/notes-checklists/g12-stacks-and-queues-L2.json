@@ -1,0 +1,90 @@
+{
+  "topic": "g12-stacks-and-queues",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Definition of a queue",
+      "must": "Queue defined in exam wording: enqueue at the rear, dequeue from the front; first item added is the first removed; why queues are used.",
+      "weight": 3,
+      "model": "Queue = an ADT in which items are added at the rear (enqueue) and removed from the front (dequeue), so the first item added is the first item removed (FIFO). Used when a resource serves one request at a time in order of arrival (printer, CPU, call centre)."
+    },
+    {
+      "title": "Queue operations",
+      "must": "enqueue, dequeue, peek, is_empty, is_full, size with what each does; queue full / empty errors.",
+      "weight": 3,
+      "model": "enqueue(data) – adds at the rear; dequeue() – removes and returns the front item; peek() – returns the front item without removing it; is_empty(), is_full(), size(). Errors: queue full (overflow) on enqueue, queue empty (underflow) on dequeue."
+    },
+    {
+      "title": "Front and rear pointers",
+      "must": "Two pointers and what each holds; enqueue moves Rear, dequeue moves Front; items do not move in the array.",
+      "weight": 3,
+      "model": "Front (head) = position of the next item to leave; Rear (tail) = position of the last item added. Enqueue changes Rear, dequeue changes Front. Items are not shifted — the queue is everything from Front to Rear."
+    },
+    {
+      "title": "Queue trace",
+      "must": "Trace table (operation, queue front→rear, returned, Front, Rear) for a sequence of enqueues and dequeues.",
+      "weight": 2,
+      "model": "Start Front=1, Rear=0. enqueue A,B,C → Front 1, Rear 3; dequeue() returns A → Front 2; enqueue(D) → Rear 4; dequeue() returns B → Front 3; queue C, D. Items leave in the same order they arrived."
+    },
+    {
+      "title": "Linear queue",
+      "must": "Definition; start values; empty test; enqueue and dequeue algorithms / pseudocode.",
+      "weight": 2,
+      "model": "Linear queue = array queue where Front and Rear only move forward; freed spaces not reused. Start Front=1, Rear=0; empty when Front > Rear. Enqueue: IF Rear = N THEN full ELSE Rear ← Rear+1; Queue[Rear] ← Item. Dequeue: IF Front > Rear THEN empty ELSE Item ← Queue[Front]; Front ← Front+1."
+    },
+    {
+      "title": "Problem with a linear queue",
+      "must": "Explain why freed spaces at the front are wasted and the queue reports full when it is not; why shuffling is slow.",
+      "weight": 3,
+      "model": "Each dequeue moves Front forward and it never comes back, so positions before Front cannot be reused. When Rear reaches the end the queue reports full even with few items (e.g. 8 enqueued, 6 dequeued → full with 2 items). Shuffling items to the start after each dequeue is slow for long queues."
+    },
+    {
+      "title": "Circular queue",
+      "must": "Definition; pointers wrap round so freed spaces are reused; full only when all positions are used.",
+      "weight": 3,
+      "model": "Circular queue (ring buffer) = array queue where the pointers wrap round to the start when they reach the end, so freed spaces at the front are reused; full only when every position holds an item."
+    },
+    {
+      "title": "Wrapping with MOD",
+      "must": "Formula for the next position for 1-based and 0-based arrays, with a worked value.",
+      "weight": 2,
+      "model": "Array 1..N: next = (p MOD N) + 1, e.g. N = 5: (5 MOD 5) + 1 = 1. Array 0..N−1: next = (p + 1) MOD N, e.g. (4 + 1) MOD 5 = 0. Or: add 1; IF pointer > N THEN pointer ← 1."
+    },
+    {
+      "title": "Empty and full in a circular queue",
+      "must": "Count variable (empty Count = 0, full Count = N) and why Front > Rear does not work; pseudocode of enqueue/dequeue with Count.",
+      "weight": 2,
+      "model": "After wrapping, Rear can be less than Front while items are in the queue, so use Count. Enqueue: IF Count = N THEN full ELSE Rear ← (Rear MOD N)+1; Queue[Rear] ← Item; Count ← Count+1. Dequeue: IF Count = 0 THEN empty ELSE Item ← Queue[Front]; Front ← (Front MOD N)+1; Count ← Count−1. Alternative: leave one slot unused."
+    },
+    {
+      "title": "Circular queue trace",
+      "must": "Trace with a wrap-round of Rear in a 5-element array, showing Front, Rear, Count.",
+      "weight": 1,
+      "model": "Array 1–5: enqueue A,B,C,D (F1 R4 C4); dequeue A, B (F3 C2); enqueue E (R5); enqueue F → Rear wraps to 1 (C4); enqueue G → R2, C5 = full; queue C, D, E, F, G."
+    },
+    {
+      "title": "Linear vs circular queue",
+      "must": "At least three differences (pointer movement, reuse of space, when full, tests, uses).",
+      "weight": 2,
+      "model": "Linear: pointers only move forward, freed spaces wasted, full when Rear reaches the end, tests Front > Rear / Rear = N. Circular: pointers wrap round, spaces reused, full when all positions used, tests Count = 0 / Count = N; used for keyboard and streaming buffers."
+    },
+    {
+      "title": "Priority queue",
+      "must": "Definition (highest priority first, FIFO within equal priority), two ways to implement, example use.",
+      "weight": 3,
+      "model": "Priority queue = each item has a priority; highest priority removed first; equal priorities in FIFO order. Implement by inserting each new item in the right position (dequeue from front), or by adding at the rear and searching for the highest priority on dequeue. Used for OS process scheduling, hospital emergency rooms."
+    },
+    {
+      "title": "Uses of queues",
+      "must": "At least four uses with why FIFO fits (print queue, keyboard buffer, round-robin scheduling, BFS, buffers).",
+      "weight": 2,
+      "model": "Print queue – documents printed in the order sent. Keyboard buffer – keys processed in the order typed. Round robin – each process gets a time slice and rejoins the rear. Breadth-first search – nearest nodes first. Streaming/network buffers – data used in the order sent."
+    },
+    {
+      "title": "Stack vs queue",
+      "must": "Comparison: order, ends, pointers, operations, errors, order of output; choosing a structure with justification.",
+      "weight": 2,
+      "model": "Stack: LIFO, one end (top), one pointer, push/pop, overflow/underflow, items come out reversed. Queue: FIFO, two ends, two pointers (front, rear), enqueue/dequeue, full/empty, items come out in the same order. Justify a choice by linking the needed order to LIFO or FIFO (print jobs → queue; undo → stack)."
+    }
+  ]
+}
