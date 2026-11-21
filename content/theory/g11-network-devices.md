@@ -1,185 +1,800 @@
 ---
-summary: The purpose of network hardware — network interface cards and MAC addresses, repeaters, hubs, switches (and how they learn MAC addresses), bridges, wireless access points, routers (routing tables, NAT, DHCP), gateways and modems — how they differ, and choosing devices for a network.
+summary: The purpose of network hardware — network interface cards and MAC addresses, repeaters, hubs, switches (and how they learn MAC addresses), bridges and wireless access points; routers and routing tables, NAT, DHCP and firewalls; gateways and modems — how the devices differ, which information each one reads, and how to choose devices for a real network.
 ---
 # Connecting a device to a network
 @lo 11.6.1.6
 
-Every network needs **hardware** to connect devices, move data between them and link the network to other networks. Each device has a different **job** and works with a different kind of information — signals, MAC addresses, IP addresses or protocols.
+A computer on its own can store and process data, but it cannot share anything. As soon as two computers have to exchange a file, print on the same printer or reach the Internet, they need **network hardware**: a way for each computer to put data onto a cable or a radio channel, and devices in between that move that data to the right place. In this topic you will meet the most important of these devices — the **network interface card**, the **repeater**, the **hub**, the **switch**, the **bridge**, the **wireless access point**, the **router**, the **gateway** and the **modem**.
+
+The exam objective asks you to **explain the purpose** of network devices. "Purpose" means *why the device exists and what problem it solves*, not just what it looks like. A good way to remember each device is to ask three questions about it:
+
+1. **What does it connect?** Two parts of one cable, devices inside one LAN, or completely different networks?
+2. **What information does it read?** Nothing (just the electrical signal), the **MAC address**, the **IP address**, or the whole **protocol**?
+3. **What does it do with the data?** Boost it, copy it to everyone, send it to one port, choose a route, or translate it?
+
+If you can answer these three questions for each device, you can answer almost any exam question on this topic, including the 4–6 mark questions that ask you to compare two devices or to choose devices for a scenario.
+
+## Signals, frames and packets
+
+Before looking at the devices, we need some vocabulary for the data they handle. Data travels through a network in small pieces, not as one huge file. When you send a 5 MB photo to the school printer, the photo is broken into thousands of pieces. Each piece is wrapped with extra information, rather like a letter put into an envelope with an address written on it.
+
+Inside a local network, a piece of data together with its local addresses is called a **frame**. The frame carries the **destination MAC address** (where it is going on this LAN), the **source MAC address** (who sent it), the **data** itself, and a **check value** used to detect errors. When data has to travel between networks, the data is also wrapped in a **packet** that carries **IP addresses**. You can think of the packet as the letter with the final postal address, and the frame as the envelope used for one stage of the journey: every time the letter goes through a new local network, it is put into a new envelope.
+
+At the lowest level, a frame is just a pattern of **signals**: changes of voltage in a copper cable, pulses of light in a fibre-optic cable, or changes in a radio wave for Wi-Fi. Some devices only deal with these signals; others look inside the frame or the packet. That difference is the key to the whole topic.
+
+:::definition Frame
+A unit of data sent across **one local network**. It contains the **destination MAC address**, the **source MAC address**, the **data** and an **error-check** value.
+:::
+
+:::definition Packet
+A unit of data sent **between networks**. It contains a header with the **source and destination IP addresses** (and other control information) and part of the data (the payload). A packet travels inside a frame on each LAN it crosses.
+:::
+
+:::svg What is inside an Ethernet frame
+<svg class="nd" viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An Ethernet frame: destination MAC, source MAC, type, data containing an IP packet, and error check">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .mac{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.nd .ip{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+    svg.nd .dat{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nd .chk{fill:var(--warning);opacity:.35}
+    svg.nd .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+  </style>
+  <text class="t" x="20" y="28">Frame (used inside one LAN — read by switches)</text>
+  <rect class="mac" x="20" y="45" width="140" height="56" rx="6"/><text class="w" x="90" y="70" text-anchor="middle">Destination</text><text class="w" x="90" y="88" text-anchor="middle">MAC</text>
+  <rect class="mac" x="165" y="45" width="120" height="56" rx="6"/><text class="w" x="225" y="70" text-anchor="middle">Source</text><text class="w" x="225" y="88" text-anchor="middle">MAC</text>
+  <rect class="dat" x="290" y="45" width="60" height="56" rx="6"/><text class="w" x="320" y="78" text-anchor="middle">Type</text>
+  <rect class="ip" x="355" y="45" width="300" height="56" rx="6"/><text class="w" x="505" y="70" text-anchor="middle">Data: the IP packet</text><text class="s" x="505" y="88" text-anchor="middle">source IP · destination IP · payload</text>
+  <rect class="chk" x="660" y="45" width="80" height="56" rx="6"/><text class="w" x="700" y="70" text-anchor="middle">Error</text><text class="w" x="700" y="88" text-anchor="middle">check</text>
+  <path class="ln" d="M355 110 L355 130 L655 130 L655 110"/>
+  <text class="t" x="20" y="160">Packet (travels between networks — read by routers)</text>
+  <rect class="ip" x="355" y="170" width="140" height="44" rx="6"/><text class="w" x="425" y="197" text-anchor="middle">IP header</text>
+  <rect class="dat" x="500" y="170" width="155" height="44" rx="6"/><text class="w" x="577" y="197" text-anchor="middle">Payload (data)</text>
+  <text class="s" x="20" y="197">A repeater or hub reads neither —</text>
+  <text class="s" x="20" y="214">it only handles the signal.</text>
+</svg>
+:::
+
+## The network interface card (NIC)
+
+Every device that joins a network — a desktop PC, a laptop, a phone, a printer, a smart TV, even a router — contains a **network interface card (NIC)**, also called a network adapter. In old computers it was a separate card plugged into the motherboard; today it is usually a chip built into the motherboard, but the name has stayed.
+
+The NIC has three jobs. First, it provides the **physical connection**: the socket for an Ethernet cable (an RJ45 port) or, in a **wireless NIC**, a radio transmitter and receiver with an antenna. Second, it **converts data into signals and back**: the computer works with bytes in memory, and the NIC turns those bytes into voltage pulses or radio waves and turns incoming signals back into bytes. Third, it gives the device a **unique identity on the local network** — its **MAC address** — and it builds and checks frames: it adds the source and destination MAC addresses to outgoing frames, and for incoming frames it accepts only those addressed to its own MAC address (or to everybody), discarding the rest.
+
+Without a NIC a computer simply cannot take part in a network, which is why "a NIC is needed in every device" is a common one-mark answer.
 
 :::definition Network interface card (NIC)
-The hardware inside a device that **connects it to a network** (by cable or wirelessly — a wireless NIC). Every NIC has a unique, permanent **MAC address** set by the manufacturer.
+The hardware in a device that **connects it to a network** (by cable or wirelessly — a **wireless NIC**). It converts data into signals for the transmission medium and gives the device a unique, permanent **MAC address**.
+:::
+
+## MAC addresses
+
+A **MAC address** (Media Access Control address) is a **48-bit** number that identifies one network interface. It is normally written as **12 hexadecimal digits**, in six pairs separated by colons or hyphens, for example `3C:52:82:1A:9F:04`. Each pair is one byte, so six pairs × 8 bits = 48 bits. Hexadecimal is used because it is much shorter and easier to read than 48 binary digits.
+
+A MAC address has two halves. The **first 24 bits** (the first three pairs) are the **Organisationally Unique Identifier (OUI)**, given to the **manufacturer** of the NIC — so `3C:52:82` could tell a technician which company made the card. The **last 24 bits** are a serial number given by that manufacturer to the **individual card**. Because each manufacturer has its own OUI and never repeats a serial number, every NIC in the world should have a different MAC address. The address is set at the factory ("burned in"), which is why it is often called the **physical address** or **hardware address**. (Software can sometimes change the address that a NIC reports — for example phones use a random MAC on public Wi-Fi for privacy — but for the exam: the MAC address is fixed by the manufacturer and normally does not change.)
+
+Why do we need it? On a local network, many devices share the same cables and switches. When a frame arrives, each device must know whether it is the intended recipient, and the switch must know which port leads to that recipient. The MAC address is the label that makes this possible inside the LAN.
+
+:::svg The two halves of a MAC address
+<svg class="nd" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MAC address 3C:52:82:1A:9F:04 split into a 24-bit manufacturer part and a 24-bit device part">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .big{font:700 26px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nd .oui{fill:var(--primary-soft);stroke:var(--primary);stroke-width:1.5}
+    svg.nd .dev{fill:var(--success-soft);stroke:var(--success);stroke-width:1.5}
+  </style>
+  <rect class="oui" x="90" y="30" width="280" height="70" rx="10"/>
+  <rect class="dev" x="390" y="30" width="280" height="70" rx="10"/>
+  <text class="big" x="230" y="75" text-anchor="middle">3C : 52 : 82</text>
+  <text class="big" x="530" y="75" text-anchor="middle">1A : 9F : 04</text>
+  <text class="t" x="230" y="130" text-anchor="middle">First 24 bits — OUI</text>
+  <text class="s" x="230" y="150" text-anchor="middle">identifies the manufacturer</text>
+  <text class="t" x="530" y="130" text-anchor="middle">Last 24 bits</text>
+  <text class="s" x="530" y="150" text-anchor="middle">identifies this individual card</text>
+  <text class="s" x="380" y="185" text-anchor="middle">6 pairs of hex digits × 8 bits = 48 bits · set by the manufacturer</text>
+</svg>
 :::
 
 :::definition MAC address (Media Access Control address)
-A **unique 48-bit physical address** of a network interface, written as **12 hexadecimal digits**, e.g. `3C:52:82:1A:9F:04`. The first half identifies the **manufacturer**, the second half the **individual card**. Switches use MAC addresses to deliver data inside a LAN.
+A **unique 48-bit physical address** of a network interface, written as **12 hexadecimal digits** (e.g. `3C:52:82:1A:9F:04`). The first half identifies the **manufacturer**, the second half the **individual card**. It is used to deliver frames **inside a LAN**.
 :::
+
+## MAC addresses and IP addresses
+
+Students often mix up MAC addresses and IP addresses, so it is worth comparing them carefully. A useful analogy: your **MAC address** is like your **name** — it stays with you wherever you go. Your **IP address** is like your **home address** — it tells others *where* you are, and it changes when you move. When a student brings a laptop from home to school, the laptop's MAC address is the same in both places, but it is given a different IP address on the school network, because it is now in a different network.
+
+Switches work with MAC addresses, because they only move frames around inside one LAN. Routers work with IP addresses, because they move packets between networks, and the IP address contains the **network part** that tells the router which network the destination is in. A packet's IP addresses stay the same for the whole journey across the Internet, but the MAC addresses in the frame are replaced at every router, because each hop is a different local network.
 
 :::compare MAC address vs IP address
 | | MAC address | IP address |
 |---|---|---|
 | Identifies | The **network card** (hardware) | The device's **location** on a network |
-| Set by | The **manufacturer** — normally does not change | The **network** (DHCP) or administrator — can change |
-| Format | 48 bits, hexadecimal: `3C:52:82:1A:9F:04` | IPv4: 32 bits, denary: `192.168.1.25` |
-| Used by | **Switches** inside a LAN | **Routers** between networks |
+| Set by | The **manufacturer** — normally never changes | The **network** (DHCP) or an administrator — changes when the device moves |
+| Size and format | **48 bits**, 12 hex digits: `3C:52:82:1A:9F:04` | IPv4: **32 bits**, four denary numbers: `192.168.1.25`; IPv6: 128 bits |
+| Scope | Only meaningful **inside one LAN** | Used **across networks** and the Internet |
+| Used by | **Switches** (and bridges, WAPs) | **Routers** |
+| Changes during a journey? | Yes — a new frame at every hop | No — source and destination IPs stay the same |
 :::
 
-# Repeaters, hubs and switches
+:::example Same laptop, two networks
+Aigerim's laptop has the MAC address `A4:5E:60:C2:7D:10`.
+
+| Where | MAC address | IP address given by DHCP |
+|---|---|---|
+| At home in Almaty | `A4:5E:60:C2:7D:10` | `192.168.0.14` |
+| At NIS school | `A4:5E:60:C2:7D:10` | `10.12.3.87` |
+
+The **MAC address is unchanged** — it belongs to the laptop's wireless NIC. The **IP address is different** because the laptop is in a different network, and each network's router (DHCP server) hands out addresses from its own range. This is why a switch can rely on MAC addresses inside the school, but a router on the Internet needs the IP address to find the network the laptop is in.
+:::
+
+# Repeaters and hubs
 @lo 11.6.1.6
 
-:::cards
-### Repeater
-- **Regenerates (amplifies)** a weakened signal so that it can travel **further** along a cable or a wireless link.
-- Does **not** read the data or addresses — it only boosts the signal.
-- Used when a cable is longer than ~100 m, or as a Wi-Fi **range extender**.
-### Hub
-- Connects devices in a **star** LAN.
-- Sends every incoming packet to **all ports** (broadcasts) — every device receives it, and only the addressed device keeps it.
-- Wastes **bandwidth**, causes **collisions**, and is **less secure**. Now mostly replaced by switches.
-### Switch
-- Connects devices in a **LAN**.
-- Reads the **destination MAC address** of each frame and sends it **only to the port** of the correct device.
-- Less traffic, **no collisions**, **faster** and **more secure** than a hub.
+The simplest network devices do not "understand" data at all. A **repeater** and a **hub** work only with the **signal** — the electrical pulses, light or radio waves. They cannot read a MAC address or an IP address, so they cannot make any decision about where the data should go. They are sometimes called **physical-layer** devices for this reason. Understanding their limitations explains why switches and routers were invented.
+
+## Why signals get weaker: attenuation
+
+Every signal becomes weaker as it travels. In a copper cable, part of the electrical energy is lost as heat because of the resistance of the wire; electrical "noise" from motors, lights and other cables is also added to the signal. In a fibre-optic cable, the light is slowly absorbed and scattered by the glass. Radio signals spread out in all directions and are absorbed by walls. This loss of signal strength over distance is called **attenuation**.
+
+If the signal becomes too weak, the receiver can no longer tell a 1 from a 0. Bits are read wrongly, the error check in the frame fails, and the frame has to be sent again — or the connection stops working altogether. That is why each type of cable has a **maximum length**. For the twisted-pair Ethernet cable used in classrooms (Cat5e / Cat6) the limit is about **100 metres**. Fibre-optic cable can carry signals for kilometres before they need help, and Wi-Fi reaches only a few tens of metres indoors.
+
+:::definition Attenuation
+The **loss of signal strength** as a signal travels along a cable or through the air. Beyond the maximum distance of the medium, the receiver cannot read the bits correctly.
 :::
 
-:::steps How a switch learns MAC addresses
-- When a frame arrives, the switch records the **source MAC address** and the **port** it came from in its **MAC address table**.
-- It looks up the **destination MAC address** in the table.
-- If found, it sends the frame **only to that port**.
-- If not yet known, it sends the frame to all ports **once** (flooding); the reply teaches it the missing address.
+## The repeater
+
+A **repeater** solves the problem of attenuation. It is placed part-way along a long link. It **receives the weak signal, regenerates it** (rebuilds it as clean, full-strength pulses) and **sends it on**, so that the data can travel a further distance. Notice the word *regenerates*: a digital repeater does not just make everything louder — that would make the noise louder too. It decides whether each incoming pulse was a 0 or a 1 and sends out a brand-new, perfect pulse, so the noise is removed. (An analogue amplifier, by contrast, boosts the signal *and* the noise.) Because this is so important, exam mark schemes accept "boosts", "amplifies" or "regenerates" the signal, but the best answer is **regenerates**.
+
+A repeater has two ports: one in, one out. It does **not** read the data, does **not** look at addresses, and does **not** filter anything — every bit that arrives on one side is copied to the other side. It is the "dumbest" device in the network, and that is exactly its strength: it is cheap, simple and adds almost no delay.
+
+Where are repeaters used today?
+
+- To extend a **copper Ethernet link** beyond 100 m, e.g. to a building across the school yard.
+- In **fibre-optic** cables under the sea, where repeaters are placed every 50–100 km to regenerate the light.
+- As a **Wi-Fi range extender** (wireless repeater) in a large house or school corridor, which receives the Wi-Fi signal and re-transmits it to reach rooms the access point cannot.
+
+:::definition Repeater
+A device that **receives a weakened signal, regenerates (boosts) it and retransmits it**, so that data can travel **further** than the maximum distance of the cable or wireless link. It does not read addresses or filter data.
 :::
 
-:::example A switch's MAC address table
-| Port | MAC address | Device |
+:::svg A repeater regenerates a weak, noisy signal
+<svg class="nd" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A strong signal becomes weak and noisy after 100 metres of cable; the repeater sends out a clean full-strength signal">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .good{stroke:var(--success);stroke-width:3;fill:none}
+    svg.nd .bad{stroke:var(--danger);stroke-width:2;fill:none}
+    svg.nd .cab{stroke:var(--border);stroke-width:8}
+    svg.nd .box{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+  </style>
+  <line class="cab" x1="20" y1="150" x2="740" y2="150"/>
+  <text class="t" x="20" y="30">Sender</text>
+  <path class="good" d="M20 110 h30 v-50 h30 v50 h30 v-50 h30 v50 h30"/>
+  <text class="s" x="20" y="135">strong, clean</text>
+  <text class="t" x="230" y="30">After ~100 m of cable</text>
+  <path class="bad" d="M230 110 q8 -4 15 -18 q8 -10 15 2 q8 6 15 -14 q8 -8 15 4 q8 14 15 0 q8 -12 15 -6 q8 10 15 14 q8 4 15 -2"/>
+  <text class="s" x="230" y="135">weak, noisy — bits hard to read</text>
+  <rect class="box" x="440" y="125" width="110" height="50" rx="8"/>
+  <text class="w" x="495" y="155" text-anchor="middle">Repeater</text>
+  <text class="t" x="580" y="30">Regenerated</text>
+  <path class="good" d="M580 110 h25 v-50 h25 v50 h25 v-50 h25 v50 h25"/>
+  <text class="s" x="580" y="135">full strength again</text>
+  <text class="s" x="20" y="205">Same bits in, same bits out — the repeater reads no addresses; it only rebuilds the signal.</text>
+</svg>
+:::
+
+## The hub
+
+A **hub** is a central connection box with several ports (typically 4–24). Each computer in a **star-shaped** LAN is connected to the hub by its own cable. When a frame arrives on any port, the hub **copies it to every other port** — it broadcasts it. It does not look at the destination address, because it cannot read it. Every connected device receives the frame; each NIC then checks the destination MAC address and **keeps** the frame if it is addressed to itself, or **discards** it if not. A hub is really a *multi-port repeater*: it regenerates the signal and sends it everywhere.
+
+This simple behaviour causes three serious problems:
+
+1. **Wasted bandwidth and slow speed.** All devices share the same bandwidth. If the hub runs at 100 Mbit/s and ten computers are busy, they share that 100 Mbit/s between them, and every computer's cable is also busy carrying frames that are not meant for it.
+2. **Collisions.** Because the hub sends everything everywhere, only one device can transmit at a time. If two computers send at the same moment, their signals meet and are corrupted — a **collision**. Both must stop, wait a random time and send again (this rule is called CSMA/CD). The more devices there are, the more collisions happen, so a busy hub network gets slower and slower. All the devices on a hub are in one **collision domain**.
+3. **Poor security.** Every frame reaches every device. A user running packet-capture software on one computer can see all the data sent by everyone else on the hub — including unencrypted passwords.
+
+Hubs are cheap and need no configuration, which is why they were common in the 1990s. Today switches are so cheap that hubs are almost never sold, but they remain in the exam because comparing a hub with a switch is the best way to show you understand what a switch does.
+
+:::definition Hub
+A device that connects devices in a **star** LAN and **sends every frame it receives to all ports** (broadcasts). It does not read addresses, so all devices share the bandwidth and **collisions** can occur.
+:::
+
+:::definition Collision
+When **two devices transmit at the same time** on a shared connection and their signals **interfere**, so both frames are corrupted and must be sent again.
+:::
+
+:::svg A hub copies every frame to every port
+<svg class="nd" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PC A sends a frame for the printer; the hub copies it to PC B, PC C and the printer; only the printer keeps it">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .hub{fill:var(--warning);opacity:.3;stroke:var(--warning);stroke-width:2}
+    svg.nd .dev{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nd .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.nd .no{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1.5}
+    svg.nd .send{stroke:var(--primary);stroke-width:3;fill:none}
+    svg.nd .copy{stroke:var(--warning);stroke-width:3;fill:none;stroke-dasharray:7 5}
+  </style>
+  <rect class="hub" x="310" y="105" width="140" height="50" rx="8"/><text class="w" x="380" y="135" text-anchor="middle">HUB</text>
+  <rect class="dev" x="30" y="105" width="130" height="50" rx="8"/><text class="w" x="95" y="128" text-anchor="middle">PC A</text><text class="s" x="95" y="146" text-anchor="middle">sender</text>
+  <path class="send" d="M160 130 H310"/>
+  <rect class="no" x="600" y="20" width="130" height="50" rx="8"/><text class="w" x="665" y="43" text-anchor="middle">PC B</text><text class="s" x="665" y="61" text-anchor="middle">not for me → discard</text>
+  <rect class="no" x="600" y="105" width="130" height="50" rx="8"/><text class="w" x="665" y="128" text-anchor="middle">PC C</text><text class="s" x="665" y="146" text-anchor="middle">not for me → discard</text>
+  <rect class="ok" x="600" y="190" width="130" height="50" rx="8"/><text class="w" x="665" y="213" text-anchor="middle">Printer</text><text class="s" x="665" y="231" text-anchor="middle">for me → keep</text>
+  <path class="copy" d="M450 120 L600 45"/><path class="copy" d="M450 130 H600"/><path class="copy" d="M450 140 L600 215"/>
+  <text class="s" x="170" y="205">Frame: to printer's MAC</text>
+  <text class="s" x="170" y="223">The hub cannot read it, so it</text>
+  <text class="s" x="170" y="241">copies the frame to all ports.</text>
+</svg>
+:::
+
+:::example Extending a network to the sports hall
+The school's computer room switch is in the main building. A new PC is needed in the sports hall, **160 m** away by the cable route.
+
+- **Step 1 — find the problem.** A twisted-pair Ethernet cable works reliably only up to about 100 m. At 160 m the signal is attenuated so much that frames arrive with errors.
+- **Step 2 — choose the device.** Put a **repeater** (or a small switch, which also regenerates the signal) about 80 m along the cable, e.g. in a corridor cupboard with power. Each piece of cable is now under 100 m.
+- **Step 3 — explain why it works.** The repeater receives the weakened signal, **regenerates it to full strength** and retransmits it along the second cable, so the PC in the sports hall receives clean signals.
+- **Alternative.** Use a **fibre-optic** cable, which can run for kilometres without a repeater — more expensive, but faster and immune to electrical interference from the hall's lighting.
+:::
+
+:::compare Repeater vs hub
+| | Repeater | Hub |
 |---|---|---|
-| 1 | 3C:52:82:1A:9F:04 | PC A |
-| 2 | 00:1B:44:11:3A:B7 | PC B |
-| 3 | A4:5E:60:C2:7D:10 | Printer |
-
-PC A sends a document to the printer: the switch reads destination **A4:5E:60:C2:7D:10**, finds it on **port 3**, and sends the data **only** to port 3. A hub would have sent it to ports 2 and 3.
+| Ports | **Two** (in and out) | **Many** (4–24) |
+| Purpose | **Extend the distance** a signal can travel | **Connect several devices** in a star LAN |
+| What it does with data | Regenerates the signal and passes it on | Regenerates the signal and **copies it to all ports** |
+| Reads addresses? | No | No |
+| Main problem | Also passes on errors and collisions | Collisions, shared bandwidth, poor security |
+| Used today | Yes — long links, Wi-Fi extenders, undersea cables | Rarely — replaced by switches |
 :::
+
+# Switches, bridges and wireless access points
+@lo 11.6.1.6
+
+A **switch** looks just like a hub — a box with a row of Ethernet ports — but inside it is much cleverer. A switch can **read the destination MAC address** in each frame, and it keeps a table that tells it which device is connected to which port. Instead of copying a frame to everyone, it sends the frame **only to the port** where the destination device is connected. This one idea removes almost all the problems of a hub. Switches are the standard device for connecting computers inside a LAN: every school computer room, office floor and home router contains one.
+
+:::definition Switch
+A device that connects devices **within a LAN**. It reads the **destination MAC address** of each frame and, using its **MAC address table**, forwards the frame **only to the port** of the destination device.
+:::
+
+## How a switch learns MAC addresses
+
+A new switch, straight out of the box, knows nothing about the network. Nobody types the MAC addresses into it: it **learns them automatically** by watching the frames that pass through it. This is called **self-learning** or **transparent** switching.
+
+The table it builds is called the **MAC address table** (also called the CAM table or forwarding table). Each row links a **MAC address** to the **port** on which that address was last seen. Every time a frame arrives, the switch does two separate things: it **learns** from the frame's *source* address, and it **forwards** the frame using its *destination* address.
+
+:::definition MAC address table
+A table stored in a switch that records, for each **MAC address** it has seen, the **port** that device is connected to. The switch builds it by reading the **source MAC address** of incoming frames.
+:::
+
+:::steps How a switch handles one frame
+- **Learn:** read the **source MAC address** of the incoming frame and record it in the MAC address table together with the **port it arrived on** (or refresh the entry if it is already there).
+- **Look up:** read the **destination MAC address** and search the table for it.
+- **Forward:** if the destination is in the table, send the frame **only to that port**. (If the destination is on the same port the frame came from, drop it — it has already arrived.)
+- **Flood:** if the destination is **not yet in the table** (or is the broadcast address `FF:FF:FF:FF:FF:FF`), send the frame to **all ports except the one it came from**. When the destination device replies, its reply teaches the switch the missing address.
+- **Age out:** entries that are not used for a few minutes are deleted, so the table stays correct when devices are moved or unplugged.
+:::
+
+Flooding sounds like what a hub does — and for that one frame it is. The difference is that a hub floods *every* frame forever, while a switch floods only until it has learned the address, which usually takes a single reply. After a few seconds of normal traffic, the switch knows every active device and floods almost nothing.
+
+:::example Watching a switch learn
+A switch in Computer Room 2 has four ports: PC A on port 1, PC B on port 2, the printer on port 3 and PC C on port 4. The MAC address table starts **empty**.
+
+| Event | What the switch learns | How it forwards | Table after the event |
+|---|---|---|---|
+| 1. PC A (`…9F:04`) sends a frame to the printer (`…7D:10`) | `…9F:04` is on **port 1** | Printer unknown → **floods** to ports 2, 3, 4 | 9F:04 → 1 |
+| 2. The printer replies to PC A | `…7D:10` is on **port 3** | PC A known → sends **only to port 1** | 9F:04 → 1, 7D:10 → 3 |
+| 3. PC A sends the next page to the printer | (entry for port 1 refreshed) | Printer known → **only port 3** | unchanged |
+| 4. PC B (`…3A:B7`) sends to PC A | `…3A:B7` is on **port 2** | PC A known → **only port 1** | 9F:04 → 1, 7D:10 → 3, 3A:B7 → 2 |
+
+After four frames, **only one** was flooded. A hub would have copied all four frames to every port: 12 unnecessary copies instead of 3. PC C, on port 4, never saw the print job at all after the first frame — which is why a switch is both **faster** and **more secure**.
+:::
+
+:::svg A switch sends the frame only to the destination port
+<svg class="nd" viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PC A sends a frame for the printer; the switch looks up the printer's MAC address on port 3 and forwards the frame only to port 3">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .m{font:12px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nd .sw{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nd .dev{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nd .ok{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.nd .send{stroke:var(--primary);stroke-width:3;fill:none}
+    svg.nd .idle{stroke:var(--border);stroke-width:2;fill:none}
+    svg.nd .go{stroke:var(--success);stroke-width:3;fill:none}
+    svg.nd .tab{fill:var(--surface-2);stroke:var(--border)}
+  </style>
+  <rect class="sw" x="300" y="115" width="150" height="56" rx="8"/><text class="w" x="375" y="140" text-anchor="middle">SWITCH</text><text class="s" x="375" y="158" text-anchor="middle">reads destination MAC</text>
+  <rect class="dev" x="30" y="115" width="130" height="56" rx="8"/><text class="w" x="95" y="139" text-anchor="middle">PC A · port 1</text><text class="m" x="95" y="157" text-anchor="middle">…:9F:04</text>
+  <path class="send" d="M160 143 H300"/>
+  <rect class="dev" x="600" y="20" width="140" height="50" rx="8"/><text class="w" x="670" y="42" text-anchor="middle">PC B · port 2</text><text class="s" x="670" y="60" text-anchor="middle">receives nothing</text>
+  <rect class="ok" x="600" y="118" width="140" height="50" rx="8"/><text class="w" x="670" y="140" text-anchor="middle">Printer · port 3</text><text class="m" x="670" y="158" text-anchor="middle">…:7D:10</text>
+  <rect class="dev" x="600" y="216" width="140" height="50" rx="8"/><text class="w" x="670" y="238" text-anchor="middle">PC C · port 4</text><text class="s" x="670" y="256" text-anchor="middle">receives nothing</text>
+  <path class="idle" d="M450 130 L600 45"/><path class="go" d="M450 143 H600"/><path class="idle" d="M450 156 L600 241"/>
+  <rect class="tab" x="250" y="200" width="250" height="80" rx="6"/>
+  <text class="t" x="262" y="220">MAC address table</text>
+  <text class="m" x="262" y="240">3C:52:82:1A:9F:04 → port 1</text>
+  <text class="m" x="262" y="256">00:1B:44:11:3A:B7 → port 2</text>
+  <text class="m" x="262" y="272">A4:5E:60:C2:7D:10 → port 3</text>
+</svg>
+:::
+
+## Why switches are better than hubs
+
+Because a switch sends each frame only where it is needed, several pairs of devices can communicate **at the same time**: PC A can print while PC B copies a file from PC C, and neither conversation slows the other down. Each port has its **own full bandwidth** — on a 1 Gbit/s switch, every port can run at 1 Gbit/s — rather than everyone sharing one channel. Modern switch ports are also **full duplex**: a device can send and receive at the same time on its cable. With a dedicated cable to each device and full duplex, **collisions cannot happen** at all; each port is its own collision domain.
+
+There is a security benefit too. A device connected to a switch normally receives only the frames addressed to it (plus broadcasts), so another user on the same switch cannot simply "listen" to everyone's traffic as they could on a hub. This is not a complete security solution — data should still be encrypted — but it removes the easiest way to spy on a LAN.
+
+Larger, more expensive **managed switches** can be configured by the network administrator: they can divide one physical switch into several separate virtual LANs (for example, one for students and one for staff), limit which devices may use a port, and report on traffic. Unmanaged switches simply work as soon as they are plugged in.
 
 :::compare Hub vs switch
 | | Hub | Switch |
 |---|---|---|
-| Sends data to | **All** connected devices | **Only** the destination device |
-| Reads addresses | No | Yes — **MAC** addresses |
-| Collisions | Yes — shared bandwidth | No — each port has its own bandwidth |
-| Security | Every device can see all data | Data reaches only the intended device |
-| Speed with many devices | Slow | Fast |
-| Cost | Cheaper | More expensive (but now cheap) |
+| Sends a frame to | **All** ports | **Only** the port of the destination device |
+| Reads addresses? | No | Yes — the **MAC address** |
+| Stores a table? | No | Yes — the **MAC address table**, learned automatically |
+| Bandwidth | **Shared** by all devices | **Dedicated** to each port |
+| Collisions | Yes — one collision domain | No — each port is separate, full duplex |
+| Security | Every device can see all traffic | Frames reach only the intended device |
+| Performance with many busy devices | Slows down sharply | Stays fast |
+| Cost | Very cheap (now obsolete) | Cheap (unmanaged) to expensive (managed) |
 :::
+
+## Bridges
+
+A **bridge** connects **two segments** of a LAN (or two small LANs that use the same protocol, e.g. both Ethernet) and **filters** the traffic between them. Like a switch, it reads MAC addresses and learns which addresses are on which side. When a frame arrives, the bridge checks the destination: if the destination is on the **same side** as the sender, the frame is **not passed across**; only frames for the **other side** cross the bridge. This splits one big, busy segment into two smaller ones with less traffic and fewer collisions on each.
+
+Historically, bridges were used to join two hub-based segments — for example the computer room and the library — without letting all the computer-room traffic flood into the library. A switch is effectively a **multi-port bridge**: it does the same filtering for every port. For this reason separate bridges are rare in wired networks today, but the idea survives in **wireless bridges**, which join two buildings by a point-to-point radio link, and in the bridging function built into many home routers.
 
 :::definition Bridge
-Connects **two segments** of the same LAN (or two LANs using the same protocol) and passes data across only if its destination is on the other side — like a switch with two ports.
+A device that connects **two segments of a LAN** (using the same protocol) and passes a frame across **only if its destination MAC address is on the other segment**, reducing unnecessary traffic.
 :::
+
+## Wireless access points
+
+Laptops, tablets and phones usually join a network by Wi-Fi rather than by cable. A **wireless access point (WAP)** is the device that makes this possible. It contains a radio transmitter and receiver and is connected by an Ethernet cable to a switch. It **converts** between radio signals and wired Ethernet signals, so that wireless devices become part of the same wired LAN: a phone on the WAP can print on the cabled printer or reach the school server just as a desktop PC can.
+
+A WAP broadcasts a network name (the **SSID**), controls which devices may join (with a password and **WPA2/WPA3 encryption**, because radio signals can be received by anyone nearby), and shares its radio bandwidth among all connected devices. One WAP covers roughly one or two classrooms, so a school installs many WAPs along its corridors, all cabled to switches. In a home, the WAP is usually built into the same box as the router.
 
 :::definition Wireless access point (WAP)
-Lets **wireless devices** (laptops, phones) join a **wired LAN** using Wi-Fi. It is usually connected to a switch by cable.
+A device, connected to a wired LAN by cable, that allows **wireless devices** to **join that LAN using Wi-Fi**, converting between radio signals and wired network signals.
 :::
 
-# Routers
+:::compare Switch, bridge and wireless access point
+| | Switch | Bridge | Wireless access point |
+|---|---|---|---|
+| Connects | Many devices in one LAN | Two segments of a LAN | Wireless devices to a wired LAN |
+| Reads | MAC addresses | MAC addresses | MAC addresses of wireless clients |
+| Typical ports | 8–48 wired ports | 2 | Radio + 1 wired port |
+| Main benefit | Sends frames only where needed | Keeps local traffic on its own side | Mobility — no cables needed |
+:::
+
+:::warning Common mistakes about devices inside a LAN
+- Saying a **switch uses IP addresses** to forward data. A switch uses **MAC addresses**; a **router** uses IP addresses.
+- Saying a switch learns from the **destination** address. It learns from the **source** MAC address and forwards using the **destination**.
+- Saying a **repeater** "sends data to the correct computer" or "filters data". It only **regenerates the signal**; it reads nothing.
+- Saying a **hub** is faster because it is simpler. With many devices it is **slower** — shared bandwidth and collisions.
+- Writing "a switch never broadcasts". It **floods** frames for unknown destinations and passes on broadcast frames.
+- Calling a MAC address "the IP address of the card", or writing it in denary. It is **48 bits in hexadecimal**.
+:::
+
+# Exam practice: devices inside a LAN
 @lo 11.6.1.6
 
+:::example Exam-style questions with model answers
+**Q: State what is meant by a MAC address. [2]**
+A unique (physical / hardware) address of a network interface card (1); 48 bits written as 12 hexadecimal digits, set by the manufacturer (1).
+
+**Q: State the purpose of a repeater. [1]**
+To regenerate / boost a weakened signal so that it can travel a longer distance (1).
+
+**Q: Explain the difference between how a hub and a switch forward data. [2]**
+A hub sends (broadcasts) every frame to all connected devices (1), whereas a switch reads the destination MAC address and sends the frame only to the port of the destination device (1).
+
+**Q: Describe how a switch builds its MAC address table. [3]**
+When a frame arrives the switch reads its source MAC address (1); it records this address with the port number the frame arrived on (1); if a destination is not yet in the table the frame is sent to all other ports, and the reply adds the destination's address (1).
+
+**Q: A school replaces the hubs in its computer rooms with switches. Explain two benefits. [4]**
+Less network traffic / better performance (1) because frames are sent only to the destination port and each port has its own bandwidth (1). No collisions (1) because each device has its own full-duplex link, so frames do not have to be resent (1). (Also: improved security (1) because other devices do not receive the frame (1).)
+
+**Q: Explain why a laptop keeps the same MAC address but gets a different IP address when it moves from home to school. [2]**
+The MAC address is fixed in the NIC by the manufacturer / identifies the hardware (1); the IP address identifies its location and is given by the network (DHCP) it is currently connected to (1).
+:::
+
+:::warning Mistakes that lose marks
+- "A hub sends data to the right computer" — no: it sends to **all** computers.
+- "A repeater amplifies the data" without mentioning the **signal** or **distance**.
+- Answering "explain two benefits" with two benefits but **no reasons** — each benefit needs its *because*.
+:::
+
+:::steps Check yourself
+- What are the three jobs of a NIC?
+- How many bits are in a MAC address and how is it written? What do its two halves mean?
+- Give two differences between a MAC address and an IP address.
+- What is attenuation and how does a repeater deal with it?
+- Why do collisions happen on a hub but not on a switch?
+- Describe the steps a switch takes when a frame arrives, including when the destination is unknown.
+- What is the difference between a bridge and a switch? What does a WAP connect?
+:::
+
+# Routers and routing tables
+@lo 11.6.1.6
+
+Switches move frames around **inside** one local network. But a school LAN must also reach other networks: the other NIS campus, the Ministry's servers, and the whole Internet. These are **different networks**, each with its own range of IP addresses. The device that connects networks to each other and passes data between them is the **router**. The Internet itself is simply millions of networks joined together by routers.
+
 :::definition Router
-A device that **connects different networks** (e.g. a school LAN to the Internet) and **forwards data packets** between them. It reads the **destination IP address** of each packet and uses its **routing table** to choose the **best route** to the next network.
+A device that **connects two or more different networks** (e.g. a LAN to the Internet) and **forwards packets between them**. It reads the **destination IP address** of each packet and uses its **routing table** to choose the **best route** (the next hop) towards the destination network.
 :::
 
-:::cards
-### Purposes of a router
-- **Connects** a LAN to other networks / the Internet (a WAN).
-- **Directs packets** between networks using **IP addresses**.
-- Keeps a **routing table** and chooses the **best (fastest / least busy) path**.
-- Often also does **NAT**, **DHCP** and has a **firewall**.
-### Extra jobs of a home or school router
-- **NAT (Network Address Translation)** — many devices with **private** IP addresses share one **public** IP address.
-- **DHCP** — automatically gives each device an IP address.
-- **Firewall** — blocks unauthorised traffic from the Internet.
-- Often contains a **switch** and a **wireless access point** in the same box.
+## Why a switch is not enough
+
+A switch makes its decisions with MAC addresses, but a MAC address says nothing about *where* a device is — `3C:52:82:1A:9F:04` could be in Astana or in Tokyo. To deliver data across the world, we need addresses that are organised by location, so that a device in the middle of the journey can tell which direction to send them. **IP addresses** are organised this way: an IPv4 address such as `10.12.3.87` has a **network part** (which network the device is in) and a **host part** (which device in that network). A router looks only at the network part to decide where a packet goes next, just as a post office sorting centre looks first at the city on an envelope, not at the house number.
+
+## How a router forwards a packet
+
+Each router has two or more **interfaces** (ports), each connected to a different network — for example one LAN port connected to the school switch and one WAN port connected to the Internet Service Provider (ISP). When a packet arrives, the router:
+
+:::steps How a router forwards a packet
+- Receives the frame on one interface, checks it for errors and takes out the **packet**.
+- Reads the packet's **destination IP address**.
+- Looks up the **destination network** in its **routing table** and finds the best matching entry.
+- If the destination network is **directly connected**, it delivers the packet straight to the device on that network; otherwise it sends it to the **next-hop router** named in the table.
+- If no entry matches, it uses the **default route** (usually towards the ISP); if there is no default route, the packet is dropped and an error message may be returned.
+- Puts the packet into a **new frame** with new MAC addresses for the next link, reduces the packet's hop count (time-to-live) by 1, and sends it out of the chosen interface.
 :::
 
-:::example A simple routing table
-| Destination network | Send to (next hop) | Interface |
+Notice that the router removes the old frame and builds a new one: the **MAC addresses change at every hop**, but the **IP addresses stay the same** from the sender to the final destination. A packet from Shymkent to a web server in Germany may pass through 10–20 routers, each of which makes only one decision: "which neighbour is the next step towards that network?" No single router knows the whole route.
+
+:::definition Routing table
+A table stored in a router listing **destination networks** and, for each one, the **next hop** (the next router or "deliver directly"), the **interface** to use and often a **metric** (cost, e.g. number of hops). The router uses it to decide where to send each packet.
+:::
+
+:::definition Default route (default gateway)
+The entry used when a packet's destination **matches no other entry** in the routing table — usually "send it to the ISP's router". For the computers on a LAN, the router itself is their **default gateway**: the address they send every packet for another network to.
+:::
+
+:::example Reading a routing table
+The router at an NIS school has this routing table:
+
+| Destination network | Next hop | Interface | Metric (hops) |
+|---|---|---|---|
+| 10.12.0.0 (school LAN) | Deliver directly | LAN | 0 |
+| 10.20.0.0 (sister campus) | Router 172.16.0.2 | WAN 1 (leased line) | 1 |
+| 10.20.0.0 (sister campus) | ISP router 85.29.0.1 | WAN 2 (Internet VPN) | 4 |
+| 0.0.0.0 (default — any other) | ISP router 85.29.0.1 | WAN 2 | — |
+
+**Packet for 10.12.3.87:** matches the school LAN → delivered directly through the LAN port to the switch.
+
+**Packet for 10.20.5.14:** matches the sister campus twice. The router chooses the route with the **lower metric** — via WAN 1 (1 hop). If the leased line fails, the WAN 1 entry is removed and the router automatically uses the WAN 2 route instead — routers can **reroute around failures**.
+
+**Packet for 8.8.8.8:** matches no specific network → the **default route** sends it to the ISP router, which has its own, much larger routing table.
+:::
+
+## How routing tables are filled
+
+Routing tables can be filled in two ways. In **static routing** the network administrator types the routes in by hand; this is simple and predictable, and suits a small school with one connection to the ISP, but the table does not change by itself if a link fails. In **dynamic routing**, routers **exchange information** with their neighbours using routing protocols, so each router learns which networks can be reached through which neighbours and how far away they are. When a link breaks or becomes congested, the routers tell each other and recalculate the best routes automatically within seconds. The routers that form the Internet use dynamic routing, which is why the Internet keeps working even when cables are cut.
+
+"Best route" can mean the **fewest hops**, the **fastest** links, or the **least busy** links, depending on the routing protocol and the metric it uses. Because each packet is routed separately, different packets of the same file may even take different routes and arrive out of order; the receiving computer puts them back in order. (You will study this in detail in the topic on packet routing.)
+
+:::svg A packet crosses several networks, one hop at a time
+<svg class="nd" viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A packet travels from a school LAN through the school router, ISP routers and a data-centre router to a web server; the IP addresses stay the same while the frame changes at each hop">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .lan{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nd .rt{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nd .srv{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.nd .hop{stroke:var(--primary);stroke-width:3;fill:none}
+    svg.nd .alt{stroke:var(--muted);stroke-width:2;fill:none;stroke-dasharray:6 5}
+  </style>
+  <rect class="lan" x="15" y="70" width="120" height="70" rx="8"/><text class="w" x="75" y="98" text-anchor="middle">School PC</text><text class="s" x="75" y="118" text-anchor="middle">10.12.3.87</text>
+  <circle class="rt" cx="205" cy="105" r="34"/><text class="w" x="205" y="101" text-anchor="middle">School</text><text class="w" x="205" y="117" text-anchor="middle">router</text>
+  <circle class="rt" cx="345" cy="70" r="34"/><text class="w" x="345" y="66" text-anchor="middle">ISP</text><text class="w" x="345" y="82" text-anchor="middle">router 1</text>
+  <circle class="rt" cx="345" cy="185" r="34"/><text class="w" x="345" y="181" text-anchor="middle">ISP</text><text class="w" x="345" y="197" text-anchor="middle">router 2</text>
+  <circle class="rt" cx="490" cy="105" r="34"/><text class="w" x="490" y="101" text-anchor="middle">Backbone</text><text class="w" x="490" y="117" text-anchor="middle">router</text>
+  <rect class="srv" x="600" y="70" width="145" height="70" rx="8"/><text class="w" x="672" y="98" text-anchor="middle">Web server</text><text class="s" x="672" y="118" text-anchor="middle">93.184.216.34</text>
+  <path class="hop" d="M135 105 H171"/><path class="hop" d="M235 92 L313 76"/><path class="hop" d="M378 78 L458 98"/><path class="hop" d="M524 105 H600"/>
+  <path class="alt" d="M232 122 L314 175"/><path class="alt" d="M376 176 L462 120"/>
+  <text class="s" x="15" y="240">Solid: best route chosen from the routing tables. Dashed: alternative route if a link fails or is busy.</text>
+  <text class="s" x="15" y="30">IP addresses stay the same for the whole journey; a new frame (new MAC addresses) is made at every hop.</text>
+</svg>
+:::
+
+:::compare Switch vs router
+| | Switch | Router |
 |---|---|---|
-| 192.168.1.0 (school LAN) | Deliver directly | LAN port |
-| 10.20.0.0 (other campus) | Router 10.0.0.2 | WAN port 1 |
-| Any other address (Internet) | ISP router | WAN port 2 |
-
-A packet for **8.8.8.8** does not match the first two networks, so it is sent to the **ISP router** (the default route).
+| Connects | Devices **within one LAN** | **Different networks** (LAN ↔ LAN, LAN ↔ WAN / Internet) |
+| Address it reads | **MAC** address (in the frame) | **IP** address (in the packet) |
+| Table it keeps | MAC address table — learned from source addresses | Routing table — destination networks and next hops |
+| Decision it makes | Which **port** leads to this device? | Which **route / next hop** leads to this network? |
+| Broadcasts | Passed to all ports | **Not** passed on — a router separates broadcast domains |
+| Extra services | VLANs (managed switches) | NAT, DHCP, firewall, VPN |
 :::
 
-:::mermaid A typical school network
-flowchart TB
-  ISP((Internet)) --- R[Router with firewall]
-  R --- SW[Switch]
-  SW --- PC1[PC]
-  SW --- PC2[PC]
-  SW --- PR[Printer]
-  SW --- AP[Wireless access point]
-  AP -. Wi-Fi .- L[Laptop]
+# Services in a school or home router
+@lo 11.6.1.6
+
+The router in a school or a home usually does much more than forward packets. It is the single point where the private LAN meets the public Internet, so it is the natural place to share the Internet connection, hand out IP addresses and protect the network. Three extra jobs appear in exam answers again and again: **NAT**, **DHCP** and the **firewall**.
+
+## Private and public IP addresses
+
+There are only about 4.3 billion IPv4 addresses (2³²), far fewer than the number of devices in the world. To save addresses, some ranges are reserved as **private** addresses — `10.x.x.x`, `172.16.x.x`–`172.31.x.x` and `192.168.x.x`. Any organisation may use them inside its own LAN, and thousands of homes all use `192.168.1.x` at the same time. Private addresses are **not routed on the Internet**: an Internet router will not forward a packet addressed to `192.168.1.25`, because it would not know which of the millions of such devices was meant. To reach the Internet, a device needs a **public** IP address, which is unique worldwide and is given to the school or home by its ISP — usually just one.
+
+:::definition Private and public IP address
+A **private IP address** is used only inside a LAN (ranges 10.x.x.x, 172.16–31.x.x, 192.168.x.x) and can be reused by other networks. A **public IP address** is unique on the Internet, is given by the ISP and can be reached from anywhere.
+:::
+
+## NAT — Network Address Translation
+
+How can 800 school devices with private addresses use the Internet through **one** public address? The router performs **Network Address Translation (NAT)**. When a packet goes **out** to the Internet, the router replaces the private source address with the school's public address (and usually a port number that identifies the conversation), and writes the change in its **NAT table**. When the reply comes **back** to the public address, the router looks up the NAT table, puts back the original private address and forwards the packet to the right device inside the LAN.
+
+NAT has two benefits. It **saves public IPv4 addresses**, because a whole network shares one. It also gives some **security**: devices inside the LAN are hidden behind the router, and a computer on the Internet cannot start a connection to a private address that it cannot even see — only replies to conversations started from inside are let back in.
+
+:::definition NAT (Network Address Translation)
+A router service that **translates private IP addresses** of devices in a LAN **into a public IP address** (and back again for replies), so that **many devices share one public address** and the internal addresses are hidden from the Internet.
+:::
+
+:::svg NAT: many private addresses share one public address
+<svg class="nd" viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two school PCs with private addresses send packets through the router; NAT replaces the source with the public address 85.29.14.6 and a port number, recorded in a NAT table">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .m{font:12px ui-monospace,monospace;fill:var(--foreground)}
+    svg.nd .priv{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+    svg.nd .rt{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2}
+    svg.nd .pub{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.nd .ln{stroke:var(--primary);stroke-width:2.5;fill:none}
+    svg.nd .zone{fill:none;stroke:var(--border);stroke-dasharray:6 5}
+  </style>
+  <rect class="zone" x="10" y="10" width="270" height="170" rx="10"/><text class="s" x="22" y="30">Private LAN (10.12.x.x)</text>
+  <rect class="priv" x="25" y="45" width="170" height="50" rx="8"/><text class="w" x="110" y="66" text-anchor="middle">PC 1</text><text class="m" x="110" y="84" text-anchor="middle">10.12.3.87</text>
+  <rect class="priv" x="25" y="115" width="170" height="50" rx="8"/><text class="w" x="110" y="136" text-anchor="middle">Phone</text><text class="m" x="110" y="154" text-anchor="middle">10.12.7.20</text>
+  <rect class="rt" x="310" y="75" width="130" height="60" rx="8"/><text class="w" x="375" y="100" text-anchor="middle">Router</text><text class="s" x="375" y="118" text-anchor="middle">does NAT</text>
+  <rect class="pub" x="520" y="75" width="225" height="60" rx="8"/><text class="w" x="632" y="100" text-anchor="middle">Internet</text><text class="m" x="632" y="118" text-anchor="middle">sees only 85.29.14.6</text>
+  <path class="ln" d="M195 70 L310 95"/><path class="ln" d="M195 140 L310 115"/><path class="ln" d="M440 105 H520"/>
+  <text class="t" x="20" y="208">NAT table in the router</text>
+  <text class="m" x="20" y="230">10.12.3.87 : 51000  ⇄  85.29.14.6 : 40001</text>
+  <text class="m" x="20" y="250">10.12.7.20 : 49152  ⇄  85.29.14.6 : 40002</text>
+  <text class="s" x="420" y="230">Replies to port 40001 go to PC 1,</text>
+  <text class="s" x="420" y="250">replies to port 40002 go to the phone.</text>
+</svg>
+:::
+
+## DHCP — giving out IP addresses automatically
+
+Every device on the LAN needs an IP address, a subnet mask, the address of its default gateway (the router) and the address of a DNS server. Typing these into 800 devices by hand would take days and would cause mistakes such as two devices with the same address. Instead, the router (or a server) runs **DHCP — the Dynamic Host Configuration Protocol**. When a device joins the network it asks for an address, and the DHCP server **automatically assigns** it a free IP address from a pool, together with the other settings, for a limited time called a **lease**. When the lease ends or the device leaves, the address returns to the pool and can be given to another device. Printers and servers, which other devices must always find at the same address, are usually given a **fixed (reserved) address** instead.
+
+:::definition DHCP (Dynamic Host Configuration Protocol)
+A service (often run by the router) that **automatically assigns an IP address** — and the subnet mask, default gateway and DNS server — **to each device that joins the network**, for a limited lease time.
+:::
+
+:::example A visitor's phone joins the school Wi-Fi
+1. **Discover:** the phone connects to the WAP and broadcasts "Is there a DHCP server? I need an address."
+2. **Offer:** the router's DHCP service replies: "You can have `10.12.7.20`, mask `255.255.0.0`, gateway `10.12.0.1`, DNS `10.12.0.1`, lease 8 hours."
+3. **Request:** the phone answers: "I accept `10.12.7.20`."
+4. **Acknowledge:** the router confirms and records the phone's **MAC address** against `10.12.7.20` in its lease list.
+
+The phone can now browse: its packets go to the **default gateway** (the router), which uses **NAT** to send them to the Internet with the school's public address. At the end of the day the lease expires and `10.12.7.20` can be given to another device. Notice how three services of one router worked together.
+:::
+
+## The firewall and the all-in-one box
+
+Because all traffic between the LAN and the Internet passes through the router, it is also the natural place for a **firewall**: a set of rules that checks each packet and **blocks unauthorised traffic**, for example connections from the Internet that nobody inside asked for, or traffic to forbidden sites and ports. (Firewalls are studied in detail in the topic on information protection.)
+
+A **home router** is really several devices in one plastic box: a **modem** (to connect to the telephone, cable or fibre line), a **router** with NAT, DHCP and a firewall, a small **switch** with four LAN ports, and a **wireless access point**. In a school, these jobs are usually done by separate, more powerful devices: a fibre connection from the ISP, a dedicated router/firewall, many managed switches and dozens of WAPs. In the exam, when you are asked what the "router" in a home does, you may list all of these jobs — but you must know which job belongs to which device.
+
+:::compare Jobs inside a home "router" box
+| Part of the box | Job | Reads / works with |
+|---|---|---|
+| **Modem** | Converts digital data to the signal used on the ISP's line, and back | Signals |
+| **Router** | Forwards packets between the home LAN and the Internet | IP addresses |
+| **NAT** | Lets all home devices share one public IP address | IP addresses and ports |
+| **DHCP server** | Gives every device an IP address automatically | MAC → IP leases |
+| **Firewall** | Blocks unauthorised incoming traffic | Packet headers and rules |
+| **Switch** (LAN ports) | Connects wired devices in the home LAN | MAC addresses |
+| **Wireless access point** | Lets phones and laptops join by Wi-Fi | Radio + MAC addresses |
 :::
 
 # Gateways and modems
 @lo 11.6.1.6
 
+Routers connect networks that speak the **same** basic language — the Internet Protocol. Sometimes, though, two networks are built on completely **different protocols**, and simply forwarding packets is not enough: the data must be **translated**. That is the job of a **gateway**. And sometimes the problem is not the protocol but the **type of signal** a line can carry — that is the job of a **modem**.
+
+## Gateways
+
+A **gateway** is a device (or software on a computer) that connects **networks using different protocols** and **converts** data from the format of one network into the format of the other. You can think of it as an interpreter standing between two people who speak different languages: it does not just pass the message on, it rewrites it so that the other side can understand it.
+
+Some examples of gateways:
+
+- An **e-mail-to-SMS gateway** receives an e-mail (using e-mail protocols) and turns it into a text message on the mobile phone network — for example a school system that texts parents when a student is absent.
+- An **IoT gateway** in a smart greenhouse collects readings from sensors that use a low-power radio protocol (such as Zigbee or Bluetooth) and converts them into IP packets sent to a server over Wi-Fi or the Internet.
+- A **VoIP gateway** connects an office's Internet telephone system to the ordinary telephone network.
+- A **payment gateway** converts an online shop's order into the format the bank's payment network expects.
+
+There is also a second, everyday meaning: the router that leads out of a LAN is called the computers' **default gateway**, because it is their "gate" to all other networks. When a computer's settings show "Default gateway: 10.12.0.1", that is the router's address. In the exam, if you are asked for the *purpose of a gateway*, give the first meaning — **connecting networks with different protocols and translating between them** — because that is what makes a gateway different from a router.
+
 :::definition Gateway
-A device (or software) that connects **networks that use different protocols**, **translating** (converting) data between them — for example between a LAN and a mobile network, or between an e-mail system and SMS. Every router that leads out of a network is called its **default gateway**.
+A device or software that connects **networks that use different protocols** and **converts (translates) data** from one protocol to the other, so the networks can communicate. The router leading out of a LAN is also called its **default gateway**.
 :::
+
+:::svg A gateway translates between networks with different protocols
+<svg class="nd" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Greenhouse sensors using Zigbee send data to an IoT gateway which converts it into TCP/IP packets for the school server">
+  <style>
+    svg.nd .t{font:600 14px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .s{font:13px system-ui,sans-serif;fill:var(--muted)}
+    svg.nd .w{font:600 13px system-ui,sans-serif;fill:var(--foreground)}
+    svg.nd .a{fill:var(--warning);opacity:.3;stroke:var(--warning);stroke-width:2}
+    svg.nd .b{fill:var(--success-soft);stroke:var(--success);stroke-width:2}
+    svg.nd .g{fill:var(--primary-soft);stroke:var(--primary);stroke-width:2.5}
+    svg.nd .ln{stroke:var(--muted);stroke-width:2.5;fill:none}
+  </style>
+  <rect class="a" x="20" y="40" width="210" height="130" rx="10"/>
+  <text class="t" x="125" y="65" text-anchor="middle">Sensor network</text>
+  <text class="s" x="125" y="88" text-anchor="middle">temperature, humidity,</text>
+  <text class="s" x="125" y="106" text-anchor="middle">soil-moisture sensors</text>
+  <text class="w" x="125" y="140" text-anchor="middle">Protocol: Zigbee radio</text>
+  <rect class="g" x="290" y="65" width="180" height="80" rx="10"/>
+  <text class="t" x="380" y="95" text-anchor="middle">GATEWAY</text>
+  <text class="s" x="380" y="115" text-anchor="middle">converts Zigbee ⇄ TCP/IP</text>
+  <rect class="b" x="530" y="40" width="210" height="130" rx="10"/>
+  <text class="t" x="635" y="65" text-anchor="middle">School LAN / Internet</text>
+  <text class="s" x="635" y="88" text-anchor="middle">server stores readings,</text>
+  <text class="s" x="635" y="106" text-anchor="middle">website shows graphs</text>
+  <text class="w" x="635" y="140" text-anchor="middle">Protocol: TCP/IP</text>
+  <path class="ln" d="M230 105 H290"/><path class="ln" d="M470 105 H530"/>
+  <text class="s" x="20" y="205">A router could not join these networks: the sensors do not use IP at all, so the data must be translated, not just forwarded.</text>
+</svg>
+:::
+
+## Modems
+
+Many connections to an ISP still use lines that were designed for something other than computer data: the **telephone line** (designed for analogue voice), the **cable-TV line**, or the **mobile phone radio network**. A computer produces **digital** signals — sequences of 0s and 1s — but these lines carry **analogue** signals: continuously varying waves. A **modem** (short for **modulator–demodulator**) solves this. When sending, it **modulates**: it changes a carrier wave (its amplitude, frequency or phase) to represent the bits. When receiving, it **demodulates**: it reads the wave and turns it back into digital bits.
+
+Modern connections use more advanced versions of the same idea. A **DSL modem** uses high frequencies on a telephone line, so voice and Internet work together. A **cable modem** uses the cable-TV line. A **4G/5G modem** (in a phone or a USB "dongle") uses the mobile network. With **fibre** to the home, the box that converts light signals into electrical Ethernet signals (an ONT, often still called a "modem") does a similar job. In all cases the purpose is the same: to **convert between the computer's digital signals and the kind of signal the transmission line can carry**.
 
 :::definition Modem (modulator–demodulator)
-Converts the computer's **digital** signals into **analogue** signals (or light / radio) for a telephone line, cable TV line or mobile network, and back again. A home Internet box usually combines a **modem**, a **router**, a **switch** and a **WAP**.
+A device that **converts digital signals from a computer into analogue signals** for transmission over a telephone, cable or radio line (**modulation**) and **converts received analogue signals back into digital** (**demodulation**).
 :::
 
-:::compare Comparing the devices
-| Device | Works with | Connects | What it does |
+:::compare Router vs gateway vs modem
+| | Router | Gateway | Modem |
 |---|---|---|---|
-| **NIC** | Signals + **MAC** address | A device to the network | Gives the device a network connection and identity |
-| **Repeater** | Electrical / radio **signal** | Two parts of the same cable or link | Boosts / regenerates the signal — no intelligence |
-| **Hub** | Packets (addresses **not** read) | Devices in one LAN | Broadcasts to all ports |
-| **Switch** | **MAC** addresses | Devices in one LAN | Sends to the correct port only; learns MAC addresses |
-| **Bridge** | **MAC** addresses | Two LAN segments | Passes data across only when needed |
-| **WAP** | Radio + MAC | Wireless devices to a wired LAN | Provides Wi-Fi |
-| **Router** | **IP** addresses | **Different networks** (LAN ↔ WAN) | Chooses routes using routing tables; NAT, DHCP |
-| **Gateway** | **Protocols** | Networks with **different protocols** | Converts between protocols |
-| **Modem** | Digital ↔ analogue signals | A computer / router to a telephone or cable line | Modulates and demodulates |
+| Purpose | Forward packets between **networks** | Connect networks with **different protocols** | Connect a device or router to a **line** that carries analogue / other signals |
+| Works with | **IP addresses** | Whole **protocols** / data formats | **Signals** (digital ⇄ analogue) |
+| Changes the data? | No — repacks it in a new frame | **Yes — translates it** into another protocol | No — changes only how the bits are represented |
+| Example | School router between LAN and ISP | E-mail-to-SMS gateway; IoT gateway | DSL modem on a home phone line |
 :::
 
-:::example Choosing devices
-- A classroom of 25 PCs, each with a cable → a **switch**.
-- Students' laptops and tablets → a **wireless access point** connected to the switch.
-- The school must use the Internet → a **router** (with **firewall**) connected to the ISP.
-- The sports hall is 180 m away from the switch → a **repeater** (or a fibre link).
-- The weather station uses a different protocol from the LAN → a **gateway**.
+:::example Following a message from a parent's laptop to a teacher's phone
+A parent at home in Karaganda e-mails the class teacher, and the school's system forwards it to the teacher's phone as an SMS.
+
+1. The laptop's **wireless NIC** sends the frame by radio to the home **WAP**.
+2. The home **router** reads the destination IP address (the school's mail server), applies **NAT**, and passes the packet to the built-in **modem**.
+3. The **modem** modulates the data into the signal used on the DSL telephone line to the ISP.
+4. ISP and Internet **routers** forward the packet hop by hop using their **routing tables**.
+5. At the school, the **firewall/router** checks the packet and forwards it to the mail server through the **switch**.
+6. The school's **SMS gateway** converts the e-mail into the SMS protocol of the mobile network, and the teacher's phone receives a text.
+
+Each device did exactly one kind of job — signal, MAC, IP or protocol. That is the pattern to use when you explain any network.
 :::
 
-# Exam practice and summary
+# Choosing network devices
 @lo 11.6.1.6
 
-:::example Exam-style answers
-**Q: Identify two purposes of a router. [2]**
-To **direct traffic / route packets between different networks** using the destination **IP address** (1); to decide the **best path** to the destination using the **routing table** (1). (Also: connect a LAN to the Internet; NAT; firewall.)
+In the exam you may be given a scenario — a new school building, a clinic, a small shop, a family home — and asked to **identify and justify** the devices needed. A good answer names each device, says **where** it goes, and gives a **reason linked to the scenario**: "a switch, to connect the 30 PCs in the computer room, because it sends data only to the destination PC so the network stays fast." Marks are awarded for the justification, not just the name.
 
-**Q: Explain the difference between a hub and a switch. [2]**
-A hub sends data to **all** devices on the network (1), whereas a switch reads the **MAC address** and sends data **only to the destination** device (1).
+The table below brings all the devices together. Learn it column by column: what each device connects, what it reads, and what it does.
 
-**Q: State the purpose of a repeater. [1]**
-To **regenerate / boost a weak signal** so it can travel a longer distance (1).
-
-**Q: State the purpose of a gateway. [1]**
-To connect networks that use **different protocols**, converting data between them (1).
+:::compare Comparing all the devices
+| Device | Connects | Reads / works with | What it does | Typical use |
+|---|---|---|---|---|
+| **NIC** | A device to the network | Signals; owns a **MAC** address | Converts data to signals; identifies the device | Every PC, phone, printer |
+| **Repeater** | Two lengths of the same link | **Signal** only | Regenerates a weak signal | Cables over 100 m; Wi-Fi extender |
+| **Hub** | Devices in one LAN | **Signal** only | Copies every frame to all ports | Obsolete — replaced by switches |
+| **Switch** | Devices in one LAN | **MAC** addresses | Sends each frame only to the destination port | Computer rooms, office floors |
+| **Bridge** | Two LAN segments | **MAC** addresses | Passes frames across only when needed | Joining two segments / buildings |
+| **WAP** | Wireless devices to a wired LAN | Radio + **MAC** | Provides Wi-Fi access to the LAN | Classrooms, corridors, homes |
+| **Router** | **Different networks** | **IP** addresses | Chooses the route; NAT, DHCP, firewall | LAN to ISP / Internet |
+| **Gateway** | Networks with **different protocols** | **Protocols** | Translates between protocols | IoT, e-mail-to-SMS, VoIP |
+| **Modem** | A device / router to a telephone, cable or mobile line | Digital ⇄ analogue **signals** | Modulates and demodulates | Home DSL, 4G dongle |
 :::
 
-:::warning Common mistakes
-- Saying a **switch** uses IP addresses — it uses **MAC** addresses; a **router** uses **IP** addresses.
-- Saying a repeater "sends data to the right computer" — it only **boosts the signal**.
-- Confusing a **router** (between networks) with a **modem** (changes the signal type).
-- Saying a hub is "faster" — it causes **collisions** and is **slower** with many devices.
+## A method for scenario questions
+
+:::steps Choosing devices for a scenario
+- **List the needs** in the scenario: how many wired devices, wireless devices, distances, connection to other sites or the Internet, any unusual equipment.
+- **Inside each room or floor:** wired devices → a **switch**; wireless devices → a **WAP** cabled to the switch.
+- **Long distances:** a cable over ~100 m → a **repeater** (or a switch part-way, or fibre).
+- **Leaving the LAN:** connecting to the Internet or another site → a **router** (with **firewall**, **NAT**, **DHCP**); if the ISP line is telephone / cable / mobile → a **modem**.
+- **Different protocols:** equipment that does not use the same protocol as the LAN → a **gateway**.
+- **Justify each choice** by linking what the device does to the scenario's need.
+:::
+
+:::mermaid A typical school network
+flowchart TB
+  ISP((Internet / ISP)) --- M[Modem or fibre terminal]
+  M --- R[Router + firewall<br/>NAT, DHCP]
+  R --- CS[Core switch]
+  CS --- S1[Switch: Computer room]
+  CS --- S2[Switch: Library]
+  CS --- SRV[School server]
+  S1 --- PC1[30 PCs]
+  S1 --- PR[Printer]
+  S2 --- AP1[WAP: library Wi-Fi]
+  CS --- RP[Repeater] --- SH[Sports hall PC]
+  CS --- GW[IoT gateway] -. Zigbee .- SEN[Greenhouse sensors]
+  AP1 -. Wi-Fi .- L[Laptops and tablets]
+:::
+
+:::example Equipping a new clinic in Turkistan
+A new medical clinic has **12 desktop PCs** in consulting rooms, **2 network printers**, doctors who use **tablets** while walking between rooms, a **server** that stores patient records, and an **X-ray machine** whose software uses a manufacturer's own protocol. The clinic must reach the national health database over the **Internet**, and its ISP provides a **DSL telephone line**. The X-ray room is in a separate building **140 m** away.
+
+| Need | Device | Justification |
+|---|---|---|
+| Connect PCs, printers and server | **Switch** | Sends each frame only to the destination device using MAC addresses, so the network stays fast and patients' data does not reach every PC |
+| Doctors' tablets | **Wireless access points**, cabled to the switch | Let mobile devices join the same LAN by Wi-Fi; WPA3 encryption protects data in the air |
+| X-ray building 140 m away | **Repeater** (or fibre link) | Ethernet cable is limited to about 100 m; the repeater regenerates the signal so it arrives without errors |
+| X-ray machine's own protocol | **Gateway** | Converts its data into the protocol used by the clinic LAN / server |
+| Reach the national database | **Router** with **firewall** | Connects the clinic LAN to the Internet, routes packets using IP addresses, blocks unauthorised access to medical records; NAT and DHCP |
+| DSL telephone line | **Modem** | Converts the router's digital signals into analogue signals for the telephone line and back |
+
+A **hub** would be a poor choice here: every frame — including patients' records — would be copied to every device, and collisions would slow the network as more PCs were added.
+:::
+
+:::warning Common mistakes about routers, gateways and modems
+- Saying a **router** connects devices "in the same network". It connects **different networks**; a switch connects devices in one LAN.
+- Confusing a **router** with a **modem**. The modem changes the **type of signal**; the router chooses the **route** using IP addresses. A home box contains both.
+- Describing a **gateway** as "a router". A gateway **translates between different protocols**; a router forwards packets between networks using the same protocol.
+- Writing "NAT gives devices their IP addresses". **DHCP** assigns addresses; **NAT** translates private addresses into the public one.
+- Giving device names in a scenario answer **without justification** linked to the scenario.
+- Saying the MAC address in a packet stays the same across the Internet. The **IP addresses** stay the same; the **frame and MAC addresses change at every hop**.
+:::
+
+# Exam practice: routers, gateways and choosing devices
+@lo 11.6.1.6
+
+:::example Exam-style questions with model answers
+**Q: Identify two purposes of a router. [2]**
+To connect different networks / a LAN to the Internet (1); to forward packets towards their destination using the destination IP address and the routing table / choose the best route (1). (Also: NAT, DHCP, firewall.)
+
+**Q: Explain what a router does when it receives a packet. [3]**
+It reads the destination IP address in the packet (1); it looks up the destination network in its routing table (1); it forwards the packet to the next hop / directly to the device, or uses the default route if there is no match (1).
+
+**Q: Explain the purpose of NAT. [2]**
+It translates the private IP addresses of devices in the LAN into the public IP address of the router (1), so many devices can share one public IP address / internal addresses are hidden from the Internet (1).
+
+**Q: State the purpose of a gateway. [1]**
+To connect networks that use different protocols by converting data between the protocols (1).
+
+**Q: Describe the difference between a router and a modem. [2]**
+A router forwards packets between different networks using IP addresses (1); a modem converts digital signals to analogue for a telephone / cable line and back (1).
+
+**Q: A small company opens an office with 10 PCs, a printer, staff laptops and an Internet connection over a cable line. Identify four devices it needs and justify each. [6]**
+Switch (1) to connect the PCs and printer and send data only to the destination device (1). WAP (1) so laptops can join the LAN wirelessly. Router (1) to connect the LAN to the Internet / route packets; with firewall to protect the office (1). Modem (1) to convert between digital signals and the signals of the cable line. (Max 6: names up to 3, justifications up to 3.)
+:::
+
+:::warning Mistakes that lose marks
+- "A router sends data to the right computer using its MAC address" — mixes up router and switch.
+- "A gateway is the same as a router" — it **translates protocols**.
+- In "identify and justify" questions, a justification that does not refer to the **scenario** gets no mark.
 :::
 
 :::steps Check yourself
-- What is a MAC address and how is it written?
-- Explain how a switch builds its MAC address table.
-- Give three differences between a hub and a switch.
-- State four jobs of a school router.
-- When would you use a repeater? A gateway?
-- Draw a school network with a router, switch, WAP, PCs and a printer.
+- What does a router read, and what does it do with that information?
+- Give the four columns of a routing table and explain the default route.
+- What is the difference between static and dynamic routing?
+- Why are private IP addresses not routed on the Internet? How does NAT help?
+- Describe what DHCP gives a device when it joins the network.
+- Explain the two meanings of "gateway".
+- What do "modulate" and "demodulate" mean?
+- Choose and justify the devices for a school library with 20 PCs, Wi-Fi and an Internet link.
 :::

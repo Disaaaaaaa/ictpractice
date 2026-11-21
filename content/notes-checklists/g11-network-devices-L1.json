@@ -1,0 +1,90 @@
+{
+  "topic": "g11-network-devices",
+  "lesson": 1,
+  "points": [
+    {
+      "title": "Frame and packet",
+      "must": "Definitions of frame (MAC addresses, data, error check) and packet (IP addresses, payload); the packet travels inside a frame.",
+      "weight": 2,
+      "model": "Frame = unit of data on one LAN: destination MAC, source MAC, data, error check. Packet = unit of data between networks: header with source and destination IP addresses + payload. The packet travels inside a new frame on each LAN."
+    },
+    {
+      "title": "Network interface card (NIC)",
+      "must": "Definition and its three jobs: physical connection (cable or wireless), converts data to signals and back, unique MAC address / builds and checks frames.",
+      "weight": 3,
+      "model": "NIC = hardware that connects a device to a network (wired or wireless NIC). Jobs: provides the connection (RJ45 port / radio); converts data into signals and back; has a unique MAC address and accepts only frames addressed to it."
+    },
+    {
+      "title": "MAC address",
+      "must": "Definition: unique 48-bit physical address, 12 hex digits, example; first 24 bits = manufacturer (OUI), last 24 bits = individual card; set by the manufacturer.",
+      "weight": 3,
+      "model": "MAC address = unique 48-bit physical address of a network interface, 12 hexadecimal digits, e.g. 3C:52:82:1A:9F:04. First 24 bits (3C:52:82) = manufacturer (OUI); last 24 bits = this card. Set by the manufacturer; used to deliver frames inside a LAN."
+    },
+    {
+      "title": "MAC address vs IP address",
+      "must": "At least four differences (hardware vs location; manufacturer vs network/DHCP; 48-bit hex vs 32-bit denary; switches vs routers) and the laptop example.",
+      "weight": 3,
+      "model": "MAC: identifies the card, fixed by the manufacturer, 48 bits in hex, used by switches inside a LAN, changes at every hop. IP: identifies the location, given by DHCP/administrator, IPv4 32 bits e.g. 192.168.1.25, used by routers, stays the same for the whole journey. A laptop has the same MAC at home and at school but a different IP."
+    },
+    {
+      "title": "Attenuation",
+      "must": "Definition; causes (resistance, noise, absorption); maximum length ~100 m for twisted-pair cable.",
+      "weight": 2,
+      "model": "Attenuation = loss of signal strength as a signal travels; caused by resistance (heat), noise, absorption in glass or walls. Twisted-pair Ethernet limit ≈ 100 m; fibre carries signals for kilometres; Wi-Fi tens of metres."
+    },
+    {
+      "title": "Repeater",
+      "must": "Definition (regenerates a weak signal so data travels further); reads no addresses; regenerate vs amplify; uses.",
+      "weight": 3,
+      "model": "Repeater = receives a weakened signal, regenerates (boosts) it and retransmits it so data can travel further. Two ports, reads no addresses, filters nothing. Regenerating rebuilds clean pulses (removes noise). Uses: cable over 100 m, Wi-Fi range extender, undersea fibre."
+    },
+    {
+      "title": "Hub",
+      "must": "Definition: connects devices in a star LAN and sends every frame to all ports; devices keep or discard by MAC address.",
+      "weight": 3,
+      "model": "Hub = connects devices in a star LAN; copies (broadcasts) every frame it receives to all ports because it cannot read addresses. Each NIC keeps the frame if it is addressed to it, otherwise discards it. A hub is a multi-port repeater."
+    },
+    {
+      "title": "Problems with a hub; collisions",
+      "must": "Shared bandwidth, collisions (definition and resending), poor security.",
+      "weight": 2,
+      "model": "Bandwidth is shared by all devices. Collision = two devices transmit at the same time, their signals interfere and both frames must be resent (all devices are in one collision domain). Poor security — every device receives all traffic."
+    },
+    {
+      "title": "Repeater vs hub",
+      "must": "Number of ports, purpose, behaviour; neither reads addresses.",
+      "weight": 1,
+      "model": "Repeater: 2 ports, extends the distance, passes the signal on. Hub: many ports, connects devices, copies every frame to all ports. Neither reads addresses."
+    },
+    {
+      "title": "Switch and MAC address table",
+      "must": "Definition of a switch (reads destination MAC, forwards only to that port) and of the MAC address table (MAC → port).",
+      "weight": 3,
+      "model": "Switch = connects devices within a LAN; reads the destination MAC address and, using its MAC address table, forwards the frame only to the port of the destination device. MAC address table = list of MAC address → port, built from the source addresses of incoming frames."
+    },
+    {
+      "title": "How a switch learns",
+      "must": "Steps: learn source MAC + port; look up destination; forward to one port; flood if unknown; age out — with the worked example.",
+      "weight": 3,
+      "model": "1 Read the source MAC and record it with the arrival port. 2 Look up the destination MAC. 3 Known → send only to that port. 4 Unknown or broadcast → flood to all other ports; the reply teaches the address. 5 Unused entries age out. E.g. PC A (port 1) → printer unknown → flood; the printer replies → learned on port 3; next frames go only to port 3."
+    },
+    {
+      "title": "Hub vs switch",
+      "must": "At least four differences: all ports vs one port; reads MAC or not; shared vs dedicated bandwidth; collisions; security; speed.",
+      "weight": 3,
+      "model": "Hub: sends to all ports, reads no address, shared bandwidth, collisions, every device can see traffic, slow with many devices. Switch: sends only to the destination port, reads MAC addresses, dedicated bandwidth per port, full duplex so no collisions, more secure, stays fast."
+    },
+    {
+      "title": "Bridge",
+      "must": "Definition: connects two LAN segments and passes frames across only if the destination is on the other side; a switch is a multi-port bridge.",
+      "weight": 2,
+      "model": "Bridge = connects two segments of a LAN (same protocol) and passes a frame across only if its destination MAC address is on the other segment, reducing traffic. A switch is a multi-port bridge; wireless bridges join two buildings."
+    },
+    {
+      "title": "Wireless access point (WAP)",
+      "must": "Definition: lets wireless devices join a wired LAN by Wi-Fi; cabled to a switch; SSID and WPA2/WPA3 encryption.",
+      "weight": 2,
+      "model": "WAP = device connected to a wired LAN by cable that allows wireless devices to join that LAN using Wi-Fi, converting between radio and wired signals. Broadcasts an SSID, uses WPA2/WPA3 encryption, shares its radio bandwidth; one WAP covers 1–2 classrooms."
+    }
+  ]
+}

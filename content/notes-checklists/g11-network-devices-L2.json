@@ -1,0 +1,96 @@
+{
+  "topic": "g11-network-devices",
+  "lesson": 2,
+  "points": [
+    {
+      "title": "Router",
+      "must": "Definition: connects different networks, reads the destination IP address, uses the routing table to choose the best route / next hop.",
+      "weight": 3,
+      "model": "Router = connects two or more different networks (e.g. a LAN to the Internet) and forwards packets between them; reads the destination IP address and uses its routing table to choose the best route (the next hop)."
+    },
+    {
+      "title": "Why routers need IP addresses",
+      "must": "Network part + host part; a MAC address says nothing about location.",
+      "weight": 1,
+      "model": "An IP address has a network part (which network) and a host part (which device). A MAC address says nothing about where a device is, so routers use the network part of the IP address."
+    },
+    {
+      "title": "How a router forwards a packet",
+      "must": "Steps: read destination IP; look up routing table; deliver directly or send to next hop; default route; new frame — MAC addresses change, IP addresses stay.",
+      "weight": 3,
+      "model": "1 Receive the frame, take out the packet. 2 Read the destination IP. 3 Look up the destination network in the routing table. 4 Directly connected → deliver; otherwise send to the next-hop router. 5 No match → default route (to the ISP). 6 New frame with new MAC addresses, TTL − 1. IP addresses stay the same for the whole journey."
+    },
+    {
+      "title": "Routing table and default route",
+      "must": "Columns (destination network, next hop, interface, metric); default route / default gateway; worked example with three packets.",
+      "weight": 3,
+      "model": "Routing table: destination network | next hop | interface | metric. Default route 0.0.0.0 = used when nothing else matches (send to the ISP). The router is the LAN's default gateway. E.g. 10.12.3.87 → deliver directly; 10.20.5.14 → lower-metric route via WAN 1; 8.8.8.8 → default route to the ISP."
+    },
+    {
+      "title": "Static vs dynamic routing; best route",
+      "must": "Static = typed by the administrator; dynamic = routers exchange information and reroute around failures; best = fewest hops / fastest / least busy.",
+      "weight": 2,
+      "model": "Static routing: routes entered by the administrator, simple, does not adapt. Dynamic routing: routers exchange routes with neighbours and recalculate when a link fails or is busy. Best route = fewest hops, fastest or least busy links."
+    },
+    {
+      "title": "Switch vs router",
+      "must": "One LAN vs different networks; MAC vs IP; MAC table vs routing table; port vs route; broadcasts.",
+      "weight": 3,
+      "model": "Switch: connects devices in one LAN, reads MAC addresses, MAC address table, chooses the port, passes broadcasts. Router: connects different networks, reads IP addresses, routing table, chooses the route / next hop, does not pass broadcasts; adds NAT, DHCP, firewall."
+    },
+    {
+      "title": "Private and public IP addresses",
+      "must": "Definitions; private ranges; private addresses are not routed on the Internet; public address given by the ISP.",
+      "weight": 2,
+      "model": "Private IP: used only inside a LAN and reusable — 10.x.x.x, 172.16–31.x.x, 192.168.x.x; not routed on the Internet. Public IP: unique on the Internet, given by the ISP."
+    },
+    {
+      "title": "NAT",
+      "must": "Definition; how the NAT table works for outgoing packets and replies; benefits: saves public addresses, hides internal devices.",
+      "weight": 3,
+      "model": "NAT = the router translates private source addresses into its public IP (+ a port number) when packets go out and records this in the NAT table; replies are translated back to the private address. E.g. 10.12.3.87:51000 ⇄ 85.29.14.6:40001. Benefits: many devices share one public address; internal addresses are hidden."
+    },
+    {
+      "title": "DHCP",
+      "must": "Definition; what it gives (IP, mask, gateway, DNS); lease; fixed addresses for printers/servers; discover–offer–request–acknowledge.",
+      "weight": 3,
+      "model": "DHCP = automatically assigns an IP address, subnet mask, default gateway and DNS server to each device that joins the network, for a lease time. Steps: Discover → Offer → Request → Acknowledge. Printers and servers get fixed (reserved) addresses."
+    },
+    {
+      "title": "Firewall and the home router box",
+      "must": "Firewall blocks unauthorised traffic; home box = modem + router (NAT, DHCP, firewall) + switch + WAP.",
+      "weight": 2,
+      "model": "Firewall: checks packets against rules and blocks unauthorised traffic. A home \"router\" box contains a modem, a router with NAT, DHCP and a firewall, a switch (the LAN ports) and a wireless access point."
+    },
+    {
+      "title": "Gateway",
+      "must": "Definition: connects networks with different protocols and translates the data; examples; second meaning — default gateway.",
+      "weight": 3,
+      "model": "Gateway = device or software that connects networks using different protocols and converts (translates) the data between them. Examples: e-mail-to-SMS gateway, IoT gateway (Zigbee ⇄ TCP/IP), VoIP gateway. The router leading out of a LAN is also called the default gateway."
+    },
+    {
+      "title": "Modem",
+      "must": "Definition: modulator–demodulator; digital → analogue (modulate) and back (demodulate); DSL, cable, 4G examples.",
+      "weight": 3,
+      "model": "Modem = converts digital signals from a computer into analogue signals for a telephone, cable or radio line (modulation) and converts received signals back into digital (demodulation). Examples: DSL modem, cable modem, 4G/5G modem."
+    },
+    {
+      "title": "Router vs gateway vs modem",
+      "must": "Purpose and what each works with (IP / protocols / signals); whether the data is changed.",
+      "weight": 2,
+      "model": "Router: forwards packets between networks using IP addresses; data not changed. Gateway: connects networks with different protocols; translates the data. Modem: converts digital ⇄ analogue signals for a line; only the representation of the bits changes."
+    },
+    {
+      "title": "Comparison of all devices",
+      "must": "Table: each device — what it connects, what it reads (signal / MAC / IP / protocol), what it does.",
+      "weight": 2,
+      "model": "NIC – device to network, has a MAC. Repeater – signal, regenerates. Hub – signal, copies to all ports. Switch – MAC, one port. Bridge – MAC, two segments. WAP – radio + MAC, Wi-Fi. Router – IP, chooses the route. Gateway – protocols, translates. Modem – digital ⇄ analogue."
+    },
+    {
+      "title": "Choosing devices for a scenario",
+      "must": "Method (switch, WAP, repeater for > 100 m, router + firewall, modem, gateway) with a justification linked to the scenario; the clinic example.",
+      "weight": 3,
+      "model": "Wired devices → switch; wireless devices → WAP cabled to the switch; cable > 100 m → repeater or fibre; Internet / another site → router with firewall, NAT, DHCP; telephone/cable line → modem; different protocol → gateway. Always justify, e.g. clinic: a switch so patient records go only to the destination PC."
+    }
+  ]
+}
