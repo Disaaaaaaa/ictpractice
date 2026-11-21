@@ -1298,6 +1298,785 @@
           }
         }
       ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "frm-nx-1",
+      "title": "Library book reservation",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "The school library in Taraz lets pupils reserve a book online. The reservation page contains a form with:\n\n- a text box for the pupil's **reader number**\n- a drop-down list **genre** with the options *Fiction*, *Science* and *History*\n- a **Reserve** button.\n\nThe data must be sent to the script **reserve.php** without appearing in the address bar.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-1a",
+          "part_label": "(a)",
+          "title": "Writing the form",
+          "type": "html_css",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "Write the HTML for the complete form. Give each control a suitable `name`.",
+          "content": {
+            "language": "html"
+          },
+          "scheme": {
+            "mark_scheme": "- `<form action=\"reserve.php\"` (1)\n- `method=\"post\"` (1)\n- text input with a name, e.g. `<input type=\"text\" name=\"reader\">` (1)\n- `<select name=\"genre\">` with three `<option>` elements and a submit button, closed with `</form>` (1)",
+            "points": [
+              {
+                "criterion": "action=\"reserve.php\"",
+                "marks": 1
+              },
+              {
+                "criterion": "method=\"post\"",
+                "marks": 1
+              },
+              {
+                "criterion": "Named text input",
+                "marks": 1
+              },
+              {
+                "criterion": "Named select with 3 options + submit button",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "method=\"get\" loses the method mark (the stem says the data must not appear in the address bar). A `<button type=\"submit\">` is fine. Missing name attributes on either control lose that control's mark. Labels are not required.",
+            "model_answer": "```html\n<form action=\"reserve.php\" method=\"post\">\n  <label for=\"reader\">Reader number</label>\n  <input type=\"text\" id=\"reader\" name=\"reader\" required>\n  <label for=\"genre\">Genre</label>\n  <select id=\"genre\" name=\"genre\">\n    <option value=\"fiction\">Fiction</option>\n    <option value=\"science\">Science</option>\n    <option value=\"history\">History</option>\n  </select>\n  <input type=\"submit\" value=\"Reserve\">\n</form>\n```"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-1b",
+          "part_label": "(b)",
+          "title": "What happens on submit",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "describe",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "A pupil fills in the form and clicks **Reserve**. Describe what happens between the click and the pupil seeing the confirmation page.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each):\n- the browser collects the values of the named controls and sends an HTTP (POST) request to reserve.php on the web server (1)\n- the web server runs the PHP script, which reads the values (from $_POST) and processes them, e.g. saves the reservation (1)\n- the script outputs an HTML page that the server sends back as the response, and the browser displays it (1)",
+            "points": [
+              {
+                "criterion": "Browser sends request with name=value data to the server",
+                "marks": 1
+              },
+              {
+                "criterion": "Server runs the script and returns an HTML response that is displayed",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The browser packs the value of every named control as name=value pairs and sends them in a POST request to reserve.php on the web server. The server runs the PHP script, which reads the data from $_POST, records the reservation and generates an HTML confirmation page; the server sends this page back as the response and the browser displays it."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-1c",
+          "part_label": "(c)",
+          "title": "A search link",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "write",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "The library also has a catalogue search form with `action=\"find.php\"` and `method=\"get\"`. It has two text boxes named **author** and **year**. A pupil types **Abai** and **1909**. Write the URL that the browser requests (without the domain name).",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "`find.php?author=Abai&year=1909` (1)",
+            "points": [
+              {
+                "criterion": "find.php?author=Abai&year=1909",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "find.php?author=Abai&year=1909",
+                "/find.php?author=Abai&year=1909",
+                "find.php?year=1909&author=Abai"
+              ]
+            },
+            "model_answer": "find.php?author=Abai&year=1909"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "frm-nx-2",
+      "title": "Sports day registration",
+      "type": "structured",
+      "marks": 8,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A school in Karaganda registers pupils for sports day. The form sends its data to **register.php** using POST. It has a text box named **pupil** and four checkboxes:\n\n```html\n<input type=\"checkbox\" name=\"events[]\" value=\"running\"> Running\n<input type=\"checkbox\" name=\"events[]\" value=\"long jump\"> Long jump\n<input type=\"checkbox\" name=\"events[]\" value=\"shot put\"> Shot put\n<input type=\"checkbox\" name=\"events[]\" value=\"relay\"> Relay\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-2a",
+          "part_label": "(a)",
+          "title": "The events array",
+          "type": "table_completion",
+          "marks": 2,
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "text": "Aigerim ticks **Long jump** and **Relay** only. Complete the table to show the contents of the array `$_POST[\"events\"]` that register.php receives. Leave a cell empty if there is no element.",
+          "content": {
+            "columns": [
+              "Index",
+              "Value"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "0",
+                null
+              ],
+              [
+                "1",
+                null
+              ],
+              [
+                "2",
+                null
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Index 0: long jump (1); index 1: relay, index 2 empty (1) — unticked boxes send nothing.",
+            "points": [
+              {
+                "criterion": "Index 0 long jump",
+                "marks": 1
+              },
+              {
+                "criterion": "Index 1 relay, index 2 empty",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "long jump||\"long jump\"||Long jump"
+                ],
+                [
+                  null,
+                  "relay||\"relay\"||Relay"
+                ],
+                [
+                  null,
+                  ""
+                ]
+              ]
+            },
+            "model_answer": "| Index | Value |\n|---|---|\n| 0 | long jump |\n| 1 | relay |\n| 2 | (no element) |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-2b",
+          "part_label": "(b)",
+          "title": "Checking on the server",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "The text box has the `required` attribute. Explain why register.php must still check that a pupil name was sent.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- browser validation can be bypassed: the user can switch it off / edit the HTML / send a request without the form / an old browser ignores it (1)\n- so the server receives data it cannot trust; only the server-side check is guaranteed to run before the data is used/stored (1)",
+            "points": [
+              {
+                "criterion": "Client-side checks can be bypassed",
+                "marks": 1
+              },
+              {
+                "criterion": "Only the server check is guaranteed / protects the data",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The required attribute is only checked by the browser. A user can remove it with developer tools, disable it or send a request to register.php directly, so the script could receive an empty or missing name. Only a check on the server is guaranteed to run before the data is stored."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-2c",
+          "part_label": "(c)",
+          "title": "Writing register.php",
+          "type": "code_completion",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4",
+            "11.5.2.1"
+          ],
+          "text": "Write the PHP code for register.php. It must:\n\n- read the pupil's name and output it safely\n- output an error message if **no** event is ticked\n- otherwise use a **loop** to output every ticked event, one per line, followed by the **number** of events chosen.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- reads the name from `$_POST[\"pupil\"]` and outputs it through `htmlspecialchars()` (1)\n- reads the events with `$_POST[\"events\"] ?? []` / checks `isset` (1)\n- if the array is empty / `count() == 0` outputs an error (1)\n- `foreach`/`for` loop outputs every event, then outputs `count($events)` (1)",
+            "points": [
+              {
+                "criterion": "Name read and escaped",
+                "marks": 1
+              },
+              {
+                "criterion": "Events read safely (?? [] / isset)",
+                "marks": 1
+              },
+              {
+                "criterion": "Error when none ticked",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop outputs each event + count",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "JavaScript or pseudocode equivalents are acceptable if they read the form values. Accept empty($events) or !isset(...) as the check for no event.",
+            "model_answer": "```php\n<?php\n$pupil = $_POST[\"pupil\"] ?? \"\";\n$events = $_POST[\"events\"] ?? [];\n\necho \"Pupil: \" . htmlspecialchars($pupil) . \"<br>\";\nif (count($events) == 0) {\n    echo \"Error: choose at least one event.\";\n} else {\n    foreach ($events as $event) {\n        echo htmlspecialchars($event) . \"<br>\";\n    }\n    echo \"Number of events: \" . count($events);\n}\n?>\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "frm-nx-3",
+      "title": "Air quality readings",
+      "type": "structured",
+      "marks": 9,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "An eco-club in Almaty records the air quality index (AQI) once a day for a week. The readings are stored in a one-dimensional array with lower bound 1:\n\n| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n|---|---|---|---|---|---|---|---|\n| AQI | 42 | 87 | 120 | 65 | 150 | 98 | 73 |\n\nThis pseudocode analyses the readings:\n\n```pseudocode\nCount ← 0\nWorst ← 1\nFOR Day ← 1 TO 7\n    IF AQI[Day] > 100 THEN\n        Count ← Count + 1\n    ENDIF\n    IF AQI[Day] > AQI[Worst] THEN\n        Worst ← Day\n    ENDIF\nNEXT Day\nOUTPUT Count, Worst\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-3a",
+          "part_label": "(a)",
+          "title": "Declaring the array",
+          "type": "code_completion",
+          "marks": 2,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "text": "Write a pseudocode statement that declares the array **AQI**, and state its upper bound.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- `DECLARE AQI : ARRAY[1:7] OF INTEGER` — identifier, bounds 1:7 and data type INTEGER (1)\n- upper bound 7 (1)",
+            "points": [
+              {
+                "criterion": "Declaration with bounds and INTEGER",
+                "marks": 1
+              },
+              {
+                "criterion": "Upper bound 7",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept REAL as the data type. A declaration without bounds or without a data type earns no mark for the first point.",
+            "model_answer": "DECLARE AQI : ARRAY[1:7] OF INTEGER — the upper bound is 7."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-3b",
+          "part_label": "(b)",
+          "title": "Trace table",
+          "type": "trace_table",
+          "marks": 3,
+          "command_word": "complete",
+          "grading": "HYBRID",
+          "objectives": [
+            "11.5.2.1",
+            "11.5.4.4"
+          ],
+          "text": "Complete the trace table for the pseudocode. Show the values at the **end** of each iteration.",
+          "content": {
+            "columns": [
+              "Day",
+              "AQI[Day]",
+              "Count",
+              "Worst"
+            ],
+            "rows": 7
+          },
+          "scheme": {
+            "mark_scheme": "Rows: 1,42,0,1 / 2,87,0,2 / 3,120,1,3 / 4,65,1,3 / 5,150,2,5 / 6,98,2,5 / 7,73,2,5.\n- Day and AQI[Day] columns correct (1)\n- Count column 0,0,1,1,2,2,2 (1)\n- Worst column 1,2,3,3,5,5,5 (1)",
+            "points": [
+              {
+                "criterion": "Day and AQI[Day] correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Count correct",
+                "marks": 1
+              },
+              {
+                "criterion": "Worst correct",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "rows": [
+                [
+                  "1",
+                  "42",
+                  "0",
+                  "1"
+                ],
+                [
+                  "2",
+                  "87",
+                  "0",
+                  "2"
+                ],
+                [
+                  "3",
+                  "120",
+                  "1",
+                  "3"
+                ],
+                [
+                  "4",
+                  "65",
+                  "1",
+                  "3"
+                ],
+                [
+                  "5",
+                  "150",
+                  "2",
+                  "5"
+                ],
+                [
+                  "6",
+                  "98",
+                  "2",
+                  "5"
+                ],
+                [
+                  "7",
+                  "73",
+                  "2",
+                  "5"
+                ]
+              ]
+            },
+            "model_answer": "| Day | AQI[Day] | Count | Worst |\n|---|---|---|---|\n| 1 | 42 | 0 | 1 |\n| 2 | 87 | 0 | 2 |\n| 3 | 120 | 1 | 3 |\n| 4 | 65 | 1 | 3 |\n| 5 | 150 | 2 | 5 |\n| 6 | 98 | 2 | 5 |\n| 7 | 73 | 2 | 5 |"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-3c",
+          "part_label": "(c)",
+          "title": "Output",
+          "type": "short_answer",
+          "marks": 1,
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "text": "State the output of the pseudocode.",
+          "content": {
+            "answer_lines": 1
+          },
+          "scheme": {
+            "mark_scheme": "2 5 (1)",
+            "points": [
+              {
+                "criterion": "2 5",
+                "marks": 1
+              }
+            ],
+            "accepted": {
+              "values": [
+                "2 5",
+                "2, 5",
+                "2,5",
+                "2  5"
+              ]
+            },
+            "model_answer": "2 5"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-3d",
+          "part_label": "(d)",
+          "title": "Linear search",
+          "type": "code_completion",
+          "marks": 3,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1",
+            "11.5.4.4"
+          ],
+          "text": "Write pseudocode that asks the user for an AQI value and uses a **linear search** to output the **first** day with that reading, or **Not found** if no day has it. The search must stop as soon as the value is found.",
+          "content": {
+            "language": "pseudocode",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- inputs the target value and initialises a found flag / index (1)\n- condition-controlled loop that compares `AQI[Day]` with the target and stops when found or after day 7 (1)\n- outputs the day if found, otherwise \"Not found\" (after the loop) (1)",
+            "points": [
+              {
+                "criterion": "Input + initialisation",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop compares and stops when found / at the end",
+                "marks": 1
+              },
+              {
+                "criterion": "Correct output of day or Not found",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "A FOR loop that always runs to 7 cannot earn the second mark (the search must stop when found) unless it exits early correctly. Outputting \"Not found\" inside the loop for every non-matching day loses the third mark. PHP/JavaScript answers are acceptable.",
+            "model_answer": "```pseudocode\nINPUT Target\nFound ← FALSE\nDay ← 1\nWHILE Day <= 7 AND Found = FALSE\n    IF AQI[Day] = Target THEN\n        Found ← TRUE\n    ELSE\n        Day ← Day + 1\n    ENDIF\nENDWHILE\nIF Found = TRUE THEN\n    OUTPUT Day\nELSE\n    OUTPUT \"Not found\"\nENDIF\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "frm-nx-4",
+      "title": "Summer camp application",
+      "type": "structured",
+      "marks": 9,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A summer camp in Shymkent accepts online applications. The form sends **fullname**, **phone** and **age** by POST. The start of the PHP script is:\n\n```php\n<?php\n$required = [\"fullname\", \"phone\", \"age\"];\n$errors = [];\nforeach ($required as $field) {\n    if (empty($_POST[$field])) {\n        $errors[] = \"Please fill in \" . $field;\n    }\n}\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-4a",
+          "part_label": "(a)",
+          "title": "Purpose of the errors array",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "Explain why the script collects messages in the array `$errors` instead of stopping at the first empty field.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "- every field is checked, so all the problems are found in one submission (1)\n- the user sees all the messages at once and can correct everything before submitting again / fewer resubmissions; data processed only if the array is empty (1)",
+            "points": [
+              {
+                "criterion": "All fields are checked / all errors found",
+                "marks": 1
+              },
+              {
+                "criterion": "User fixes everything at once / process only when array empty",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The loop checks every required field and adds a message for each one that is empty, so all the problems are found in a single submission. The user is shown every message together and can correct all the fields at once instead of resubmitting again and again; the application is only processed when the array is still empty after all the checks."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-4b",
+          "part_label": "(b)",
+          "title": "Completing the script",
+          "type": "code_completion",
+          "marks": 4,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "Continue the script. It must:\n\n- add an error message if the age is **not** a whole number from **8 to 15**\n- if there are no errors, output **Application accepted**\n- otherwise output every error message as an item of an HTML list (`<ul>`), using a loop.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n// continue here\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- age converted/validated as a whole number with a range check 8–15, message added to `$errors` (1)\n- `if (count($errors) == 0)` / `empty($errors)` → outputs Application accepted (1)\n- else outputs `<ul>` before the loop and `</ul>` after it (1)\n- loop over `$errors` outputs each message inside `<li>…</li>` (1)",
+            "points": [
+              {
+                "criterion": "Age range check adds message",
+                "marks": 1
+              },
+              {
+                "criterion": "No errors → Application accepted",
+                "marks": 1
+              },
+              {
+                "criterion": "<ul> outside the loop",
+                "marks": 1
+              },
+              {
+                "criterion": "Loop outputs each message in <li>",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Accept filter_var / is_numeric with an integer check, or a simple range check on (int)$age for the first point. Printing <ul> inside the loop loses the third mark.",
+            "model_answer": "```php\n$age = $_POST[\"age\"] ?? \"\";\nif (!ctype_digit($age) || (int)$age < 8 || (int)$age > 15) {\n    $errors[] = \"Age must be a whole number from 8 to 15\";\n}\n\nif (count($errors) == 0) {\n    echo \"Application accepted\";\n} else {\n    echo \"<ul>\";\n    foreach ($errors as $message) {\n        echo \"<li>\" . htmlspecialchars($message) . \"</li>\";\n    }\n    echo \"</ul>\";\n}\n?>\n```"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-4c",
+          "part_label": "(c)",
+          "title": "Sticky form",
+          "type": "code_completion",
+          "marks": 3,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.4"
+          ],
+          "text": "When there are errors the form is shown again. Explain what is meant by a **sticky** form, and write the HTML/PHP for the **fullname** text box so that it is sticky.",
+          "content": {
+            "language": "html",
+            "starter_code": ""
+          },
+          "scheme": {
+            "mark_scheme": "- a sticky form keeps/redisplays the values the user already entered when it is shown again, so they do not have to retype them (1)\n- `value=\"<?php echo … $_POST[\"fullname\"] … ?>\"` on an input with `name=\"fullname\"` (1)\n- uses `?? \"\"` / isset so there is no error on the first visit, and `htmlspecialchars()` on the value (1)",
+            "points": [
+              {
+                "criterion": "Meaning of sticky form",
+                "marks": 1
+              },
+              {
+                "criterion": "value attribute echoes $_POST[\"fullname\"]",
+                "marks": 1
+              },
+              {
+                "criterion": "?? \"\" / isset and htmlspecialchars",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "Award the third mark if either a missing-key guard (?? / isset) or htmlspecialchars is present together with a correct value attribute.",
+            "model_answer": "A sticky form is redisplayed with the values the user typed already filled in, so after an error they only correct the wrong field instead of retyping everything.\n\n```php\n<input type=\"text\" name=\"fullname\"\n       value=\"<?php echo htmlspecialchars($_POST['fullname'] ?? ''); ?>\">\n```"
+          }
+        }
+      ]
+    },
+    {
+      "difficulty": "exam",
+      "source": "nis_style",
+      "practice": false,
+      "key": "frm-nx-5",
+      "title": "Stationery order",
+      "type": "structured",
+      "marks": 7,
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "text": "A pupil wrote this script for a school stationery shop. It calculates the total of an order from a form in which the quantities are sent as `q[]`:\n\n```php\n<?php\n$p=[1200,450,800];$q=$_POST[\"q\"];$s=0;\nfor($i=0;$i<3;$i++){$s=$s+$p[$i]*$q[$i];}\nif($s>5000){$s=$s*0.95;}\necho $s;\n?>\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-5a",
+          "part_label": "(a)",
+          "title": "Style problems",
+          "type": "labelled_answers",
+          "marks": 2,
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9"
+          ],
+          "text": "Identify **two** ways in which the script does not follow the rules of good programming style. Refer to the code.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "1",
+                "lines": 2
+              },
+              {
+                "key": "2",
+                "label": "2",
+                "lines": 2
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each), with reference to the code:\n- identifiers $p, $q, $s are not meaningful\n- magic numbers 5000 / 0.95 / 3 instead of named constants\n- no indentation / several statements on one line\n- no comments\n- the number of items 3 is fixed instead of `count()`\n- no validation of the quantities from the form",
+            "points": [
+              {
+                "criterion": "First problem with reference",
+                "marks": 1
+              },
+              {
+                "criterion": "Second problem with reference",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1 The identifiers $p, $q and $s do not say what they hold (prices, quantities, total).\n2 5000 and 0.95 are magic numbers; they should be named constants such as DISCOUNT_LIMIT and DISCOUNT_RATE."
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-5b",
+          "part_label": "(b)",
+          "title": "Rewriting the script",
+          "type": "code_completion",
+          "marks": 3,
+          "command_word": "write",
+          "grading": "AI",
+          "objectives": [
+            "11.5.4.9",
+            "11.5.2.1"
+          ],
+          "text": "Rewrite the script in a good programming style. It must do the same calculation.",
+          "content": {
+            "language": "html",
+            "starter_code": "<?php\n\n?>"
+          },
+          "scheme": {
+            "mark_scheme": "- meaningful identifiers for prices, quantities and total (1)\n- constants for the discount limit and rate (no magic numbers), loop uses `count()` (1)\n- one statement per line with indentation inside the loop and IF, at least one useful comment (1)\nThe calculation must still be correct.",
+            "points": [
+              {
+                "criterion": "Meaningful identifiers",
+                "marks": 1
+              },
+              {
+                "criterion": "Constants / count() instead of magic numbers",
+                "marks": 1
+              },
+              {
+                "criterion": "Layout: indentation + comment",
+                "marks": 1
+              }
+            ],
+            "ai_instructions": "If the rewritten code changes the result (e.g. wrong discount), award at most 2 marks.",
+            "model_answer": "```php\n<?php\nconst DISCOUNT_LIMIT = 5000;   // orders above this get a discount\nconst DISCOUNT_RATE = 0.05;    // 5% discount\n\n$prices = [1200, 450, 800];    // pen set, notebook, ruler (tenge)\n$quantities = $_POST[\"q\"] ?? [];\n$total = 0;\n\nfor ($i = 0; $i < count($prices); $i++) {\n    $total += $prices[$i] * (int)($quantities[$i] ?? 0);\n}\n\nif ($total > DISCOUNT_LIMIT) {\n    $total = $total * (1 - DISCOUNT_RATE);\n}\necho \"Total: \" . $total . \" tenge\";\n?>\n```"
+          }
+        },
+        {
+          "difficulty": "exam",
+          "source": "nis_style",
+          "practice": false,
+          "key": "frm-nx-5c",
+          "part_label": "(c)",
+          "title": "Associative array",
+          "type": "short_answer",
+          "marks": 2,
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "11.5.2.1"
+          ],
+          "text": "The pupil wants to store the prices by item name, for example the price of a **notebook** is 450. Write a PHP statement that creates an **associative array** of the three prices (pen set 1200, notebook 450, ruler 800) and explain **one** advantage of an associative array here.",
+          "content": {
+            "answer_lines": 4
+          },
+          "scheme": {
+            "mark_scheme": "- `$prices = [\"pen set\" => 1200, \"notebook\" => 450, \"ruler\" => 800];` (1)\n- advantage: a price is accessed by a meaningful key, e.g. `$prices[\"notebook\"]`, so the code is easier to read / the form can send the item name and the script looks it up directly / no need to remember which index is which (1)",
+            "points": [
+              {
+                "criterion": "Correct associative array",
+                "marks": 1
+              },
+              {
+                "criterion": "Advantage: access by meaningful key",
+                "marks": 1
+              }
+            ],
+            "model_answer": "$prices = [\"pen set\" => 1200, \"notebook\" => 450, \"ruler\" => 800];\nEach price is reached by a meaningful key such as $prices[\"notebook\"] instead of a number like $prices[1], so the code is easier to read and the item name sent by the form can be used directly to look up its price."
+          }
+        }
+      ]
     }
   ],
   "summary": "How an HTML form sends data to a script with GET or POST and how that data is read in PHP and JavaScript; one-dimensional arrays, their bounds and the standard algorithms on them; and processing form data with loops — validating every field, building results from arrays — written in a good programming style.",
@@ -2903,13 +3682,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 50,
     "title": "HTML form processing — Exam (Paper 3 style)",
-    "instructions": "Answer **all** questions. You may write code in PHP, JavaScript or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 30 marks. Time: 50 minutes.",
+    "duration": 50,
+    "instructions": "Answer **all** questions. You may write code in PHP, JavaScript or pseudocode unless a language is specified. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "frm-exam-1",
-      "frm-exam-2",
-      "frm-exam-3"
+      "frm-nx-1",
+      "frm-nx-2",
+      "frm-nx-3",
+      "frm-nx-4",
+      "frm-nx-5"
     ]
   },
   "lessons": [
