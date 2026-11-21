@@ -2,17 +2,172 @@
   "topic": "g11-scripting-language",
   "questions": [
     {
+      "key": "scr-define-mcq",
+      "title": "What a scripting language is",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Which statement best describes a **scripting language**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A high-level language, usually interpreted line by line inside a host program such as a browser or web server, used to automate tasks and add behaviour"
+        },
+        {
+          "key": "B",
+          "content": "A low-level language that is compiled into an executable file before it can run"
+        },
+        {
+          "key": "C",
+          "content": "A markup language that describes the structure of a web page"
+        },
+        {
+          "key": "D",
+          "content": "A language that can only be used to query a database"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Scripts are run by an interpreter inside a host program (browser, web server). HTML is markup, not a scripting language."
+      }
+    },
+    {
+      "key": "scr-interp-tf",
+      "title": "Errors in an interpreted script",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "In an interpreted script, an error on line 6 is only reported when the interpreter **reaches** line 6, so lines 1–5 may already have run.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "An interpreter translates and runs one statement at a time; a compiler reports all syntax errors before running."
+      }
+    },
+    {
+      "key": "scr-compiled-ticks",
+      "title": "Compiled or interpreted",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Tick (✓) to show whether each statement describes a **compiled program** or an **interpreted script**.",
+      "content": {
+        "columns": [
+          "Statement",
+          "Compiled program",
+          "Interpreted script"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "The whole program is translated before it runs",
+            null,
+            null
+          ],
+          [
+            "It is distributed as source code",
+            null,
+            null
+          ],
+          [
+            "You can edit it and re-run it immediately without a separate translation step",
+            null,
+            null
+          ],
+          [
+            "It is distributed as executable machine code and usually runs faster",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The whole program is translated before it runs → Compiled program; It is distributed as source code → Interpreted script; You can edit it and re-run it immediately without a separate translation step → Interpreted script; It is distributed as executable machine code and usually runs faster → Compiled program (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Scripts (JavaScript, PHP) are translated line by line while running and are distributed as source code."
+      }
+    },
+    {
       "key": "scr-client-server",
       "title": "Client or server side",
       "type": "table_completion",
       "marks": 4,
       "difficulty": "easy",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.3.8@paper"
       ],
       "practice": true,
+      "source": "original",
       "text": "Tick (✓) to show whether each statement describes a client-side or a server-side script.",
       "content": {
         "columns": [
@@ -46,7 +201,7 @@
         ]
       },
       "scheme": {
-        "mark_scheme": "Client; server; client; server (1 each)",
+        "mark_scheme": "Runs in the user's web browser → Client-side; Can read data from a MySQL database → Server-side; The user can see the code with View source → Client-side; Typically written in PHP → Server-side (1 each)",
         "points": [
           {
             "criterion": "Row 1",
@@ -88,39 +243,388 @@
               "✓"
             ]
           ]
-        }
+        },
+        "explanation": "JavaScript runs in the browser and its code is visible; PHP runs on the server and can access the database."
       }
     },
     {
-      "key": "scr-identifier",
-      "title": "Identifier",
-      "type": "short_answer",
+      "key": "scr-secret-mcq",
+      "title": "Secrets in JavaScript",
+      "type": "mcq",
       "marks": 1,
-      "difficulty": "easy",
-      "command_word": "state",
-      "grading": "HYBRID",
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
       "objectives": [
         "11.5.3.8@paper"
       ],
       "practice": true,
-      "text": "```javascript\nlet answer = prompt(\"What is 7 × 8?\");\nalert(\"You wrote \" + answer);\n```\n\nState the identifier of the variable used in the code.",
+      "source": "original",
+      "text": "Why must a database password **never** be written in client-side JavaScript?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The JavaScript is downloaded to the browser, so anyone can read the password with View source"
+        },
+        {
+          "key": "B",
+          "content": "JavaScript cannot store text values"
+        },
+        {
+          "key": "C",
+          "content": "The browser deletes passwords from scripts automatically"
+        },
+        {
+          "key": "D",
+          "content": "JavaScript runs too slowly to connect to a database"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Client-side code is sent to the user as source code, so it is visible and cannot protect secrets. Database access belongs in server-side PHP."
+      }
+    },
+    {
+      "key": "scr-php-receives-mr",
+      "title": "What the browser receives",
+      "type": "multiple_response",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A pupil opens `marks.php`, which contains PHP code that reads marks from a database. Select the **two** true statements.",
+      "options": [
+        {
+          "key": "A",
+          "content": "The server runs the PHP code before sending the page"
+        },
+        {
+          "key": "B",
+          "content": "The browser receives only the resulting HTML (plus any CSS and JavaScript)"
+        },
+        {
+          "key": "C",
+          "content": "The browser receives the PHP code and runs it itself"
+        },
+        {
+          "key": "D",
+          "content": "View source shows the SQL query used by the PHP code"
+        },
+        {
+          "key": "E",
+          "content": "The page would not work if JavaScript was switched off in the browser"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "The PHP block is replaced by its output on the server; the user never sees the PHP or SQL."
+      }
+    },
+    {
+      "key": "scr-embed-fill",
+      "title": "Embedding scripts",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the sentences.\n\nJavaScript is placed inside a [[1]] element in the HTML. PHP code is written between [[2]] and `?>`, in a file whose name ends in [[3]].",
       "content": {
-        "answer_lines": 1
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "answer (1)",
+        "mark_scheme": "(1) <script> (2) <?php (3) .php",
+        "accepted": {
+          "blanks": [
+            [
+              "<script>",
+              "script",
+              "<script></script>"
+            ],
+            [
+              "<?php",
+              "<?php ?>"
+            ],
+            [
+              ".php",
+              "php"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "`<script> … </script>` for JavaScript; `<?php … ?>` in a .php file for PHP."
+      }
+    },
+    {
+      "key": "scr-canteen-ticks",
+      "title": "Where should it run?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A school canteen builds an online pre-order page. Tick (✓) **where** each task should be done.",
+      "content": {
+        "columns": [
+          "Task",
+          "Client-side only",
+          "Server-side only",
+          "Both"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Update the running total on screen as dishes are ticked",
+            null,
+            null,
+            null
+          ],
+          [
+            "Look up the price of each dish in the database",
+            null,
+            null,
+            null
+          ],
+          [
+            "Check that the pupil ID field is not empty before the order is accepted",
+            null,
+            null,
+            null
+          ],
+          [
+            "Save the order and reduce the stock of each dish",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Update the running total on screen as dishes are ticked → Client-side only; Look up the price of each dish in the database → Server-side only; Check that the pupil ID field is not empty before the order is accepted → Both; Save the order and reduce the stock of each dish → Server-side only (1 each)",
         "points": [
           {
-            "criterion": "answer",
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
-        "model_answer": "answer",
         "accepted": {
-          "values": [
-            "answer"
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ]
           ]
-        }
+        },
+        "explanation": "Instant → client; trusted or needs the database → server; a check that gives instant feedback but could be bypassed → both."
+      }
+    },
+    {
+      "key": "scr-var-const-match",
+      "title": "Variables and constants",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Match each line of code to what it does.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "let age = 16;"
+          },
+          {
+            "key": "L2",
+            "text": "const VAT_RATE = 0.12;"
+          },
+          {
+            "key": "L3",
+            "text": "$age = 16;"
+          },
+          {
+            "key": "L4",
+            "text": "define(\"RATE\", 0.12);"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Declares a JavaScript constant"
+          },
+          {
+            "key": "R2",
+            "text": "Creates a PHP variable"
+          },
+          {
+            "key": "R3",
+            "text": "Creates a PHP constant"
+          },
+          {
+            "key": "R4",
+            "text": "Declares a JavaScript variable"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "let age = 16; – Declares a JavaScript variable; const VAT_RATE = 0.12; – Declares a JavaScript constant; $age = 16; – Creates a PHP variable; define(\"RATE\", 0.12); – Creates a PHP constant",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
+          }
+        },
+        "explanation": "JavaScript: let / const. PHP: variables start with $, constants with define()."
+      }
+    },
+    {
+      "key": "scr-dynamic-tf",
+      "title": "Dynamic typing",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "In JavaScript and PHP you must write the data type (e.g. integer) when you create a variable.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "Both are dynamically typed: the interpreter works out the type from the value."
+      }
+    },
+    {
+      "key": "scr-types-match",
+      "title": "Data types",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Match each value to its data type.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "7.5"
+          },
+          {
+            "key": "L2",
+            "text": "\"1234\""
+          },
+          {
+            "key": "L3",
+            "text": "true"
+          },
+          {
+            "key": "L4",
+            "text": "[7, 9, 4]"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "String"
+          },
+          {
+            "key": "R2",
+            "text": "Boolean"
+          },
+          {
+            "key": "R3",
+            "text": "Array"
+          },
+          {
+            "key": "R4",
+            "text": "Real / float"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "7.5 – Real / float; \"1234\" – String; true – Boolean; [7, 9, 4] – Array",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
+          }
+        },
+        "explanation": "Anything in quotes is a string, even if it contains digits."
       }
     },
     {
@@ -135,6 +639,7 @@
         "11.5.4.1"
       ],
       "practice": true,
+      "source": "original",
       "text": "The user enters **5** and then **3** into two prompt boxes.\n\n```javascript\nlet a = prompt(\"First number\");\nlet b = prompt(\"Second number\");\nalert(a + b);\n```\n\nWhat is displayed?",
       "options": [
         {
@@ -163,79 +668,236 @@
       }
     },
     {
-      "key": "scr-pin-if",
-      "title": "Check a PIN",
-      "type": "code_completion",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "complete",
-      "grading": "AI",
+      "key": "scr-multiply-mcq",
+      "title": "Strings and other operators",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.1"
       ],
       "practice": true,
-      "text": "Complete the code to check the PIN code. The correct PIN is **'4321'**. If the PIN is correct output \"Access granted\", otherwise output \"Wrong PIN\".",
-      "content": {
-        "language": "javascript",
-        "starter_code": "let pin = prompt(\"Input your PIN code:\");\n"
-      },
+      "source": "original",
+      "text": "The user enters **5** and then **3**.\n\n```javascript\nlet a = prompt(\"First\");\nlet b = prompt(\"Second\");\nalert(a * b);\n```\n\nWhat is displayed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "53"
+        },
+        {
+          "key": "B",
+          "content": "15"
+        },
+        {
+          "key": "C",
+          "content": "8"
+        },
+        {
+          "key": "D",
+          "content": "NaN"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- condition comparing pin with '4321' as text (1)\n- correct output when true (1)\n- else with error output (1)\nAccept any language / pseudocode. Accept != with branches swapped.",
-        "points": [
-          {
-            "criterion": "Condition",
-            "marks": 1
-          },
-          {
-            "criterion": "True branch",
-            "marks": 1
-          },
-          {
-            "criterion": "Else branch",
-            "marks": 1
-          }
-        ],
-        "model_answer": "```javascript\nif (pin == \"4321\") {\n  alert(\"Access granted\");\n} else {\n  alert(\"Wrong PIN\");\n}\n```"
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "Only + joins strings. *, - and / convert the strings to numbers, so a * b = 15 — but converting with Number() at input is still the safe habit."
       }
     },
     {
-      "key": "scr-grade-php",
-      "title": "Grades in PHP",
-      "type": "code_completion",
-      "marks": 4,
+      "key": "scr-parseint-short",
+      "title": "parseInt",
+      "type": "short_answer",
+      "marks": 1,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "state",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.1"
       ],
       "practice": true,
-      "text": "Write PHP code that outputs the grade for the variable `$score`: **85 or more** → \"Excellent\", **60–84** → \"Good\", **40–59** → \"Pass\", below 40 → \"Fail\".",
+      "source": "original",
+      "text": "State the value of `parseInt(\"12kg\")` in JavaScript.",
       "content": {
-        "language": "html",
-        "starter_code": "<?php\n$score = 72;\n\n?>"
+        "answer_lines": 1
       },
       "scheme": {
-        "mark_scheme": "- if ($score >= 85) Excellent (1)\n- elseif ($score >= 60) Good (1)\n- elseif ($score >= 40) Pass (1)\n- else Fail with echo output (1)\nAccept equivalent ranges / pseudocode.",
-        "points": [
-          {
-            "criterion": "First condition",
-            "marks": 1
-          },
-          {
-            "criterion": "Second",
-            "marks": 1
-          },
-          {
-            "criterion": "Third",
-            "marks": 1
-          },
-          {
-            "criterion": "Else + echo",
-            "marks": 1
-          }
-        ],
-        "model_answer": "```php\n<?php\n$score = 72;\nif ($score >= 85) {\n    echo \"Excellent\";\n} elseif ($score >= 60) {\n    echo \"Good\";\n} elseif ($score >= 40) {\n    echo \"Pass\";\n} else {\n    echo \"Fail\";\n}\n?>\n```"
+        "mark_scheme": "12 — parseInt reads a whole number from the start of the string and stops at the first non-digit.",
+        "model_answer": "12",
+        "accepted": {
+          "values": [
+            "12"
+          ],
+          "numeric": true
+        },
+        "explanation": "parseInt reads a whole number from the start of the string and stops at the first non-digit."
+      }
+    },
+    {
+      "key": "scr-concat-fill",
+      "title": "Joining strings",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the code so that both lines display **Total: 30**.\n\n```javascript\nlet total = 30;\nalert(\"Total: \" [[1]] total);\n```\n\n```php\n$total = 30;\necho \"Total: \" [[2]] $total;\n```",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) + (2) .",
+        "accepted": {
+          "blanks": [
+            [
+              "+"
+            ],
+            [
+              "."
+            ]
+          ]
+        },
+        "explanation": "JavaScript joins strings with +, PHP with the dot operator."
+      }
+    },
+    {
+      "key": "scr-fuel-fill",
+      "title": "Trace the fuel calculator",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nconst PRICE_PER_LITRE = 270;\nlet distance = Number(prompt(\"Distance (km):\"));\nlet usage = Number(prompt(\"Fuel use (litres per 100 km):\"));\nlet litres = distance * usage / 100;\nlet cost = litres * PRICE_PER_LITRE;\n```\n\nThe user enters **200** and **6**. After the code runs, `litres` = [[1]] and `cost` = [[2]].",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 12 (2) 3240",
+        "accepted": {
+          "blanks": [
+            [
+              "12"
+            ],
+            [
+              "3240",
+              "3 240"
+            ]
+          ]
+        },
+        "explanation": "litres = 200 × 6 ÷ 100 = 12; cost = 12 × 270 = 3240."
+      }
+    },
+    {
+      "key": "scr-pin-if",
+      "title": "Check a PIN code",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the code so that it shows **You entered successfully** for the PIN 1234 and an error message otherwise.\n\n```javascript\nlet pin = prompt(\"Input your PIN code:\");\n[[1]] (pin == \"1234\") {\n  alert(\"You entered successfully\");\n} [[2]] {\n  [[3]](\"Error: incorrect PIN code\");\n}\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) if (2) else (3) alert",
+        "accepted": {
+          "blanks": [
+            [
+              "if"
+            ],
+            [
+              "else"
+            ],
+            [
+              "alert",
+              "console.log",
+              "document.write"
+            ]
+          ]
+        },
+        "explanation": "Two-way selection: if (condition) { … } else { … }."
+      }
+    },
+    {
+      "key": "scr-assign-mcq",
+      "title": "= instead of ==",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet x = 2;\nif (x = 5) {\n  alert(\"x is five\");\n}\n```\n\nWhat happens when this code runs?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The message is always shown, because = assigns 5 to x instead of comparing"
+        },
+        {
+          "key": "B",
+          "content": "The message is never shown, because x is 2"
+        },
+        {
+          "key": "C",
+          "content": "The script stops with a syntax error"
+        },
+        {
+          "key": "D",
+          "content": "The message is shown only if the user types 5"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "= is assignment. The condition puts 5 into x and is treated as true, so this logic error makes the if always run. Use == or ===."
+      }
+    },
+    {
+      "key": "scr-strict-tf",
+      "title": "== and ===",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "In JavaScript, `\"5\" == 5` is true but `\"5\" === 5` is false.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "== compares values after conversion; === also compares the types (string ≠ number)."
       }
     },
     {
@@ -250,6 +912,7 @@
         "11.5.4.1"
       ],
       "practice": true,
+      "source": "original",
       "text": "Match each JavaScript operator to its meaning.",
       "content": {
         "left": [
@@ -273,56 +936,82 @@
         "right": [
           {
             "key": "R1",
-            "text": "AND"
-          },
-          {
-            "key": "R2",
             "text": "OR"
           },
           {
-            "key": "R3",
+            "key": "R2",
             "text": "Not equal to"
           },
           {
-            "key": "R4",
+            "key": "R3",
             "text": "Equal value and equal type"
+          },
+          {
+            "key": "R4",
+            "text": "AND"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "&&–AND, ||–OR, !=–not equal, ===–strict equal.",
+        "mark_scheme": "&& – AND; || – OR; != – Not equal to; === – Equal value and equal type",
         "accepted": {
           "pairs": {
-            "L1": "R1",
-            "L2": "R2",
-            "L3": "R3",
-            "L4": "R4"
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
           }
-        }
+        },
+        "explanation": "&& both true, || at least one true."
       }
     },
     {
-      "key": "scr-trace-for",
-      "title": "Trace a for loop",
-      "type": "trace_table",
+      "key": "scr-logic-ticks",
+      "title": "Evaluate conditions",
+      "type": "table_completion",
       "marks": 4,
       "difficulty": "medium",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
-        "11.5.4.4"
+        "11.5.4.1"
       ],
       "practice": true,
-      "text": "```javascript\nlet total = 0;\nfor (let i = 1; i <= 7; i += 2) {\n  total = total + i;\n}\nconsole.log(total);\n```\n\nComplete the trace table to show the values of `i` and `total` at the end of each iteration.",
+      "source": "original",
+      "text": "Here `x = 7`. Tick (✓) whether each condition is **true** or **false**.",
       "content": {
         "columns": [
-          "i",
-          "total"
+          "Condition",
+          "true",
+          "false"
         ],
-        "rows": 4
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "x > 0 && x < 10",
+            null,
+            null
+          ],
+          [
+            "x < 0 || x > 10",
+            null,
+            null
+          ],
+          [
+            "!(x == 7)",
+            null,
+            null
+          ],
+          [
+            "x >= 7",
+            null,
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "1 1 (1); 3 4 (1); 5 9 (1); 7 16 (1). Output 16.",
+        "mark_scheme": "x > 0 && x < 10 → true; x < 0 || x > 10 → false; !(x == 7) → false; x >= 7 → true (1 each)",
         "points": [
           {
             "criterion": "Row 1",
@@ -341,51 +1030,1183 @@
             "marks": 1
           }
         ],
-        "model_answer": "| i | total |\n|---|---|\n| 1 | 1 |\n| 3 | 4 |\n| 5 | 9 |\n| 7 | 16 |",
         "accepted": {
           "rows": [
             [
-              "1",
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ]
+          ]
+        },
+        "explanation": "&& needs both sides true; || needs at least one; ! reverses the result."
+      }
+    },
+    {
+      "key": "scr-range-mcq",
+      "title": "A range condition",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Which JavaScript condition is true **only** when `age` is from 14 to 18 inclusive?",
+      "options": [
+        {
+          "key": "A",
+          "content": "age >= 14 && age <= 18"
+        },
+        {
+          "key": "B",
+          "content": "14 <= age <= 18"
+        },
+        {
+          "key": "C",
+          "content": "age >= 14 || age <= 18"
+        },
+        {
+          "key": "D",
+          "content": "age > 14 && age < 18"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "A range needs AND with the variable written twice. 14 <= age <= 18 compares true/false with 18 and is always true; OR is true for every age."
+      }
+    },
+    {
+      "key": "scr-order-mcq",
+      "title": "Order of conditions",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```php\n$mark = 95;\nif ($mark >= 50) {\n    $grade = \"C\";\n} elseif ($mark >= 75) {\n    $grade = \"B\";\n} elseif ($mark >= 90) {\n    $grade = \"A\";\n} else {\n    $grade = \"Fail\";\n}\necho $grade;\n```\n\nWhat is output?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A"
+        },
+        {
+          "key": "B",
+          "content": "B"
+        },
+        {
+          "key": "C",
+          "content": "C"
+        },
+        {
+          "key": "D",
+          "content": "Fail"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "C",
+        "accepted": {
+          "correct": "C"
+        },
+        "explanation": "Conditions are tested from the top and the first true branch wins: 95 >= 50 is true, so the grade is C. Test the highest boundary first."
+      }
+    },
+    {
+      "key": "scr-grade-php",
+      "title": "Grades in PHP",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the PHP so that it outputs **Distinction** for 85 or more, **Pass** for 50 or more and **Fail** otherwise.\n\n```php\nif ($score [[1]] 85) {\n    echo \"Distinction\";\n} [[2]] ($score >= 50) {\n    echo \"Pass\";\n} else {\n    [[3]] \"Fail\";\n}\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) >= (2) elseif (3) echo",
+        "accepted": {
+          "blanks": [
+            [
+              ">="
+            ],
+            [
+              "elseif",
+              "else if",
+              "} elseif"
+            ],
+            [
+              "echo",
+              "print"
+            ]
+          ]
+        },
+        "explanation": "PHP writes elseif as one word (else if also works) and outputs with echo."
+      }
+    },
+    {
+      "key": "scr-cinema-fill",
+      "title": "Trace the ticket prices",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet price;\nif (age < 7) {\n  price = 0;\n} else if (age <= 17) {\n  price = 1200;\n} else {\n  price = 2000;\n}\nif (day === \"Wed\") {\n  price = price / 2;\n}\n```\n\nState `price` for each input.\n\n- age 5, day \"Wed\": [[1]]\n- age 17, day \"Wed\": [[2]]\n- age 18, day \"Mon\": [[3]]",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) 0 (2) 600 (3) 2000",
+        "accepted": {
+          "blanks": [
+            [
+              "0"
+            ],
+            [
+              "600"
+            ],
+            [
+              "2000",
+              "2 000"
+            ]
+          ]
+        },
+        "explanation": "5 → 0 (half of 0 is still 0); 17 → 1200, halved on Wednesday to 600; 18 → else → 2000. The Wednesday check is a separate if, applied in addition."
+      }
+    },
+    {
+      "key": "scr-switch-mcq",
+      "title": "switch fall-through",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet n = 2;\nlet msg;\nswitch (n) {\n  case 1:\n    msg = \"one\";\n  case 2:\n    msg = \"two\";\n  case 3:\n    msg = \"three\";\n    break;\n  default:\n    msg = \"other\";\n}\nalert(msg);\n```\n\nWhat is displayed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "two"
+        },
+        {
+          "key": "B",
+          "content": "three"
+        },
+        {
+          "key": "C",
+          "content": "other"
+        },
+        {
+          "key": "D",
+          "content": "one"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "case 2 matches, but there is no break, so execution falls through into case 3 and msg becomes \"three\" before break."
+      }
+    },
+    {
+      "key": "scr-switch-if-ticks",
+      "title": "switch or if?",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Tick (✓) the clearer statement to use for each task.",
+      "content": {
+        "columns": [
+          "Task",
+          "if … else if",
+          "switch"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Give a grade from a mark: 90+, 75+, 50+",
+            null,
+            null
+          ],
+          [
+            "Show the name of a day for the values \"Mon\", \"Tue\" … \"Sun\"",
+            null,
+            null
+          ],
+          [
+            "Give a discount if age is 14–18 OR the customer is a member",
+            null,
+            null
+          ],
+          [
+            "Run one of four actions for menu choice 1, 2, 3 or 4",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Give a grade from a mark: 90+, 75+, 50+ → if … else if; Show the name of a day for the values \"Mon\", \"Tue\" … \"Sun\" → switch; Give a discount if age is 14–18 OR the customer is a member → if … else if; Run one of four actions for menu choice 1, 2, 3 or 4 → switch (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "switch compares one value with fixed values; ranges and AND / OR need if."
+      }
+    },
+    {
+      "key": "scr-php-syntax-mr",
+      "title": "Correct PHP",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Select the **three** lines that are correct PHP.",
+      "options": [
+        {
+          "key": "A",
+          "content": "$grade = \"A\";"
+        },
+        {
+          "key": "B",
+          "content": "echo \"Grade: \" . $grade;"
+        },
+        {
+          "key": "C",
+          "content": "if ($mark >= 90) {"
+        },
+        {
+          "key": "D",
+          "content": "grade = \"A\";"
+        },
+        {
+          "key": "E",
+          "content": "if $mark >= 90 {"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "PHP variables need $; conditions need round brackets; strings are joined with the dot."
+      }
+    },
+    {
+      "key": "scr-identifier",
+      "title": "Identifier",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet answer = prompt(\"What is 7 × 8?\");\nalert(\"You wrote \" + answer);\n```\n\nState the identifier of the variable used in the code.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "answer — The identifier is the name of the variable.",
+        "model_answer": "answer",
+        "accepted": {
+          "values": [
+            "answer"
+          ]
+        },
+        "explanation": "The identifier is the name of the variable."
+      }
+    },
+    {
+      "key": "scr-for-parts-match",
+      "title": "Parts of a for loop",
+      "type": "matching",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "In `for (let i = 1; i <= 5; i++)`, match each part to when it runs.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "let i = 1"
+          },
+          {
+            "key": "L2",
+            "text": "i <= 5"
+          },
+          {
+            "key": "L3",
+            "text": "i++"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Checked before every iteration"
+          },
+          {
+            "key": "R2",
+            "text": "Runs once, before the loop starts"
+          },
+          {
+            "key": "R3",
+            "text": "Runs after every iteration"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "let i = 1 – Runs once, before the loop starts; i <= 5 – Checked before every iteration; i++ – Runs after every iteration",
+        "accepted": {
+          "pairs": {
+            "L1": "R2",
+            "L2": "R1",
+            "L3": "R3"
+          }
+        },
+        "explanation": "Initialisation once; condition before each pass; update after each pass."
+      }
+    },
+    {
+      "key": "scr-while-tf",
+      "title": "Pre-condition loop",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A `while` loop always runs its body at least once.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "while tests the condition first, so the body can run zero times. do … while runs at least once."
+      }
+    },
+    {
+      "key": "scr-count-runs",
+      "title": "How many times?",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "How many times does the body of this loop run?\n\n```javascript\nfor (let i = 2; i <= 20; i += 5) {\n  console.log(i);\n}\n```",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "4 — i = 2, 7, 12, 17 run; i = 22 fails the condition.",
+        "model_answer": "4",
+        "accepted": {
+          "values": [
+            "4"
+          ],
+          "numeric": true
+        },
+        "explanation": "i = 2, 7, 12, 17 run; i = 22 fails the condition."
+      }
+    },
+    {
+      "key": "scr-offbyone-mcq",
+      "title": "Off by one",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "How many times does `for (let i = 1; i < 5; i++)` run its body?",
+      "options": [
+        {
+          "key": "A",
+          "content": "4"
+        },
+        {
+          "key": "B",
+          "content": "5"
+        },
+        {
+          "key": "C",
+          "content": "6"
+        },
+        {
+          "key": "D",
+          "content": "1"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "i = 1, 2, 3, 4. With < the end value 5 is not included."
+      }
+    },
+    {
+      "key": "scr-loop-type",
+      "title": "Choose a loop",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Tick (✓) the most suitable loop for each task.",
+      "content": {
+        "columns": [
+          "Task",
+          "for",
+          "while",
+          "do … while"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "Show the 7 times table from 1 × 7 to 10 × 7",
+            null,
+            null,
+            null
+          ],
+          [
+            "Ask for a mark and repeat the question until it is from 0 to 100",
+            null,
+            null,
+            null
+          ],
+          [
+            "Double a number of bacteria until it is over 1 000 000 — it may already be over",
+            null,
+            null,
+            null
+          ],
+          [
+            "Print the name of each of the 25 pupils in a class",
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "Show the 7 times table from 1 × 7 to 10 × 7 → for; Ask for a mark and repeat the question until it is from 0 to 100 → do … while; Double a number of bacteria until it is over 1 000 000 — it may already be over → while; Print the name of each of the 25 pupils in a class → for (1 each)",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ]
+          ]
+        },
+        "explanation": "Known number of repetitions → for. Body must run at least once (input) → do … while. Unknown and possibly zero → while."
+      }
+    },
+    {
+      "key": "scr-dowhile-cond",
+      "title": "Condition of a validation loop",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4",
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Which condition completes the loop so that it **repeats while the mark is invalid**?\n\n```javascript\nlet mark;\ndo {\n  mark = Number(prompt(\"Enter a mark from 0 to 100:\"));\n} while ( ________ );\n```",
+      "options": [
+        {
+          "key": "A",
+          "content": "isNaN(mark) || mark < 0 || mark > 100"
+        },
+        {
+          "key": "B",
+          "content": "mark >= 0 && mark <= 100"
+        },
+        {
+          "key": "C",
+          "content": "isNaN(mark) && mark < 0 && mark > 100"
+        },
+        {
+          "key": "D",
+          "content": "mark < 0 && mark > 100"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "The condition must describe INVALID input, joined with OR. The valid condition would repeat when the input is correct; AND can never be true here."
+      }
+    },
+    {
+      "key": "scr-trace-for",
+      "title": "Trace a for loop",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet total = 0;\nfor (let i = 1; i <= 7; i += 2) {\n  total = total + i;\n}\nconsole.log(total);\n```\n\nComplete the trace table to show `i` and `total` at the end of each iteration.",
+      "content": {
+        "columns": [
+          "i",
+          "total"
+        ],
+        "rows": 4,
+        "prefill": [
+          [
+            "1",
+            null
+          ],
+          [
+            "3",
+            null
+          ],
+          [
+            "5",
+            null
+          ],
+          [
+            "7",
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 | 1; 3 | 4; 5 | 9; 7 | 16",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              null,
               "1"
             ],
             [
-              "3",
+              null,
               "4"
             ],
             [
-              "5",
+              null,
               "9"
             ],
             [
-              "7",
+              null,
               "16"
             ]
           ]
-        }
+        },
+        "explanation": "total = 1, 4, 9, 16; output 16. The body does not run for i = 9."
       }
     },
     {
       "key": "scr-trace-while",
       "title": "Trace a while loop",
-      "type": "trace_table",
-      "marks": 4,
+      "type": "table_completion",
+      "marks": 5,
       "difficulty": "hard",
       "command_word": "complete",
-      "grading": "HYBRID",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.4"
       ],
       "practice": true,
+      "source": "original",
       "text": "```javascript\nlet n = 20;\nlet count = 0;\nwhile (n > 1) {\n  n = Math.floor(n / 2);\n  count++;\n}\nalert(count);\n```\n\nComplete the trace table to show `n` and `count` after each iteration. `Math.floor()` rounds down.",
       "content": {
         "columns": [
           "n",
           "count"
         ],
-        "rows": 4
+        "rows": 4,
+        "prefill": [
+          [
+            null,
+            "1"
+          ],
+          [
+            null,
+            "2"
+          ],
+          [
+            null,
+            "3"
+          ],
+          [
+            null,
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "10 1 (1); 5 2 (1); 2 3 (1); 1 4 (1). Output 4.",
+        "mark_scheme": "10 | 1; 5 | 2; 2 | 3; 1 | 4",
+        "points": [
+          {
+            "criterion": "Row 1",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 2",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
+            "marks": 1
+          }
+        ],
+        "accepted": {
+          "rows": [
+            [
+              "10",
+              null
+            ],
+            [
+              "5",
+              null
+            ],
+            [
+              "2",
+              null
+            ],
+            [
+              "1",
+              "4"
+            ]
+          ]
+        },
+        "explanation": "n = 10, 5, 2, 1; then n > 1 is false. Output 4."
+      }
+    },
+    {
+      "key": "scr-total-inside",
+      "title": "Total reset in the loop",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```php\n$marks = [7, 9, 4, 10];\nforeach ($marks as $m) {\n    $total = 0;\n    $total += $m;\n}\necho $total;\n```\n\nWhat is output?",
+      "options": [
+        {
+          "key": "A",
+          "content": "30"
+        },
+        {
+          "key": "B",
+          "content": "10"
+        },
+        {
+          "key": "C",
+          "content": "0"
+        },
+        {
+          "key": "D",
+          "content": "7"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "B",
+        "accepted": {
+          "correct": "B"
+        },
+        "explanation": "$total = 0 is inside the loop, so it is reset on every pass; only the last mark (10) is left. Set totals and counters BEFORE the loop."
+      }
+    },
+    {
+      "key": "scr-foreach-fill",
+      "title": "Total and average in PHP",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the PHP to calculate the total and average of the marks.\n\n```php\n$marks = [7, 9, 4, 10];\n$total = 0;\nforeach ($marks [[1]] $m) {\n    $total [[2]] $m;\n}\n$average = $total / [[3]]($marks);\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) as (2) += (3) count",
+        "accepted": {
+          "blanks": [
+            [
+              "as"
+            ],
+            [
+              "+=",
+              "= $total +"
+            ],
+            [
+              "count",
+              "sizeof"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "foreach ($array as $item); += adds to the total; count() gives the number of elements."
+      }
+    },
+    {
+      "key": "scr-average-short",
+      "title": "Output of an average",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```php\n$marks = [6, 8, 10, 8];\n$total = 0;\nforeach ($marks as $m) {\n    $total += $m;\n}\necho $total / count($marks);\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "8 — Total 32 ÷ 4 elements = 8.",
+        "model_answer": "8",
+        "accepted": {
+          "values": [
+            "8"
+          ],
+          "numeric": true
+        },
+        "explanation": "Total 32 ÷ 4 elements = 8."
+      }
+    },
+    {
+      "key": "scr-savings-short",
+      "title": "Unknown repetitions",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet balance = 100000;\nlet years = 0;\nwhile (balance < 130000) {\n  balance = balance * 1.1;\n  years++;\n}\nconsole.log(years);\n```\n\nState the output.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "3 — 110 000 → 121 000 → 133 100; after 3 years the condition is false.",
+        "model_answer": "3",
+        "accepted": {
+          "values": [
+            "3"
+          ],
+          "numeric": true
+        },
+        "explanation": "110 000 → 121 000 → 133 100; after 3 years the condition is false."
+      }
+    },
+    {
+      "key": "scr-nested-count",
+      "title": "Nested loops",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "How many times is the line `html += \"*\";` executed?\n\n```javascript\nlet html = \"\";\nfor (let r = 1; r <= 4; r++) {\n  for (let c = 1; c <= 5; c++) {\n    html += \"*\";\n  }\n}\n```",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "20 — The inner loop runs completely for every outer pass: 4 × 5 = 20.",
+        "model_answer": "20",
+        "accepted": {
+          "values": [
+            "20"
+          ],
+          "numeric": true
+        },
+        "explanation": "The inner loop runs completely for every outer pass: 4 × 5 = 20."
+      }
+    },
+    {
+      "key": "scr-nested-order",
+      "title": "Order of a nested loop",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nfor (const row of [\"A\", \"B\"]) {\n  for (let seat = 1; seat <= 3; seat++) {\n    console.log(row + seat);\n  }\n}\n```\n\nWhich are the **first four** values written?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A1 A2 A3 B1"
+        },
+        {
+          "key": "B",
+          "content": "A1 B1 A2 B2"
+        },
+        {
+          "key": "C",
+          "content": "A1 A2 B1 B2"
+        },
+        {
+          "key": "D",
+          "content": "B1 B2 B3 A1"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "The inner variable changes fastest; the outer one changes only after the inner loop has finished."
+      }
+    },
+    {
+      "key": "scr-infinite-mcq",
+      "title": "Infinite loop",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Which loop never ends?",
+      "options": [
+        {
+          "key": "A",
+          "content": "let i = 0; while (i < 5) { console.log(i); }"
+        },
+        {
+          "key": "B",
+          "content": "let i = 0; while (i < 5) { i++; }"
+        },
+        {
+          "key": "C",
+          "content": "for (let i = 0; i < 5; i++) { console.log(i); }"
+        },
+        {
+          "key": "D",
+          "content": "let i = 10; while (i > 0) { i -= 3; }"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "The counter i is never changed inside the loop, so i < 5 stays true forever."
+      }
+    },
+    {
+      "key": "scr-pin-loop",
+      "title": "Three PIN attempts",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.4"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the code that gives the user **3** attempts.\n\n```javascript\nconst MAX_ATTEMPTS = 3;\nlet attempts = 0;\nlet success = false;\nwhile (attempts [[1]] MAX_ATTEMPTS) {\n  let pin = prompt(\"Input your PIN code:\");\n  [[2]];\n  if (pin == \"1234\") {\n    success = true;\n    [[3]];\n  }\n}\nif (!success) alert(\"Card blocked\");\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) < (2) attempts++ (3) break",
+        "accepted": {
+          "blanks": [
+            [
+              "<"
+            ],
+            [
+              "attempts++",
+              "attempts += 1",
+              "attempts = attempts + 1",
+              "++attempts"
+            ],
+            [
+              "break"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "Loop while attempts < 3, count every attempt, and leave the loop with break when the PIN is correct."
+      }
+    },
+    {
+      "key": "scr-val-ver",
+      "title": "Validation or verification",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "easy",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Tick (✓) whether each check is **validation** or **verification**.",
+      "content": {
+        "columns": [
+          "Check",
+          "Validation",
+          "Verification"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "The age must be from 14 to 18",
+            null,
+            null
+          ],
+          [
+            "The password is typed twice and the two entries compared",
+            null,
+            null
+          ],
+          [
+            "The user reads the details back on a \"Confirm your details\" screen",
+            null,
+            null
+          ],
+          [
+            "The postcode must be exactly 6 digits",
+            null,
+            null
+          ]
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "The age must be from 14 to 18 → Validation; The password is typed twice and the two entries compared → Verification; The user reads the details back on a \"Confirm your details\" screen → Verification; The postcode must be exactly 6 digits → Validation (1 each)",
         "points": [
           {
             "criterion": "Row 1",
@@ -404,134 +2225,71 @@
             "marks": 1
           }
         ],
-        "model_answer": "| n | count |\n|---|---|\n| 10 | 1 |\n| 5 | 2 |\n| 2 | 3 |\n| 1 | 4 |",
         "accepted": {
           "rows": [
             [
-              "10",
-              "1"
+              null,
+              "✓",
+              ""
             ],
             [
-              "5",
-              "2"
+              null,
+              "",
+              "✓"
             ],
             [
-              "2",
-              "3"
+              null,
+              "",
+              "✓"
             ],
             [
-              "1",
-              "4"
+              null,
+              "✓",
+              ""
             ]
           ]
-        }
+        },
+        "explanation": "Validation: is the data allowed / sensible? Verification: was it entered correctly?"
       }
     },
     {
-      "key": "scr-pin-loop",
-      "title": "Three attempts",
-      "type": "code_completion",
-      "marks": 5,
-      "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
-      "objectives": [
-        "11.5.4.4",
-        "11.5.4.1"
-      ],
-      "practice": true,
-      "text": "A website gives the user **3 attempts** to enter the password **'qwerty'**. Write a script using a loop that:\n- asks for the password,\n- stops as soon as the correct password is entered and outputs \"Welcome\",\n- outputs \"Account locked\" if all three attempts are wrong.",
-      "content": {
-        "language": "javascript",
-        "starter_code": ""
-      },
-      "scheme": {
-        "mark_scheme": "- counter initialised and incremented (1)\n- loop limited to three iterations (1)\n- input inside the loop (1)\n- check password and exit loop / stop when correct with Welcome (1)\n- Account locked message after three failures only (1)\nAccept any language / pseudocode.",
-        "points": [
-          {
-            "criterion": "Counter",
-            "marks": 1
-          },
-          {
-            "criterion": "Three iterations",
-            "marks": 1
-          },
-          {
-            "criterion": "Input in loop",
-            "marks": 1
-          },
-          {
-            "criterion": "Check and exit",
-            "marks": 1
-          },
-          {
-            "criterion": "Locked message",
-            "marks": 1
-          }
-        ],
-        "model_answer": "```javascript\nlet attempts = 0;\nlet ok = false;\nwhile (attempts < 3 && !ok) {\n  let p = prompt(\"Password:\");\n  attempts++;\n  if (p == \"qwerty\") ok = true;\n}\nif (ok) alert(\"Welcome\");\nelse alert(\"Account locked\");\n```"
-      }
-    },
-    {
-      "key": "scr-loop-type",
-      "title": "Choosing a loop",
-      "type": "short_answer",
-      "marks": 2,
+      "key": "scr-valid-wrong",
+      "title": "What validation cannot do",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
       "command_word": "explain",
-      "grading": "AI",
-      "objectives": [
-        "11.5.4.4"
-      ],
-      "practice": true,
-      "text": "Explain why a `do … while` loop is suitable for asking the user to enter a password until it has at least 8 characters.",
-      "content": {
-        "answer_lines": 3
-      },
-      "scheme": {
-        "mark_scheme": "- The condition is checked after the body, so the body runs at least once (1)\n- the user must be asked at least once before the length can be checked; it repeats until valid / number of repeats unknown (1)",
-        "points": [
-          {
-            "criterion": "At least once",
-            "marks": 1
-          },
-          {
-            "criterion": "Applied to context",
-            "marks": 1
-          }
-        ],
-        "model_answer": "It checks the condition at the end, so the prompt always appears at least once, and it keeps repeating until the password is long enough — we don't know how many tries are needed."
-      }
-    },
-    {
-      "key": "scr-val-ver",
-      "title": "Validation and verification",
-      "type": "short_answer",
-      "marks": 2,
-      "difficulty": "easy",
-      "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.3"
       ],
       "practice": true,
-      "text": "Explain the difference between data **validation** and data **verification**.",
-      "content": {
-        "answer_lines": 3
-      },
+      "source": "original",
+      "text": "A pupil aged 16 types **17** in the age field of a form with a range check 14–18. Which statement is correct?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The value passes validation but is wrong; only verification such as a visual check could catch it"
+        },
+        {
+          "key": "B",
+          "content": "The range check rejects 17"
+        },
+        {
+          "key": "C",
+          "content": "A type check would reject 17"
+        },
+        {
+          "key": "D",
+          "content": "Double entry is a validation check that would reject 17"
+        }
+      ],
       "scheme": {
-        "mark_scheme": "- Validation: automatic check that data is sensible / follows rules (1)\n- Verification: check that data has been entered / copied correctly, matching the original (1)",
-        "points": [
-          {
-            "criterion": "Validation",
-            "marks": 1
-          },
-          {
-            "criterion": "Verification",
-            "marks": 1
-          }
-        ],
-        "model_answer": "Validation is the program automatically checking that data is reasonable, e.g. in range; verification checks that it was typed correctly, e.g. by entering it twice."
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Validation checks that data is allowed, not that it is correct."
       }
     },
     {
@@ -546,6 +2304,7 @@
         "11.5.4.3"
       ],
       "practice": true,
+      "source": "original",
       "text": "Match each line of code to the check it carries out.",
       "content": {
         "left": [
@@ -569,11 +2328,76 @@
         "right": [
           {
             "key": "R1",
-            "text": "Presence check"
+            "text": "Range check"
           },
           {
             "key": "R2",
-            "text": "Range check"
+            "text": "Length check"
+          },
+          {
+            "key": "R3",
+            "text": "Verification by double entry"
+          },
+          {
+            "key": "R4",
+            "text": "Presence check"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "if (name == \"\") – Presence check; if (age < 14 || age > 18) – Range check; if (pass.length < 8) – Length check; if (pass != confirm) – Verification by double entry",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
+          }
+        },
+        "explanation": "Presence, range, length, double entry."
+      }
+    },
+    {
+      "key": "scr-checks2-match",
+      "title": "More checks",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Match each line of code to the check it carries out.",
+      "content": {
+        "left": [
+          {
+            "key": "L1",
+            "text": "isNaN(age)"
+          },
+          {
+            "key": "L2",
+            "text": "/^\\d{6}$/.test(postcode)"
+          },
+          {
+            "key": "L3",
+            "text": "[\"A\", \"B\", \"C\"].includes(grade)"
+          },
+          {
+            "key": "L4",
+            "text": "strlen($password) < 8"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Format check"
+          },
+          {
+            "key": "R2",
+            "text": "Lookup check"
           },
           {
             "key": "R3",
@@ -581,91 +2405,470 @@
           },
           {
             "key": "R4",
-            "text": "Verification by double entry"
+            "text": "Type check"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "L1–presence, L2–range, L3–length, L4–double entry.",
+        "mark_scheme": "isNaN(age) – Type check; /^\\d{6}$/.test(postcode) – Format check; [\"A\", \"B\", \"C\"].includes(grade) – Lookup check; strlen($password) < 8 – Length check",
         "accepted": {
           "pairs": {
-            "L1": "R1",
-            "L2": "R2",
-            "L3": "R3",
-            "L4": "R4"
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
           }
-        }
+        },
+        "explanation": "isNaN tests the type; a regular expression tests the format; includes / in_array test against a list."
       }
     },
     {
-      "key": "scr-validate-code",
-      "title": "Write validation",
-      "type": "code_completion",
-      "marks": 4,
+      "key": "scr-regex-mr",
+      "title": "A format check",
+      "type": "multiple_response",
+      "marks": 2,
       "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.3"
       ],
       "practice": true,
-      "text": "A form has fields with id **mark** (a test mark from 0 to 100) and a paragraph with id **msg**. Write a JavaScript function `checkMark()` that:\n- displays \"Enter a mark\" in msg if the field is empty,\n- displays \"Mark must be 0–100\" if the value is not a number or out of range,\n- otherwise displays \"Accepted\".",
+      "source": "original",
+      "text": "The IIN format check is `/^\\d{12}$/.test(iin)`. Select the **two** values it accepts.",
+      "options": [
+        {
+          "key": "A",
+          "content": "080512650123"
+        },
+        {
+          "key": "B",
+          "content": "123456789012"
+        },
+        {
+          "key": "C",
+          "content": "08051265012"
+        },
+        {
+          "key": "D",
+          "content": "0805126501234"
+        },
+        {
+          "key": "E",
+          "content": "08051265012A"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B"
+          ]
+        },
+        "explanation": "^ start, \\d a digit, {12} exactly twelve times, $ end — so exactly 12 digits and nothing else."
+      }
+    },
+    {
+      "key": "scr-testdata",
+      "title": "Test data",
+      "type": "table_completion",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A field accepts a year of birth from **2006 to 2012**. Tick (✓) the type of each test value.",
       "content": {
-        "language": "javascript",
-        "starter_code": "function checkMark() {\n\n}"
+        "columns": [
+          "Value",
+          "Normal",
+          "Boundary",
+          "Erroneous"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "2009",
+            null,
+            null,
+            null
+          ],
+          [
+            "2012",
+            null,
+            null,
+            null
+          ],
+          [
+            "2006",
+            null,
+            null,
+            null
+          ],
+          [
+            "\"two thousand\"",
+            null,
+            null,
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "- reads the value with getElementById(\"mark\").value (1)\n- presence check (1)\n- type and range check with || / isNaN (1)\n- outputs messages to msg via textContent / innerHTML (1)",
+        "mark_scheme": "2009 → Normal; 2012 → Boundary; 2006 → Boundary; \"two thousand\" → Erroneous (1 each)",
         "points": [
           {
-            "criterion": "Reads value",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Presence",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "Type + range",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "Output to msg",
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
-        "model_answer": "```javascript\nfunction checkMark() {\n  const v = document.getElementById(\"mark\").value;\n  const msg = document.getElementById(\"msg\");\n  if (v == \"\") msg.textContent = \"Enter a mark\";\n  else if (isNaN(v) || Number(v) < 0 || Number(v) > 100) msg.textContent = \"Mark must be 0–100\";\n  else msg.textContent = \"Accepted\";\n}\n```"
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Normal: a typical valid value. Boundary: at the very edge of the range. Erroneous: wrong type or far outside the rules."
+      }
+    },
+    {
+      "key": "scr-type-first",
+      "title": "Order of checks",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A type check should be carried out before a range check.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "Comparing text such as \"abc\" with 14 makes no sense, so check that the value is a number first (e.g. with elseif)."
       }
     },
     {
       "key": "scr-both-sides",
       "title": "Validate twice",
-      "type": "short_answer",
-      "marks": 2,
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "medium",
       "command_word": "explain",
-      "grading": "AI",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.3"
       ],
       "practice": true,
-      "text": "Explain why data from a web form should be validated by a client-side script **and** again by a server-side script.",
+      "source": "original",
+      "text": "Why should a form be validated by PHP on the server even if JavaScript already validated it?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Client-side checks can be switched off or bypassed by the user"
+        },
+        {
+          "key": "B",
+          "content": "PHP gives the user faster feedback than JavaScript"
+        },
+        {
+          "key": "C",
+          "content": "JavaScript cannot check whether a field is empty"
+        },
+        {
+          "key": "D",
+          "content": "Browsers do not allow JavaScript to read form fields"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "JavaScript gives instant feedback; PHP is the trusted check, because anything in the browser can be disabled or edited."
+      }
+    },
+    {
+      "key": "scr-validate-code",
+      "title": "Validation in a submit handler",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.3"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the client-side checks.\n\n```javascript\nform.addEventListener(\"submit\", function (event) {\n  let errors = [];\n  if (name === \"\") errors.push(\"Name is required\");          // presence\n  if (pass.[[1]] < 8) errors.push(\"At least 8 characters\");   // length\n  if (pass [[2]] confirm) errors.push(\"Passwords do not match\");\n  if (errors.length > 0) {\n    event.[[3]]();                                          // do not send the form\n  }\n});\n```",
       "content": {
-        "answer_lines": 3
+        "blank_count": 3
       },
       "scheme": {
-        "mark_scheme": "- Client-side gives instant feedback / no round trip to the server (1)\n- client-side checks can be disabled / bypassed, so the server must check before saving (1)",
-        "points": [
+        "mark_scheme": "(1) length (2) !== (3) preventDefault",
+        "accepted": {
+          "blanks": [
+            [
+              "length"
+            ],
+            [
+              "!==",
+              "!="
+            ],
+            [
+              "preventDefault"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": ".length gives the number of characters; !== compares the two entries; preventDefault() stops the form from being sent."
+      }
+    },
+    {
+      "key": "scr-style",
+      "title": "Good programming style",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Select the **three** habits that are good programming style.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Meaningful identifiers such as totalCost and attemptsLeft"
+        },
+        {
+          "key": "B",
+          "content": "Indenting the body of every if and loop"
+        },
+        {
+          "key": "C",
+          "content": "Using a constant such as MAX_ATTEMPTS instead of repeating the number 3"
+        },
+        {
+          "key": "D",
+          "content": "Writing the whole script on one line to save space"
+        },
+        {
+          "key": "E",
+          "content": "A comment on every line, e.g. i++ // add 1 to i"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Comments should explain why, not repeat the code; one statement per line."
+      }
+    },
+    {
+      "key": "scr-constant-mcq",
+      "title": "Why use a constant",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.1"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A script uses `const MAX_ATTEMPTS = 3;` instead of writing `3` in five places. What is the main advantage?",
+      "options": [
+        {
+          "key": "A",
+          "content": "If the rule changes, the value is changed in only one place, and the name explains what 3 means"
+        },
+        {
+          "key": "B",
+          "content": "The script runs faster because constants are compiled"
+        },
+        {
+          "key": "C",
+          "content": "Constants can be changed by the user while the script runs"
+        },
+        {
+          "key": "D",
+          "content": "It prevents SQL injection"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Constants avoid magic numbers: one place to change, and self-explaining code."
+      }
+    },
+    {
+      "key": "scr-five-steps",
+      "title": "Five steps",
+      "type": "matching",
+      "marks": 5,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Match each step of working with a database in PHP to the function used.",
+      "content": {
+        "left": [
           {
-            "criterion": "Client benefit",
-            "marks": 1
+            "key": "L1",
+            "text": "1 Connect"
           },
           {
-            "criterion": "Server needed",
-            "marks": 1
+            "key": "L2",
+            "text": "2 Check the connection"
+          },
+          {
+            "key": "L3",
+            "text": "3 Send an SQL query"
+          },
+          {
+            "key": "L4",
+            "text": "4 Process the rows"
+          },
+          {
+            "key": "L5",
+            "text": "5 Close"
           }
         ],
-        "model_answer": "JavaScript checks give the user immediate feedback, but they can be switched off or bypassed, so PHP must check the data again before it is stored."
+        "right": [
+          {
+            "key": "R1",
+            "text": "die(mysqli_connect_error())"
+          },
+          {
+            "key": "R2",
+            "text": "mysqli_fetch_assoc()"
+          },
+          {
+            "key": "R3",
+            "text": "mysqli_connect()"
+          },
+          {
+            "key": "R4",
+            "text": "mysqli_query()"
+          },
+          {
+            "key": "R5",
+            "text": "mysqli_close()"
+          }
+        ]
+      },
+      "scheme": {
+        "mark_scheme": "1 Connect – mysqli_connect(); 2 Check the connection – die(mysqli_connect_error()); 3 Send an SQL query – mysqli_query(); 4 Process the rows – mysqli_fetch_assoc(); 5 Close – mysqli_close()",
+        "accepted": {
+          "pairs": {
+            "L1": "R3",
+            "L2": "R1",
+            "L3": "R4",
+            "L4": "R2",
+            "L5": "R5"
+          }
+        },
+        "explanation": "Connect → check → query → process → close."
+      }
+    },
+    {
+      "key": "scr-connect-order",
+      "title": "Connection parameters",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "In which order are the parameters of `mysqli_connect()` written?",
+      "options": [
+        {
+          "key": "A",
+          "content": "server, username, password, database"
+        },
+        {
+          "key": "B",
+          "content": "database, server, username, password"
+        },
+        {
+          "key": "C",
+          "content": "username, password, server, database"
+        },
+        {
+          "key": "D",
+          "content": "server, database, username, password"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "mysqli_connect(\"localhost\", \"user\", \"pass\", \"library\")."
       }
     },
     {
@@ -680,7 +2883,8 @@
         "11.5.4.5"
       ],
       "practice": true,
-      "text": "Complete the PHP code to connect to the database **school**.\n\n```php\n<?php\n$conn = [[1]](\"localhost\", \"user\", \"pass\", \"school\");\nif ([[2]]) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$result = [[3]]($conn, \"SELECT * FROM Student\");\n?>\n```",
+      "source": "original",
+      "text": "Complete the PHP code to connect to the database **school**.\n\n```php\n$conn = [[1]](\"localhost\", \"user\", \"pass\", \"school\");\nif ([[2]]) {\n    die(\"Connection failed: \" . mysqli_connect_error());\n}\n$result = [[3]]($conn, \"SELECT * FROM Student\");\n```",
       "content": {
         "blank_count": 3
       },
@@ -694,28 +2898,52 @@
             [
               "!$conn",
               "$conn == false",
-              "$conn === false",
-              "! $conn"
+              "$conn === false"
             ],
             [
               "mysqli_query"
             ]
-          ]
-        }
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "mysqli_connect returns false if it fails; check it before sending queries."
       }
     },
     {
-      "key": "scr-db-steps",
-      "title": "Database steps",
-      "type": "table_completion",
-      "marks": 3,
-      "difficulty": "medium",
-      "command_word": "complete",
-      "grading": "HYBRID",
+      "key": "scr-connect-false",
+      "title": "When the connection fails",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.5"
       ],
       "practice": true,
+      "source": "original",
+      "text": "`mysqli_connect()` returns **false** if the connection fails, for example because the password is wrong.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "That is why the script checks if (!$conn) and stops with die()."
+      }
+    },
+    {
+      "key": "scr-db-steps",
+      "title": "Database functions",
+      "type": "table_completion",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
       "text": "Complete the table with the PHP function used for each step.",
       "content": {
         "columns": [
@@ -743,18 +2971,18 @@
         ]
       },
       "scheme": {
-        "mark_scheme": "mysqli_query (1); mysqli_fetch_assoc (accept fetch_array / fetch_row) (1); mysqli_close (1)",
+        "mark_scheme": "Connect to the database | mysqli_connect(); Send an SQL query | mysqli_query(); Get the next row of the result | mysqli_fetch_assoc(); Close the connection | mysqli_close()",
         "points": [
           {
-            "criterion": "query",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "fetch",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "close",
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
@@ -770,61 +2998,622 @@
             ],
             [
               null,
-              "mysqli_fetch_assoc()||mysqli_fetch_assoc||mysqli_fetch_array()||mysqli_fetch_array||mysqli_fetch_row()||mysqli_fetch_row"
+              "mysqli_fetch_assoc()||mysqli_fetch_assoc||mysqli_fetch_row()||mysqli_fetch_row||mysqli_fetch_array()||mysqli_fetch_array"
             ],
             [
               null,
               "mysqli_close()||mysqli_close"
             ]
           ]
-        }
+        },
+        "explanation": "query → fetch (assoc / row) → close."
       }
     },
     {
-      "key": "scr-select-php",
-      "title": "Display records",
-      "type": "code_completion",
+      "key": "scr-query-returns",
+      "title": "What mysqli_query returns",
+      "type": "table_completion",
       "marks": 4,
-      "difficulty": "hard",
-      "command_word": "write",
-      "grading": "AI",
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.5.4.5"
       ],
       "practice": true,
-      "text": "The connection `$conn` to the database is open. The table **Book** has fields **Title** and **Year**. Write PHP code that outputs the title and year of every book published **after 2010**, one per line.",
+      "source": "original",
+      "text": "Tick (✓) what `mysqli_query()` returns for each SQL statement.",
       "content": {
-        "language": "html",
-        "starter_code": "<?php\n// $conn is already connected\n\n?>"
+        "columns": [
+          "Statement",
+          "A result set (rows)",
+          "true / false only"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "SELECT Title FROM Book",
+            null,
+            null
+          ],
+          [
+            "INSERT INTO Book …",
+            null,
+            null
+          ],
+          [
+            "UPDATE Book SET OnLoan = 0 …",
+            null,
+            null
+          ],
+          [
+            "DELETE FROM Reservation …",
+            null,
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "- correct SQL SELECT Title, Year FROM Book WHERE Year > 2010 (1)\n- mysqli_query($conn, $sql) (1)\n- while loop with mysqli_fetch_assoc (1)\n- echo of both fields with line break (1)",
+        "mark_scheme": "SELECT Title FROM Book → A result set (rows); INSERT INTO Book … → true / false only; UPDATE Book SET OnLoan = 0 … → true / false only; DELETE FROM Reservation … → true / false only (1 each)",
         "points": [
           {
-            "criterion": "SQL",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Query",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "Loop fetch",
+            "criterion": "Row 3",
             "marks": 1
           },
           {
-            "criterion": "Output",
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
-        "model_answer": "```php\n<?php\n$sql = \"SELECT Title, Year FROM Book WHERE Year > 2010\";\n$result = mysqli_query($conn, $sql);\nwhile ($row = mysqli_fetch_assoc($result)) {\n    echo $row[\"Title\"] . \" (\" . $row[\"Year\"] . \")<br>\";\n}\n?>\n```"
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ],
+            [
+              null,
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "Only SELECT returns rows; the others return whether they succeeded."
+      }
+    },
+    {
+      "key": "scr-fetch-assoc",
+      "title": "mysqli_fetch_assoc",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "What does `mysqli_fetch_assoc($result)` return?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The next row as an array whose keys are the field names, or null when there are no more rows"
+        },
+        {
+          "key": "B",
+          "content": "All rows of the result at once"
+        },
+        {
+          "key": "C",
+          "content": "The number of rows in the result"
+        },
+        {
+          "key": "D",
+          "content": "true if the query succeeded"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "That is why it is used in while ($row = mysqli_fetch_assoc($result)) — the loop ends when it returns null."
+      }
+    },
+    {
+      "key": "scr-fetch-row",
+      "title": "Fields by number",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A row was read with `$row = mysqli_fetch_row($result);` from `SELECT Title, Author FROM Book`. Write the expression that gives the **Title**.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "$row[0] — mysqli_fetch_row indexes fields by number from 0, so Title is $row[0] and Author is $row[1].",
+        "model_answer": "$row[0]",
+        "accepted": {
+          "values": [
+            "$row[0]",
+            "$row [0]"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "mysqli_fetch_row indexes fields by number from 0, so Title is $row[0] and Author is $row[1]."
+      }
+    },
+    {
+      "key": "scr-numrows",
+      "title": "Counting rows",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "State the name of the PHP function that tells how many rows a SELECT query returned.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "mysqli_num_rows — if (mysqli_num_rows($result) > 0) … else echo \"No books found\";",
+        "model_answer": "mysqli_num_rows",
+        "accepted": {
+          "values": [
+            "mysqli_num_rows",
+            "mysqli_num_rows()",
+            "mysqli_num_rows($result)"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "if (mysqli_num_rows($result) > 0) … else echo \"No books found\";"
+      }
+    },
+    {
+      "key": "scr-select-php",
+      "title": "Display all books",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "The table **Book** has fields Title and Author. Complete the code so that every title and author is displayed.\n\n```php\n$result = mysqli_query($conn, \"SELECT Title, Author FROM Book\");\n[[1]] ($row = [[2]]($result)) {\n    echo $row[[[3]]] . \" — \" . $row[\"Author\"] . \"<br>\";\n}\n[[4]]($conn);\n```",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) while (2) mysqli_fetch_assoc (3) \"Title\" (4) mysqli_close",
+        "accepted": {
+          "blanks": [
+            [
+              "while"
+            ],
+            [
+              "mysqli_fetch_assoc"
+            ],
+            [
+              "\"Title\"",
+              "'Title'"
+            ],
+            [
+              "mysqli_close"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "A while loop with mysqli_fetch_assoc reads every row; fields are read by name; close the connection at the end."
+      }
+    },
+    {
+      "key": "scr-fetch-once",
+      "title": "Only one row",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A script should list all 12 books but shows only the first one. What is the most likely error?",
+      "options": [
+        {
+          "key": "A",
+          "content": "mysqli_fetch_assoc() was called once instead of in a while loop"
+        },
+        {
+          "key": "B",
+          "content": "mysqli_connect() was not closed"
+        },
+        {
+          "key": "C",
+          "content": "The SELECT query had an ORDER BY clause"
+        },
+        {
+          "key": "D",
+          "content": "mysqli_num_rows() was used"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Each call returns only the next row; a loop is needed to process all rows."
+      }
+    },
+    {
+      "key": "scr-table-loop",
+      "title": "Building an HTML table",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A script shows query results in an HTML table. Where should `echo \"<table>\";` be placed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "Once, before the while loop"
+        },
+        {
+          "key": "B",
+          "content": "Inside the while loop, before each row"
+        },
+        {
+          "key": "C",
+          "content": "Inside the while loop, after each row"
+        },
+        {
+          "key": "D",
+          "content": "After mysqli_close()"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "The header and <table> are printed once before the loop, one <tr> per row inside the loop, and </table> after it."
+      }
+    },
+    {
+      "key": "scr-injection-mcq",
+      "title": "SQL injection",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```php\n$sql = \"SELECT * FROM Users WHERE Login = '\" . $_POST[\"login\"] . \"'\";\n```\n\nAn attacker types `' OR '1'='1` into the login field. What happens?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The query returns every user, because '1'='1' is always true"
+        },
+        {
+          "key": "B",
+          "content": "The query returns no users"
+        },
+        {
+          "key": "C",
+          "content": "PHP rejects the input automatically"
+        },
+        {
+          "key": "D",
+          "content": "The query returns only the user whose login is ' OR '1'='1"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Joining input into the SQL text lets the input change the query: WHERE Login = '' OR '1'='1'. Use a prepared statement."
+      }
+    },
+    {
+      "key": "scr-injection-fill",
+      "title": "Prepared statements",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the sentences.\n\nIn a prepared statement the SQL is sent with [[1]] (written as `?`) instead of values. The values are sent [[2]] and are always treated as [[3]], never as SQL code.",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) placeholders (2) separately (3) data",
+        "accepted": {
+          "blanks": [
+            [
+              "placeholders",
+              "placeholder",
+              "parameters"
+            ],
+            [
+              "separately",
+              "separate"
+            ],
+            [
+              "data"
+            ]
+          ]
+        },
+        "explanation": "This is the standard defence against SQL injection."
+      }
+    },
+    {
+      "key": "scr-bind-types",
+      "title": "bind_param types",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A prepared statement is `INSERT INTO Product (Name, Price, Qty) VALUES (?, ?, ?)`, where Name is text, Price is a decimal number and Qty is a whole number. Write the type string for `mysqli_stmt_bind_param()`.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "sdi — s = string, d = decimal (double), i = integer — one letter per ? in order.",
+        "model_answer": "sdi",
+        "accepted": {
+          "values": [
+            "sdi",
+            "\"sdi\"",
+            "'sdi'"
+          ],
+          "case_sensitive": true
+        },
+        "explanation": "s = string, d = decimal (double), i = integer — one letter per ? in order."
+      }
+    },
+    {
+      "key": "scr-prepared-fill",
+      "title": "A prepared INSERT",
+      "type": "fill_blank",
+      "marks": 4,
+      "difficulty": "hard",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Complete the prepared statement.\n\n```php\n$stmt = [[1]]($conn, \"INSERT INTO Book (Title, Author, Year) VALUES (?, ?, [[2]])\");\nmysqli_stmt_bind_param($stmt, \"[[3]]\", $title, $author, $year);\nif (mysqli_stmt_execute($stmt)) {\n    echo \"New book added with ID \" . [[4]]($conn);\n}\n```",
+      "content": {
+        "blank_count": 4
+      },
+      "scheme": {
+        "mark_scheme": "(1) mysqli_prepare (2) ? (3) ssi (4) mysqli_insert_id",
+        "accepted": {
+          "blanks": [
+            [
+              "mysqli_prepare"
+            ],
+            [
+              "?"
+            ],
+            [
+              "ssi"
+            ],
+            [
+              "mysqli_insert_id"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "mysqli_prepare with ? placeholders; \"ssi\" = two strings and an integer; mysqli_insert_id gives the new AUTO_INCREMENT id."
+      }
+    },
+    {
+      "key": "scr-where-tf",
+      "title": "UPDATE without WHERE",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "easy",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "An UPDATE or DELETE query **without** a WHERE clause changes or removes every record in the table.",
+      "scheme": {
+        "mark_scheme": "True.",
+        "accepted": {
+          "correct": true
+        },
+        "explanation": "The WHERE clause chooses the records; without it all rows are affected."
+      }
+    },
+    {
+      "key": "scr-affected",
+      "title": "Did the UPDATE work?",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "After `UPDATE Book SET OnLoan = 0 WHERE BookID = ?` is executed, which function shows whether a book was actually changed?",
+      "options": [
+        {
+          "key": "A",
+          "content": "mysqli_affected_rows($conn)"
+        },
+        {
+          "key": "B",
+          "content": "mysqli_num_rows($conn)"
+        },
+        {
+          "key": "C",
+          "content": "mysqli_fetch_assoc($conn)"
+        },
+        {
+          "key": "D",
+          "content": "mysqli_connect_error()"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "mysqli_affected_rows tells how many rows an INSERT / UPDATE / DELETE changed; num_rows is for SELECT results."
+      }
+    },
+    {
+      "key": "scr-safety-mr",
+      "title": "Keeping a database site safe",
+      "type": "multiple_response",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Select the **three** good security habits.",
+      "options": [
+        {
+          "key": "A",
+          "content": "Keep the database password in config.php outside the public web folder"
+        },
+        {
+          "key": "B",
+          "content": "Give the search page's MySQL user only SELECT rights"
+        },
+        {
+          "key": "C",
+          "content": "Use htmlspecialchars() when echoing data that users typed"
+        },
+        {
+          "key": "D",
+          "content": "Put the database password in the JavaScript so the browser can connect directly"
+        },
+        {
+          "key": "E",
+          "content": "Show the full connection error to every visitor"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A, B, C (1 each; −1 per wrong option)",
+        "accepted": {
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "explanation": "Credentials stay on the server in one place; least privilege limits damage; escaping output prevents XSS. Detailed errors should be logged, not shown."
+      }
+    },
+    {
+      "key": "scr-like-pattern",
+      "title": "Searching with LIKE",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "write",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.4.5"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A search uses `WHERE Title LIKE ?`. Write the pattern that finds every title **containing** the word zhol.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "%zhol% — % means any characters, so %zhol% matches Abai Zholy.",
+        "model_answer": "%zhol%",
+        "accepted": {
+          "values": [
+            "%zhol%"
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "% means any characters, so %zhol% matches Abai Zholy."
       }
     },
     {
       "key": "scr-events-match",
       "title": "Events",
       "type": "matching",
-      "marks": 3,
+      "marks": 4,
       "difficulty": "easy",
       "command_word": "identify",
       "grading": "AUTO",
@@ -832,6 +3621,7 @@
         "11.5.3.8@paper"
       ],
       "practice": true,
+      "source": "original",
       "text": "Match each event to the moment it happens.",
       "content": {
         "left": [
@@ -846,110 +3636,461 @@
           {
             "key": "L3",
             "text": "mouseover"
+          },
+          {
+            "key": "L4",
+            "text": "input"
           }
         ],
         "right": [
           {
             "key": "R1",
-            "text": "The user presses a button"
-          },
-          {
-            "key": "R2",
             "text": "A form is about to be sent"
           },
           {
-            "key": "R3",
+            "key": "R2",
             "text": "The pointer moves onto an element"
+          },
+          {
+            "key": "R3",
+            "text": "The value of a field changes on every key press"
+          },
+          {
+            "key": "R4",
+            "text": "The user presses a button"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "click–R1, submit–R2, mouseover–R3.",
+        "mark_scheme": "click – The user presses a button; submit – A form is about to be sent; mouseover – The pointer moves onto an element; input – The value of a field changes on every key press",
         "accepted": {
           "pairs": {
-            "L1": "R1",
-            "L2": "R2",
-            "L3": "R3"
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
           }
-        }
+        },
+        "explanation": "submit can be cancelled with event.preventDefault()."
       }
     },
     {
-      "key": "scr-dark-mode",
-      "title": "Interactive button",
-      "type": "code_completion",
-      "marks": 3,
+      "key": "scr-event-choose",
+      "title": "Choose the event",
+      "type": "table_completion",
+      "marks": 4,
       "difficulty": "medium",
-      "command_word": "write",
-      "grading": "AI",
+      "command_word": "complete",
+      "grading": "AUTO",
       "objectives": [
         "11.5.3.8@paper"
       ],
       "practice": true,
-      "text": "A page has a button with id **big** and a paragraph with id **text**. Write JavaScript so that when the button is clicked, the paragraph's font size becomes **24px** and the button text changes to \"Done\".",
+      "source": "original",
+      "text": "Tick (✓) the best event for each task.",
       "content": {
-        "language": "javascript",
-        "starter_code": ""
+        "columns": [
+          "Task",
+          "click",
+          "input",
+          "submit",
+          "change"
+        ],
+        "rows": 4,
+        "tick": true,
+        "prefill": [
+          [
+            "A character counter that updates while the user types",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Check the form fields before the form is sent",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Show a hidden hint when a button is pressed",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Update the price when an option is chosen in a drop-down list",
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
       },
       "scheme": {
-        "mark_scheme": "- gets elements by id (1)\n- event handler for click (addEventListener / onclick) (1)\n- changes style.fontSize and button text (1)",
+        "mark_scheme": "A character counter that updates while the user types → input; Check the form fields before the form is sent → submit; Show a hidden hint when a button is pressed → click; Update the price when an option is chosen in a drop-down list → change (1 each)",
         "points": [
           {
-            "criterion": "getElementById",
+            "criterion": "Row 1",
             "marks": 1
           },
           {
-            "criterion": "Click handler",
+            "criterion": "Row 2",
             "marks": 1
           },
           {
-            "criterion": "Changes",
+            "criterion": "Row 3",
+            "marks": 1
+          },
+          {
+            "criterion": "Row 4",
             "marks": 1
           }
         ],
-        "model_answer": "```javascript\nconst btn = document.getElementById(\"big\");\nbtn.addEventListener(\"click\", function () {\n  document.getElementById(\"text\").style.fontSize = \"24px\";\n  btn.textContent = \"Done\";\n});\n```"
+        "accepted": {
+          "rows": [
+            [
+              null,
+              "",
+              "✓",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "✓",
+              ""
+            ],
+            [
+              null,
+              "✓",
+              "",
+              "",
+              ""
+            ],
+            [
+              null,
+              "",
+              "",
+              "",
+              "✓"
+            ]
+          ]
+        },
+        "explanation": "input fires on every key press; submit before sending; change when a select / checkbox changes."
       }
     },
     {
-      "key": "scr-style",
-      "title": "Programming style",
-      "type": "labelled_answers",
-      "marks": 2,
+      "key": "scr-dom-mcq",
+      "title": "The DOM",
+      "type": "mcq",
+      "marks": 1,
       "difficulty": "easy",
-      "command_word": "state",
-      "grading": "AI",
+      "command_word": "identify",
+      "grading": "AUTO",
       "objectives": [
-        "11.5.4.4"
+        "11.5.3.8@paper"
       ],
       "practice": true,
-      "text": "State **two** rules of good programming style that make a script easier to maintain.",
+      "source": "original",
+      "text": "What is the **Document Object Model (DOM)**?",
+      "options": [
+        {
+          "key": "A",
+          "content": "A tree of objects, one per HTML element, that scripts can read and change so the page updates without reloading"
+        },
+        {
+          "key": "B",
+          "content": "The database that stores the web page"
+        },
+        {
+          "key": "C",
+          "content": "A PHP function that sends HTML to the browser"
+        },
+        {
+          "key": "D",
+          "content": "The CSS file that styles the page"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "JavaScript finds elements in the DOM (getElementById) and changes their text, attributes and styles."
+      }
+    },
+    {
+      "key": "scr-dom-match",
+      "title": "Changing the page",
+      "type": "matching",
+      "marks": 4,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "Match each line of JavaScript to its effect.",
       "content": {
-        "fields": [
+        "left": [
           {
-            "key": "1",
-            "label": "1",
-            "lines": 1
+            "key": "L1",
+            "text": "el.textContent = \"Hi\""
           },
           {
-            "key": "2",
-            "label": "2",
-            "lines": 1
+            "key": "L2",
+            "text": "el.style.display = \"none\""
+          },
+          {
+            "key": "L3",
+            "text": "el.classList.toggle(\"dark\")"
+          },
+          {
+            "key": "L4",
+            "text": "el.value"
+          }
+        ],
+        "right": [
+          {
+            "key": "R1",
+            "text": "Hides the element"
+          },
+          {
+            "key": "R2",
+            "text": "Adds the class if missing, removes it if present"
+          },
+          {
+            "key": "R3",
+            "text": "Reads what was typed in an input field (a string)"
+          },
+          {
+            "key": "R4",
+            "text": "Changes the text inside the element"
           }
         ]
       },
       "scheme": {
-        "mark_scheme": "Any two (1 each): meaningful identifiers; indentation; comments; constants for fixed values; functions / modular code; consistent naming",
-        "points": [
-          {
-            "criterion": "Rule 1",
-            "marks": 1
-          },
-          {
-            "criterion": "Rule 2",
-            "marks": 1
+        "mark_scheme": "el.textContent = \"Hi\" – Changes the text inside the element; el.style.display = \"none\" – Hides the element; el.classList.toggle(\"dark\") – Adds the class if missing, removes it if present; el.value – Reads what was typed in an input field (a string)",
+        "accepted": {
+          "pairs": {
+            "L1": "R4",
+            "L2": "R1",
+            "L3": "R2",
+            "L4": "R3"
           }
-        ],
-        "model_answer": "1 Use meaningful variable names. 2 Indent code inside loops and if statements."
+        },
+        "explanation": "The DOM lets a script change text, styles and classes without reloading."
+      }
+    },
+    {
+      "key": "scr-listener-bug",
+      "title": "A listener bug",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "hard",
+      "command_word": "explain",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nfunction update() { /* … */ }\nbutton.addEventListener(\"click\", update());\n```\n\nWhat is wrong?",
+      "options": [
+        {
+          "key": "A",
+          "content": "update() is called immediately when the line runs, not when the button is clicked; write update without brackets"
+        },
+        {
+          "key": "B",
+          "content": "addEventListener must be written addEventlistener"
+        },
+        {
+          "key": "C",
+          "content": "\"click\" should be \"onclick\""
+        },
+        {
+          "key": "D",
+          "content": "Nothing — the code is correct"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "Pass the function itself: addEventListener(\"click\", update)."
+      }
+    },
+    {
+      "key": "scr-textcontent-tf",
+      "title": "textContent or innerHTML",
+      "type": "true_false",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "`innerHTML` is safer than `textContent` for showing text that a user typed.",
+      "scheme": {
+        "mark_scheme": "False.",
+        "accepted": {
+          "correct": false
+        },
+        "explanation": "innerHTML would run any HTML tags in the text; textContent shows them as plain text."
+      }
+    },
+    {
+      "key": "scr-show-hint",
+      "title": "Show a hint",
+      "type": "fill_blank",
+      "marks": 3,
+      "difficulty": "medium",
+      "command_word": "complete",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "A page has a button with id **show** and a hidden paragraph with id **hint**. Complete the code so that clicking the button shows the hint.\n\n```javascript\ndocument.[[1]](\"show\").addEventListener(\"[[2]]\", function () {\n  document.getElementById(\"hint\").style.display = \"[[3]]\";\n});\n```",
+      "content": {
+        "blank_count": 3
+      },
+      "scheme": {
+        "mark_scheme": "(1) getElementById (2) click (3) block",
+        "accepted": {
+          "blanks": [
+            [
+              "getElementById"
+            ],
+            [
+              "click"
+            ],
+            [
+              "block",
+              "inline",
+              "inline-block"
+            ]
+          ],
+          "ignore_spaces": true
+        },
+        "explanation": "getElementById is case-sensitive; display none hides, block shows."
+      }
+    },
+    {
+      "key": "scr-fontsize-trace",
+      "title": "Text-size button",
+      "type": "short_answer",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "state",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nlet size = 16;\nbtn.addEventListener(\"click\", function () {\n  if (size < 28) size += 4;\n  text.style.fontSize = size + \"px\";\n});\n```\n\nThe user clicks the button **5** times. State the final value of `size`.",
+      "content": {
+        "answer_lines": 1
+      },
+      "scheme": {
+        "mark_scheme": "28 — 16 → 20 → 24 → 28, then the range limit stops it growing: 28.",
+        "model_answer": "28",
+        "accepted": {
+          "values": [
+            "28"
+          ],
+          "numeric": true
+        },
+        "explanation": "16 → 20 → 24 → 28, then the range limit stops it growing: 28."
+      }
+    },
+    {
+      "key": "scr-price-calc",
+      "title": "Live price calculator",
+      "type": "fill_blank",
+      "marks": 2,
+      "difficulty": "hard",
+      "command_word": "calculate",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nfunction update() {\n  const p = Number(price.value);\n  const selling = p < 1000 ? p * 1.3 : p * 1.15;\n  out.textContent = selling.toFixed(0) + \" ₸\";\n}\nprice.addEventListener(\"input\", update);\n```\n\nState what `out` shows after the user types each price.\n\n- 500: [[1]] ₸\n- 2000: [[2]] ₸",
+      "content": {
+        "blank_count": 2
+      },
+      "scheme": {
+        "mark_scheme": "(1) 650 (2) 2300",
+        "accepted": {
+          "blanks": [
+            [
+              "650",
+              "650 ₸"
+            ],
+            [
+              "2300",
+              "2 300",
+              "2300 ₸"
+            ]
+          ]
+        },
+        "explanation": "500 < 1000 → × 1.3 = 650; 2000 → × 1.15 = 2300. The input event recalculates on every key press."
+      }
+    },
+    {
+      "key": "scr-dark-mode",
+      "title": "Dark-mode switch",
+      "type": "mcq",
+      "marks": 1,
+      "difficulty": "medium",
+      "command_word": "identify",
+      "grading": "AUTO",
+      "objectives": [
+        "11.5.3.8@paper"
+      ],
+      "practice": true,
+      "source": "original",
+      "text": "```javascript\nbtn.addEventListener(\"click\", function () {\n  document.body.classList.toggle(\"dark\");\n});\n```\n\nThe page starts in light mode (no class **dark** on the body). The user clicks the button **3** times. Which statement is correct?",
+      "options": [
+        {
+          "key": "A",
+          "content": "The body has the class dark, so the page is in dark mode"
+        },
+        {
+          "key": "B",
+          "content": "The body does not have the class dark, so the page is in light mode"
+        },
+        {
+          "key": "C",
+          "content": "The body has the class dark three times"
+        },
+        {
+          "key": "D",
+          "content": "The page reloads after every click"
+        }
+      ],
+      "scheme": {
+        "mark_scheme": "A",
+        "accepted": {
+          "correct": "A"
+        },
+        "explanation": "toggle adds the class if it is missing and removes it if present: add, remove, add → dark. The page changes without reloading."
       }
     },
     {
@@ -3712,12 +6853,35 @@
         "Exam practice: scripting basics and selection"
       ],
       "questions": [
+        "scr-define-mcq",
+        "scr-interp-tf",
         "scr-client-server",
-        "scr-identifier",
-        "scr-string-mcq",
-        "scr-operators-match",
+        "scr-embed-fill",
+        "scr-var-const-match",
+        "scr-dynamic-tf",
+        "scr-types-match",
         "scr-pin-if",
-        "scr-grade-php"
+        "scr-operators-match",
+        "scr-identifier",
+        "scr-compiled-ticks",
+        "scr-secret-mcq",
+        "scr-php-receives-mr",
+        "scr-string-mcq",
+        "scr-parseint-short",
+        "scr-concat-fill",
+        "scr-fuel-fill",
+        "scr-strict-tf",
+        "scr-logic-ticks",
+        "scr-range-mcq",
+        "scr-grade-php",
+        "scr-switch-if-ticks",
+        "scr-php-syntax-mr",
+        "scr-canteen-ticks",
+        "scr-multiply-mcq",
+        "scr-assign-mcq",
+        "scr-order-mcq",
+        "scr-cinema-fill",
+        "scr-switch-mcq"
       ]
     },
     {
@@ -3729,15 +6893,33 @@
         "Exam practice: loops, validation and style"
       ],
       "questions": [
-        "scr-trace-for",
-        "scr-trace-while",
-        "scr-loop-type",
-        "scr-pin-loop",
-        "scr-checks-match",
+        "scr-for-parts-match",
+        "scr-while-tf",
         "scr-val-ver",
-        "scr-validate-code",
+        "scr-style",
+        "scr-count-runs",
+        "scr-offbyone-mcq",
+        "scr-loop-type",
+        "scr-trace-for",
+        "scr-foreach-fill",
+        "scr-average-short",
+        "scr-nested-count",
+        "scr-nested-order",
+        "scr-infinite-mcq",
+        "scr-valid-wrong",
+        "scr-checks-match",
+        "scr-checks2-match",
+        "scr-testdata",
+        "scr-type-first",
         "scr-both-sides",
-        "scr-style"
+        "scr-constant-mcq",
+        "scr-dowhile-cond",
+        "scr-trace-while",
+        "scr-total-inside",
+        "scr-savings-short",
+        "scr-pin-loop",
+        "scr-regex-mr",
+        "scr-validate-code"
       ]
     },
     {
@@ -3749,11 +6931,36 @@
         "Exam practice: databases and interactivity"
       ],
       "questions": [
+        "scr-five-steps",
+        "scr-connect-order",
+        "scr-connect-false",
+        "scr-numrows",
+        "scr-where-tf",
+        "scr-events-match",
+        "scr-dom-mcq",
         "scr-connect-fill",
         "scr-db-steps",
+        "scr-query-returns",
+        "scr-fetch-assoc",
+        "scr-fetch-row",
+        "scr-fetch-once",
+        "scr-table-loop",
+        "scr-injection-fill",
+        "scr-affected",
+        "scr-safety-mr",
+        "scr-like-pattern",
+        "scr-event-choose",
+        "scr-dom-match",
+        "scr-textcontent-tf",
+        "scr-show-hint",
+        "scr-fontsize-trace",
+        "scr-dark-mode",
         "scr-select-php",
-        "scr-events-match",
-        "scr-dark-mode"
+        "scr-injection-mcq",
+        "scr-bind-types",
+        "scr-prepared-fill",
+        "scr-listener-bug",
+        "scr-price-calc"
       ]
     }
   ]
