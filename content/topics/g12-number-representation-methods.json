@@ -1310,6 +1310,889 @@
           }
         }
       ]
+    },
+    {
+      "key": "nrm-nx-1",
+      "title": "Weather station",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A weather station in Karaganda stores each wind-speed reading as an **8-bit unsigned binary integer**.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nrm-nx-1a",
+          "part_label": "(a)",
+          "title": "Range of 8 bits",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the number of **different values** that can be stored in 8 bits and the **largest** value.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Number of different values",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Largest value (denary)",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "2⁸ = 256 (1); 255 (1)",
+            "points": [
+              {
+                "criterion": "256",
+                "marks": 1
+              },
+              {
+                "criterion": "255",
+                "marks": 1
+              }
+            ],
+            "model_answer": "256 different values; largest 255",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "256"
+                ],
+                "2": [
+                  "255"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-1b",
+          "part_label": "(b)",
+          "title": "Binary to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "One reading is **10010110**. Convert it to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "128 + 16 + 4 + 2 (place values of the 1s) (1) = 150 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "150",
+                "marks": 1
+              }
+            ],
+            "model_answer": "128 + 16 + 4 + 2 = 150",
+            "accepted": {
+              "values": [
+                "150"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-1c",
+          "part_label": "(c)",
+          "title": "Denary to binary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert the reading **203** to 8-bit binary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Method: 203 − 128 = 75, − 64 = 11, − 8 = 3, − 2 = 1, − 1 = 0 or repeated division by 2 with remainders read bottom-up (1); 11001011 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "11001011",
+                "marks": 1
+              }
+            ],
+            "model_answer": "11001011 (128 + 64 + 8 + 2 + 1)",
+            "accepted": {
+              "values": [
+                "11001011"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-1d",
+          "part_label": "(d)",
+          "title": "A storm reading",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "During a storm a sensor needs to store the value **300**. Explain whether it can be stored in the 8-bit format and state the smallest number of bits needed.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "No — the largest 8-bit value is 255 / 300 > 255 (1); 9 bits are needed (2⁹ = 512, range 0–511) (1)",
+            "points": [
+              {
+                "criterion": "Cannot: 300 > 255",
+                "marks": 1
+              },
+              {
+                "criterion": "9 bits",
+                "marks": 1
+              }
+            ],
+            "model_answer": "It cannot be stored, because the largest value in 8 bits is 255 and 300 is bigger. At least 9 bits are needed, since 9 bits store 0 to 511."
+          }
+        }
+      ]
+    },
+    {
+      "key": "nrm-nx-2",
+      "title": "Octal and hexadecimal",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A technician works with values written in different number bases.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nrm-nx-2a",
+          "part_label": "(a)",
+          "title": "Hex to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **2F7₁₆** to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "2 × 256 + 15 × 16 + 7 × 1 (1) = 759 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "759",
+                "marks": 1
+              }
+            ],
+            "model_answer": "2 × 256 + 15 × 16 + 7 = 512 + 240 + 7 = 759",
+            "accepted": {
+              "values": [
+                "759"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-2b",
+          "part_label": "(b)",
+          "title": "Octal to denary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **653₈** to denary. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "6 × 64 + 5 × 8 + 3 × 1 (1) = 427 (1)",
+            "points": [
+              {
+                "criterion": "Method",
+                "marks": 1
+              },
+              {
+                "criterion": "427",
+                "marks": 1
+              }
+            ],
+            "model_answer": "6 × 64 + 5 × 8 + 3 = 384 + 40 + 3 = 427",
+            "accepted": {
+              "values": [
+                "427"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-2c",
+          "part_label": "(c)",
+          "title": "Denary to hex",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert the denary number **1000** to hexadecimal using repeated division. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "1000 ÷ 16 = 62 r 8; 62 ÷ 16 = 3 r 14 (E); 3 ÷ 16 = 0 r 3 (1); read upwards: 3E8 (1)",
+            "points": [
+              {
+                "criterion": "Divisions with remainders",
+                "marks": 1
+              },
+              {
+                "criterion": "3E8",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1000 ÷ 16 = 62 r 8; 62 ÷ 16 = 3 r 14 = E; 3 ÷ 16 = 0 r 3 → 3E8",
+            "accepted": {
+              "values": [
+                "3E8",
+                "3e8",
+                "0x3E8"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-2d",
+          "part_label": "(d)",
+          "title": "File permissions",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "On a Linux server a file has the permissions **754₈**. Each octal digit stands for three permission bits. Convert 754₈ to binary.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Each octal digit → 3 bits: 7 = 111, 5 = 101, 4 = 100 (1); 111101100 (1)",
+            "points": [
+              {
+                "criterion": "3-bit groups",
+                "marks": 1
+              },
+              {
+                "criterion": "111101100",
+                "marks": 1
+              }
+            ],
+            "model_answer": "111 101 100",
+            "accepted": {
+              "values": [
+                "111101100"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "nrm-nx-3",
+      "title": "Binary and hexadecimal",
+      "type": "structured",
+      "marks": 9,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A programmer converts values between binary and hexadecimal while debugging a program.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nrm-nx-3a",
+          "part_label": "(a)",
+          "title": "One hex digit",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain why each hexadecimal digit can be replaced by exactly **four** binary digits.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Hexadecimal has 16 digits / base 16 (1); 16 = 2⁴, so 4 bits give exactly 16 combinations 0000–1111 (one for each hex digit 0–F) (1)",
+            "points": [
+              {
+                "criterion": "16 digits",
+                "marks": 1
+              },
+              {
+                "criterion": "2⁴ = 16 combinations",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Hexadecimal has 16 digits (0–F). Four bits have 2⁴ = 16 combinations, 0000 to 1111, so every hex digit matches exactly one 4-bit pattern (a nibble)."
+          }
+        },
+        {
+          "key": "nrm-nx-3b",
+          "part_label": "(b)",
+          "title": "Binary to hex",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **1101011110₂** to hexadecimal. Show your working.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "Groups of 4 from the right, padded with leading zeros: 0011 0101 1110 (1); 35E (1)",
+            "points": [
+              {
+                "criterion": "Groups from the right",
+                "marks": 1
+              },
+              {
+                "criterion": "35E",
+                "marks": 1
+              }
+            ],
+            "model_answer": "0011 | 0101 | 1110 → 3 5 E → 35E",
+            "accepted": {
+              "values": [
+                "35E",
+                "35e",
+                "0x35E"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-3c",
+          "part_label": "(c)",
+          "title": "Hex to binary",
+          "type": "calculation",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "HYBRID",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Convert **C4A₁₆** to binary.",
+          "content": {
+            "unit": ""
+          },
+          "scheme": {
+            "mark_scheme": "C = 1100, 4 = 0100, A = 1010 (1); 110001001010 (1)",
+            "points": [
+              {
+                "criterion": "Each digit to 4 bits",
+                "marks": 1
+              },
+              {
+                "criterion": "110001001010",
+                "marks": 1
+              }
+            ],
+            "model_answer": "1100 0100 1010",
+            "accepted": {
+              "values": [
+                "110001001010"
+              ],
+              "ignore_spaces": true
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-3d",
+          "part_label": "(d)",
+          "title": "Complete the table",
+          "type": "table_completion",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "complete",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.1"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Complete the table. Each row shows the **same value**. Write binary as 8 bits.",
+          "content": {
+            "columns": [
+              "Binary (8 bits)",
+              "Hexadecimal",
+              "Denary"
+            ],
+            "rows": 3,
+            "prefill": [
+              [
+                "00101101",
+                null,
+                null
+              ],
+              [
+                null,
+                "B3",
+                null
+              ],
+              [
+                null,
+                null,
+                "250"
+              ]
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Row 1: 2D, 45 (1); row 2: 10110011, 179 (1); row 3: 11111010, FA (1)",
+            "points": [
+              {
+                "criterion": "Row 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Row 3",
+                "marks": 1
+              }
+            ],
+            "model_answer": "| Binary | Hex | Denary |\n|---|---|---|\n| 00101101 | 2D | 45 |\n| 10110011 | B3 | 179 |\n| 11111010 | FA | 250 |",
+            "accepted": {
+              "rows": [
+                [
+                  null,
+                  "2D||2d||0x2D",
+                  "45"
+                ],
+                [
+                  "10110011||1011 0011",
+                  null,
+                  "179"
+                ],
+                [
+                  "11111010||1111 1010",
+                  "FA||fa||0xFA",
+                  null
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "nrm-nx-4",
+      "title": "Memory dump",
+      "type": "structured",
+      "marks": 8,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A technician is investigating a fault in a school server. The diagnostic tool displays part of the main memory like this:\n\n```text\nAddress   Contents\n00A0      3E 07 C4 1F\n00A4      FF 00 9B 20\n```",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nrm-nx-4a",
+          "part_label": "(a)",
+          "title": "Why hexadecimal",
+          "type": "short_answer",
+          "marks": 4,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Explain **two** advantages of displaying the addresses and contents in hexadecimal rather than in binary.",
+          "content": {
+            "answer_lines": 6
+          },
+          "scheme": {
+            "mark_scheme": "Two advantages, each stated (1) and explained (1), e.g.:\n- shorter: one hex digit represents 4 bits, so a byte is 2 characters instead of 8 (1) → more fits on the screen / quicker to read (1)\n- easier for people to read, remember and copy (1) → fewer mistakes than long strings of 0s and 1s (1)\n- easy and exact conversion to binary (1) → each digit maps to one nibble, so the technician can still see the individual bits (1)\n- matches byte grouping (1) → two hex digits = one byte, so byte boundaries are clear (1)",
+            "points": [
+              {
+                "criterion": "Advantage 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Advantage 2",
+                "marks": 1
+              },
+              {
+                "criterion": "Explanation 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Hexadecimal is shorter: one hex digit stands for four bits, so each byte needs only two characters instead of eight and the whole dump fits on the screen. It is also easier for the technician to read and copy without errors than long rows of 0s and 1s, and each digit converts directly to a nibble, so the exact bit pattern can still be found when needed."
+          }
+        },
+        {
+          "key": "nrm-nx-4b",
+          "part_label": "(b)",
+          "title": "A misconception",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "explain",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "A student says: *\"The server stores its data in hexadecimal because it takes up less memory.\"* Explain why the student is wrong.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "Computers store all data in binary only (1); hexadecimal is only a way of displaying/writing binary for people — the number of bits stored is the same / no memory is saved (1)",
+            "points": [
+              {
+                "criterion": "Stored in binary",
+                "marks": 1
+              },
+              {
+                "criterion": "Hex is only a representation; same bits",
+                "marks": 1
+              }
+            ],
+            "model_answer": "The computer stores everything in binary. Hexadecimal is only a shorter way for people to write the same bit patterns, so the data uses exactly the same number of bits in memory."
+          }
+        },
+        {
+          "key": "nrm-nx-4c",
+          "part_label": "(c)",
+          "title": "Other uses",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "identify",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "Identify **two other** uses of hexadecimal in computer systems.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Use 1",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Use 2",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Any two (1 each): HTML/CSS colour codes; MAC addresses; IPv6 addresses; error/status codes (e.g. 0x…); machine code / assembly listings; Unicode / ASCII character codes (U+…). Memory addresses/dumps not accepted (given in the stem).",
+            "points": [
+              {
+                "criterion": "Use 1",
+                "marks": 1
+              },
+              {
+                "criterion": "Use 2",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Colour codes in web pages, e.g. #FF8800; MAC addresses of network cards, e.g. 00:1A:2B:3C:4D:5E."
+          }
+        }
+      ]
+    },
+    {
+      "key": "nrm-nx-5",
+      "title": "Website colours and network cards",
+      "type": "structured",
+      "marks": 7,
+      "difficulty": "exam",
+      "command_word": null,
+      "grading": "AI",
+      "objectives": [],
+      "source": "nis_style",
+      "practice": false,
+      "text": "A web designer uses the colour **#2E8B57** for the headings of a school website. The colour code gives the red, green and blue components, one byte each.",
+      "scheme": {
+        "mark_scheme": ""
+      },
+      "parts": [
+        {
+          "key": "nrm-nx-5a",
+          "part_label": "(a)",
+          "title": "Colour components",
+          "type": "labelled_answers",
+          "marks": 3,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.1",
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the **denary** value of each component.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Red",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Green",
+                "lines": 1
+              },
+              {
+                "key": "3",
+                "label": "Blue",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "Red 2E = 2 × 16 + 14 = 46 (1); green 8B = 8 × 16 + 11 = 139 (1); blue 57 = 5 × 16 + 7 = 87 (1)",
+            "points": [
+              {
+                "criterion": "46",
+                "marks": 1
+              },
+              {
+                "criterion": "139",
+                "marks": 1
+              },
+              {
+                "criterion": "87",
+                "marks": 1
+              }
+            ],
+            "model_answer": "Red 46; green 139; blue 87",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "46"
+                ],
+                "2": [
+                  "139"
+                ],
+                "3": [
+                  "87"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-5b",
+          "part_label": "(b)",
+          "title": "Size of a colour code",
+          "type": "labelled_answers",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "state",
+          "grading": "AUTO",
+          "objectives": [
+            "12.1.1.1",
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "State the number of **bits** in one colour code and the number of **different colours** that can be written in this format.",
+          "content": {
+            "fields": [
+              {
+                "key": "1",
+                "label": "Number of bits",
+                "lines": 1
+              },
+              {
+                "key": "2",
+                "label": "Number of colours",
+                "lines": 1
+              }
+            ]
+          },
+          "scheme": {
+            "mark_scheme": "6 hex digits × 4 = 24 bits (1); 2²⁴ = 16 777 216 (1)",
+            "points": [
+              {
+                "criterion": "24",
+                "marks": 1
+              },
+              {
+                "criterion": "16 777 216",
+                "marks": 1
+              }
+            ],
+            "model_answer": "24 bits; 2²⁴ = 16 777 216 colours",
+            "accepted": {
+              "fields": {
+                "1": [
+                  "24",
+                  "24 bits"
+                ],
+                "2": [
+                  "16777216",
+                  "16 777 216",
+                  "16,777,216",
+                  "2^24",
+                  "2²⁴"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "key": "nrm-nx-5c",
+          "part_label": "(c)",
+          "title": "MAC address",
+          "type": "short_answer",
+          "marks": 2,
+          "difficulty": "exam",
+          "command_word": "calculate",
+          "grading": "AI",
+          "objectives": [
+            "12.1.1.1",
+            "12.1.1.2"
+          ],
+          "source": "nis_style",
+          "practice": false,
+          "text": "The web server's network card has the MAC address **00:1A:2B:3C:4D:5E**. Calculate the number of bits in the address and explain why it is written in hexadecimal.",
+          "content": {
+            "answer_lines": 3
+          },
+          "scheme": {
+            "mark_scheme": "12 hex digits × 4 bits = 48 bits (1); written in hex because 12 characters are shorter / easier to read and copy without mistakes than 48 binary digits (1)",
+            "points": [
+              {
+                "criterion": "48 bits",
+                "marks": 1
+              },
+              {
+                "criterion": "Reason",
+                "marks": 1
+              }
+            ],
+            "model_answer": "12 hex digits × 4 = 48 bits. Hexadecimal is used because 12 characters are much shorter and easier to read and type correctly than 48 binary digits."
+          }
+        }
+      ]
     }
   ],
   "summary": "Number systems used in computing — denary, binary, octal and hexadecimal — place value and number ranges, converting between all of them (place value, subtraction, repeated division and grouping bits into nibbles or triples), and why hexadecimal is used in computer systems (colour codes, memory addresses, MAC and IPv6 addresses, machine code and error codes).",
@@ -2513,13 +3396,15 @@
     }
   ],
   "topic_exam": {
-    "duration": 30,
-    "title": "Number systems — Exam (Paper 1 style)",
-    "instructions": "Answer **all** questions. Show your working where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 24 marks. Time: 30 minutes.",
+    "title": "Number representation methods — Exam (Paper 1 style)",
+    "duration": 50,
+    "instructions": "Answer **all** questions. Show your working where asked. The number of marks is given in brackets [ ] at the end of each part. Total: 40 marks. Time: 50 minutes.",
     "questions": [
-      "nrm-exam-1",
-      "nrm-exam-2",
-      "nrm-exam-3"
+      "nrm-nx-1",
+      "nrm-nx-2",
+      "nrm-nx-3",
+      "nrm-nx-4",
+      "nrm-nx-5"
     ]
   },
   "lessons": [
